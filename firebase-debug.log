@@ -1,0 +1,20 @@
+[debug] [2023-05-03T13:29:02.983Z] ----------------------------------------------------------------------
+[debug] [2023-05-03T13:29:03.003Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ASUS\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js projects:create BBlease --json
+[debug] [2023-05-03T13:29:03.003Z] CLI Version:   11.29.1
+[debug] [2023-05-03T13:29:03.003Z] Platform:      win32
+[debug] [2023-05-03T13:29:03.003Z] Node Version:  v20.0.0
+[debug] [2023-05-03T13:29:03.005Z] Time:          Wed May 03 2023 16:29:03 GMT+0300 (שעון ישראל (קיץ))
+[debug] [2023-05-03T13:29:03.005Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-05-03T13:29:03.017Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-05-03T13:29:03.017Z] > authorizing via signed-in user (leahk@appupgo.co.il)
+[debug] [2023-05-03T13:29:03.027Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2023-05-03T13:29:03.027Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"BBlease","name":"BBlease"}
+[debug] [2023-05-03T13:29:04.109Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 400
+[debug] [2023-05-03T13:29:04.109Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"error":{"code":400,"message":"field [project_id] has issue [project_id contains invalid characters]","status":"INVALID_ARGUMENT","details":[{"@type":"type.googleapis.com/google.rpc.BadRequest","fieldViolations":[{"field":"project_id","description":"project_id contains invalid characters"}]},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"url":"https://cloud.google.com/resource-manager/reference/rest/v1/projects"}]}]}}
+[debug] [2023-05-03T13:29:04.382Z] FirebaseError: HTTP Error: 400, field [project_id] has issue [project_id contains invalid characters]
+    at responseToError (C:\Users\ASUS\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:49:12)
+    at RetryOperation._fn (C:\Users\ASUS\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:288:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[error] 
+[error] Error: Failed to create project. See firebase-debug.log for more info.

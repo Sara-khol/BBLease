@@ -33,15 +33,16 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
           key: _formKey,
           child: Padding(
             padding: EdgeInsets.only(right: 30.w,left: 30.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: ListView(
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text('פרטים אישיים'),
                 TextFormField(
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: 'שם פרטי',
+                    hintStyle: TextStyle(color: Colors.blueAccent )
                   ),
                   style: const TextStyle(color: Colors.blueAccent),
                   controller: _firstName,
@@ -56,8 +57,11 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                 TextFormField(
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
+                      hintStyle: TextStyle(color: Colors.blueAccent ),
                       hintText: 'שם משפחה'
                   ),
+                  style: const TextStyle(color: Colors.blueAccent),
+
                   validator: (value) {
                     if (value == null || value.isEmpty)
                       return 'זהו שדה חובה';
@@ -70,8 +74,12 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                 TextFormField(
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
+                      hintStyle: TextStyle(color: Colors.blueAccent ),
+
                       hintText: 'שם לחשבונית (לא חובה)'
                   ),
+                  style: const TextStyle(color: Colors.blueAccent),
+
                   controller: _name,
                   onEditingComplete: () => User().name=_name.text,
 
@@ -80,8 +88,12 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                 TextFormField(
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
+                      hintStyle: TextStyle(color: Colors.blueAccent ),
+
                       hintText: 'תעודת זהות/מספר דרכון'
                   ),
+                  style: const TextStyle(color: Colors.blueAccent),
+
                   controller: _id,
                   validator: (value) {
                     if (value == null || value.isEmpty || value.length!=9)
@@ -94,12 +106,17 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                 TextFormField(
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
+                      hintStyle: TextStyle(color: Colors.blueAccent ),
+
                       hintText: 'תאריך לידה(מגיל 21)'
                   ),
+                  style: const TextStyle(color: Colors.blueAccent),
+
                   controller: _date,
                   onTap: () async {
                     DateTime? date= await showDatePicker(context: context,
-                        initialDate: DateTime.now(),
+                        // initialDate: DateTime.now(),
+                        initialDate: DateTime(DateTime.now().year-21),
                         firstDate: DateTime(1950),
                         lastDate: DateTime(DateTime.now().year-21));
                     if(date!=null)
@@ -115,8 +132,12 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                 TextFormField(
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
+                      hintStyle: TextStyle(color: Colors.blueAccent ),
+
                       hintText: 'אימייל'
                   ),
+                  style: const TextStyle(color: Colors.blueAccent),
+
                   controller: _email,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -130,8 +151,12 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                 TextFormField(
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
+                      hintStyle: TextStyle(color: Colors.blueAccent ),
+
                       hintText: 'מס נייד'
                   ),
+                  style: const TextStyle(color: Colors.blueAccent),
+
                   controller: _phone,
                   validator: (value) {
                     if(value==null || value.length<10)

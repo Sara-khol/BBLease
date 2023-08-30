@@ -117,6 +117,7 @@ class _LicenseFrontState extends State<LicenseFront> {
               children: [
                 SizedBox(width: 35.w),
                 FloatingActionButton(
+                  heroTag: "btn2",
                   backgroundColor: Colors.blueAccent,
                   onPressed: ()=>_cameraController.pausePreview(),
                   tooltip: 'help',
@@ -128,6 +129,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                 SizedBox(width: 180.w),
 
                 FloatingActionButton(
+                  heroTag: "btn1",
                   backgroundColor: Colors.blueAccent,
                   onPressed: _onUploadButtonPressed,
                   tooltip: 'Upload',

@@ -65,7 +65,8 @@ class RegistrationState extends State<Registration> {
                   print('pressed');
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => PersonalDetailsForm()),
+                     MaterialPageRoute(builder: (context) => PersonalDetailsForm()),
+                   // MaterialPageRoute(builder: (context) => LicenseFront()),
                   );
                 },
               ),

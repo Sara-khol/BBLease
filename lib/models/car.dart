@@ -7,7 +7,7 @@ class Car{
   @JsonKey(name: 'ID')
   late int id;
   @JsonKey(name: 'post_author')
-  late int postAuthor;
+  late String postAuthor;
   @JsonKey(name: 'post_date')
   late String postDate;
 

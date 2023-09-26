@@ -8,7 +8,7 @@ part of 'car.dart';
 
 Car _$CarFromJson(Map<String, dynamic> json) => Car(
       id: json['ID'] as int,
-      postAuthor: json['post_author'] as int,
+      postAuthor: json['post_author'] as String,
       postDate: json['post_date'] as String,
     );
 

@@ -15,7 +15,7 @@ class ApiService {
   factory ApiService() {
     return _instance;
   }
-  getAllCars( Function onSucsses(var carJson)
+  getAllCars( Function? onSucsses(var carJson)
       ) async {
     _dio.httpClientAdapter = IOHttpClientAdapter(
       createHttpClient: () {
@@ -31,10 +31,13 @@ class ApiService {
    // Response response = await _dio.get('${_baseUrl}wp/v2/get_all_vehicles');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_all_vehicles');
     if(response.statusCode == 200) {
-      onSucsses(response.data);
+      print('data: ${response.data}');
+      var result = response.data;
+      print(result);
+      onSucsses(result);
     }
     // Prints the raw data returned by the server
-    print('data: ${response.data}');
+
 
   }
 }

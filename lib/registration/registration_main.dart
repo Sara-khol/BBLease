@@ -37,21 +37,21 @@ class RegistrationState extends State<Registration> {
     return Scaffold(
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          //mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(height: 260.h),
             Image.asset('assets/icons/Vector.png',width: 159.w,),
             SizedBox(height: 50.h,),
             Container(
-              width: 225.w,
+              width: 295.w,
               child: Text(
-                'לתהליך הרישום,עליך להכין רשיון וכרטיס אשראי על שמך בלבד!',
+                'להשלמת תהליך הרישום, עליך להכין רשיון וכרטיס אשראי על שמך בלבד!',
                 style: TextStyle(color: Colors.blueAccent,fontSize: 20.sp),
                 textAlign: TextAlign.center,
                 textDirection: TextDirection.rtl,
               ),
             ),
-            SizedBox(height: 240.h,),
+            SizedBox(height: 244.h,),
             Container(
               height: 56.h,
               width: 332.w,

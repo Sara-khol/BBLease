@@ -46,6 +46,12 @@ dependencies:
   path_provider: ^2.0.15
   permission_handler: ^10.2.0
   intl: ^0.18.1
+  step_progress_indicator: ^1.0.2
+  capped_progress_indicator: ^0.0.2
+  percent_indicator: ^4.2.3
+  dio: ^5.1.1
+# google_maps_flutter: ^2.1.8
+#  geolocator: ^8.0.1
 #  google_mlkit_text_recognition: ^0.6.0
 #  firebase_ml_vision: ^0.12.0+3
 
@@ -61,24 +67,19 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-
+  json_serializable: ^6.7.1
+  build_runner: ^2.4.6
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
 flutter:
-
+  uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
     - assets/icons/
     - assets/images/
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
-  uses-material-design: true
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
@@ -90,11 +91,17 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
+  fonts:
+    - family: PLONI
+      fonts:
+          - asset: assets/fonts/PLONI-REGULAR-AAA.ttf
+          - asset: assets/fonts/PLONI-BLACK-AAA.OTF
+          - asset: assets/fonts/PLONI-BOLD-AAA.TTF
+          - asset: assets/fonts/PLONI-DEMIBOLD-AAA.OTF
+          - asset: assets/fonts/PLONI-LIGHT-AAA.OTF
+          - asset: assets/fonts/PLONI-MEDIUM-AAA.OTF
+          - asset: assets/fonts/PLONI-ULTRABOLD-AAA.OTF
+          - asset: assets/fonts/PLONI-ULTRALIGHT-AAA.OTF
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

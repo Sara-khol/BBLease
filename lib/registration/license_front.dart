@@ -5,7 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:capped_progress_indicator/capped_progress_indicator.dart';
 
+import 'license_back.dart';
 
 
 class LicenseFront extends StatefulWidget {
@@ -48,32 +52,34 @@ class _LicenseFrontState extends State<LicenseFront> {
             Text(
               'סרוק רישיון',
               style: TextStyle(
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w500,
-                color: Colors.blueAccent,
+                fontSize: 24.sp,
+                fontWeight: FontWeight.w600,
+                color: Color.fromRGBO(15, 17, 21, 1),
+                fontFamily: 'PLONI',
               ),
             ),
             SizedBox(height: 10.h),
             SizedBox(
-              width: 243.w,
+              width: 260.w,
               child: Text(
                 'לצורך הסריקה נשתמש בטכנולוגית SC במידה וניתקלתם בבעיה פנו לנציג החברה',
                 style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.blueAccent,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w400,
+                  color:  Color.fromRGBO(15, 17, 21, 1),
+                  fontFamily: 'PLONI',
                 ),
                 textAlign: TextAlign.center,
                 textDirection: TextDirection.rtl,
               ),
             ),
-            SizedBox(height: 34.h),
+
             Container(
-              height: 180.h,
-              width: 170.w,
+              height: 380.h,
+
               decoration: BoxDecoration(
-                color: Color(0xFFD4E7FF),
-                borderRadius: BorderRadius.circular(10),
+               // color: Color(0xFFD4E7FF),
+                //borderRadius: BorderRadius.circular(10),
               ),
               child: Center(
                 child: InkWell(
@@ -81,66 +87,98 @@ class _LicenseFrontState extends State<LicenseFront> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.photo_camera_rounded, color: Colors.blueAccent,
-                          size: 45.sp),
-                      Text(
-                        'פתח מצלמה',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.blueAccent,
-                        ),
-                        textAlign: TextAlign.center,
-                        textDirection: TextDirection.rtl,
-                      ),
+                      Image.asset('assets/images/rect.png',),
                     ],
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 30.h),
             SizedBox(
-              width: 120.w,
+              //width: 120.w,
               child: Text(
                 'רשיון נהיגה צד קדמי',
                 style: TextStyle(
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.blueAccent,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w500,
+                  color:  Color.fromRGBO(15, 17, 21, 1),
+                  fontFamily: 'PLONI',
                 ),
                 textAlign: TextAlign.center,
                 textDirection: TextDirection.rtl,
               ),
             ),
-            SizedBox(height: 160.h),
-            Row(
-              children: [
-                SizedBox(width: 35.w),
-                FloatingActionButton(
-                  heroTag: "btn2",
-                  backgroundColor: Colors.blueAccent,
-                  onPressed: ()=>_cameraController.pausePreview(),
-                  tooltip: 'help',
-                  child: const Icon(
-                    Icons.person,
-                    color: Colors.white,
-                  ),
-                ),
-                SizedBox(width: 180.w),
+            SizedBox(height: 53.h),
 
-                FloatingActionButton(
-                  heroTag: "btn1",
-                  backgroundColor: Colors.blueAccent,
-                  onPressed: _onUploadButtonPressed,
-                  tooltip: 'Upload',
-                  child: const Icon(
-                    Icons.file_upload_outlined,
-                    color: Colors.white,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                LinearPercentIndicator(
+                  width: 332.w,
+                  lineHeight: 17.h,
+                  percent: 0.33,
+                  animation: true,
+                  barRadius: const Radius.circular(16),
+                  linearGradient: LinearGradient(colors: [ Color.fromRGBO(254, 193, 216, 1), Color.fromRGBO(251, 39, 119, 1)], ),
+                  backgroundColor: Color.fromRGBO(247, 247, 247, 1),
+                  center: Padding(
+                    padding: EdgeInsets.only(right: 140.w,),
+                    child: Text('1/3',style: TextStyle(color: Colors.white, fontSize: 9.sp ),),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 20),
+
+            SizedBox(height: 12.h),
+            Container(
+              height: 42.h,
+              width: 332.w,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(251, 37, 118, 1),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  ),
+                  onPressed: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const LicenseBack()));
+                  },
+                  child: const Text('הבא (רק לצורך הדגמה)',style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500,fontFamily: 'PLONI'),)),
+            ),
+            SizedBox(height: 12.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                //SizedBox(width: 129.w ,height: 42.h,),
+                SizedBox(
+                  width: 129.w,
+                  height: 42.h,
+                  child: FloatingActionButton.extended(
+                    label: Text('תמיכה',),
+                    heroTag: "btn2",
+                    backgroundColor: Color.fromRGBO(0, 222, 222, 1),
+                    onPressed: ()=>_cameraController.pausePreview(),
+                    icon: Image.asset('assets/images/PhoneW.png',width: 18.w,),
+                  ),
+                ),
+                SizedBox(width: 20.w),
+
+                SizedBox(
+                  width: 183.w,
+                  height: 42.h,
+                  child: FloatingActionButton.extended(
+
+                    label: Text('העלאת תמונה'),
+                    heroTag: "btn1",
+                    backgroundColor:  Color.fromRGBO(0, 222, 222, 1),
+                    onPressed: _onUploadButtonPressed,
+                    //tooltip: 'Upload',
+                    icon:  Image.asset('assets/images/Upload.png',width: 18.w,),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 40),
           ],
         ),
       ),

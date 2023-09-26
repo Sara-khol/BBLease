@@ -18,7 +18,7 @@ class WelcomeForm extends StatefulWidget {
   }
 
 class _WelcomeFormState extends State<WelcomeForm>{
-  @override
+ /* @override
   void initState() {
     ApiService().getAllCars((car){
       List<Car> listCars= json.decode(car
@@ -27,7 +27,7 @@ class _WelcomeFormState extends State<WelcomeForm>{
     });
 
     super.initState();
-  }
+  }*/
   @override
   Widget build(BuildContext context) {
   return Scaffold(

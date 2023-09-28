@@ -18,16 +18,15 @@ class WelcomeForm extends StatefulWidget {
   }
 
 class _WelcomeFormState extends State<WelcomeForm>{
- /* @override
+  List<Car> listCars=[];
+ @override
   void initState() {
     ApiService().getAllCars((car){
-      List<Car> listCars= json.decode(car
-          .map((data) => Car.fromJson(data))
-          .toList());
+      listCars=   car.map<Car>((entry) => (Car.fromJson(entry))).toList();
     });
 
     super.initState();
-  }*/
+  }
   @override
   Widget build(BuildContext context) {
   return Scaffold(

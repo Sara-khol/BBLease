@@ -86,7 +86,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       color:Color.fromRGBO(15, 17, 21, 1),
                     ),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                    /* hintStyle: TextStyle(fontSize: 18,
                       fontWeight: FontWeight.w300,
                       color:  Color.fromRGBO(15, 17, 21, 1),
@@ -111,7 +111,6 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       fontWeight: FontWeight.w300,
                       color:  Color.fromRGBO(15, 17, 21, 1),
                       fontFamily: 'PLONI', ),
-                    floatingLabelBehavior: FloatingLabelBehavior.auto,
                     enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
                       color: Color.fromRGBO(15, 17, 21, 1),
                     ),
@@ -120,7 +119,15 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       color: Color.fromRGBO(15, 17, 21, 1),
                     ),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20.0),
+                    errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
+                      color: Color.fromRGBO(15, 17, 21, 1),
+                    ),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
+                      color:Color.fromRGBO(15, 17, 21, 1),
+                    ),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20.0),
                   ),
                   style: const TextStyle(color: Colors.red),
 
@@ -151,7 +158,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       color: Color.fromRGBO(15, 17, 21, 1),
                     ),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20.0),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20.0),
                   ),
                   style: const TextStyle(color: Colors.blueAccent),
 
@@ -169,7 +176,6 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       fontWeight: FontWeight.w300,
                       color:  Color.fromRGBO(15, 17, 21, 1),
                       fontFamily: 'PLONI', ),
-                    floatingLabelBehavior: FloatingLabelBehavior.auto,
                     enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
                       color: Color.fromRGBO(15, 17, 21, 1),
                     ),
@@ -178,7 +184,15 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       color: Color.fromRGBO(15, 17, 21, 1),
                     ),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20.0),
+                    errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
+                      color: Color.fromRGBO(15, 17, 21, 1),
+                    ),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
+                      color:Color.fromRGBO(15, 17, 21, 1),
+                    ),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20.0),
                   ),
                   style: const TextStyle(color: Colors.blueAccent),
 
@@ -200,16 +214,23 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       fontWeight: FontWeight.w300,
                       color:  Color.fromRGBO(15, 17, 21, 1),
                       fontFamily: 'PLONI', ),
-                    floatingLabelBehavior: FloatingLabelBehavior.auto,
-                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                      color: Color.fromRGBO(15, 17, 21, 1),
+                      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
+                        color: Color.fromRGBO(15, 17, 21, 1),
+                      ),
+                      ),
+                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
+                        color: Color.fromRGBO(15, 17, 21, 1),
+                      ),
+                      ),
+                      errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
+                        color: Color.fromRGBO(15, 17, 21, 1),
+                      ),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
+                        color:Color.fromRGBO(15, 17, 21, 1),
+                      ),
                     ),
-                    ),
-                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                      color: Color.fromRGBO(15, 17, 21, 1),
-                    ),
-                    ),
-                  //  contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20.0),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20.0),
                       suffixIcon: Icon(Icons.calendar_today_outlined,color: Color.fromRGBO(251, 37, 118, 1),)
 
                   ),
@@ -241,7 +262,6 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       fontWeight: FontWeight.w300,
                       color:  Color.fromRGBO(15, 17, 21, 1),
                       fontFamily: 'PLONI', ),
-                    floatingLabelBehavior: FloatingLabelBehavior.auto,
                     enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
                       color: Color.fromRGBO(15, 17, 21, 1),
                     ),
@@ -250,7 +270,15 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       color: Color.fromRGBO(15, 17, 21, 1),
                     ),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20.0),
+                    errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
+                      color: Color.fromRGBO(15, 17, 21, 1),
+                    ),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
+                      color:Color.fromRGBO(15, 17, 21, 1),
+                    ),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20.0),
                     suffixIcon: Text("   הכנס אמייל פעיל  " , style:TextStyle(fontSize: 18,
                       fontWeight: FontWeight.w300,
                       color:  Color.fromRGBO(4, 174, 185, 1),
@@ -279,7 +307,6 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       fontWeight: FontWeight.w300,
                       color:  Color.fromRGBO(15, 17, 21, 1),
                       fontFamily: 'PLONI', ),
-                    floatingLabelBehavior: FloatingLabelBehavior.auto,
                     enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
                       color: Color.fromRGBO(15, 17, 21, 1),
                     ),
@@ -288,7 +315,15 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       color: Color.fromRGBO(15, 17, 21, 1),
                     ),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20.0),
+                    errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
+                      color: Color.fromRGBO(15, 17, 21, 1),
+                    ),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
+                      color:Color.fromRGBO(15, 17, 21, 1),
+                    ),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20.0),
                     suffixIcon: Text("   הכנס נייד זמין  " , style:TextStyle(fontSize: 18,
                       fontWeight: FontWeight.w300,
                       color:  Color.fromRGBO(4, 174, 185, 1),
@@ -349,11 +384,11 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                 ),
                   onPressed: (){
                   // האימות בהערה רק לצורך ההדגמה
-                    //  if(_formKey.currentState!.validate()) {
+                    if(_formKey.currentState!.validate()) {
                       Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => const LicenseDetails()));
-                   // }
+                    }
                   },
                   child: const Text('הבא',style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500,fontFamily: 'PLONI'),)),
             ),

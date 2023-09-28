@@ -77,7 +77,6 @@ class _LicenseBackState extends State<LicenseBack> {
                 textDirection: TextDirection.rtl,
               ),
             ),
-            SizedBox(height: 34.h),
             Container(
               height: 380.h,
               decoration: BoxDecoration(
@@ -89,17 +88,14 @@ class _LicenseBackState extends State<LicenseBack> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.crop_free, color: Colors.grey,
-                          size: 300.sp),
+                      Image.asset('assets/images/rect.png',),
 
                     ],
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 30.h),
             SizedBox(
-              width: 120.w,
               child: Text(
                 'רשיון נהיגה צד אחורי',
                 style: TextStyle(
@@ -161,11 +157,7 @@ class _LicenseBackState extends State<LicenseBack> {
                   onPressed: ()=>_cameraController.pausePreview(),
                   //tooltip: 'help',
 
-                    icon: Icon(
-                      Icons.phone,
-                      fill: 0,
-                      color: Colors.white,
-                    ),
+                    icon: Image.asset('assets/images/PhoneW.png',width: 18.w,),
                 ),
               ),
                 SizedBox(width: 20.w),
@@ -178,10 +170,7 @@ class _LicenseBackState extends State<LicenseBack> {
                     backgroundColor:  Color.fromRGBO(0, 222, 222, 1),
                   onPressed: _onUploadButtonPressed,
                   tooltip: 'Upload',
-                    icon: Icon(
-                      Icons.file_upload_outlined,
-                      color: Colors.white,
-                    ),
+                    icon:  Image.asset('assets/images/Upload.png',width: 18.w,),
                   ),
                 ),
               ],

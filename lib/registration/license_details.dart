@@ -78,7 +78,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                     ),
                     ),
                     errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                      color: Colors.redAccent,
+                      color: Color.fromRGBO(15, 17, 21, 1),
                     ),
                     ),
                     focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(

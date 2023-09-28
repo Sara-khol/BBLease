@@ -15,8 +15,7 @@ class ApiService {
   factory ApiService() {
     return _instance;
   }
-  getAllCars( Function? onSucsses(var carJson)
-      ) async {
+  void getAllCars(  Function(dynamic carJson) onSuccess) async {
     _dio.httpClientAdapter = IOHttpClientAdapter(
       createHttpClient: () {
         // Don't trust any certificate just because their root cert is trusted.
@@ -34,7 +33,7 @@ class ApiService {
       print('data: ${response.data}');
       var result = response.data;
       print(result);
-      onSucsses(result);
+      onSuccess(result);
     }
     // Prints the raw data returned by the server
 

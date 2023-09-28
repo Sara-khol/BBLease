@@ -230,7 +230,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                         color:Color.fromRGBO(15, 17, 21, 1),
                       ),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20.0),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 1, horizontal: 20.0),
                       suffixIcon: Icon(Icons.calendar_today_outlined,color: Color.fromRGBO(251, 37, 118, 1),)
 
                   ),

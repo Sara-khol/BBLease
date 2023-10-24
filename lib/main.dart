@@ -1,14 +1,8 @@
-import 'package:bblease/registration/registration_main.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'registration/face_scanning.dart';
-import 'registration/license_details.dart';
-import 'registration/license_front.dart';
-import 'registration/personal_details_form.dart';
-import 'registration/sucsses_registration.dart';
-import 'registration/tel_to_registration.dart';
-import 'registration/welcome.dart';
+import 'Flow/registration/welcome.dart';
 
 void main() {
   runApp(const MyApp());

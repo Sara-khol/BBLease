@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../class_user.dart';
+import '../models/class_user.dart';
 
 class TextFormFieldClass extends StatelessWidget {
   const TextFormFieldClass({

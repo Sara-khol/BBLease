@@ -23,11 +23,11 @@ class _VerificationState extends State<Verification> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               //SizedBox(height: 120.h,),
-              Text('התצלום עלה בהצלחה',style: TextStyle(fontSize: 28.sp,fontWeight: FontWeight.w600,fontFamily: 'PLONI'),),
+              Text('התצלום עלה בהצלחה',style: TextStyle(fontSize: 28.sp,fontWeight: FontWeight.w600),),
               SizedBox(height: 50.h,),
-              Text('המערכת בסריקה',style: TextStyle(fontSize: 24.sp,fontWeight: FontWeight.w600,fontFamily: 'PLONI'),),
+              Text('המערכת בסריקה',style: TextStyle(fontSize: 24.sp,fontWeight: FontWeight.w600),),
               SizedBox(height: 30.h,),
-              Text('תהליך זה עלול להימשך כמה דקות אנא התאזר בסבלנות תודה',style: TextStyle(fontSize: 18.sp,fontFamily: 'PLONI')),
+              Text('תהליך זה עלול להימשך כמה דקות אנא התאזר בסבלנות תודה',style: TextStyle(fontSize: 18.sp)),
               SizedBox(height: 30.h,),
             Image(image: XFileImage(User().regImages[2]!)),
 

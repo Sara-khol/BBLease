@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 class User{
   List<XFile?> regImages = List<XFile?>.filled(3, null);
 
-  late String firstName;
+  late String firstName="";
   late String lastName;
   String? name;
   late String id;
@@ -19,6 +19,8 @@ class User{
   late DateTime licenseIssDate;
   late String licenseDegree;
   bool isNewDriver=false;
+
+late String password;
 
   void setBirthDate(String dateString) {
     try {

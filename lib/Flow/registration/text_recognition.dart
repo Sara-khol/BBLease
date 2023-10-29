@@ -1,13 +1,8 @@
 import 'dart:io';
-
 import 'package:bblease/models/class_user.dart';
-import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:open_file/open_file.dart';
-//import 'package:flutter_translate/flutter_translate.dart';
-
 
 
 void TextRecognition(int index) async {
@@ -26,37 +21,15 @@ void TextRecognition(int index) async {
       scannedText = scannedText + line.text + "\n";
     }
   }
-  //print(scannedText);
+
 index==0? await extractData(scannedText):await extractData2(scannedText);
 }
 
-// Future<void> writeStringToFile(String data) async {
-//   // Get the application directory path
-//   final directory = await getApplicationDocumentsDirectory();
-//
-//   // Create a reference to the file location
-//   final file = File('${directory.path}/my_file.txt');
-//   print('my_file path: ${file.path}');
-//
-//   // Check if the file already exists
-//   if (await file.exists()) {
-//     // Append the data to the file
-//     await file.writeAsString(data, mode: FileMode.append);
-//   } else {*/
-//     // Write the data to the file
-//     await file.writeAsString(data);
-//
-//   extractData(data);
-//   //OpenFile.open(file.path);
-// }
+
 
 Future<void> extractData(String data) async {
   print('extracting...');
-  // Get the application directory path
-  final directory = await getApplicationDocumentsDirectory();
 
-  // Create a reference to the file location
-  final file = File('${directory.path}/my_file.txt');
   List<String> lines = data.split('\n');
   print('lines: ${lines}');
 
@@ -94,7 +67,6 @@ Future<void> extractData(String data) async {
   User().licenseId = extractedData['5'] ?? '';
   User().licenseDegree = extractedData['9'] ?? '';
   print(extractedData);
-  print("User().toString(): ${User().toString()}");
 
 }
 Future<void> extractData2(String text) async{

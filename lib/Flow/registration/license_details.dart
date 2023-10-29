@@ -2,10 +2,7 @@ import 'package:bblease/models/class_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as intl;
-
-import 'registration_main.dart';
 import 'sucsses_registration.dart';
-import 'welcome.dart';
 
 
 class LicenseDetails extends StatefulWidget {
@@ -26,7 +23,6 @@ class _LicenseDetailsState extends State<LicenseDetails> {
 
   late DateTime exp;
   late DateTime iss;
-  //bool checkboxValue1 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +35,6 @@ class _LicenseDetailsState extends State<LicenseDetails> {
           child: Padding(
             padding: EdgeInsets.only(right: 30.w,left: 30.w),
             child: Column(
-              //shrinkWrap: true,
-              //crossAxisAlignment: CrossAxisAlignment.center,
-             // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(height: 50.h,),
                 const Icon(Icons.account_circle_outlined,color: Color.fromRGBO(0, 222, 222, 1),size: 60,weight: 100,),
@@ -50,8 +43,8 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('פרטי רשיון נהיגה',style: TextStyle(
-                      fontSize: 24,
+                     Text('פרטי רשיון נהיגה',style: TextStyle(
+                      fontSize: 24.sp,
                       fontWeight: FontWeight.w600,
                       color:  Color.fromRGBO(15, 17, 21, 1),
                       fontFamily: 'PLONI',
@@ -64,7 +57,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   decoration: InputDecoration(
                     isDense: true,
                     labelText: "מספר רשיון נהיגה",
-                    labelStyle:  TextStyle(fontSize: 18,
+                    labelStyle:  TextStyle(fontSize: 18.sp,
                       fontWeight: FontWeight.w300,
                       color:  Color.fromRGBO(15, 17, 21, 1),
                       fontFamily: 'PLONI', ),
@@ -85,7 +78,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       color:Colors.redAccent,
                     ),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                    contentPadding:  EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
                   ),
                   style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
                   controller: _licenseId,
@@ -101,7 +94,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   decoration: InputDecoration(
                       isDense: true,
                       labelText: "תוקף",
-                      labelStyle:  TextStyle(fontSize: 18,
+                      labelStyle:  TextStyle(fontSize: 18.sp,
                         fontWeight: FontWeight.w300,
                         color:  Color.fromRGBO(15, 17, 21, 1),
                         fontFamily: 'PLONI', ),
@@ -114,7 +107,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                         color: Color.fromRGBO(15, 17, 21, 1),
                       ),
                       ),
-                      contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20.0),
+                      contentPadding:  EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
                     //  suffixIcon: Icon(Icons.calendar_today_outlined,color: Color.fromRGBO(251, 37, 118, 1),)
                       suffixIcon:   Image.asset('assets/images/Calendar.png', width: 18.w,),
                   ),
@@ -131,7 +124,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                         lastDate: DateTime(2100));
                     if(date!=null)
                       setState(() {
-                        _expDate.text=intl.DateFormat('dd-mm-yyyy').format(date);
+                        _expDate.text=intl.DateFormat('dd-MM-yyyy').format(date);
                         exp=date;
                       });
                   },
@@ -144,7 +137,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   decoration: InputDecoration(
                       isDense: true,
                       labelText: "תאריך הנפקה",
-                      labelStyle:  TextStyle(fontSize: 18,
+                      labelStyle:  TextStyle(fontSize: 18.sp,
                         fontWeight: FontWeight.w300,
                         color:  Color.fromRGBO(15, 17, 21, 1),
                         fontFamily: 'PLONI', ),
@@ -157,7 +150,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                         color: Color.fromRGBO(15, 17, 21, 1),
                       ),
                       ),
-                      contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20.0),
+                      contentPadding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
                       suffixIcon: Icon(Icons.calendar_today_outlined,color: Color.fromRGBO(251, 37, 118, 1),)
 
                   ),
@@ -174,7 +167,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                         lastDate: DateTime.now());
                     if(date!=null)
                       setState(() {
-                        _issDate.text=intl.DateFormat('dd-mm-yyyy').format(date);
+                        _issDate.text=intl.DateFormat('dd-MM-yyyy').format(date);
                         iss=date;
                       });
                   },
@@ -187,7 +180,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   decoration: InputDecoration(
                     isDense: true,
                     labelText: "דרגת רשיון",
-                    labelStyle:  TextStyle(fontSize: 18,
+                    labelStyle:  TextStyle(fontSize: 18.sp,
                       fontWeight: FontWeight.w300,
                       color:  Color.fromRGBO(15, 17, 21, 1),
                       fontFamily: 'PLONI', ),
@@ -208,7 +201,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       color:Colors.redAccent,
                     ),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                    contentPadding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
                   ),
                   style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
                   controller: _degree,
@@ -222,19 +215,17 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                 ListTileTheme(
                   horizontalTitleGap: 1.0,
                   child: CheckboxListTile(
-                    //contentPadding: EdgeInsets.zero,
                     title: Text("נהג חדש",style: TextStyle(fontFamily: 'PLONI',fontSize: 18.h,color: Color.fromRGBO(15, 21, 17, 1)),),
-
-                    value: User().isNewDriver,//checkboxValue1,
+                    value: User().isNewDriver,
                     onChanged:(bool? value) {
                       User().isNewDriver = value!;
                     },
                     checkColor:  Color.fromRGBO(15, 21, 17, 1),
                     activeColor: Colors.transparent,
-                    // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     controlAffinity: ListTileControlAffinity.leading,
                     checkboxShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4)),
+                        borderRadius: BorderRadius.circular(4)
+                    ),
                     side: BorderSide(color:Color.fromRGBO(15, 21, 17, 1),width: 1.5,),
                   ),
                 ),
@@ -254,7 +245,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                               MaterialPageRoute(builder: (context) => const SucssesRegistrationForm()));
                         }
                       },
-                      child: const Text('הבא',style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500,fontFamily: 'PLONI'),)),
+                      child: const Text('הבא',style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),)),
                 ),
               ],
             ),

@@ -10,9 +10,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:step_progress_indicator/step_progress_indicator.dart';
-import 'package:capped_progress_indicator/capped_progress_indicator.dart';
-
 
 
 
@@ -36,7 +33,6 @@ class _LicenseBackState extends State<LicenseBack> {
 
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -84,7 +80,7 @@ class _LicenseBackState extends State<LicenseBack> {
               child: Stack(
                 children: [
                   Center(child: Image.asset('assets/images/rect.png',)),
-                  Center(child: Text('פתח מצלמה',style: TextStyle(color: Color(0xFFD9D9D9),fontFamily: 'PLONI',fontSize: 20.sp))),
+                  Center(child: Text('פתח מצלמה',style: TextStyle(color: Color(0xFFD9D9D9),fontSize: 20.sp))),
                   InkWell(
                     onTap: _onCameraButtonPressed,
                   ),
@@ -104,7 +100,6 @@ class _LicenseBackState extends State<LicenseBack> {
               textDirection: TextDirection.rtl,
             ),
             SizedBox(height: 53.h),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -138,15 +133,13 @@ class _LicenseBackState extends State<LicenseBack> {
                      Navigator.push(
                          context,
                          MaterialPageRoute(builder: (context) => const PersonalDetailsForm()));
-                    //errorNoMatch(context,LicenseBack());
                   },
-                  child: const Text('הבא (רק לצורך הדגמה)',style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500,fontFamily: 'PLONI'),)),
+                  child: const Text('הבא (רק לצורך הדגמה)',style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),)),
             ),
             SizedBox(height: 12.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                //SizedBox(width: 129.w ,height: 42.h,),
                 SizedBox(
                   width: 129.w,
                   height: 42.h,
@@ -164,12 +157,10 @@ class _LicenseBackState extends State<LicenseBack> {
                   width: 183.w,
                   height: 42.h,
                   child: FloatingActionButton.extended(
-
                     label: Text('העלאת תמונה'),
                     heroTag: "btn1",
                     backgroundColor:  Color.fromRGBO(0, 222, 222, 1),
                     onPressed: _onUploadButtonPressed,
-                    //tooltip: 'Upload',
                     icon:  Image.asset('assets/images/Upload.png',width: 18.w,),
                   ),
                 ),
@@ -183,7 +174,6 @@ class _LicenseBackState extends State<LicenseBack> {
   }
 
   void _onCameraButtonPressed() async {
-    print('camera button pressed');
     final cameras = await availableCameras(); // Get a list of available cameras
     final camera = cameras.first; // Use the first camera
     _cameraController = CameraController(camera, ResolutionPreset.high,imageFormatGroup: ImageFormatGroup.yuv420,);
@@ -195,81 +185,9 @@ class _LicenseBackState extends State<LicenseBack> {
         cameraOn=true;
       });
     });
-    // Show the camera preview on the screen
-    print('before showCameraPreview');
     showCameraPreview();
-    print('after showCameraPreview');
   }
 
-  // void showCameraPreview(){
-  //   showModalBottomSheet(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       print('showCameraPreview');
-  //       if (!_cameraController.value.isInitialized) {
-  //         return Center(child: CircularProgressIndicator());
-  //       }
-  //       return Padding(
-  //         padding: EdgeInsets.only(bottom: 250.h),
-  //         child: SizedBox(
-  //           //height: MediaQuery.of(context).size.height,
-  //           child: Stack(
-  //             children: [
-  //               Container(
-  //                 width: MediaQuery.of(context).size.width,
-  //                 //height: 380.h,
-  //                 child: Transform.scale(
-  //                   scale: MediaQuery.of(context).size.aspectRatio * _cameraController.value.aspectRatio,
-  //                   child: Transform.rotate(
-  //                       angle: -_cameraController.description.sensorOrientation * pi / 180,
-  //                       child: CameraPreview(_cameraController)
-  //                 ),
-  //                   ),
-  //               ),
-  //               //Image.asset('assets/images/rect.png',),
-  //               Positioned(
-  //                 bottom: 0,
-  //                 right: 170.w,
-  //                 left: 170.w,
-  //                 child: ElevatedButton(
-  //                       onPressed: () async{
-  //                         XFile xfile=await _cameraController.takePicture();
-  //                         setState(() {
-  //                           _imageFront= xfile;
-  //                           _cameraController.pausePreview();
-  //                           if (_imageFront != null) {
-  //                             print('_imageFront $_imageFront');
-  //                             //var registration = Registration.of(context);
-  //                             //print('registration: $registration');
-  //                             //print('registration.front: ${registration?.front}');
-  //                             //registration?.front = _imageFront;
-  //                             //print('Registration.of(context)?.front ${Registration.of(context)?.front}');
-  //                             User().regImages[0]=_imageFront;
-  //                             Navigator.push(
-  //                               context,
-  //                               MaterialPageRoute(builder: (context) => Success(index: 0)),
-  //                             );
-  //                           }
-  //                         });
-  //                       },
-  //                     child: Icon(Icons.circle_outlined),
-  //                   ),
-  //               ),
-  //               // Container( //show captured image
-  //               //   padding: EdgeInsets.all(30),
-  //               //   child: _imageFront == null?
-  //               //   Text("No image captured"):
-  //               //   Image.file(File(_imageFront!.path), height: 300,),
-  //               //   //display captured image
-  //               // )
-  //             ],
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  //
-  // }
   void showCameraPreview() {
     showDialog(
       context: context,
@@ -281,7 +199,6 @@ class _LicenseBackState extends State<LicenseBack> {
           backgroundColor: Colors.transparent,
           elevation: 1,
           child: Stack(
-            //mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Center(
                 child: Container(
@@ -302,7 +219,6 @@ class _LicenseBackState extends State<LicenseBack> {
                     ),
                   ),
                 ),
-
               ),
               Positioned(
                 bottom: 230.h,
@@ -323,22 +239,12 @@ class _LicenseBackState extends State<LicenseBack> {
                         _imageBack= xfile;
                         _cameraController.pausePreview();
                         if (_imageBack != null) {
-                          print('_imageFront $_imageBack');
-                          //var registration = Registration.of(context);
-                          //print('registration: $registration');regImages
-                          //print('registration.front: ${registration?.front}');
-                          //registration?.front = _imageFront;
-                          //print('Registration.of(context)?.front ${Registration.of(context)?.front}');
                           User().regImages[1]=_imageBack;
                           TextRecognition(1);
-                          /*Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => FaceScanning()),
-                          );*/
                         }
                       });
                     },
-                    child: Text('צלם',style: (TextStyle(color: Colors.white,fontFamily: 'PLONI', )),),
+                    child: Text('צלם',style: (TextStyle(color: Colors.white, )),),
                   ),
                 ),)
             ],
@@ -349,34 +255,22 @@ class _LicenseBackState extends State<LicenseBack> {
   }
 
 
-  // void _getFromCamera() async{
-  //   XFile? pickedFile=await ImagePicker().pickImage(source: ImageSource.camera);
-  //   _imageFront = File(pickedFile!.path);
-  //   Navigator.pop(context);
-  // }
-
   void _onUploadButtonPressed() async {
     if(cameraOn) {
       _cameraController.pausePreview();
       cameraOn=false;
     }
     XFile? result = await ImagePicker().pickImage(source: ImageSource.gallery);
-    // FilePicker.pickFiles(type: FileType.image,allowMultiple: false,);
     if(result != null) {
       setState(() {
         _imageBack = result;
       });
       User().regImages[1]=_imageBack;
     }
-    //else {
-    //   // User canceled the file picker
-    // }
     showImagePreview;
-
   }
 
   showImagePreview(){
-    print('showImagePreview');
     if(_imageBack!=null) {
       print(_imageBack);
     }

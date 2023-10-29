@@ -211,7 +211,6 @@ class _FaceScanningState extends State<FaceScanning> {
       print('faces is Not Empty');
       // Face detected, capture image here
       final capturedImage = await _controller.takePicture();
-      // TODO: Do something with the captured image
       // Set the captured image to the User's registration images list
       User().regImages[2]=capturedImage;
       _controller.pausePreview();
@@ -235,9 +234,9 @@ class _FaceScanningState extends State<FaceScanning> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('סרוק פנים',style: TextStyle(color: Colors.black,fontFamily: 'PLONI',fontSize: 24.sp,fontWeight: FontWeight.w600),),
+          Text('סרוק פנים',style: TextStyle(color: Colors.black,fontSize: 24.sp,fontWeight: FontWeight.w600),),
           SizedBox(height: 40.h,),
-          Text('עמוד מול המצלמה',style: TextStyle(color: Colors.black,fontFamily: 'PLONI',fontSize: 16.sp,fontWeight: FontWeight.w400)),
+          Text('עמוד מול המצלמה',style: TextStyle(color: Colors.black,fontSize: 16.sp,fontWeight: FontWeight.w400)),
           SizedBox(height: 35.h,),
           Stack(
             children:[
@@ -317,8 +316,9 @@ class _FaceScanningState extends State<FaceScanning> {
               color: Color(0xFF00DEDE),
             ),
             child: TextButton(
-              child: Text('תמיכה',style: TextStyle(color: Colors.white,fontFamily: 'PLONI', fontSize: 18.sp, fontWeight: FontWeight.w500),),
+              child: Text('תמיכה',style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w500),),
               onPressed: () {
+                //TODO: call for help
 
               },
             ),
@@ -331,9 +331,7 @@ class _FaceScanningState extends State<FaceScanning> {
 
   Widget _buildCameraPreview() {
     return Container(
-     // width: 332.w,
       height: 332.h,
-
       child: OverflowBox(
         alignment: Alignment.center,
         child: Transform.rotate(

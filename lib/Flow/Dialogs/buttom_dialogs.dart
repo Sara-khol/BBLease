@@ -1,5 +1,3 @@
-
-//https://youtu.be/XhWw_ad4ES8
 import 'package:bblease/Flow/registration/license_front.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +12,9 @@ Future errorNoMatch(BuildContext context, Widget page){
             child: Column(
               children: [
                 SizedBox(height: 40.h,),
-                Text('אופס, שימו לב', style: TextStyle(fontSize: 28.sp,fontWeight: FontWeight.w600,fontFamily: 'PLONI',color: Color(0xFFFB2576)),),
+                Text('אופס, שימו לב', style: TextStyle(fontSize: 28.sp,fontWeight: FontWeight.w600,color: Color(0xFFFB2576)),),
                 SizedBox(height: 25.h,),
-                Text('התמונה שעלתה באיכות גרועה לא נוכל לבצע אימות', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,fontFamily: 'PLONI',color: Colors.black,),),
+                Text('התמונה שעלתה באיכות גרועה לא נוכל לבצע אימות', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,color: Colors.black,),),
                 SizedBox(height: 30.h,),
                 Container(
                   width: 332.w,
@@ -26,7 +24,7 @@ Future errorNoMatch(BuildContext context, Widget page){
                     color: Color(0xFF00DEDE),
                   ),
                   child: TextButton(
-                    child: Text('נסה שנית',style: TextStyle(color: Colors.white,fontFamily: 'PLONI', fontSize: 18.sp, fontWeight: FontWeight.w500),),
+                    child: Text('נסה שנית',style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w500),),
                     onPressed: () {
                        Navigator.push(
                            context,
@@ -57,7 +55,7 @@ Future uploadSucceed(BuildContext context, Widget prevPage,Widget nextPage){
             child: Column(
               children: [
                 SizedBox(height: 45.h,),
-                Text('התצלום עלה בהצלחה', style: TextStyle(fontSize: 28.sp,fontWeight: FontWeight.w600,fontFamily: 'PLONI',color: Color(0xFFFB2576)),),
+                Text('התצלום עלה בהצלחה', style: TextStyle(fontSize: 28.sp,fontWeight: FontWeight.w600,color: Color(0xFFFB2576)),),
                 SizedBox(height: 70.h,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -71,7 +69,7 @@ Future uploadSucceed(BuildContext context, Widget prevPage,Widget nextPage){
                         color: Color(0xFF00DEDE),
                       ),
                       child: TextButton(
-                        child: Text('סרוק פעם נוספת',style: TextStyle(color: Colors.white,fontFamily: 'PLONI', fontSize: 18.sp, fontWeight: FontWeight.w500),),
+                        child: Text('סרוק פעם נוספת',style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w500),),
                         onPressed: () {
                           Navigator.push(
                               context,
@@ -88,7 +86,7 @@ Future uploadSucceed(BuildContext context, Widget prevPage,Widget nextPage){
                         color: Color(0xFF00DEDE),
                       ),
                       child: TextButton(
-                        child: Text('אישור',style: TextStyle(color: Colors.white,fontFamily: 'PLONI', fontSize: 18.sp, fontWeight: FontWeight.w500),),
+                        child: Text('אישור',style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w500),),
                         onPressed: () {
                           Navigator.push(
                               context,

@@ -1,19 +1,12 @@
-import 'dart:convert';
-
-import 'package:bblease/Flow/registration/face_scanning.dart';
-import 'package:bblease/Flow/registration/text_recognition.dart';
+import 'package:bblease/Flow/registration/personal_details_form.dart';
+import 'package:bblease/Flow/registration/tel_to_registration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../models/car.dart';
 import '../../services/api_service.dart';
-import 'license_back.dart';
-import 'license_front.dart';
-import 'registration_main.dart';
 
 class WelcomeForm extends StatefulWidget {
   const WelcomeForm({Key? key}) : super(key: key);
-
 
   @override
   State<StatefulWidget> createState() => _WelcomeFormState();
@@ -24,7 +17,7 @@ class _WelcomeFormState extends State<WelcomeForm>{
  @override
   void initState() {
     ApiService().getAllCars((car){
-      listCars=   car.map<Car>((entry) => (Car.fromJson(entry))).toList();
+      listCars=car.map<Car>((entry) => (Car.fromJson(entry))).toList();
     });
 
     super.initState();
@@ -39,9 +32,9 @@ class _WelcomeFormState extends State<WelcomeForm>{
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
            // SizedBox(height: 56.h),
-            Text("Welcome to Bibilease",style: TextStyle(color: Color.fromRGBO(251, 37, 118, 1),fontWeight: FontWeight.w700,fontSize: 26.sp,fontFamily: 'PLONI',),),
+            Text("Welcome to Bibilease",style: TextStyle(color: Color.fromRGBO(251, 37, 118, 1),fontWeight: FontWeight.w700,fontSize: 26.sp,),),
             SizedBox(height: 40.h),
-            Image.asset('assets/images/BB.png',width: 393.w, height: 519.h,fit: BoxFit.cover, ),
+            Image.asset('assets/images/BB.png',width: 392.w, fit: BoxFit.cover,),
             SizedBox(height: 60.h),
             Container(
               height: 42.h,
@@ -56,7 +49,7 @@ class _WelcomeFormState extends State<WelcomeForm>{
                   onPressed: (){
 
                   },
-                  child: const Text('צפו בסרטון ההדרכה שלנו',style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500,fontFamily: 'PLONI'),)),
+                  child: Text('צפו בסרטון ההדרכה שלנו',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),)),
             ),
             SizedBox(height: 12.h),
             Container(
@@ -73,9 +66,9 @@ class _WelcomeFormState extends State<WelcomeForm>{
                   onPressed: (){
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const LicenseFront()));
+                          MaterialPageRoute(builder: (context) => const PersonalDetailsForm()));
                   },
-                  child: const Text('הבא',style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500,fontFamily: 'PLONI'),)),
+                  child:  Text('הבא',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),)),
             ),
           ],
         ),

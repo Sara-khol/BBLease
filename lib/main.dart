@@ -1,4 +1,5 @@
 
+import 'package:bblease/map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
+       fontFamily: 'PLONI'
        // primarySwatch: Color.fromARGB(15, 21, 17, 1),
       ),
       home: const WelcomeForm(),

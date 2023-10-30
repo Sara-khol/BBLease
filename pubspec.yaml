@@ -50,6 +50,8 @@ dependencies:
   capped_progress_indicator: ^0.0.2
   percent_indicator: ^4.2.3
   dio: ^5.1.1
+  google_maps_flutter: ^2.5.0
+  geolocator: ^10.1.0
 # google_maps_flutter: ^2.1.8
 #  geolocator: ^8.0.1
 #  google_mlkit_text_recognition: ^0.6.0
@@ -92,6 +94,10 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+    - family: PlusJakartaSans
+      fonts:
+          - asset: assets/fonts/PlusJakartaSans-ExtraBold.ttf
+
     - family: PLONI
       fonts:
           - asset: assets/fonts/PLONI-REGULAR-AAA.ttf

@@ -9,6 +9,7 @@ import 'registration/personal_details_form.dart';
 import 'registration/sucsses_registration.dart';
 import 'registration/tel_to_registration.dart';
 import 'registration/welcome.dart';
+import 'screen/search_car.dart';
 
 void main() {
   runApp(const MyApp());

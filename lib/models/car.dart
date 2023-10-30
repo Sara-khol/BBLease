@@ -10,8 +10,10 @@ class Car{
   late String postAuthor;
   @JsonKey(name: 'post_date')
   late String postDate;
+  @JsonKey(name: 'post_name')
+  late String postName;
 
-  Car({required this.id, required this.postAuthor,required this.postDate});
+  Car({required this.id, required this.postAuthor,required this.postDate,required this.postName});
 
   /// Connect the generated [_$PersonFromJson] function to the `fromJson`
   /// factory.

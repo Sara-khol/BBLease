@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../models/car.dart';
+import '../screen/search_car.dart';
 import '../services/api_service.dart';
 import 'license_back.dart';
 import 'license_front.dart';
@@ -18,12 +19,10 @@ class WelcomeForm extends StatefulWidget {
   }
 
 class _WelcomeFormState extends State<WelcomeForm>{
-  List<Car> listCars=[];
+
  @override
   void initState() {
-    ApiService().getAllCars((car){
-      listCars=   car.map<Car>((entry) => (Car.fromJson(entry))).toList();
-    });
+
 
     super.initState();
   }
@@ -52,7 +51,9 @@ class _WelcomeFormState extends State<WelcomeForm>{
                     elevation: 0.0,
                   ),
                   onPressed: (){
-
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const SearchCar()));
                   },
                   child: const Text('צפו בסרטון ההדרכה שלנו',style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500,fontFamily: 'PLONI'),)),
             ),

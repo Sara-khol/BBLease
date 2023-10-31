@@ -184,7 +184,6 @@ class _SearchCarState extends State<SearchCar> {
             Directionality(
               textDirection: TextDirection.rtl,
               child: Container(
-
                 decoration: ShapeDecoration(
                   color: Colors.white,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(25),
@@ -201,107 +200,112 @@ class _SearchCarState extends State<SearchCar> {
                   ],
                 ),
                 height: 312.h,
-                child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 30.h,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'סנן לפי סוג הרכב',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color(0xFF0F1511),
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            SizedBox(width: 8.w,),
-                            ImageIcon(AssetImage("assets/images/Filter.png"),color: Color(0xffFB2576),size: 20.w,),
-                          ],
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: IconButton(
+                        // padding: EdgeInsets.zero,
+                        // constraints: const BoxConstraints(minWidth: 20, maxWidth: 20),
+                        iconSize: 20.w,
+                        icon: const Icon( Icons.close,
                         ),
-                        SizedBox(height: 35.h,),
-                        /*Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        onPressed: ()=> {  Navigator.pop(context),},
+                      ),
+                    ),
+                    Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            SizedBox(height: 30.h,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'סנן לפי סוג הרכב',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Color(0xFF0F1511),
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                SizedBox(width: 8.w,),
+                                ImageIcon(AssetImage("assets/images/Filter.png"),color: Color(0xffFB2576),size: 20.w,),
+                              ],
+                            ),
+                            SizedBox(height: 35.h,),
+
+                            /*Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 160.w,
+                                  height: 42.h,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                                    color: Color(0xFF00DEDE),
+                                  ),
+                                  child: TextButton(
+                                    child: Text('סרוק פעם נוספת',style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w500),),
+                                    onPressed: () {print('1');
+                                      //Navigator.push(
+                                     //     context,
+                                      //    MaterialPageRoute(builder: (context) => prevPage));
+                                    },
+                                  ),
+                                ),
+                                SizedBox(width: 13.w,),
+                                Container(
+                                  width: 160.w,
+                                  height: 42.h,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                                    color: Color(0xFF00DEDE),
+                                  ),
+                                  child: TextButton(
+                                    child: Text('אישור',style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w500),),
+                                    onPressed: () {print('1');
+                                    //  Navigator.push(
+                                       //   context,
+                                       //   MaterialPageRoute(builder: (context) => nextPage));
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 22.h,),*/
                             Container(
-                              width: 160.w,
-                              height: 42.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(25)),
-                                color: Color(0xFF00DEDE),
-                              ),
-                              child: TextButton(
-                                child: Text('סרוק פעם נוספת',style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w500),),
-                                onPressed: () {print('1');
-                                  //Navigator.push(
-                                 //     context,
-                                  //    MaterialPageRoute(builder: (context) => prevPage));
-                                },
+                              //color: Colors.white,
+                             // padding: EdgeInsets.all(1.0),
+                              child: Padding(
+                                padding: EdgeInsets.only(left:65.w,right:65.w,),
+                                child: Table(
+                                 defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+
+                                  // border: TableBorder.all(width:4.w,color: Colors.red),
+                                  children: [
+                                    TableRow(children: [
+                                      carSearchItem("קטן"),
+                                     // SizedBox(width: 3.w,),
+                                      carSearchItem("משפחתי"),
+                                    ],),
+
+                                    TableRow(decoration: BoxDecoration(),
+                                      children: [
+                                      carSearchItem("היברידי חשמלי"),
+                                     //   SizedBox(width: 15.w,),
+                                      carSearchItem("VIP"),
+                                    ],),
+                                  ],
+                                ),
                               ),
                             ),
-                            SizedBox(width: 13.w,),
-                            Container(
-                              width: 160.w,
-                              height: 42.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(25)),
-                                color: Color(0xFF00DEDE),
-                              ),
-                              child: TextButton(
-                                child: Text('אישור',style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w500),),
-                                onPressed: () {print('1');
-                                //  Navigator.push(
-                                   //   context,
-                                   //   MaterialPageRoute(builder: (context) => nextPage));
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 22.h,),*/
-                        Container(
-                          //color: Colors.white,
-                          padding: EdgeInsets.all(1.0),
-                          child: Table(
-                            // /defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
-                            // border: TableBorder.all(width:4.w,color: Colors.red),
-                            children: [
-                              TableRow(children: [
-                                Column(
-                                  children: [
-                                    Text('קטן'),
-                                    Image.asset('assets/images/car-only.png',width: 115.w,height: 50.h, ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Text('משפחתי'),
-                                    Image.asset('assets/images/car-only.png',width: 115.w,height: 50.h, ),
-                                  ],
-                                ),
-                              ],),
-                              TableRow(children: [
-                                Column(
-                                  children: [
-                                    Text('היברידי חשמלי'),
-                                    Image.asset('assets/images/car-only.png',width: 115.w,height: 50.h, ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Text('VIP'),
-                                    Image.asset('assets/images/car-only.png',width: 115.w,height: 50.h, ),
-                                  ],
-                                ),
-                              ],),
+                          //  SizedBox(height: 30.h,),
                             ],
                           ),
-                        ),
-                        ],
-                      ),
+                  ],
+                ),
                     ),
             ),
         barrierColor: Colors.white10.withOpacity(0.1),
@@ -311,4 +315,43 @@ class _SearchCarState extends State<SearchCar> {
 
     );
   }
+
+  carSearchItem(String name,)
+  {
+    return  Container(
+      width:119.w,
+      height: 95.h,
+       //color: Colors.blue,
+       child: Padding(
+         padding:  EdgeInsets.only(top:8.h,bottom: 6.h),
+         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            //SizedBox(height: 10.h,),
+            Padding(
+              padding: EdgeInsets.only(left: 9.w,),
+              child: Text(
+                name,
+                style: TextStyle(
+                  color: Color(0xFF0F1511),
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
+                ),
+
+
+              ),
+            ),
+          //  SizedBox(height: 13.h,),
+            Padding(
+              padding: EdgeInsets.only(left:4.w,),
+              child: Image.asset('assets/images/car-only.png',width: 115.w,height: 50.h, ),
+            ),
+          //  SizedBox(height: 6.h,),
+          ],
+      ),
+       ),
+    );
+  }
+
 }

@@ -377,10 +377,16 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                         fontFamily: 'PLONI', ),
                       controller: _password,
                       validator: (value) {
-                        if(value==null || value.length<10)
-                          return 'מספר לא תקין';
+                        RegExp regex = RegExp(r'^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+                          if (value==null||regex.hasMatch(value)) {
+                            return 'סיסמה לא תקינה';
+                          }
+                          else {
+                            return null;
+                          }
                       },
                     ),
+                    Text('סיסמה תקינה כוללת אות אחת לפחות, ספרה אחת לפחות, ותו מיוחד אחד לפחות, באורך 8 תווים לפחות.',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w300),),
                     SizedBox(height: 5.h,),
                     ListTileTheme(
                       horizontalTitleGap: 1.0,
@@ -396,14 +402,12 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                         },
                         checkColor:  Color.fromRGBO(15, 21, 17, 1),
                         activeColor: Colors.transparent,
-                       // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         controlAffinity: ListTileControlAffinity.leading,
                         checkboxShape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(4)),
                         side: BorderSide(color:Color.fromRGBO(15, 21, 17, 1),width: 1.5,),
                       ),
                     ),
-                    //Spacer() ,                   //SizedBox(height: 95.h,),
                     Container(
                       height: 42.h,
                       width: 332.w,

@@ -1,9 +1,12 @@
+import 'package:bblease/Flow/registration/license_front.dart';
 import 'package:bblease/Flow/registration/personal_details_form.dart';
 import 'package:bblease/Flow/registration/tel_to_registration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../models/car.dart';
-import '../../services/api_service.dart';
+import '../models/car.dart';
+import '../services/api_service.dart';
+import 'Rental/Dialogs.dart';
+import 'Rental/map.dart';
 
 class WelcomeForm extends StatefulWidget {
   const WelcomeForm({Key? key}) : super(key: key);
@@ -47,6 +50,10 @@ class _WelcomeFormState extends State<WelcomeForm>{
                     elevation: 0.0,
                   ),
                   onPressed: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Rental()));
+                    //departurePoint(context);
 
                   },
                   child: Text('צפו בסרטון ההדרכה שלנו',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),)),
@@ -66,7 +73,7 @@ class _WelcomeFormState extends State<WelcomeForm>{
                   onPressed: (){
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const PersonalDetailsForm()));
+                          MaterialPageRoute(builder: (context) => const LicenseFront()));
                   },
                   child:  Text('הבא',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),)),
             ),

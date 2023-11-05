@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../models/class_user.dart';
-import 'welcome.dart';
+import '../welcome.dart';
 
 class SucssesRegistrationForm extends StatefulWidget {
   const SucssesRegistrationForm({Key? key}) : super(key: key);

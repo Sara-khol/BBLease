@@ -36,7 +36,5 @@ class ApiService {
       onSuccess(result);
     }
     // Prints the raw data returned by the server
-
-
   }
 }

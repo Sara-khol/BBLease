@@ -86,7 +86,6 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                     if (value == null || value.isEmpty)
                       return 'זהו שדה חובה';
                   },
-                  onEditingComplete: () => User().firstName=_licenseId.text,
                 ),
                 SizedBox(height: 16.h,),
                 TextFormField(
@@ -124,11 +123,11 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                         lastDate: DateTime(2100));
                     if(date!=null)
                       setState(() {
-                        _expDate.text=intl.DateFormat('dd-MM-yyyy').format(date);
+                        _expDate.text=intl.DateFormat('dd.MM.yyyy').format(date);
                         exp=date;
                       });
                   },
-                  onEditingComplete: () => User().licenseExpDate=exp,
+
                 ),
                 SizedBox(height: 16.h,),
 
@@ -167,11 +166,12 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                         lastDate: DateTime.now());
                     if(date!=null)
                       setState(() {
-                        _issDate.text=intl.DateFormat('dd-MM-yyyy').format(date);
-                        iss=date;
+                        _issDate.text=intl.DateFormat('dd.MM.yyyy').format(date);
+                        iss=date!;
                       });
+
                   },
-                  onEditingComplete: () => User().licenseIssDate=iss,
+
                 ),
                 SizedBox(height: 16.h,),
 
@@ -209,7 +209,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                     if (value == null || value.isEmpty)
                       return 'זהו שדה חובה';
                   },
-                  onEditingComplete: () => User().licenseDegree=_degree.text,
+
                 ),
                 SizedBox(height: 60.h,),
                 ListTileTheme(
@@ -240,6 +240,10 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       ),
                       onPressed: (){
                         if(_formKey.currentState!.validate()) {
+                          User().firstName=_licenseId.text;
+                          User().licenseDegree=_degree.text;
+                          User().licenseIssDate=iss;
+                          User().licenseExpDate=exp;
                           Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => const SucssesRegistrationForm()));

@@ -19,6 +19,7 @@ class SearchCar extends StatefulWidget {
 class _SearchCarState extends State<SearchCar> {
   List<Car> cars=[];
   final _controller = ScrollController();
+  double _currentSliderValue = 30;
 
 @override
   void initState() {
@@ -131,7 +132,7 @@ class _SearchCarState extends State<SearchCar> {
 
   }
 
-  topButtons(BuildContext context)
+  topButtons(BuildContext context,)
   {
     return Container(
       //color: Colors.yellow,
@@ -182,7 +183,7 @@ class _SearchCarState extends State<SearchCar> {
             ),),
           //Spacer(),
          // SizedBox(width:30.w,),
-          TextButton(  onPressed: () => {expansionSearch(context),},
+          TextButton(  onPressed: () => {expansionSearch(context,_controller,  _currentSliderValue ,),},
             child: Row(children: [
               Text(
                 ' הגדל טווח חיפוש ',
@@ -376,9 +377,10 @@ class _SearchCarState extends State<SearchCar> {
     );
   }
 
-  expansionSearch(BuildContext context, ){
+  expansionSearch(BuildContext context, _controller,sliderValue){
     return showModalBottomSheet(
       //isScrollControlled: true,
+
       context: context,
       builder: (BuildContext context)=>
           Directionality(
@@ -436,61 +438,98 @@ class _SearchCarState extends State<SearchCar> {
                       SizedBox(height: 23.h,),
                       Padding(
                         padding:  EdgeInsets.only(right: 31.w,left:30.w),
-                        child: SingleChildScrollView(
-
-                          child: Container(
-                            child:Row(
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                      'אזור חיפוש נוכחי: ',
-                                          style: TextStyle(
-                                            color: Color(0xFF0F1511),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-
-                                        Text(
-                                          'שנה כתובת ',
-                                          style: TextStyle(
-                                            color: Color(0xFFFB2576),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w400,
-                                            decoration: TextDecoration.underline,
-                                          ),
-                                        ),
-                                      ],
+                        child: Container(
+                          child:Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                'אזור חיפוש נוכחי: ',
+                                    style: TextStyle(
+                                      color: Color(0xFF0F1511),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
                                     ),
-                                    Text(
-                                      'ירמיהו, ירושלים',
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(
-                                        color: Color(0xFF0F1511),
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w700,
-                                      ),
+                                  ),
+
+                                  Text(
+                                    'שנה כתובת ',
+                                    style: TextStyle(
+                                      color: Color(0xFFFB2576),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                      decoration: TextDecoration.underline,
                                     ),
-                                    SizedBox(height: 21.h,),
-                                    Text(
-                                      'הזז את הסמן למרחק הרצוי',
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(
-                                        color: Color(0xFF0F1511),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    )
-                                  ],
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                'ירמיהו, ירושלים',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  color: Color(0xFF0F1511),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
                                 ),
-                              ],),
-                            ),
+                              ),
+                              SizedBox(height: 21.h,),
+                              Text(
+                                'הזז את הסמן למרחק הרצוי',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  color: Color(0xFF0F1511),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              Directionality(
+                                textDirection: TextDirection.ltr,
+                                child: /*Slider(
+                                  value: sliderValue,
+                                  onChanged: (v){
+                                    setState(() {
+                                      sliderValue = v;
+                                    });
+                                  },
+                                ),*/
+                                Slider(
+                                  value: _currentSliderValue,
+                                  max: 100,
+                                  divisions: 100,
+                                  label: _currentSliderValue.round().toString(),
+                                  onChanged: (double value) {
+                                    setState(() {
+                                      _currentSliderValue = value;
+                                    });
+                                  },
+                                ),
+                              ),
 
+                              SizedBox(height: 21.h,),
+                              Text(
+                                'הוסף 3 ק”מ לטווח החיפוש הנוכחי',
+                                style: TextStyle(
+                                  color: Color(0xFF0F1511),
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              SizedBox(height: 21.h,),
+                              /*Text(
+                                'הצג תוצאות נוספות',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontFamily: 'Ploni ML v2 AAA',
+                                  fontWeight: FontWeight.w500,
+                                  height: 0.06,
+                                ),
+                              )*/
+                            ],
+                          ),
                           ),
                         ),
 

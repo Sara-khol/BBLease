@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'PLONI',
         scaffoldBackgroundColor: Colors.white,
+
         datePickerTheme: DatePickerThemeData(
            backgroundColor: Colors.white,
            elevation: 2,

@@ -1,15 +1,33 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_place/google_place.dart';
 import 'package:intl/intl.dart' as intl;
 
 
 
 Future departurePoint(BuildContext context){
-  TextEditingController _controller=TextEditingController();
-  String searchedPlace='';
+  TextEditingController controller=TextEditingController();
+  DetailsResult? searchedPlace;
+
+  late GooglePlace googlePlace=GooglePlace('AIzaSyBfvApaTLzPlCzL3LakX6DBbj2l7NMBRV4');
   bool done=false;
-  bool isTyping=false;
-  List<String> list=[];
+
+
+  List<AutocompletePrediction> predictions=[];
+
+  Timer? debounce;
+
+  void autoCompleteSearch(String value) async{
+    var result= await googlePlace.autocomplete.get(value);
+    if(result!=null && result.predictions!=null){
+      predictions=result.predictions!;
+    }
+  }
+
+
+
   return showModalBottomSheet<dynamic>(
       isScrollControlled: true,
       isDismissible: false,
@@ -26,7 +44,7 @@ Future departurePoint(BuildContext context){
                     Container(
                       alignment: Alignment.topRight,
                       child: IconButton(
-                        icon: Icon(Icons.close),
+                        icon: const Icon(Icons.close),
                         onPressed: () {
                           Navigator.pop(context);
                         },
@@ -42,59 +60,70 @@ Future departurePoint(BuildContext context){
                             children: [
                               Text('מאיפה תרצה לצאת?', style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w700,color: Colors.black),),
                               SizedBox(width: 9.w,),
-                              Icon(Icons.location_on_outlined,color: Color(0xFFFB2576),size: 28.sp,),
+                              Icon(Icons.fmd_good_outlined,color: Color(0xFFFB2576),size: 28.sp,),
                             ],
                           ),
                           SizedBox(height: 45.h,),
                           TextField(
-                              cursorColor: Color.fromRGBO(15, 17, 21, 1),
-                              decoration: InputDecoration(
-                                isDense: true,
-                                labelText: "",
-                                labelStyle:  TextStyle(fontSize: 18.sp,
-                                  fontWeight: FontWeight.w300,
-                                  color:  Color.fromRGBO(15, 17, 21, 1),
-                                  fontFamily: 'PLONI',
+                            autofocus: true,
+                            cursorColor: const Color.fromRGBO(15, 17, 21, 1),
+                            decoration: InputDecoration(
+                              isDense: true,
+                              labelText: "",
+                              labelStyle:  TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w300, color:  const Color.fromRGBO(15, 17, 21, 1), fontFamily: 'PLONI',),
+                              floatingLabelBehavior: FloatingLabelBehavior.auto,
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0,),
+                                borderSide: const BorderSide(
+                                color: Color.fromRGBO(15, 17, 21, 1),
                                 ),
-                                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0,),
-                                  borderSide: BorderSide(
-                                  color: Color.fromRGBO(15, 17, 21, 1),
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0,),
-                                  borderSide: BorderSide(
-                                  color: Color.fromRGBO(15, 17, 21, 1),
-                                  ),
-                                ),
-                                suffixIcon: Icon(Icons.search,color: Color(0xFF04AEB9),size: 24.sp,)
                               ),
-                              style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
-                              controller: _controller,
-                              onChanged: (value) => isTyping=true,
-
-                              onEditingComplete: () {
-                                print('complete');
-                                searchedPlace = _controller.text;
-                                done=true;
-                                FocusScope.of(context).unfocus();
-                              },
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0,),
+                                borderSide: const BorderSide(
+                                color: Color.fromRGBO(15, 17, 21, 1),
+                                ),
+                              ),
+                              suffixIcon: Icon(Icons.search,color: Color(0xFF04AEB9),size: 24.sp,)
+                            ),
+                            style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
+                            controller: controller,
+                            onChanged: (value) {
+                              if(debounce?.isActive??false) debounce!.cancel();
+                              debounce=Timer(const Duration(seconds: 1),(){
+                                if(value.isNotEmpty){
+                                  autoCompleteSearch(value);
+                                }
+                                else{
+                                  predictions=[];
+                                }
+                              });
+                            },//=> isTyping=true,
+                            onEditingComplete: () {
+                              done=true;
+                              FocusScope.of(context).unfocus();
+                            },
 
                           ),
-                          if(isTyping) ConstrainedBox(
-                            constraints: BoxConstraints(maxHeight: 300.h),
+                          ConstrainedBox(
+                            constraints: BoxConstraints(maxHeight: 280.h),
                             child: ListView.builder(
                               reverse: true,
                               shrinkWrap: true,
-                              itemCount: list.length,
+                              itemCount: predictions.length,
                               itemBuilder: (context, index) {
                                 return ListTile(
-                                  title: Text(list[index]),
-                                  onTap: () {
+                                  title: Text(predictions[index].description.toString()),
+                                  onTap: () async {
                                     done = true;
-                                    searchedPlace=list[index];
+                                    final placeId =predictions[index].placeId!;
+                                    final details =await googlePlace.details.get(placeId);
+                                    if(details!=null && details.result != null){
+                                      searchedPlace=details.result;
+                                      controller.text=details.result!.name!;
+                                      done=true;
+                                    }
+                                    predictions=[];
                                   },
                                 );
                               }
@@ -106,13 +135,16 @@ Future departurePoint(BuildContext context){
                               Container(
                                 width: 332.w,
                                 height: 42.h,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   borderRadius: BorderRadius.all(Radius.circular(25)),
                                   color: Color(0xFF00DEDE),
                                 ),
                                 child: TextButton(
                                   child: Text('אישור',style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w500),),
-                                  onPressed: () => rentalTerm(context),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    rentalTerm(context);
+                                  },
                                 ),
                               ),
                               SizedBox(height: 25.h,)
@@ -134,9 +166,11 @@ Future departurePoint(BuildContext context){
   );
 }
 
+
+
 Future rentalTerm(BuildContext context){
-  TextEditingController _start=TextEditingController();
-  TextEditingController _end=TextEditingController();
+  TextEditingController start=TextEditingController();
+  TextEditingController end=TextEditingController();
 
   late DateTime? startDate;
   late DateTime? endDate;
@@ -161,7 +195,7 @@ Future rentalTerm(BuildContext context){
               void _setEndDateBasedOnSelection() {
                 if (startDate != null && diff != null) {
                   DateTime calculatedEndDate = startDate!.add(Duration(days: diff!.toInt()));
-                  _end.text = intl.DateFormat('dd.MM.yyyy').format(calculatedEndDate);
+                  end.text = intl.DateFormat('dd.MM.yyyy').format(calculatedEndDate);
                   endDate = calculatedEndDate;
                   //setState((){});
                 }
@@ -203,7 +237,7 @@ Future rentalTerm(BuildContext context){
                         Container(
                           alignment: Alignment.topRight,
                           child: IconButton(
-                            icon: Icon(Icons.close),
+                            icon: const Icon(Icons.close),
                             onPressed: () {
                               Navigator.pop(context);
                             },
@@ -222,8 +256,7 @@ Future rentalTerm(BuildContext context){
                                       color: Colors.black),),
                                   SizedBox(width: 9.w,),
                                   Icon(
-                                    Icons.calendar_today_outlined, color: Color(
-                                      0xFFFB2576), size: 24.sp,),
+                                    Icons.calendar_today_outlined, color: const Color(0xFFFB2576), size: 24.sp,),
                                 ],
                               ),
                               SizedBox(height: 25.h,),
@@ -252,25 +285,25 @@ Future rentalTerm(BuildContext context){
                               ),
                               TextFormField(
                                 readOnly: true,
-                                cursorColor: Color.fromRGBO(15, 17, 21, 1),
+                                cursorColor: const Color.fromRGBO(15, 17, 21, 1),
                                 decoration: InputDecoration(
                                     isDense: true,
                                     labelStyle: TextStyle(fontSize: 20.sp,
                                       fontWeight: FontWeight.w300,
-                                      color: Color.fromRGBO(15, 17, 21, 1),
+                                      color: const Color.fromRGBO(15, 17, 21, 1),
                                       fontFamily: 'PLONI',),
                                     floatingLabelBehavior: FloatingLabelBehavior.auto,
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(
                                         10.0,),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color.fromRGBO(15, 17, 21, 1),
                                       ),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(
                                         10.0,),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color.fromRGBO(15, 17, 21, 1),
                                       ),
                                     ),
@@ -278,15 +311,16 @@ Future rentalTerm(BuildContext context){
                                         vertical: 12.w, horizontal: 20.h),
                                     suffixIcon: Icon(
                                       Icons.calendar_today_outlined,
-                                      color: Color.fromRGBO(251, 37, 118, 1),
+                                      color: const Color.fromRGBO(251, 37, 118, 1),
                                       size: 22.sp,)
 
                                 ),
                                 //style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
-                                controller: _start,
+                                controller: start,
                                 validator: (value) {
-                                  if (value == null || value.isEmpty)
+                                  if (value == null || value.isEmpty) {
                                     return 'זהו שדה חובה';
+                                  }
                                 },
                                 onTap: () async {
                                   DateTime? date = await showDatePicker(
@@ -296,7 +330,7 @@ Future rentalTerm(BuildContext context){
                                       firstDate: DateTime.now(),
                                       lastDate: DateTime(2100));
                                   if (date != null) {
-                                    _start.text = intl.DateFormat('dd.MM.yyyy').format(date);
+                                    start.text = intl.DateFormat('dd.MM.yyyy').format(date);
                                     startDate = date;
                                     _setEndDateBasedOnSelection();
                                   }
@@ -314,26 +348,26 @@ Future rentalTerm(BuildContext context){
                               ),
                               TextFormField(
                                 readOnly: true,
-                                cursorColor: Color.fromRGBO(15, 17, 21, 1),
+                                cursorColor: const Color.fromRGBO(15, 17, 21, 1),
                                 decoration: InputDecoration(
                                     isDense: true,
                                     labelStyle: TextStyle(fontSize: 20.sp,
                                       fontWeight: FontWeight.w300,
-                                      color: Color.fromRGBO(15, 17, 21, 1),
+                                      color: const Color.fromRGBO(15, 17, 21, 1),
                                       fontFamily: 'PLONI',),
                                     floatingLabelBehavior: FloatingLabelBehavior
                                         .auto,
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(
                                         10.0,),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color.fromRGBO(15, 17, 21, 1),
                                       ),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(
                                         10.0,),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color.fromRGBO(15, 17, 21, 1),
                                       ),
                                     ),
@@ -341,16 +375,17 @@ Future rentalTerm(BuildContext context){
                                         vertical: 12.w, horizontal: 20.h),
                                     suffixIcon: Icon(
                                       Icons.calendar_today_outlined,
-                                      color: Color.fromRGBO(251, 37, 118, 1),
+                                      color: const Color.fromRGBO(251, 37, 118, 1),
                                       size: 22.sp,)
 
                                 ),
                                 style: const TextStyle(color: Color.fromRGBO(
                                     15, 17, 21, 1),),
-                                controller: _end,
+                                controller: end,
                                 validator: (value) {
-                                  if (value == null || value.isEmpty)
+                                  if (value == null || value.isEmpty) {
                                     return 'זהו שדה חובה';
+                                  }
                                 },
                                 onTap: () async {
                                   DateTime? date = await showDatePicker(
@@ -358,20 +393,19 @@ Future rentalTerm(BuildContext context){
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime.now(),
                                       lastDate: DateTime(2100));
-                                  if (date != null)
-                                    _end.text =
-                                        intl.DateFormat('dd.MM.yyyy').format(
-                                            date);
+                                  if (date != null) {
+                                    end.text = intl.DateFormat('dd.MM.yyyy').format(date);
+                                  }
                                   endDate = date;
                                 },
                               ),
                               SizedBox(height: 30.h,),
-                              Container(
+                              SizedBox(
                                 height: 42.h,
                                 width: 332.w,
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Color.fromRGBO(0, 222, 222, 1),
+                                      backgroundColor: const Color.fromRGBO(0, 222, 222, 1),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(
                                             100),

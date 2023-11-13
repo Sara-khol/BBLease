@@ -27,7 +27,7 @@ class ApiService {
         return client;
       },
     );
-   // Response response = await _dio.get('${_baseUrl}wp/v2/get_all_vehicles');
+
     Response response = await _dio.get('${_baseUrl}wp/v2/get_all_vehicles');
     if(response.statusCode == 200) {
       var result = response.data;

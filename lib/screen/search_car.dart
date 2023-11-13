@@ -1,4 +1,4 @@
- import 'package:bblease/customWidgets/appBarB.dart';
+import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:bblease/models/car.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,7 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:intl/intl.dart' as intel;
 import 'package:bblease/customWidgets/appBarB.dart';
+import 'package:bblease/screen/car_details.dart';
 
+import '../Flow/Rental/Dialogs.dart';
 import '../services/api_service.dart';
 
 class SearchCar extends StatefulWidget {
@@ -19,7 +21,7 @@ class SearchCar extends StatefulWidget {
 class _SearchCarState extends State<SearchCar> {
   List<Car> cars=[];
   final _controller = ScrollController();
-  double _currentSliderValue = 30;
+  double _currentSliderValue = 3.0;
 
 @override
   void initState() {
@@ -54,7 +56,7 @@ class _SearchCarState extends State<SearchCar> {
             color: const Color(0xFF0F1511),
             fontSize: 14.sp,
             fontWeight: FontWeight.w400,
-            height: 1.2,
+            height: 1.15,
           ),),
         SizedBox(height: 16.h),//26
         topButtons(context),
@@ -67,62 +69,69 @@ class _SearchCarState extends State<SearchCar> {
           itemCount: cars.length,
           itemBuilder: (context, index) {
             Car car= cars[index];
-             return Container(
-               //color: Colors.green,
-               width: 347.w,
-               height: 152.h,
-              margin:  EdgeInsets.only(right: 23.w,left: 23.w,bottom: 12.h,),
-               child: Stack(
-                 children: [
-                   Card(
-                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-                     //elevation: 0,
-                     shadowColor: Colors.transparent,
-                     margin: EdgeInsets.only(left:20.w),
-                     color: Color(0xffF7F7F7),
-                     child:Padding(
-                       padding:  EdgeInsets.only(bottom: 10.h,top:10.h,right: 14.w,left:11.w),
-                       child: IntrinsicHeight(
-                         child: Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                           children: [
-                             Column(
-                               crossAxisAlignment: CrossAxisAlignment.start,
-                               children: [
-                                 Text(car.postName.length > 12 ? '${car.postName.substring(0, 12)}...' : '${car.postName}',style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w700,height: 1,),),
-                                // SizedBox(height: 4.h),
-                                 Text('או רכב זהה',style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.w400,height: 1.2,),),
-                                 //SizedBox(height: 3.h),
-                                 Text('נמצא במרחק 0.5ק"מ',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w700,height: 1.2,),),
-                                 Expanded(child: SizedBox(height: 29.h)),
+            final car_id = cars[index].id;
+             return GestureDetector(
+               onTap: ()=>{Navigator.push(
+                 context,
+                 MaterialPageRoute(builder: (context) => CarDetails(car_id))),
+                 },
+               child: Container(
+                 //color: Colors.green,
+                 width: 347.w,
+                 height: 152.h,
+                margin:  EdgeInsets.only(right: 23.w,left: 23.w,bottom: 12.h,),
+                 child: Stack(
+                   children: [
+                     Card(
+                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                       //elevation: 0,
+                       shadowColor: Colors.transparent,
+                       margin: EdgeInsets.only(left:20.w),
+                       color: Color(0xffF7F7F7),
+                       child:Padding(
+                         padding:  EdgeInsets.only(bottom: 10.h,top:10.h,right: 14.w,left:11.w),
+                         child: IntrinsicHeight(
+                           child: Row(
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                             children: [
+                               Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                   Text(car.postName.length > 12 ? '${car.postName.substring(0, 12)}...' : '${car.postName}',style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w700,height: 1,),),
+                                  // SizedBox(height: 4.h),
+                                   Text('או רכב זהה',style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.w400,height: 1.15,),),
+                                   //SizedBox(height: 3.h),
+                                   Text('נמצא במרחק 0.5ק"מ',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w700,height: 1.15,),),
+                                   Expanded(child: SizedBox(height: 29.h)),
 
-                                 Text('214.90 ₪  |  ליום',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w700,height: 1.2,),),
-                                 //SizedBox(height: 6.h),
-                                 Text('640 ₪  |  סה"כ',style: TextStyle(fontSize: 12.sp,fontWeight: FontWeight.w400,height: 1.2,),),
-                               ],
-                             ),
-                             Expanded(child: Padding(
-                               padding:  EdgeInsets.only(top:2.h),
-                               child: Align( alignment: Alignment.topLeft,
-                                   child: Icon(Icons.circle,color: Color(0xFF04AEB9),size: 8.w,)),
-                             ),),
-                               ],),
+                                   Text('214.90 ₪  |  ליום',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w700,height: 1.15,),),
+                                   //SizedBox(height: 6.h),
+                                   Text('640 ₪  |  סה"כ',style: TextStyle(fontSize: 12.sp,fontWeight: FontWeight.w400,height: 1.15,),),
+                                 ],
+                               ),
+                               Expanded(child: Padding(
+                                 padding:  EdgeInsets.only(top:2.h),
+                                 child: Align( alignment: Alignment.topLeft,
+                                     child: Icon(Icons.circle,color: Color(0xFF04AEB9),size: 8.w,)),
+                               ),),
+                                 ],),
+                         ),
                        ),
+
+                      ),
+                    IntrinsicHeight(
+                       child: Align(
+                        alignment: Alignment.bottomLeft,
+                         child: Container(
+                             margin: EdgeInsets.only(bottom:10.h),
+                             child: Image.asset('assets/images/car-only.png', )),
+                       )
                      ),
 
-                    ),
-                  IntrinsicHeight(
-                     child: Align(
-                      alignment: Alignment.bottomLeft,
-                       child: Container(
-                           margin: EdgeInsets.only(bottom:10.h),
-                           child: Image.asset('assets/images/car-only.png', )),
-                     )
-                   ),
+                    ],
+                 ),
 
-                  ],
                ),
-
              );
         },
       ),),],),
@@ -163,7 +172,7 @@ class _SearchCarState extends State<SearchCar> {
              ], ),),
           //Spacer(),
           //SizedBox(width:33.w,),
-          TextButton(  onPressed: () => {print('2'),},
+          TextButton(  onPressed: () => {rentalTerm(context),},
             child: Row(children: [
               Text(
                 ' שנה תאריך ',
@@ -204,7 +213,7 @@ class _SearchCarState extends State<SearchCar> {
       ],),
     );
   }
-  filterCarType(BuildContext context, _controller){
+  filterCarType(BuildContext context, _controller,){
     return showModalBottomSheet(
       //isScrollControlled: true,
         context: context,
@@ -283,6 +292,7 @@ class _SearchCarState extends State<SearchCar> {
                             radius: const Radius.circular(10),
                             scrollbarOrientation:ScrollbarOrientation.top ,
                             child: ListView(
+                              controller: _controller,
                               //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
                               scrollDirection: Axis.horizontal,
                               // border: TableBorder.all(width:4.w,color: Colors.red),
@@ -429,6 +439,7 @@ class _SearchCarState extends State<SearchCar> {
                               color: Color(0xFF0F1511),
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w700,
+                              //height: 1,
                             ),
                           ),
                           SizedBox(width: 8.w,),
@@ -442,36 +453,50 @@ class _SearchCarState extends State<SearchCar> {
                           child:Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                'אזור חיפוש נוכחי: ',
-                                    style: TextStyle(
-                                      color: Color(0xFF0F1511),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
+                              Container(
+                                //color: Colors.red,
+                                height: 20.h,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                  'אזור חיפוש נוכחי: ',
+                                      style: TextStyle(
+                                        color: Color(0xFF0F1511),
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w400,
+                                        height: 1,
+                                      ),
                                     ),
-                                  ),
+                                    TextButton(
+                                      style: TextButton.styleFrom(
+                                        minimumSize: Size(80, 20),
+                                        padding: EdgeInsets.all(0)),
+                                      onPressed: ()=>{departurePoint(context,),},
+                                      child: Text(
+                                      'שנה כתובת ',
+                                      style: TextStyle(
+                                        color: Color(0xFFFB2576),
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w400,
+                                        decoration: TextDecoration.underline,
+                                        height: 1,
 
-                                  Text(
-                                    'שנה כתובת ',
-                                    style: TextStyle(
-                                      color: Color(0xFFFB2576),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                      decoration: TextDecoration.underline,
-                                    ),
-                                  ),
-                                ],
+                                      ),
+                                    ),),
+
+                                  ],
+                                ),
                               ),
+                              SizedBox(height: 8.h,),
                               Text(
                                 'ירמיהו, ירושלים',
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                   color: Color(0xFF0F1511),
-                                  fontSize: 20,
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.w700,
+                                  height: 1,
                                 ),
                               ),
                               SizedBox(height: 21.h,),
@@ -480,54 +505,84 @@ class _SearchCarState extends State<SearchCar> {
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                   color: Color(0xFF0F1511),
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w400,
+                                  height: 1,
                                 ),
                               ),
+                               SizedBox(height: 30.h,),
                               Directionality(
                                 textDirection: TextDirection.ltr,
-                                child: /*Slider(
-                                  value: sliderValue,
-                                  onChanged: (v){
-                                    setState(() {
-                                      sliderValue = v;
-                                    });
-                                  },
-                                ),*/
-                                Slider(
-                                  value: _currentSliderValue,
-                                  max: 100,
-                                  divisions: 100,
-                                  label: _currentSliderValue.round().toString(),
-                                  onChanged: (double value) {
-                                    setState(() {
-                                      _currentSliderValue = value;
-                                    });
-                                  },
-                                ),
-                              ),
+                                child: StatefulBuilder(
+                                  builder: (context,state) {
+                                    return SliderTheme(
+                                        data: SliderTheme.of(context).copyWith(
+                                          showValueIndicator: ShowValueIndicator.always,
+                                          valueIndicatorColor: Color(0xFF00DEDE), // This is what you are asking for
+                                          inactiveTrackColor: Color(0xFFF6F6F6), // Custom Gray Color
+                                          activeTrackColor: Color(0xFF00DEDE),
+                                          thumbColor: Color(0xFF00DEDE),
+                                          trackHeight: 8.0,
+                                          overlayColor: Color(0xFFF6F6F6),  // Custom Thumb overlay Color
+                                          thumbShape:RoundSliderThumbShape(enabledThumbRadius: 10.0),
+                                          overlayShape:
+                                          RoundSliderOverlayShape(overlayRadius: 10.0),
+                                            valueIndicatorTextStyle:TextStyle(
+                                              color: Color(0xFF0F1511),
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                              fontFamily: 'PLONI',
+                                            ),
+                                          valueIndicatorShape: PaddleSliderValueIndicatorShape(),
+                                         // thumbShape: CustomSliderThumbCircle(thumbRadius: 20, min: 0, max: 100),
+                                        ),
+                                      child: Slider(
+                                        value: _currentSliderValue,
+                                        max: 10,
+                                        //divisions: 10,
+                                        label: _currentSliderValue.round().toString(),
+                                        onChanged: (double value) {
+                                          state(() {
+                                            _currentSliderValue = value;
+                                          });
 
-                              SizedBox(height: 21.h,),
-                              Text(
-                                'הוסף 3 ק”מ לטווח החיפוש הנוכחי',
-                                style: TextStyle(
-                                  color: Color(0xFF0F1511),
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w700,
+                                        },
+                                      ),
+                                    );
+                                  }
+                                ),
+                              ),
+                              SizedBox(height: 19.h,),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'הוסף 3 ק”מ לטווח החיפוש הנוכחי',
+                                  style: TextStyle(
+                                    color: Color(0xFF0F1511),
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w700,
+                                    height: 1,
+                                  ),
                                 ),
                               ),
                               SizedBox(height: 21.h,),
-                              /*Text(
-                                'הצג תוצאות נוספות',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontFamily: 'Ploni ML v2 AAA',
-                                  fontWeight: FontWeight.w500,
-                                  height: 0.06,
-                                ),
-                              )*/
+                              Container(
+                                height: 42.h,
+                                width: 332.w,
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(0, 222, 222, 1.0),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(100),
+                                      ),
+                                    ),
+                                    onPressed: (){print('call API');
+                                      /*Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => const PersonalDetailsForm()));*/
+                                    },
+                                    child: Text('הצג תוצאות נוספות',
+                                      style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),)),
+                              ),
                             ],
                           ),
                           ),
@@ -547,4 +602,6 @@ class _SearchCarState extends State<SearchCar> {
 
     );
   }
+
+
 }

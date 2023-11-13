@@ -135,7 +135,7 @@ class _FaceScanningState extends State<FaceScanning> {
 
     captureImage();
     await Future.delayed(Duration(seconds: 3));
-       // introduce a slight delay
+    // introduce a slight delay
     _controller.pausePreview();
     Navigator.push(context, MaterialPageRoute(builder: (context) => const Verification()));
 
@@ -165,7 +165,7 @@ class _FaceScanningState extends State<FaceScanning> {
       }
 
 
-     }
+    }
     isCapturing = false;
   }
 
@@ -191,7 +191,7 @@ class _FaceScanningState extends State<FaceScanning> {
     return null;
   }
 
- /* Future<void> _processImage(CameraImage image) async {
+  /* Future<void> _processImage(CameraImage image) async {
     print("_processImage");
 
     final inputImage = InputImage.fromBytes(
@@ -239,51 +239,51 @@ class _FaceScanningState extends State<FaceScanning> {
           Text('עמוד מול המצלמה',style: TextStyle(color: Colors.black,fontSize: 16.sp,fontWeight: FontWeight.w400)),
           SizedBox(height: 35.h,),
           Stack(
-            children:[
-              FutureBuilder<bool>(
-              future: cameraInitialization,
-                builder:(context,snapshot){
-                  if(snapshot.hasData) {
-                    print('snapshot has data');
-                    return _buildCameraPreview();
-                  }
-                  else {
-                    return SizedBox(
-                      height: 332.h,
-                      width: 332.w,
-                      child: Center(child: CircularProgressIndicator()));
-                  }
-                }
-            ),
-              Center(
-                child: SizedBox(
-                  height: 332.h,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 42.h,
-                        width: 117.w,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFD9D9D9).withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(100)
+              children:[
+                FutureBuilder<bool>(
+                    future: cameraInitialization,
+                    builder:(context,snapshot){
+                      if(snapshot.hasData) {
+                        print('snapshot has data');
+                        return _buildCameraPreview();
+                      }
+                      else {
+                        return SizedBox(
+                            height: 332.h,
+                            width: 332.w,
+                            child: Center(child: CircularProgressIndicator()));
+                      }
+                    }
+                ),
+                Center(
+                  child: SizedBox(
+                    height: 332.h,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 42.h,
+                          width: 117.w,
+                          decoration: BoxDecoration(
+                              color: Color(0xFFD9D9D9).withOpacity(0.3),
+                              borderRadius: BorderRadius.circular(100)
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              //Image.asset('assets/images/rec.png'),
+                              SizedBox(width: 15.w,),
+                              Text('...סורק',style: TextStyle(color: Colors.black,fontSize: 18.sp),),
+                              //User().regImages[2] !=null?Text('צולם בהצלחה',style: TextStyle(color: Colors.white),):Text(''),
+                            ],
+                          ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            //Image.asset('assets/images/rec.png'),
-                             SizedBox(width: 15.w,),
-                            Text('...סורק',style: TextStyle(color: Colors.black,fontSize: 18.sp),),
-                            //User().regImages[2] !=null?Text('צולם בהצלחה',style: TextStyle(color: Colors.white),):Text(''),
-                          ],
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ]),
+              ]),
 
 
           SizedBox(height: 60.h,),

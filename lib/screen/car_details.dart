@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../Flow/Rental/Dialogs.dart';
 import '../customWidgets/appBarB.dart';
 import '../models/car.dart';
 import '../services/api_service.dart';
@@ -283,11 +284,16 @@ class _CarDetailsState extends State<CarDetails>{
                                                 ),
                                               ),
                                               Spacer(),
-                                              //replace to ICONBUTTON
-                                              ImageIcon(AssetImage("assets/images/edit.png"),color:Color(
-                                                  0xFF00DEDE),),
+                                              IconButton(
+                                                constraints: const BoxConstraints(minWidth: 20, maxWidth: 20),
+                                                padding: EdgeInsets.zero,
+                                               // iconSize: 20.w,
+                                                icon:  ImageIcon(AssetImage("assets/images/edit.png"),color:Color(
+                                                    0xFF00DEDE),),
+                                                onPressed: ()=> {  rentalTerm(context,),},
+                                              ),
                                             ],),
-                                            SizedBox(height: 20.h),
+                                            SizedBox(height: 20.h,),
                                             Row(children: [
                                               ImageIcon(AssetImage("assets/images/Calendar.png"),color:Color(0xFF0F1511),size: 20.w,),
                                               SizedBox(width: 9.w,),
@@ -301,14 +307,13 @@ class _CarDetailsState extends State<CarDetails>{
                                                 ),
                                               ),
                                               Spacer(),
-                                              //replace to ICONBUTTON
-                                              ImageIcon(AssetImage("assets/images/edit.png"),color:Color(
-                                                  0xFF00DEDE),),
                                               IconButton(
-                                                iconSize: 20.w,
+                                                padding: EdgeInsets.zero,
+                                                 constraints: const BoxConstraints(minWidth: 20, maxWidth: 20),
+                                               // iconSize: 20.w,
                                                 icon:  ImageIcon(AssetImage("assets/images/edit.png"),color:Color(
                                                     0xFF00DEDE),),
-                                                onPressed: ()=> {  Navigator.pop(context),},
+                                                onPressed: ()=> {  departurePoint(context,),},
                                               ),
                                             ],),
 
@@ -421,17 +426,7 @@ class _CarDetailsState extends State<CarDetails>{
                   ],
 
                 ),/*;
-                /*child: Container(
-width: 47,
-height: 383,
-decoration: BoxDecoration(
-gradient: LinearGradient(
-begin: Alignment(-1.00, -0.00),
-end: Alignment(1, 0),
-colors: [Colors.white, Colors.white.withOpacity(0)],
-),
-),
-),*/
+
               }
               return const Center(child: CircularProgressIndicator());
             }

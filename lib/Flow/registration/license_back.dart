@@ -53,7 +53,7 @@ class _LicenseBackState extends State<LicenseBack> {
             Text(
               'סרוק רישיון',
               style: TextStyle(
-                fontSize: 24.sp,
+                fontSize: 28.sp,
                 fontWeight: FontWeight.w600,
                 color: Color.fromRGBO(15, 17, 21, 1),
                 fontFamily: 'PLONI',
@@ -65,7 +65,7 @@ class _LicenseBackState extends State<LicenseBack> {
               child: Text(
                 'לצורך הסריקה נשתמש בטכנולוגית SC במידה וניתקלתם בבעיה פנו לנציג החברה',
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.w400,
                   color:  Color.fromRGBO(15, 17, 21, 1),
                   fontFamily: 'PLONI',
@@ -80,7 +80,7 @@ class _LicenseBackState extends State<LicenseBack> {
               child: Stack(
                 children: [
                   Center(child: Image.asset('assets/images/rect.png',)),
-                  Center(child: Text('פתח מצלמה',style: TextStyle(color: Color(0xFFD9D9D9),fontSize: 20.sp))),
+                  Center(child: Text('פתח מצלמה',style: TextStyle(color: Color(0xFFD9D9D9),fontSize: 24.sp))),
                   InkWell(
                     onTap: _onCameraButtonPressed,
                   ),
@@ -91,7 +91,7 @@ class _LicenseBackState extends State<LicenseBack> {
             Text(
               'רשיון נהיגה צד אחורי',
               style: TextStyle(
-                fontSize: 20.sp,
+                fontSize: 24.sp,
                 fontWeight: FontWeight.w500,
                 color:  Color.fromRGBO(15, 17, 21, 1),
                 fontFamily: 'PLONI',
@@ -113,7 +113,7 @@ class _LicenseBackState extends State<LicenseBack> {
                   backgroundColor: Color.fromRGBO(247, 247, 247, 1),
                   center: Padding(
                     padding: EdgeInsets.only(left: 65.w,),
-                    child: Text('2/3',style: TextStyle(color: Colors.white, fontSize: 9.sp ),),
+                    child: Text('2/3',style: TextStyle(color: Colors.white, fontSize: 12.sp ),),
                   ),
                 ),
               ],
@@ -121,7 +121,7 @@ class _LicenseBackState extends State<LicenseBack> {
 
             SizedBox(height: 12.h),
             Container(
-              height: 42.h,
+              height: 36.h,
               width: 332.w,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(251, 37, 118, 1),
@@ -134,7 +134,7 @@ class _LicenseBackState extends State<LicenseBack> {
                          context,
                          MaterialPageRoute(builder: (context) => const PersonalDetailsForm()));
                   },
-                  child: const Text('הבא (רק לצורך הדגמה)',style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),)),
+                  child: const Text('הבא (רק לצורך הדגמה)',style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),)),
             ),
             SizedBox(height: 12.h),
             Row(
@@ -142,7 +142,7 @@ class _LicenseBackState extends State<LicenseBack> {
               children: [
                 SizedBox(
                   width: 129.w,
-                  height: 42.h,
+                  height: 48.h,
                   child: FloatingActionButton.extended(
                     label: Text('תמיכה',),
                     heroTag: "btn2",
@@ -155,7 +155,7 @@ class _LicenseBackState extends State<LicenseBack> {
 
                 SizedBox(
                   width: 183.w,
-                  height: 42.h,
+                  height: 48.h,
                   child: FloatingActionButton.extended(
                     label: Text('העלאת תמונה'),
                     heroTag: "btn1",

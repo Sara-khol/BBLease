@@ -20,6 +20,7 @@ class WelcomeForm extends StatefulWidget {
 class _WelcomeFormState extends State<WelcomeForm>{
   List<Car> listCars=[];
 
+
  @override
   void initState() {
 
@@ -39,12 +40,12 @@ class _WelcomeFormState extends State<WelcomeForm>{
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
            // SizedBox(height: 56.h),
-            Text("Welcome to Bibilease",style: TextStyle(color: Color.fromRGBO(251, 37, 118, 1),fontWeight: FontWeight.w700,fontSize: 26.sp,),),
-            SizedBox(height: 40.h),
+            Text("Welcome to Bibilease",style: TextStyle(color: Color.fromRGBO(251, 37, 118, 1),fontWeight: FontWeight.w700,fontSize: 30.sp,),),
+            SizedBox(height: 36.h),
             Image.asset('assets/images/BB.png',width: 392.w, fit: BoxFit.cover,),
-            SizedBox(height: 60.h),
+            SizedBox(height: 48.h),
             Container(
-              height: 42.h,
+              height: 48.h,
               width: 332.w,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(0, 222, 222, 1),
@@ -57,15 +58,15 @@ class _WelcomeFormState extends State<WelcomeForm>{
                     Navigator.push(
                         context,
                         //MaterialPageRoute(builder: (context) => const SearchCar()));
-                        MaterialPageRoute(builder: (context) => const Rental()));
+                        MaterialPageRoute(builder: (context) => const RentalWidget()));
                     //departurePoint(context);
 
                   },
-                  child: Text('צפו בסרטון ההדרכה שלנו',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),)),
+                  child: Text('צפו בסרטון ההדרכה שלנו',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
             ),
             SizedBox(height: 12.h),
             Container(
-              height: 42.h,
+              height: 48.h,
               width: 332.w,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(251, 37, 118, 1),
@@ -78,9 +79,9 @@ class _WelcomeFormState extends State<WelcomeForm>{
                   onPressed: (){
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const ActiveRentDetails()));
+                          MaterialPageRoute(builder: (context) => const RentalWidget()));
                   },
-                  child:  Text('הבא',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),)),
+                  child:  Text('הבא',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
             ),
           ],
         ),

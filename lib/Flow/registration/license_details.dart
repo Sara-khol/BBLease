@@ -44,7 +44,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                      Text('פרטי רשיון נהיגה',style: TextStyle(
-                      fontSize: 24.sp,
+                      fontSize: 28.sp,
                       fontWeight: FontWeight.w600,
                       color:  Color.fromRGBO(15, 17, 21, 1),
                       fontFamily: 'PLONI',
@@ -57,7 +57,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   decoration: InputDecoration(
                     isDense: true,
                     labelText: "מספר רשיון נהיגה",
-                    labelStyle:  TextStyle(fontSize: 18.sp,
+                    labelStyle:  TextStyle(fontSize: 22.sp,
                       fontWeight: FontWeight.w300,
                       color:  Color.fromRGBO(15, 17, 21, 1),
                       fontFamily: 'PLONI', ),
@@ -93,7 +93,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   decoration: InputDecoration(
                       isDense: true,
                       labelText: "תוקף",
-                      labelStyle:  TextStyle(fontSize: 18.sp,
+                      labelStyle:  TextStyle(fontSize: 22.sp,
                         fontWeight: FontWeight.w300,
                         color:  Color.fromRGBO(15, 17, 21, 1),
                         fontFamily: 'PLONI', ),
@@ -136,7 +136,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   decoration: InputDecoration(
                       isDense: true,
                       labelText: "תאריך הנפקה",
-                      labelStyle:  TextStyle(fontSize: 18.sp,
+                      labelStyle:  TextStyle(fontSize: 22.sp,
                         fontWeight: FontWeight.w300,
                         color:  Color.fromRGBO(15, 17, 21, 1),
                         fontFamily: 'PLONI', ),
@@ -180,7 +180,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   decoration: InputDecoration(
                     isDense: true,
                     labelText: "דרגת רשיון",
-                    labelStyle:  TextStyle(fontSize: 18.sp,
+                    labelStyle:  TextStyle(fontSize: 22.sp,
                       fontWeight: FontWeight.w300,
                       color:  Color.fromRGBO(15, 17, 21, 1),
                       fontFamily: 'PLONI', ),
@@ -215,7 +215,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                 ListTileTheme(
                   horizontalTitleGap: 1.0,
                   child: CheckboxListTile(
-                    title: Text("נהג חדש",style: TextStyle(fontFamily: 'PLONI',fontSize: 18.h,color: Color.fromRGBO(15, 21, 17, 1)),),
+                    title: Text("נהג חדש",style: TextStyle(fontFamily: 'PLONI',fontSize: 22.h,color: Color.fromRGBO(15, 21, 17, 1)),),
                     value: User().isNewDriver,
                     onChanged:(bool? value) {
                       User().isNewDriver = value!;
@@ -230,7 +230,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   ),
                 ),
                 Container(
-                  height: 42.h,
+                  height: 48.h,
                   width: 250.w,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(0, 222, 222, 1),
@@ -249,7 +249,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                               MaterialPageRoute(builder: (context) => const SucssesRegistrationForm()));
                         }
                       },
-                      child: const Text('הבא',style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),)),
+                      child: const Text('הבא',style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),)),
                 ),
               ],
             ),

@@ -1,4 +1,4 @@
-import 'package:bblease/Flow/registration/terms_and_conditions.dart';
+import 'package:bblease/Flow/terms_and_conditions.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,7 +35,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 121.h,),
-              Text("הזן מספר טלפון להרשמה",style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w600,color:Color.fromRGBO(15, 21, 17, 1),),),
+              Text("הזן מספר טלפון להרשמה",style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.w600,color:Color.fromRGBO(15, 21, 17, 1),),),
               SizedBox(height: 50.h,),
               Form(
                 child: TextFormField(
@@ -44,7 +44,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
                   decoration: InputDecoration(
                     isDense: true,
                     labelText: "מס' נייד",
-                    labelStyle:  TextStyle(fontSize: 18.sp,
+                    labelStyle:  TextStyle(fontSize: 22.sp,
                       fontWeight: FontWeight.w300,
                       color:  Color.fromRGBO(15, 17, 21, 1),
                     ),
@@ -65,7 +65,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
                     prefixIconConstraints: BoxConstraints(maxHeight: 26,),
                     prefixIconColor: Color.fromRGBO(251, 37, 118, 1),
                   ),
-                  style:  TextStyle(fontSize: 18.sp,
+                  style:  TextStyle(fontSize: 22.sp,
                     fontWeight: FontWeight.w300,
                     color:  Color.fromRGBO(15, 17, 21, 1)),
                   validator: (value) {
@@ -82,7 +82,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
                   decoration: InputDecoration(
                     isDense: true,
                     labelText: "הזן סיסמא שהתקבלה",
-                    labelStyle:  TextStyle(fontSize: 18.sp,
+                    labelStyle:  TextStyle(fontSize: 22.sp,
                       fontWeight: FontWeight.w300,
                       color:  Color.fromRGBO(15, 17, 21, 1),
                     ),
@@ -103,7 +103,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
                     prefixIconConstraints: BoxConstraints(maxHeight: 26,),
                     prefixIconColor: Color.fromRGBO(251, 37, 118, 1),
                   ),
-                  style:  TextStyle(fontSize: 18.sp,
+                  style:  TextStyle(fontSize: 22.sp,
                       fontWeight: FontWeight.w300,
                       color:  Color.fromRGBO(15, 17, 21, 1)),
                   validator: (value) {
@@ -146,12 +146,12 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
                   TextButton(
                     onPressed: () {
                     },
-                      child: Text('שלח שוב SMS',style: TextStyle(fontWeight: FontWeight.w300,fontSize: 18.sp,decoration: TextDecoration.underline,color: Colors.black),)
+                      child: Text('שלח שוב SMS',style: TextStyle(fontWeight: FontWeight.w300,fontSize: 22.sp,decoration: TextDecoration.underline,color: Colors.black),)
                   ),
                   TextButton(
                       onPressed: () {
                       },
-                      child: Text('שלח שוב שיחה קולית',style: TextStyle(fontWeight: FontWeight.w300,fontSize: 18.sp,decoration: TextDecoration.underline,color: Colors.black),)
+                      child: Text('שלח שוב שיחה קולית',style: TextStyle(fontWeight: FontWeight.w300,fontSize: 22.sp,decoration: TextDecoration.underline,color: Colors.black),)
                   ),
                   SizedBox(height: 100.h,),
                 ],
@@ -159,7 +159,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
               Padding(
                 padding:  EdgeInsets.only(bottom: 40.h),
                 child: Container(
-                  height: 42.h,
+                  height: 48.h,
                   width: 332.w,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(0, 222, 222, 1),
@@ -173,7 +173,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
                         setState(() { });
                         //TODO: send verification code from server.
                         },
-                      child: Text('אישור',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),)),
+                      child: Text('אישור',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
                 ),
               ),
             ],

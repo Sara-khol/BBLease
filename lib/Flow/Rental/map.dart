@@ -6,17 +6,18 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+
 import 'dialogs.dart';
 
 
-class Rental extends StatefulWidget {
-  const Rental({Key? key}) : super(key: key);
+class RentalWidget extends StatefulWidget {
+  const RentalWidget({super.key});
 
   @override
-  _RentalState createState() => _RentalState();
+  _RentalWidgetState createState() => _RentalWidgetState();
 }
 
-class _RentalState extends State<Rental> {
+class _RentalWidgetState extends State<RentalWidget> {
 
   late GoogleMapController _mapController;
 
@@ -74,7 +75,7 @@ class _RentalState extends State<Rental> {
     }
   }
 
-   CameraPosition _kGoogle = CameraPosition(target: LatLng(31.802364052347162, 35.09444909735681), zoom: 17,);
+  CameraPosition _kGoogle = CameraPosition(target: LatLng(31.802364052347162, 35.09444909735681), zoom: 17,);
   final List<Marker> _markers = <Marker>[];
 
   //List<String> images = ['assets/images/Vector.png',];
@@ -98,8 +99,6 @@ class _RentalState extends State<Rental> {
     return(await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
 
   }
-
-
 
 // created method for displaying custom markers according to index
   loadData() async{
@@ -130,8 +129,18 @@ class _RentalState extends State<Rental> {
   void initState() {
     super.initState();
     _setCurrentLocation();
-    //loadData();
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void disposeController(){
+    print('dispose...');
+    _mapController.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -152,9 +161,11 @@ class _RentalState extends State<Rental> {
       // below line displays google map in our app
       onMapCreated: (GoogleMapController controller){
         _mapController=controller;
-        departurePoint(context);
+        Navigator.pop(context);
+        departurePoint(context,disposeController);
       },
         ),
     );
   }
+
 }

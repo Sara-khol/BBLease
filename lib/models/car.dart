@@ -6,39 +6,50 @@ part 'car.g.dart';
 @JsonSerializable()
 class Car{
   @JsonKey(name: 'ID')
-  late String id;
-  @JsonKey(name: 'post_name')
-  late String postName;
+  late int id;
+  /*@JsonKey(name: 'post_name')
+  late String postName;*/
   @JsonKey(name: 'car_number')
-  late String carNumber;
+  late int carNumber;
   @JsonKey(name: 'model')
   late String model;
+  @JsonKey(name: 'seats_number')
+  late int seats;
+  @JsonKey(name: 'doors_number')
+  late int doors;
   @JsonKey(name: 'safety_chair')
   late bool safetyChair;
   @JsonKey(name: 'price_per_day')
   late int pricePerDay;
   @JsonKey(name: 'price_per_hour')
   late int pricePerHour;
-  @JsonKey(name: 'fuel_status')
-  late double fueltatus;
+  @JsonKey(name: 'car_type')
+  late String type;
+ /* @JsonKey(name: 'fuel_status')
+  late double fuelStatus;*/
   @JsonKey(name: 'fuel_container_max')
   late double maxFuel;
   @JsonKey(name: 'city')
   late String city;
-  @JsonKey(name: 'number_vehicle_chip')
-  late String numberVehicleChip;
+  /*@JsonKey(name: 'number_vehicle_chip')
+  late String numberVehicleChip;*/
+
+
 
   Car({
     required this.id,
     required this.carNumber,
     required this.model,
+    required this.seats,
+    required this.doors,
     required this.safetyChair,
     required this.pricePerDay,
     required this.pricePerHour,
-    required this.fueltatus,
+    required this.type,
+    //required this.fuelStatus,
     required this.city,
     required this.maxFuel,
-    required this.numberVehicleChip,
+    //required this.numberVehicleChip,
   });
 
   /// Connect the generated [_$PersonFromJson] function to the `fromJson`
@@ -48,3 +59,5 @@ class Car{
   /// Connect the generated [_$PersonToJson] function to the `toJson` method.
   Map<String, dynamic> toJson() => _$CarToJson(this);
 }
+
+enum carType{mini,hybrid,family,VIP}

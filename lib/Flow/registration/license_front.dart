@@ -48,7 +48,7 @@ class _LicenseFrontState extends State<LicenseFront> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: 110.h,),
+            SizedBox(height: 90.h,),
             Text(
               'סרוק רישיון',
               style: TextStyle(
@@ -73,7 +73,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                 textDirection: TextDirection.rtl,
               ),
             ),
-            SizedBox(height: 60.h),
+            SizedBox(height: 40.h),
             SizedBox(
               height: 270.h,
               child: Stack(
@@ -86,7 +86,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                 ],
               ),
             ),
-            SizedBox(height: 50.h,),
+            SizedBox(height: 45.h,),
             Text(
               'רשיון נהיגה צד קדמי',
               style: TextStyle(
@@ -98,7 +98,7 @@ class _LicenseFrontState extends State<LicenseFront> {
               textAlign: TextAlign.center,
               textDirection: TextDirection.rtl,
             ),
-            SizedBox(height: 53.h),
+            SizedBox(height: 40.h),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -144,11 +144,12 @@ class _LicenseFrontState extends State<LicenseFront> {
                   width: 129.w,
                   height: 48.h,
                   child: FloatingActionButton.extended(
-                    label: Text('תמיכה',),
+                    label: Text('תמיכה',style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
+                    elevation: 2,
                     heroTag: "btn2",
                     backgroundColor: Color.fromRGBO(0, 222, 222, 1),
                     onPressed: ()=>_cameraController.pausePreview(),
-                    icon: Image.asset('assets/images/PhoneW.png',width: 18.w,),
+                    icon: Icon(Icons.phone_outlined,size: 22.sp,color: Colors.white,)
                   ),
                 ),
                 SizedBox(width: 20.w),
@@ -157,12 +158,12 @@ class _LicenseFrontState extends State<LicenseFront> {
                   width: 183.w,
                   height: 48.h,
                   child: FloatingActionButton.extended(
-
-                    label: Text('העלאת תמונה'),
+                    elevation: 2,
+                    label: Text('העלאת תמונה',style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
                     heroTag: "btn1",
                     backgroundColor:  Color.fromRGBO(0, 222, 222, 1),
                     onPressed: _onUploadButtonPressed,
-                    icon:  Image.asset('assets/images/Upload.png',width: 18.w,),
+                    icon:  Icon(Icons.file_upload_outlined,size: 22.sp,color: Colors.white,)
                   ),
                 ),
               ],

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:bblease/models/car.dart';
@@ -5,11 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:bblease/screen/car_details.dart';
+import 'package:bblease/Flow/Rental/car_details.dart';
 
 
-import '../models/class_rent.dart';
-import '../services/api_service.dart';
+import '../../../models/class_rent.dart';
+import '../../../services/api_service.dart';
 
 class SearchCar extends StatefulWidget {
   SearchCar({super.key,
@@ -17,8 +19,8 @@ class SearchCar extends StatefulWidget {
     required this.latitude,
     required this.longitude,
     required this.startDate,
-    required this.endDate,
-    required this.notifyIsMountedFn});
+    required this.endDate
+    });
 
   String location;
   double? latitude;
@@ -26,7 +28,6 @@ class SearchCar extends StatefulWidget {
   DateTime? startDate;
   DateTime? endDate;
 
-  final Function() notifyIsMountedFn;
 
   @override
   State<SearchCar> createState() => _SearchCarState();
@@ -34,23 +35,18 @@ class SearchCar extends StatefulWidget {
 
 class _SearchCarState extends State<SearchCar> {
 
-
   List<Car> cars=[];
   Map<String, List<Car>> filteredCarsMap = {};
 
   final _controller = ScrollController();
-
+  bool showProgressIndicator = true;
+  late Rental rent;
 
   double _currentSliderValue = 3;
   String type='all';
 
-  late int count;
-
   @override
   void initState()  {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      widget.notifyIsMountedFn();
-    });
     getCarsList();
     super.initState();
   }
@@ -61,30 +57,25 @@ class _SearchCarState extends State<SearchCar> {
     super.dispose();
   }
 
-  getCarsList()  {
-     ApiService().getCarsInBranch('ירושלים',(car){
+  getCarsList()  async{
+    String start=intl.DateFormat('dd.MM.yyyy').format(widget.startDate!);
+    String end=intl.DateFormat('dd.MM.yyyy').format(widget.endDate!);
+     await ApiService().getCarsAround(start,end,widget.latitude!,widget.longitude!,_currentSliderValue.toInt()*10,(car){
       cars = car.map<Car>((entry) => (Car.fromJson(entry))).toList();
       setState(() {});
       createMap();
     });
-
-
   }
 
   createMap(){
     filteredCarsMap['all']=cars;
     for (var car in cars) {
-      // Check if the type is already a key in the map
       if (filteredCarsMap.containsKey(car.type)) {
-        // If yes, add the car to the existing list
         filteredCarsMap[car.type]!.add(car);
       } else {
-        // If no, create a new list with the car and add it to the map
         filteredCarsMap[car.type] = [car];
       }
     }
-    print('filteredCarsMap: $filteredCarsMap');
-    print('cars: $cars');
   }
 
   @override
@@ -92,32 +83,20 @@ class _SearchCarState extends State<SearchCar> {
   return Scaffold(
     body: Directionality(
       textDirection: TextDirection.rtl,
-      child: cars.isNotEmpty?
+      child:
       Stack(
         children: [
           Column(
             children: [
-              SizedBox(height:32.h),
-              Directionality(textDirection: TextDirection.ltr,child: AppBarBibilease()),
+            SizedBox(height:32.h),
+            Directionality(textDirection: TextDirection.ltr,child: AppBarBibilease()),
             SizedBox(height:60.h),
-            Text('הי, מצאנו באזורך ${cars.length} רכבים',
-              style: TextStyle(
-                color: Color(0xFF0F1511),
-                fontSize: 28.sp,
-                fontWeight: FontWeight.w600,
-                height: 1.2,
-              ),),
-            Text('${widget.location}  ${intl.DateFormat('dd.MM.yy').format(widget.startDate!)} ',
-              style: TextStyle(
-                color: const Color(0xFF0F1511),
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w400,
-                height: 1.15,
-              ),),
+            Text('הי, מצאנו באזורך ${cars.length} רכבים',style: TextStyle(color: Color(0xFF0F1511), fontSize: 28.sp, fontWeight: FontWeight.w600, height: 1.2,),),
+            Text('${widget.location}  ${intl.DateFormat('dd.MM.yy').format(widget.startDate!)} ',style: TextStyle(color: const Color(0xFF0F1511), fontSize: 18.sp, fontWeight: FontWeight.w400, height: 1.15,),),
             SizedBox(height: 16.h),//26
             topButtons(context),
             SizedBox(height: 13.h),//23
-            MediaQuery.removePadding(
+            cars.isNotEmpty?MediaQuery.removePadding(
               context: context,
               removeTop: true,
               child: type=='all'?
@@ -135,12 +114,12 @@ class _SearchCarState extends State<SearchCar> {
                     },
                     child: Container(
                       width: 347.w,
-                      height: 152.h, margin:  EdgeInsets.only(right: 23.w,left: 23.w,bottom: 12.h,),
+                      height: 152.h,
+                      margin:  EdgeInsets.only(right: 23.w,left: 23.w,bottom: 12.h,),
                       child: Stack(
-                      children: [
+                        children: [
                          Card(
                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-                           //elevation: 0,
                            shadowColor: Colors.transparent,
                            margin: EdgeInsets.only(left:20.w),
                            color: Color(0xffF7F7F7),
@@ -154,14 +133,10 @@ class _SearchCarState extends State<SearchCar> {
                                      crossAxisAlignment: CrossAxisAlignment.start,
                                      children: [
                                        Text(car.model.length > 12 ? '${car.model.substring(0, 12)}...' : '${car.model}',style: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.w700,height: 1,),),
-                                      // SizedBox(height: 4.h),
                                        Text('או רכב זהה',style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w400,height: 1.15,),),
-                                       //SizedBox(height: 3.h),
                                        Text('נמצא במרחק 0.5ק"מ',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
                                        Expanded(child: SizedBox(height: 29.h)),
-
                                        Text('${car.pricePerDay} ₪  |  ליום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
-                                       //SizedBox(height: 6.h),
                                        Text('${car.pricePerDay*widget.endDate!.difference(widget.startDate!).inDays} ₪  |  סה"כ',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,height: 1.15,),),
                                      ],
                                    ),
@@ -170,10 +145,9 @@ class _SearchCarState extends State<SearchCar> {
                                      child: Align( alignment: Alignment.topLeft,
                                          child: Icon(Icons.circle,color: Color(0xFF04AEB9),size: 8.w,)),
                                    ),),
-                                     ],),
+                                 ],),
                              ),
                            ),
-
                           ),
                         IntrinsicHeight(
                            child: Align(
@@ -183,10 +157,8 @@ class _SearchCarState extends State<SearchCar> {
                                  child: Image.asset('assets/images/car-only.png', )),
                            )
                          ),
-
                         ],
                      ),
-
                    ),
                  );
                 },
@@ -211,7 +183,6 @@ class _SearchCarState extends State<SearchCar> {
                         children: [
                           Card(
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-                            //elevation: 0,
                             shadowColor: Colors.transparent,
                             margin: EdgeInsets.only(left:20.w),
                             color: Color(0xffF7F7F7),
@@ -225,14 +196,10 @@ class _SearchCarState extends State<SearchCar> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(car.model.length > 12 ? '${car.model.substring(0, 12)}...' : '${car.model}',style: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.w700,height: 1,),),
-                                        // SizedBox(height: 4.h),
                                         Text('או רכב זהה',style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w400,height: 1.15,),),
-                                        //SizedBox(height: 3.h),
                                         Text('נמצא במרחק 0.5ק"מ',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
                                         Expanded(child: SizedBox(height: 29.h)),
-
                                         Text('${car.pricePerDay} ₪  |  ליום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
-                                        //SizedBox(height: 6.h),
                                         Text('${car.pricePerDay*widget.endDate!.difference(widget.startDate!).inDays} ₪  |  סה"כ',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,height: 1.15,),),
                                       ],
                                     ),
@@ -244,7 +211,6 @@ class _SearchCarState extends State<SearchCar> {
                                   ],),
                               ),
                             ),
-
                           ),
                           IntrinsicHeight(
                               child: Align(
@@ -254,31 +220,41 @@ class _SearchCarState extends State<SearchCar> {
                                     child: Image.asset('assets/images/car-only.png', )),
                               )
                           ),
-
                         ],
                       ),
-
                     ),
                   );
                 },
-              )
-                  :Text('לא נמצאו תוצאות עבור: ${type}')
-
-              ,),],),
+              ) :Text('לא נמצאו תוצאות עבור: ${type}')
+              ,):
+            Center(
+              child: FutureBuilder(
+                future: Future.delayed(Duration(seconds: 5)),
+                builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    // If the Future is still running, show the progress indicator
+                    return CircularProgressIndicator();
+                  } else {
+                    // If the Future is complete, update the UI accordingly
+                    return Text('לא נמצאו רכבים באזורך');
+                  }
+                },
+              ),
+            ),
+      ]
+    ),
           Align(
             alignment: Alignment.bottomCenter,
               child: Container(
                 height: 100,
                 color: Colors.white.withOpacity(0.6),))
         ],
-      ):
-      Center(child: CircularProgressIndicator()),
-
+      )
     ),
   );
   }
 
-  topButtons(BuildContext context) {
+  topButtons(context) {
     return Container(
       //color: Colors.yellow,
       width: 393.w,
@@ -286,32 +262,27 @@ class _SearchCarState extends State<SearchCar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(child: SizedBox(width:48.w,)),
+          SizedBox(width:25.w,),
           TextButton(
             onPressed: () => {filterCarType(context,_controller),},
               child: Row(children: [
                 Text(
-                'סנן',
+                'סנן ',
                 style: TextStyle(
                   color: Color(0xFF0F1511),
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w400,
-
                 ),
 
               ),
-              SizedBox(
-                width: 20.w,
-                height: 20.h,
-                child: Icon(Icons.filter_alt_outlined,color: Color(0xffFB2576),),
-              ),
+              Icon(Icons.filter_alt_outlined,color: Color(0xffFB2576),size: 20.sp,),
              ], ),),
           //Spacer(),
           //SizedBox(width:33.w,),
           TextButton(  onPressed: () => {rentalTerm(context, )},
             child: Row(children: [
               Text(
-                ' שנה תאריך ',
+                ' שנה תאריך  ',
                 style: TextStyle(
                   color: const Color(0xFF0F1511),
                   fontSize: 18.sp,
@@ -322,8 +293,7 @@ class _SearchCarState extends State<SearchCar> {
             SizedBox(
                 width: 20.w,
                 height:20.h,
-
-                child: Icon(Icons.edit_calendar_outlined,color: Color(0xffFB2576),)),
+                child: Icon(Icons.edit_calendar_outlined,color: Color(0xffFB2576),size: 20.sp,)),
             ],
             ),),
           //Spacer(),
@@ -350,11 +320,11 @@ class _SearchCarState extends State<SearchCar> {
     );
   }
 
-  filterCarType(BuildContext context, _controller,){
+  filterCarType( context, _controller,){
     return showModalBottomSheet(
       //isScrollControlled: true,
         context: context,
-        builder: (BuildContext context)=>
+        builder: ( context)=>
             Directionality(
               textDirection: TextDirection.rtl,
               child: Container(
@@ -457,6 +427,7 @@ class _SearchCarState extends State<SearchCar> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            SizedBox(width: 100.w,),
                             Text(
                               'סנן לפי סוג הרכב',
                               textAlign: TextAlign.center,
@@ -467,20 +438,18 @@ class _SearchCarState extends State<SearchCar> {
                               ),
                             ),
                             SizedBox(width: 8.w,),
-                            Icon(Icons.filter_alt_outlined,color: Color(0xffFB2576),size: 20.w,),
-                          ],
-                        ),
-                        //SizedBox(height: 9.h,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
+                            Icon(Icons.filter_alt_outlined,color: Color(0xffFB2576),size: 24.w,),
+                            Spacer(),
                             TextButton(
                               style: TextButton.styleFrom(
                                   minimumSize: Size(80, 20),
                                   padding: EdgeInsets.all(0)),
-                              onPressed: ()=>setState(() =>type='all'),
+                              onPressed: ()=> {
+                                setState(() => type = 'all'),
+                                Navigator.pop(context),
+                              },
                               child: Text(
-                                'הצג הכל ',
+                                'נקה סינון',
                                 style: TextStyle(
                                   color: Color(0xFFFB2576),
                                   fontSize: 18.sp,
@@ -490,21 +459,20 @@ class _SearchCarState extends State<SearchCar> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 34.w,)
+                            SizedBox(width: 34.w,),
                           ],
                         ),
+                        SizedBox(width: 34.w,),
                         //SizedBox(height: 10.h,),
                       ],
                     ),
                   ],
                 ),
-                    ),
+              ),
             ),
         barrierColor: Colors.white10.withOpacity(0.1),
         isDismissible: true,
-        elevation: 5,
-       // shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),)
-
+        elevation: 2,
     );
   }
 
@@ -551,12 +519,12 @@ class _SearchCarState extends State<SearchCar> {
     );
   }
 
-  expansionSearch(BuildContext context, _controller,sliderValue){
+  expansionSearch( context, _controller,sliderValue){
     return showModalBottomSheet(
       //isScrollControlled: true,
 
       context: context,
-      builder: (BuildContext context)=>
+      builder: ( context)=>
           Directionality(
             textDirection: TextDirection.rtl,
             child: Container(
@@ -764,7 +732,7 @@ class _SearchCarState extends State<SearchCar> {
     );
   }
 
-  rentalTerm(BuildContext context){
+  rentalTerm( context){
 
     TextEditingController start=TextEditingController(text: intl.DateFormat('dd.MM.yyyy').format(widget.startDate!));
     TextEditingController end=TextEditingController(text: intl.DateFormat('dd.MM.yyyy').format(widget.endDate!));
@@ -781,18 +749,17 @@ class _SearchCarState extends State<SearchCar> {
         isScrollControlled: true,
         isDismissible: false,
         context: context,
-        builder: (BuildContext context) {
+        builder: ( context) {
           return StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
+              builder: ( context, StateSetter setState) {
 
                 void _setEndDateBasedOnSelection() {
                   if (widget.startDate != null && diff != null) {
                     DateTime calculatedEndDate = widget.startDate!.add(Duration(days: diff!.toInt()));
                     end.text = intl.DateFormat('dd.MM.yyyy').format(calculatedEndDate);
                     widget.endDate = calculatedEndDate;
-                    Rental().startDate=widget.startDate!;
-                    Rental().endDate=widget.endDate!;
-
+                    rent.startDate=widget.startDate!;
+                    rent.endDate=widget.endDate!;
                     //setState((){});
                   }
                 }

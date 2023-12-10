@@ -1,11 +1,12 @@
 import 'dart:async';
 
 import 'package:bblease/Flow/Rental/map.dart';
-import 'package:bblease/screen/search_car.dart';
+import 'package:bblease/Flow/Rental/search_car.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_place/google_place.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart' as intl;
 
 import '../../models/class_rent.dart';
@@ -14,10 +15,13 @@ import '../../models/class_rent.dart';
 double? latitude;
 double? longitude;
 String location='';
+late Rental rent;
 
-Future departurePoint(BuildContext context, Function() func ){
+Future departurePoint( context ,address){
+  print('dialog address: $address');
 
-  TextEditingController controller=TextEditingController();
+
+  TextEditingController controller=TextEditingController(text: address);
   DetailsResult? searchedPlace;
 
   late GooglePlace googlePlace=GooglePlace('AIzaSyBfvApaTLzPlCzL3LakX6DBbj2l7NMBRV4');
@@ -38,7 +42,7 @@ Future departurePoint(BuildContext context, Function() func ){
       isScrollControlled: true,
       isDismissible: false,
       context: context,
-      builder: (BuildContext context)=>
+      builder: ( context)=>
           Padding(
             padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Directionality(
@@ -166,7 +170,7 @@ Future departurePoint(BuildContext context, Function() func ){
                                   child: Text('אישור',style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.w500),),
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    rentalTerm(context, func);
+                                    rentalTerm(context);
                                   },
                                 ),
                               ),
@@ -190,8 +194,7 @@ Future departurePoint(BuildContext context, Function() func ){
 }
 
 
-Future rentalTerm(BuildContext context, Function() func){
-
+Future rentalTerm( context){
 
   TextEditingController start=TextEditingController();
   TextEditingController end=TextEditingController();
@@ -210,17 +213,17 @@ Future rentalTerm(BuildContext context, Function() func){
       isScrollControlled: true,
       isDismissible: false,
       context: context,
-      builder: (BuildContext context) {
+      builder: ( context) {
         return StatefulBuilder(
-            builder: (BuildContext context, StateSetter setState) {
+            builder: ( context, StateSetter setState) {
 
               void _setEndDateBasedOnSelection() {
                 if (startDate != null && diff != null) {
                   DateTime calculatedEndDate = startDate!.add(Duration(days: diff!.toInt()));
                   end.text = intl.DateFormat('dd.MM.yyyy').format(calculatedEndDate);
                   endDate = calculatedEndDate;
-                  Rental().startDate=startDate!;
-                  Rental().endDate=endDate!;
+                  rent.startDate=startDate!;
+                  rent.endDate=endDate!;
 
                   //setState((){});
                 }
@@ -434,7 +437,7 @@ Future rentalTerm(BuildContext context, Function() func){
                                               longitude: longitude,
                                               startDate: startDate,
                                               endDate: endDate,
-                                          notifyIsMountedFn: func,)));
+                                         )));
                                     },
                                     child: const Text('אישור', style: TextStyle(
                                         fontSize: 22,

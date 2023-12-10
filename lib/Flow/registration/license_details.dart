@@ -64,20 +64,12 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
                     enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
                       color: Color.fromRGBO(15, 17, 21, 1),
-                    ),
-                    ),
+                    ),),
                     focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
                       color: Color.fromRGBO(15, 17, 21, 1),
-                    ),
-                    ),
-                    errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                      color: Color.fromRGBO(15, 17, 21, 1),
-                    ),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                      color:Colors.redAccent,
-                    ),
-                    ),
+                    ),),
+                    errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(color: Color.fromRGBO(15, 17, 21, 1),),),
+                    focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(color:Colors.redAccent,),),
                     contentPadding:  EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
                   ),
                   style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
@@ -240,7 +232,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       ),
                       onPressed: (){
                         if(_formKey.currentState!.validate()) {
-                          User().firstName=_licenseId.text;
+                          User().licenseId=_licenseId.text;
                           User().licenseDegree=_degree.text;
                           User().licenseIssDate=iss;
                           User().licenseExpDate=exp;

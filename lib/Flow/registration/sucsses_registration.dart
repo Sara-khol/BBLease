@@ -1,3 +1,5 @@
+import 'package:bblease/Flow/Rental/map.dart';
+import 'package:bblease/models/class_rent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../models/class_user.dart';
@@ -42,6 +44,9 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm>{
                             ),
                           ),
                           onPressed: (){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) =>  RentalWidget()));
 
                           },
                             child: const Text('לעבור לביצוע הזמנה',style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),)),
@@ -54,12 +59,14 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm>{
                         child: FloatingActionButton.extended(
                           label: Text('צא מהאפליקציה',style: TextStyle(letterSpacing: 0.1,fontSize: 22, fontWeight: FontWeight.w500),),
                           heroTag: "btn2",
+                          elevation: 2,
                           backgroundColor: Color.fromRGBO(0, 222, 222, 1),
                           icon: Icon(
                             Icons.exit_to_app_outlined,
                             fill: 0,
                             color: Colors.white,
-                          ), onPressed: () {  Navigator.push(
+                          ), onPressed: () {
+                            Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => const WelcomeForm())); },
                         ),

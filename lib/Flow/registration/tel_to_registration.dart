@@ -3,6 +3,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../services/api_service.dart';
+
 
 class TelToRegistrationForm extends StatefulWidget {
   const TelToRegistrationForm({Key? key}) : super(key: key);
@@ -21,6 +23,19 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
   void initState(){
     super.initState();
   }
+
+  late int code;
+
+
+  getVerificationCode()  async{
+
+   await ApiService().getVerificationCode('0533117988', (value){
+     setState(() {
+       code=value;
+     });
+   });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +185,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
                       onPressed: (){
                         if(checkboxValue1==true)
                         flag=true;
-                        setState(() { });
+                        getVerificationCode();
                         //TODO: send verification code from server.
                         },
                       child: Text('אישור',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),

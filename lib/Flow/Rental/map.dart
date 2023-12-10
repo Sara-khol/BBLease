@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:flutter_address_from_latlng/flutter_address_from_latlng.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 
@@ -20,7 +21,7 @@ class RentalWidget extends StatefulWidget {
 class _RentalWidgetState extends State<RentalWidget> {
 
   late GoogleMapController _mapController;
-
+  Address? formattedAddress;
   Future<Position> _determinePosition() async{
     bool serviceEnabled;
     LocationPermission permission;
@@ -42,13 +43,18 @@ class _RentalWidgetState extends State<RentalWidget> {
     Position position =await Geolocator.getCurrentPosition();
 
     return position;
-
   }
 
   void _setCurrentLocation() async {
     try {
       Position position = await _determinePosition();
+      formattedAddress = await FlutterAddressFromLatLng().getStreetAddress(
+        latitude: position.latitude,
+        longitude: position.longitude,
+        googleApiKey: 'AIzaSyBfvApaTLzPlCzL3LakX6DBbj2l7NMBRV4',
+      );
 
+      print('address: ${formattedAddress?.formattedAddress}');
       CameraPosition updatedPosition = CameraPosition(
         target: LatLng(position.latitude, position.longitude),
         zoom: 17,
@@ -70,6 +76,10 @@ class _RentalWidgetState extends State<RentalWidget> {
       setState(() {
         _kGoogle = updatedPosition;
       });
+
+        print('going to dialog');
+        departurePoint(context, formattedAddress?.formattedAddress);
+
     } catch (e) {
       print("There was an issue fetching the location: $e");
     }
@@ -133,12 +143,8 @@ class _RentalWidgetState extends State<RentalWidget> {
 
   @override
   void dispose() {
-    super.dispose();
-  }
-
-  void disposeController(){
-    print('dispose...');
     _mapController.dispose();
+    super.dispose();
   }
 
 
@@ -161,9 +167,10 @@ class _RentalWidgetState extends State<RentalWidget> {
       // below line displays google map in our app
       onMapCreated: (GoogleMapController controller){
         _mapController=controller;
-        Navigator.pop(context);
-        departurePoint(context,disposeController);
-      },
+
+        //Navigator.pop(context);
+
+        },
         ),
     );
   }

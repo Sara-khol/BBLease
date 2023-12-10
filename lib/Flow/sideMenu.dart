@@ -1,4 +1,5 @@
 
+import 'package:bblease/Flow/UserInformation/ordersHistory.dart';
 import 'package:bblease/Flow/terms_and_conditions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,7 +7,7 @@ import 'package:side_sheet/side_sheet.dart';
 
 import '../models/class_user.dart';
 
-Future sideMenu(BuildContext context){
+Future sideMenu( context){
   return SideSheet.right(
     body: Padding(
       padding: EdgeInsets.only(left: 22.w,right: 20.w),
@@ -159,7 +160,7 @@ Future sideMenu(BuildContext context){
   );
 }
 
-Future personalArea(BuildContext context){
+Future personalArea( context){
   return SideSheet.right(
     body: Padding(
         padding: EdgeInsets.only(left: 20.w,right: 20.w),
@@ -248,9 +249,7 @@ Future personalArea(BuildContext context){
                     ],
                   ),
                 ),
-                onPressed: () {
-
-                },
+                onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => OrdersHistory(),)),
               ),
               const Spacer(),
               SizedBox(

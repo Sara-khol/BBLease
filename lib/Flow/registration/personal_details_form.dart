@@ -20,7 +20,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _firstName=TextEditingController(text: User().firstName.isNotEmpty?User().firstName:'');
   TextEditingController _lastName=TextEditingController(text: User().lastName.isNotEmpty?User().lastName:'');
-  TextEditingController _name=TextEditingController(text: User().firstName.isNotEmpty?User().firstName+ ''+User().lastName:'');
+  TextEditingController _name=TextEditingController(text: User().firstName.isNotEmpty?User().firstName+ ' '+User().lastName:'');
   TextEditingController _id=TextEditingController(text: User().id.isNotEmpty?User().id:'');
   TextEditingController _date=TextEditingController(text: User().birthDate==null?intl.DateFormat('dd-mm-yyyy').format(User().birthDate):null);
   TextEditingController _email=TextEditingController();
@@ -376,7 +376,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                         color:  Color.fromRGBO(15, 17, 21, 1),
                         fontFamily: 'PLONI', ),
                       controller: _password,
-                      validator: (value) {
+                      /*validator: (value) {
                         RegExp regex = RegExp(r'^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
                           if (value==null||regex.hasMatch(value)) {
                             return 'סיסמה לא תקינה';
@@ -384,7 +384,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                           else {
                             return null;
                           }
-                      },
+                      },*/
                     ),
                     Text('סיסמה תקינה כוללת אות אחת לפחות, ספרה אחת לפחות, ותו מיוחד אחד לפחות, באורך 8 תווים לפחות.',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w300),),
                     SizedBox(height: 5.h,),

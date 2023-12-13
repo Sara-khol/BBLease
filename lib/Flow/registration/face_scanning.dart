@@ -234,9 +234,9 @@ class _FaceScanningState extends State<FaceScanning> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('סרוק פנים',style: TextStyle(color: Colors.black,fontSize: 24.sp,fontWeight: FontWeight.w600),),
+          Text('סרוק פנים',style: TextStyle(color: Colors.black,fontSize: 28.sp,fontWeight: FontWeight.w600),),
           SizedBox(height: 40.h,),
-          Text('עמוד מול המצלמה',style: TextStyle(color: Colors.black,fontSize: 16.sp,fontWeight: FontWeight.w400)),
+          Text('עמוד מול המצלמה',style: TextStyle(color: Colors.black,fontSize: 20.sp,fontWeight: FontWeight.w400)),
           SizedBox(height: 35.h,),
           Stack(
               children:[
@@ -263,7 +263,7 @@ class _FaceScanningState extends State<FaceScanning> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          height: 42.h,
+                          height: 48.h,
                           width: 117.w,
                           decoration: BoxDecoration(
                               color: Color(0xFFD9D9D9).withOpacity(0.3),
@@ -274,7 +274,7 @@ class _FaceScanningState extends State<FaceScanning> {
                             children: [
                               //Image.asset('assets/images/rec.png'),
                               SizedBox(width: 15.w,),
-                              Text('...סורק',style: TextStyle(color: Colors.black,fontSize: 18.sp),),
+                              Text('...סורק',style: TextStyle(color: Colors.black,fontSize: 22.sp),),
                               //User().regImages[2] !=null?Text('צולם בהצלחה',style: TextStyle(color: Colors.white),):Text(''),
                             ],
                           ),
@@ -301,22 +301,22 @@ class _FaceScanningState extends State<FaceScanning> {
                 backgroundColor: Color.fromRGBO(247, 247, 247, 1),
                 center: Padding(
                   padding: EdgeInsets.only(left: 270.w,),
-                  child: Text('3/3',style: TextStyle(color: Colors.white, fontSize: 9.sp ),),
+                  child: Text('3/3',style: TextStyle(color: Colors.white, fontSize: 12.sp ),),
                 ),
               ),
             ],
           ),
-          SizedBox(height: 66.h,),
+          SizedBox(height: 60.h,),
 
           Container(
             width: 332.w,
-            height: 42.h,
+            height: 48.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(25)),
               color: Color(0xFF00DEDE),
             ),
             child: TextButton(
-              child: Text('תמיכה',style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w500),),
+              child: Text('תמיכה',style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.w500),),
               onPressed: () {
                 //TODO: call for help
 

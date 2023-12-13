@@ -4,22 +4,24 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:flutter_address_from_latlng/flutter_address_from_latlng.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 
 import 'dialogs.dart';
 
 
-class Rental extends StatefulWidget {
-  const Rental({Key? key}) : super(key: key);
+class RentalWidget extends StatefulWidget {
+  const RentalWidget({super.key});
 
   @override
-  _RentalState createState() => _RentalState();
+  _RentalWidgetState createState() => _RentalWidgetState();
 }
 
-class _RentalState extends State<Rental> {
+class _RentalWidgetState extends State<RentalWidget> {
 
   late GoogleMapController _mapController;
-
+  Address? formattedAddress;
   Future<Position> _determinePosition() async{
     bool serviceEnabled;
     LocationPermission permission;
@@ -41,13 +43,18 @@ class _RentalState extends State<Rental> {
     Position position =await Geolocator.getCurrentPosition();
 
     return position;
-
   }
 
   void _setCurrentLocation() async {
     try {
       Position position = await _determinePosition();
+      formattedAddress = await FlutterAddressFromLatLng().getStreetAddress(
+        latitude: position.latitude,
+        longitude: position.longitude,
+        googleApiKey: 'AIzaSyBfvApaTLzPlCzL3LakX6DBbj2l7NMBRV4',
+      );
 
+      print('address: ${formattedAddress?.formattedAddress}');
       CameraPosition updatedPosition = CameraPosition(
         target: LatLng(position.latitude, position.longitude),
         zoom: 17,
@@ -69,12 +76,16 @@ class _RentalState extends State<Rental> {
       setState(() {
         _kGoogle = updatedPosition;
       });
+
+        print('going to dialog');
+        departurePoint(context, formattedAddress?.formattedAddress);
+
     } catch (e) {
       print("There was an issue fetching the location: $e");
     }
   }
 
-   CameraPosition _kGoogle = CameraPosition(target: LatLng(31.802364052347162, 35.09444909735681), zoom: 17,);
+  CameraPosition _kGoogle = CameraPosition(target: LatLng(31.802364052347162, 35.09444909735681), zoom: 17,);
   final List<Marker> _markers = <Marker>[];
 
   //List<String> images = ['assets/images/Vector.png',];
@@ -98,8 +109,6 @@ class _RentalState extends State<Rental> {
     return(await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
 
   }
-
-
 
 // created method for displaying custom markers according to index
   loadData() async{
@@ -130,8 +139,14 @@ class _RentalState extends State<Rental> {
   void initState() {
     super.initState();
     _setCurrentLocation();
-    //loadData();
   }
+
+  @override
+  void dispose() {
+    _mapController.dispose();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -152,9 +167,12 @@ class _RentalState extends State<Rental> {
       // below line displays google map in our app
       onMapCreated: (GoogleMapController controller){
         _mapController=controller;
-        departurePoint(context);
-      },
+
+        //Navigator.pop(context);
+
+        },
         ),
     );
   }
+
 }

@@ -2,7 +2,7 @@ import 'package:cross_file_image/cross_file_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../models/class_user.dart';
+import '../models/class_user.dart';
 
 class Terms extends StatefulWidget {
   const Terms({Key? key}) : super(key: key);
@@ -38,10 +38,10 @@ class _TermsState extends State<Terms> {
 
             SizedBox(
               width: 332.w,
-              height: 42.h,
+              height: 48.h,
               child: FloatingActionButton.extended(
                 label: Text('חזרה', style: TextStyle(letterSpacing: 0.1,
-                    fontSize: 18,
+                    fontSize: 22.sp,
                     fontWeight: FontWeight.w500),),
                 heroTag: "btn2",
                 backgroundColor: Color.fromRGBO(0, 222, 222, 1),

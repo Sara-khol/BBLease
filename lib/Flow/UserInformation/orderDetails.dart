@@ -1,0 +1,524 @@
+import 'package:bblease/Flow/welcome.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../customWidgets/appBarB.dart';
+import 'package:flutter_file_downloader/flutter_file_downloader.dart';
+import '../../models/class_rent.dart';
+import 'package:intl/intl.dart' as intl;
+
+import '../../services/api_service.dart';
+
+class OrderDetails extends StatefulWidget {
+  const OrderDetails({Key? key,required this.rent}) : super(key: key);
+
+   final Rental rent;
+
+  @override
+  State<OrderDetails> createState() => _OrderDetailsState();
+}
+
+class _OrderDetailsState extends State<OrderDetails> {
+
+  @override
+  void initState(){
+    super.initState();
+  }
+
+  int isDownloaded=0;
+  Widget downloadIcon=Icon(Icons.download,color: Colors.white,);
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child:
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 32.h),
+              const Directionality(textDirection: TextDirection.ltr, child: AppBarBibilease()),
+              SizedBox(height: 50.h),
+              Text(' הסטוריית הזמנות > פירוט הזמנה ',
+                style: TextStyle(
+                  color: Color(0xFF0F1511),
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w400,
+                  height: null,
+                ),
+              ),
+              Text(widget.rent.car.model,
+                textAlign: TextAlign.right,
+                style: TextStyle(
+                  color: Color(0xFF0F1511),
+                  fontSize: 34.sp,
+                  fontWeight: FontWeight.w700,
+                  height: null,
+                ),
+              ),
+              SizedBox(height: 24.h),
+              Container(
+                height: 130.h,
+                width: 292.w,
+                child: Image.asset('assets/images/car-only.png', width: 290.w, height: 126.h,fit: BoxFit.fitWidth),
+              ),
+              SizedBox(height: 20.h),
+              Expanded(
+                child: Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 10.w),
+                    child: RawScrollbar(
+                      thumbVisibility: true,
+                      thumbColor: Color(0xFF00DEDE),
+                      thickness: 3,
+                      child: Scrollbar(
+                        thumbVisibility: true,
+                        child: Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: ListView(
+                            padding: EdgeInsets.only(left: 17.w, right: 11.w,),
+                            shrinkWrap: true,
+                            children: [
+                              Stack(
+                                children: [
+                                  Container(
+                                    width: 355.w,
+                                    margin: EdgeInsets.only(top: 13.h),
+                                    decoration: ShapeDecoration(
+                                      color: Color(0xFFF6F6F6),
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.only(right: 33.w, left: 50.w),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(height: 40.h),
+                                          Row(
+                                            children: [
+                                              Text('מספר הזמנה: ${widget.rent.orderNum} ',
+                                                style: TextStyle(
+                                                  color: Color(0xFF0F1511),
+                                                  fontSize: 20.sp,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                              Spacer(),
+                                              Text(intl.DateFormat('dd.MM.yyyy').format(widget.rent.startDate),
+                                                style: TextStyle(
+                                                  color: Color(0xFF0F1511),
+                                                  fontSize: 20.sp,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 20.h,),
+                                          Text(widget.rent.car.model,
+                                            style: TextStyle(
+                                              color: Color(0xFF0F1511),
+                                              fontSize: 32.sp,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+
+                                          Row(
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  Text('מספר רכב',
+                                                    style: TextStyle(
+                                                      color: Color(0xFF0F1511),
+                                                      fontSize: 18.sp,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  Text(widget.rent.car.carNumber.toString(),
+                                                    style: TextStyle(
+                                                      color: Color(0xFF0F1511),
+                                                      fontSize: 20.sp,
+                                                      fontWeight: FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(width: 60.w,),
+                                              Column(
+                                                children: [
+                                                  Text('קטגוריית רכב',
+                                                    style: TextStyle(
+                                                      color: Color(0xFF0F1511),
+                                                      fontSize: 18.sp,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  Text(widget.rent.car.type,
+                                                    style: TextStyle(
+                                                      color: Color(0xFF0F1511),
+                                                      fontSize: 20.sp,
+                                                      fontWeight: FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(height: 20.h),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.topCenter,
+                                    child: Container(
+                                      width: 140.w,
+                                      height: 36.h,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 20.w,
+                                          vertical: 6.h),
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: ShapeDecoration(
+                                        color: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(25),
+                                        ),
+                                        shadows: [
+                                          BoxShadow(
+                                            color: Color(0x33A7A7A7),
+                                            blurRadius: 40,
+                                            offset: Offset(0, 4),
+                                            spreadRadius: 0,
+                                          )
+                                        ],
+                                      ),
+                                      child: Center(child: Text('פרטי הזמנה', style: TextStyle(color: Color(0xFF0F1511), fontSize: 22.sp, fontWeight: FontWeight.w400,),)),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 30.h),
+                              Stack(
+                                children: [
+                                  Container(
+                                    width: 355.w,
+                                    margin: EdgeInsets.only(top: 17.h),
+                                    decoration: ShapeDecoration(
+                                      color: Color(0xFFF6F6F6),
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),
+                                      ),
+                                    ),
+                                    child: Padding(padding: EdgeInsets.only(right: 30.w, left: 20.w),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(height: 23.h),
+                                          Row(
+                                            children: [
+                                              Icon(Icons.fmd_good_outlined, color: Color(0xFF0F1511),size: 20.w),
+                                              SizedBox(width: 9.w,),
+                                              Text(widget.rent.car.city, style: TextStyle(color: Color(0xFF0F1511), fontSize: 20.sp, fontWeight: FontWeight.w400,),),
+                                              SizedBox(width: 36.w,),
+                                              Icon(Icons.calendar_today_outlined,size: 20.w),
+                                              SizedBox(width: 16.w,),
+                                              Column(
+                                                children: [
+                                                  Text(" מ- ${intl.DateFormat('dd.MM.yyyy').format(widget.rent.startDate)}", style: TextStyle(color: Color(0xFF0F1511), fontSize: 18.sp, fontWeight: FontWeight.w400,),),
+                                                  Text(" עד- ${intl.DateFormat('dd.MM.yyyy').format(widget.rent.startDate)}", style: TextStyle(color: Color(0xFF0F1511), fontSize: 18.sp, fontWeight: FontWeight.w400,),),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text('כולל', style: TextStyle(color: Color(0xFF0F1511), fontSize: 20.sp, fontWeight: FontWeight.w600, height: 1.15,),),
+                                              Row(
+                                                children: [
+                                                  Icon(Icons.check, color: Color(0xFF00DEDE),),
+                                                  SizedBox(width: 9.w,),
+                                                  Text('ביטוח', style: TextStyle(color: Color(0xFF0F1511), fontSize: 20.sp, fontWeight: FontWeight.w400,),),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Icon(Icons.check, color: Color(0xFF00DEDE),),
+                                                  SizedBox(width: 9.w,),
+                                                  Text('ללא הגבלת קילומטרים', style: TextStyle(color: Color(0xFF0F1511), fontSize: 20.sp, fontWeight: FontWeight.w400, ),),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Icon(Icons.check, color: Color(0xFF00DEDE),),
+                                                  SizedBox(width: 9.w,),
+                                                  Text('השתתפות עצמית בנזקים', style: TextStyle(color: Color(0xFF0F1511), fontSize: 20.sp, fontWeight: FontWeight.w400,),),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 20.h,)
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Align(
+                                      alignment: Alignment.topCenter,
+                                      child: Container(
+                                        width: 150.w,
+                                        height: 36.h,
+                                        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
+                                        clipBehavior: Clip.antiAlias,
+                                        decoration: ShapeDecoration(
+                                          color: Colors.white,
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
+                                          shadows: const [BoxShadow(color: Color(0x33A7A7A7), blurRadius: 40, offset: Offset(0, 4), spreadRadius: 0,)],
+                                        ),
+                                        child: Center(child: Text('פרטי השכרה',textAlign: TextAlign.center,style: TextStyle(color: Color(0xFF0F1511), fontSize: 22.sp, fontWeight: FontWeight.w400,),)),
+                                      )
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 30.h),
+                              Stack(
+                                children: [
+                                  Container(
+                                    width: 355.w,
+                                    //height: 265.h,
+                                    margin: EdgeInsets.only(top: 13.h),
+                                    decoration: ShapeDecoration(
+                                      color: Color(0xFFF6F6F6),
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),
+                                      ),
+                                    ),
+                                    child: Padding(padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(height: 40.h),
+                                          Row(
+                                            children: [
+                                              Text('סך הכל לתשלום',style: TextStyle(fontWeight: FontWeight.w700,fontSize: 24.sp),),
+                                              SizedBox(width: 40.w,),
+                                              Text('${widget.rent.price} ₪',style: TextStyle(fontWeight: FontWeight.w700,fontSize: 24.sp),),
+                                            ],
+                                          ),
+                                          TextButton(
+                                            onPressed: () =>paymentDetails(context),
+                                            child: Text('  פירוט התשלום >  ',style: TextStyle(fontSize: 18.sp,color: Colors.black),))
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Align(
+                                      alignment: Alignment.topCenter,
+                                      child: Container(
+                                        width: 97.w,
+                                        height: 36.h,
+                                        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
+                                        clipBehavior: Clip.antiAlias,
+                                        decoration: ShapeDecoration(
+                                          color: Colors.white,
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
+                                          shadows: const [BoxShadow(color: Color(0x33A7A7A7), blurRadius: 40, offset: Offset(0, 4), spreadRadius: 0,)],
+                                        ),
+                                        child: Center(
+                                          child: Text('תשלום',textAlign: TextAlign.center,style: TextStyle(color: Color(0xFF0F1511), fontSize: 22.sp, fontWeight: FontWeight.w400,),),
+                                        ),
+                                      )
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 25.h),
+                              Container(
+                                height: 48.h,
+                                width: 332.w,
+                                child:
+                                ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Color.fromRGBO(0, 222, 222, 1),
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
+                                      elevation: 0.0,
+                                    ),
+                                    onPressed: () {
+                                      print(widget.rent.url);
+
+                                      FileDownloader.downloadFile(
+                                        url: widget.rent.url,
+                                        onProgress: (fileName, progress) => setState((){
+                                          isDownloaded=1;
+                                          downloadIcon=SizedBox(
+                                            height: 20.h,
+                                              width: 20.w,
+                                              child: CircularProgressIndicator(color: Colors.white,));
+                                        }),
+                                        onDownloadCompleted: (path) => setState((){
+                                          isDownloaded=2;
+                                          downloadIcon=Icon(Icons.check_circle_outline,color: Colors.white,);
+
+                                        }),
+                                      );
+                                    },
+
+                                    child: Padding(
+                                      padding:  EdgeInsets.symmetric(horizontal: 27.w),
+                                      child: Row(
+                                        children: [
+                                          if(isDownloaded==0)Text('להורדה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white),),
+                                          if(isDownloaded==1)Text('מוריד...',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white),),
+                                          if(isDownloaded==2)Text('ההורדה הושלמה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white),),
+                                          Spacer(),
+                                          downloadIcon
+                                        ],
+                                      ),
+                                    )
+                                ),
+                              ),
+                              SizedBox(height: 12.h),
+
+                              Container(
+                                height: 48.h,
+                                width: 332.w,
+                                child:
+                                ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Color.fromRGBO(0, 222, 222, 1),
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
+                                      elevation: 0.0,
+                                    ),
+                                    onPressed: () => Navigator.pop(context),
+
+                                    child: Padding(
+                                      padding:  EdgeInsets.symmetric(horizontal: 27.w),
+                                      child: Row(
+                                        children: [
+                                          Text('חזרה לאזור המידע',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white),),
+                                          Spacer(),
+                                          Icon(Icons.account_circle_outlined,color: Colors.white,)
+                                        ],
+                                      ),
+                                    )
+                                ),
+                              ),
+                              SizedBox(height: 20.h),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ]
+          )
+      )
+    );
+  }
+  
+  
+  paymentDetails(context){
+    return showModalBottomSheet<dynamic>(
+      isScrollControlled: true,
+      isDismissible: false,
+      context: context,
+      barrierColor: Colors.black12.withOpacity(0.1),
+      elevation: 2,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
+      builder: (context)=>
+          Directionality(
+            textDirection: TextDirection.rtl,
+            child: Container(
+              constraints: BoxConstraints(maxHeight: 240.h),
+              decoration: const ShapeDecoration(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25),),),
+                shadows: [
+                  BoxShadow(
+                    color: Color(0x3F000000),
+                    blurRadius: 250,
+                    offset: Offset(0, 4),
+                    spreadRadius: 0,
+                  )
+                ],
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding:  EdgeInsets.only(left: 30.w,right: 30.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('פירוט תשלום', style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w700,color: Colors.black),),
+                            SizedBox(width: 9.w,),
+                            Icon(Icons.credit_card,color: Color(0xFFFB2576),size: 24.sp,),
+                          ],
+                        ),
+                        SizedBox(height: 30.h,),
+                        Row(
+                          children: [
+                            Column(
+                              children: [
+                                Text('השכרה',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w400,color: Colors.black)),
+                                SizedBox(height: 17.h),
+                                Text('תוספות',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w400,color: Colors.black)),
+                                SizedBox(height: 17.h),
+                                Text('מע”מ',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w400,color: Colors.black)),
+                                SizedBox(height: 17.h),
+                                Text('סך הכל',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w400,color: Colors.black)),
+                              ],
+                            ),
+                            SizedBox(width: 50.h),
+                            Column(
+                              children: [
+                                Text('₪ ${widget.rent.car.pricePerDay*widget.rent.startDate.difference(widget.rent.endDate).inDays}',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
+                                SizedBox(height: 17.h),
+                                Text('₪ 00.00',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
+                                SizedBox(height: 17.h),
+                                Text('₪ 228.90',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
+                                SizedBox(height: 17.h),
+                                Text('₪ 639.30',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
+                              ],
+                            ),
+                            SizedBox(width: 50.h),
+                            Column(
+                              children: [
+                                Text('${widget.rent.startDate.difference(widget.rent.endDate).inDays} ימים * ${widget.rent.car.pricePerDay} ליום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500,color: Colors.black)),
+                                SizedBox(height: 17.h),
+                                Text('תוספות חינם',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500,color: Colors.black)),
+                                SizedBox(height: 17.h),
+                                Text('מס לפי מיקום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500,color: Colors.black)),
+                                SizedBox(height: 17.h),
+                                Text('כולל מע”מ',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500,color: Colors.black)),
+                              ],
+                            )
+
+                          ],
+                        ),
+                        SizedBox(height: 20.h,),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+    );
+  }
+}
+
+

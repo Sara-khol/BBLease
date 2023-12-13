@@ -20,12 +20,11 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _firstName=TextEditingController(text: User().firstName.isNotEmpty?User().firstName:'');
   TextEditingController _lastName=TextEditingController(text: User().lastName.isNotEmpty?User().lastName:'');
-  TextEditingController _name=TextEditingController(text: User().firstName.isNotEmpty?User().firstName+ ''+User().lastName:'');
+  TextEditingController _name=TextEditingController(text: User().firstName.isNotEmpty?User().firstName+ ' '+User().lastName:'');
   TextEditingController _id=TextEditingController(text: User().id.isNotEmpty?User().id:'');
   TextEditingController _date=TextEditingController(text: User().birthDate==null?intl.DateFormat('dd-mm-yyyy').format(User().birthDate):null);
   TextEditingController _email=TextEditingController();
   TextEditingController _phone=TextEditingController();
-  TextEditingController _password=TextEditingController();
   late DateTime bdate;
 
   bool checkboxValue1 = true;
@@ -58,7 +57,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       mainAxisAlignment: MainAxisAlignment.center ,
                       children: [
                         Text('פרטים אישיים',style: TextStyle(
-                          fontSize: 24.sp,
+                          fontSize: 28.sp,
                           fontWeight: FontWeight.w600,
                           color:  Color.fromRGBO(15, 17, 21, 1),
                           fontFamily: 'PLONI',
@@ -71,7 +70,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       decoration: InputDecoration(
                         isDense: true,
                           labelText: "שם פרטי",
-                          labelStyle:  TextStyle(fontSize: 18.sp.sp,
+                          labelStyle:  TextStyle(fontSize: 22.sp,
                             fontWeight: FontWeight.w300,
                             color:  Color.fromRGBO(15, 17, 21, 1),
                             fontFamily: 'PLONI', ),
@@ -107,7 +106,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       decoration: InputDecoration(
                           isDense: true,
                         labelText: "שם משפחה",
-                        labelStyle:  TextStyle(fontSize: 18.sp,
+                        labelStyle:  TextStyle(fontSize: 22.sp,
                           fontWeight: FontWeight.w300,
                           color:  Color.fromRGBO(15, 17, 21, 1),
                           fontFamily: 'PLONI', ),
@@ -142,7 +141,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       decoration: InputDecoration(
                           isDense: true,
                         labelText: "שם לחשבונית (לא חובה)",
-                        labelStyle:  TextStyle(fontSize: 18.sp,
+                        labelStyle:  TextStyle(fontSize: 22.sp,
                           fontWeight: FontWeight.w300,
                           color:  Color.fromRGBO(15, 17, 21, 1),
                           fontFamily: 'PLONI', ),
@@ -166,7 +165,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       decoration: InputDecoration(
                           isDense: true,
                         labelText: "תעודת זהות / דרכון",
-                        labelStyle:  TextStyle(fontSize: 18.sp,
+                        labelStyle:  TextStyle(fontSize: 22.sp,
                           fontWeight: FontWeight.w300,
                           color:  Color.fromRGBO(15, 17, 21, 1),
                           fontFamily: 'PLONI', ),
@@ -201,7 +200,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       decoration: InputDecoration(
                           isDense: true,
                         labelText: "תאריך לידה (מגיל 21 בלבד)",
-                        labelStyle:  TextStyle(fontSize: 18.sp,
+                        labelStyle:  TextStyle(fontSize: 22.sp,
                           fontWeight: FontWeight.w300,
                           color:  Color.fromRGBO(15, 17, 21, 1),
                           fontFamily: 'PLONI', ),
@@ -250,7 +249,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       decoration: InputDecoration(
                         isDense: true,
                         labelText: "אימייל",
-                        labelStyle:  TextStyle(fontSize: 18.sp,
+                        labelStyle:  TextStyle(fontSize: 22.sp,
                           fontWeight: FontWeight.w300,
                           color:  Color.fromRGBO(15, 17, 21, 1),
                           fontFamily: 'PLONI', ),
@@ -271,7 +270,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                         ),
                         ),
                         contentPadding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
-                        suffixIcon: Text("   הכנס אמייל פעיל  " , style:TextStyle(fontSize: 18.sp,
+                        suffixIcon: Text("   הכנס אמייל פעיל  " , style:TextStyle(fontSize: 22.sp,
                           fontWeight: FontWeight.w300,
                           color:  Color.fromRGBO(4, 174, 185, 1),
                           fontFamily: 'PLONI',
@@ -294,7 +293,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       decoration: InputDecoration(
                         isDense: true,
                         labelText: "מס' נייד",
-                        labelStyle:  TextStyle(fontSize: 18.sp,
+                        labelStyle:  TextStyle(fontSize: 22.sp,
                           fontWeight: FontWeight.w300,
                           color:  Color.fromRGBO(15, 17, 21, 1),
                           fontFamily: 'PLONI', ),
@@ -315,7 +314,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                         ),
                         ),
                         contentPadding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
-                        suffixIcon: Text("   הכנס נייד זמין  " , style:TextStyle(fontSize: 18.sp,
+                        suffixIcon: Text("   הכנס נייד זמין  " , style:TextStyle(fontSize: 22.sp,
                           fontWeight: FontWeight.w300,
                           color:  Color.fromRGBO(4, 174, 185, 1),
                           fontFamily: 'PLONI',
@@ -324,7 +323,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                         suffixIconConstraints: BoxConstraints(maxHeight: 26),
                       ),
                       style: TextStyle(
-                        fontSize: 18.sp,
+                        fontSize: 22.sp,
                         fontWeight: FontWeight.w300,
                         color:  Color.fromRGBO(15, 17, 21, 1),
                         fontFamily: 'PLONI', ),
@@ -334,65 +333,13 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                           return 'מספר לא תקין';
                       },
                     ),
-                    SizedBox(height: 12.h,),
-                    TextFormField(
-                      obscureText: true,
-                      cursorColor: Color.fromRGBO(15, 17, 21, 1),
-                      decoration: InputDecoration(
-                        isDense: true,
-                        labelText: "סיסמה",
-                        labelStyle:  TextStyle(fontSize: 18.sp,
-                          fontWeight: FontWeight.w300,
-                          color:  Color.fromRGBO(15, 17, 21, 1),
-                          fontFamily: 'PLONI', ),
-                        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                          color: Color.fromRGBO(15, 17, 21, 1),
-                        ),
-                        ),
-                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                          color: Color.fromRGBO(15, 17, 21, 1),
-                        ),
-                        ),
-                        errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                          color: Colors.red,
-                        ),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                          color:Colors.red,
-                        ),
-                        ),
-                        contentPadding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
-                        suffixIcon: Text("   הכנס סיסמה  " , style:TextStyle(fontSize: 18.sp,
-                          fontWeight: FontWeight.w300,
-                          color:  Color.fromRGBO(4, 174, 185, 1),
-                          fontFamily: 'PLONI',
-                        )
-                        ),
-                        suffixIconConstraints: BoxConstraints(maxHeight: 26),
-                      ),
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w300,
-                        color:  Color.fromRGBO(15, 17, 21, 1),
-                        fontFamily: 'PLONI', ),
-                      controller: _password,
-                      validator: (value) {
-                        RegExp regex = RegExp(r'^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
-                          if (value==null||regex.hasMatch(value)) {
-                            return 'סיסמה לא תקינה';
-                          }
-                          else {
-                            return null;
-                          }
-                      },
-                    ),
-                    Text('סיסמה תקינה כוללת אות אחת לפחות, ספרה אחת לפחות, ותו מיוחד אחד לפחות, באורך 8 תווים לפחות.',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w300),),
-                    SizedBox(height: 5.h,),
+                    SizedBox(height: 25.h,),
+
                     ListTileTheme(
                       horizontalTitleGap: 1.0,
                       child: CheckboxListTile(
                         title: Text("מעוניין לקבל מבצעים והטבות",
-                          style: TextStyle(fontFamily: 'PLONI',fontSize: 18.sp.h,color: Color.fromRGBO(15, 21, 17, 1)),
+                          style: TextStyle(fontFamily: 'PLONI',fontSize: 22.sp.h,color: Color.fromRGBO(15, 21, 17, 1)),
                         ),
                         value: checkboxValue1,
                         onChanged:(bool? value) {
@@ -409,7 +356,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       ),
                     ),
                     Container(
-                      height: 42.h,
+                      height: 48.h,
                       width: 332.w,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(0, 222, 222, 1),
@@ -426,7 +373,6 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                           User().birthDate=bdate;
                           User().email=_email.text;
                           User().phoneNumber=_phone.text;
-                          User().password=_password.text;
                           User().getNotification= checkboxValue1;
                             if(_formKey.currentState!.validate()) {
                               Navigator.push(
@@ -434,7 +380,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                                   MaterialPageRoute(builder: (context) => LicenseDetails()));
                             }
                           },
-                          child: Text('הבא',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),)),
+                          child: Text('הבא',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
                     ),
                     SizedBox(height: 40.h,),
                   ],

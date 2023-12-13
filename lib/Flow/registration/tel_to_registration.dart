@@ -1,7 +1,10 @@
-import 'package:bblease/Flow/registration/terms_and_conditions.dart';
+import 'package:bblease/Flow/terms_and_conditions.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../models/class_user.dart';
+import '../../services/api_service.dart';
 
 
 class TelToRegistrationForm extends StatefulWidget {
@@ -15,16 +18,36 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
   bool checkboxValue1 = false;
   TextEditingController _phone=TextEditingController();
   TextEditingController _code=TextEditingController();
-  bool flag=false;
+  bool sent=false;
+
 
   @override
   void initState(){
     super.initState();
   }
+  late int status;
+  late int vcode;
+
+
+  getVerificationCode()  async{
+    //TODO: צריך שיחזור סטטוס ומשתנה אופציונאלי קוד אימות.
+    //TODO: אחר כך לבצע קריאה נוספת לאימות קוד שהמשתמש הכניס.
+    //TODO: אחרי שהשלב עבר בהצלחה, והקוד שנכנת תקין, לעשות: mySharedPreferences.updateLastUsage();
+
+   await ApiService().getVerificationCode('0533117988', (value){
+     vcode=value[0];
+     if(value[1]!=null){
+      //TODO: save the data to User()
+      // User.fromJson(value[1]);
+      value[1].map<User>((entry) => (User.fromJson(entry))).toList();
+     }
+     setState(() {});
+   });
+  }
+
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body:
       Directionality(
@@ -35,54 +58,53 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 121.h,),
-              Text("הזן מספר טלפון להרשמה",style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w600,color:Color.fromRGBO(15, 21, 17, 1),),),
+              Text("הזן מספר טלפון להרשמה",style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.w600,color:Color.fromRGBO(15, 21, 17, 1),),),
               SizedBox(height: 50.h,),
-              Form(
-                child: TextFormField(
-                  controller: _phone,
-                  cursorColor: Color.fromRGBO(15, 17, 21, 1),
-                  decoration: InputDecoration(
-                    isDense: true,
-                    labelText: "מס' נייד",
-                    labelStyle:  TextStyle(fontSize: 18.sp,
-                      fontWeight: FontWeight.w300,
-                      color:  Color.fromRGBO(15, 17, 21, 1),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.auto,
-                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                      color: Color.fromRGBO(15, 17, 21, 1),
-                    ),
-                    ),
-                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                      color: Color.fromRGBO(15, 17, 21, 1),
-                    ),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20.0,),
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.only(right: 20.w,left: 14.w),
-                      child:  Icon(Icons.phone,size: 23.sp,color: Color(0xFFFF2D81))//Image.asset('assets/images/Phone.png', width: 24.w,),
-                    ),
-                    prefixIconConstraints: BoxConstraints(maxHeight: 26,),
-                    prefixIconColor: Color.fromRGBO(251, 37, 118, 1),
-                  ),
-                  style:  TextStyle(fontSize: 18.sp,
+              TextFormField(
+                controller: _phone,
+                cursorColor: Color.fromRGBO(15, 17, 21, 1),
+                decoration: InputDecoration(
+                  isDense: true,
+                  labelText: "מס' נייד",
+                  labelStyle:  TextStyle(fontSize: 22.sp,
                     fontWeight: FontWeight.w300,
-                    color:  Color.fromRGBO(15, 17, 21, 1)),
-                  validator: (value) {
-                    if(value==null || value.length<10)
-                      return 'מספר הטלפון חייב להיות בן 10 ספרות';
-                  },
+                    color:  Color.fromRGBO(15, 17, 21, 1),
+                  ),
+                  floatingLabelBehavior: FloatingLabelBehavior.auto,
+                  enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
+                    color: Color.fromRGBO(15, 17, 21, 1),
+                  ),
+                  ),
+                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
+                    color: Color.fromRGBO(15, 17, 21, 1),
+                  ),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20.0,),
+                  prefixIcon: Padding(
+                    padding: EdgeInsets.only(right: 20.w,left: 14.w),
+                    child:  Icon(Icons.phone,size: 23.sp,color: Color(0xFFFF2D81))//Image.asset('assets/images/Phone.png', width: 24.w,),
+                  ),
+                  prefixIconConstraints: BoxConstraints(maxHeight: 26,),
+                  prefixIconColor: Color.fromRGBO(251, 37, 118, 1),
                 ),
+                style:  TextStyle(fontSize: 22.sp,
+                  fontWeight: FontWeight.w300,
+                  color:  Color.fromRGBO(15, 17, 21, 1)),
+                validator: (value) {
+                  if(value==null || value.length<10)
+                    return 'מספר הטלפון חייב להיות בן 10 ספרות';
+                },
               ),
               SizedBox(height: 15.h,),
-              if(flag&&checkboxValue1)Form(
+              Visibility(
+                visible: sent&&checkboxValue1,
                 child: TextFormField(
                   controller: _code,
                   cursorColor: Color.fromRGBO(15, 17, 21, 1),
                   decoration: InputDecoration(
                     isDense: true,
                     labelText: "הזן סיסמא שהתקבלה",
-                    labelStyle:  TextStyle(fontSize: 18.sp,
+                    labelStyle:  TextStyle(fontSize: 22.sp,
                       fontWeight: FontWeight.w300,
                       color:  Color.fromRGBO(15, 17, 21, 1),
                     ),
@@ -103,63 +125,69 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
                     prefixIconConstraints: BoxConstraints(maxHeight: 26,),
                     prefixIconColor: Color.fromRGBO(251, 37, 118, 1),
                   ),
-                  style:  TextStyle(fontSize: 18.sp,
+                  style:  TextStyle(fontSize: 22.sp,
                       fontWeight: FontWeight.w300,
                       color:  Color.fromRGBO(15, 17, 21, 1)),
                   validator: (value) {
                     if(value==null || value.length<10)
                       return 'קוד שגוי';
                   },
-                ),
               ),
-              if(!flag)ListTileTheme(
-                horizontalTitleGap: 1.0,
-                child: CheckboxListTile(
-                  value: checkboxValue1,
-                  onChanged:(bool? value) {
-                    setState(() {
-                      checkboxValue1 = value!;
-                    });
-                  },
-                  title:
-                  Row(
-                    children: [
-                      Text( 'אני מאשר/ת את '),
-                      GestureDetector(
-                        onTap:() =>  Navigator.push(context, MaterialPageRoute(builder: (context) => const Terms())),
-                        child: Text ('תנאי השימוש',style: TextStyle( decoration: TextDecoration.underline),)
-                      ),
-                    ],
+                ),
+              Visibility(
+                visible: !sent,
+                child: ListTileTheme(
+                  horizontalTitleGap: 1.0,
+                  child: CheckboxListTile(
+                    value: checkboxValue1,
+                    onChanged:(bool? value) {
+                      setState(() {
+                        checkboxValue1 = value!;
+                      });
+                    },
+                    title:
+                    Row(
+                      children: [
+                        Text( 'אני מאשר/ת את '),
+                        GestureDetector(
+                          onTap:() =>  Navigator.push(context, MaterialPageRoute(builder: (context) => const Terms())),
+                          child: Text ('תנאי השימוש',style: TextStyle( decoration: TextDecoration.underline),)
+                        ),
+                      ],
+                    ),
+                    checkColor:  Color.fromRGBO(15, 21, 17, 1),
+                    activeColor: Colors.transparent,
+                    // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    controlAffinity: ListTileControlAffinity.leading,
+                    checkboxShape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4)),
+                    side: BorderSide(color:Color.fromRGBO(15, 21, 17, 1),width: 1.5,),
                   ),
-                  checkColor:  Color.fromRGBO(15, 21, 17, 1),
-                  activeColor: Colors.transparent,
-                  // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  controlAffinity: ListTileControlAffinity.leading,
-                  checkboxShape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4)),
-                  side: BorderSide(color:Color.fromRGBO(15, 21, 17, 1),width: 1.5,),
                 ),
               ),
               Spacer(),
-              if(flag)Column(
-                children: [
-                  TextButton(
-                    onPressed: () {
-                    },
-                      child: Text('שלח שוב SMS',style: TextStyle(fontWeight: FontWeight.w300,fontSize: 18.sp,decoration: TextDecoration.underline,color: Colors.black),)
-                  ),
-                  TextButton(
+              Visibility(
+                visible: sent,
+                child: Column(
+                  children: [
+                    TextButton(
                       onPressed: () {
                       },
-                      child: Text('שלח שוב שיחה קולית',style: TextStyle(fontWeight: FontWeight.w300,fontSize: 18.sp,decoration: TextDecoration.underline,color: Colors.black),)
-                  ),
-                  SizedBox(height: 100.h,),
-                ],
+                        child: Text('שלח שוב SMS',style: TextStyle(fontWeight: FontWeight.w300,fontSize: 22.sp,decoration: TextDecoration.underline,color: Colors.black),)
+                    ),
+                    TextButton(
+                        onPressed: () {
+                        },
+                        child: Text('שלח שוב שיחה קולית',style: TextStyle(fontWeight: FontWeight.w300,fontSize: 22.sp,decoration: TextDecoration.underline,color: Colors.black),)
+                    ),
+                    SizedBox(height: 100.h,),
+                  ],
+                ),
               ),
               Padding(
                 padding:  EdgeInsets.only(bottom: 40.h),
                 child: Container(
-                  height: 42.h,
+                  height: 48.h,
                   width: 332.w,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(0, 222, 222, 1),
@@ -168,12 +196,13 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
                         ),
                       ),
                       onPressed: (){
-                        if(checkboxValue1==true)
-                        flag=true;
-                        setState(() { });
+                        if(checkboxValue1==true) {
+                          sent = true;
+                          getVerificationCode();
+                        }
                         //TODO: send verification code from server.
                         },
-                      child: Text('אישור',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),)),
+                      child: Text('אישור',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
                 ),
               ),
             ],

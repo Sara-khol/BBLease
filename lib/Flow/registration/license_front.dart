@@ -48,11 +48,11 @@ class _LicenseFrontState extends State<LicenseFront> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: 110.h,),
+            SizedBox(height: 90.h,),
             Text(
               'סרוק רישיון',
               style: TextStyle(
-                fontSize: 24.sp,
+                fontSize: 28.sp,
                 fontWeight: FontWeight.w600,
                 color: Color.fromRGBO(15, 17, 21, 1),
                 fontFamily: 'PLONI',
@@ -64,7 +64,7 @@ class _LicenseFrontState extends State<LicenseFront> {
               child: Text(
                 'לצורך הסריקה נשתמש בטכנולוגית SC במידה וניתקלתם בבעיה פנו לנציג החברה',
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.w400,
                   color:  Color.fromRGBO(15, 17, 21, 1),
                   fontFamily: 'PLONI',
@@ -73,24 +73,24 @@ class _LicenseFrontState extends State<LicenseFront> {
                 textDirection: TextDirection.rtl,
               ),
             ),
-            SizedBox(height: 60.h),
+            SizedBox(height: 40.h),
             SizedBox(
               height: 270.h,
               child: Stack(
                 children: [
                   Center(child: Image.asset('assets/images/rect.png',)),
-                  Center(child: Text('פתח מצלמה',style: TextStyle(color: Color(0xFFD9D9D9),fontSize: 20.sp))),
+                  Center(child: Text('פתח מצלמה',style: TextStyle(color: Color(0xFFD9D9D9),fontSize: 24.sp))),
                   InkWell(
                     onTap: _onCameraButtonPressed,
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 50.h,),
+            SizedBox(height: 45.h,),
             Text(
               'רשיון נהיגה צד קדמי',
               style: TextStyle(
-                fontSize: 20.sp,
+                fontSize: 24.sp,
                 fontWeight: FontWeight.w500,
                 color:  Color.fromRGBO(15, 17, 21, 1),
                 fontFamily: 'PLONI',
@@ -98,7 +98,7 @@ class _LicenseFrontState extends State<LicenseFront> {
               textAlign: TextAlign.center,
               textDirection: TextDirection.rtl,
             ),
-            SizedBox(height: 53.h),
+            SizedBox(height: 40.h),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -113,7 +113,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                   backgroundColor: Color.fromRGBO(247, 247, 247, 1),
                   center: Padding(
                     padding: EdgeInsets.only(right: 140.w,),
-                    child: Text('1/3',style: TextStyle(color: Colors.white, fontSize: 9.sp ),),
+                    child: Text('1/3',style: TextStyle(color: Colors.white, fontSize: 12.sp ),),
                   ),
                 ),
               ],
@@ -121,7 +121,7 @@ class _LicenseFrontState extends State<LicenseFront> {
 
             SizedBox(height: 12.h),
             Container(
-              height: 42.h,
+              height: 36.h,
               width: 332.w,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(251, 37, 118, 1),
@@ -134,7 +134,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                          context,
                          MaterialPageRoute(builder: (context) => const LicenseBack()));
                   },
-                  child: const Text('הבא (רק לצורך הדגמה)',style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),)),
+                  child: const Text('הבא (רק לצורך הדגמה)',style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),)),
             ),
             SizedBox(height: 12.h),
             Row(
@@ -142,27 +142,28 @@ class _LicenseFrontState extends State<LicenseFront> {
               children: [
                 SizedBox(
                   width: 129.w,
-                  height: 42.h,
+                  height: 48.h,
                   child: FloatingActionButton.extended(
-                    label: Text('תמיכה',),
+                    label: Text('תמיכה',style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
+                    elevation: 2,
                     heroTag: "btn2",
                     backgroundColor: Color.fromRGBO(0, 222, 222, 1),
                     onPressed: ()=>_cameraController.pausePreview(),
-                    icon: Image.asset('assets/images/PhoneW.png',width: 18.w,),
+                    icon: Icon(Icons.phone_outlined,size: 22.sp,color: Colors.white,)
                   ),
                 ),
                 SizedBox(width: 20.w),
 
                 SizedBox(
                   width: 183.w,
-                  height: 42.h,
+                  height: 48.h,
                   child: FloatingActionButton.extended(
-
-                    label: Text('העלאת תמונה'),
+                    elevation: 2,
+                    label: Text('העלאת תמונה',style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
                     heroTag: "btn1",
                     backgroundColor:  Color.fromRGBO(0, 222, 222, 1),
                     onPressed: _onUploadButtonPressed,
-                    icon:  Image.asset('assets/images/Upload.png',width: 18.w,),
+                    icon:  Icon(Icons.file_upload_outlined,size: 22.sp,color: Colors.white,)
                   ),
                 ),
               ],

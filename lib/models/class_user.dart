@@ -34,7 +34,8 @@ class User{
   late String licenseDegree;
   bool isNewDriver=false;
 
-late String password;
+
+
 
   void setBirthDate(String dateString) {
     try {

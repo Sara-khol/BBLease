@@ -1,5 +1,6 @@
 
 import 'package:bblease/Flow/Rental/map.dart';
+import 'package:bblease/Flow/my_shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,7 +8,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bblease/Flow/Rental//search_car.dart';
 import 'Flow/welcome.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+await mySharedPreferences.initializeSharedPreferences(); // Initialize app state
+
   runApp(const MyApp());
 }
 

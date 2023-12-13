@@ -20,8 +20,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User()
   ..licenseExpDate = DateTime.parse(json['licenseExpDate'] as String)
   ..licenseIssDate = DateTime.parse(json['licenseIssDate'] as String)
   ..licenseDegree = json['licenseDegree'] as String
-  ..isNewDriver = json['isNewDriver'] as bool
-  ..password = json['password'] as String;
+  ..isNewDriver = json['isNewDriver'] as bool;
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'reg_images': User._imagesToJson(instance.regImages),
@@ -38,5 +37,4 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'licenseIssDate': instance.licenseIssDate.toIso8601String(),
       'licenseDegree': instance.licenseDegree,
       'isNewDriver': instance.isNewDriver,
-      'password': instance.password,
     };

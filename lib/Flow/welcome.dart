@@ -1,30 +1,15 @@
-import 'package:bblease/Flow/Rental/active_rent.dart';
+
 import 'package:bblease/Flow/UserInformation/ordersHistory.dart';
-import 'package:bblease/Flow/registration/license_front.dart';
-import 'package:bblease/Flow/registration/personal_details_form.dart';
+import 'package:bblease/Flow/navigation.dart';
 import 'package:bblease/Flow/registration/tel_to_registration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../models/car.dart';
-import '../Flow/Rental//search_car.dart';
-import '../services/api_service.dart';
-import 'Rental/dialogs.dart';
-import 'Rental/map.dart';
 
-class WelcomeForm extends StatefulWidget {
+
+class WelcomeForm extends StatelessWidget {
   const WelcomeForm({Key? key}) : super(key: key);
 
-  @override
-  State<StatefulWidget> createState() => _WelcomeFormState();
-  }
 
-class _WelcomeFormState extends State<WelcomeForm>{
-
-
- @override
-  void initState() {
-       super.initState();
-  }
   @override
   Widget build(BuildContext context) {
   return Scaffold(
@@ -50,13 +35,13 @@ class _WelcomeFormState extends State<WelcomeForm>{
                     elevation: 0.0,
                   ),
                   onPressed: (){
-                    Navigator.push(
+                   /* Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const OrdersHistory()));
+                        MaterialPageRoute(builder: (context) => const OrdersHistory()));*/
                     //departurePoint(context);
 
                   },
-                  child: Text('הרשמה (משתמש חדש)',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
+                  child: Text('צפו בסרטון ההדרכה שלנו',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
             ),
             SizedBox(height: 12.h),
             Container(
@@ -72,9 +57,9 @@ class _WelcomeFormState extends State<WelcomeForm>{
                   onPressed: (){
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const TelToRegistrationForm()));
+                          MaterialPageRoute(builder: (context) => const Navigation()));
                   },
-                  child:  Text('ביצוע הזמנה למשתמש קיים',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
+                  child:  Text('הבא',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
             ),
           ],
         ),

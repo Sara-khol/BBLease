@@ -59,6 +59,7 @@ dependencies:
   carousel_slider: ^4.2.1
   flutter_address_from_latlng: ^0.0.2
   flutter_file_downloader: ^1.1.4
+  shared_preferences: ^2.2.2
 
 
   #firebase_core: ^2.17.0

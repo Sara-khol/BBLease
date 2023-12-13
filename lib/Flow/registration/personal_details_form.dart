@@ -25,7 +25,6 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
   TextEditingController _date=TextEditingController(text: User().birthDate==null?intl.DateFormat('dd-mm-yyyy').format(User().birthDate):null);
   TextEditingController _email=TextEditingController();
   TextEditingController _phone=TextEditingController();
-  TextEditingController _password=TextEditingController();
   late DateTime bdate;
 
   bool checkboxValue1 = true;
@@ -334,60 +333,8 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                           return 'מספר לא תקין';
                       },
                     ),
-                    SizedBox(height: 12.h,),
-                    TextFormField(
-                      obscureText: true,
-                      cursorColor: Color.fromRGBO(15, 17, 21, 1),
-                      decoration: InputDecoration(
-                        isDense: true,
-                        labelText: "סיסמה",
-                        labelStyle:  TextStyle(fontSize: 22.sp,
-                          fontWeight: FontWeight.w300,
-                          color:  Color.fromRGBO(15, 17, 21, 1),
-                          fontFamily: 'PLONI', ),
-                        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                          color: Color.fromRGBO(15, 17, 21, 1),
-                        ),
-                        ),
-                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                          color: Color.fromRGBO(15, 17, 21, 1),
-                        ),
-                        ),
-                        errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                          color: Colors.red,
-                        ),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                          color:Colors.red,
-                        ),
-                        ),
-                        contentPadding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
-                        suffixIcon: Text("   הכנס סיסמה  " , style:TextStyle(fontSize: 22.sp,
-                          fontWeight: FontWeight.w300,
-                          color:  Color.fromRGBO(4, 174, 185, 1),
-                          fontFamily: 'PLONI',
-                        )
-                        ),
-                        suffixIconConstraints: BoxConstraints(maxHeight: 26),
-                      ),
-                      style: TextStyle(
-                        fontSize: 22.sp,
-                        fontWeight: FontWeight.w300,
-                        color:  Color.fromRGBO(15, 17, 21, 1),
-                        fontFamily: 'PLONI', ),
-                      controller: _password,
-                      /*validator: (value) {
-                        RegExp regex = RegExp(r'^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
-                          if (value==null||regex.hasMatch(value)) {
-                            return 'סיסמה לא תקינה';
-                          }
-                          else {
-                            return null;
-                          }
-                      },*/
-                    ),
-                    Text('סיסמה תקינה כוללת אות אחת לפחות, ספרה אחת לפחות, ותו מיוחד אחד לפחות, באורך 8 תווים לפחות.',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w300),),
-                    SizedBox(height: 5.h,),
+                    SizedBox(height: 25.h,),
+
                     ListTileTheme(
                       horizontalTitleGap: 1.0,
                       child: CheckboxListTile(
@@ -426,7 +373,6 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                           User().birthDate=bdate;
                           User().email=_email.text;
                           User().phoneNumber=_phone.text;
-                          User().password=_password.text;
                           User().getNotification= checkboxValue1;
                             if(_formKey.currentState!.validate()) {
                               Navigator.push(

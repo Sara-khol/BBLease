@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../models/class_user.dart';
 import '../../services/api_service.dart';
+import '../Rental/map.dart';
 
 
 class TelToRegistrationForm extends StatefulWidget {
@@ -19,6 +20,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
   TextEditingController _phone=TextEditingController();
   TextEditingController _code=TextEditingController();
   bool sent=false;
+  int step=0;
 
 
   @override
@@ -26,7 +28,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
     super.initState();
   }
   late int status;
-  late int vcode;
+  //late int vcode;
 
 
   getVerificationCode()  async{
@@ -35,14 +37,21 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
     //TODO: אחרי שהשלב עבר בהצלחה, והקוד שנכנת תקין, לעשות: mySharedPreferences.updateLastUsage();
 
    await ApiService().getVerificationCode('0533117988', (value){
-     vcode=value[0];
-     if(value[1]!=null){
+     status=value['status'];
+     if(value['customer']!=null){
       //TODO: save the data to User()
-      // User.fromJson(value[1]);
-      value[1].map<User>((entry) => (User.fromJson(entry))).toList();
+       User.fromJson(value['customer']);
+      //value[1].map<User>((entry) => (User.fromJson(entry))).toList();
      }
+     step=1;
      setState(() {});
    });
+  }
+
+  verifyCode() async{
+    await ApiService().CodeVerification('0583214497', '1234', (carJson) {
+
+    });
   }
 
 
@@ -125,11 +134,9 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
                     prefixIconConstraints: BoxConstraints(maxHeight: 26,),
                     prefixIconColor: Color.fromRGBO(251, 37, 118, 1),
                   ),
-                  style:  TextStyle(fontSize: 22.sp,
-                      fontWeight: FontWeight.w300,
-                      color:  Color.fromRGBO(15, 17, 21, 1)),
+                  style:  TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w300,color:  Color.fromRGBO(15, 17, 21, 1)),
                   validator: (value) {
-                    if(value==null || value.length<10)
+                    if(value==null || value.length<4)
                       return 'קוד שגוי';
                   },
               ),
@@ -196,11 +203,16 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
                         ),
                       ),
                       onPressed: (){
-                        if(checkboxValue1==true) {
+                        if(step==0&&checkboxValue1==true) {
                           sent = true;
+                          setState(() {});
                           getVerificationCode();
                         }
-                        //TODO: send verification code from server.
+                        if(step==1&&sent==true)
+                        {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => RentalWidget(),));
+                        }
+
                         },
                       child: Text('אישור',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
                 ),

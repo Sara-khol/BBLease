@@ -16,13 +16,14 @@ class WelcomeForm extends StatelessWidget {
     body:
       Center(
         child: Column(
+         // shrinkWrap: true,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-           // SizedBox(height: 56.h),
+           SizedBox(height: 56.h),
             Text("Welcome to Bibilease",style: TextStyle(color: Color.fromRGBO(251, 37, 118, 1),fontWeight: FontWeight.w700,fontSize: 30.sp,),),
             SizedBox(height: 36.h),
-            Image.asset('assets/images/BB.png',width: 392.w, fit: BoxFit.cover,),
+            Expanded(child: Image.asset('assets/images/BB.png',width: 392.w, fit: BoxFit.contain)),
             SizedBox(height: 48.h),
             Container(
               height: 48.h,
@@ -47,6 +48,7 @@ class WelcomeForm extends StatelessWidget {
             Container(
               height: 48.h,
               width: 332.w,
+              margin: EdgeInsets.only(bottom: 35.h),
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(251, 37, 118, 1),
                     shape: RoundedRectangleBorder(

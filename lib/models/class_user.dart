@@ -7,59 +7,61 @@ part 'class_user.g.dart';
 
 @JsonSerializable()
 class User{
-
+ late int userId=-1;
   @JsonKey(name: 'reg_images', toJson: _imagesToJson, fromJson: _imagesFromJson)
   List<XFile?> regImages = List<XFile?>.filled(3, null);
 
-  @JsonKey(name: 'first_name')
+  @JsonKey(name: 'name')
   late String firstName="";
-  @JsonKey(name: 'last_name')
-  late String lastName;
+  @JsonKey(name: 'family_name')
+  late String lastName='';
+  @JsonKey(name: 'doc_name')
   String? name;
-  @JsonKey(name: 'ID')
-  late String id;
+  @JsonKey(name: 'id_number')
+  late String tz='';
   @JsonKey(name: 'birth_date')
-  late DateTime birthDate;
-  late String email;
+  late String birthDate='';
+  late String email='';
   @JsonKey(name: 'phone_number')
-  late String phoneNumber;
-  @JsonKey(name: 'get_notifications')
+  late String phoneNumber='';
+  @JsonKey(name: 'is_approve_get_ads')
   bool getNotification=true;
 
 
-  @JsonKey(name: 'license_id')
-  late String licenseId;
-  late DateTime licenseExpDate;
-  late DateTime licenseIssDate;
-  late String licenseDegree;
+  @JsonKey(name: 'license_number')
+  late String licenseId='';
+  @JsonKey(name: 'license_exp')
+  late String licenseExpDate='';
+  @JsonKey(name: 'license_date')
+  late String licenseIssDate='';
+  @JsonKey(name: 'license_level')
+  late String licenseDegree='';
+  @JsonKey(name: 'is_new_driver')
   bool isNewDriver=false;
 
-
-
-
-  void setBirthDate(String dateString) {
-    try {
-      birthDate = DateFormat('dd.MM.yyyy').parse(dateString);
-    } catch (e) {
-      birthDate = DateFormat('dd.MM.yyyy').parse('01.01.1970');
-    }
-  }
-
-  void setLicenseExpDate(String dateString) {
-    try {
-      licenseExpDate = DateFormat('dd.MM.yyyy').parse(dateString);
-    } catch (e) {
-      licenseExpDate=DateFormat('dd.MM.yyyy').parse('01.01.1970');
-    }
-  }
-
-  void setLicenseIssDate(String dateString) {
-    try {
-      licenseIssDate = DateFormat('dd.MM.yyyy').parse(dateString);
-    } catch (e) {
-      licenseIssDate=DateFormat('dd.MM.yyyy').parse('01.01.1970');
-    }
-  }
+  // void setBirthDate(String dateString) {
+  //   try {
+  //     birthDate = DateFormat('dd.MM.yyyy').parse(dateString);
+  //   } catch (e) {
+  //     birthDate = DateFormat('dd.MM.yyyy').parse('01.01.1970');
+  //   }
+  // }
+  //
+  // void setLicenseExpDate(String dateString) {
+  //   try {
+  //     licenseExpDate = DateFormat('dd.MM.yyyy').parse(dateString);
+  //   } catch (e) {
+  //     licenseExpDate=DateFormat('dd.MM.yyyy').parse('01.01.1970');
+  //   }
+  // }
+  //
+  // void setLicenseIssDate(String dateString) {
+  //   try {
+  //     licenseIssDate = DateFormat('dd.MM.yyyy').parse(dateString);
+  //   } catch (e) {
+  //     licenseIssDate=DateFormat('dd.MM.yyyy').parse('01.01.1970');
+  //   }
+  // }
 
   User._privateConstructor();
 

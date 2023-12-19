@@ -1,9 +1,12 @@
 import 'package:bblease/models/class_user.dart';
+import 'package:bblease/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as intl;
+import '../Dialogs/buttom_dialogs.dart';
+import '../my_shared_preferences.dart';
 import 'sucsses_registration.dart';
-
+import 'package:bblease/utils/my_colors.dart' as colors;
 
 class LicenseDetails extends StatefulWidget {
   const LicenseDetails({Key? key}) : super(key: key);
@@ -13,16 +16,21 @@ class LicenseDetails extends StatefulWidget {
 }
 
 class _LicenseDetailsState extends State<LicenseDetails> {
-
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _licenseId=TextEditingController(text: User().licenseId);
-  TextEditingController _expDate=TextEditingController(text: intl.DateFormat('dd-mm-yyyy').format(User().licenseExpDate));
-  TextEditingController _issDate=TextEditingController(text: intl.DateFormat('dd-mm-yyyy').format(User().licenseIssDate));
-  TextEditingController _degree=TextEditingController(text: User().licenseDegree);
+  final TextEditingController _licenseId =
+      TextEditingController(text: User().licenseId);
 
-  late DateTime exp;
-  late DateTime iss;
+  // TextEditingController _expDate=TextEditingController(text: intl.DateFormat('dd-mm-yyyy').format(User().licenseExpDate));
+  final TextEditingController _expDate =
+      TextEditingController(text: User().licenseExpDate);
+  final TextEditingController _issDate =
+      TextEditingController(text: User().licenseIssDate);
+  final TextEditingController _degree =
+      TextEditingController(text: User().licenseDegree);
+
+  String exp = User().licenseExpDate;
+  String iss = User().licenseIssDate;
 
   @override
   Widget build(BuildContext context) {
@@ -33,215 +41,191 @@ class _LicenseDetailsState extends State<LicenseDetails> {
         child: Form(
           key: _formKey,
           child: Padding(
-            padding: EdgeInsets.only(right: 30.w,left: 30.w),
-            child: Column(
+            padding: EdgeInsets.only(right: 30.w, left: 30.w),
+            child: ListView(
               children: [
-                SizedBox(height: 50.h,),
-                const Icon(Icons.account_circle_outlined,color: Color.fromRGBO(0, 222, 222, 1),size: 60,weight: 100,),
-                SizedBox(height: 10.h,),
+                SizedBox(
+                  height: 50.h,
+                ),
+                const Icon(
+                  Icons.account_circle_outlined,
+                  color: Color.fromRGBO(0, 222, 222, 1),
+                  size: 60,
+                  weight: 100,
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                     Text('פרטי רשיון נהיגה',style: TextStyle(
-                      fontSize: 28.sp,
-                      fontWeight: FontWeight.w600,
-                      color:  Color.fromRGBO(15, 17, 21, 1),
-                      fontFamily: 'PLONI',
-                    ),),
+                    Text(
+                      'פרטי רשיון נהיגה',
+                      style: TextStyle(
+                        fontSize: 28.sp,
+                        fontWeight: FontWeight.w600,
+                        color: Color.fromRGBO(15, 17, 21, 1),
+                        fontFamily: 'PLONI',
+                      ),
+                    ),
                   ],
                 ),
-                SizedBox(height: 50.h,),
+                SizedBox(
+                  height: 50.h,
+                ),
                 TextFormField(
-                  cursorColor: Color.fromRGBO(15, 17, 21, 1),
-                  decoration: InputDecoration(
-                    isDense: true,
-                    labelText: "מספר רשיון נהיגה",
-                    labelStyle:  TextStyle(fontSize: 22.sp,
-                      fontWeight: FontWeight.w300,
-                      color:  Color.fromRGBO(15, 17, 21, 1),
-                      fontFamily: 'PLONI', ),
-                    floatingLabelBehavior: FloatingLabelBehavior.auto,
-                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                      color: Color.fromRGBO(15, 17, 21, 1),
-                    ),),
-                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                      color: Color.fromRGBO(15, 17, 21, 1),
-                    ),),
-                    errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(color: Color.fromRGBO(15, 17, 21, 1),),),
-                    focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(color:Colors.redAccent,),),
-                    contentPadding:  EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
-                  ),
-                  style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
+                  keyboardType: TextInputType.number,
+                  cursorColor: colors.blackColorApp,
+                  decoration: getInputDecoration('מספר רשיון נהיגה'),
+                  style: TextStyle(color: colors.blackColorApp),
                   controller: _licenseId,
                   validator: (value) {
-                    if (value == null || value.isEmpty)
-                      return 'זהו שדה חובה';
+                    if (value == null || value.isEmpty) return 'זהו שדה חובה';
+                    return null;
                   },
                 ),
-                SizedBox(height: 16.h,),
+                SizedBox(
+                  height: 16.h,
+                ),
                 TextFormField(
-                  cursorColor: Color.fromRGBO(15, 17, 21, 1),
-                  decoration: InputDecoration(
-                      isDense: true,
-                      labelText: "תוקף",
-                      labelStyle:  TextStyle(fontSize: 22.sp,
-                        fontWeight: FontWeight.w300,
-                        color:  Color.fromRGBO(15, 17, 21, 1),
-                        fontFamily: 'PLONI', ),
-                      floatingLabelBehavior: FloatingLabelBehavior.auto,
-                      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                        color: Color.fromRGBO(15, 17, 21, 1),
-                      ),
-                      ),
-                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                        color: Color.fromRGBO(15, 17, 21, 1),
-                      ),
-                      ),
-                      contentPadding:  EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
-                    //  suffixIcon: Icon(Icons.calendar_today_outlined,color: Color.fromRGBO(251, 37, 118, 1),)
-                      suffixIcon:   Image.asset('assets/images/Calendar.png', width: 18.w,),
+                  readOnly: true,
+                  cursorColor: colors.blackColorApp,
+                  decoration: getInputDecoration('תוקף',
+                      suffixIcon: Image.asset(
+                        'assets/images/Calendar.png',
+                        width: 18.w,
+                      )),
+                  style: TextStyle(
+                    color: colors.blackColorApp,
                   ),
-                  style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
                   controller: _expDate,
                   validator: (value) {
-                    if (value == null || value.isEmpty)
-                      return 'זהו שדה חובה';
+                    if (value == null || value.isEmpty) return 'זהו שדה חובה';
+                    return null;
                   },
                   onTap: () async {
-                    DateTime? date= await showDatePicker(context: context,
+                    DateTime? date = await showDatePicker(
+                        context: context,
                         initialDate: DateTime.now(),
                         firstDate: DateTime.now(),
                         lastDate: DateTime(2100));
-                    if(date!=null)
+                    if (date != null) {
                       setState(() {
-                        _expDate.text=intl.DateFormat('dd.MM.yyyy').format(date);
-                        exp=date;
+                        _expDate.text =
+                            intl.DateFormat('dd/MM/yyyy').format(date);
+                        // exp=date;
+                        exp = intl.DateFormat('dd/MM/yyyy').format(date);
                       });
+                    }
                   },
-
                 ),
-                SizedBox(height: 16.h,),
-
+                SizedBox(
+                  height: 16.h,
+                ),
                 TextFormField(
-                  cursorColor: Color.fromRGBO(15, 17, 21, 1),
-                  decoration: InputDecoration(
-                      isDense: true,
-                      labelText: "תאריך הנפקה",
-                      labelStyle:  TextStyle(fontSize: 22.sp,
-                        fontWeight: FontWeight.w300,
-                        color:  Color.fromRGBO(15, 17, 21, 1),
-                        fontFamily: 'PLONI', ),
-                      floatingLabelBehavior: FloatingLabelBehavior.auto,
-                      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                        color: Color.fromRGBO(15, 17, 21, 1),
-                      ),
-                      ),
-                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                        color: Color.fromRGBO(15, 17, 21, 1),
-                      ),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
-                      suffixIcon: Icon(Icons.calendar_today_outlined,color: Color.fromRGBO(251, 37, 118, 1),)
-
+                  readOnly: true,
+                  cursorColor: colors.blackColorApp,
+                  decoration: getInputDecoration('תאריך הנפקה',
+                      suffixIcon: const Icon(
+                        Icons.calendar_today_outlined,
+                        color: Color.fromRGBO(251, 37, 118, 1),
+                      )),
+                  style: TextStyle(
+                    color: colors.blackColorApp,
                   ),
-                  style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
                   controller: _issDate,
                   validator: (value) {
-                    if (value == null || value.isEmpty)
-                      return 'זהו שדה חובה';
+                    if (value == null || value.isEmpty) return 'זהו שדה חובה';
+                    return null;
                   },
                   onTap: () async {
-                    DateTime? date= await showDatePicker(context: context,
+                    DateTime? date = await showDatePicker(
+                        context: context,
                         initialDate: DateTime.now(),
                         firstDate: DateTime(1950),
                         lastDate: DateTime.now());
-                    if(date!=null)
+                    if (date != null) {
                       setState(() {
-                        _issDate.text=intl.DateFormat('dd.MM.yyyy').format(date);
-                        iss=date!;
+                        _issDate.text =
+                            intl.DateFormat('dd/MM/yyyy').format(date);
+                        iss = intl.DateFormat('dd/MM/yyyy').format(date);
                       });
-
+                    }
                   },
-
                 ),
-                SizedBox(height: 16.h,),
-
+                SizedBox(
+                  height: 16.h,
+                ),
                 TextFormField(
-                  cursorColor: Color.fromRGBO(15, 17, 21, 1),
-                  decoration: InputDecoration(
-                    isDense: true,
-                    labelText: "דרגת רשיון",
-                    labelStyle:  TextStyle(fontSize: 22.sp,
-                      fontWeight: FontWeight.w300,
-                      color:  Color.fromRGBO(15, 17, 21, 1),
-                      fontFamily: 'PLONI', ),
-                    floatingLabelBehavior: FloatingLabelBehavior.auto,
-                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                      color: Color.fromRGBO(15, 17, 21, 1),
-                    ),
-                    ),
-                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                      color: Color.fromRGBO(15, 17, 21, 1),
-                    ),
-                    ),
-                    errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                      color: Colors.redAccent,
-                    ),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                      color:Colors.redAccent,
-                    ),
-                    ),
-                    contentPadding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
+                  cursorColor: colors.blackColorApp,
+                  decoration: getInputDecoration('דרגת רשיון'),
+                  style: TextStyle(
+                    color: colors.blackColorApp,
                   ),
-                  style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
                   controller: _degree,
                   validator: (value) {
-                    if (value == null || value.isEmpty)
-                      return 'זהו שדה חובה';
+                    if (value == null || value.isEmpty) return 'זהו שדה חובה';
+                    return null;
                   },
-
                 ),
-                SizedBox(height: 60.h,),
+                SizedBox(
+                  height: 60.h,
+                ),
                 ListTileTheme(
                   horizontalTitleGap: 1.0,
                   child: CheckboxListTile(
-                    title: Text("נהג חדש",style: TextStyle(fontFamily: 'PLONI',fontSize: 22.h,color: Color.fromRGBO(15, 21, 17, 1)),),
+                    title: Text(
+                      "נהג חדש",
+                      style: TextStyle(
+                          fontFamily: 'PLONI',
+                          fontSize: 18.sp,
+                          color: colors.blackColorApp),
+                    ),
                     value: User().isNewDriver,
-                    onChanged:(bool? value) {
-                      User().isNewDriver = value!;
+                    onChanged: (bool? value) {
+                      setState(() {
+                        User().isNewDriver = value!;
+                      });
                     },
-                    checkColor:  Color.fromRGBO(15, 21, 17, 1),
+                    checkColor: colors.blackColorApp,
                     activeColor: Colors.transparent,
                     controlAffinity: ListTileControlAffinity.leading,
                     checkboxShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4)
+                        borderRadius: BorderRadius.circular(4)),
+                    side: BorderSide(
+                      color: colors.blackColorApp,
+                      width: 1.5,
                     ),
-                    side: BorderSide(color:Color.fromRGBO(15, 21, 17, 1),width: 1.5,),
                   ),
                 ),
                 Container(
                   height: 48.h,
                   width: 250.w,
                   child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(0, 222, 222, 1),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: colors.turquoiseColorApp,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100),
                         ),
                       ),
-                      onPressed: (){
-                        if(_formKey.currentState!.validate()) {
-                          User().licenseId=_licenseId.text;
-                          User().licenseDegree=_degree.text;
-                          User().licenseIssDate=iss;
-                          User().licenseExpDate=exp;
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const SucssesRegistrationForm()));
+                      onPressed: () async{
+                        if (_formKey.currentState!.validate()) {
+                          User().licenseId = _licenseId.text;
+                          User().licenseDegree = _degree.text;
+                          User().licenseIssDate = iss.toString();
+                          User().licenseExpDate = exp;
+                         await registerUser();
+
                         }
                       },
-                      child: const Text('הבא',style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),)),
+                      child: Text(
+                        'הבא',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w500),
+                      )),
                 ),
               ],
             ),
@@ -249,5 +233,71 @@ class _LicenseDetailsState extends State<LicenseDetails> {
         ),
       ),
     );
+  }
+
+  getInputDecoration(String text, {Widget? suffixIcon}) {
+    return InputDecoration(
+      isDense: true,
+      labelText: text,
+      labelStyle: TextStyle(
+        fontSize: 18.sp,
+        fontWeight: FontWeight.w300,
+        color: colors.blackColorApp,
+        fontFamily: 'PLONI',
+      ),
+      floatingLabelBehavior: FloatingLabelBehavior.auto,
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: BorderSide(
+          color: colors.blackColorApp,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: BorderSide(
+          color: colors.blackColorApp,
+        ),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: BorderSide(
+          color: colors.blackColorApp,
+        ),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: BorderSide(
+          color: Colors.redAccent,
+        ),
+      ),
+      contentPadding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
+      suffixIcon: suffixIcon,
+    );
+  }
+
+  registerUser() async {
+    await ApiService().registerCustomerDetails((res) {
+      if(res is String) {
+        if (res.startsWith('in the system exists user with tz')) {
+          errorExistsDetails(context,'תעודת זהות');
+        }
+        else if (res.startsWith('in the system exists user with email')) {
+          errorExistsDetails(context,'כתובת מייל');
+        }
+      }
+       else
+       if(res is int)
+         {
+           User().userId= res;
+           mySharedPreferences.updateLastUsage();
+           mySharedPreferences.updateUserId(User().phoneNumber);
+           Navigator.push(
+               context,
+               MaterialPageRoute(
+                   builder: (context) =>
+                       const SucssesRegistrationForm()));
+         }
+
+    });
   }
 }

@@ -60,10 +60,15 @@ Future<void> extractData(String data) async {
   }
   User().firstName = extractedData['2'] ?? '';
   User().lastName = extractedData['1'] ?? '';
-  User().setBirthDate(extractedData['3'] ?? '01.01.1970')  ;
-  User().setLicenseIssDate(extractedData['4a'] ?? '01.01.1970') ;
-  User().setLicenseExpDate(extractedData['4b'] ?? '01.01.1970');
-  User().id = extractedData['4d']?.replaceFirst('ID ', '').trim() ?? '';
+  // User().setBirthDate(extractedData['3'] ?? '01.01.1970')  ;
+  // User().setLicenseIssDate(extractedData['4a'] ?? '01.01.1970') ;
+  // User().setLicenseExpDate(extractedData['4b'] ?? '01.01.1970');
+
+  User().birthDate=extractedData['3'] ?? '01.01.1970';
+  User().licenseIssDate=extractedData['4a'] ?? '01.01.1970';
+  User().licenseExpDate=extractedData['4b'] ?? '01.01.1970';
+
+  User().tz = extractedData['4d']?.replaceFirst('ID ', '').trim() ?? '';
   User().licenseId = extractedData['5'] ?? '';
   User().licenseDegree = extractedData['9'] ?? '';
   print(extractedData);

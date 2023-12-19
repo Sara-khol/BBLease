@@ -7,34 +7,36 @@ part of 'class_user.dart';
 // **************************************************************************
 
 User _$UserFromJson(Map<String, dynamic> json) => User()
+  ..userId = json['userId'] as int
   ..regImages = User._imagesFromJson(json['reg_images'] as List)
-  ..firstName = json['first_name'] as String
-  ..lastName = json['last_name'] as String
-  ..name = json['name'] as String?
-  ..id = json['ID'] as String
-  ..birthDate = DateTime.parse(json['birth_date'] as String)
+  ..firstName = json['name'] as String
+  ..lastName = json['family_name'] as String
+  ..name = json['doc_name'] as String?
+  ..tz = json['id_number'] as String
+  ..birthDate = json['birth_date'] as String
   ..email = json['email'] as String
   ..phoneNumber = json['phone_number'] as String
-  ..getNotification = json['get_notifications'] as bool
-  ..licenseId = json['license_id'] as String
-  ..licenseExpDate = DateTime.parse(json['licenseExpDate'] as String)
-  ..licenseIssDate = DateTime.parse(json['licenseIssDate'] as String)
-  ..licenseDegree = json['licenseDegree'] as String
-  ..isNewDriver = json['isNewDriver'] as bool;
+  ..getNotification = json['is_approve_get_ads'] as bool
+  ..licenseId = json['license_number'] as String
+  ..licenseExpDate = json['license_exp'] as String
+  ..licenseIssDate = json['license_date'] as String
+  ..licenseDegree = json['license_level'] as String
+  ..isNewDriver = json['is_new_driver'] as bool;
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+      if (instance.userId != -1) 'userId': instance.userId,
       'reg_images': User._imagesToJson(instance.regImages),
-      'first_name': instance.firstName,
-      'last_name': instance.lastName,
-      'name': instance.name,
-      'ID': instance.id,
-      'birth_date': instance.birthDate.toIso8601String(),
+      'name': instance.firstName,
+      'family_name': instance.lastName,
+      'doc_name': instance.name,
+      'id_number': instance.tz,
+      'birth_date': instance.birthDate,
       'email': instance.email,
       'phone_number': instance.phoneNumber,
-      'get_notifications': instance.getNotification,
-      'license_id': instance.licenseId,
-      'licenseExpDate': instance.licenseExpDate.toIso8601String(),
-      'licenseIssDate': instance.licenseIssDate.toIso8601String(),
-      'licenseDegree': instance.licenseDegree,
-      'isNewDriver': instance.isNewDriver,
+      'is_approve_get_ads': instance.getNotification,
+      'license_number': instance.licenseId,
+      'license_exp': instance.licenseExpDate,
+      'license_date': instance.licenseIssDate,
+      'license_level': instance.licenseDegree,
+      'is_new_driver': instance.isNewDriver,
     };

@@ -22,6 +22,10 @@ class  MySharedPreferences{
 
     _prefs.setInt('lastUsage', _lastUsage.millisecondsSinceEpoch);
   }
+
+  void updateUserId(String phone) {
+    _prefs.setString('userPhone', phone);
+  }
 }
 final mySharedPreferences = MySharedPreferences(); // Create a singleton instance of AppState
 

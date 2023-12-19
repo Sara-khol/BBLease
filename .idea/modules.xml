@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/bblease.iml" filepath="$PROJECT_DIR$/bblease.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/BBLease.iml" filepath="$PROJECT_DIR$/.idea/BBLease.iml" />
       <module fileurl="file://$PROJECT_DIR$/android/bblease_android.iml" filepath="$PROJECT_DIR$/android/bblease_android.iml" />
     </modules>
   </component>

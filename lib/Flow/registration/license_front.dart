@@ -59,23 +59,22 @@ class _LicenseFrontState extends State<LicenseFront> {
               ),
             ),
             SizedBox(height: 30.h),
-            SizedBox(
-              width: 260.w,
-              child: Text(
-                'לצורך הסריקה נשתמש בטכנולוגית SC במידה וניתקלתם בבעיה פנו לנציג החברה',
-                style: TextStyle(
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w400,
-                  color:  Color.fromRGBO(15, 17, 21, 1),
-                  fontFamily: 'PLONI',
-                ),
-                textAlign: TextAlign.center,
-                textDirection: TextDirection.rtl,
+            Text(
+              'לצורך הסריקה נשתמש בטכנולוגית SC\n במידה וניתקלתם בבעיה פנו לנציג החברה',
+
+              style: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w400,
+                color:  Color.fromRGBO(15, 17, 21, 1),
+                fontFamily: 'PLONI',
+                height: 1
               ),
+              textAlign: TextAlign.center,
+              textDirection: TextDirection.rtl,
             ),
-            SizedBox(height: 40.h),
+            SizedBox(height: 63.h),
             SizedBox(
-              height: 270.h,
+              height: 254.h,
               child: Stack(
                 children: [
                   Center(child: Image.asset('assets/images/rect.png',)),
@@ -86,7 +85,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                 ],
               ),
             ),
-            SizedBox(height: 45.h,),
+            SizedBox(height: 63.h,),
             Text(
               'רשיון נהיגה צד קדמי',
               style: TextStyle(
@@ -168,7 +167,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                 ),
               ],
             ),
-            SizedBox(height: 40),
+           // SizedBox(height: 40),
           ],
         ),
       ),

@@ -1,14 +1,29 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:flutter/material.dart';
 
+import '../models/class_user.dart';
+
 class ApiService {
   final Dio _dio = Dio();
   final _baseUrl = 'https://bibilease.co.il/?rest_route=/';
 
-  ApiService._privateConstructor(); // Private constructor for singleton
+  ApiService._privateConstructor(){
+    _dio.httpClientAdapter = IOHttpClientAdapter(
+      createHttpClient: () {
+        // Don't trust any certificate just because their root cert is trusted.
+        final HttpClient client =
+        HttpClient(context: SecurityContext(withTrustedRoots: false));
+        // You can test the intermediate / root cert here. We just ignore it.
+        client.badCertificateCallback =
+        ((X509Certificate cert, String host, int port) => true);
+        return client;
+      },
+    );
+  } // Private constructor for singleton
 
   static final ApiService _instance = ApiService._privateConstructor();
 
@@ -161,5 +176,24 @@ class ApiService {
     }
     // Prints the raw data returned by the server
   }
+
+  Future registerCustomerDetails(Function(dynamic res) onSuccess) async
+  {
+    print('${_baseUrl}wp/v2/registration_customer_detailes');
+    print('data: ${User().toJson()}');
+    Response response = await _dio.post('${_baseUrl}wp/v2/update_customer_detailes',
+        data: User().toJson());
+   // debugPrint('response $response');
+    debugPrint('data ${response.data}');
+    if(response.statusCode==200) {
+      onSuccess(response.data);
+    }
+    else
+      {
+
+      }
+  }
+
+
 
 }

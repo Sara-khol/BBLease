@@ -1,11 +1,15 @@
 
 import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/my_shared_preferences.dart';
+import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
+
+
 import 'package:bblease/Flow/Rental//search_car.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Flow/welcome.dart';
 
 void main() async {
@@ -22,9 +26,9 @@ class MyApp extends StatelessWidget {
     return MaterialStateProperty.resolveWith<Color?>(
           (Set<MaterialState> states) {
         if (states.contains(MaterialState.selected)) {
-          return Color(0xFF00DEDE);  // Return this color when the date is selected
+          return colors.turquoiseColorApp;  // Return this color when the date is selected
         }
-        return Color(0xFF00DEDE);  // Otherwise, return this color
+        return colors.turquoiseColorApp;  // Otherwise, return this color
       },
     );
   }
@@ -39,7 +43,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'PLONI',
         scaffoldBackgroundColor: Colors.white,
-
+          textTheme:
+           TextTheme(bodyMedium: TextStyle(color:colors.blackColorApp)),
         datePickerTheme: DatePickerThemeData(
            backgroundColor: Colors.white,
            elevation: 2,
@@ -53,6 +58,16 @@ class MyApp extends StatelessWidget {
       home: const WelcomeForm(),
     );
       });
+  }
+
+  Future<bool> showLoginPage() async {
+    var sharedPreferences = await SharedPreferences.getInstance();
+
+    // sharedPreferences.setString('user', 'hasuser');
+
+    String? user = sharedPreferences.getString('user');
+
+    return user == null;
   }
 }
 

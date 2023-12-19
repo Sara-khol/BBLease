@@ -153,7 +153,8 @@ class ApiService {
         return client;
       },
     );*/
-    Response response = await _dio.get('${_baseUrl}wp/v2/check_user_connected/$phone');
+    print('${_baseUrl}wp/v2/check_user_connected/1/$phone');
+    Response response = await _dio.get('${_baseUrl}wp/v2/check_user_connected/1/$phone');
     if(response.statusCode == 200) {
       var result = response.data;
       print(result);
@@ -162,4 +163,26 @@ class ApiService {
     // Prints the raw data returned by the server
   }
 
+
+  Future CodeVerification(String phone,String code, Function(dynamic carJson) onSuccess) async {
+    /*_dio.httpClientAdapter = IOHttpClientAdapter(
+      createHttpClient: () {
+        // Don't trust any certificate just because their root cert is trusted.
+        final HttpClient client =
+        HttpClient(context: SecurityContext(withTrustedRoots: false));
+        // You can test the intermediate / root cert here. We just ignore it.
+        client.badCertificateCallback =
+        ((X509Certificate cert, String host, int port) => true);
+        return client;
+      },
+    );*/
+    print('${_baseUrl}wp/v2/verificaion_customer/$code/$phone');
+    Response response = await _dio.get('${_baseUrl}wp/v2/verificaion_customer/$code/$phone');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print(result);
+      onSuccess(result);
+    }
+    // Prints the raw data returned by the server
+  }
 }

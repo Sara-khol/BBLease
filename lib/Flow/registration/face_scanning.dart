@@ -16,6 +16,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:image/image.dart' as img;
 
+import 'face_detector.dart';
+
 
 class FaceScanning extends StatefulWidget {
   const FaceScanning({Key? key}) : super(key: key);
@@ -26,30 +28,32 @@ class FaceScanning extends StatefulWidget {
 
 class _FaceScanningState extends State<FaceScanning> {
 
-  late CameraController _controller;
-  late Future<bool> cameraInitialization;
+  /*late CameraController _controller;
+  late Future<void> cameraInitialization;
   final FaceDetector _faceDetector= GoogleMlKit.vision.faceDetector();
   bool isCapturing = false;
 
 
   @override
   void initState() {
-    cameraInitialization = _initializeCamera();
+    //cameraInitialization = _initializeCamera();
     super.initState();
   }
 
-  Future<bool> _initializeCamera() async {
+  Future<void> _initializeCamera() async {
     final cameras = await availableCameras();
     final camera = cameras.first;
-    _controller = CameraController(camera, ResolutionPreset.high,imageFormatGroup: ImageFormatGroup.yuv420);
-    await _controller.initialize().then((_){
-      print("_initializeCamera");
-      _controller.startImageStream((image) {
-        print('startImageStream');
-        detectFaces(image);
-      });
+
+    _controller = CameraController(camera, ResolutionPreset.high, imageFormatGroup: ImageFormatGroup.yuv420);
+    await _controller.initialize();
+
+    _controller.startImageStream((CameraImage image) {
+      detectFaces(image);
     });
-    return true;
+
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -106,44 +110,36 @@ class _FaceScanningState extends State<FaceScanning> {
   }*/
 
   void detectFaces(CameraImage image) async {
-    // Convert CameraImage to InputImage
-    /*final inputImage = InputImage.fromBytes(
+    final inputImage = InputImage.fromBytes(
       bytes: _concatenatePlanes(image.planes),
       inputImageData: InputImageData(
         size: Size(image.width.toDouble(), image.height.toDouble()),
-        imageRotation: InputImageRotation.rotation0deg,
-        inputImageFormat: InputImageFormatValue.fromRawValue(image.format.raw)!, // Assuming YUV420
-        planeData: image.planes.map(
-              (plane) {
-            return InputImagePlaneMetadata(
-              bytesPerRow: plane.bytesPerRow,
-              height: plane.height,
-              width: plane.width,
-            );
-          },
-        ).toList(),
+        imageRotation: InputImageRotation.rotation270deg,
+        inputImageFormat: InputImageFormat.yuv420,
+        planeData: [], // Adjust rotation based on your camera orientation
       ),
     );
 
     final List<Face> faces = await _faceDetector.processImage(inputImage);
-    print('faces ${faces.length}');
 
     if (faces.isNotEmpty) {
-      // Face detected
-      // You can provide visual feedback or any other indication*/
-    print('detect Faces');
+      captureImage();
+    }
+  }
 
-    captureImage();
-    await Future.delayed(Duration(seconds: 3));
-    // introduce a slight delay
-    _controller.pausePreview();
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const Verification()));
 
-    // }
+  Uint8List _concatenatePlanes(List<Plane> planes) {
+    // Concatenate the planes of a CameraImage into a single Uint8List
+    final ByteData buffer = ByteData(planes.map((plane) => plane.bytes.length).reduce((value, element) => value + element));
+    int offset = 0;
+    planes.forEach((plane) {
+      buffer.setUint8(offset, plane.bytes.first);
+      offset += plane.bytes.length;
+    });
+    return buffer.buffer.asUint8List();
   }
 
   void captureImage() async {
-    print('capture image');
     if (isCapturing) {
       return;
     }
@@ -153,18 +149,7 @@ class _FaceScanningState extends State<FaceScanning> {
     }
     if (_controller != null) {
       final file = await _controller!.takePicture();
-      //User().regImages[2] = file;
-      final croppedFace = await cropFaceFromXFile(file);
-      Uint8List croppedFaceBytes = img.encodePng(croppedFace!);
-      final tempDir = await getTemporaryDirectory();
-      final f1 = await File('${tempDir.path}/temp_image.png}').writeAsBytes(croppedFaceBytes);
-      final xfile=XFile(f1.path);
-      if(xfile!=null) {
-        print('face detected successfully');
-        User().regImages[2] = xfile;
-      }
-
-
+      // Handle the captured image file as needed
     }
     isCapturing = false;
   }
@@ -173,7 +158,7 @@ class _FaceScanningState extends State<FaceScanning> {
     final inputImage = InputImage.fromFilePath(xFile.path);
     final faceDetector = GoogleMlKit.vision.faceDetector();
     final List<Face> faces = await faceDetector.processImage(inputImage);
-
+print('faces.length: ${faces.length}');
     if (faces.isNotEmpty) {
       img.Image oriImage = img.decodeImage(File(xFile.path).readAsBytesSync())!;
       Face face = faces[0];
@@ -226,7 +211,7 @@ class _FaceScanningState extends State<FaceScanning> {
     }
     return allBytes.done().buffer.asUint8List();
   }*/
-
+*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -235,17 +220,21 @@ class _FaceScanningState extends State<FaceScanning> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('סרוק פנים',style: TextStyle(color: Colors.black,fontSize: 28.sp,fontWeight: FontWeight.w600),),
-          SizedBox(height: 40.h,),
+          SizedBox(height: 5.h,),
           Text('עמוד מול המצלמה',style: TextStyle(color: Colors.black,fontSize: 20.sp,fontWeight: FontWeight.w400)),
           SizedBox(height: 35.h,),
           Stack(
               children:[
-                FutureBuilder<bool>(
-                    future: cameraInitialization,
+                CameraFaceDetection(),
+                /*FutureBuilder(
+                    future: _initializeCamera(),
                     builder:(context,snapshot){
                       if(snapshot.hasData) {
                         print('snapshot has data');
                         return _buildCameraPreview();
+                      }else if (snapshot.hasError) {
+                        // Handle error
+                        return Text('Error initializing camera: ${snapshot.error}');
                       }
                       else {
                         return SizedBox(
@@ -254,7 +243,7 @@ class _FaceScanningState extends State<FaceScanning> {
                             child: Center(child: CircularProgressIndicator()));
                       }
                     }
-                ),
+                ),*/
                 Center(
                   child: SizedBox(
                     height: 332.h,
@@ -328,9 +317,14 @@ class _FaceScanningState extends State<FaceScanning> {
     );
   }
 
+/*  _controller.startImageStream((image) {
+  print('startImageStream');
+  detectFaces(image);
+  });*/
 
-  Widget _buildCameraPreview() {
-    return Container(
+  /*_buildCameraPreview() {
+    print('_buildCameraPreview');
+    Container(
       height: 332.h,
       child: OverflowBox(
         alignment: Alignment.center,
@@ -343,8 +337,5 @@ class _FaceScanningState extends State<FaceScanning> {
         ),
       ),
     );
-  }
+  }*/
 }
-
-
-

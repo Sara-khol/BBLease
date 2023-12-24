@@ -64,7 +64,7 @@ class _LicenseBackState extends State<LicenseBack> {
             Text(
               'לצורך הסריקה נשתמש בטכנולוגית SC\n במידה וניתקלתם בבעיה פנו לנציג החברה',
               style: TextStyle(
-                fontSize: 16.sp,
+                fontSize: 20.sp,
                 fontWeight: FontWeight.w400,
                 color:  Color.fromRGBO(15, 17, 21, 1),
                 fontFamily: 'PLONI',

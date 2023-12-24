@@ -2,15 +2,14 @@ import 'dart:math';
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/registration/text_recognition.dart';
 import 'package:bblease/models/class_user.dart';
+import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-
 import 'license_back.dart';
-
 
 class LicenseFront extends StatefulWidget {
   const LicenseFront({Key? key}) : super(key: key);
@@ -20,11 +19,10 @@ class LicenseFront extends StatefulWidget {
 }
 
 class _LicenseFrontState extends State<LicenseFront> {
-
   late List<CameraDescription> cameras;
   late CameraController _cameraController;
   late XFile _imageFront;
-  bool cameraOn=false;
+  bool cameraOn = false;
 
   Future<void> awaitCameras() async {
     cameras = await availableCameras();
@@ -48,7 +46,9 @@ class _LicenseFrontState extends State<LicenseFront> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: 90.h,),
+            SizedBox(
+              height: 90.h,
+            ),
             Text(
               'סרוק רישיון',
               style: TextStyle(
@@ -61,14 +61,12 @@ class _LicenseFrontState extends State<LicenseFront> {
             SizedBox(height: 30.h),
             Text(
               'לצורך הסריקה נשתמש בטכנולוגית SC\n במידה וניתקלתם בבעיה פנו לנציג החברה',
-
               style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w400,
-                color:  Color.fromRGBO(15, 17, 21, 1),
-                fontFamily: 'PLONI',
-                height: 1
-              ),
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w400,
+                  color: Color.fromRGBO(15, 17, 21, 1),
+                  fontFamily: 'PLONI',
+                  height: 1),
               textAlign: TextAlign.center,
               textDirection: TextDirection.rtl,
             ),
@@ -77,21 +75,29 @@ class _LicenseFrontState extends State<LicenseFront> {
               height: 254.h,
               child: Stack(
                 children: [
-                  Center(child: Image.asset('assets/images/rect.png',)),
-                  Center(child: Text('פתח מצלמה',style: TextStyle(color: Color(0xFFD9D9D9),fontSize: 24.sp))),
+                  Center(
+                      child: Image.asset(
+                    'assets/images/rect.png',
+                  )),
+                  Center(
+                      child: Text('פתח מצלמה',
+                          style: TextStyle(
+                              color: Color(0xFFD9D9D9), fontSize: 24.sp))),
                   InkWell(
                     onTap: _onCameraButtonPressed,
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 63.h,),
+            SizedBox(
+              height: 63.h,
+            ),
             Text(
               'רשיון נהיגה צד קדמי',
               style: TextStyle(
                 fontSize: 24.sp,
                 fontWeight: FontWeight.w500,
-                color:  Color.fromRGBO(15, 17, 21, 1),
+                color: Color.fromRGBO(15, 17, 21, 1),
                 fontFamily: 'PLONI',
               ),
               textAlign: TextAlign.center,
@@ -108,11 +114,21 @@ class _LicenseFrontState extends State<LicenseFront> {
                   percent: 0.33,
                   animation: true,
                   barRadius: const Radius.circular(16),
-                  linearGradient: LinearGradient(colors: [ Color.fromRGBO(254, 193, 216, 1), Color.fromRGBO(251, 39, 119, 1)], ),
+                  linearGradient: LinearGradient(
+                    colors: [
+                      Color.fromRGBO(254, 193, 216, 1),
+                      Color.fromRGBO(251, 39, 119, 1)
+                    ],
+                  ),
                   backgroundColor: Color.fromRGBO(247, 247, 247, 1),
                   center: Padding(
-                    padding: EdgeInsets.only(right: 140.w,),
-                    child: Text('1/3',style: TextStyle(color: Colors.white, fontSize: 12.sp ),),
+                    padding: EdgeInsets.only(
+                      right: 140.w,
+                    ),
+                    child: Text(
+                      '1/3',
+                      style: TextStyle(color: Colors.white, fontSize: 12.sp),
+                    ),
                   ),
                 ),
               ],
@@ -123,17 +139,22 @@ class _LicenseFrontState extends State<LicenseFront> {
               height: 36.h,
               width: 332.w,
               child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(251, 37, 118, 1),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromRGBO(251, 37, 118, 1),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100),
                     ),
                   ),
-                  onPressed: (){
-                     Navigator.push(
-                         context,
-                         MaterialPageRoute(builder: (context) => const LicenseBack()));
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LicenseBack()));
                   },
-                  child: const Text('הבא (רק לצורך הדגמה)',style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),)),
+                  child:  Text(
+                    'הבא (רק לצורך הדגמה)',
+                    style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color:Colors.white),
+                  )),
             ),
             SizedBox(height: 12.h),
             Row(
@@ -143,31 +164,44 @@ class _LicenseFrontState extends State<LicenseFront> {
                   width: 129.w,
                   height: 48.h,
                   child: FloatingActionButton.extended(
-                    label: Text('תמיכה',style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
-                    elevation: 2,
-                    heroTag: "btn2",
-                    backgroundColor: Color.fromRGBO(0, 222, 222, 1),
-                    onPressed: ()=>_cameraController.pausePreview(),
-                    icon: Icon(Icons.phone_outlined,size: 22.sp,color: Colors.white,)
-                  ),
+                      label: Text('תמיכה',
+                          style: TextStyle(
+                              fontSize: 22.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white)),
+                      elevation: 2,
+                      heroTag: "btn2",
+                      backgroundColor: turquoiseColorApp,
+                      onPressed: () => _cameraController.pausePreview(),
+                      icon: Icon(
+                        Icons.phone_outlined,
+                        size: 22.sp,
+                        color: Colors.white,
+                      )),
                 ),
                 SizedBox(width: 20.w),
-
                 SizedBox(
                   width: 183.w,
                   height: 48.h,
                   child: FloatingActionButton.extended(
-                    elevation: 2,
-                    label: Text('העלאת תמונה',style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
-                    heroTag: "btn1",
-                    backgroundColor:  Color.fromRGBO(0, 222, 222, 1),
-                    onPressed: _onUploadButtonPressed,
-                    icon:  Icon(Icons.file_upload_outlined,size: 22.sp,color: Colors.white,)
-                  ),
+                      elevation: 2,
+                      label: Text('העלאת תמונה',
+                          style: TextStyle(
+                              fontSize: 22.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white)),
+                      heroTag: "btn1",
+                      backgroundColor: turquoiseColorApp,
+                      onPressed: _onUploadButtonPressed,
+                      icon: Icon(
+                        Icons.file_upload_outlined,
+                        size: 22.sp,
+                        color: Colors.white,
+                      )),
                 ),
               ],
             ),
-           // SizedBox(height: 40),
+            // SizedBox(height: 40),
           ],
         ),
       ),
@@ -177,19 +211,22 @@ class _LicenseFrontState extends State<LicenseFront> {
   void _onCameraButtonPressed() async {
     final cameras = await availableCameras(); // Get a list of available cameras
     final camera = cameras.first; // Use the first camera
-    _cameraController = CameraController(camera, ResolutionPreset.high,imageFormatGroup: ImageFormatGroup.yuv420,);
+    _cameraController = CameraController(
+      camera,
+      ResolutionPreset.high,
+      imageFormatGroup: ImageFormatGroup.yuv420,
+    );
     await _cameraController.initialize().then((_) {
       if (!mounted) {
         return;
       }
       setState(() {
-        cameraOn=true;
+        cameraOn = true;
       });
     });
     // Show the camera preview on the screen
     showCameraPreview();
   }
-
 
   void showCameraPreview() {
     showDialog(
@@ -214,42 +251,48 @@ class _LicenseFrontState extends State<LicenseFront> {
                       child: Container(
                         width: 380.w,
                         child: Transform.rotate(
-                          angle: -_cameraController.description.sensorOrientation * pi / 180,
+                          angle:
+                              -_cameraController.description.sensorOrientation *
+                                  pi /
+                                  180,
                           child: CameraPreview(_cameraController),
                         ),
                       ),
                     ),
                   ),
                 ),
-
               ),
               Positioned(
                 bottom: 230.h,
                 right: 130.w,
-                child:  Container(
-                 height: 40.h,
-                 width: 80.w,
-                 decoration: BoxDecoration(
-                   color: Color(0xFF00DEDE),
-                     borderRadius: BorderRadius.all(Radius.circular(70))
-                 ),
-
-                 child: TextButton(
-                     onPressed: () async{
-                     XFile xfile=await _cameraController.takePicture();
-                     uploadSucceed(context,LicenseFront(),LicenseBack());
-                     setState(() {
-                       _imageFront= xfile;
-                       _cameraController.pausePreview();
-                       if (_imageFront != null) {
-                         User().regImages[0]=_imageFront;
-                         TextRecognition(0);
-                       }
-                     });
-                   },
-                   child: Text('צלם',style: (TextStyle(color: Colors.white, )),),
-                 ),
-               ),)
+                child: Container(
+                  height: 40.h,
+                  width: 80.w,
+                  decoration: BoxDecoration(
+                      color: Color(0xFF00DEDE),
+                      borderRadius: BorderRadius.all(Radius.circular(70))),
+                  child: TextButton(
+                    onPressed: () async {
+                      XFile xfile = await _cameraController.takePicture();
+                      uploadSucceed(context, LicenseFront(), LicenseBack());
+                      setState(() {
+                        _imageFront = xfile;
+                        _cameraController.pausePreview();
+                        if (_imageFront != null) {
+                          User().regImages[0] = _imageFront;
+                          TextRecognition(0);
+                        }
+                      });
+                    },
+                    child: Text(
+                      'צלם',
+                      style: (TextStyle(
+                        color: Colors.white,
+                      )),
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         );
@@ -258,30 +301,27 @@ class _LicenseFrontState extends State<LicenseFront> {
   }
 
   void _onUploadButtonPressed() async {
-    if(cameraOn) {
+    if (cameraOn) {
       _cameraController.pausePreview();
-      cameraOn=false;
+      cameraOn = false;
     }
     XFile? result = await ImagePicker().pickImage(source: ImageSource.gallery);
 
-    if(result != null) {
+    if (result != null) {
       setState(() {
         _imageFront = result;
       });
-      User().regImages[0]=_imageFront;
+      User().regImages[0] = _imageFront;
     }
 
     showImagePreview;
-
   }
 
-  showImagePreview(){
-
-    if(_imageFront!=null) {
+  showImagePreview() {
+    if (_imageFront != null) {
       print(_imageFront);
-    }
-     else {
-       SizedBox(
+    } else {
+      SizedBox(
         height: 210.h,
         width: 375.w,
         child: Center(

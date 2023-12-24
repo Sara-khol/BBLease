@@ -4,44 +4,27 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="406ef940-5ca5-4e71-b141-3d6c4cbe2bd2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/BBLease.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/my_colors.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+    <list default="true" id="406ef940-5ca5-4e71-b141-3d6c4cbe2bd2" name="Changes" comment="register user proccess and designe fixes">
+      <change afterPath="$PROJECT_DIR$/lib/utils/common_funcs.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/KotlinJavaRuntime.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/main_dart.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bblease.iml" beforeDir="false" afterPath="$PROJECT_DIR$/bblease.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/Dialogs/buttom_dialogs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Dialogs/buttom_dialogs.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/my_shared_preferences.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/my_shared_preferences.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/navigation.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/navigation.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/registration/license_back.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/license_back.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/registration/license_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/license_details.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/registration/license_front.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/license_front.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/registration/personal_details_form.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/personal_details_form.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/start_registration.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/start_registration.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/registration/sucsses_registration.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/sucsses_registration.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/text_recognition.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/text_recognition.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/tel_to_registration.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/tel_to_registration.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/welcome.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/welcome.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/car.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/car.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/class_rent.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/class_rent.g.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/models/class_user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/class_user.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/models/class_user.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/class_user.g.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/services/api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/api_service.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/runner/flutter_window.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/windows/runner/flutter_window.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +62,7 @@
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/GoAppProjects/BBLease&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;emulator&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
@@ -98,6 +81,15 @@
       <option name="presentableId" value="Default" />
       <updated>1702548020121</updated>
     </task>
+    <task id="LOCAL‎-00001" summary="register user proccess and designe fixes">
+      <option name="closed" value="true" />
+      <created>1702992900015</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL‎-00001" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1702992900019</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -110,20 +102,65 @@
       </list>
     </option>
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="register user proccess and designe fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="register user proccess and designe fixes" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/services/api_service.dart</url>
-          <line>185</line>
-          <option name="timeStamp" value="1" />
+          <url>file://$PROJECT_DIR$/lib/models/class_user.dart</url>
+          <line>81</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/main.dart</url>
+          <line>107</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/main.dart</url>
+          <line>115</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/main.dart</url>
+          <line>95</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/services/api_service.dart</url>
-          <line>183</line>
-          <option name="timeStamp" value="2" />
+          <line>216</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/main.dart</url>
+          <line>106</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Flow/registration/personal_details_form.dart</url>
+          <line>322</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="FlutterRunConfigurationType">
+        <watch expression="json.containsKey('userId')" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

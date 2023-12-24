@@ -42,7 +42,7 @@ class WelcomeForm extends StatelessWidget {
                     //departurePoint(context);
 
                   },
-                  child: Text('צפו בסרטון ההדרכה שלנו',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
+                  child: Text('צפו בסרטון ההדרכה שלנו',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color:Colors.white),)),
             ),
             SizedBox(height: 12.h),
             Container(
@@ -61,7 +61,7 @@ class WelcomeForm extends StatelessWidget {
                           context,
                           MaterialPageRoute(builder: (context) => const Navigation()));
                   },
-                  child:  Text('הבא',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
+                  child:  Text('הבא',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color:Colors.white),)),
             ),
           ],
         ),

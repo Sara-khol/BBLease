@@ -32,8 +32,8 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
   //         : null);
   final TextEditingController _date =
       TextEditingController(text: User().birthDate);
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _phone = TextEditingController();
+  final TextEditingController _email = TextEditingController(text:User().email.isNotEmpty?User().email:'' );
+  final TextEditingController _phone = TextEditingController(text:User().phoneNumber.isNotEmpty?User().phoneNumber:'' );
   String bdate = User().birthDate;
   bool checkboxValue1 = true;
 
@@ -77,7 +77,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                         Text(
                           'פרטים אישיים',
                           style: TextStyle(
-                              fontSize: 24.sp,
+                              fontSize: 28.sp,
                               fontWeight: FontWeight.w600,
                               fontFamily: 'PLONI',
                               height: 1),
@@ -91,11 +91,12 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       textInputAction: TextInputAction.next,
                       cursorColor: colors.blackColorApp,
                       decoration: getInputDecoration('שם פרטי'),
-                      style: TextStyle(color: colors.blackColorApp),
+                      style: TextStyle(color: colors.blackColorApp,fontSize: 22.sp),
                       controller: _firstName,
                       validator: (value) {
                         if (value == null || value.isEmpty)
                           return 'זהו שדה חובה';
+                        return null;
                       },
                     ),
                     SizedBox(
@@ -105,10 +106,11 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       textInputAction: TextInputAction.next,
                       cursorColor: colors.blackColorApp,
                       decoration: getInputDecoration('שם משפחה'),
-                      style: TextStyle(color: colors.blackColorApp),
+                      style: TextStyle(color: colors.blackColorApp,fontSize: 22.sp),
                       validator: (value) {
                         if (value == null || value.isEmpty)
                           return 'זהו שדה חובה';
+                        return null;
                       },
                       controller: _lastName,
                     ),
@@ -120,7 +122,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       cursorColor: colors.blackColorApp,
                       decoration: getInputDecoration('שם לחשבונית (לא חובה)'),
                       //floatingLabelBehavior: FloatingLabelBehavior.auto,
-                      style: TextStyle(color: colors.blackColorApp),
+                      style: TextStyle(color: colors.blackColorApp,fontSize: 22.sp),
                       controller: _name,
                     ),
                     SizedBox(
@@ -130,11 +132,12 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       keyboardType: TextInputType.number,
                       cursorColor: colors.blackColorApp,
                       decoration: getInputDecoration('תעודת זהות / דרכון'),
-                      style: TextStyle(color: colors.blackColorApp),
+                      style: TextStyle(color: colors.blackColorApp,fontSize: 22.sp),
                       controller: _tz,
                       validator: (value) {
                         if (value == null || value.isEmpty || value.length != 9)
                           return 'מספר זהות לא תקין';
+                        return null;
                       },
                     ),
                     SizedBox(
@@ -146,7 +149,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       decoration: getInputDecoration(
                           'תאריך לידה (מגיל 21 בלבד)',
                           isDate: true),
-                      style: TextStyle(color: colors.blackColorApp),
+                      style: TextStyle(color: colors.blackColorApp,fontSize: 22.sp),
                       controller: _date,
                       onTap: () async {
                         DateTime? date = await showDatePicker(
@@ -177,7 +180,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       cursorColor: colors.blackColorApp,
                       decoration: getInputDecoration('אימייל',
                           suffixText: '   הכנס אמייל פעיל  '),
-                      style: TextStyle(color: colors.blackColorApp),
+                      style: TextStyle(color: colors.blackColorApp,fontSize: 22.sp),
                       controller: _email,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -194,17 +197,19 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                     ),
                     TextFormField(
                       keyboardType: TextInputType.number,
+                      enabled: false,
                       textInputAction: TextInputAction.done,
                       cursorColor: colors.blackColorApp,
                       decoration: getInputDecoration("מס' נייד",
                           suffixText: '   הכנס נייד זמין  '),
                       style: TextStyle(
-                        color: colors.blackColorApp,
+                        color: colors.blackColorApp,fontSize: 22.sp
                       ),
                       controller: _phone,
                       validator: (value) {
                         if (value == null || value.length < 10)
                           return 'מספר לא תקין';
+                        return null;
                       },
                     ),
                     SizedBox(
@@ -217,7 +222,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                             style: TextStyle(
                                 height: 1,
                                 fontFamily: 'PLONI',
-                                fontSize: 18.sp)),
+                                fontSize: 20.sp)),
                         value: checkboxValue1,
                         onChanged: (bool? value) {
                           setState(() {
@@ -269,7 +274,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                             'הבא',
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 18.sp,
+                                fontSize: 22.sp,
                                 fontWeight: FontWeight.w500),
                           )),
                     ),
@@ -291,8 +296,9 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
     return InputDecoration(
       isDense: true,
       labelText: text,
+
       labelStyle: TextStyle(
-          fontSize: 18.sp,
+          fontSize: 22.sp,
           fontWeight: FontWeight.w300,
           color: colors.blackColorApp,
           fontFamily: 'PLONI'),
@@ -320,13 +326,19 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
           color: Colors.red,
         ),
       ),
+      disabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: BorderSide(
+          color: colors.blackColorApp,
+        ),
+      ) ,
       suffixIcon: isDate
           ? const Icon(Icons.calendar_today_outlined,
               color: Color.fromRGBO(251, 37, 118, 1))
           : suffixText.isNotEmpty
               ? Text(suffixText,
                   style: TextStyle(
-                    fontSize: 16.sp,
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.w400,
                     color: colors.turquoiseColorApp,
                     fontFamily: 'PLONI',

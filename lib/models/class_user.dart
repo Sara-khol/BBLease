@@ -7,6 +7,7 @@ part 'class_user.g.dart';
 
 @JsonSerializable()
 class User{
+ @JsonKey(name: 'customer_id')
  late int userId=-1;
   @JsonKey(name: 'reg_images', toJson: _imagesToJson, fromJson: _imagesFromJson)
   List<XFile?> regImages = List<XFile?>.filled(3, null);

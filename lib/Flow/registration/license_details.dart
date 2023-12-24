@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as intl;
 import '../Dialogs/buttom_dialogs.dart';
+import '../Rental/dialogs.dart';
 import '../my_shared_preferences.dart';
 import 'sucsses_registration.dart';
 import 'package:bblease/utils/my_colors.dart' as colors;
@@ -65,7 +66,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       style: TextStyle(
                         fontSize: 28.sp,
                         fontWeight: FontWeight.w600,
-                        color: Color.fromRGBO(15, 17, 21, 1),
+                        color: colors.blackColorApp,
                         fontFamily: 'PLONI',
                       ),
                     ),
@@ -78,7 +79,8 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   keyboardType: TextInputType.number,
                   cursorColor: colors.blackColorApp,
                   decoration: getInputDecoration('מספר רשיון נהיגה'),
-                  style: TextStyle(color: colors.blackColorApp),
+                  style:
+                      TextStyle(color: colors.blackColorApp, fontSize: 22.sp),
                   controller: _licenseId,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'זהו שדה חובה';
@@ -96,9 +98,8 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                         'assets/images/Calendar.png',
                         width: 18.w,
                       )),
-                  style: TextStyle(
-                    color: colors.blackColorApp,
-                  ),
+                  style:
+                      TextStyle(color: colors.blackColorApp, fontSize: 22.sp),
                   controller: _expDate,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'זהו שדה חובה';
@@ -131,9 +132,8 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                         Icons.calendar_today_outlined,
                         color: Color.fromRGBO(251, 37, 118, 1),
                       )),
-                  style: TextStyle(
-                    color: colors.blackColorApp,
-                  ),
+                  style:
+                      TextStyle(color: colors.blackColorApp, fontSize: 22.sp),
                   controller: _issDate,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'זהו שדה חובה';
@@ -160,9 +160,8 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                 TextFormField(
                   cursorColor: colors.blackColorApp,
                   decoration: getInputDecoration('דרגת רשיון'),
-                  style: TextStyle(
-                    color: colors.blackColorApp,
-                  ),
+                  style:
+                      TextStyle(color: colors.blackColorApp, fontSize: 22.sp),
                   controller: _degree,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'זהו שדה חובה';
@@ -179,7 +178,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       "נהג חדש",
                       style: TextStyle(
                           fontFamily: 'PLONI',
-                          fontSize: 18.sp,
+                          fontSize: 20.sp,
                           color: colors.blackColorApp),
                     ),
                     value: User().isNewDriver,
@@ -209,23 +208,20 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                           borderRadius: BorderRadius.circular(100),
                         ),
                       ),
-                      onPressed: () async{
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           User().licenseId = _licenseId.text;
                           User().licenseDegree = _degree.text;
                           User().licenseIssDate = iss.toString();
                           User().licenseExpDate = exp;
-                         await registerUser();
-
+                          await registerUser();
                         }
                       },
-                      child: Text(
-                        'הבא',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w500),
-                      )),
+                      child: Text('הבא',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 22.sp,
+                              fontWeight: FontWeight.w500))),
                 ),
               ],
             ),
@@ -240,7 +236,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
       isDense: true,
       labelText: text,
       labelStyle: TextStyle(
-        fontSize: 18.sp,
+        fontSize: 22.sp,
         fontWeight: FontWeight.w300,
         color: colors.blackColorApp,
         fontFamily: 'PLONI',
@@ -276,28 +272,35 @@ class _LicenseDetailsState extends State<LicenseDetails> {
   }
 
   registerUser() async {
+    showLoading(context);
     await ApiService().registerCustomerDetails((res) {
-      if(res is String) {
+      Navigator.pop(context);
+      if (res is String) {
         if (res.startsWith('in the system exists user with tz')) {
-          errorExistsDetails(context,'תעודת זהות');
+          displayError(context, type: 'תעודת זהות', onEdit: () {
+            Navigator.pop(context);
+            Navigator.pop(context);
+          });
+        } else if (res.startsWith('in the system exists user with email')) {
+          displayError(context, type: 'כתובת מייל', onEdit: () {
+            Navigator.pop(context);
+            Navigator.pop(context);
+          });
+        } else if (res.startsWith('no exists user with phone')) {
+          displayError(context, existsData: false, onEdit: () {
+            Navigator.pop(context);
+            Navigator.pop(context);
+          });
         }
-        else if (res.startsWith('in the system exists user with email')) {
-          errorExistsDetails(context,'כתובת מייל');
-        }
+      } else if (res is int) {
+        User().userId = res;
+        MySharedPreferences().setLastUsage();
+        MySharedPreferences().setUserId(User().userId);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const SucssesRegistrationForm()), (route) => false);
       }
-       else
-       if(res is int)
-         {
-           User().userId= res;
-           mySharedPreferences.updateLastUsage();
-           mySharedPreferences.updateUserId(User().phoneNumber);
-           Navigator.push(
-               context,
-               MaterialPageRoute(
-                   builder: (context) =>
-                       const SucssesRegistrationForm()));
-         }
-
     });
   }
 }

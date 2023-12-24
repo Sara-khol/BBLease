@@ -160,34 +160,40 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
       ));
 }
 
-Future errorExistsDetails(BuildContext context, String type) {
+Future displayError(BuildContext context,{bool existsData=true,String type='',
+  String message='',Function()? onEdit,bool closeButton=false}) {
   return showModalBottomSheet(
       context: context,
       builder: (BuildContext context) => Container(
           height: 230.h,
-          decoration: BoxDecoration(color:Colors.white,
+          decoration: const BoxDecoration(color:Colors.white,
             borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
           ),
           child: Column(children: [
-            SizedBox(height: 35.h),
+            SizedBox(height: 25.h),
             Text('שגיאה',
                 style: TextStyle(
                     color: colors.pinkColorApp,
                     fontSize: 28.sp,
                     fontWeight: FontWeight.w600,
                     height: 1)),
-            Spacer(),
-            Text(
-                '$type כבר קיימת במערכת\nבמידה והינך רשום התחבר לאזור האישי שלך\nבמידה ואינך רשום פנה לנציג לברור השגיאה',
-               textAlign: TextAlign.center,
-                style: TextStyle(
-                  height:1,
-                  color: colors.blackColorApp,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w400,
-                )),
-            SizedBox(height: 20.h),
-            Row(
+           // const Spacer(),
+            Expanded(
+              child: Center(
+                child: Text(
+                 message==''?  existsData?  '$type כבר קיימת במערכת\nבמידה והינך רשום התחבר לאזור האישי שלך\nבמידה ואינך רשום פנה לנציג לברור השגיאה':
+                   'מספר טלפון אינו תואם למספר אותו הכנסת באימות':message,
+                   textAlign: TextAlign.center,
+                    style: TextStyle(
+                      height:1,
+                      color: colors.blackColorApp,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w400,
+                    )),
+              ),
+            ),
+            //SizedBox(height: 20.h),
+           !closeButton? Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
@@ -201,8 +207,13 @@ Future errorExistsDetails(BuildContext context, String type) {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
+                        if(onEdit!=null)
+                          {
+                            onEdit();
+                          }
+                        else {
+                          Navigator.pop(context);
+                        }
                       },
                       child: Text(
                         'ערוך פרטים',
@@ -232,7 +243,28 @@ Future errorExistsDetails(BuildContext context, String type) {
                             fontWeight: FontWeight.w500),
                       )),
                 ),
-              ]),
+              ])
+            :  SizedBox(
+             height: 42.h,
+             width: 160.w,
+             child: ElevatedButton(
+                 style: ElevatedButton.styleFrom(
+                   backgroundColor: colors.turquoiseColorApp,
+                   shape: RoundedRectangleBorder(
+                     borderRadius: BorderRadius.circular(100),
+                   ),
+                 ),
+                 onPressed: () {
+                     Navigator.pop(context);
+                 },
+                 child: Text(
+                   'סגור',
+                   style: TextStyle(
+                       color: Colors.white,
+                       fontSize: 18.sp,
+                       fontWeight: FontWeight.w500),
+                 )),
+           ),
             SizedBox(height: 22.h)
           ])),
       barrierColor: Colors.black12.withOpacity(0.1),
@@ -240,3 +272,5 @@ Future errorExistsDetails(BuildContext context, String type) {
       //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
       );
 }
+
+

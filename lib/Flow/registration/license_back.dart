@@ -4,6 +4,7 @@ import 'package:bblease/Flow/registration/face_scanning.dart';
 import 'package:bblease/Flow/registration/personal_details_form.dart';
 import 'package:bblease/Flow/registration/text_recognition.dart';
 import 'package:bblease/models/class_user.dart';
+import 'package:bblease/utils/my_colors.dart';
 
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
@@ -131,7 +132,7 @@ class _LicenseBackState extends State<LicenseBack> {
                          context,
                          MaterialPageRoute(builder: (context) => const PersonalDetailsForm()));
                   },
-                  child: const Text('הבא (רק לצורך הדגמה)',style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),)),
+                  child:  Text('הבא (רק לצורך הדגמה)',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color:Colors.white),)),
             ),
             SizedBox(height: 12.h),
             Row(
@@ -141,10 +142,13 @@ class _LicenseBackState extends State<LicenseBack> {
                   width: 129.w,
                   height: 48.h,
                   child: FloatingActionButton.extended(
-                    label: Text('תמיכה',),
+                    label: Text('תמיכה',style: TextStyle(
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white)),
                     heroTag: "btn2",
                     elevation: 2,
-                    backgroundColor: Color.fromRGBO(0, 222, 222, 1),
+                    backgroundColor: turquoiseColorApp,
                     onPressed: ()=>_cameraController.pausePreview(),
                       icon: Icon(Icons.phone_outlined,size: 22.sp,color: Colors.white,)
                   ),
@@ -155,10 +159,13 @@ class _LicenseBackState extends State<LicenseBack> {
                   width: 183.w,
                   height: 48.h,
                   child: FloatingActionButton.extended(
-                    label: Text('העלאת תמונה'),
+                    label: Text('העלאת תמונה',style: TextStyle(
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white)),
                     heroTag: "btn1",
                     elevation: 2,
-                    backgroundColor:  Color.fromRGBO(0, 222, 222, 1),
+                    backgroundColor: turquoiseColorApp,
                     onPressed: _onUploadButtonPressed,
                     icon:  Icon(Icons.file_upload_outlined,size: 22.sp,color: Colors.white,)
                   ),
@@ -226,7 +233,7 @@ class _LicenseBackState extends State<LicenseBack> {
                   height: 40.h,
                   width: 80.w,
                   decoration: BoxDecoration(
-                      color: Color(0xFF00DEDE),
+                      color: turquoiseColorApp,
                       borderRadius: BorderRadius.all(Radius.circular(70))
                   ),
 

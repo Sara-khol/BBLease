@@ -1,4 +1,5 @@
 import 'package:bblease/Flow/registration/license_front.dart';
+import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -27,15 +28,19 @@ class _StartRegistrationState extends State<StartRegistration> {
             Image.asset('assets/icons/teenyicons_id.png',width: 159.w, fit: BoxFit.cover,),
             SizedBox(height: 130.h),
             Text("לתהליך הרישום, עליך להכין\nרשיון וכרטיס אשראי\nעל שמך בלבד!",
-              style: TextStyle(color:Colors.black,fontWeight: FontWeight.w600,fontSize: 28.sp,)
+              textAlign:TextAlign.center ,
+              style: TextStyle(color:Colors.black,
+                //height: 1,
+                fontWeight: FontWeight.w600,fontSize: 28.sp,)
                ,textDirection: TextDirection.rtl),
 
             SizedBox(height: 12.h),
+            //Spacer(),
             Container(
               height: 48.h,
               width: 332.w,
               child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(251, 37, 118, 1),
+                  style: ElevatedButton.styleFrom(backgroundColor: colors.turquoiseColorApp,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100),
                     ),
@@ -46,7 +51,7 @@ class _StartRegistrationState extends State<StartRegistration> {
                         context,
                         MaterialPageRoute(builder: (context) => const LicenseFront()));
                   },
-                  child:  Text('ביצוע הזמנה למשתמש קיים',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
+                  child:  Text('ביצוע הזמנה למשתמש קיים',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white),)),
             ),
           ],
         ),

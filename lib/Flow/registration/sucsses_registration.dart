@@ -30,13 +30,13 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
                 SizedBox(height: 38.h),
                 Text("היי ${User().firstName}!",
                     style: TextStyle(
-                        fontSize: 25.sp,
+                        fontSize: 28.sp,
                         height: 1,
                         fontWeight: FontWeight.w700,
                         color: colors.blackColorApp)),
                 Text("הרשמתך בוצעה בהצלחה",
                     style: TextStyle(
-                        fontSize: 25.sp,
+                        fontSize: 28.sp,
                         height: 1,
                         fontWeight: FontWeight.w700,
                         color: colors.blackColorApp)),
@@ -68,9 +68,8 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
                             },
                             child: Text('לעבור לביצוע הזמנה',
                                 style: TextStyle(
-                                    fontSize: 18.sp,
+                                    fontSize: 22.sp,
                                     color: Colors.white,
-
                                     fontWeight: FontWeight.w500))),
                       ),
                       SizedBox(height: 12.h),
@@ -83,7 +82,7 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
                             style: TextStyle(
                               color: Colors.white,
                                 letterSpacing: 0.1,
-                                fontSize: 18.sp,
+                                fontSize: 22.sp,
                                 fontWeight: FontWeight.w500),
                           ),
                           heroTag: "btn2",

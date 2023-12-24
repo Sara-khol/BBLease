@@ -156,7 +156,7 @@ class ApiService {
   }
 
 
-  Future getVerificationCode(String phone, Function(dynamic carJson) onSuccess) async {
+  Future getVerificationCode(String phone,bool isSms, Function(dynamic carJson) onSuccess) async {
     /*_dio.httpClientAdapter = IOHttpClientAdapter(
       createHttpClient: () {
         // Don't trust any certificate just because their root cert is trusted.
@@ -168,8 +168,13 @@ class ApiService {
         return client;
       },
     );*/
+    int sendType=isSms?0:1;
+    debugPrint('sendType $sendType');
+    // print('${_baseUrl}wp/v2/check_user_connected/$sendType/$phone');
     print('${_baseUrl}wp/v2/check_user_connected/1/$phone');
     Response response = await _dio.get('${_baseUrl}wp/v2/check_user_connected/1/$phone');
+    // Response response = await _dio.get('${_baseUrl}wp/v2/check_user_connected/$sendType/$phone');
+    ///*Response response = await*/ _dio.get('${_baseUrl}wp/v2/check_user_connected/2/$phone');
     if(response.statusCode == 200) {
       var result = response.data;
       print(result);
@@ -179,18 +184,7 @@ class ApiService {
   }
 
 
-  Future CodeVerification(String phone,String code, Function(dynamic carJson) onSuccess) async {
-    /*_dio.httpClientAdapter = IOHttpClientAdapter(
-      createHttpClient: () {
-        // Don't trust any certificate just because their root cert is trusted.
-        final HttpClient client =
-        HttpClient(context: SecurityContext(withTrustedRoots: false));
-        // You can test the intermediate / root cert here. We just ignore it.
-        client.badCertificateCallback =
-        ((X509Certificate cert, String host, int port) => true);
-        return client;
-      },
-    );*/
+  Future codeVerification(String phone,String code, Function(dynamic carJson) onSuccess) async {
     print('${_baseUrl}wp/v2/verificaion_customer/$code/$phone');
     Response response = await _dio.get('${_baseUrl}wp/v2/verificaion_customer/$code/$phone');
     if(response.statusCode == 200) {
@@ -205,10 +199,10 @@ class ApiService {
   {
     print('${_baseUrl}wp/v2/registration_customer_detailes');
     print('data: ${User().toJson()}');
-    Response response = await _dio.post('${_baseUrl}wp/v2/update_customer_detailes',
+    Response response = await _dio.post('${_baseUrl}wp/v2/registration_customer_detailes',
         data: User().toJson());
    // debugPrint('response $response');
-    debugPrint('data ${response.data}');
+    debugPrint('data: ${response.data}');
     if(response.statusCode==200) {
       onSuccess(response.data);
     }
@@ -216,6 +210,17 @@ class ApiService {
       {
 
       }
+  }
+
+  Future getUserById(int id,Function(dynamic res) onSuccess) async {
+    print('${_baseUrl}customers/get_customer/$id');
+    Response response = await _dio.get('${_baseUrl}customers/get_customer/$id');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print(result);
+      onSuccess(result);
+    }
+    // Prints the raw data returned by the server
   }
 
 

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/Rental/search_car.dart';
+import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -459,6 +460,22 @@ Future rentalTerm( context){
       //isDismissible: false,
       elevation: 2,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),)
+  );
+}
+
+Future showLoading(BuildContext context)
+{
+ return showDialog(
+    context: context,
+    barrierDismissible: false,
+    barrierColor:  Colors.black12.withOpacity(0.2),
+    builder: (context) {
+      return Center(
+        child: CircularProgressIndicator(
+          color: pinkColorApp,
+        ),
+      );
+    },
   );
 }
 

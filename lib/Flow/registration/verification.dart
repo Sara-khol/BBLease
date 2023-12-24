@@ -1,8 +1,12 @@
+import 'package:bblease/Flow/registration/personal_details_form.dart';
+import 'package:bblease/Flow/registration/sucsses_registration.dart';
 import 'package:cross_file_image/cross_file_image.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../models/class_user.dart';
+import '../../services/api_service.dart';
 
 class Verification extends StatefulWidget {
   const Verification({Key? key}) : super(key: key);
@@ -12,8 +16,23 @@ class Verification extends StatefulWidget {
 }
 
 class _VerificationState extends State<Verification> {
+
+  uploadImages() async{
+    print('uploadImages()');
+    await ApiService().fileUpload(() {
+      print('onSuccess');
+
+      Navigator.push(context,
+            MaterialPageRoute(builder: (context) => PersonalDetailsForm(),));
+        }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    uploadImages();
+
     return Scaffold(
       body: Center(
         child: SizedBox(
@@ -23,13 +42,13 @@ class _VerificationState extends State<Verification> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               //SizedBox(height: 120.h,),
-              Text('התצלום עלה בהצלחה',style: TextStyle(fontSize: 32.sp,fontWeight: FontWeight.w600),),
+              Text('התצלום עלה בהצלחה',style: TextStyle(fontSize: 32.sp,fontWeight: FontWeight.w600),textDirection: TextDirection.rtl,textAlign: TextAlign.center,),
               SizedBox(height: 50.h,),
               Text('המערכת בסריקה',style: TextStyle(fontSize: 28.sp,fontWeight: FontWeight.w600),),
               SizedBox(height: 30.h,),
-              Text('תהליך זה עלול להימשך כמה דקות אנא התאזר בסבלנות תודה',style: TextStyle(fontSize: 22.sp)),
+              Text('תהליך זה עלול להימשך כמה דקות אנא התאזר בסבלנות תודה',style: TextStyle(fontSize: 22.sp),textDirection: TextDirection.rtl,textAlign: TextAlign.center,),
               SizedBox(height: 30.h,),
-            Image(image: XFileImage(User().regImages[2]!)),
+              Image(image: XFileImage(User().regImages[2]!)),
 
             ],
           ),

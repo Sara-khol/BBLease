@@ -1,5 +1,6 @@
 import 'package:cross_file_image/cross_file_image.dart';
 import 'package:flutter/material.dart';
+import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../models/class_user.dart';
@@ -44,7 +45,7 @@ class _TermsState extends State<Terms> {
                     fontSize: 22.sp,
                     fontWeight: FontWeight.w500),),
                 heroTag: "btn2",
-                backgroundColor: Color.fromRGBO(0, 222, 222, 1),
+                backgroundColor: colors.turquoiseColorApp,
                 icon: Icon(
                   Icons.exit_to_app_outlined,
                   fill: 0,

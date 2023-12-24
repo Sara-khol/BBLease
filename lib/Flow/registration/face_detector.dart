@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:bblease/Flow/registration/sucsses_registration.dart';
+import 'package:bblease/Flow/registration/verification.dart';
+import 'package:bblease/models/class_user.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
@@ -37,7 +39,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
         return;
       }
       setState(() {});
-      _startDetecting();
+      //_startDetecting();
     });
   }
 
@@ -102,9 +104,14 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
     print('_capturePicture');
     XFile file = await _cameraController!.takePicture();
     print("Picture captured: ${file.path}");
-    if(file!=null)
-      Navigator.push(context, MaterialPageRoute(builder: (context) => SucssesRegistrationForm(),));
-    // You can save the file or perform other actions here
+    if(file!=null) {
+      _cameraController?.stopImageStream();
+      _cameraController?.pausePreview();
+
+      User().regImages[2] = file;
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => Verification(),));
+    }// You can save the file or perform other actions here
   }
 
   @override
@@ -119,7 +126,15 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
     if (_cameraController==null) {
       return Container();
     }
-    return CameraPreview(_cameraController!);
+    return Column(
+      children: [
+        CameraPreview(_cameraController!),
+        ElevatedButton.icon(
+         icon: Icon(Icons.camera),
+         onPressed: _capturePicture,
+          label: Text('צלם'),)
+      ],
+    );
     /*SizedBox(
       height: 500,
         child: FutureBuilder<void>(

@@ -47,9 +47,9 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                 SizedBox(
                   height: 50.h,
                 ),
-                const Icon(
+                 Icon(
                   Icons.account_circle_outlined,
-                  color: Color.fromRGBO(0, 222, 222, 1),
+                  color: colors.turquoiseColorApp,
                   size: 60,
                   weight: 100,
                 ),
@@ -65,7 +65,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       style: TextStyle(
                         fontSize: 28.sp,
                         fontWeight: FontWeight.w600,
-                        color: Color.fromRGBO(15, 17, 21, 1),
+                        color: colors.blackColorApp,
                         fontFamily: 'PLONI',
                       ),
                     ),
@@ -127,9 +127,9 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   readOnly: true,
                   cursorColor: colors.blackColorApp,
                   decoration: getInputDecoration('תאריך הנפקה',
-                      suffixIcon: const Icon(
+                      suffixIcon:  Icon(
                         Icons.calendar_today_outlined,
-                        color: Color.fromRGBO(251, 37, 118, 1),
+                        color: colors.pinkColorApp,
                       )),
                   style: TextStyle(
                     color: colors.blackColorApp,
@@ -179,7 +179,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       "נהג חדש",
                       style: TextStyle(
                           fontFamily: 'PLONI',
-                          fontSize: 18.sp,
+                          fontSize: 22.sp,
                           color: colors.blackColorApp),
                     ),
                     value: User().isNewDriver,
@@ -223,7 +223,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                         'הבא',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18.sp,
+                            fontSize: 22.sp,
                             fontWeight: FontWeight.w500),
                       )),
                 ),
@@ -240,7 +240,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
       isDense: true,
       labelText: text,
       labelStyle: TextStyle(
-        fontSize: 18.sp,
+        fontSize: 22.sp,
         fontWeight: FontWeight.w300,
         color: colors.blackColorApp,
         fontFamily: 'PLONI',
@@ -295,7 +295,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                context,
                MaterialPageRoute(
                    builder: (context) =>
-                       const SucssesRegistrationForm()));
+                       const SucssesRegistration()));
          }
 
     });

@@ -7,8 +7,8 @@ import 'package:camera/camera.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-
-
+import 'package:bblease/utils/my_colors.dart' as colors;
+import 'package:bblease/services/support.dart' as support;
 import 'license_back.dart';
 
 
@@ -48,13 +48,13 @@ class _LicenseFrontState extends State<LicenseFront> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: 90.h,),
+            SizedBox(height: 110.h,),
             Text(
               'סרוק רישיון',
               style: TextStyle(
                 fontSize: 28.sp,
                 fontWeight: FontWeight.w600,
-                color: Color.fromRGBO(15, 17, 21, 1),
+                color: colors.blackColorApp,
                 fontFamily: 'PLONI',
               ),
             ),
@@ -65,7 +65,7 @@ class _LicenseFrontState extends State<LicenseFront> {
               style: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w400,
-                color:  Color.fromRGBO(15, 17, 21, 1),
+                color:  colors.blackColorApp,
                 fontFamily: 'PLONI',
                 height: 1
               ),
@@ -91,13 +91,13 @@ class _LicenseFrontState extends State<LicenseFront> {
               style: TextStyle(
                 fontSize: 24.sp,
                 fontWeight: FontWeight.w500,
-                color:  Color.fromRGBO(15, 17, 21, 1),
+                color:  colors.blackColorApp,
                 fontFamily: 'PLONI',
               ),
               textAlign: TextAlign.center,
               textDirection: TextDirection.rtl,
             ),
-            SizedBox(height: 40.h),
+            SizedBox(height: 60.h),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -118,24 +118,7 @@ class _LicenseFrontState extends State<LicenseFront> {
               ],
             ),
 
-            SizedBox(height: 12.h),
-            Container(
-              height: 36.h,
-              width: 332.w,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(251, 37, 118, 1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                  ),
-                  onPressed: (){
-                     Navigator.push(
-                         context,
-                         MaterialPageRoute(builder: (context) => const LicenseBack()));
-                  },
-                  child: const Text('הבא (רק לצורך הדגמה)',style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),)),
-            ),
-            SizedBox(height: 12.h),
+            SizedBox(height: 60.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -146,8 +129,8 @@ class _LicenseFrontState extends State<LicenseFront> {
                     label: Text('תמיכה',style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
                     elevation: 2,
                     heroTag: "btn2",
-                    backgroundColor: Color.fromRGBO(0, 222, 222, 1),
-                    onPressed: ()=>_cameraController.pausePreview(),
+                    backgroundColor: colors.turquoiseColorApp,
+                    onPressed: ()=>support.call,
                     icon: Icon(Icons.phone_outlined,size: 22.sp,color: Colors.white,)
                   ),
                 ),
@@ -160,7 +143,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                     elevation: 2,
                     label: Text('העלאת תמונה',style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
                     heroTag: "btn1",
-                    backgroundColor:  Color.fromRGBO(0, 222, 222, 1),
+                    backgroundColor:  colors.turquoiseColorApp,
                     onPressed: _onUploadButtonPressed,
                     icon:  Icon(Icons.file_upload_outlined,size: 22.sp,color: Colors.white,)
                   ),
@@ -230,7 +213,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                  height: 40.h,
                  width: 80.w,
                  decoration: BoxDecoration(
-                   color: Color(0xFF00DEDE),
+                   color: colors.turquoiseColorApp,
                      borderRadius: BorderRadius.all(Radius.circular(70))
                  ),
 

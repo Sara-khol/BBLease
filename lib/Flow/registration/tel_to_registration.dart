@@ -1,3 +1,4 @@
+import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:bblease/Flow/terms_and_conditions.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -67,38 +68,38 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 121.h,),
-              Text("הזן מספר טלפון להרשמה",style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.w600,color:Color.fromRGBO(15, 21, 17, 1),),),
+              Text("הזן מספר טלפון להרשמה",style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.w600,color:colors.blackColorApp,),),
               SizedBox(height: 50.h,),
               TextFormField(
                 controller: _phone,
-                cursorColor: Color.fromRGBO(15, 17, 21, 1),
+                cursorColor: colors.blackColorApp,
                 decoration: InputDecoration(
                   isDense: true,
                   labelText: "מס' נייד",
                   labelStyle:  TextStyle(fontSize: 22.sp,
                     fontWeight: FontWeight.w300,
-                    color:  Color.fromRGBO(15, 17, 21, 1),
+                    color:  colors.blackColorApp,
                   ),
                   floatingLabelBehavior: FloatingLabelBehavior.auto,
                   enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                    color: Color.fromRGBO(15, 17, 21, 1),
+                    color: colors.blackColorApp,
                   ),
                   ),
                   focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                    color: Color.fromRGBO(15, 17, 21, 1),
+                    color: colors.blackColorApp,
                   ),
                   ),
                   contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20.0,),
                   prefixIcon: Padding(
                     padding: EdgeInsets.only(right: 20.w,left: 14.w),
-                    child:  Icon(Icons.phone,size: 23.sp,color: Color(0xFFFF2D81))//Image.asset('assets/images/Phone.png', width: 24.w,),
+                    child:  Icon(Icons.phone,size: 23.sp,color: colors.pinkColorApp)//Image.asset('assets/images/Phone.png', width: 24.w,),
                   ),
                   prefixIconConstraints: BoxConstraints(maxHeight: 26,),
-                  prefixIconColor: Color.fromRGBO(251, 37, 118, 1),
+                  prefixIconColor: colors.pinkColorApp,
                 ),
                 style:  TextStyle(fontSize: 22.sp,
                   fontWeight: FontWeight.w300,
-                  color:  Color.fromRGBO(15, 17, 21, 1)),
+                  color:  colors.blackColorApp),
                 validator: (value) {
                   if(value==null || value.length<10)
                     return 'מספר הטלפון חייב להיות בן 10 ספרות';
@@ -109,32 +110,32 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
                 visible: sent&&checkboxValue1,
                 child: TextFormField(
                   controller: _code,
-                  cursorColor: Color.fromRGBO(15, 17, 21, 1),
+                  cursorColor: colors.blackColorApp,
                   decoration: InputDecoration(
                     isDense: true,
                     labelText: "הזן סיסמא שהתקבלה",
                     labelStyle:  TextStyle(fontSize: 22.sp,
                       fontWeight: FontWeight.w300,
-                      color:  Color.fromRGBO(15, 17, 21, 1),
+                      color:  colors.blackColorApp,
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
                     enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                      color: Color.fromRGBO(15, 17, 21, 1),
+                      color: colors.blackColorApp,
                     ),
                     ),
                     focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,), borderSide: BorderSide(
-                      color: Color.fromRGBO(15, 17, 21, 1),
+                      color: colors.blackColorApp,
                     ),
                     ),
                     contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20.0,),
                     prefixIcon: Padding(
                       padding: EdgeInsets.only(right: 20.w,left: 14.w),
-                      child: Icon(Icons.password,size: 23.sp,color: Color(0xFFFF2D81),) //Image.asset('assets/images/Phone.png', width: 24.w,),
+                      child: Icon(Icons.password,size: 23.sp,color: colors.pinkColorApp,) //Image.asset('assets/images/Phone.png', width: 24.w,),
                     ),
                     prefixIconConstraints: BoxConstraints(maxHeight: 26,),
-                    prefixIconColor: Color.fromRGBO(251, 37, 118, 1),
+                    prefixIconColor: colors.pinkColorApp,
                   ),
-                  style:  TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w300,color:  Color.fromRGBO(15, 17, 21, 1)),
+                  style:  TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w300,color:  colors.blackColorApp),
                   validator: (value) {
                     if(value==null || value.length<4)
                       return 'קוד שגוי';
@@ -162,13 +163,13 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
                         ),
                       ],
                     ),
-                    checkColor:  Color.fromRGBO(15, 21, 17, 1),
+                    checkColor:  colors.blackColorApp,
                     activeColor: Colors.transparent,
                     // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     controlAffinity: ListTileControlAffinity.leading,
                     checkboxShape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4)),
-                    side: BorderSide(color:Color.fromRGBO(15, 21, 17, 1),width: 1.5,),
+                    side: BorderSide(color:colors.blackColorApp,width: 1.5,),
                   ),
                 ),
               ),
@@ -197,7 +198,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm>{
                   height: 48.h,
                   width: 332.w,
                   child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(0, 222, 222, 1),
+                      style: ElevatedButton.styleFrom(backgroundColor: colors.turquoiseColorApp,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100),
                         ),

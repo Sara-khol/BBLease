@@ -15,7 +15,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:image/image.dart' as img;
-
+import 'package:bblease/services/support.dart' as support;
+import 'package:bblease/utils/my_colors.dart' as colors;
 import 'face_detector.dart';
 
 
@@ -283,7 +284,7 @@ print('faces.length: ${faces.length}');
               LinearPercentIndicator(
                 width: 332.w,
                 lineHeight: 17.h,
-                percent: 1,
+                percent: 0.99,
                 animation: true,
                 barRadius: const Radius.circular(16),
                 linearGradient: LinearGradient(colors: [ Color.fromRGBO(254, 193, 216, 1), Color.fromRGBO(251, 39, 119, 1)], ),
@@ -302,13 +303,13 @@ print('faces.length: ${faces.length}');
             height: 48.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(25)),
-              color: Color(0xFF00DEDE),
+              color: colors.turquoiseColorApp,
             ),
             child: TextButton(
               child: Text('תמיכה',style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.w500),),
               onPressed: () {
+                support.call;
                 //TODO: call for help
-
               },
             ),
           ),

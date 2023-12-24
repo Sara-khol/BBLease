@@ -1,10 +1,10 @@
-
+import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:bblease/Flow/UserInformation/ordersHistory.dart';
 import 'package:bblease/Flow/terms_and_conditions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:side_sheet/side_sheet.dart';
-
+import 'package:bblease/services/support.dart' as support;
 import '../models/class_user.dart';
 
 Future sideMenu( context){
@@ -28,9 +28,9 @@ Future sideMenu( context){
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                     Icon(Icons.account_circle_outlined,color: Colors.black,),
+                     Icon(Icons.account_circle_outlined,color: colors.blackColorApp,),
                      SizedBox(width: 10.w,),
-                     Text('אזור אישי', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: Colors.black),)
+                     Text('אזור אישי', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: colors.blackColorApp),)
                     ],
                   ),
                 ),
@@ -46,9 +46,9 @@ Future sideMenu( context){
                   mainAxisAlignment: MainAxisAlignment.start,
 
                   children: [
-                    Icon(Icons.check_circle_outlined,color: Colors.black,),
+                    Icon(Icons.check_circle_outlined,color: colors.blackColorApp,),
                     SizedBox(width: 10.w,),
-                    Text('הטבות ומבצעים', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: Colors.black),)
+                    Text('הטבות ומבצעים', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: colors.blackColorApp),)
                   ],
                 ),
               ),
@@ -63,9 +63,9 @@ Future sideMenu( context){
                   mainAxisAlignment: MainAxisAlignment.start,
 
                   children: [
-                    Icon(Icons.account_balance_wallet_outlined,color: Colors.black,),
+                    Icon(Icons.account_balance_wallet_outlined,color: colors.blackColorApp,),
                     SizedBox(width: 10.w,),
-                    Text('טבלת מחירים', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: Colors.black),)
+                    Text('טבלת מחירים', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: colors.blackColorApp),)
                   ],
                 ),
               ),
@@ -80,15 +80,14 @@ Future sideMenu( context){
                   mainAxisAlignment: MainAxisAlignment.start,
 
                   children: [
-                    Icon(Icons.error_outline,color: Colors.black,),
+                    Icon(Icons.error_outline,color: colors.blackColorApp,),
                     SizedBox(width: 10.w,),
-                    Text('תקנון החברה', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: Colors.black),)
+                    Text('תקנון החברה', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: colors.blackColorApp),)
                   ],
                 ),
               ),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) =>  Terms()));
-
               },
             ),
             TextButton(
@@ -98,9 +97,9 @@ Future sideMenu( context){
                   mainAxisAlignment: MainAxisAlignment.start,
 
                   children: [
-                    Icon(Icons.chair_outlined,color: Colors.black,),
+                    Icon(Icons.chair_outlined,color: colors.blackColorApp,),
                     SizedBox(width: 10.w,),
-                    Text('הצטרף לצוות שלנו', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: Colors.black),)
+                    Text('הצטרף לצוות שלנו', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: colors.blackColorApp),)
                   ],
                 ),
               ),
@@ -113,11 +112,10 @@ Future sideMenu( context){
                 padding:  EdgeInsets.only(top: 11.h,bottom: 11.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-
                   children: [
-                    Icon(Icons.ondemand_video_outlined,color: Colors.black,),
-                    SizedBox(width: 10.w,),
-                    Text('סרטון הדרכה\nלשימוש באפליקציה', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: Colors.black),)
+                    Icon(Icons.ondemand_video_outlined,color: colors.blackColorApp,),
+                    SizedBox(width: 10.w),
+                    Text('סרטון הדרכה\nלשימוש באפליקציה', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: colors.blackColorApp),)
                   ],
                 ),
               ),
@@ -130,12 +128,13 @@ Future sideMenu( context){
               height: 48.h,
               width: 332.w,
               child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(0, 222, 222, 1),
+                  style: ElevatedButton.styleFrom(backgroundColor: colors.turquoiseColorApp,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100),
                     ),
                   ),
                   onPressed: (){
+                    support.call;
                   },
                   child: Center(
                     child: Row(
@@ -179,7 +178,7 @@ Future personalArea( context){
                 children: [
                   Text('אזור אישי', style: TextStyle(fontSize: 24.sp,fontWeight: FontWeight.w700),),
                   SizedBox(height: 12.h,),
-                  Icon(Icons.account_circle_outlined,size: 34.sp,color: Colors.black,),
+                  Icon(Icons.account_circle_outlined,size: 34.sp,color: colors.blackColorApp,),
                   SizedBox(height: 6.h,),
                   User().firstName.isNotEmpty&&User().lastName.isNotEmpty?
                   Text('${User().firstName} ${User().lastName}',style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w600),)
@@ -193,9 +192,9 @@ Future personalArea( context){
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Icon(Icons.account_circle_outlined,color: Colors.black,),
+                      Icon(Icons.account_circle_outlined,color: colors.blackColorApp,),
                       SizedBox(width: 10.w,),
-                      Text('פרופיל אישי', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: Colors.black),)
+                      Text('פרופיל אישי', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: colors.blackColorApp),)
                     ],
                   ),
                 ),
@@ -209,26 +208,9 @@ Future personalArea( context){
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Icon(Icons.credit_card,color: Colors.black,),
+                      Icon(Icons.credit_card,color: colors.blackColorApp,),
                       SizedBox(width: 10.w,),
-                      Text('פרטי כרטיס אשראי', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: Colors.black),)
-                    ],
-                  ),
-                ),
-                onPressed: () {
-
-                },
-              ),
-              TextButton(
-                child: Padding(
-                  padding:  EdgeInsets.only(top: 11.h,bottom: 11.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-
-                    children: [
-                      Icon(Icons.drive_eta_outlined,color: Colors.black,),
-                      SizedBox(width: 10.w,),
-                      Text('פרטי רשיון נהיגה', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: Colors.black),)
+                      Text('פרטי כרטיס אשראי', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: colors.blackColorApp),)
                     ],
                   ),
                 ),
@@ -243,9 +225,26 @@ Future personalArea( context){
                     mainAxisAlignment: MainAxisAlignment.start,
 
                     children: [
-                      Icon(Icons.folder_outlined,color: Colors.black,),
+                      Icon(Icons.drive_eta_outlined,color: colors.blackColorApp,),
                       SizedBox(width: 10.w,),
-                      Text('ההזמנות שלי', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: Colors.black),)
+                      Text('פרטי רשיון נהיגה', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: colors.blackColorApp),)
+                    ],
+                  ),
+                ),
+                onPressed: () {
+
+                },
+              ),
+              TextButton(
+                child: Padding(
+                  padding:  EdgeInsets.only(top: 11.h,bottom: 11.h),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+
+                    children: [
+                      Icon(Icons.folder_outlined,color: colors.blackColorApp,),
+                      SizedBox(width: 10.w,),
+                      Text('ההזמנות שלי', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600,color: colors.blackColorApp),)
                     ],
                   ),
                 ),
@@ -257,12 +256,13 @@ Future personalArea( context){
                 width: 332.w,
                 child: Center(
                   child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(0, 222, 222, 1),
+                      style: ElevatedButton.styleFrom(backgroundColor: colors.turquoiseColorApp,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100),
                         ),
                       ),
                       onPressed: (){
+                        support.call;
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

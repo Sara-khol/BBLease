@@ -70,7 +70,7 @@ class _NavigationState extends State<Navigation> {
                     onPressed: (){
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) =>  FaceScanning()));
+                          MaterialPageRoute(builder: (context) =>  StartRegistration()));
                     },
                     child:  Text('זיהוי פנים',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
               ),

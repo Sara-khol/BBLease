@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:camera/camera.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:flutter/material.dart';
@@ -205,7 +206,7 @@ class ApiService {
   {
     print('${_baseUrl}wp/v2/registration_customer_detailes');
     print('data: ${User().toJson()}');
-    Response response = await _dio.post('${_baseUrl}wp/v2/update_customer_detailes',
+    Response response = await _dio.post('${_baseUrl}wp/v2/registration_customer_detailes',
         data: User().toJson());
    // debugPrint('response $response');
     debugPrint('data ${response.data}');
@@ -218,6 +219,49 @@ class ApiService {
       }
   }
 
+  /*Future uploadImage(XFile file) async {
+    String fileName = file.path.split('/').last;
+    FormData formData = FormData.fromMap({
+      "file":
+      await MultipartFile.fromFile(file.path, filename:fileName),
+    });
+     var response = await _dio.post(_baseUrl, data: formData);
+    return response.data['id'];
+  }*/
 
+  Future fileUpload(Function() onSuccess) async {
+
+
+    List<MultipartFile> imageFiles = [];
+
+    for (var item in User().regImages) {
+      if (item != null) {
+        imageFiles.add(
+          await MultipartFile.fromFile(
+            item.path,
+            filename: item.path.split('/').last,
+          ),
+        );
+      }
+    }
+    //uploadList.add('0533117933');
+    print('uploadList.toString() ${imageFiles.toString()}');
+    FormData formData = FormData.fromMap({
+      "license_front": imageFiles[0],
+      "license_back": imageFiles[1],
+      "face": imageFiles[2],
+      "user_phone":'0533117933',
+    });
+
+    var response = await _dio.post('${_baseUrl}wp/v2/upload_license', data: formData,);
+    print("response.statusCode ${response.statusCode}");
+    if(response.statusCode == 200) {
+      print("response.data ${response.data.toString()}");
+      onSuccess();
+    }
+    else {
+      print(response.statusCode);
+    }
+  }
 
 }

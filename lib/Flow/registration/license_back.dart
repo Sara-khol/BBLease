@@ -4,12 +4,13 @@ import 'package:bblease/Flow/registration/face_scanning.dart';
 import 'package:bblease/Flow/registration/personal_details_form.dart';
 import 'package:bblease/Flow/registration/text_recognition.dart';
 import 'package:bblease/models/class_user.dart';
-
+import 'package:bblease/services/support.dart' as support;
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:bblease/utils/my_colors.dart' as colors;
 
 
 
@@ -49,13 +50,13 @@ class _LicenseBackState extends State<LicenseBack> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: 90.h,),
+            SizedBox(height: 110.h,),
             Text(
               'סרוק רישיון',
               style: TextStyle(
                 fontSize: 28.sp,
                 fontWeight: FontWeight.w600,
-                color: Color.fromRGBO(15, 17, 21, 1),
+                color: colors.blackColorApp,
                 fontFamily: 'PLONI',
               ),
             ),
@@ -65,7 +66,7 @@ class _LicenseBackState extends State<LicenseBack> {
               style: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w400,
-                color:  Color.fromRGBO(15, 17, 21, 1),
+                color:  colors.blackColorApp,
                 fontFamily: 'PLONI',
               ),
               textAlign: TextAlign.center,
@@ -90,13 +91,13 @@ class _LicenseBackState extends State<LicenseBack> {
               style: TextStyle(
                 fontSize: 24.sp,
                 fontWeight: FontWeight.w500,
-                color:  Color.fromRGBO(15, 17, 21, 1),
+                color:  colors.blackColorApp,
                 fontFamily: 'PLONI',
               ),
               textAlign: TextAlign.center,
               textDirection: TextDirection.rtl,
             ),
-            SizedBox(height: 40.h),
+            SizedBox(height: 60.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -115,25 +116,7 @@ class _LicenseBackState extends State<LicenseBack> {
                 ),
               ],
             ),
-
-            SizedBox(height: 12.h),
-            Container(
-              height: 36.h,
-              width: 332.w,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(251, 37, 118, 1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                  ),
-                  onPressed: (){
-                     Navigator.push(
-                         context,
-                         MaterialPageRoute(builder: (context) => const PersonalDetailsForm()));
-                  },
-                  child: const Text('הבא (רק לצורך הדגמה)',style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),)),
-            ),
-            SizedBox(height: 12.h),
+            SizedBox(height: 60.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -144,8 +127,8 @@ class _LicenseBackState extends State<LicenseBack> {
                     label: Text('תמיכה',),
                     heroTag: "btn2",
                     elevation: 2,
-                    backgroundColor: Color.fromRGBO(0, 222, 222, 1),
-                    onPressed: ()=>_cameraController.pausePreview(),
+                    backgroundColor: colors.turquoiseColorApp,
+                    onPressed: ()=>support.call,
                       icon: Icon(Icons.phone_outlined,size: 22.sp,color: Colors.white,)
                   ),
                 ),
@@ -158,7 +141,7 @@ class _LicenseBackState extends State<LicenseBack> {
                     label: Text('העלאת תמונה'),
                     heroTag: "btn1",
                     elevation: 2,
-                    backgroundColor:  Color.fromRGBO(0, 222, 222, 1),
+                    backgroundColor: colors.turquoiseColorApp,
                     onPressed: _onUploadButtonPressed,
                     icon:  Icon(Icons.file_upload_outlined,size: 22.sp,color: Colors.white,)
                   ),
@@ -226,14 +209,14 @@ class _LicenseBackState extends State<LicenseBack> {
                   height: 40.h,
                   width: 80.w,
                   decoration: BoxDecoration(
-                      color: Color(0xFF00DEDE),
+                      color: colors.turquoiseColorApp,
                       borderRadius: BorderRadius.all(Radius.circular(70))
                   ),
 
                   child: TextButton(
                     onPressed: () async{
                       XFile xfile=await _cameraController.takePicture();
-                      uploadSucceed(context,LicenseBack(),PersonalDetailsForm());
+                      uploadSucceed(context,LicenseBack(),FaceScanning());
                       setState(() {
                         _imageBack= xfile;
                         _cameraController.pausePreview();

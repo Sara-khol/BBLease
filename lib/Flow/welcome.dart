@@ -1,4 +1,4 @@
-
+import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:bblease/Flow/UserInformation/ordersHistory.dart';
 import 'package:bblease/Flow/navigation.dart';
 import 'package:bblease/Flow/registration/tel_to_registration.dart';
@@ -21,7 +21,7 @@ class WelcomeForm extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
            SizedBox(height: 56.h),
-            Text("Welcome to Bibilease",style: TextStyle(color: Color.fromRGBO(251, 37, 118, 1),fontWeight: FontWeight.w700,fontSize: 30.sp,),),
+            Text("Welcome to Bibilease",style: TextStyle(color: colors.pinkColorApp,fontWeight: FontWeight.w700,fontSize: 30.sp,),),
             SizedBox(height: 36.h),
             Expanded(child: Image.asset('assets/images/BB.png',width: 392.w, fit: BoxFit.contain)),
             SizedBox(height: 48.h),
@@ -29,7 +29,7 @@ class WelcomeForm extends StatelessWidget {
               height: 48.h,
               width: 332.w,
               child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(0, 222, 222, 1),
+                  style: ElevatedButton.styleFrom(backgroundColor: colors.turquoiseColorApp,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100),
                     ),
@@ -50,7 +50,7 @@ class WelcomeForm extends StatelessWidget {
               width: 332.w,
               margin: EdgeInsets.only(bottom: 35.h),
               child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(251, 37, 118, 1),
+                  style: ElevatedButton.styleFrom(backgroundColor: colors.pinkColorApp,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100),
                     ),

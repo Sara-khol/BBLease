@@ -33,7 +33,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
   final TextEditingController _date =
       TextEditingController(text: User().birthDate);
   final TextEditingController _email = TextEditingController();
-  final TextEditingController _phone = TextEditingController();
+  final TextEditingController _phone = TextEditingController(text: User().phoneNumber);
   String bdate = User().birthDate;
   bool checkboxValue1 = true;
 
@@ -59,25 +59,21 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                 padding: EdgeInsets.only(left: 30.w, right: 30.w),
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: 50.h,
-                    ),
+                    SizedBox(height: 50.h,),
                     Icon(
                       Icons.account_circle_outlined,
                       color:colors.turquoiseColorApp,
                       size: 60.sp,
                       weight: 50,
                     ),
-                    SizedBox(
-                      height: 8.h,
-                    ),
+                    SizedBox(height: 8.h,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           'פרטים אישיים',
                           style: TextStyle(
-                              fontSize: 24.sp,
+                              fontSize: 28.sp,
                               fontWeight: FontWeight.w600,
                               fontFamily: 'PLONI',
                               height: 1),
@@ -152,9 +148,9 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                         DateTime? date = await showDatePicker(
                             context: context,
                             // initialDate: DateTime.now(),
-                            initialDate: DateTime(DateTime.now().year - 21),
+                            initialDate:  DateTime.now().subtract(Duration(days: 21 * 365)),
                             firstDate: DateTime(1950),
-                            lastDate: DateTime(DateTime.now().year - 21));
+                            lastDate: DateTime.now().subtract(Duration(days: 21 * 365)));
                         if (date != null) {
                           setState(() {
                             _date.text =
@@ -196,6 +192,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.done,
                       cursorColor: colors.blackColorApp,
+                      readOnly: true,
                       decoration: getInputDecoration("מס' נייד",
                           suffixText: '   הכנס נייד זמין  '),
                       style: TextStyle(
@@ -217,7 +214,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                             style: TextStyle(
                                 height: 1,
                                 fontFamily: 'PLONI',
-                                fontSize: 18.sp)),
+                                fontSize: 22.sp)),
                         value: checkboxValue1,
                         onChanged: (bool? value) {
                           setState(() {
@@ -246,7 +243,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                             ),
                           ),
                           onPressed: () {
-                            setState(() {});
+
                             User().firstName = _firstName.text;
                             User().lastName = _lastName.text;
                             User().name = _name.text.isNotEmpty
@@ -255,8 +252,9 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                             User().tz = _tz.text;
                             User().birthDate = bdate;
                             User().email = _email.text;
-                            User().phoneNumber = _phone.text;
+                            //User().phoneNumber = _phone.text;
                             User().getNotification = checkboxValue1;
+                            setState(() {});
                             if (_formKey.currentState!.validate()) {
                               Navigator.push(
                                   context,
@@ -269,7 +267,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                             'הבא',
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 18.sp,
+                                fontSize: 22.sp,
                                 fontWeight: FontWeight.w500),
                           )),
                     ),
@@ -292,7 +290,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
       isDense: true,
       labelText: text,
       labelStyle: TextStyle(
-          fontSize: 18.sp,
+          fontSize: 22.sp,
           fontWeight: FontWeight.w300,
           color: colors.blackColorApp,
           fontFamily: 'PLONI'),
@@ -321,12 +319,12 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
         ),
       ),
       suffixIcon: isDate
-          ? const Icon(Icons.calendar_today_outlined,
-              color: Color.fromRGBO(251, 37, 118, 1))
+          ? Icon(Icons.calendar_today_outlined,
+              color: colors.pinkColorApp)
           : suffixText.isNotEmpty
               ? Text(suffixText,
                   style: TextStyle(
-                    fontSize: 16.sp,
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.w400,
                     color: colors.turquoiseColorApp,
                     fontFamily: 'PLONI',
@@ -337,3 +335,4 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
     );
   }
 }
+

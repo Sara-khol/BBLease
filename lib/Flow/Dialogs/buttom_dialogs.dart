@@ -11,63 +11,34 @@ Future errorNoMatch(BuildContext context, Widget page) {
             height: 230.h,
             child: Column(
               children: [
-                SizedBox(
-                  height: 36.h,
-                ),
-                Text(
-                  'אופס, שימו לב',
-                  style: TextStyle(
-                      fontSize: 32.sp,
-                      fontWeight: FontWeight.w600,
-                      color: colors.pinkColorApp),
-                ),
-                SizedBox(
-                  height: 25.h,
-                ),
-                Text(
-                  'התמונה שעלתה באיכות גרועה לא נוכל לבצע אימות',
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                  ),
-                ),
-                SizedBox(
-                  height: 26.h,
-                ),
+                SizedBox(height: 36.h,),
+                Text('אופס, שימו לב', style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w600, color: colors.pinkColorApp),),
+                SizedBox(height: 25.h,),
+                Text('התמונה שעלתה באיכות גרועה לא נוכל לבצע אימות', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400, color: Colors.black,),),
+                SizedBox(height: 26.h,),
                 Container(
                   width: 332.w,
                   height: 48.h,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(25)),
-                    color: Color(0xFF00DEDE),
+                    color: colors.turquoiseColorApp,
                   ),
                   child: TextButton(
-                    child: Text(
-                      'נסה שנית',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22.sp,
-                          fontWeight: FontWeight.w500),
-                    ),
+                    child: Text('נסה שנית', style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.w500),),
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => page));
                     },
                   ),
                 ),
-                SizedBox(
-                  height: 22.h,
-                ),
+                SizedBox(height: 22.h,),
               ],
             ),
           ),
       barrierColor: Colors.black12.withOpacity(0.1),
       isDismissible: false,
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-      ));
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),));
 }
 
 Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
@@ -78,19 +49,9 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
             height: 230.h,
             child: Column(
               children: [
-                SizedBox(
-                  height: 45.h,
-                ),
-                Text(
-                  'התצלום עלה בהצלחה',
-                  style: TextStyle(
-                      fontSize: 32.sp,
-                      fontWeight: FontWeight.w600,
-                      color: colors.pinkColorApp),
-                ),
-                SizedBox(
-                  height: 64.h,
-                ),
+                SizedBox(height: 45.h,),
+                Text('התצלום עלה בהצלחה', style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w600, color: colors.pinkColorApp),),
+                SizedBox(height: 64.h,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -100,55 +61,37 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
                       height: 48.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(25)),
-                        color: Color(0xFF00DEDE),
+                        color: colors.turquoiseColorApp,
                       ),
                       child: TextButton(
-                        child: Text(
-                          'סרוק פעם נוספת',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22.sp,
-                              fontWeight: FontWeight.w500),
-                        ),
+                        child: Text('סרוק פעם נוספת', style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.w500),),
                         onPressed: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => prevPage));
+                              MaterialPageRoute(builder: (context) => prevPage));
                         },
                       ),
                     ),
-                    SizedBox(
-                      width: 13.w,
-                    ),
+                    SizedBox(width: 13.w,),
                     Container(
                       width: 160.w,
                       height: 48.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(25)),
-                        color: Color(0xFF00DEDE),
+                        color:colors.turquoiseColorApp,
                       ),
                       child: TextButton(
-                        child: Text(
-                          'אישור',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22.sp,
-                              fontWeight: FontWeight.w500),
-                        ),
+                        child: Text('אישור',style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.w500)),
                         onPressed: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => nextPage));
+                              MaterialPageRoute(builder: (context) => nextPage));
                         },
                       ),
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 22.h,
-                ),
+                SizedBox(height: 22.h,),
               ],
             ),
           ),

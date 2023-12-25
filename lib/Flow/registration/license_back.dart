@@ -124,7 +124,10 @@ class _LicenseBackState extends State<LicenseBack> {
                   width: 129.w,
                   height: 48.h,
                   child: FloatingActionButton.extended(
-                    label: Text('תמיכה',),
+                    label: Text('תמיכה',style: TextStyle(
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white)),
                     heroTag: "btn2",
                     elevation: 2,
                     backgroundColor: colors.turquoiseColorApp,
@@ -138,7 +141,10 @@ class _LicenseBackState extends State<LicenseBack> {
                   width: 183.w,
                   height: 48.h,
                   child: FloatingActionButton.extended(
-                    label: Text('העלאת תמונה'),
+                    label: Text('העלאת תמונה',style: TextStyle(
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white)),
                     heroTag: "btn1",
                     elevation: 2,
                     backgroundColor: colors.turquoiseColorApp,
@@ -212,7 +218,6 @@ class _LicenseBackState extends State<LicenseBack> {
                       color: colors.turquoiseColorApp,
                       borderRadius: BorderRadius.all(Radius.circular(70))
                   ),
-
                   child: TextButton(
                     onPressed: () async{
                       XFile xfile=await _cameraController.takePicture();

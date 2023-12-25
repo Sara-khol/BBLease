@@ -1,5 +1,6 @@
 import 'package:bblease/Flow/registration/face_detector.dart';
 import 'package:bblease/Flow/registration/face_scanning.dart';
+import 'package:bblease/Flow/registration/personal_details_form.dart';
 import 'package:bblease/Flow/registration/start_registration.dart';
 import 'package:bblease/Flow/registration/tel_to_registration.dart';
 import 'package:flutter/material.dart';
@@ -43,11 +44,11 @@ class _NavigationState extends State<Navigation> {
                     onPressed: (){
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const TelToRegistrationForm()));
+                          MaterialPageRoute(builder: (context) => const TelToRegistrationForm(isRegister: false,)));
                       //departurePoint(context);
 
                     },
-                    child: Text('כניסה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
+                    child: Text('כניסה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white),)),
               ),
               SizedBox(height: 16.h),
               Row(
@@ -70,9 +71,14 @@ class _NavigationState extends State<Navigation> {
                     onPressed: (){
                       Navigator.push(
                           context,
+
                           MaterialPageRoute(builder: (context) =>  StartRegistration()));
+
+                          // MaterialPageRoute(builder: (context) =>  FaceScanning()));
+                          MaterialPageRoute(builder: (context) => const TelToRegistrationForm(isRegister: true));
+
                     },
-                    child:  Text('זיהוי פנים',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
+                    child:  Text('זיהוי פנים',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white),)),
               ),
             ],
           ),

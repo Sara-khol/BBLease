@@ -7,8 +7,8 @@ part of 'class_user.dart';
 // **************************************************************************
 
 User _$UserFromJson(Map<String, dynamic> json) => User()
-  ..userId = json['userId'] as int
-  ..regImages = User._imagesFromJson(json['reg_images'] as List)
+  ..userId = json['customer_id'] as int
+ // ..regImages = User._imagesFromJson(json['reg_images'] as List)
   ..firstName = json['name'] as String
   ..lastName = json['family_name'] as String
   ..name = json['doc_name'] as String?
@@ -24,7 +24,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User()
   ..isNewDriver = json['is_new_driver'] as bool;
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
-      if (instance.userId != -1) 'userId': instance.userId,
+      'customer_id': instance.userId,
       'reg_images': User._imagesToJson(instance.regImages),
       'name': instance.firstName,
       'family_name': instance.lastName,

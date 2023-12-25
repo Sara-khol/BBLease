@@ -1,4 +1,5 @@
 import 'package:bblease/Flow/registration/license_front.dart';
+import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bblease/utils/my_colors.dart' as colors;
@@ -30,8 +31,11 @@ class _StartRegistrationState extends State<StartRegistration> {
             Text("לתהליך הרישום, עליך להכין\nרשיון וכרטיס אשראי\nעל שמך בלבד!",
               style: TextStyle(color:Colors.black,fontWeight: FontWeight.w600,fontSize: 22.sp,)
                ,textDirection: TextDirection.rtl,textAlign: TextAlign.center),
-
             SizedBox(height: 50.h),
+
+
+            SizedBox(height: 12.h),
+            //Spacer(),
             Container(
               height: 48.h,
               width: 332.w,

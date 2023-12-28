@@ -39,7 +39,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
         return;
       }
       setState(() {});
-      //_startDetecting();
+     _startDetecting();
     });
   }
 
@@ -73,6 +73,8 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
             planeData: [], // Adjust rotation based on your camera orientation
           ),
         );
+
+
 
         _faceDetector.processImage(inputImage).then((List<Face> faces) {
           print('faces.length ${faces.length}');
@@ -110,8 +112,11 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
 
       User().regImages[2] = file;
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => Verification(),));
+          MaterialPageRoute(builder: (context) => const Verification(),));
     }// You can save the file or perform other actions here
+   // // if(file!=null)
+   //    Navigator.push(context, MaterialPageRoute(builder: (context) => SucssesRegistrationForm(),));
+   //  // You can save the file or perform other actions here
   }
 
   @override
@@ -128,7 +133,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
     }
     return Column(
       children: [
-        CameraPreview(_cameraController!),
+        Expanded(child: CameraPreview(_cameraController!)),
         ElevatedButton.icon(
          icon: Icon(Icons.camera),
          onPressed: _capturePicture,

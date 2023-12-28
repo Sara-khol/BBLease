@@ -29,9 +29,13 @@ class _VerificationState extends State<Verification> {
   }
 
   @override
-  Widget build(BuildContext context) {
-
+  void initState() {
     uploadImages();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
 
     return Scaffold(
       body: Center(

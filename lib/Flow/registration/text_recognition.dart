@@ -64,9 +64,9 @@ Future<void> extractData(String data) async {
   // User().setLicenseIssDate(extractedData['4a'] ?? '01.01.1970') ;
   // User().setLicenseExpDate(extractedData['4b'] ?? '01.01.1970');
 
-  User().birthDate=extractedData['3'] ?? '01.01.1970';
-  User().licenseIssDate=extractedData['4a'] ?? '01.01.1970';
-  User().licenseExpDate=extractedData['4b'] ?? '01.01.1970';
+  User().birthDate=extractedData['3'] ?? '';
+  User().licenseIssDate=extractedData['4a'] ?? '';
+  User().licenseExpDate=extractedData['4b'] ?? '';
 
   User().tz = extractedData['4d']?.replaceFirst('ID ', '').trim() ?? '';
   User().licenseId = extractedData['5'] ?? '';

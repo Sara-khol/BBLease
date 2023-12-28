@@ -51,7 +51,8 @@ class _StartRegistrationState extends State<StartRegistration> {
                         context,
                         MaterialPageRoute(builder: (context) => const LicenseFront()));
                   },
-                  child:  Text('אני מוכן!',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),textDirection: TextDirection.rtl)),
+                  child:  Text('אני מוכן!',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,
+                  color: Colors.white),textDirection: TextDirection.rtl)),
             ),
           ],
         ),

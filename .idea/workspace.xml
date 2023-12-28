@@ -1,13 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="406ef940-5ca5-4e71-b141-3d6c4cbe2bd2" name="Changes" comment="">
+    <list default="true" id="406ef940-5ca5-4e71-b141-3d6c4cbe2bd2" name="Changes" comment="add payment option and fix more problems">
+      <change afterPath="$PROJECT_DIR$/android/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/migrations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Flow/registration/payment_webVIew.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/profile/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/profile/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/Dialogs/buttom_dialogs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Dialogs/buttom_dialogs.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/my_shared_preferences.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/my_shared_preferences.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/navigation.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/navigation.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/face_detector.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/face_detector.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/registration/face_scanning.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/face_scanning.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/license_back.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/license_back.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/license_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/license_details.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/license_front.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/license_front.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/start_registration.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/start_registration.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/sucsses_registration.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/sucsses_registration.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/tel_to_registration.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/tel_to_registration.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/text_recognition.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/text_recognition.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/verification.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/verification.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/class_user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/class_user.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/class_user.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/class_user.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/api_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,15 +71,29 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/camera-0.10.5+7/lib/src/camera_controller.dart" root0="SKIP_INSPECTION" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2ZWq7jdSZBtHQpwgGKYsi2pAwfi" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  }
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\goapp\BBLease\.idea" />
@@ -48,6 +106,9 @@
     </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\USER\AppData\Roaming\Subversion</configuration>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="406ef940-5ca5-4e71-b141-3d6c4cbe2bd2" name="Changes" comment="" />
@@ -115,37 +176,37 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/models/class_user.dart</url>
-          <line>81</line>
+          <line>83</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/main.dart</url>
-          <line>107</line>
+          <line>115</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/main.dart</url>
-          <line>115</line>
+          <line>123</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/main.dart</url>
-          <line>95</line>
+          <line>103</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/services/api_service.dart</url>
-          <line>215</line>
+          <line>244</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/main.dart</url>
-          <line>106</line>
+          <line>114</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Flow/registration/personal_details_form.dart</url>
-          <line>322</line>
+          <line>315</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>

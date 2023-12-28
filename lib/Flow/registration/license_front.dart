@@ -45,12 +45,9 @@ class _LicenseFrontState extends State<LicenseFront> {
     return Scaffold(
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+         mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(height: 110.h,),
-            SizedBox(
-              height: 90.h,
-            ),
             Text(
               'סרוק רישיון',
               style: TextStyle(
@@ -135,29 +132,28 @@ class _LicenseFrontState extends State<LicenseFront> {
               ],
             ),
             SizedBox(height: 60.h),
-            SizedBox(height: 12.h),
-            Container(
-              height: 36.h,
-              width: 332.w,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromRGBO(251, 37, 118, 1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LicenseBack()));
-                  },
-                  child:  Text(
-                    'הבא (רק לצורך הדגמה)',
-                    style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color:Colors.white),
-                  )),
-            ),
-            SizedBox(height: 12.h),
+            // Container(
+            //   height: 36.h,
+            //   width: 332.w,
+            //   child: ElevatedButton(
+            //       style: ElevatedButton.styleFrom(
+            //         backgroundColor: Color.fromRGBO(251, 37, 118, 1),
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(100),
+            //         ),
+            //       ),
+            //       onPressed: () {
+            //         Navigator.push(
+            //             context,
+            //             MaterialPageRoute(
+            //                 builder: (context) => const LicenseBack()));
+            //       },
+            //       child:  Text(
+            //         'הבא (רק לצורך הדגמה)',
+            //         style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color:Colors.white),
+            //       )),
+            // ),
+            // SizedBox(height: 12.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -165,7 +161,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                   width: 129.w,
                   height: 48.h,
                   child: FloatingActionButton.extended(
-                    label: Text('תמיכה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500)),
+                    label: Text('תמיכה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white)),
                     elevation: 2,
                     heroTag: "btn2",
                     backgroundColor: colors.turquoiseColorApp,
@@ -179,7 +175,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                   height: 48.h,
                   child: FloatingActionButton.extended(
                     elevation: 2,
-                    label: Text('העלאת תמונה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500)),
+                    label: Text('העלאת תמונה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white)),
                     heroTag: "btn1",
                     backgroundColor:  colors.turquoiseColorApp,
                     onPressed: _onUploadButtonPressed,
@@ -264,7 +260,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                  child: TextButton(
                      onPressed: () async{
                      XFile xfile=await _cameraController.takePicture();
-                     uploadSucceed(context,LicenseFront(),LicenseBack());
+                     uploadSucceed(context,const LicenseFront(),const LicenseBack());
                      setState(() {
                        _imageFront= xfile;
                        _cameraController.pausePreview();

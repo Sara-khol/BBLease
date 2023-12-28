@@ -216,16 +216,30 @@ class ApiService {
       }
   }
 
+  getPaymentUrl(int id,Function(dynamic res) onSuccess) async
+  {
+    print('${_baseUrl}tranzila/v1/get_tranzila_iframe/$id');
+    Response response = await _dio.get('${_baseUrl}tranzila/v1/get_tranzila_iframe/$id');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print(result);
+      onSuccess(result);
+    }
+  }
 
-  /*Future uploadImage(XFile file) async {
-    String fileName = file.path.split('/').last;
-    FormData formData = FormData.fromMap({
-      "file":
-      await MultipartFile.fromFile(file.path, filename:fileName),
-    });
-     var response = await _dio.post(_baseUrl, data: formData);
-    return response.data['id'];
-  }*/
+  getStatusPayment(String phone,Function(dynamic res) onSuccess) async
+  {
+    print('${_baseUrl}tranzila/v1/tranzila_status/$phone');
+    Response response = await _dio.get('${_baseUrl}tranzila/v1/tranzila_status/$phone');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print(result);
+      onSuccess(result);
+    }
+  }
+
+
+
 
   Future getUserById(int id,Function(dynamic res) onSuccess) async {
     print('${_baseUrl}customers/get_customer/$id');
@@ -238,6 +252,15 @@ class ApiService {
     // Prints the raw data returned by the server
   }
 
+  /*Future uploadImage(XFile file) async {
+    String fileName = file.path.split('/').last;
+    FormData formData = FormData.fromMap({
+      "file":
+      await MultipartFile.fromFile(file.path, filename:fileName),
+    });
+     var response = await _dio.post(_baseUrl, data: formData);
+    return response.data['id'];
+  }*/
 
   Future fileUpload(Function() onSuccess) async {
 
@@ -260,7 +283,8 @@ class ApiService {
       "license_front": imageFiles[0],
       "license_back": imageFiles[1],
       "face": imageFiles[2],
-      "user_phone":'0533117933',
+      // "user_phone":'0533117933',
+      "user_phone":User().phoneNumber,
     });
 
     var response = await _dio.post('${_baseUrl}wp/v2/upload_license', data: formData,);

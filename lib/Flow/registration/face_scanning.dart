@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:bblease/Flow/registration/verification.dart';
 import 'package:bblease/models/class_user.dart';
+import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -224,60 +225,59 @@ print('faces.length: ${faces.length}');
           SizedBox(height: 5.h,),
           Text('עמוד מול המצלמה',style: TextStyle(color: Colors.black,fontSize: 20.sp,fontWeight: FontWeight.w400)),
           SizedBox(height: 35.h,),
-          Stack(
-              children:[
-                CameraFaceDetection(),
-                /*FutureBuilder(
-                    future: _initializeCamera(),
-                    builder:(context,snapshot){
-                      if(snapshot.hasData) {
-                        print('snapshot has data');
-                        return _buildCameraPreview();
-                      }else if (snapshot.hasError) {
-                        // Handle error
-                        return Text('Error initializing camera: ${snapshot.error}');
+          Expanded(
+            child: Stack(
+                children:[
+                  CameraFaceDetection(),
+                  /*FutureBuilder(
+                      future: _initializeCamera(),
+                      builder:(context,snapshot){
+                        if(snapshot.hasData) {
+                          print('snapshot has data');
+                          return _buildCameraPreview();
+                        }else if (snapshot.hasError) {
+                          // Handle error
+                          return Text('Error initializing camera: ${snapshot.error}');
+                        }
+                        else {
+                          return SizedBox(
+                              height: 332.h,
+                              width: 332.w,
+                              child: Center(child: CircularProgressIndicator()));
+                        }
                       }
-                      else {
-                        return SizedBox(
-                            height: 332.h,
-                            width: 332.w,
-                            child: Center(child: CircularProgressIndicator()));
-                      }
-                    }
-                ),*/
-                Center(
-                  child: SizedBox(
-                    height: 332.h,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 48.h,
-                          width: 117.w,
-                          decoration: BoxDecoration(
-                              color: Color(0xFFD9D9D9).withOpacity(0.3),
-                              borderRadius: BorderRadius.circular(100)
+                  ),*/
+                  Center(
+                    child:/* SizedBox(
+                      height: 332.h,
+                      child:*/ Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 48.h,
+                            width: 117.w,
+                            decoration: BoxDecoration(
+                                color: Color(0xFFD9D9D9).withOpacity(0.3),
+                                borderRadius: BorderRadius.circular(100)
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                //Image.asset('assets/images/rec.png'),
+                                SizedBox(width: 15.w,),
+                                Text('...סורק',style: TextStyle(color: Colors.black,fontSize: 22.sp),),
+                                //User().regImages[2] !=null?Text('צולם בהצלחה',style: TextStyle(color: Colors.white),):Text(''),
+                              ],
+                            ),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              //Image.asset('assets/images/rec.png'),
-                              SizedBox(width: 15.w,),
-                              Text('...סורק',style: TextStyle(color: Colors.black,fontSize: 22.sp),),
-                              //User().regImages[2] !=null?Text('צולם בהצלחה',style: TextStyle(color: Colors.white),):Text(''),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                   // ),
                   ),
-                ),
-              ]),
-
-
+                ]),
+          ),
           SizedBox(height: 60.h,),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -297,12 +297,12 @@ print('faces.length: ${faces.length}');
             ],
           ),
           SizedBox(height: 60.h,),
-
           Container(
             width: 332.w,
             height: 48.h,
+            margin:EdgeInsets.only(bottom:40.sp ),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(25)),
+              borderRadius: const BorderRadius.all(Radius.circular(25)),
               color: colors.turquoiseColorApp,
             ),
             child: TextButton(

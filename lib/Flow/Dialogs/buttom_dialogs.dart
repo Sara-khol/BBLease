@@ -64,11 +64,14 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
                         color: colors.turquoiseColorApp,
                       ),
                       child: TextButton(
-                        child: Text('סרוק פעם נוספת', style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.w500),),
+                        child: Text('סרוק פעם נוספת',textAlign:TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 20.sp, fontWeight: FontWeight.w500),),
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => prevPage));
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(builder: (context) => prevPage));
                         },
                       ),
                     ),
@@ -83,6 +86,8 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
                       child: TextButton(
                         child: Text('אישור',style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.w500)),
                         onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
                           Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => nextPage));

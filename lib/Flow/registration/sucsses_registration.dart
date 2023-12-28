@@ -6,14 +6,14 @@ import '../../models/class_user.dart';
 import '../welcome.dart';
 import 'package:bblease/utils/my_colors.dart' as colors;
 
-class SucssesRegistration extends StatefulWidget {
-  const SucssesRegistration({Key? key}) : super(key: key);
+class SucssesRegistrationForm extends StatefulWidget {
+  const SucssesRegistrationForm({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _SucssesRegistrationForm();
 }
 
-class _SucssesRegistrationForm extends State<SucssesRegistration> {
+class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -39,6 +39,8 @@ class User{
   late String licenseDegree='';
   @JsonKey(name: 'is_new_driver')
   bool isNewDriver=false;
+  @JsonKey(name: 'status_tranzila')
+  bool tranzilaStatus=false;
 
   // void setBirthDate(String dateString) {
   //   try {
@@ -83,4 +85,23 @@ class User{
 
   /// Connect the generated [_$PersonToJson] function to the `toJson` method.
   Map<String, dynamic> toJson() => _$UserToJson(this);
+
+ void clear() {
+  userId = -1;
+  regImages = List<XFile?>.filled(3, null);
+  firstName = "";
+  lastName = "";
+  name = null;
+  tz = "";
+  birthDate = "";
+  email = "";
+  phoneNumber = "";
+  getNotification = true;
+  licenseId = "";
+  licenseExpDate = "";
+  licenseIssDate = "";
+  licenseDegree = "";
+  isNewDriver = false;
+  tranzilaStatus = false;
+ }
 }

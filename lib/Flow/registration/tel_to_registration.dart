@@ -1,3 +1,4 @@
+import 'package:bblease/Flow/registration/payment_webVIew.dart';
 import 'package:bblease/Flow/registration/start_registration.dart';
 import 'package:bblease/Flow/registration/sucsses_registration.dart';
 import 'package:bblease/Flow/terms_and_conditions.dart';
@@ -34,13 +35,13 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
 
   @override
   void initState() {
+    User().clear();
     super.initState();
   }
 
   // late int status;
   late int code;
   final _formKey = GlobalKey<FormState>();
-
 
   getVerificationCode(bool isSms) async {
     showLoading(context);
@@ -49,18 +50,17 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
       int status = value['status'];
 
       if (widget.isRegister) {
-        if (status == 4 || status == 5){
+        if (status == 4 || status == 5) {
           code = value['code'];
           debugPrint('status $status code $code');
           didSendCode = true;
           textSecondFocusNode.requestFocus();
-
-        }
-        else {
-         // if (status == 1)
-        {
-          displayError(context,message: 'מספר הטלפון שהזנת  כבר קיים  במערכת');
-        }
+        } else {
+          // if (status == 1)
+          {
+            displayError(context,
+                message: 'מספר הטלפון שהזנת  כבר קיים  במערכת');
+          }
         }
       } else {
         if (status == 1) {
@@ -68,13 +68,13 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
           debugPrint('status $status code $code');
           didSendCode = true;
           textSecondFocusNode.requestFocus();
-
         } else {
           if (status == 4 || status == 5) {
-            displayError(context,message:'מספר הטלפון שהזנת אינו קיים במערכת');
+            displayError(context,
+                message: 'מספר הטלפון שהזנת אינו קיים במערכת');
           } else {
             if (status == 3) {
-              displayError(context,message:'משתמש זה חסום');
+              displayError(context, message: 'משתמש זה חסום');
             }
           }
         }
@@ -85,38 +85,50 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
 
   verifyCode() async {
     showLoading(context);
-    await ApiService().codeVerification(_phone.text, code.toString() ,
+    await ApiService().codeVerification(_phone.text, code.toString(),
         (response) {
-         // Navigator.pop(context);
-          int vStatus = response['status'];
+      // Navigator.pop(context);
+      int vStatus = response['status'];
       // in case code is not correct get from service error.
       // not supposed to get to here because checked before sending
       if (vStatus == 3) {
-        displayError(context,message:'קוד האימות אינו תואם');
+        displayError(context, message: 'קוד האימות אינו תואם');
       } else {
         if (widget.isRegister) {
-          if (vStatus == 5)
-            {
-              User().phoneNumber=_phone.text;
+          if (vStatus == 5) {
+            User().phoneNumber = _phone.text;
 
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                      const StartRegistration() ));
-            }
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const StartRegistration()));
+          }
         } else {
           if (vStatus == 1) {
             User.fromJson(response['customer']);
             debugPrint('user name  ${User().firstName}');
-
             MySharedPreferences().setLastUsage();
             MySharedPreferences().setUserId(User().userId);
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        const SucssesRegistrationForm() /*RentalWidget()*/), (route) => false);
+            if (User().tranzilaStatus) {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const SucssesRegistrationForm() /*RentalWidget()*/),
+                  (route) => false);
+            }
+            else
+              {
+                ApiService().getPaymentUrl(User().userId, (res) {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PaymentWebView(
+                            url: res,
+                          )),
+                          (route) => false);
+                });
+              }
           }
         }
       }
@@ -200,13 +212,15 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                     prefixIconConstraints: const BoxConstraints(
                       maxHeight: 26,
                     ),
-                    suffixIcon:didSendCode? Padding(
-                        padding: EdgeInsets.only( left: 14.w),
-                        child: Icon(Icons.edit_note,
-                            size: 23.sp,
-                            color: colors
-                                .turquoiseColorApp) //Image.asset('assets/images/Phone.png', width: 24.w,),
-                    ):null,
+                    suffixIcon: didSendCode
+                        ? Padding(
+                            padding: EdgeInsets.only(left: 14.w),
+                            child: Icon(Icons.edit_note,
+                                size: 23.sp,
+                                color: colors
+                                    .turquoiseColorApp) //Image.asset('assets/images/Phone.png', width: 24.w,),
+                            )
+                        : null,
                   ),
                   style: TextStyle(
                       fontSize: 22.sp,
@@ -302,7 +316,10 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                       },
                       title: Row(
                         children: [
-                          Text('אני מאשר/ת את ',style: TextStyle(fontSize: 18.sp),),
+                          Text(
+                            'אני מאשר/ת את ',
+                            style: TextStyle(fontSize: 18.sp),
+                          ),
                           GestureDetector(
                               onTap: () => Navigator.push(
                                   context,
@@ -329,14 +346,14 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                     ),
                   ),
                 ),
-               // const Spacer(),
+                // const Spacer(),
                 Visibility(
                   visible: didSendCode,
                   child: Column(
                     children: [
                       TextButton(
                           onPressed: () {
-                            _code.text='';
+                            _code.text = '';
                             getVerificationCode(true);
                           },
                           child: Text('שלח שוב SMS',
@@ -347,7 +364,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                                   color: colors.blackColorApp))),
                       TextButton(
                           onPressed: () {
-                            _code.text='';
+                            _code.text = '';
                             getVerificationCode(false);
                           },
                           child: Text(
@@ -365,7 +382,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                   ),
                 ),
 
-                Flexible (
+                Flexible(
                   fit: FlexFit.loose,
                   child: Align(
                     alignment: Alignment.bottomCenter,
@@ -389,7 +406,9 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                                   getVerificationCode(true);
                                 } else {
                                   if (!checkboxValue1) {
-                                   displayError(context,message:'יש לאשר את תנאי השימוש',closeButton: true);
+                                    displayError(context,
+                                        message: 'יש לאשר את תנאי השימוש',
+                                        closeButton: true);
                                   }
                                 }
                               }

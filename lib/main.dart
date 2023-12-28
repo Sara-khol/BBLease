@@ -1,5 +1,6 @@
 import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/my_shared_preferences.dart';
+import 'package:bblease/Flow/registration/payment_webVIew.dart';
 import 'package:bblease/services/api_service.dart';
 import 'package:bblease/utils/common_funcs.dart';
 import 'package:bblease/utils/my_colors.dart' as colors;
@@ -72,8 +73,15 @@ class MyApp extends StatelessWidget {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         if (snapshot.data is bool && snapshot.data == true) {
-                           MySharedPreferences().setLastUsage();
-                          return const RentalWidget();
+
+                           if(User().tranzilaStatus) {
+                             MySharedPreferences().setLastUsage();
+                             return const RentalWidget();
+                           }
+                           else
+                             {
+                               return const WelcomeForm();
+                             }
                         }
                         return const WelcomeForm();
                       }

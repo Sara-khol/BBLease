@@ -1,3 +1,5 @@
+
+import 'package:bblease/Flow/registration/payment_webVIew.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:bblease/services/api_service.dart';
 import 'package:flutter/material.dart';
@@ -273,9 +275,9 @@ class _LicenseDetailsState extends State<LicenseDetails> {
 
   registerUser() async {
     showLoading(context);
-    await ApiService().registerCustomerDetails((res) {
-      Navigator.pop(context);
+    await ApiService().registerCustomerDetails((res) async {
       if (res is String) {
+        Navigator.pop(context);
         if (res.startsWith('in the system exists user with tz')) {
           displayError(context, type: 'תעודת זהות', onEdit: () {
             Navigator.pop(context);
@@ -294,12 +296,19 @@ class _LicenseDetailsState extends State<LicenseDetails> {
         }
       } else if (res is int) {
         User().userId = res;
-        MySharedPreferences().setLastUsage();
-        MySharedPreferences().setUserId(User().userId);
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const SucssesRegistrationForm()), (route) => false);
+        // MySharedPreferences().setLastUsage();
+        // MySharedPreferences().setUserId(User().userId);
+        await ApiService().getPaymentUrl(User().userId, (res) {
+          Navigator.pop(context);
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => PaymentWebView(
+                        url: res,
+                      )),
+              (route) => false);
+        });
+
       }
     });
   }

@@ -52,6 +52,8 @@ Future<DateTime>  getLastUsage() async
     return  _prefs.getInt('userId')??-1;
   }
 
+
+
   clearAllSharedPreference() async
   {
     _prefs = await SharedPreferences.getInstance();

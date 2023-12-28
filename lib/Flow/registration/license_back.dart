@@ -39,7 +39,9 @@ class _LicenseBackState extends State<LicenseBack> {
 
   @override
   void dispose() {
-    _cameraController.dispose();
+    if(_cameraController.value.isInitialized) {
+      _cameraController.dispose();
+    }
     super.dispose();
   }
 
@@ -116,6 +118,27 @@ class _LicenseBackState extends State<LicenseBack> {
                 ),
               ],
             ),
+            // Container(
+            //   height: 36.h,
+            //   width: 332.w,
+            //   child: ElevatedButton(
+            //       style: ElevatedButton.styleFrom(
+            //         backgroundColor: Color.fromRGBO(251, 37, 118, 1),
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(100),
+            //         ),
+            //       ),
+            //       onPressed: () {
+            //         Navigator.push(
+            //             context,
+            //             MaterialPageRoute(
+            //                 builder: (context) => const PersonalDetailsForm()));
+            //       },
+            //       child:  Text(
+            //         'הבא (רק לצורך הדגמה)',
+            //         style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color:Colors.white),
+            //       )),
+            // ),
             SizedBox(height: 60.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

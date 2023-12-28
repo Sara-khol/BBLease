@@ -1,9 +1,11 @@
 import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/registration/face_detector.dart';
 import 'package:bblease/Flow/registration/face_scanning.dart';
+import 'package:bblease/Flow/registration/payment_webVIew.dart';
 import 'package:bblease/Flow/registration/personal_details_form.dart';
 import 'package:bblease/Flow/registration/start_registration.dart';
 import 'package:bblease/Flow/registration/tel_to_registration.dart';
+import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -36,7 +38,7 @@ class _NavigationState extends State<Navigation> {
                 height: 48.h,
                 width: 332.w,
                 child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(0, 222, 222, 1),
+                    style: ElevatedButton.styleFrom(backgroundColor: turquoiseColorApp,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(100),
                       ),
@@ -46,6 +48,7 @@ class _NavigationState extends State<Navigation> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => const TelToRegistrationForm(isRegister: false,)));
+
                       //departurePoint(context);
 
                     },
@@ -63,7 +66,7 @@ class _NavigationState extends State<Navigation> {
                 height: 48.h,
                 width: 332.w,
                 child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(0, 222, 222, 1),
+                    style: ElevatedButton.styleFrom(backgroundColor: turquoiseColorApp,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(100),
                       ),
@@ -73,10 +76,10 @@ class _NavigationState extends State<Navigation> {
                       Navigator.push(
                           context,
 
-                          MaterialPageRoute(builder: (context) =>  StartRegistration()));
+                        //  MaterialPageRoute(builder: (context) =>  StartRegistration()));
 
-                          // MaterialPageRoute(builder: (context) =>  FaceScanning()));
-                          MaterialPageRoute(builder: (context) => const TelToRegistrationForm(isRegister: true));
+                           // MaterialPageRoute(builder: (context) =>  FaceScanning()));
+                         MaterialPageRoute(builder: (context) => const TelToRegistrationForm(isRegister: true)));
 
                     },
                     child:  Text('זיהוי פנים',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white),)),

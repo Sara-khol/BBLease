@@ -7,9 +7,10 @@ part 'class_rent.g.dart';
 class Rental{
 
   @JsonKey(name: 'ID')
-  late int orderNum;
+  int? orderNum;
   @JsonKey(name: 'car')
   late Car car;
+
   @JsonKey(name: 'start_date')
   late DateTime startDate;
   @JsonKey(name: 'end_date')
@@ -17,19 +18,35 @@ class Rental{
 
 
   @JsonKey(name: 'insurance')
-   late int insurance ;//כולל ביטוח
+   late bool insurance ;//כולל ביטוח
   @JsonKey(name: 'limit-km')
   late int limitedKM ; //ללא הגבלת קילומטרים
   @JsonKey(name: 'deductible')
-  late int deductible;//ללא השתתפות עצמית
+  late bool deductible;//ללא השתתפות עצמית
+
+  @JsonKey(name: 'waze')
+  late bool waze;
+
+
+
 
   @JsonKey(name: 'price')
   late double price;
 
   @JsonKey(name: 'url-order-pdf')
-  late String url;
+  String? url;
 
-  Rental(this.startDate,this.endDate, this.car, this.insurance, this.limitedKM, this.deductible, this.price, this.url);
+  //Rental(this.startDate,this.endDate, this.car, this.insurance, this.limitedKM, this.deductible, this.price, this.url);
+Rental(){}
+   /*void addRental(DateTime startDate,DateTime endDate,Car car,bool insurance,int limitedKM,bool deductible, double price){
+     this.startDate;
+     this.endDate;
+     this.car;
+     this.insurance;
+     this.limitedKM;
+     this.deductible;
+     this.price;
+   }*/
 
 /*  Rental._privateConstructor();
 

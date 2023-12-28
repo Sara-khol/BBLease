@@ -1,13 +1,16 @@
 import 'dart:async';
 
+import 'package:bblease/Flow/Rental/car_details.dart';
 import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/Rental/search_car.dart';
+import 'package:bblease/models/class_user.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_place/google_place.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:intl/intl.dart' as intl;
 
 import '../../models/class_rent.dart';
@@ -16,9 +19,10 @@ import '../../models/class_rent.dart';
 double? latitude;
 double? longitude;
 String location='';
-late Rental rent;
+//late DateTime startDate,endDate;
+Rental rent=Rental();
 
-Future departurePoint( context ,address){
+Future departurePoint( context ,address, nav, [sdate,edate]){
   print('dialog address: $address');
 
 
@@ -86,7 +90,7 @@ Future departurePoint( context ,address){
                             children: [
                               Text('מאיפה תרצה לצאת?', style: TextStyle(fontSize: 26.sp,fontWeight: FontWeight.w700,color: Colors.black),),
                               SizedBox(width: 9.w,),
-                              Icon(Icons.fmd_good_outlined,color: Color(0xFFFB2576),size: 28.sp,),
+                              Icon(Icons.fmd_good_outlined,color: colors.pinkColorApp,size: 28.sp,),
                             ],
                           ),
                           SizedBox(height: 45.h,),
@@ -110,7 +114,7 @@ Future departurePoint( context ,address){
                                 color: Color.fromRGBO(15, 17, 21, 1),
                                 ),
                               ),
-                              suffixIcon: Icon(Icons.search,color: Color(0xFF04AEB9),size: 24.sp,)
+                              suffixIcon: Icon(Icons.search,color: colors.turquoiseColorApp,size: 24.sp,)
                             ),
                             style: TextStyle(color: Color.fromRGBO(15, 17, 21, 1),fontSize: 20.sp),
                             controller: controller,
@@ -163,15 +167,18 @@ Future departurePoint( context ,address){
                               Container(
                                 width: 332.w,
                                 height: 48.h,
-                                decoration: const BoxDecoration(
+                                decoration:  BoxDecoration(
                                   borderRadius: BorderRadius.all(Radius.circular(25)),
-                                  color: Color(0xFF00DEDE),
+                                  color: colors.turquoiseColorApp,
                                 ),
                                 child: TextButton(
                                   child: Text('אישור',style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.w500),),
                                   onPressed: () {
-                                    Navigator.pop(context);
-                                    rentalTerm(context);
+                                    //Navigator.pop(context);
+                                    nav==0?rentalTerm(context):
+                                        Navigator.push(context,
+                                            MaterialPageRoute(builder: (context) => SearchCar(location: location, latitude: latitude, longitude: longitude,startDate: sdate,endDate: edate),))
+                                    ;
                                   },
                                 ),
                               ),
@@ -205,10 +212,9 @@ Future rentalTerm( context){
    double? diff;
 
   int? selectedValue;
+  int? selectedPart;
 
-  String searchedPlace='';
   Map<String,double> map={'חצי יום':0.5,'יום':1,'3 ימים':3,'שבוע':7,'חודש':30};
-  String? selectedItem;
 
   return showModalBottomSheet<dynamic>(
       isScrollControlled: true,
@@ -218,9 +224,9 @@ Future rentalTerm( context){
         return StatefulBuilder(
             builder: ( context, StateSetter setState) {
 
-              void _setEndDateBasedOnSelection() {
+              _setEndDateBasedOnSelection() {
                 if (startDate != null && diff != null) {
-                  DateTime calculatedEndDate = startDate!.add(Duration(days: diff!.toInt()));
+                  DateTime calculatedEndDate = startDate!.add(Duration(days: diff!.toInt()-1));
                   end.text = intl.DateFormat('dd.MM.yyyy').format(calculatedEndDate);
                   endDate = calculatedEndDate;
                   rent.startDate=startDate!;
@@ -253,6 +259,27 @@ Future rentalTerm( context){
                 );
               }
 
+
+              RadioListTile _buildRadioTile2(String title, int v) {
+                return RadioListTile(
+                  value: v,
+                  dense: true,
+                  title: Text(title,style: TextStyle(fontSize: 20.sp)),
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  visualDensity: const VisualDensity(
+                    horizontal: VisualDensity.minimumDensity,
+                    vertical: VisualDensity.minimumDensity,
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedPart = value;
+                    });
+                  },
+                  groupValue: selectedPart,
+                );
+              }
+
+
               return Padding(
                 padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: Directionality(
@@ -283,7 +310,7 @@ Future rentalTerm( context){
                                       color: Colors.black),),
                                   SizedBox(width: 9.w,),
                                   Icon(
-                                    Icons.calendar_today_outlined, color: const Color(0xFFFB2576), size: 24.sp,),
+                                    Icons.calendar_today_outlined, color: colors.pinkColorApp, size: 24.sp,),
                                 ],
                               ),
                               SizedBox(height: 15.h,),
@@ -331,7 +358,7 @@ Future rentalTerm( context){
                                     contentPadding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
                                     suffixIcon: Icon(
                                       Icons.calendar_today_outlined,
-                                      color: const Color.fromRGBO(251, 37, 118, 1),
+                                      color: colors.pinkColorApp,
                                       size: 22.sp,)
                                 ),
                                 //style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
@@ -359,73 +386,93 @@ Future rentalTerm( context){
 
                               ),
                               SizedBox(height: 20.h,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text('עד -', style: TextStyle(fontSize: 22.sp,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.black)),
-                                ],
-                              ),
-                              TextFormField(
-                                readOnly: true,
-                                cursorColor: const Color.fromRGBO(15, 17, 21, 1),
-                                decoration: InputDecoration(
-                                    isDense: true,
-                                    labelStyle: TextStyle(fontSize: 22.sp,
-                                      fontWeight: FontWeight.w300,
-                                      color: const Color.fromRGBO(15, 17, 21, 1),
-                                      fontFamily: 'PLONI',),
-                                    floatingLabelBehavior: FloatingLabelBehavior
-                                        .auto,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(
-                                        10.0,),
-                                      borderSide: const BorderSide(
-                                        color: Color.fromRGBO(15, 17, 21, 1),
-                                      ),
+                              /*Visibility(
+                                visible: selectedValue!=1,
+                                child: Column(
+                                  children: [*/
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Text('עד -', style: TextStyle(fontSize: 22.sp,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.black)),
+                                      ],
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(
-                                        10.0,),
-                                      borderSide: const BorderSide(
-                                        color: Color.fromRGBO(15, 17, 21, 1),
-                                      ),
-                                    ),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 12.w, horizontal: 20.h),
-                                    suffixIcon: Icon(
-                                      Icons.calendar_today_outlined,
-                                      color: const Color.fromRGBO(251, 37, 118, 1),
-                                      size: 22.sp,)
+                                    TextFormField(
+                                      readOnly: true,
+                                      cursorColor: const Color.fromRGBO(15, 17, 21, 1),
+                                      decoration: InputDecoration(
+                                          isDense: true,
+                                          labelStyle: TextStyle(fontSize: 22.sp,
+                                            fontWeight: FontWeight.w300,
+                                            color: const Color.fromRGBO(15, 17, 21, 1),
+                                            fontFamily: 'PLONI',),
+                                          floatingLabelBehavior: FloatingLabelBehavior
+                                              .auto,
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              10.0,),
+                                            borderSide: const BorderSide(
+                                              color: Color.fromRGBO(15, 17, 21, 1),
+                                            ),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              10.0,),
+                                            borderSide: const BorderSide(
+                                              color: Color.fromRGBO(15, 17, 21, 1),
+                                            ),
+                                          ),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              vertical: 12.w, horizontal: 20.h),
+                                          suffixIcon: Icon(
+                                            Icons.calendar_today_outlined,
+                                            color: colors.pinkColorApp,
+                                            size: 22.sp,)
 
+                                      ),
+                                      style: TextStyle(fontSize: 22.sp),
+                                      controller: end,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'זהו שדה חובה';
+                                        }
+                                      },
+                                      onTap: () async {
+                                        DateTime? date = await showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime.now(),
+                                            firstDate: DateTime.now(),
+                                            lastDate: DateTime(2100));
+                                        if (date != null) {
+                                          end.text = intl.DateFormat('dd.MM.yyyy').format(date);
+                                        }
+                                        endDate = date;
+                                      },
+                                    ),
+                                  //],
+                                //),
+                              //),
+                             /* Visibility(
+                                visible: selectedValue==1,
+                              child: SizedBox(
+                                height: 100.h,
+                                width: 300.w,
+                                child: Row(
+                                  children: [
+                                    _buildRadioTile2('8:00-17:00 בוקר ',1),
+                                    _buildRadioTile2('20:00-5:00 לילה',2)
+                                  ],
                                 ),
-                                style: TextStyle(fontSize: 22.sp),
-                                controller: end,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'זהו שדה חובה';
-                                  }
-                                },
-                                onTap: () async {
-                                  DateTime? date = await showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime.now(),
-                                      lastDate: DateTime(2100));
-                                  if (date != null) {
-                                    end.text = intl.DateFormat('dd.MM.yyyy').format(date);
-                                  }
-                                  endDate = date;
-                                },
-                              ),
+                              )
+                              ),*/
                               SizedBox(height: 24.h,),
                               SizedBox(
                                 height: 48.h,
                                 width: 332.w,
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: const Color.fromRGBO(0, 222, 222, 1),
+                                      backgroundColor: colors.turquoiseColorApp,
                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
                                     ),
                                     onPressed: () {
@@ -462,6 +509,202 @@ Future rentalTerm( context){
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),)
   );
 }
+
+
+Future extras( context,car,sDate,eDate){
+  print('rent ');
+  rent.startDate=sDate;
+  rent.endDate=sDate;
+  rent.car=car;
+print(rent);
+
+List<bool> val=[User().isNewDriver,User().isYoungDriver,false,false,false,false];
+
+  return showModalBottomSheet<dynamic>(
+      isScrollControlled: true,
+      isDismissible: false,
+      context: context,
+      builder: ( context) {
+        return StatefulBuilder(
+            builder: ( context, StateSetter setState) {
+              return Padding(
+                padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(maxHeight: 600.h),
+                    child: Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                            icon: const Icon(Icons.close),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 30.w, right: 30.w),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('התאם תנאי השכרה', style: TextStyle(
+                                      fontSize: 26.sp,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black),),
+                                  SizedBox(width: 9.w,),
+                                  Icon(
+                                    Icons.extension_outlined, color: colors.pinkColorApp, size: 24.sp,),
+                                ],
+                              ),
+                              SizedBox(height: 15.h,),
+                              Column(
+                                children: [
+                                  CheckboxListTile(
+                                    title: Text('  נהג חדש - 40 ש"ח  '),
+                                    value: val[0],
+                                    enabled: false,
+                                    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                    fillColor: MaterialStateProperty.resolveWith((states) {
+                                      if (states.contains(MaterialState.selected)) {
+                                        return Colors.transparent;
+                                      }
+                                      return null;
+                                    }),
+                                    checkColor: colors.turquoiseColorApp,
+                                    onChanged: (value) {  },
+                                  ),
+                                  CheckboxListTile(
+                                    title: Text('  נהג צעיר - 49 ש"ח  '),
+                                    value: val[1],
+                                    enabled: false,
+                                    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                    checkColor: colors.turquoiseColorApp,
+                                    fillColor: MaterialStateProperty.resolveWith((states) {
+                                      if (states.contains(MaterialState.selected)) {
+                                        return Colors.transparent;
+                                      }
+                                      return null;
+                                    }),
+                                    onChanged: (value) {  },
+                                  ),
+                                  CheckboxListTile(
+                                    title: Text('  ביטול השתתפות עצמית - 52 ש"ח  '),
+                                    value: val[2],
+                                    //enabled: true,
+                                    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                    checkColor: colors.turquoiseColorApp,
+                                    fillColor: MaterialStateProperty.resolveWith((states) {
+                                      if (states.contains(MaterialState.selected)) {
+                                        return Colors.transparent;
+                                      }
+                                      return null;
+                                    }),
+                                    onChanged: (value) {
+                                      rent.deductible=value!;
+                                      setState((){val[2]=value;});
+                                    },
+                                  ),
+                                  CheckboxListTile(
+                                    title: Text('  נהג נוסף - 20 ש"ח  '),
+                                    value: val[3],
+                                    enabled: false,
+                                    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                    checkColor: colors.turquoiseColorApp,
+                                    onChanged: (value) {
+
+                                    },
+                                  ),
+                                  CheckboxListTile(
+                                    title: Text('  בוסטר/כיסא תינוק - 20 ש"ח  '),
+                                    value: val[4],
+                                    enabled: true,
+                                    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                    checkColor: colors.turquoiseColorApp,
+                                    fillColor: MaterialStateProperty.resolveWith((states) {
+                                      if (states.contains(MaterialState.selected)) {
+                                        return Colors.transparent;
+                                      }
+                                      return null;
+                                    }),
+                                    onChanged: (value) {
+                                      rent.car.safetyChair=value!;
+                                      setState((){val[4]=value;});
+                                    },
+                                  ),
+                                  CheckboxListTile(
+                                    title: Text('  מכשיר וויז -10 ש"ח  '),
+                                    value: val[5],
+                                    enabled: true,
+                                    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                    fillColor: MaterialStateProperty.resolveWith((states) {
+                                      if (states.contains(MaterialState.selected)) {
+                                        return Colors.transparent;
+                                      }
+                                      return null;
+                                    }),
+                                    checkColor: colors.turquoiseColorApp,
+                                    onChanged: (value) {
+                                      rent.waze=value!;
+                                      setState((){val[5]=value;});
+                                    },
+                                  ),
+                                ],
+                              ),
+
+                              /*ConstrainedBox(
+                                constraints: BoxConstraints(maxHeight: 190.h),
+                                child: ListView(
+                                  shrinkWrap: true,
+                                  children: <Widget>[
+                                   
+                                  ],
+                                ),
+                              ),*/
+                              SizedBox(height: 20.h,),
+                              
+                              SizedBox(
+                                height: 48.h,
+                                width: 332.w,
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: colors.turquoiseColorApp,
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              maintainState:false,
+                                              builder: (context) => CarDetails(rent: rent,)));
+                                    },
+                                    child: const Text('סיום', style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w500),)),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }
+        );
+      },
+
+      barrierColor: Colors.black12.withOpacity(0.1),
+      //isDismissible: false,
+      elevation: 2,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),)
+  );
+}
+
+
 
 Future showLoading(BuildContext context)
 {

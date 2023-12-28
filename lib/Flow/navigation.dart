@@ -1,3 +1,4 @@
+import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/registration/face_detector.dart';
 import 'package:bblease/Flow/registration/face_scanning.dart';
 import 'package:bblease/Flow/registration/personal_details_form.dart';

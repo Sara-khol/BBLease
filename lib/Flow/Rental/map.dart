@@ -46,6 +46,7 @@ class _RentalWidgetState extends State<RentalWidget> {
   }
 
   void _setCurrentLocation() async {
+    print('_setCurrentLocation');
     try {
       Position position = await _determinePosition();
       formattedAddress = await FlutterAddressFromLatLng().getStreetAddress(
@@ -62,14 +63,14 @@ class _RentalWidgetState extends State<RentalWidget> {
 
       _mapController.animateCamera(CameraUpdate.newCameraPosition(updatedPosition));
 
-      Marker userLocationMarker = Marker(
+      /*Marker userLocationMarker = Marker(
         markerId: MarkerId('userLocation'),
         position: LatLng(position.latitude, position.longitude),
         infoWindow: InfoWindow(title: 'You are here'),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-      );
+      );*/
       // Add the user's location marker to the list of markers
-      _markers.add(userLocationMarker);
+      //_markers.add(userLocationMarker);
       print('marker: ${_markers.length}');
 
 
@@ -78,7 +79,7 @@ class _RentalWidgetState extends State<RentalWidget> {
       });
 
         print('going to dialog');
-        departurePoint(context, formattedAddress?.formattedAddress);
+        departurePoint(context, formattedAddress?.formattedAddress, 0);
 
     } catch (e) {
       print("There was an issue fetching the location: $e");

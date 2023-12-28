@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../customWidgets/appBarB.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import '../../models/class_rent.dart';
+
 import 'package:intl/intl.dart' as intl;
 
 import '../../services/api_service.dart';
@@ -347,7 +348,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                       print(widget.rent.url);
 
                                       FileDownloader.downloadFile(
-                                        url: widget.rent.url,
+                                        url: widget.rent.url!,
                                         onProgress: (fileName, progress) => setState((){
                                           isDownloaded=1;
                                           downloadIcon=SizedBox(

@@ -8,7 +8,7 @@ part of 'class_user.dart';
 
 User _$UserFromJson(Map<String, dynamic> json) => User()
   ..userId = json['customer_id'] as int
- // ..regImages = User._imagesFromJson(json['reg_images'] as List)
+  ..regImages = User._imagesFromJson(json['reg_images'] as List)
   ..firstName = json['name'] as String
   ..lastName = json['family_name'] as String
   ..name = json['doc_name'] as String?
@@ -21,6 +21,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User()
   ..licenseExpDate = json['license_exp'] as String
   ..licenseIssDate = json['license_date'] as String
   ..licenseDegree = json['license_level'] as String
+  ..isYoungDriver = json['is_young_driver'] as bool
   ..isNewDriver = json['is_new_driver'] as bool;
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -38,5 +39,6 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'license_exp': instance.licenseExpDate,
       'license_date': instance.licenseIssDate,
       'license_level': instance.licenseDegree,
+      'is_young_driver': instance.isYoungDriver,
       'is_new_driver': instance.isNewDriver,
     };

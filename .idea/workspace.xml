@@ -6,8 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="406ef940-5ca5-4e71-b141-3d6c4cbe2bd2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/car_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/car_details.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/map.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/map.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/search_car.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/search_car.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/UserInformation/orderDetails.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/UserInformation/orderDetails.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/navigation.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/navigation.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/face_scanning.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/face_scanning.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/car.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/car.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/car.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/car.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/class_rent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/class_rent.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/class_rent.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/class_rent.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/class_user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/class_user.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/class_user.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/class_user.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/widget_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/widget_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +46,13 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="io.flutter.reload.alreadyRun" value="true" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -114,11 +132,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/models/class_user.dart</url>
-          <line>81</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/main.dart</url>
           <line>107</line>
           <option name="timeStamp" value="8" />
@@ -147,6 +160,11 @@
           <url>file://$PROJECT_DIR$/lib/Flow/registration/personal_details_form.dart</url>
           <line>322</line>
           <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Flow/Rental/search_car.dart</url>
+          <line>172</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

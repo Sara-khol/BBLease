@@ -13,11 +13,11 @@ import 'dialogs.dart';
 
 
 class CarDetails extends StatefulWidget {
-  final Car selectedCar;
+  /*final Car selectedCar;
   final DateTime? startDate;
-  final DateTime? endDate;
-
-  CarDetails(this.selectedCar, {super.key, this.startDate, this.endDate,});
+  final DateTime? endDate;*/
+final Rental rent;
+  CarDetails( {super.key, required this.rent,});
 
   @override
   State<StatefulWidget> createState() => _CarDetailsState();
@@ -43,7 +43,7 @@ class _CarDetailsState extends State<CarDetails> {
                 SizedBox(height: 32.h),
                 const Directionality(textDirection: TextDirection.ltr, child: AppBarBibilease()),
                 SizedBox(height: 50.h),
-                Text(widget.selectedCar.model, //carDetails.postName,
+                Text(widget.rent.car.model, //carDetails.postName,
                   textAlign: TextAlign.right,
                   style: TextStyle(
                     color: colors.blackColorApp,
@@ -65,9 +65,7 @@ class _CarDetailsState extends State<CarDetails> {
                     height: 130.h,
                     width: 292.w,
                     child: CarouselSlider(
-                        items: [Image.asset('assets/images/car-only.png', width: 290.w, height: 126.h, ),
-                          Image.asset('assets/images/car-only.png', width: 290.w, height: 126.h,fit: BoxFit.fitWidth, ),
-                          Image.asset('assets/images/car-only.png', width: 290.w, height: 126.h, )],
+                        items: [Image.asset('assets/images/car-only.png', width: 290.w, height: 126.h, ),],
                         options: CarouselOptions(
                           enlargeCenterPage: true,
                           autoPlay: false,
@@ -109,7 +107,7 @@ class _CarDetailsState extends State<CarDetails> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             SizedBox(height: 41.h),
-                                            Text(widget.selectedCar.model,style: TextStyle(color: colors.blackColorApp, fontSize: 34.sp, fontWeight: FontWeight.w700, height: 1.15,)),
+                                            Text(widget.rent.car.model,style: TextStyle(color: colors.blackColorApp, fontSize: 34.sp, fontWeight: FontWeight.w700, height: 1.15,)),
                                             Text('או רכב זהה',style: TextStyle(color: colors.blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400, height: 1.15,)),
                                             Text('ללא הגבלת ק”מ',style: TextStyle(color: colors.blackColorApp, fontSize: 22.sp, fontWeight: FontWeight.w600, height: 1.15,),),
                                             SizedBox(height: 25.h),
@@ -120,30 +118,38 @@ class _CarDetailsState extends State<CarDetails> {
                                                   children: [
                                                     Icon(Icons.chair_outlined,color: colors.pinkColorApp,),
                                                     SizedBox(height: 10.h),
-                                                    Text('${widget.selectedCar.seats} מושבים',style: TextStyle(color: colors.blackColorApp,fontSize: 16.sp,fontWeight:FontWeight.w400,))
+                                                    Text('${widget.rent.car.seats} מושבים',style: TextStyle(color: colors.blackColorApp,fontSize: 16.sp,fontWeight:FontWeight.w400,))
                                                   ],
                                                 ),
                                                 Column(
                                                   children: [
                                                     Icon(Icons.sensor_door_outlined, color: colors.pinkColorApp,),
                                                     SizedBox(height: 10.h),
-                                                    Text('${widget.selectedCar.doors} דלתות', style: TextStyle(color: colors.blackColorApp, fontSize: 16.sp, fontWeight: FontWeight.w400,),
+                                                    Text('${widget.rent.car.doors} דלתות', style: TextStyle(color: colors.blackColorApp, fontSize: 16.sp, fontWeight: FontWeight.w400,),
                                                     )
                                                   ],
                                                 ),
-                                                if(widget.selectedCar.safetyChair)Column(
+                                                widget.rent.car.autoGeer?Column(
                                                   children: [
-                                                    Icon(Icons.sentiment_satisfied_alt_outlined, color: colors.pinkColorApp,),
+                                                    Icon(Icons.hdr_auto_outlined, color: colors.pinkColorApp,),
                                                     SizedBox(height: 10.h),
-                                                    Text('כסא בטיחות', style: TextStyle(color: colors.blackColorApp, fontSize: 16.sp, fontWeight: FontWeight.w400,),
+                                                    Text('אוטומטי', style: TextStyle(color: colors.blackColorApp, fontSize: 16.sp, fontWeight: FontWeight.w400,),
+                                                    )
+                                                  ],
+                                                )
+                                                :Column(
+                                                  children: [
+                                                    Icon(Icons.flash_on_outlined, color: colors.pinkColorApp,),
+                                                    SizedBox(height: 10.h),
+                                                    Text('ידני', style: TextStyle(color: colors.blackColorApp, fontSize: 16.sp, fontWeight: FontWeight.w400,),
                                                     )
                                                   ],
                                                 ),
-                                                Column(
+                                                if(widget.rent.car.type=='היברידי')Column(
                                                   children: [
-                                                    ImageIcon(AssetImage("assets/images/WazeIcon.png",), color: colors.pinkColorApp,),
+                                                    Icon(Icons.electrical_services_outlined, color: colors.pinkColorApp,),
                                                     SizedBox(height: 10.h),
-                                                    Text('Waze', style: TextStyle(color: colors.blackColorApp, fontSize: 16.sp, fontWeight: FontWeight.w400, ),)
+                                                    Text('היברידי', style: TextStyle(color: colors.blackColorApp, fontSize: 16.sp, fontWeight: FontWeight.w400, ),)
                                                   ],
                                                 ),
                                               ],
@@ -206,7 +212,7 @@ class _CarDetailsState extends State<CarDetails> {
                                               children: [
                                                 Icon(Icons.fmd_good_outlined, color:colors.blackColorApp,size: 20.w),
                                                 SizedBox(width: 9.w,),
-                                                Text(widget.selectedCar.city, style: TextStyle(color: colors.blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,),),
+                                                Text(widget.rent.car.city, style: TextStyle(color: colors.blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,),),
                                                 Spacer(),
                                                 //TODO: replace to ICONBUTTON
                                                 IconButton(
@@ -222,7 +228,7 @@ class _CarDetailsState extends State<CarDetails> {
                                               children: [
                                                 Icon(Icons.calendar_today_outlined, color: colors.blackColorApp, size: 20.w,),
                                                 SizedBox(width: 9.w,),
-                                                Text('${intl.DateFormat('dd.MM.yyyy').format(widget.startDate!)} - ${intl.DateFormat('dd.MM.yyyy').format(widget.endDate!)}',
+                                                Text('${intl.DateFormat('dd.MM.yyyy').format(widget.rent.startDate!)} - ${intl.DateFormat('dd.MM.yyyy').format(widget.rent.endDate!)}',
                                                   style: TextStyle(color: colors.blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,),),
                                                 Spacer(),
                                                 IconButton(
@@ -318,7 +324,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                          children: [
                                                            Text('בחר השתתפות עצמית',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 22.sp),),
                                                            Spacer(),
-                                                           Icon(Icons.add_box_outlined,color: colors.turquoiseColorApp,size: 21.sp,)
+                                                           Icon(Icons.check,color: colors.turquoiseColorApp,size: 21.sp,)
                                                          ],
                                                        ),
                                                        Row(
@@ -373,7 +379,7 @@ class _CarDetailsState extends State<CarDetails> {
                                     Align(
                                         alignment: Alignment.topCenter,
                                         child: Container(
-                                          width: 210.w,
+                                          width: 170.w,
                                           height: 34.h,
                                           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
                                           clipBehavior: Clip.antiAlias,
@@ -387,7 +393,7 @@ class _CarDetailsState extends State<CarDetails> {
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
-                                              Text('התאם תנאי השכרה',textAlign: TextAlign.center,style: TextStyle(color: colors.blackColorApp, fontSize: 22.sp, fontWeight: FontWeight.w400,),),
+                                              Text('תוספות',textAlign: TextAlign.center,style: TextStyle(color: colors.blackColorApp, fontSize: 22.sp, fontWeight: FontWeight.w400,),),
                                             ],
                                           ),
                                         )
@@ -411,7 +417,7 @@ class _CarDetailsState extends State<CarDetails> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             SizedBox(height: 40.h),
-                                            Text('סך הכל לתשלום       ${widget.selectedCar.pricePerDay*widget.startDate!.difference(widget.endDate!).inDays} ₪',style: TextStyle(fontWeight: FontWeight.w700,fontSize: 22.sp),),
+                                            Text('סך הכל לתשלום       ${widget.rent.car.pricePerDay*widget.rent.startDate!.difference(widget.rent.endDate!).inDays} ₪',style: TextStyle(fontWeight: FontWeight.w700,fontSize: 22.sp),),
                                             SizedBox(height: 7.h),
                                             Text('פירוט התשלום',style: TextStyle(fontWeight: FontWeight.w400,fontSize: 18.sp),),
                                             SizedBox(height: 10.h),
@@ -440,7 +446,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                         SizedBox(width: 50.h),
                                                         Column(
                                                           children: [
-                                                            Text('₪ ${widget.selectedCar.pricePerDay*widget.startDate!.difference(widget.endDate!).inDays}',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
+                                                            Text('₪ ${widget.rent.car.pricePerDay*widget.rent.startDate!.difference(widget.rent.endDate!).inDays}',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
                                                             SizedBox(height: 17.h),
                                                             Text('₪ 00.00',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
                                                             SizedBox(height: 17.h),
@@ -452,9 +458,9 @@ class _CarDetailsState extends State<CarDetails> {
                                                         SizedBox(width: 50.h),
                                                         Column(
                                                           children: [
-                                                            Text('${widget.startDate!.difference(widget.endDate!).inDays} ימים * ${widget.selectedCar.pricePerDay} ליום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500,color: Colors.black)),
+                                                            Text('${widget.rent.startDate!.difference(widget.rent.endDate!).inDays} ימים * ${widget.rent.car.pricePerDay} ליום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500,color: Colors.black)),
                                                             SizedBox(height: 17.h),
-                                                            Text('תוספות חינם',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500,color: Colors.black)),
+                                                            Text('תוספות',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500,color: Colors.black)),
                                                             SizedBox(height: 17.h),
                                                             Text('מס לפי מיקום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500,color: Colors.black)),
                                                             SizedBox(height: 17.h),

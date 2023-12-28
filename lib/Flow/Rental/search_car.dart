@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bblease/Flow/Rental/dialogs.dart';
 import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:bblease/models/car.dart';
@@ -14,13 +15,8 @@ import '../../../models/class_rent.dart';
 import '../../../services/api_service.dart';
 
 class SearchCar extends StatefulWidget {
-  SearchCar({super.key,
-    required this.location,
-    required this.latitude,
-    required this.longitude,
-    required this.startDate,
-    required this.endDate
-    });
+  SearchCar({super.key, required this.location, required this.latitude, required this.longitude, this.startDate, this.endDate
+  });
 
   String location;
   double? latitude;
@@ -41,6 +37,7 @@ class _SearchCarState extends State<SearchCar> {
   final _controller = ScrollController();
   bool showProgressIndicator = true;
   late Rental rent;
+  //bool isTapped=false;
 
   double _currentSliderValue = 3;
   String type='all';
@@ -107,10 +104,14 @@ class _SearchCarState extends State<SearchCar> {
                   Car car= cars[index];
                   return GestureDetector(
                     onTap: ()=>{
-                      Navigator.push(
+                      /*setState((){
+                        isTapped=true;
+                      }),*/
+                      /*Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => CarDetails(car,startDate: widget.startDate,endDate: widget.endDate,))
-                      ),
+                      ),*/
+                      extras(context,car,widget.startDate,widget.endDate),
                     },
                     child: Container(
                       width: 347.w,
@@ -122,7 +123,7 @@ class _SearchCarState extends State<SearchCar> {
                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                            shadowColor: Colors.transparent,
                            margin: EdgeInsets.only(left:20.w),
-                           color: Color(0xffF7F7F7),
+                           color: /*isTapped?Color(0xffEFFFFE):*/Color(0xffF7F7F7),
                            child:Padding(
                              padding:  EdgeInsets.only(bottom: 10.h,top:10.h,right: 14.w,left:11.w),
                              child: IntrinsicHeight(
@@ -171,10 +172,11 @@ class _SearchCarState extends State<SearchCar> {
                   Car car= filteredCarsMap[type]![index];
                   return GestureDetector(
                     onTap: ()=>{
-                      Navigator.push(
+                      /*Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => CarDetails(car,startDate: widget.startDate,endDate: widget.endDate,))
-                      ),
+                      ),*/
+                      extras(context,car,widget.startDate,widget.endDate),
                     },
                     child: Container(
                       width: 347.w,
@@ -229,7 +231,7 @@ class _SearchCarState extends State<SearchCar> {
               ,):
             Center(
               child: FutureBuilder(
-                future: Future.delayed(Duration(seconds: 5)),
+                future: Future.delayed(Duration(seconds: 7)),
                 builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     // If the Future is still running, show the progress indicator
@@ -602,7 +604,7 @@ class _SearchCarState extends State<SearchCar> {
                                     style: TextButton.styleFrom(
                                       minimumSize: Size(80, 20),
                                       padding: EdgeInsets.all(0)),
-                                    onPressed: ()=>{/*departurePoint(context,),*/},
+                                    onPressed: ()=>{departurePoint(context,widget.location,1,widget.startDate,widget.endDate),},
                                     child: Text(
                                     'שנה כתובת ',
                                     style: TextStyle(
@@ -760,7 +762,7 @@ class _SearchCarState extends State<SearchCar> {
                     widget.endDate = calculatedEndDate;
                     rent.startDate=widget.startDate!;
                     rent.endDate=widget.endDate!;
-                    //setState((){});
+                    setState((){});
                   }
                 }
 
@@ -962,6 +964,8 @@ class _SearchCarState extends State<SearchCar> {
                                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
                                       ),
                                       onPressed: () {
+                                        //setState((){});
+                                        Navigator.pop(context);
 
                                       },
                                       child: const Text('אישור', style: TextStyle(

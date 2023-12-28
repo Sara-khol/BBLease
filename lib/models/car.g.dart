@@ -16,6 +16,7 @@ Car _$CarFromJson(Map<String, dynamic> json) => Car(
       pricePerDay: json['price_per_day'] as int,
       pricePerHour: json['price_per_hour'] as int,
       type: json['car_type'] as String,
+      autoGeer: json['auto_geer'] as bool,
       city: json['city'] as String,
       maxFuel: (json['fuel_container_max'] as num).toDouble(),
     );
@@ -30,6 +31,7 @@ Map<String, dynamic> _$CarToJson(Car instance) => <String, dynamic>{
       'price_per_day': instance.pricePerDay,
       'price_per_hour': instance.pricePerHour,
       'car_type': instance.type,
+      'auto_geer': instance.autoGeer,
       'fuel_container_max': instance.maxFuel,
       'city': instance.city,
     };

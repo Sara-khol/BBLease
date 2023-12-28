@@ -39,6 +39,8 @@ class User{
   late String licenseDegree='';
   @JsonKey(name: 'is_new_driver')
   bool isNewDriver=false;
+ @JsonKey(name: 'is_young_driver')
+ bool isYoungDriver=false;
   @JsonKey(name: 'status_tranzila')
   bool tranzilaStatus=false;
 

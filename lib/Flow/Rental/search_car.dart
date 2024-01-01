@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:bblease/Flow/Rental/dialogs.dart';
-import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:bblease/models/car.dart';
+import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,12 +15,12 @@ import '../../../models/class_rent.dart';
 import '../../../services/api_service.dart';
 
 class SearchCar extends StatefulWidget {
-  SearchCar({super.key, required this.location, required this.latitude, required this.longitude, this.startDate, this.endDate
+   SearchCar({super.key, required this.location, required this.latitude, required this.longitude, this.startDate, this.endDate
   });
 
-  String location;
-  double? latitude;
-  double? longitude;
+ final String location;
+ final double? latitude;
+final  double? longitude;
   DateTime? startDate;
   DateTime? endDate;
 
@@ -88,7 +88,7 @@ class _SearchCarState extends State<SearchCar> {
             SizedBox(height:32.h),
             Directionality(textDirection: TextDirection.ltr,child: AppBarBibilease()),
             SizedBox(height:60.h),
-            Text('הי, מצאנו באזורך ${cars.length} רכבים',style: TextStyle(color: Color(0xFF0F1511), fontSize: 28.sp, fontWeight: FontWeight.w600, height: 1.2,),),
+            Text('הי, מצאנו באזורך ${cars.length} רכבים',style: TextStyle(color:blackColorApp, fontSize: 28.sp, fontWeight: FontWeight.w600, height: 1.2,),),
             Text('${widget.location}  ${intl.DateFormat('dd.MM.yy').format(widget.startDate!)} ',style: TextStyle(color: const Color(0xFF0F1511), fontSize: 18.sp, fontWeight: FontWeight.w400, height: 1.15,),),
             SizedBox(height: 16.h),//26
             topButtons(context),
@@ -135,7 +135,7 @@ class _SearchCarState extends State<SearchCar> {
                                      children: [
                                        Text(car.model.length > 12 ? '${car.model.substring(0, 12)}...' : '${car.model}',style: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.w700,height: 1,),),
                                        Text('או רכב זהה',style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w400,height: 1.15,),),
-                                       Text('נמצא במרחק 0.5ק"מ',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
+                                       Text('נמצא במרחק 0.5 ק"מ',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
                                        Expanded(child: SizedBox(height: 29.h)),
                                        Text('${car.pricePerDay} ₪  |  ליום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
                                        Text('${car.pricePerDay*widget.endDate!.difference(widget.startDate!).inDays} ₪  |  סה"כ',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,height: 1.15,),),
@@ -257,14 +257,14 @@ class _SearchCarState extends State<SearchCar> {
   }
 
   topButtons(context) {
-    return Container(
-      //color: Colors.yellow,
+    return /*Container(
+     // color: Colors.yellow,
       width: 393.w,
       height: 40.h,
-      child: Row(
+      child: */Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(width:25.w,),
+        //  SizedBox(width:25.w,),
           TextButton(
             onPressed: () => {filterCarType(context,_controller),},
               child: Row(children: [
@@ -277,7 +277,7 @@ class _SearchCarState extends State<SearchCar> {
                 ),
 
               ),
-              Icon(Icons.filter_alt_outlined,color: Color(0xffFB2576),size: 20.sp,),
+              Icon(Icons.filter_alt_outlined,color: pinkColorApp,size: 20.sp,),
              ], ),),
           //Spacer(),
           //SizedBox(width:33.w,),
@@ -295,7 +295,8 @@ class _SearchCarState extends State<SearchCar> {
             SizedBox(
                 width: 20.w,
                 height:20.h,
-                child: Icon(Icons.edit_calendar_outlined,color: Color(0xffFB2576),size: 20.sp,)),
+                child: Icon(Icons.edit_calendar_outlined,color: pinkColorApp
+                  ,size: 20.sp,)),
             ],
             ),),
           //Spacer(),
@@ -317,9 +318,8 @@ class _SearchCarState extends State<SearchCar> {
                   child: ImageIcon(AssetImage("assets/images/expansion.png"),color: Color(0xffFB2576),)),
             ],
             ),),
-          Expanded(child: SizedBox(width:48.w,)),
-      ],),
-    );
+        //  Expanded(child: SizedBox(width:48.w,)),
+      ],);
   }
 
   filterCarType( context, _controller,){
@@ -488,7 +488,7 @@ class _SearchCarState extends State<SearchCar> {
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 5.h,),
-        width:119.w,
+        width:130.w,
         height: 95.h,
          //color: Colors.blue,
          child: Padding(
@@ -497,12 +497,14 @@ class _SearchCarState extends State<SearchCar> {
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              //SizedBox(height: 10.h,),
+              // SizedBox(height: 10.h,),
               Padding(
-                padding: EdgeInsets.only(left: 9.w,),
+                // padding: EdgeInsets.only(left: 9.w,),
+                padding: EdgeInsets.only(left:0),
                 child: Text(name,
                   style: TextStyle(
-                    color: Color(0xFF0F1511),
+                    color: blackColorApp,
+                    // fontSize: 16.sp,
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w600,
                   ),
@@ -876,6 +878,7 @@ class _SearchCarState extends State<SearchCar> {
                                     if (value == null || value.isEmpty) {
                                       return 'זהו שדה חובה';
                                     }
+                                    return null;
                                   },
                                   onTap: () async {
                                     DateTime? date = await showDatePicker(
@@ -941,6 +944,7 @@ class _SearchCarState extends State<SearchCar> {
                                     if (value == null || value.isEmpty) {
                                       return 'זהו שדה חובה';
                                     }
+                                    return null;
                                   },
                                   onTap: () async {
                                     DateTime? date = await showDatePicker(

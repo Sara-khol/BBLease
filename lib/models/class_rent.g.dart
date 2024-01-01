@@ -11,10 +11,10 @@ Rental _$RentalFromJson(Map<String, dynamic> json) => Rental()
   ..car = Car.fromJson(json['car'] as Map<String, dynamic>)
   ..startDate = DateTime.parse(json['start_date'] as String)
   ..endDate = DateTime.parse(json['end_date'] as String)
-  ..insurance = json['insurance'] as bool
+  ..insurance = json['insurance'] as int
   ..limitedKM = json['limit-km'] as int
-  ..deductible = json['deductible'] as bool
-  ..waze = json['waze'] as bool
+  ..deductible = json['deductible'] as int
+  ..waze = json['waze'] ?? false /*as bool*/
   ..price = (json['price'] as num).toDouble()
   ..url = json['url-order-pdf'] as String?;
 

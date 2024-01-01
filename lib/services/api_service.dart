@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:camera/camera.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 
@@ -103,17 +101,6 @@ class ApiService {
   Future getCarsAround(String start,String end,double lat,double long,int km, Function(dynamic carJson) onSuccess) async {
     print('${_baseUrl}wp/v2/get_vehicles_around_address/$start/$end/$lat/$long/$km/1');
 
-    _dio.httpClientAdapter = IOHttpClientAdapter(
-      createHttpClient: () {
-        // Don't trust any certificate just because their root cert is trusted.
-        final HttpClient client =
-        HttpClient(context: SecurityContext(withTrustedRoots: false));
-        // You can test the intermediate / root cert here. We just ignore it.
-        client.badCertificateCallback =
-        ((X509Certificate cert, String host, int port) => true);
-        return client;
-      },
-    );
     // Response response = await _dio.get('${_baseUrl}wp/v2/get_all_vehicles');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_vehicles_around_address/$start/$end/$lat/$long/$km/1');
     if(response.statusCode == 200) {
@@ -210,10 +197,7 @@ class ApiService {
     if(response.statusCode==200) {
       onSuccess(response.data);
     }
-    else
-      {
 
-      }
   }
 
   getPaymentUrl(int id,Function(dynamic res) onSuccess) async
@@ -241,12 +225,15 @@ class ApiService {
 
 
 
+
+
   Future getUserById(int id,Function(dynamic res) onSuccess) async {
     print('${_baseUrl}customers/get_customer/$id');
     Response response = await _dio.get('${_baseUrl}customers/get_customer/$id');
     if(response.statusCode == 200) {
       var result = response.data;
       print(result);
+
       onSuccess(result);
     }
     // Prints the raw data returned by the server
@@ -296,6 +283,20 @@ class ApiService {
     else {
       print(response.statusCode);
     }
+  }
+
+  Future newOrder( Map<String, dynamic> jsonMap,Function(dynamic res) onSuccess) async {
+    debugPrint('${_baseUrl}orders/new_order');
+   debugPrint('data : ${json.encode(jsonMap)}');
+
+    Response response = await _dio.post('${_baseUrl}orders/new_order',
+      data: json.encode(jsonMap));
+    // debugPrint('response $response');
+    debugPrint('data: ${response.data}');
+    if(response.statusCode==200) {
+      onSuccess(response.data);
+    }
+
   }
 
 }

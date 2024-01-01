@@ -87,6 +87,7 @@ class MyApp extends StatelessWidget {
                       }
                       if(snapshot.hasError)
                         {
+                          debugPrint('error: ${snapshot.error}');
                          CommonFuncs().showMyToast('בעיה בלתי צפויה, נסה להכנס שנית');
                          return Container();
                         }

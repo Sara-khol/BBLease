@@ -8,7 +8,7 @@ part of 'class_user.dart';
 
 User _$UserFromJson(Map<String, dynamic> json) => User()
   ..userId = json['customer_id'] as int
-  ..regImages = User._imagesFromJson(json['reg_images'] as List)
+ // ..regImages = User._imagesFromJson(json['reg_images'] as List)
   ..firstName = json['name'] as String
   ..lastName = json['family_name'] as String
   ..name = json['doc_name'] as String?
@@ -22,8 +22,27 @@ User _$UserFromJson(Map<String, dynamic> json) => User()
   ..licenseIssDate = json['license_date'] as String
   ..licenseDegree = json['license_level'] as String
   ..isNewDriver = json['is_new_driver'] as bool
-  ..isYoungDriver = json['is_young_driver'] as bool
+  ..isYoungDriver =  _checkYoungDriver(json['birth_date'] as String)
   ..tranzilaStatus = json['status_tranzila'] as bool;
+
+ _checkYoungDriver(String bd) {
+  String datePattern = "dd/MM/yyyy";
+
+  // Current time - at this moment
+  DateTime today = DateTime.now();
+
+  // Parsed date to check
+  DateTime birthDateDt = DateFormat(datePattern).parse(bd);
+
+  // Date to check but moved 18 years ahead
+  DateTime adultDate = DateTime(
+    birthDateDt.year + 24,
+    birthDateDt.month,
+    birthDateDt.day,
+  );
+
+  return adultDate.isAfter(today) ;
+}
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'customer_id': instance.userId,

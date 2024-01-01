@@ -298,4 +298,16 @@ class ApiService {
     }
   }
 
+
+  Future getAdditions(int carId, Function(dynamic orderJson) onSuccess) async {
+    print('${_baseUrl}orders/get_customer_orders/$carId');
+    Response response = await _dio.get('${_baseUrl}orders/get_customer_orders/$carId');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+    // Prints the raw data returned by the server
+  }
+
 }

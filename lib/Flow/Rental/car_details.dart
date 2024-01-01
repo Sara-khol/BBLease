@@ -25,9 +25,22 @@ final Rental rent;
 
 class _CarDetailsState extends State<CarDetails> {
   //late Car carDetails;
+  double price=0;
+  late int rentPrice;
+
+
+
+  void calculatePrice(){
+    for(var item in rent.additions){
+      if(item.isChecked)
+        price+=item.price;
+    }
+  }
 
   @override
   void initState() {
+    rentPrice=widget.rent.car.pricePerDay*widget.rent.startDate!.difference(widget.rent.endDate!).inDays;
+    calculatePrice();
     super.initState();
   }
 
@@ -214,7 +227,6 @@ class _CarDetailsState extends State<CarDetails> {
                                                 SizedBox(width: 9.w,),
                                                 Text(widget.rent.car.city, style: TextStyle(color: colors.blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,),),
                                                 Spacer(),
-                                                //TODO: replace to ICONBUTTON
                                                 IconButton(
                                                   icon: ImageIcon(AssetImage("assets/images/edit.png"),size: 20.sp, color: colors.turquoiseColorApp,),
                                                   onPressed: () {
@@ -256,11 +268,15 @@ class _CarDetailsState extends State<CarDetails> {
                                                     Text('ללא הגבלת קילומטרים', style: TextStyle(color: colors.blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400, ),),
                                                   ],
                                                 ),
-                                                Row(
+                                               Row(
                                                   children: [
                                                     Icon(Icons.check, color: colors.turquoiseColorApp,),
                                                     SizedBox(width: 9.w,),
-                                                    Text('השתתפות עצמית בנזקים', style: TextStyle(color: colors.blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,),),
+                                                    widget.rent.deductible?
+                                                    Text('השתתפות עצמית בנזקים', style: TextStyle(color: colors.blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,),)
+                                                        :
+                                                    Text('ביטול השתתפות עצמית', style: TextStyle(color: colors.blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,),),
+
                                                   ],
                                                 ),
                                               ],
@@ -307,72 +323,15 @@ class _CarDetailsState extends State<CarDetails> {
                                         ),
                                       ),
                                       child: Padding(padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(height: 40.h),
-                                            GestureDetector(
-                                              onTap: () {  },
-                                              child: Container(
-                                                //height: 68.h,
-                                                decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(8)),
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(left: 20.w,right: 20.w,top: 10.h,bottom: 10.h),
-                                                  child: Column(
-                                                     children: [
-                                                       Row(
-                                                         children: [
-                                                           Text('בחר השתתפות עצמית',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 22.sp),),
-                                                           Spacer(),
-                                                           Icon(Icons.check,color: colors.turquoiseColorApp,size: 21.sp,)
-                                                         ],
-                                                       ),
-                                                       Row(
-                                                         children:[
-                                                           Icon(Icons.check,size: 12.sp,),
-                                                           Text('  בתנאים מסוימים  ',style: TextStyle(fontSize: 18.sp),)
-                                                         ]
-
-                                                       )
-                                                     ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(height: 10.h),
-                                            GestureDetector(
-                                              onTap: () {  },
-                                              child: Container(
-                                                //height: 73.h,
-                                                decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(8)),
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(left: 20.w,right: 20.w,top: 10.h,bottom: 10.h),
-                                                  child: Column(
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          Text('נהג חדש',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 22.sp),),
-                                                          Spacer(),
-                                                          Icon(Icons.add_box_outlined,color: colors.turquoiseColorApp,size: 21.sp,)
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                          children:[
-                                                            Icon(Icons.check,size: 12.sp,),
-                                                            Text('  בתנאים מסוימים  ',style: TextStyle(fontSize: 18.sp),),
-                                                            Spacer(),
-                                                            Text('25 ₪ ליום',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 22.sp),),
-
-                                                          ]
-                                              )
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(height: 20.h),
-
-                                          ],
+                                        child: ListView.builder(
+                                          itemCount: rent.additions.length,
+                                          itemBuilder: (context ,index) {
+                                            for(var item in rent.additions){
+                                              if(item.isChecked)
+                                                return createExtra(index);
+                                            }
+                                            return SizedBox();
+                                          },
                                         ),
                                       ),
                                     ),
@@ -448,9 +407,9 @@ class _CarDetailsState extends State<CarDetails> {
                                                           children: [
                                                             Text('₪ ${widget.rent.car.pricePerDay*widget.rent.startDate!.difference(widget.rent.endDate!).inDays}',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
                                                             SizedBox(height: 17.h),
-                                                            Text('₪ 00.00',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
+                                                            Text('₪ $price',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
                                                             SizedBox(height: 17.h),
-                                                            Text('₪ 228.90',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
+                                                            Text('₪ ${}',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
                                                             SizedBox(height: 17.h),
                                                             Text('₪ 639.30',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
                                                           ],
@@ -540,5 +499,26 @@ class _CarDetailsState extends State<CarDetails> {
             )
           ),
     );
+  }
+  Widget createExtra(index){
+    return Container(
+      //height: 68.h,
+      decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(8)),
+      child: Padding(
+        padding: EdgeInsets.only(left: 20.w,right: 20.w,top: 10.h,bottom: 10.h),
+        child: Row(
+          children: [
+            IconButton(onPressed: () {
+
+            },
+                icon: Icon(Icons.delete_forever_outlined,color: colors.pinkColorApp,)),
+            Text(widget.rent.additions[index].title,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 22.sp),),
+            Spacer(),
+            Icon(Icons.check,color: colors.turquoiseColorApp,size: 21.sp,)
+          ],
+        ),
+      ),
+    );
+
   }
 }

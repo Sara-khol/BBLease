@@ -13,6 +13,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:intl/intl.dart' as intl;
 
+import '../../models/additions.dart';
 import '../../models/class_rent.dart';
 
 
@@ -21,6 +22,7 @@ double? longitude;
 String location='';
 //late DateTime startDate,endDate;
 Rental rent=Rental();
+late List<Addition> additions;
 
 Future departurePoint( context ,address, nav, [sdate,edate]){
   print('dialog address: $address');
@@ -511,14 +513,16 @@ Future rentalTerm( context){
 }
 
 
-Future extras( context,car,sDate,eDate){
+Future extras( context,car,sDate,eDate,additionsList){
   print('rent ');
   rent.startDate=sDate;
   rent.endDate=sDate;
   rent.car=car;
 print(rent);
 
-List<bool> val=[User().isNewDriver,User().isYoungDriver,false,false,false,false];
+additions=additionsList;
+
+//List<bool> val=[User().isNewDriver,User().isYoungDriver,false,false,false,false];
 
   return showModalBottomSheet<dynamic>(
       isScrollControlled: true,
@@ -561,7 +565,13 @@ List<bool> val=[User().isNewDriver,User().isYoungDriver,false,false,false,false]
                                 ],
                               ),
                               SizedBox(height: 15.h,),
-                              Column(
+                              ListView.builder(
+                                itemCount: additions.length,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return createCheckBox(index);
+                                },),
+                              /*Column(
                                 children: [
                                   CheckboxListTile(
                                     title: Text('  נהג חדש - 40 ש"ח  '),
@@ -653,7 +663,7 @@ List<bool> val=[User().isNewDriver,User().isYoungDriver,false,false,false,false]
                                     },
                                   ),
                                 ],
-                              ),
+                              ),*/
 
                               /*ConstrainedBox(
                                 constraints: BoxConstraints(maxHeight: 190.h),
@@ -675,6 +685,7 @@ List<bool> val=[User().isNewDriver,User().isYoungDriver,false,false,false,false]
                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
                                     ),
                                     onPressed: () {
+                                      rent.additions=additions;
                                       Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
@@ -704,7 +715,27 @@ List<bool> val=[User().isNewDriver,User().isYoungDriver,false,false,false,false]
   );
 }
 
+createCheckBox(int index){
 
+  return CheckboxListTile(
+    title: Text(additions[index].title),
+    value: additions[index].isChecked,
+    enabled: additions[index].isEnabled,
+    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+    fillColor: MaterialStateProperty.resolveWith((states) {
+      if (states.contains(MaterialState.selected)) {
+        return Colors.transparent;
+      }
+      return null;
+    }),
+    checkColor: colors.turquoiseColorApp,
+    onChanged: (value) {
+      additions[index].isChecked=value!;
+      //rent.waze=value!;
+
+    },
+  );
+}
 
 Future showLoading(BuildContext context)
 {

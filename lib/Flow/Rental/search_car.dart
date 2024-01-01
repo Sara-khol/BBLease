@@ -13,6 +13,8 @@ import 'package:bblease/Flow/Rental/car_details.dart';
 
 import '../../../models/class_rent.dart';
 import '../../../services/api_service.dart';
+import '../../models/additions.dart';
+import '../../models/class_user.dart';
 
 class SearchCar extends StatefulWidget {
    SearchCar({super.key, required this.location, required this.latitude, required this.longitude, this.startDate, this.endDate
@@ -103,7 +105,7 @@ class _SearchCarState extends State<SearchCar> {
                 itemBuilder: (context, index) {
                   Car car= cars[index];
                   return GestureDetector(
-                    onTap: ()=>{
+                    onTap: ()async{
                       /*setState((){
                         isTapped=true;
                       }),*/
@@ -111,7 +113,23 @@ class _SearchCarState extends State<SearchCar> {
                         context,
                         MaterialPageRoute(builder: (context) => CarDetails(car,startDate: widget.startDate,endDate: widget.endDate,))
                       ),*/
-                      extras(context,car,widget.startDate,widget.endDate),
+                      await ApiService().getAdditions(car.id, (orderJson) {
+                        List<Addition> additions=[];
+                        additions = orderJson.map<Addition>((entry) => (Addition.fromJson(entry))).toList();
+                        for(Addition item in additions){
+                          if(item.name=='new_driver'||item.name=='young_driver'){
+                            item.isEnabled=false;
+                            if(item.name=='new_driver'&&User().isNewDriver||
+                                item.name=='young_driver'&&User().isYoungDriver){
+                              item.isChecked=true;
+                            }
+                          }
+
+                        }
+                        setState(() {});
+                        extras(context,car,widget.startDate,widget.endDate,additions);
+                      });
+
                     },
                     child: Container(
                       width: 347.w,
@@ -171,12 +189,26 @@ class _SearchCarState extends State<SearchCar> {
                 itemBuilder: (context, index) {
                   Car car= filteredCarsMap[type]![index];
                   return GestureDetector(
-                    onTap: ()=>{
+                    onTap: ()async{
                       /*Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => CarDetails(car,startDate: widget.startDate,endDate: widget.endDate,))
                       ),*/
-                      extras(context,car,widget.startDate,widget.endDate),
+                      await ApiService().getAdditions(car.id, (orderJson) {
+                        List<Addition> additions=[];
+                        additions = orderJson.map<Addition>((entry) => (Addition.fromJson(entry))).toList();
+                        for(Addition item in additions){
+                          if(item.name=='new_driver'||item.name=='young_driver'){
+                            item.isEnabled=false;
+                            if(item.name=='new_driver'&&User().isNewDriver||
+                                item.name=='young_driver'&&User().isYoungDriver){
+                              item.isChecked=true;
+                            }
+                          }
+                        }
+                        setState(() {});
+                        extras(context,car,widget.startDate,widget.endDate,additions);
+                      });
                     },
                     child: Container(
                       width: 347.w,

@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'additions.dart';
 import 'car.dart';
 part 'class_rent.g.dart';
 
@@ -29,16 +30,17 @@ class Rental{
   late bool waze;
 
 
-
-
   @JsonKey(name: 'price')
   late double price;
 
   @JsonKey(name: 'url-order-pdf')
   String? url;
 
+  @JsonKey(includeFromJson: false)
+  late List<Addition> additions;
+
   //Rental(this.startDate,this.endDate, this.car, this.insurance, this.limitedKM, this.deductible, this.price, this.url);
-Rental(){}
+  Rental();
    /*void addRental(DateTime startDate,DateTime endDate,Car car,bool insurance,int limitedKM,bool deductible, double price){
      this.startDate;
      this.endDate;

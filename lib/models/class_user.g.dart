@@ -8,7 +8,6 @@ part of 'class_user.dart';
 
 User _$UserFromJson(Map<String, dynamic> json) => User()
   ..userId = json['customer_id'] as int
- // ..regImages = User._imagesFromJson(json['reg_images'] as List)
   ..firstName = json['name'] as String
   ..lastName = json['family_name'] as String
   ..name = json['doc_name'] as String?

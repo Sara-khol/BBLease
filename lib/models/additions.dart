@@ -10,7 +10,7 @@ class Addition{
   late String title;
   @JsonKey(name: 'key')
   late String name;
-  @JsonKey(name: 'price')
+  @JsonKey(name: 'total')
   late double price;
 
 

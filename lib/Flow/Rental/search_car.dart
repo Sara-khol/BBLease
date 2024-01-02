@@ -15,6 +15,7 @@ import '../../../models/class_rent.dart';
 import '../../../services/api_service.dart';
 import '../../models/additions.dart';
 import '../../models/class_user.dart';
+import 'additions_dialog.dart';
 
 class SearchCar extends StatefulWidget {
    SearchCar({super.key, required this.location, required this.latitude, required this.longitude, this.startDate, this.endDate
@@ -38,7 +39,8 @@ class _SearchCarState extends State<SearchCar> {
 
   final _controller = ScrollController();
   bool showProgressIndicator = true;
-  late Rental rent;
+
+   Rental rent=Rental();
   //bool isTapped=false;
 
   double _currentSliderValue = 3;
@@ -46,6 +48,8 @@ class _SearchCarState extends State<SearchCar> {
 
   @override
   void initState()  {
+    rent.startDate=widget.startDate!;
+    rent.endDate=widget.endDate!;
     getCarsList();
     super.initState();
   }
@@ -65,7 +69,6 @@ class _SearchCarState extends State<SearchCar> {
       createMap();
     });
   }
-
   createMap(){
     filteredCarsMap['all']=cars;
     for (var car in cars) {
@@ -127,7 +130,17 @@ class _SearchCarState extends State<SearchCar> {
 
                         }
                         setState(() {});
-                        extras(context,car,widget.startDate,widget.endDate,additions);
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                          isDismissible: false,
+                          barrierColor: Colors.black12.withOpacity(0.1),
+                          //isDismissible: false,
+                          elevation: 2,
+                          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
+                          context: context,
+                          builder: (_) => AdditionsDialog(rent: rent, car: car, additionsList: additions),
+                        );
+                        //extras(context,car,widget.startDate,widget.endDate,additions);
                       });
 
                     },
@@ -207,7 +220,17 @@ class _SearchCarState extends State<SearchCar> {
                           }
                         }
                         setState(() {});
-                        extras(context,car,widget.startDate,widget.endDate,additions);
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                          isDismissible: false,
+                          barrierColor: Colors.black12.withOpacity(0.1),
+                          //isDismissible: false,
+                          elevation: 2,
+                          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
+                          context: context,
+                          builder: (_) => AdditionsDialog(rent: rent, car: car, additionsList: additions),
+                        );
+                        //extras(context,car,widget.startDate,widget.endDate,additions,rent);
                       });
                     },
                     child: Container(

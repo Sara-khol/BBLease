@@ -22,7 +22,7 @@ double? longitude;
 String location='';
 //late DateTime startDate,endDate;
 Rental rent=Rental();
-late List<Addition> additions;
+
 
 Future departurePoint( context ,address, nav, [sdate,edate]){
   print('dialog address: $address');
@@ -179,7 +179,7 @@ Future departurePoint( context ,address, nav, [sdate,edate]){
                                     //Navigator.pop(context);
                                     nav==0?rentalTerm(context):
                                         Navigator.push(context,
-                                            MaterialPageRoute(builder: (context) => SearchCar(location: location, latitude: latitude, longitude: longitude,startDate: sdate,endDate: edate),))
+                                            MaterialPageRoute(builder: (context) => SearchCar(location: location, latitude: 31.813741816279247, longitude: 35.20199572868961,startDate: sdate,endDate: edate),))
                                     ;
                                   },
                                 ),
@@ -483,8 +483,8 @@ Future rentalTerm( context){
                                           MaterialPageRoute(
                                               maintainState:false,
                                               builder: (context) => SearchCar(location: location,
-                                              latitude: latitude,
-                                              longitude: longitude,
+                                                latitude: 31.813741816279247,
+                                                longitude: 35.20199572868961,
                                               startDate: startDate,
                                               endDate: endDate,
                                          )));
@@ -513,232 +513,9 @@ Future rentalTerm( context){
 }
 
 
-Future extras( context,car,sDate,eDate,additionsList){
-  print('rent ');
-  rent.startDate=sDate;
-  rent.endDate=sDate;
-  rent.car=car;
-print(rent);
 
-additions=additionsList;
 
-//List<bool> val=[User().isNewDriver,User().isYoungDriver,false,false,false,false];
-
-  return showModalBottomSheet<dynamic>(
-      isScrollControlled: true,
-      isDismissible: false,
-      context: context,
-      builder: ( context) {
-        return StatefulBuilder(
-            builder: ( context, StateSetter setState) {
-              return Padding(
-                padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(maxHeight: 600.h),
-                    child: Column(
-                      children: [
-                        Container(
-                          alignment: Alignment.topRight,
-                          child: IconButton(
-                            icon: const Icon(Icons.close),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 30.w, right: 30.w),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('התאם תנאי השכרה', style: TextStyle(
-                                      fontSize: 26.sp,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.black),),
-                                  SizedBox(width: 9.w,),
-                                  Icon(
-                                    Icons.extension_outlined, color: colors.pinkColorApp, size: 24.sp,),
-                                ],
-                              ),
-                              SizedBox(height: 15.h,),
-                              ListView.builder(
-                                itemCount: additions.length,
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return createCheckBox(index);
-                                },),
-                              /*Column(
-                                children: [
-                                  CheckboxListTile(
-                                    title: Text('  נהג חדש - 40 ש"ח  '),
-                                    value: val[0],
-                                    enabled: false,
-                                    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                    fillColor: MaterialStateProperty.resolveWith((states) {
-                                      if (states.contains(MaterialState.selected)) {
-                                        return Colors.transparent;
-                                      }
-                                      return null;
-                                    }),
-                                    checkColor: colors.turquoiseColorApp,
-                                    onChanged: (value) {  },
-                                  ),
-                                  CheckboxListTile(
-                                    title: Text('  נהג צעיר - 49 ש"ח  '),
-                                    value: val[1],
-                                    enabled: false,
-                                    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                    checkColor: colors.turquoiseColorApp,
-                                    fillColor: MaterialStateProperty.resolveWith((states) {
-                                      if (states.contains(MaterialState.selected)) {
-                                        return Colors.transparent;
-                                      }
-                                      return null;
-                                    }),
-                                    onChanged: (value) {  },
-                                  ),
-                                  CheckboxListTile(
-                                    title: Text('  ביטול השתתפות עצמית - 52 ש"ח  '),
-                                    value: val[2],
-                                    //enabled: true,
-                                    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                    checkColor: colors.turquoiseColorApp,
-                                    fillColor: MaterialStateProperty.resolveWith((states) {
-                                      if (states.contains(MaterialState.selected)) {
-                                        return Colors.transparent;
-                                      }
-                                      return null;
-                                    }),
-                                    onChanged: (value) {
-                                      rent.deductible=value!;
-                                      setState((){val[2]=value;});
-                                    },
-                                  ),
-                                  CheckboxListTile(
-                                    title: Text('  נהג נוסף - 20 ש"ח  '),
-                                    value: val[3],
-                                    enabled: false,
-                                    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                    checkColor: colors.turquoiseColorApp,
-                                    onChanged: (value) {
-
-                                    },
-                                  ),
-                                  CheckboxListTile(
-                                    title: Text('  בוסטר/כיסא תינוק - 20 ש"ח  '),
-                                    value: val[4],
-                                    enabled: true,
-                                    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                    checkColor: colors.turquoiseColorApp,
-                                    fillColor: MaterialStateProperty.resolveWith((states) {
-                                      if (states.contains(MaterialState.selected)) {
-                                        return Colors.transparent;
-                                      }
-                                      return null;
-                                    }),
-                                    onChanged: (value) {
-                                      rent.car.safetyChair=value!;
-                                      setState((){val[4]=value;});
-                                    },
-                                  ),
-                                  CheckboxListTile(
-                                    title: Text('  מכשיר וויז -10 ש"ח  '),
-                                    value: val[5],
-                                    enabled: true,
-                                    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                    fillColor: MaterialStateProperty.resolveWith((states) {
-                                      if (states.contains(MaterialState.selected)) {
-                                        return Colors.transparent;
-                                      }
-                                      return null;
-                                    }),
-                                    checkColor: colors.turquoiseColorApp,
-                                    onChanged: (value) {
-                                      rent.waze=value!;
-                                      setState((){val[5]=value;});
-                                    },
-                                  ),
-                                ],
-                              ),*/
-
-                              /*ConstrainedBox(
-                                constraints: BoxConstraints(maxHeight: 190.h),
-                                child: ListView(
-                                  shrinkWrap: true,
-                                  children: <Widget>[
-                                   
-                                  ],
-                                ),
-                              ),*/
-                              SizedBox(height: 20.h,),
-                              
-                              SizedBox(
-                                height: 48.h,
-                                width: 332.w,
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: colors.turquoiseColorApp,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
-                                    ),
-                                    onPressed: () {
-                                      rent.additions=additions;
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              maintainState:false,
-                                              builder: (context) => CarDetails(rent: rent,)));
-                                    },
-                                    child: const Text('סיום', style: TextStyle(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.w500),)),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            }
-        );
-      },
-
-      barrierColor: Colors.black12.withOpacity(0.1),
-      //isDismissible: false,
-      elevation: 2,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),)
-  );
-}
-
-createCheckBox(int index){
-
-  return CheckboxListTile(
-    title: Text(additions[index].title),
-    value: additions[index].isChecked,
-    enabled: additions[index].isEnabled,
-    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-    fillColor: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.selected)) {
-        return Colors.transparent;
-      }
-      return null;
-    }),
-    checkColor: colors.turquoiseColorApp,
-    onChanged: (value) {
-      additions[index].isChecked=value!;
-      //rent.waze=value!;
-
-    },
-  );
-}
-
-Future showLoading(BuildContext context)
-{
+Future showLoading(BuildContext context) {
  return showDialog(
     context: context,
     barrierDismissible: false,

@@ -9,7 +9,6 @@ import '../../models/class_rent.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:carousel_slider/carousel_slider.dart';
 
-import 'dialogs.dart';
 
 
 class CarDetails extends StatefulWidget {
@@ -31,7 +30,7 @@ class _CarDetailsState extends State<CarDetails> {
 
 
   void calculatePrice(){
-    for(var item in rent.additions){
+    for(var item in widget.rent.additions){
       if(item.isChecked)
         price+=item.price;
     }
@@ -272,11 +271,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                   children: [
                                                     Icon(Icons.check, color: colors.turquoiseColorApp,),
                                                     SizedBox(width: 9.w,),
-                                                    widget.rent.deductible?
                                                     Text('השתתפות עצמית בנזקים', style: TextStyle(color: colors.blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,),)
-                                                        :
-                                                    Text('ביטול השתתפות עצמית', style: TextStyle(color: colors.blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,),),
-
                                                   ],
                                                 ),
                                               ],
@@ -324,9 +319,9 @@ class _CarDetailsState extends State<CarDetails> {
                                       ),
                                       child: Padding(padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                                         child: ListView.builder(
-                                          itemCount: rent.additions.length,
+                                          itemCount: widget.rent.additions.length,
                                           itemBuilder: (context ,index) {
-                                            for(var item in rent.additions){
+                                            for(var item in widget.rent.additions){
                                               if(item.isChecked)
                                                 return createExtra(index);
                                             }
@@ -376,7 +371,7 @@ class _CarDetailsState extends State<CarDetails> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             SizedBox(height: 40.h),
-                                            Text('סך הכל לתשלום       ${widget.rent.car.pricePerDay*widget.rent.startDate!.difference(widget.rent.endDate!).inDays} ₪',style: TextStyle(fontWeight: FontWeight.w700,fontSize: 22.sp),),
+                                            Text('סך הכל לתשלום       ${(rentPrice+price)*0.17} ₪',style: TextStyle(fontWeight: FontWeight.w700,fontSize: 22.sp),),
                                             SizedBox(height: 7.h),
                                             Text('פירוט התשלום',style: TextStyle(fontWeight: FontWeight.w400,fontSize: 18.sp),),
                                             SizedBox(height: 10.h),
@@ -405,13 +400,13 @@ class _CarDetailsState extends State<CarDetails> {
                                                         SizedBox(width: 50.h),
                                                         Column(
                                                           children: [
-                                                            Text('₪ ${widget.rent.car.pricePerDay*widget.rent.startDate!.difference(widget.rent.endDate!).inDays}',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
+                                                            Text('₪ $rentPrice',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
                                                             SizedBox(height: 17.h),
                                                             Text('₪ $price',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
                                                             SizedBox(height: 17.h),
-                                                            Text('₪ ${}',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
+                                                            Text('₪ ${(rentPrice+price)*0.17}',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
                                                             SizedBox(height: 17.h),
-                                                            Text('₪ 639.30',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
+                                                            Text('₪ ${(rentPrice+price)*0.17}',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black)),
                                                           ],
                                                         ),
                                                         SizedBox(width: 50.h),
@@ -419,11 +414,11 @@ class _CarDetailsState extends State<CarDetails> {
                                                           children: [
                                                             Text('${widget.rent.startDate!.difference(widget.rent.endDate!).inDays} ימים * ${widget.rent.car.pricePerDay} ליום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500,color: Colors.black)),
                                                             SizedBox(height: 17.h),
-                                                            Text('תוספות',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500,color: Colors.black)),
+                                                            Text('מחיר כולל',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500,color: Colors.black)),
                                                             SizedBox(height: 17.h),
-                                                            Text('מס לפי מיקום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500,color: Colors.black)),
+                                                            Text('תוספת 17%',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500,color: Colors.black)),
                                                             SizedBox(height: 17.h),
-                                                            Text('כולל מע”מ',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500,color: Colors.black)),
+                                                            Text('תשלום כולל מע”מ',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500,color: Colors.black)),
                                                           ],
                                                         )
 

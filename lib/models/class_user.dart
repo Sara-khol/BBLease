@@ -9,7 +9,7 @@ part 'class_user.g.dart';
 class User{
  @JsonKey(name: 'customer_id')
  late int userId=-1;
-  @JsonKey(name: 'reg_images', toJson: _imagesToJson, fromJson: _imagesFromJson)
+  @JsonKey(name: 'reg_images', toJson: _imagesToJson, fromJson: _imagesFromJson,includeFromJson: false)
   List<XFile?> regImages = List<XFile?>.filled(3, null);
 
   @JsonKey(name: 'name')
@@ -39,7 +39,7 @@ class User{
   late String licenseDegree='';
   @JsonKey(name: 'is_new_driver')
   bool isNewDriver=false;
- @JsonKey(name: 'is_young_driver')
+ @JsonKey(name: 'is_young_driver',includeFromJson: false)
  bool isYoungDriver=false;
   @JsonKey(name: 'status_tranzila')
   bool tranzilaStatus=false;

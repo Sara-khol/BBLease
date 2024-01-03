@@ -93,109 +93,9 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                       itemBuilder: (context, index) {
                         return createCheckBox(index);
                       },),
-                    /*Column(
-                                children: [
-                                  CheckboxListTile(
-                                    title: Text('  נהג חדש - 40 ש"ח  '),
-                                    value: val[0],
-                                    enabled: false,
-                                    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                    fillColor: MaterialStateProperty.resolveWith((states) {
-                                      if (states.contains(MaterialState.selected)) {
-                                        return Colors.transparent;
-                                      }
-                                      return null;
-                                    }),
-                                    checkColor: colors.turquoiseColorApp,
-                                    onChanged: (value) {  },
-                                  ),
-                                  CheckboxListTile(
-                                    title: Text('  נהג צעיר - 49 ש"ח  '),
-                                    value: val[1],
-                                    enabled: false,
-                                    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                    checkColor: colors.turquoiseColorApp,
-                                    fillColor: MaterialStateProperty.resolveWith((states) {
-                                      if (states.contains(MaterialState.selected)) {
-                                        return Colors.transparent;
-                                      }
-                                      return null;
-                                    }),
-                                    onChanged: (value) {  },
-                                  ),
-                                  CheckboxListTile(
-                                    title: Text('  ביטול השתתפות עצמית - 52 ש"ח  '),
-                                    value: val[2],
-                                    //enabled: true,
-                                    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                    checkColor: colors.turquoiseColorApp,
-                                    fillColor: MaterialStateProperty.resolveWith((states) {
-                                      if (states.contains(MaterialState.selected)) {
-                                        return Colors.transparent;
-                                      }
-                                      return null;
-                                    }),
-                                    onChanged: (value) {
-                                      rent.deductible=value!;
-                                      setState((){val[2]=value;});
-                                    },
-                                  ),
-                                  CheckboxListTile(
-                                    title: Text('  נהג נוסף - 20 ש"ח  '),
-                                    value: val[3],
-                                    enabled: false,
-                                    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                    checkColor: colors.turquoiseColorApp,
-                                    onChanged: (value) {
 
-                                    },
-                                  ),
-                                  CheckboxListTile(
-                                    title: Text('  בוסטר/כיסא תינוק - 20 ש"ח  '),
-                                    value: val[4],
-                                    enabled: true,
-                                    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                    checkColor: colors.turquoiseColorApp,
-                                    fillColor: MaterialStateProperty.resolveWith((states) {
-                                      if (states.contains(MaterialState.selected)) {
-                                        return Colors.transparent;
-                                      }
-                                      return null;
-                                    }),
-                                    onChanged: (value) {
-                                      rent.car.safetyChair=value!;
-                                      setState((){val[4]=value;});
-                                    },
-                                  ),
-                                  CheckboxListTile(
-                                    title: Text('  מכשיר וויז -10 ש"ח  '),
-                                    value: val[5],
-                                    enabled: true,
-                                    checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                    fillColor: MaterialStateProperty.resolveWith((states) {
-                                      if (states.contains(MaterialState.selected)) {
-                                        return Colors.transparent;
-                                      }
-                                      return null;
-                                    }),
-                                    checkColor: colors.turquoiseColorApp,
-                                    onChanged: (value) {
-                                      rent.waze=value!;
-                                      setState((){val[5]=value;});
-                                    },
-                                  ),
-                                ],
-                              ),*/
 
-                    /*ConstrainedBox(
-                                constraints: BoxConstraints(maxHeight: 190.h),
-                                child: ListView(
-                                  shrinkWrap: true,
-                                  children: <Widget>[
 
-                                  ],
-                                ),
-                              ),*/
                     SizedBox(height: 20.h,),
 
                     SizedBox(
@@ -209,6 +109,11 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                           onPressed: () {
                             widget.rent.additions=widget.additionsList;
                             widget.rent.car=widget.car;
+
+                            for(Addition a in widget.rent.additions)
+                              {
+                                debugPrint('title: ${a.title} name: ${a.name} ${a.isChecked}');
+                              }
 
                             Navigator.pushReplacement(
                                 context,

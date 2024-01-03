@@ -134,6 +134,7 @@ class _SearchCarState extends State<SearchCar> {
                           isScrollControlled: true,
                           isDismissible: false,
                           barrierColor: Colors.black12.withOpacity(0.1),
+                          backgroundColor: Colors.white,
                           //isDismissible: false,
                           elevation: 2,
                           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
@@ -223,6 +224,7 @@ class _SearchCarState extends State<SearchCar> {
                         showModalBottomSheet(
                           isScrollControlled: true,
                           isDismissible: false,
+                          backgroundColor: Colors.white,
                           barrierColor: Colors.black12.withOpacity(0.1),
                           //isDismissible: false,
                           elevation: 2,

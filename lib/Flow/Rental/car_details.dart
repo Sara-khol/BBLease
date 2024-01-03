@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bblease/utils/my_colors.dart' as colors;
 import '../../customWidgets/appBarB.dart';
+import '../../models/additions.dart';
 import '../../models/car.dart';
 import '../../models/class_rent.dart';
 
@@ -39,6 +40,10 @@ class _CarDetailsState extends State<CarDetails> {
   @override
   void initState() {
     rentPrice=widget.rent.car.pricePerDay*widget.rent.startDate!.difference(widget.rent.endDate!).inDays;
+    for(Addition a in widget.rent.additions)
+    {
+      debugPrint('title: ${a.title} name: ${a.name} ${a.isChecked}');
+    }
     calculatePrice();
     super.initState();
   }
@@ -319,10 +324,10 @@ class _CarDetailsState extends State<CarDetails> {
                                       ),
                                       child: Padding(padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                                         child: ListView.builder(
+                                          shrinkWrap: true,
                                           itemCount: widget.rent.additions.length,
                                           itemBuilder: (context ,index) {
-                                            for(var item in widget.rent.additions){
-                                              if(item.isChecked)
+                                              if(widget.rent.additions[index].isChecked){
                                                 return createExtra(index);
                                             }
                                             return SizedBox();
@@ -421,7 +426,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                             Text('תשלום כולל מע”מ',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w500,color: Colors.black)),
                                                           ],
                                                         )
-
+                  
                                                       ],
                                                     ),
                                                     SizedBox(height: 15.h,),
@@ -432,7 +437,7 @@ class _CarDetailsState extends State<CarDetails> {
                                             SizedBox(height: 12.h),
                                             Text('התשלום יגבה אוטמטית באמצעות מערכת הסליקה\nממספר אשראי שמופיע במערכת על שמך',style: TextStyle(fontWeight: FontWeight.w400,fontSize: 18.sp),),
                                             SizedBox(height: 20.h),
-
+                  
                                           ],
                                         ),
                                       ),
@@ -490,14 +495,14 @@ class _CarDetailsState extends State<CarDetails> {
                     ),
                   ),
                 ),
-              ],
-            )
-          ),
-    );
+             ])
+                           ),
+                      );
   }
   Widget createExtra(index){
     return Container(
       //height: 68.h,
+      margin: EdgeInsets.only(bottom: 10.h),
       decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(8)),
       child: Padding(
         padding: EdgeInsets.only(left: 20.w,right: 20.w,top: 10.h,bottom: 10.h),
@@ -507,7 +512,7 @@ class _CarDetailsState extends State<CarDetails> {
 
             },
                 icon: Icon(Icons.delete_forever_outlined,color: colors.pinkColorApp,)),
-            Text(widget.rent.additions[index].title,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 22.sp),),
+            Text(widget.rent.additions[index].title,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18.sp),),
             Spacer(),
             Icon(Icons.check,color: colors.turquoiseColorApp,size: 21.sp,)
           ],

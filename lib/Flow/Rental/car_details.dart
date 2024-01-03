@@ -511,10 +511,22 @@ class _CarDetailsState extends State<CarDetails> {
             IconButton(onPressed: () {
 
             },
-                icon: Icon(Icons.delete_forever_outlined,color: colors.pinkColorApp,)),
+                icon: Icon(Icons.close,color: colors.pinkColorApp,)),
             Text(widget.rent.additions[index].title,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18.sp),),
             Spacer(),
-            Icon(Icons.check,color: colors.turquoiseColorApp,size: 21.sp,)
+            Column(
+              children: [
+                Icon(Icons.check,color: colors.turquoiseColorApp,size: 21.sp,),
+                SizedBox(height: 16.h,),
+                Row(
+                  children: [
+                    Text('${widget.rent.additions[index].price} ₪ ',style: TextStyle(fontWeight: FontWeight.w700,fontSize: 16.sp),),
+                    Text('ליום',style: TextStyle(fontSize: 16.sp),),
+                  ],
+                )
+
+              ],
+            )
           ],
         ),
       ),

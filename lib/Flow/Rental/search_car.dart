@@ -18,9 +18,10 @@ import '../../models/class_user.dart';
 import 'additions_dialog.dart';
 
 class SearchCar extends StatefulWidget {
-   SearchCar({super.key, required this.location, required this.latitude, required this.longitude, this.startDate, this.endDate
+   SearchCar({super.key,this.part=-1, required this.location, required this.latitude, required this.longitude, this.startDate, this.endDate
   });
 
+   final int part;
  final String location;
  final double? latitude;
 final  double? longitude;
@@ -40,7 +41,7 @@ class _SearchCarState extends State<SearchCar> {
   final _controller = ScrollController();
   bool showProgressIndicator = true;
 
-   Rental rent=Rental();
+  Rental rent=Rental();
   //bool isTapped=false;
 
   double _currentSliderValue = 3;
@@ -127,7 +128,6 @@ class _SearchCarState extends State<SearchCar> {
                               item.isChecked=true;
                             }
                           }
-
                         }
                         setState(() {});
                         showModalBottomSheet(

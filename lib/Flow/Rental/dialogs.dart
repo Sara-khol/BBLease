@@ -252,7 +252,7 @@ Future rentalTerm( context){
                     setState(() {
                       selectedValue = value;
                       diff = map[title];
-
+                      selectedPart=-1;
                     });
                     if (startDate != null)
                       _setEndDateBasedOnSelection();
@@ -388,10 +388,10 @@ Future rentalTerm( context){
 
                               ),
                               SizedBox(height: 20.h,),
-                              /*Visibility(
+                              Visibility(
                                 visible: selectedValue!=1,
                                 child: Column(
-                                  children: [*/
+                                  children: [
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
@@ -452,22 +452,23 @@ Future rentalTerm( context){
                                         endDate = date;
                                       },
                                     ),
-                                  //],
-                                //),
-                              //),
-                             /* Visibility(
+                                  ],
+                                ),
+                              ),
+                              Visibility(
                                 visible: selectedValue==1,
-                              child: SizedBox(
+                              child: Container(
+                                //color: Colors.yellow,
                                 height: 100.h,
                                 width: 300.w,
-                                child: Row(
+                                child: Column(
                                   children: [
                                     _buildRadioTile2('8:00-17:00 בוקר ',1),
-                                    _buildRadioTile2('20:00-5:00 לילה',2)
+                                    _buildRadioTile2('17:00-8:00 לילה',2),
                                   ],
                                 ),
                               )
-                              ),*/
+                              ),
                               SizedBox(height: 24.h,),
                               SizedBox(
                                 height: 48.h,
@@ -487,6 +488,7 @@ Future rentalTerm( context){
                                                 longitude: 35.20199572868961,
                                               startDate: startDate,
                                               endDate: endDate,
+                                                part: selectedPart??-1,
                                          )));
                                     },
                                     child: const Text('אישור', style: TextStyle(

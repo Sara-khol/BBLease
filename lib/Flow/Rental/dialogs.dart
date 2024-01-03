@@ -55,7 +55,7 @@ Future departurePoint( context ,address, nav, [sdate,edate]){
             child: Directionality(
               textDirection: TextDirection.rtl,
               child: Container(
-                decoration: ShapeDecoration(
+                decoration: const ShapeDecoration(
                   color: Colors.white,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(25),
                     topRight: Radius.circular(25),
@@ -282,7 +282,22 @@ Future rentalTerm( context){
               }
 
 
-              return Padding(
+              return Container(
+                decoration: const ShapeDecoration(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25),
+                  ),
+                  ),
+                  shadows: [
+                    BoxShadow(
+                      color: Color(0x3F000000),
+                      blurRadius: 250,
+                      offset: Offset(0, 4),
+                      spreadRadius: 0,
+                    )
+                  ],
+                ),
                 padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: Directionality(
                   textDirection: TextDirection.rtl,
@@ -491,7 +506,7 @@ Future rentalTerm( context){
                                     },
                                     child: const Text('אישור', style: TextStyle(
                                         fontSize: 22,
-                                        fontWeight: FontWeight.w500),)),
+                                        fontWeight: FontWeight.w500,color:Colors.white),)),
                               ),
                             ],
                           ),
@@ -508,7 +523,7 @@ Future rentalTerm( context){
       barrierColor: Colors.black12.withOpacity(0.1),
       //isDismissible: false,
       elevation: 2,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),)
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)))
   );
 }
 

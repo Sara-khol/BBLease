@@ -221,4 +221,62 @@ Future displayError(BuildContext context,{bool existsData=true,String type='',
       );
 }
 
+Future displayMessage(BuildContext context,{
+  String message='',Function()? onClose}) {
+  return showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context) => Container(
+        height: 180.h,
+        decoration: const BoxDecoration(color:Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+        ),
+        child: Column(children: [
+          SizedBox(height: 25.h),
+          // const Spacer(),
+          Expanded(
+            child: Center(
+              child: Text(message,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    height:1,
+                    color: colors.blackColorApp,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w400,
+                  )),
+            ),
+          ),
+          //SizedBox(height: 20.h),
+           SizedBox(
+            height: 42.h,
+            width: 160.w,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: colors.turquoiseColorApp,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                  if(onClose!=null)
+                    {
+                      onClose();
+                    }
+                },
+                child: Text(
+                  'סגור',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w500),
+                )),
+          ),
+          SizedBox(height: 22.h)
+        ])),
+    barrierColor: Colors.black12.withOpacity(0.1),
+    // shape: const RoundedRectangleBorder(
+    //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+  );
+}
+
 

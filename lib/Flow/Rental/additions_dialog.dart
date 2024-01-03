@@ -57,8 +57,14 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
       padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Directionality(
         textDirection: TextDirection.rtl,
-        child: ConstrainedBox(
+        child: Container(
           constraints: BoxConstraints(maxHeight: 600.h),
+          decoration: ShapeDecoration(
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                  25),),
+          ),
           child: Column(
             children: [
               Container(
@@ -109,21 +115,15 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                           onPressed: () {
                             widget.rent.additions=widget.additionsList;
                             widget.rent.car=widget.car;
-
-                            for(Addition a in widget.rent.additions)
-                              {
-                                debugPrint('title: ${a.title} name: ${a.name} ${a.isChecked}');
-                              }
-
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     maintainState:false,
                                     builder: (context) => CarDetails(rent: widget.rent,)));
                           },
-                          child: const Text('סיום', style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w500),)),
+                          child:  Text('סיום', style: TextStyle(
+                              fontSize: 22.sp,
+                              fontWeight: FontWeight.w500,color: Colors.white),)),
                     ),
                   ],
                 ),

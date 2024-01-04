@@ -33,17 +33,17 @@ class ApiService {
     return _instance;
   }
   Future getAllCars(  Function(dynamic carJson) onSuccess) async {
-    _dio.httpClientAdapter = IOHttpClientAdapter(
-      createHttpClient: () {
-        // Don't trust any certificate just because their root cert is trusted.
-        final HttpClient client =
-        HttpClient(context: SecurityContext(withTrustedRoots: false));
-        // You can test the intermediate / root cert here. We just ignore it.
-        client.badCertificateCallback =
-        ((X509Certificate cert, String host, int port) => true);
-        return client;
-      },
-    );
+    // _dio.httpClientAdapter = IOHttpClientAdapter(
+    //   createHttpClient: () {
+    //     // Don't trust any certificate just because their root cert is trusted.
+    //     final HttpClient client =
+    //     HttpClient(context: SecurityContext(withTrustedRoots: false));
+    //     // You can test the intermediate / root cert here. We just ignore it.
+    //     client.badCertificateCallback =
+    //     ((X509Certificate cert, String host, int port) => true);
+    //     return client;
+    //   },
+    // );
 
     Response response = await _dio.get('${_baseUrl}wp/v2/get_all_vehicles');
     if(response.statusCode == 200) {
@@ -55,17 +55,7 @@ class ApiService {
   }
 
   Future getCarById(int carId, Function(dynamic carJson) onSuccess) async {
-    _dio.httpClientAdapter = IOHttpClientAdapter(
-      createHttpClient: () {
-        // Don't trust any certificate just because their root cert is trusted.
-        final HttpClient client =
-        HttpClient(context: SecurityContext(withTrustedRoots: false));
-        // You can test the intermediate / root cert here. We just ignore it.
-        client.badCertificateCallback =
-        ((X509Certificate cert, String host, int port) => true);
-        return client;
-      },
-    );
+
     // Response response = await _dio.get('${_baseUrl}wp/v2/get_all_vehicles');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_vehicle/$carId');
     if(response.statusCode == 200) {
@@ -77,17 +67,7 @@ class ApiService {
   }
 
   Future getCarsInBranch(String city, Function(dynamic carJson) onSuccess) async {
-    _dio.httpClientAdapter = IOHttpClientAdapter(
-      createHttpClient: () {
-        // Don't trust any certificate just because their root cert is trusted.
-        final HttpClient client =
-        HttpClient(context: SecurityContext(withTrustedRoots: false));
-        // You can test the intermediate / root cert here. We just ignore it.
-        client.badCertificateCallback =
-        ((X509Certificate cert, String host, int port) => true);
-        return client;
-      },
-    );
+
     // Response response = await _dio.get('${_baseUrl}wp/v2/get_all_vehicles');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_list_vehicles_by_city/$city');
     if(response.statusCode == 200) {
@@ -125,17 +105,7 @@ class ApiService {
 
   Future getURLToPDF(int orderId, Function(dynamic orderJson) onSuccess) async {
     print('${_baseUrl}orders/get_customer_orders/$orderId');
-    _dio.httpClientAdapter = IOHttpClientAdapter(
-      createHttpClient: () {
-        // Don't trust any certificate just because their root cert is trusted.
-        final HttpClient client =
-        HttpClient(context: SecurityContext(withTrustedRoots: false));
-        // You can test the intermediate / root cert here. We just ignore it.
-        client.badCertificateCallback =
-        ((X509Certificate cert, String host, int port) => true);
-        return client;
-      },
-    );
+
     // Response response = await _dio.get('${_baseUrl}wp/v2/get_all_vehicles');
     Response response = await _dio.get('${_baseUrl}orders/get_customer_orders/$orderId');
     if(response.statusCode == 200) {
@@ -148,7 +118,7 @@ class ApiService {
 
 
   Future getVerificationCode(String phone,bool isSms, Function(dynamic carJson) onSuccess) async {
-    /*_dio.httpClientAdapter = IOHttpClientAdapter(
+  /*  _dio.httpClientAdapter = IOHttpClientAdapter(
       createHttpClient: () {
         // Don't trust any certificate just because their root cert is trusted.
         final HttpClient client =
@@ -163,8 +133,8 @@ class ApiService {
     debugPrint('sendType $sendType');
     // print('${_baseUrl}wp/v2/check_user_connected/$sendType/$phone');
     print('${_baseUrl}wp/v2/check_user_connected/1/$phone');
-    Response response = await _dio.get('${_baseUrl}wp/v2/check_user_connected/1/$phone');
-    // Response response = await _dio.get('${_baseUrl}wp/v2/check_user_connected/$sendType/$phone');
+    // Response response = await _dio.get('${_baseUrl}wp/v2/check_user_connected/1/$phone');
+    Response response = await _dio.get('${_baseUrl}wp/v2/check_user_connected/$sendType/$phone');
     ///*Response response = await*/ _dio.get('${_baseUrl}wp/v2/check_user_connected/2/$phone');
     if(response.statusCode == 200) {
       var result = response.data;

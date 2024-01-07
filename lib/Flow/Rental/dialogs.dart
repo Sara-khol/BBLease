@@ -179,7 +179,7 @@ Future departurePoint( context ,address, nav, [sdate,edate]){
                                     //Navigator.pop(context);
                                     nav==0?rentalTerm(context):
                                         Navigator.push(context,
-                                            MaterialPageRoute(builder: (context) => SearchCar(location: location, latitude: 31.813741816279247, longitude: 35.20199572868961,startDate: sdate,endDate: edate),))
+                                            MaterialPageRoute(builder: (context) => SearchCar(location: location, latitude: latitude, longitude: longitude,startDate: sdate,endDate: edate),))
                                     ;
                                   },
                                 ),
@@ -499,8 +499,8 @@ Future rentalTerm( context){
                                           MaterialPageRoute(
                                               maintainState:false,
                                               builder: (context) => SearchCar(location: location,
-                                                latitude: 31.813741816279247,
-                                                longitude: 35.20199572868961,
+                                                latitude: latitude,
+                                                longitude: longitude,
                                               startDate: startDate,
                                               endDate: endDate,
                                                 part: selectedPart??-1,

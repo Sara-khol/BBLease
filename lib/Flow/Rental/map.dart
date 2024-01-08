@@ -139,7 +139,7 @@ class _RentalWidgetState extends State<RentalWidget> {
   @override
   void initState() {
     super.initState();
-    _setCurrentLocation();
+   /* _setCurrentLocation();*/
   }
 
   @override
@@ -168,7 +168,7 @@ class _RentalWidgetState extends State<RentalWidget> {
       // below line displays google map in our app
       onMapCreated: (GoogleMapController controller){
         _mapController=controller;
-
+        _setCurrentLocation();
         //Navigator.pop(context);
 
         },

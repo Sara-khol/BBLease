@@ -5,12 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../Flow/sideMenu.dart';
 
 
-class AppBarBibilease extends StatefulWidget  {
+class AppBarBibilease extends StatefulWidget implements PreferredSizeWidget   {
   const AppBarBibilease({Key? key}) : super(key: key);
   @override
   State<AppBarBibilease> createState() => _AppBarBibileaseState();
 
-
+  @override
+  Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
 }
 
 class _AppBarBibileaseState extends State<AppBarBibilease> {
@@ -40,6 +41,8 @@ class _AppBarBibileaseState extends State<AppBarBibilease> {
       ),
     );
   }
+
+
 }
 
 

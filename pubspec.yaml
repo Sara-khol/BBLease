@@ -64,6 +64,8 @@ dependencies:
   flutter_phone_direct_caller: ^2.1.1
   oktoast: ^3.4.0
   flutter_inappwebview: ^6.0.0
+  sentry_flutter: ^7.14.0
+
 
 
 

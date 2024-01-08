@@ -1,4 +1,5 @@
 import 'package:bblease/Flow/Rental/map.dart';
+import 'package:bblease/Flow/home_page.dart';
 import 'package:bblease/Flow/my_shared_preferences.dart';
 import 'package:bblease/Flow/registration/payment_webVIew.dart';
 import 'package:bblease/services/api_service.dart';
@@ -8,23 +9,40 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Flow/welcome.dart';
 import 'models/class_user.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+ WidgetsFlutterBinding.ensureInitialized();
 //await mySharedPreferences.initializeSharedPreferences(); // Initialize app state
+
+
+
+  await SentryFlutter.init(
+        (options) {
+      options.dsn = 'https://1a290abc6f7cde70a98f4c870720d628@o4505141567619072.ingest.sentry.io/4506534991298560';
+      // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+      // We recommend adjusting this value in production.
+      options.tracesSampleRate = 1.0;
+    },
+    appRunner: () => runApp(MyApp()),
+  );
 
   FlutterError.onError = (FlutterErrorDetails errorDetails) {
     if (kDebugMode) {
       FlutterError.presentError(errorDetails);
       // myErrorsHandler.onErrorDetails(errorDetails);
     }
+    Sentry.captureException(
+      errorDetails.exception,
+      stackTrace: errorDetails.stack,
+    );
   };
 
-  runApp( MyApp());
+  // runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -76,7 +94,7 @@ class MyApp extends StatelessWidget {
 
                            if(User().tranzilaStatus) {
                              MySharedPreferences().setLastUsage();
-                             return const RentalWidget();
+                             return  HomePage();
                            }
                            else
                              {

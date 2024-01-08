@@ -891,7 +891,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                           crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
                                                             Text(
-                                                                '${dayDiff==0?1:0} ימים * ${widget.rent.car.pricePerDay} ליום',
+                                                                '${dayDiff==0?1:dayDiff} ימים * ${widget.rent.car.pricePerDay} ליום',
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                     18.sp,

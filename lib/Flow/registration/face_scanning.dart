@@ -216,103 +216,105 @@ print('faces.length: ${faces.length}');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('סרוק פנים',style: TextStyle(color: Colors.black,fontSize: 28.sp,fontWeight: FontWeight.w600),),
-          SizedBox(height: 5.h,),
-          Text('עמוד מול המצלמה',style: TextStyle(color: Colors.black,fontSize: 20.sp,fontWeight: FontWeight.w400)),
-          SizedBox(height: 35.h,),
-          Expanded(
-            child: Stack(
-                children:[
-                  Center(child: CameraFaceDetection()),
-                  /*FutureBuilder(
-                      future: _initializeCamera(),
-                      builder:(context,snapshot){
-                        if(snapshot.hasData) {
-                          print('snapshot has data');
-                          return _buildCameraPreview();
-                        }else if (snapshot.hasError) {
-                          // Handle error
-                          return Text('Error initializing camera: ${snapshot.error}');
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('סרוק פנים',style: TextStyle(color: Colors.black,fontSize: 28.sp,fontWeight: FontWeight.w600),),
+            SizedBox(height: 5.h,),
+            Text('עמוד מול המצלמה',style: TextStyle(color: Colors.black,fontSize: 20.sp,fontWeight: FontWeight.w400)),
+            SizedBox(height: 35.h,),
+            Expanded(
+              child: Stack(
+                  children:[
+                    Center(child: CameraFaceDetection()),
+                    /*FutureBuilder(
+                        future: _initializeCamera(),
+                        builder:(context,snapshot){
+                          if(snapshot.hasData) {
+                            print('snapshot has data');
+                            return _buildCameraPreview();
+                          }else if (snapshot.hasError) {
+                            // Handle error
+                            return Text('Error initializing camera: ${snapshot.error}');
+                          }
+                          else {
+                            return SizedBox(
+                                height: 332.h,
+                                width: 332.w,
+                                child: Center(child: CircularProgressIndicator()));
+                          }
                         }
-                        else {
-                          return SizedBox(
-                              height: 332.h,
-                              width: 332.w,
-                              child: Center(child: CircularProgressIndicator()));
-                        }
-                      }
-                  ),*/
-                  Center(
-                    child:/* SizedBox(
-                      height: 332.h,
-                      child:*/ Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 48.h,
-                            width: 117.w,
-                            decoration: BoxDecoration(
-                                color: Color(0xFFD9D9D9).withOpacity(0.3),
-                                borderRadius: BorderRadius.circular(100)
+                    ),*/
+                    Center(
+                      child:/* SizedBox(
+                        height: 332.h,
+                        child:*/ Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 48.h,
+                              width: 117.w,
+                              decoration: BoxDecoration(
+                                  color: Color(0xFFD9D9D9).withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(100)
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  //Image.asset('assets/images/rec.png'),
+                                  SizedBox(width: 15.w,),
+                                  Text('...סורק',style: TextStyle(color: Colors.black,fontSize: 22.sp),),
+                                  //User().regImages[2] !=null?Text('צולם בהצלחה',style: TextStyle(color: Colors.white),):Text(''),
+                                ],
+                              ),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                //Image.asset('assets/images/rec.png'),
-                                SizedBox(width: 15.w,),
-                                Text('...סורק',style: TextStyle(color: Colors.black,fontSize: 22.sp),),
-                                //User().regImages[2] !=null?Text('צולם בהצלחה',style: TextStyle(color: Colors.white),):Text(''),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                   // ),
+                          ],
+                        ),
+                     // ),
+                    ),
+                  ]),
+            ),
+            SizedBox(height: 60.h,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                LinearPercentIndicator(
+                  width: 332.w,
+                  lineHeight: 17.h,
+                  percent: 0.99,
+                  animation: true,
+                  barRadius: const Radius.circular(16),
+                  linearGradient: LinearGradient(colors: [ Color.fromRGBO(254, 193, 216, 1), Color.fromRGBO(251, 39, 119, 1)], ),
+                  backgroundColor: Color.fromRGBO(247, 247, 247, 1),
+                  center: Padding(
+                    padding: EdgeInsets.only(left: 270.w,),
+                    child: Text('3/3',style: TextStyle(color: Colors.white, fontSize: 12.sp ),),
                   ),
-                ]),
-          ),
-          SizedBox(height: 60.h,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              LinearPercentIndicator(
-                width: 332.w,
-                lineHeight: 17.h,
-                percent: 0.99,
-                animation: true,
-                barRadius: const Radius.circular(16),
-                linearGradient: LinearGradient(colors: [ Color.fromRGBO(254, 193, 216, 1), Color.fromRGBO(251, 39, 119, 1)], ),
-                backgroundColor: Color.fromRGBO(247, 247, 247, 1),
-                center: Padding(
-                  padding: EdgeInsets.only(left: 270.w,),
-                  child: Text('3/3',style: TextStyle(color: Colors.white, fontSize: 12.sp ),),
                 ),
+              ],
+            ),
+            SizedBox(height: 60.h,),
+            Container(
+              width: 332.w,
+              height: 48.h,
+              margin:EdgeInsets.only(bottom:40.sp ),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(25)),
+                color: colors.turquoiseColorApp,
               ),
-            ],
-          ),
-          SizedBox(height: 60.h,),
-          Container(
-            width: 332.w,
-            height: 48.h,
-            margin:EdgeInsets.only(bottom:40.sp ),
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(25)),
-              color: colors.turquoiseColorApp,
+              child: TextButton(
+                child: Text('תמיכה',style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.w500),),
+                onPressed: () {
+                  support.call;
+                  //TODO: call for help
+                },
+              ),
             ),
-            child: TextButton(
-              child: Text('תמיכה',style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.w500),),
-              onPressed: () {
-                support.call;
-                //TODO: call for help
-              },
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

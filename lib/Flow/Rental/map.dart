@@ -200,7 +200,9 @@ class _RentalWidgetState extends State<RentalWidget> {
                       },
                       child: Text(
                         '  לביצוע הזמנה  ',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
+                          height: 1,
                             color: Colors.white,
                             fontSize: 18.sp,
                             fontWeight: FontWeight.w500),

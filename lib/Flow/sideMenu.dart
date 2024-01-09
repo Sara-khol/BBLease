@@ -1,3 +1,6 @@
+import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
+import 'package:bblease/Flow/my_shared_preferences.dart';
+import 'package:bblease/Flow/welcome.dart';
 import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:bblease/Flow/UserInformation/ordersHistory.dart';
 import 'package:bblease/Flow/terms_and_conditions.dart';
@@ -196,40 +199,7 @@ Future sideMenu(context) {
               onPressed: () {},
             ),
             const Spacer(),
-            SizedBox(
-              height: 48.h,
-              width: 332.w,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: colors.turquoiseColorApp,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                  ),
-                  onPressed: () {
-                    support.call;
-                  },
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'תמיכה',
-                          style: TextStyle(
-                              fontSize: 22.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white),
-                        ),
-                        SizedBox(width: 35.w),
-                        Icon(
-                          Icons.phone_outlined,
-                          color: Colors.white,
-                        )
-                      ],
-                    ),
-                  )),
-            ),
+            getBottomButtons(context),
             SizedBox(
               height: 30.h,
             ),
@@ -401,40 +371,7 @@ Future personalArea(context) {
                     )),
               ),
               const Spacer(),
-              SizedBox(
-                height: 48.h,
-                width: 332.w,
-                child: Center(
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: colors.turquoiseColorApp,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                      ),
-                      onPressed: () {
-                        support.call;
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'תמיכה',
-                            style: TextStyle(
-                                fontSize: 22.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white),
-                          ),
-                          SizedBox(width: 35.w),
-                          Icon(
-                            Icons.phone_outlined,
-                            color: Colors.white,
-                          )
-                        ],
-                      )),
-                ),
-              ),
+           getBottomButtons(context),
               SizedBox(
                 height: 30.h,
               ),
@@ -444,4 +381,95 @@ Future personalArea(context) {
       ),
       context: context,
       width: 250.w);
+}
+
+getBottomButtons(context)
+{
+   return Column(mainAxisSize: MainAxisSize.min,
+     mainAxisAlignment: MainAxisAlignment.center,
+     children: [
+
+  SizedBox(
+       height: 60.h,
+       width: 180.w,
+       child: Center(
+         child: ElevatedButton(
+             style: ElevatedButton.styleFrom(
+               backgroundColor: colors.turquoiseColorApp,
+               shape: RoundedRectangleBorder(
+                 borderRadius: BorderRadius.circular(100),
+               ),
+             ),
+             onPressed: () {
+               displayQuestion(context,message:'?האם אתה בטוח שברצונך להתנתק',onYes: ()
+               {
+                 MySharedPreferences().clearAllSharedPreference();
+                 Navigator.pushAndRemoveUntil(
+                     context,
+                     MaterialPageRoute(
+                         builder: (context) => const WelcomeForm(
+                         )),
+                         (route) => false);
+               });
+             },
+             child: Row(
+               mainAxisAlignment: MainAxisAlignment.center,
+               crossAxisAlignment: CrossAxisAlignment.center,
+               children: [
+                 Text(
+                   'התנתק',
+                   style: TextStyle(
+                       fontSize: 22.sp,
+                       fontWeight: FontWeight.w500,
+                       color: Colors.white),
+                 ),
+                 SizedBox(width: 18.w),
+                 Icon(
+                   Icons.logout,
+                   color: Colors.white,
+                 )
+               ],
+             )),
+       ),
+     ),
+     //*SizedBox(height: 12.h,),*//*
+     SizedBox(
+       height: 60.h,
+       width: 180.w,
+       child: Center(
+         child: ElevatedButton(
+             style: ElevatedButton.styleFrom(
+               backgroundColor: colors.turquoiseColorApp,
+               shape: RoundedRectangleBorder(
+                 borderRadius: BorderRadius.circular(100),
+               ),
+             ),
+             onPressed: () {
+               support.call;
+             },
+             child: Row(
+               mainAxisAlignment: MainAxisAlignment.center,
+               crossAxisAlignment: CrossAxisAlignment.center,
+               children: [
+                 Text(
+                   'תמיכה',
+                   style: TextStyle(
+                       fontSize: 22.sp,
+                       fontWeight: FontWeight.w500,
+                       color: Colors.white),
+                 ),
+                 SizedBox(width: 18.w),
+                 Icon(
+                   Icons.phone_outlined,
+                   color: Colors.white,
+                 )
+               ],
+             )),
+       ),
+     ),
+
+
+
+
+   ],);
 }

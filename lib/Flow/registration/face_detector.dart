@@ -138,9 +138,6 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
       if (!_isDetecting) {
         _isDetecting = true;
 
-
-
-
         final inputImage =   _inputImageFromCameraImage(image);
 
         if(inputImage!=null) {
@@ -149,6 +146,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
 
             if (faces.isNotEmpty) {
               print('faces.isNotEmpty');
+
               _stopDetecting();
             }
             _isDetecting = false;
@@ -231,7 +229,6 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
 
   void _stopDetecting() {
     print('_stopDetecting');
-
     // Stop the image stream
     _cameraController?.stopImageStream();
     _capturePicture();

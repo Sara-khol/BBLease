@@ -227,7 +227,7 @@ print('faces.length: ${faces.length}');
           Expanded(
             child: Stack(
                 children:[
-                  CameraFaceDetection(),
+                  Center(child: CameraFaceDetection()),
                   /*FutureBuilder(
                       future: _initializeCamera(),
                       builder:(context,snapshot){

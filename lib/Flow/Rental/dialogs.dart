@@ -123,7 +123,7 @@ Future departurePoint( context ,address, nav, [sdate,edate]) {
                             controller: controller,
                             onChanged: (value) {
                               if(debounce?.isActive??false) debounce!.cancel();
-                              debounce=Timer(const Duration(milliseconds: 500),(){
+                              debounce=Timer(const Duration(milliseconds: 300),(){
                                 if(value.isNotEmpty){
                                   autoCompleteSearch(value);
                                 }

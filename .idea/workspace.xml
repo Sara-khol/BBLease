@@ -9,13 +9,9 @@
   <component name="ChangeListManager">
     <list default="true" id="406ef940-5ca5-4e71-b141-3d6c4cbe2bd2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/active_rent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/active_rent.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/car_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/car_details.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/map.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/map.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/face_detector.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/face_detector.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/license_back.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/license_back.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/license_front.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/license_front.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/class_user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/class_user.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/search_car.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/search_car.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/customWidgets/appBarB.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/customWidgets/appBarB.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +99,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Flow/Rental/search_car.dart</url>
-          <line>120</line>
+          <line>119</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>

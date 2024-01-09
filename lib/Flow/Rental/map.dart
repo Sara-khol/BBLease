@@ -10,6 +10,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 
 import '../../customWidgets/appBarB.dart';
+import '../../utils/my_colors.dart';
 import 'dialogs.dart';
 
 
@@ -154,33 +155,60 @@ class _RentalWidgetState extends State<RentalWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: Column(
+      body: Stack(
         children: [
-          SizedBox(height:32.h),
-          const AppBarBibilease(),
-          Expanded(
-            child: GoogleMap(
-            // given camera position
-            initialCameraPosition: _kGoogle,
-            // set markers on google map
-            markers: Set<Marker>.of(_markers),
-            // on below line we have given map type
-            mapType: MapType.normal,
-            zoomControlsEnabled: true,
-            // on below line we have enabled location
-            myLocationEnabled: true,
-            myLocationButtonEnabled: true,
-            // on below line we have enabled compass
-            compassEnabled: true,
 
-            // below line displays google map in our app
-            onMapCreated: (GoogleMapController controller){
-              _mapController=controller;
-              _setCurrentLocation();
-              },
-            ),
+          GoogleMap(
+          // given camera position
+          initialCameraPosition: _kGoogle,
+          // set markers on google map
+          markers: Set<Marker>.of(_markers),
+          // on below line we have given map type
+          mapType: MapType.normal,
+          zoomControlsEnabled: true,
+          // on below line we have enabled location
+          myLocationEnabled: true,
+          myLocationButtonEnabled: true,
+          // on below line we have enabled compass
+          compassEnabled: true,
+
+          // below line displays google map in our app
+          onMapCreated: (GoogleMapController controller){
+            _mapController=controller;
+            _setCurrentLocation();
+            },
           ),
+
+             AppBarBibilease(),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child:
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: SizedBox(
+                  height: 48.h,
+                  width: 150.w,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: turquoiseColorApp,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                      onPressed: () {
+                        departurePoint(context, formattedAddress?.formattedAddress, 0);
+                      },
+                      child: Text(
+                        '  לביצוע הזמנה  ',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w500),
+                      )),
+                ),
+              ),
+            ),
+
         ],
       ),
     );

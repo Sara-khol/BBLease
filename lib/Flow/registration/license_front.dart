@@ -233,13 +233,10 @@ class _LicenseFrontState extends State<LicenseFront> {
                       fit: BoxFit.cover,
                       child: Container(
                         width: 380.w,
-                        child: Transform.rotate(
-                          angle:
-                              -_cameraController.description.sensorOrientation *
-                                  pi /
-                                  180,
+                        /*child: Transform.rotate(
+                          angle: -_cameraController.description.sensorOrientation * pi / 180,*/
                           child: CameraPreview(_cameraController),
-                        ),
+                        //),
                       ),
                     ),
                   ),

@@ -3,11 +3,13 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_address_from_latlng/flutter_address_from_latlng.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 
+import '../../customWidgets/appBarB.dart';
 import 'dialogs.dart';
 
 
@@ -152,27 +154,34 @@ class _RentalWidgetState extends State<RentalWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-      // given camera position
-      initialCameraPosition: _kGoogle,
-      // set markers on google map
-      markers: Set<Marker>.of(_markers),
-      // on below line we have given map type
-      mapType: MapType.normal,
-      zoomControlsEnabled: true,
-      // on below line we have enabled location
-      myLocationEnabled: true,
-      myLocationButtonEnabled: true,
-      // on below line we have enabled compass
-      compassEnabled: true,
-      // below line displays google map in our app
-      onMapCreated: (GoogleMapController controller){
-        _mapController=controller;
+      body: Column(
+        children: [
+          SizedBox(height:32.h),
+          const AppBarBibilease(),
+          GoogleMap(
+          // given camera position
+          initialCameraPosition: _kGoogle,
+          // set markers on google map
+          markers: Set<Marker>.of(_markers),
+          // on below line we have given map type
+          mapType: MapType.normal,
+          zoomControlsEnabled: true,
+          // on below line we have enabled location
+          myLocationEnabled: true,
+          myLocationButtonEnabled: true,
+          // on below line we have enabled compass
+          compassEnabled: true,
 
-        //Navigator.pop(context);
+          // below line displays google map in our app
+          onMapCreated: (GoogleMapController controller){
+            _mapController=controller;
 
-        },
-        ),
+            //Navigator.pop(context);
+
+            },
+            ),
+        ],
+      ),
     );
   }
 

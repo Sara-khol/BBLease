@@ -222,10 +222,10 @@ class _LicenseBackState extends State<LicenseBack> {
                       child: Container(
                         width: 380.w,
                         //height: 380 / _cameraController.value.aspectRatio,
-                        child: Transform.rotate(
-                          angle: -_cameraController.description.sensorOrientation * pi / 180,
+                        /*child: Transform.rotate(
+                          angle: -_cameraController.description.sensorOrientation * pi / 180,*/
                           child: CameraPreview(_cameraController),
-                        ),
+                        //),
                       ),
                     ),
                   ),

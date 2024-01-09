@@ -997,6 +997,7 @@ class _CarDetailsState extends State<CarDetails> {
                                         ),
                                       ),
                                       onPressed: () {
+                                        User().rent=rent;
                                         Map<String,bool> additionsMap={};
 
                                         for(Addition addition in widget.rent.additions)

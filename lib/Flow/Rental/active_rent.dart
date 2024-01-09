@@ -3,9 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../../models/class_rent.dart';
+import '../../models/class_user.dart';
+
 
 class ActiveRentDetails extends StatefulWidget {
   const ActiveRentDetails({Key? key}) : super(key: key);
+
 
   @override
   State<ActiveRentDetails> createState() => _ActiveRentDetailsState();
@@ -15,16 +19,18 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
 
   DateTime time = DateTime.now();
   late String _time;
-  late String carNumber;
-  late String park;
+  /*late int carNumber;
+  late String park;*/
   late int percent;
+
+  Rental rent=User().rent;
 
   @override
   void initState() {
     super.initState();
     _time = intl.DateFormat('kk:mm:ss').format(time);
-    carNumber='101-00-101';
-    park='ירמיהו 30';
+    /*carNumber=rent.car.carNumber??10100101;
+    park=rent.car.city;*/
     percent=75;
   }
 
@@ -66,7 +72,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     Icon(Icons.drive_eta_outlined,color: const Color(0xFFFB2576),size: 24.sp,),
                     Text('  מספר רכב: ',style: TextStyle(fontSize: 22.sp),),
                     const Spacer(),
-                    Text('  $carNumber ',style: TextStyle(fontSize: 22.sp),),
+                    Text('  ${rent.car.carNumber} ',style: TextStyle(fontSize: 22.sp),),
                   ],
                 ),
               ),
@@ -81,7 +87,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     Icon(Icons.fmd_good_outlined,color: const Color(0xFFFB2576),size: 24.sp,),
                     Text('  מיקום: ',style: TextStyle(fontSize: 22.sp),),
                     const Spacer(),
-                    Text('   $park  ',style: TextStyle(fontSize: 22.sp),),
+                    Text('   ${rent.car.city}  ',style: TextStyle(fontSize: 22.sp),),
                   ],
                 ),
               ),

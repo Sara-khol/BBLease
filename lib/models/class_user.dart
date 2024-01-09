@@ -3,6 +3,8 @@ import 'package:camera/camera.dart';
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import 'class_rent.dart';
+
 part 'class_user.g.dart';
 
 @JsonSerializable()
@@ -43,6 +45,9 @@ class User{
   bool isYoungDriver = false;
   @JsonKey(name: 'status_tranzila')
   bool tranzilaStatus = false;
+
+  @JsonKey(includeFromJson: false,includeToJson: false,)
+  late Rental rent;
 
   // void setBirthDate(String dateString) {
   //   try {

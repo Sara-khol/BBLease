@@ -39,7 +39,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
         return;
       }
       setState(() {});
-     _startDetecting();
+     //_startDetecting();
     });
   }
 
@@ -82,7 +82,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
           if (faces.isNotEmpty) {
             print('faces.isNotEmpty');
 
-            _capturePicture();
+
           }
           _isDetecting = false;
         });

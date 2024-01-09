@@ -270,7 +270,7 @@ class ApiService {
   }
 
 
-  Future getAdditions(int carId, Function(dynamic orderJson) onSuccess) async {
+  Future getAdditions(int carId,startDate,endDate ,Function(dynamic orderJson) onSuccess) async {
     print('${_baseUrl}wp/v2/get_extras_for_rent/$carId');
     // Response response = await _dio.get('${_baseUrl}wp/v2/get_extras_for_rent/7994');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_extras_for_rent/$carId');

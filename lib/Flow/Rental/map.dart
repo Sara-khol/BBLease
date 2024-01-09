@@ -159,25 +159,27 @@ class _RentalWidgetState extends State<RentalWidget> {
         children: [
           SizedBox(height:32.h),
           const AppBarBibilease(),
-          GoogleMap(
-          // given camera position
-          initialCameraPosition: _kGoogle,
-          // set markers on google map
-          markers: Set<Marker>.of(_markers),
-          // on below line we have given map type
-          mapType: MapType.normal,
-          zoomControlsEnabled: true,
-          // on below line we have enabled location
-          myLocationEnabled: true,
-          myLocationButtonEnabled: true,
-          // on below line we have enabled compass
-          compassEnabled: true,
+          Expanded(
+            child: GoogleMap(
+            // given camera position
+            initialCameraPosition: _kGoogle,
+            // set markers on google map
+            markers: Set<Marker>.of(_markers),
+            // on below line we have given map type
+            mapType: MapType.normal,
+            zoomControlsEnabled: true,
+            // on below line we have enabled location
+            myLocationEnabled: true,
+            myLocationButtonEnabled: true,
+            // on below line we have enabled compass
+            compassEnabled: true,
 
-          // below line displays google map in our app
-          onMapCreated: (GoogleMapController controller){
-            _mapController=controller;
-            _setCurrentLocation();
-            },
+            // below line displays google map in our app
+            onMapCreated: (GoogleMapController controller){
+              _mapController=controller;
+              _setCurrentLocation();
+              },
+            ),
           ),
         ],
       ),

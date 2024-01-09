@@ -109,6 +109,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   },
                   onTap: () async {
                     DateTime? date = await showDatePicker(
+                        locale: const Locale("he", "HE"),
                         context: context,
                         initialDate: DateTime.now(),
                         firstDate: DateTime.now(),
@@ -143,6 +144,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   },
                   onTap: () async {
                     DateTime? date = await showDatePicker(
+                        locale: const Locale("he", "HE"),
                         context: context,
                         initialDate: DateTime.now(),
                         firstDate: DateTime(1950),

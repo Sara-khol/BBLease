@@ -11,6 +11,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 
 import 'Flow/welcome.dart';
 import 'models/class_user.dart';
@@ -70,6 +72,13 @@ class MyApp extends StatelessWidget {
           minTextAdapt: true,
           builder: (BuildContext context, Widget? child) {
             return MaterialApp(
+              localizationsDelegates: [
+                GlobalMaterialLocalizations.delegate
+              ],
+              supportedLocales: [
+                const Locale('en'),
+                const Locale('he')
+              ],
               title: 'Flutter Demo',
               theme: ThemeData(
                   fontFamily: 'PLONI',

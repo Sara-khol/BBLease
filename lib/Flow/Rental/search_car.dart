@@ -939,6 +939,7 @@ class _SearchCarState extends State<SearchCar> {
                                   },
                                   onTap: () async {
                                     DateTime? date = await showDatePicker(
+                                        locale: const Locale("he", "HE"),
                                         textDirection: TextDirection.rtl,
                                         context: context,
                                         initialDate: DateTime.now(),
@@ -1005,6 +1006,7 @@ class _SearchCarState extends State<SearchCar> {
                                   },
                                   onTap: () async {
                                     DateTime? date = await showDatePicker(
+                                        locale: const Locale("he", "HE"),
                                         context: context,
                                         initialDate: DateTime.now(),
                                         firstDate: DateTime.now(),

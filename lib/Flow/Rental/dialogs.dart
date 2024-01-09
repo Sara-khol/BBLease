@@ -390,6 +390,7 @@ Future rentalTerm( context){
                                 onTap: () async {
                                   DateTime? date = await showDatePicker(
                                     textDirection: TextDirection.rtl,
+                                      locale: const Locale("he", "HE"),
                                       context: context,
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime.now(),
@@ -458,6 +459,7 @@ Future rentalTerm( context){
                                       },
                                       onTap: () async {
                                         DateTime? date = await showDatePicker(
+                                            locale: const Locale("he", "HE"),
                                             context: context,
                                             initialDate: DateTime.now(),
                                             firstDate: DateTime.now(),

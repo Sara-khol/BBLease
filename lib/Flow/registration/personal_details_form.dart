@@ -144,6 +144,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       controller: _date,
                       onTap: () async {
                         DateTime? date = await showDatePicker(
+                            locale: const Locale("he", "HE"),
                             context: context,
                             // initialDate: DateTime.now(),
                             initialDate:  DateTime.now().subtract(Duration(days: 21 * 365)),

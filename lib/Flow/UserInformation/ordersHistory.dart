@@ -152,6 +152,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                   fontSize: 22.sp, fontWeight: FontWeight.w300),
                               onTap: () async {
                                 DateTime? date = await showDatePicker(
+                                    locale: const Locale("he", "HE"),
                                     textDirection: TextDirection.rtl,
                                     context: context,
                                     initialDate: DateTime.now(),
@@ -219,6 +220,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                               controller: end,
                               onTap: () async {
                                 DateTime? date = await showDatePicker(
+                                    locale: const Locale("he", "HE"),
                                     context: context,
                                     initialDate: DateTime.now(),
                                     firstDate: DateTime.now(),

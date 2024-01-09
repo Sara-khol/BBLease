@@ -116,7 +116,7 @@ class _SearchCarState extends State<SearchCar> {
                         context,
                         MaterialPageRoute(builder: (context) => CarDetails(car,startDate: widget.startDate,endDate: widget.endDate,))
                       ),*/
-                      await ApiService().getAdditions(car.id, (orderJson) {
+                      await ApiService().getAdditions(car.id,widget.startDate,widget.endDate, (orderJson) {
                         List<Addition> additions=[];
                         additions = orderJson.map<Addition>((entry) => (Addition.fromJson(entry))).toList();
                         for(Addition item in additions){
@@ -207,7 +207,7 @@ class _SearchCarState extends State<SearchCar> {
                           context,
                           MaterialPageRoute(builder: (context) => CarDetails(car,startDate: widget.startDate,endDate: widget.endDate,))
                       ),*/
-                      await ApiService().getAdditions(car.id, (orderJson) {
+                      await ApiService().getAdditions(car.id,widget.startDate,widget.endDate, (orderJson) {
                         List<Addition> additions=[];
                         additions = orderJson.map<Addition>((entry) => (Addition.fromJson(entry))).toList();
                         for(Addition item in additions){

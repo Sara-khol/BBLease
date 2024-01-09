@@ -20,7 +20,7 @@ class _AppBarBibileaseState extends State<AppBarBibilease> {
     return Container(
       color: Colors.white,
       child: Padding(
-        padding: EdgeInsets.only(left: 24.w,right: 24.w,top:32.h),
+        padding: EdgeInsets.only(left: 24.w,right: 24.w,top:32.h,bottom: 20.h),
         child: Row( children:[
            Text("Bibilease",
            style: TextStyle(

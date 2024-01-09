@@ -92,7 +92,7 @@ class _SearchCarState extends State<SearchCar> {
           Column(
             children: [
             Directionality(textDirection: TextDirection.ltr,child: AppBarBibilease()),
-            SizedBox(height:60.h),
+            SizedBox(height:40.h),
             Text('הי, מצאנו באזורך ${cars.length} רכבים',style: TextStyle(color:blackColorApp, fontSize: 28.sp, fontWeight: FontWeight.w600, height: 1.2,),),
             Text('${widget.location}  ${intl.DateFormat('dd.MM.yy').format(widget.startDate!)} ',style: TextStyle(color: const Color(0xFF0F1511), fontSize: 18.sp, fontWeight: FontWeight.w400, height: 1.15,),),
             SizedBox(height: 16.h),//26

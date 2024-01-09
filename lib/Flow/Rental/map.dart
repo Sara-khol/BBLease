@@ -10,6 +10,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 
 import '../../customWidgets/appBarB.dart';
+import '../../utils/my_colors.dart';
 import 'dialogs.dart';
 
 
@@ -179,6 +180,34 @@ class _RentalWidgetState extends State<RentalWidget> {
           ),
 
              AppBarBibilease(),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child:
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: SizedBox(
+                  height: 48.h,
+                  width: 150.w,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: turquoiseColorApp,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                      onPressed: () {
+                        departurePoint(context, formattedAddress?.formattedAddress, 0);
+                      },
+                      child: Text(
+                        '  לביצוע הזמנה  ',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w500),
+                      )),
+                ),
+              ),
+            ),
 
         ],
       ),

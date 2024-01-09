@@ -50,7 +50,7 @@ class _CarDetailsState extends State<CarDetails> {
   @override
   void initState() {
     debugPrint('widget.rent.car.pricePerDay ${widget.rent.car.pricePerDay}');
-    dayDiff = widget.rent.startDate!.difference(widget.rent.endDate!).inDays;
+    dayDiff = widget.rent.endDate!.difference(widget.rent.startDate!).inDays+1;
     rentPrice = (widget.rent.car.pricePerDay) *
         (dayDiff==0?1:dayDiff);
     debugPrint('rentPrice $rentPrice');
@@ -849,41 +849,13 @@ class _CarDetailsState extends State<CarDetails> {
                                                           children: [
                                                             Text(
                                                                 // '${widget.rent.car.pricePerDay * (dayDiff==0?1:dayDiff)} ₪',
-                                                        '₪ $rentPrice',
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                    18.sp,
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .w700)),
-                                                            SizedBox(
-                                                                height: 17.h),
-                                                            Text('₪ $price',
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                    18.sp,
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .w700)),
-                                                            SizedBox(
-                                                                height: 17.h),
-                                                            Text(  '₪ ${((rentPrice +
-                                                                price) *
-                                                                0.17).round()}',
-                                                                style: TextStyle(
-                                                                    fontSize: 18.sp, fontWeight: FontWeight.w700)),
-                                                            SizedBox(
-                                                                height: 17.h),
-                                                            Text( '₪ ${(rentPrice +
-                                                                price)+((rentPrice +
-                                                                price) *
-                                                                0.17).round()}',
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                    18.sp,
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .w700,color:pinkColorApp)),
+                                                        '₪ $rentPrice', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700)),
+                                                            SizedBox(height: 17.h),
+                                                            Text('₪ $price',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700)),
+                                                            SizedBox(height: 17.h),
+                                                            Text(  '₪ ${((rentPrice + price) * 0.17).round()}', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700)),
+                                                            SizedBox(height: 17.h),
+                                                            Text( '₪ ${(rentPrice +price)+((rentPrice +price) *0.17).round()}',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700,color:pinkColorApp)),
                                                           ],
                                                         ),
                                                         // SizedBox(width: 20.h),
@@ -906,16 +878,12 @@ class _CarDetailsState extends State<CarDetails> {
                                                                     18.sp,
                                                                     fontWeight:
                                                                     FontWeight
-                                                                        .w500)),
-                                                            SizedBox(
-                                                                height: 17.h),
+                                                                        .w500)), SizedBox(height: 17.h),
                                                             Text('תוספת 17%',
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                     18.sp,
-                                                                    fontWeight: FontWeight.w500)),
-                                                            SizedBox(
-                                                                height: 17.h),
+                                                                    fontWeight: FontWeight.w500)), SizedBox(height: 17.h),
                                                             Text('תשלום כולל מע”מ',
                                                                 overflow: TextOverflow.ellipsis,
                                                                 style: TextStyle(
@@ -926,9 +894,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                         )
                                                       ],
                                                     ),
-                                                    SizedBox(
-                                                      height: 15.h,
-                                                    ),
+                                                    SizedBox(height: 15.h,),
                                                   ],
                                                 ),
                                               ),
@@ -966,10 +932,8 @@ class _CarDetailsState extends State<CarDetails> {
                                           ),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
-                                            mainAxisAlignment: MainAxisAlignment
-                                                .center,
-                                            crossAxisAlignment: CrossAxisAlignment
-                                                .center,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
                                               Text('תשלום',
                                                 textAlign: TextAlign.center,

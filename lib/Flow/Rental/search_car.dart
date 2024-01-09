@@ -91,7 +91,6 @@ class _SearchCarState extends State<SearchCar> {
         children: [
           Column(
             children: [
-            SizedBox(height:32.h),
             Directionality(textDirection: TextDirection.ltr,child: AppBarBibilease()),
             SizedBox(height:60.h),
             Text('הי, מצאנו באזורך ${cars.length} רכבים',style: TextStyle(color:blackColorApp, fontSize: 28.sp, fontWeight: FontWeight.w600, height: 1.2,),),
@@ -288,7 +287,7 @@ class _SearchCarState extends State<SearchCar> {
               ,):
             Center(
               child: FutureBuilder(
-                future: Future.delayed(Duration(seconds: 7)),
+                future: Future.delayed(Duration(seconds: 9)),
                 builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     // If the Future is still running, show the progress indicator

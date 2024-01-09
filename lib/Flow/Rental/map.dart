@@ -154,11 +154,9 @@ class _RentalWidgetState extends State<RentalWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: Column(
+      body: Stack(
         children: [
-          SizedBox(height:32.h),
-          const AppBarBibilease(),
+
           GoogleMap(
           // given camera position
           initialCameraPosition: _kGoogle,
@@ -179,6 +177,9 @@ class _RentalWidgetState extends State<RentalWidget> {
             _setCurrentLocation();
             },
           ),
+
+             AppBarBibilease(),
+
         ],
       ),
     );

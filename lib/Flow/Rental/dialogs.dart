@@ -24,7 +24,7 @@ String location='';
 Rental rent=Rental();
 
 
-Future departurePoint( context ,address, nav, [sdate,edate]){
+Future departurePoint( context ,address, nav, [sdate,edate]) {
   print('dialog address: $address');
 
 
@@ -38,7 +38,7 @@ Future departurePoint( context ,address, nav, [sdate,edate]){
 
   Timer? debounce;
 
-  void autoCompleteSearch(String value) async{
+  void autoCompleteSearch(String value) async {
     var result= await googlePlace.autocomplete.get(value);
     if(result!=null && result.predictions!=null){
       predictions=result.predictions!;
@@ -49,7 +49,7 @@ Future departurePoint( context ,address, nav, [sdate,edate]){
       isScrollControlled: true,
       isDismissible: false,
       context: context,
-      builder: ( context)=>
+      builder: (context)=>
           Padding(
             padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Directionality(
@@ -73,15 +73,16 @@ Future departurePoint( context ,address, nav, [sdate,edate]){
                 constraints: BoxConstraints(maxHeight: 500.h),
                 child: Column(
                   children: [
-                    Container(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                        icon: const Icon(Icons.close),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ),
+                    // Container(
+                    //   alignment: Alignment.topRight,
+                    //   child: IconButton(
+                    //     icon: const Icon(Icons.close),
+                    //     onPressed: () {
+                    //       Navigator.pop(context);
+                    //     },
+                    //   ),
+                    // ),
+                    SizedBox(height: 20.sp),
                     Padding(
                       padding:  EdgeInsets.only(left: 30.w,right: 30.w),
                       child: Column(

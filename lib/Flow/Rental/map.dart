@@ -141,7 +141,7 @@ class _RentalWidgetState extends State<RentalWidget> {
   @override
   void initState() {
     super.initState();
-    _setCurrentLocation();
+   /* _setCurrentLocation();*/
   }
 
   @override
@@ -154,6 +154,7 @@ class _RentalWidgetState extends State<RentalWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Column(
         children: [
           SizedBox(height:32.h),
@@ -175,11 +176,9 @@ class _RentalWidgetState extends State<RentalWidget> {
           // below line displays google map in our app
           onMapCreated: (GoogleMapController controller){
             _mapController=controller;
-
-            //Navigator.pop(context);
-
+            _setCurrentLocation();
             },
-            ),
+          ),
         ],
       ),
     );

@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:bblease/Flow/Rental/dialogs.dart';
 import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:bblease/models/car.dart';
+import 'package:bblease/models/class_rent.dart';
+import 'package:bblease/services/api_service.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,8 +13,6 @@ import 'package:intl/intl.dart' as intl;
 import 'package:bblease/Flow/Rental/car_details.dart';
 
 
-import '../../../models/class_rent.dart';
-import '../../../services/api_service.dart';
 import '../../models/additions.dart';
 import '../../models/class_user.dart';
 import 'additions_dialog.dart';

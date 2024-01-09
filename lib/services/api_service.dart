@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 
@@ -14,17 +15,19 @@ class ApiService {
   final _baseUrl = 'https://bibilease.co.il/?rest_route=/';
 
   ApiService._privateConstructor(){
-    _dio.httpClientAdapter = IOHttpClientAdapter(
-      createHttpClient: () {
-        // Don't trust any certificate just because their root cert is trusted.
-        final HttpClient client =
-        HttpClient(context: SecurityContext(withTrustedRoots: false));
-        // You can test the intermediate / root cert here. We just ignore it.
-        client.badCertificateCallback =
-        ((X509Certificate cert, String host, int port) => true);
-        return client;
-      },
-    );
+    if(!kIsWeb) {
+      _dio.httpClientAdapter = IOHttpClientAdapter(
+        createHttpClient: () {
+          // Don't trust any certificate just because their root cert is trusted.
+          final HttpClient client =
+          HttpClient(context: SecurityContext(withTrustedRoots: false));
+          // You can test the intermediate / root cert here. We just ignore it.
+          client.badCertificateCallback =
+          ((X509Certificate cert, String host, int port) => true);
+          return client;
+        },
+      );
+    }
   } // Private constructor for singleton
 
   static final ApiService _instance = ApiService._privateConstructor();

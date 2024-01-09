@@ -1,5 +1,6 @@
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/Rental/map.dart';
+import 'package:bblease/Flow/home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -1022,7 +1023,7 @@ class _CarDetailsState extends State<CarDetails> {
                                               Navigator.pushAndRemoveUntil(
                                                   context,
                                                   MaterialPageRoute(
-                                                      builder: (context) => const RentalWidget()),
+                                                      builder: (context) =>  HomePage()),
                                                       (route) => false);
                                             });
                                         } );

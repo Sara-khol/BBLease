@@ -71,8 +71,6 @@ Future departurePoint( context ,address, nav, [sdate,edate]) {
                   ],
                 ),
                 constraints: BoxConstraints(maxHeight: 500.h),
-                child: Column(
-                  children: [
                     // Container(
                     //   alignment: Alignment.topRight,
                     //   child: IconButton(
@@ -82,9 +80,9 @@ Future departurePoint( context ,address, nav, [sdate,edate]) {
                     //     },
                     //   ),
                     // ),
-                    SizedBox(height: 20.sp),
-                    Padding(
-                      padding:  EdgeInsets.only(left: 30.w,right: 30.w),
+
+                 child:   Padding(
+                      padding:  EdgeInsets.only(left: 30.w,right: 30.w,top:20.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -136,34 +134,40 @@ Future departurePoint( context ,address, nav, [sdate,edate]) {
                             },
 
                           ),
-                          Container(
-                            height: 200.h,
+                          predictions.isNotEmpty?
+                          Expanded(
                             child: ListView.builder(
-                              reverse: true,
-                              shrinkWrap: true,
-                              itemCount: predictions.length,
-                              itemBuilder: (context, index) {
-                                return ListTile(
-                                  title: Text(predictions[index].description.toString(),style: TextStyle(fontSize: 20.sp),),
-                                  onTap: () async {
-                                    done = true;
-                                    final placeId =predictions[index].placeId!;
-                                    final details =await googlePlace.details.get(placeId);
-                                    if(details!=null && details.result != null){
-                                      searchedPlace=details.result;
-                                      controller.text=details.result!.name!;
-                                      location=controller.text;
-                                      latitude = searchedPlace!.geometry!.location!.lat;
-                                      longitude = searchedPlace!.geometry!.location!.lng;
-                                      print('$latitude . $longitude');
-                                      done=true;
-                                    }
-                                    predictions=[];
-                                  },
-                                );
-                              }
+                                reverse: true,
+                                shrinkWrap: true,
+                                itemCount: predictions.length,
+                                itemBuilder: (context, index) {
+                                  AutocompletePrediction prediction=predictions[index];
+                                  return ListTile(
+
+                                    title: Text(prediction.description.toString(),style: TextStyle(fontSize: 20.sp),),
+                                    onTap: () async {
+                                      debugPrint(prediction.description);
+                                      done = true;
+                                      final placeId =prediction.placeId!;
+                                      debugPrint('placeId $placeId');
+                                      final details =await googlePlace.details.get(placeId);
+                                      if(details!=null && details.result != null){
+                                        debugPrint('details ${details.result}');
+
+                                        searchedPlace=details.result;
+                                        controller.text=details.result!.name!;
+                                        location=controller.text;
+                                        latitude = searchedPlace!.geometry!.location!.lat;
+                                        longitude = searchedPlace!.geometry!.location!.lng;
+                                        print('$latitude . $longitude');
+                                        done=true;
+                                      }
+                                      predictions=[];
+                                    },
+                                  );
+                                }
                             ),
-                          ),
+                          ):Spacer(),
                           done?Column(
                             children: [
                               SizedBox(height: 32.h,),
@@ -190,8 +194,7 @@ Future departurePoint( context ,address, nav, [sdate,edate]) {
                           ):Container(),
                         ],
                       ),
-                    ),
-                  ],
+
                 ),
               ),
             ),

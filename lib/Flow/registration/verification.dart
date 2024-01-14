@@ -1,6 +1,6 @@
 import 'package:bblease/Flow/registration/personal_details_form.dart';
 import 'package:bblease/Flow/registration/sucsses_registration.dart';
-import 'package:cross_file_image/cross_file_image.dart';
+//import 'package:cross_file_image/cross_file_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -52,7 +52,7 @@ class _VerificationState extends State<Verification> {
               SizedBox(height: 30.h,),
               Text('תהליך זה עלול להימשך כמה דקות אנא התאזר בסבלנות תודה',style: TextStyle(fontSize: 22.sp),textDirection: TextDirection.rtl,textAlign: TextAlign.center,),
               SizedBox(height: 30.h,),
-              Image(image: XFileImage(User().regImages[2]!)),
+              //Image(image: XFileImage(User().regImages[2]!)),
 
             ],
           ),

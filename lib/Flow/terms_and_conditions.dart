@@ -1,4 +1,4 @@
-import 'package:cross_file_image/cross_file_image.dart';
+//import 'package:cross_file_image/cross_file_image.dart';
 import 'package:flutter/material.dart';
 import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:flutter_screenutil/flutter_screenutil.dart';

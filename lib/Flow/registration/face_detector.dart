@@ -21,6 +21,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
   late FaceDetector _faceDetector;
   late bool _isDetecting;
   late List<CameraDescription> cameras;
+  late CameraDescription selfiCamera;
 
   final _orientations = {
     DeviceOrientation.portraitUp: 0,
@@ -42,7 +43,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
     // it is used in android to convert the InputImage from Dart to Java
     // `rotation` is not used in iOS to convert the InputImage from Dart to Obj-C
     // in both platforms `rotation` and `camera.lensDirection` can be used to compensate `x` and `y` coordinates on a canvas
-    final camera = cameras[0];
+    final camera = selfiCamera;
     final sensorOrientation = camera.sensorOrientation;
     InputImageRotation? rotation;
     if (Platform.isIOS) {
@@ -94,8 +95,10 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
     _initializeFaceDetector();
 
     cameras = await availableCameras();
+     selfiCamera= cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.front);
+   //  selfiCamera= cameras[1];
     _cameraController = CameraController(
-      cameras[0],ResolutionPreset.max,
+      selfiCamera,ResolutionPreset.max,
       enableAudio: false, /*ResolutionPreset.medium,*/ imageFormatGroup: Platform.isAndroid
         ? ImageFormatGroup.nv21 // for Android
         : ImageFormatGroup.bgra8888,);
@@ -141,13 +144,13 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
         final inputImage =   _inputImageFromCameraImage(image);
 
         if(inputImage!=null) {
-          _faceDetector.processImage(inputImage).then((List<Face> faces) {
+          _faceDetector.processImage(inputImage).then((List<Face> faces)  {
             print('faces.length ${faces.length}');
 
             if (faces.isNotEmpty) {
               print('faces.isNotEmpty');
 
-              _stopDetecting();
+              _capturePicture();
             }
             _isDetecting = false;
           });
@@ -176,16 +179,21 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
 
   void _capturePicture() async {
     print('_capturePicture');
+
+    if(_cameraController!=null) {
+      await _cameraController!.stopImageStream();
+      await _cameraController!.pausePreview();
+    }
+
     XFile file = await _cameraController!.takePicture();
     print("Picture captured: ${file.path}");
-    if (file != null) {
-      _cameraController?.stopImageStream();
-      _cameraController?.pausePreview();
+   // if (file != null) {
+
 
       User().regImages[2] = file;
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => const Verification(),));
-    } // You can save the file or perform other actions here
+  //  } // You can save the file or perform other actions here
     // // if(file!=null)
     //    Navigator.push(context, MaterialPageRoute(builder: (context) => SucssesRegistrationForm(),));
     //  // You can save the file or perform other actions here
@@ -227,10 +235,9 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
 
   }
 
-  void _stopDetecting() {
-    print('_stopDetecting');
-    // Stop the image stream
-    _cameraController?.stopImageStream();
-    _capturePicture();
-  }
+  //  _stopDetecting() async{
+  //   print('_stopDetecting');
+  //   // Stop the image stream
+  //  await _cameraController?.stopImageStream();
+  // }
 }

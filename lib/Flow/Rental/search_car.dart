@@ -112,11 +112,13 @@ class _SearchCarState extends State<SearchCar> {
                       /*setState((){
                         isTapped=true;
                       }),*/
-                      /*Navigator.push(
+                    /*  Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => CarDetails(car,startDate: widget.startDate,endDate: widget.endDate,))
-                      ),*/
+                        MaterialPageRoute(builder: (context) => CarDetails(car,startDate: widget.startDate,endDate: widget.endDate, rent: null,))
+                      );*/
+                      showLoading(context);
                       await ApiService().getAdditions(car.id,widget.startDate,widget.endDate, (orderJson) {
+                        Navigator.pop(context);
                         List<Addition> additions=[];
                         additions = orderJson.map<Addition>((entry) => (Addition.fromJson(entry))).toList();
                         for(Addition item in additions){
@@ -128,7 +130,7 @@ class _SearchCarState extends State<SearchCar> {
                             }
                           }
                         }
-                        setState(() {});
+                        //setState(() {});
                         showModalBottomSheet(
                           isScrollControlled: true,
                           isDismissible: false,

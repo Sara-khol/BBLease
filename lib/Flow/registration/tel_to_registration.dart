@@ -40,7 +40,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
   }
 
   // late int status;
-  late int code;
+ // late int code;
   final _formKey = GlobalKey<FormState>();
 
   getVerificationCode(bool isSms) async {
@@ -51,8 +51,8 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
 
       if (widget.isRegister) {
         if (status == 4 || status == 5) {
-          code = value['code'];
-          debugPrint('status $status code $code');
+        //  code = value['code'];
+         // debugPrint('status $status code $code');
           didSendCode = true;
           textSecondFocusNode.requestFocus();
         } else {
@@ -64,8 +64,8 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
         }
       } else {
         if (status == 1) {
-          code = value['code'];
-          debugPrint('status $status code $code');
+         // code = value['code'];
+         // debugPrint('status $status code $code');
           didSendCode = true;
           textSecondFocusNode.requestFocus();
         } else {
@@ -85,9 +85,9 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
 
   verifyCode() async {
     showLoading(context);
-    await ApiService().codeVerification(_phone.text, code.toString(),
+    await ApiService().codeVerification(_phone.text, _code.text,
         (response) {
-      // Navigator.pop(context);
+       Navigator.pop(context);
       int vStatus = response['status'];
       // in case code is not correct get from service error.
       // not supposed to get to here because checked before sending
@@ -297,8 +297,9 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                         color: colors.blackColorApp),
                     validator: (value) {
                       //todo remove checking code correct here ??
-                      if (value == null || value != code.toString())
-                        return 'קוד שגוי';
+                      if (value == null /*|| value != code.toString()*/)
+                        // return 'קוד שגוי';
+                        return 'נא הזן קוד';
                       return null;
                     },
                   ),

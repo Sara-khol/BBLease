@@ -82,7 +82,7 @@ class _NavigationState extends State<Navigation> {
                          MaterialPageRoute(builder: (context) => const TelToRegistrationForm(isRegister: true)));
 
                     },
-                    child:  Text('זיהוי פנים',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white),)),
+                    child:  Text('הרשמה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white),)),
               ),
             ],
           ),

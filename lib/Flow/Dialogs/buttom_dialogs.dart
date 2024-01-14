@@ -47,6 +47,9 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
       context: context,
       builder: (BuildContext context) => Container(
             height: 230.h,
+        decoration: const BoxDecoration(color:Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+        ),
             child: Column(
               children: [
                 SizedBox(height: 45.h,),

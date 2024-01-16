@@ -403,7 +403,7 @@ class _SearchCarState extends State<SearchCar> {
                     )
                   ],
                 ),
-                height: 312.h,
+                height: 230.h,
                 child: Stack(
                   children: [
                     Align(
@@ -417,7 +417,7 @@ class _SearchCarState extends State<SearchCar> {
                         onPressed: ()=> {  Navigator.pop(context),},
                       ),
                     ),
-                    Container(
+                    /*Container(
                        padding: EdgeInsets.only(top:8.5.h,),
                       width:393.w,
                       //height: 195.h,
@@ -426,7 +426,7 @@ class _SearchCarState extends State<SearchCar> {
                         child: Container(
                          // color:Colors.green,
                           width:263.w,
-                          height: 312.h,
+                          height: 230.h,
                           child: Scrollbar(
                             controller: _controller,
                             thumbVisibility: true,
@@ -441,19 +441,19 @@ class _SearchCarState extends State<SearchCar> {
                                 Padding(
                                   padding: EdgeInsets.only(left:25.w,bottom: 5.h),
                                   child: Container(
-                                    height: 312.h,
-                                    width: 119.w,
+                                    height: 230.h,
+                                    width: 270.w,
                                     //color:Colors.yellow,
-                                    child:Column(
+                                    child:Row(
                                       children:[
-                                        SizedBox(height:78.5.h,),
+                                        //SizedBox(height:120.h,),
                                         carSearchItem("מיני"),
                                         carSearchItem("משפחתי"),
                                       ],
                                     ),
                                   ),
                                 ),
-                                Padding(
+                               *//* Padding(
                                   padding: EdgeInsets.only(left:25.w,bottom: 5.h),
                                   child: Container(
                                     height: 195.h,
@@ -473,13 +473,13 @@ class _SearchCarState extends State<SearchCar> {
                                       SizedBox(height:78.5.h,),
                                       carSearchItem("VIP"),
                                       carSearchItem("משפחתי+"),
-                                    ],),),
+                                    ],),),*//*
                               ],
                             ),
                           ),
                         ),
                       ),
-                    ),
+                    ),*/
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -487,7 +487,7 @@ class _SearchCarState extends State<SearchCar> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox(width: 100.w,),
+                            SizedBox(width: 98.w,),
                             Text(
                               'סנן לפי סוג הרכב',
                               textAlign: TextAlign.center,
@@ -522,8 +522,15 @@ class _SearchCarState extends State<SearchCar> {
                             SizedBox(width: 34.w,),
                           ],
                         ),
-                        SizedBox(width: 34.w,),
-                        //SizedBox(height: 10.h,),
+                        SizedBox(height: 20.h,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            carSearchItem("מיני"),
+                            carSearchItem("משפחתי"),
+                          ],
+                        ),
+                        SizedBox(height: 17.h,),
                       ],
                     ),
                   ],
@@ -590,7 +597,7 @@ class _SearchCarState extends State<SearchCar> {
           Directionality(
             textDirection: TextDirection.rtl,
             child: Container(
-              decoration: ShapeDecoration(
+              decoration: const ShapeDecoration(
                 color: Colors.white,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(25),
                   topRight: Radius.circular(25),
@@ -730,7 +737,7 @@ class _SearchCarState extends State<SearchCar> {
                                       ),
                                     child: Slider(
                                       value: _currentSliderValue,
-                                      max: 10,
+                                      max: 16,
                                       //divisions: 10,
                                       label: _currentSliderValue.round().toString(),
                                       onChanged: (double value) {

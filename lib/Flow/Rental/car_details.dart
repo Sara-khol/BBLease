@@ -152,12 +152,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                   fontSize: 34.sp,
                                                   fontWeight: FontWeight.w700,
                                                   height: 1.15,)),
-                                            Text('או רכב זהה', style: TextStyle(
-                                              color: colors.blackColorApp,
-                                              fontSize: 20.sp,
-                                              fontWeight: FontWeight.w400,
-                                              height: 1.15,)),
-                                            Text('ללא הגבלת ק”מ',
+                                            Text('200 ק"מ',
                                               style: TextStyle(
                                                 color: colors.blackColorApp,
                                                 fontSize: 22.sp,
@@ -973,10 +968,10 @@ class _CarDetailsState extends State<CarDetails> {
                                           'phone-number': User().phoneNumber,
                                           'car-number': widget.rent.car.carNumber,
                                           'start_date':
-                                          intl.DateFormat('dd/MM/yyyy')
+                                          intl.DateFormat('dd.MM.yyyy')
                                               .format(widget.rent.startDate),
                                           'end_date':
-                                          intl.DateFormat('dd/MM/yyyy')
+                                          intl.DateFormat('dd.MM.yyyy')
                                               .format(widget.rent.endDate),
                                           'extra':additionsMap
                                         };

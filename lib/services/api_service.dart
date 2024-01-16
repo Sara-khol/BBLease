@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../models/class_user.dart';
-
+import 'package:intl/intl.dart' as intl;
 class ApiService {
   final Dio _dio = Dio();
   final _baseUrl = 'https://bibilease.co.il/?rest_route=/';
@@ -271,9 +271,11 @@ class ApiService {
 
 
   Future getAdditions(int carId,startDate,endDate ,Function(dynamic orderJson) onSuccess) async {
-    print('${_baseUrl}wp/v2/get_extras_for_rent/$carId/$startDate-$endDate');
+    String d1=intl.DateFormat('dd.MM.yyyy').format(startDate);
+    String d2=intl.DateFormat('dd.MM.yyyy').format(endDate);
+    print('${_baseUrl}wp/v2/get_extras_for_rent/$carId/$d1-$d2');
     // Response response = await _dio.get('${_baseUrl}wp/v2/get_extras_for_rent/7994');
-    Response response = await _dio.get('${_baseUrl}wp/v2/get_extras_for_rent/$carId/$startDate-$endDate');
+    Response response = await _dio.get('${_baseUrl}wp/v2/get_extras_for_rent/$carId/$d1-$d2');
     if(response.statusCode == 200) {
       var result = response.data;
       print('result: $result');

@@ -55,7 +55,11 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
          // debugPrint('status $status code $code');
           didSendCode = true;
           textSecondFocusNode.requestFocus();
-        } else {
+        }
+        if (status == 3) {
+          displayError(context,
+              message: 'תעודת הזהות שהכנסת נחסמה בעבר הועבר לבדיקה');
+        }else {
           // if (status == 1)
           {
             displayError(context,

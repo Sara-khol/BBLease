@@ -220,7 +220,7 @@ Future rentalTerm( context){
   int? selectedValue;
   int? selectedPart;
 
-  Map<String,double> map={'חצי יום':0.5,'יום':1,'3 ימים':3,'שבוע':7,'חודש':30};
+  Map<String,double> map={'חצי יום':0.5,'יום':1,'שבוע':7,'חודש':30};
 
   return showModalBottomSheet<dynamic>(
       isScrollControlled: true,
@@ -343,9 +343,8 @@ Future rentalTerm( context){
                                     children: <Widget>[
                                       _buildRadioTile('חצי יום', 1),
                                       _buildRadioTile('יום', 2),
-                                      _buildRadioTile('3 ימים', 3),
-                                      _buildRadioTile('שבוע', 4),
-                                      _buildRadioTile('חודש', 5),
+                                      _buildRadioTile('שבוע', 3),
+                                      _buildRadioTile('חודש', 4),
                                     ],
                                   ),
                                 ),

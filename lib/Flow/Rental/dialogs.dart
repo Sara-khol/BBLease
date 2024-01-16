@@ -208,7 +208,7 @@ Future departurePoint( context ,address, nav, [sdate,edate]) {
 }
 
 
-Future rentalTerm( context){
+Future rentalTerm( context, [s,e]){
 
   TextEditingController start=TextEditingController();
   TextEditingController end=TextEditingController();
@@ -216,6 +216,13 @@ Future rentalTerm( context){
    DateTime? startDate;
    DateTime? endDate;
    double? diff;
+   if(s!=null&&e!=null){
+     start.text=intl.DateFormat('dd.MM.yyyy').format(s);
+     end.text=intl.DateFormat('dd.MM.yyyy').format(e);
+
+     startDate=s;
+     endDate=e;
+   }
 
   int? selectedValue;
   int? selectedPart;

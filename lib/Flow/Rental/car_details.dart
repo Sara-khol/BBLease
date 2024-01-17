@@ -213,7 +213,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                 )
                                               ],
                                             ),
-                                            widget.rent.car.autoGeer
+                                           /* widget.rent.car.autoGeer
                                                 ? Column(
                                                     children: [
                                                       Icon(
@@ -253,7 +253,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                         ),
                                                       )
                                                     ],
-                                                  ),
+                                                  ),*/
                                             if (widget.rent.car.type ==
                                                 'היברידי')
                                               Column(

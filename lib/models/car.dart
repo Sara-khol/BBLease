@@ -17,8 +17,6 @@ class Car{
   late int seats;
   @JsonKey(name: 'doors_number')
   late int doors;
-  @JsonKey(name: 'car_images')
-  late List<String> carImages;
 
   /*@JsonKey(name: 'safety_chair')
   bool safetyChair=false;*/
@@ -37,7 +35,7 @@ class Car{
   late String type;
   /*@JsonKey(name: 'auto_geer')
   late bool autoGeer;*/
- /* @JsonKey(name: 'fuel_status')
+  /* @JsonKey(name: 'fuel_status')
   late double fuelStatus;*/
   @JsonKey(name: 'fuel_container_max')
   late double maxFuel;

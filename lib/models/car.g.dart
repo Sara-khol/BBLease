@@ -17,11 +17,11 @@ Car _$CarFromJson(Map<String, dynamic> json) => Car(
       type: json['car_type'] as String,
       city: json['city'] as String,
       maxFuel: (json['fuel_container_max'] as num).toDouble(),
-    )
+)
       ..carImages =
-          (json['car_images'] as List<dynamic>).map((e) => e as String).toList()
+      (json['car_images'] as List<dynamic>).map((e) => e as String).toList()
       ..parkPosition = (json['park_position'] as Map<String, dynamic>).map(
-        (k, e) => MapEntry(k, (e as num).toDouble()),
+                (k, e) => MapEntry(k, (e as num).toDouble()),
       );
 
 Map<String, dynamic> _$CarToJson(Car instance) => <String, dynamic>{
@@ -37,4 +37,4 @@ Map<String, dynamic> _$CarToJson(Car instance) => <String, dynamic>{
       'car_type': instance.type,
       'fuel_container_max': instance.maxFuel,
       'city': instance.city,
-    };
+};

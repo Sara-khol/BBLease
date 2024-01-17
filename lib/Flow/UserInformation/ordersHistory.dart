@@ -35,6 +35,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
   getOrders() async {
     print('getUsersList()');
     await ApiService().getUserOrders(User().userId, (rent) {
+      print('onSuccess');
       orders = rent.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
       initData = true;
       print('orders: ${orders.length}');
@@ -279,10 +280,9 @@ class _OrdersHistoryState extends State<OrdersHistory> {
         textDirection: TextDirection.rtl,
         child: Column(
           children: [
-            SizedBox(height: 32.h),
             Directionality(
                 textDirection: TextDirection.ltr, child: AppBarBibilease()),
-            SizedBox(height: 60.h),
+            SizedBox(height: 40.h),
             Text(
               'ההזמנות שלי',
               style: TextStyle(
@@ -291,9 +291,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(
-              height: 40.h,
-            ),
+            SizedBox(height: 40.h,),
             Container(
               height: 48.h,
               width: 332.w,
@@ -312,18 +310,10 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                         TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500, color: Colors.white),
                   )),
             ),
-            SizedBox(
-              height: 67.h,
-            ),
+            SizedBox(height: 67.h,),
             Row(
               children: [
-                Text(
-                  'הסטוריית הזמנות שלי:',
-                  style: TextStyle(
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w600,
-                     ),
-                ),
+                Text('הסטוריית הזמנות שלי:', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600,),),
                 Spacer(),
                 TextButton(
                     onPressed: () {},
@@ -338,11 +328,8 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                     ))
               ],
             ),
-            SizedBox(
-              height: 20.h,
-            ),
-            initData
-                ? orders.isNotEmpty
+            SizedBox(height: 20.h,),
+            initData ? orders.isNotEmpty
                     ? MediaQuery.removePadding(
                         removeTop: true,
                         context: context,

@@ -18,8 +18,14 @@ class Car{
   @JsonKey(name: 'doors_number')
   late int doors;
 
-  @JsonKey(name: 'safety_chair')
-  bool safetyChair=false;
+  /*@JsonKey(name: 'safety_chair')
+  bool safetyChair=false;*/
+  @JsonKey(name: 'car_images')
+  late List<String> carImages;
+
+  @JsonKey(name: 'park_position')
+  late Map<String,double> parkPosition;
+
 
   @JsonKey(name: 'price_per_day')
   late int pricePerDay;
@@ -27,8 +33,8 @@ class Car{
   late int pricePerHour;
   @JsonKey(name: 'car_type')
   late String type;
-  @JsonKey(name: 'auto_geer')
-  late bool autoGeer;
+  /*@JsonKey(name: 'auto_geer')
+  late bool autoGeer;*/
  /* @JsonKey(name: 'fuel_status')
   late double fuelStatus;*/
   @JsonKey(name: 'fuel_container_max')
@@ -45,11 +51,11 @@ class Car{
     required this.model,
     required this.seats,
     required this.doors,
-    required this.safetyChair,
+    //required this.safetyChair,
     required this.pricePerDay,
     required this.pricePerHour,
     required this.type,
-    required this.autoGeer,
+    //required this.autoGeer,
     //required this.fuelStatus,
     required this.city,
     required this.maxFuel,

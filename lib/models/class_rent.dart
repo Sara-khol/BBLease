@@ -18,6 +18,7 @@ class Rental{
   late DateTime endDate;
 
 
+
   @JsonKey(name: 'insurance')
    // late bool insurance ;//כולל ביטוח
    late int insurance ;//כולל ביטוח
@@ -25,9 +26,6 @@ class Rental{
   late int limitedKM ; //ללא הגבלת קילומטרים
   @JsonKey(name: 'deductible')
   late int deductible;//ללא השתתפות עצמית
-
-  @JsonKey(name: 'waze')
-  late bool waze;
 
 
   @JsonKey(name: 'price')

@@ -14,7 +14,6 @@ Rental _$RentalFromJson(Map<String, dynamic> json) => Rental()
   ..insurance = json['insurance'] as int
   ..limitedKM = json['limit-km'] as int
   ..deductible = json['deductible'] as int
-  ..waze = json['waze'] ?? false /*as bool*/
   ..price = (json['price'] as num).toDouble()
   ..url = json['url-order-pdf'] as String?;
 
@@ -26,7 +25,6 @@ Map<String, dynamic> _$RentalToJson(Rental instance) => <String, dynamic>{
       'insurance': instance.insurance,
       'limit-km': instance.limitedKM,
       'deductible': instance.deductible,
-      'waze': instance.waze,
       'price': instance.price,
       'url-order-pdf': instance.url,
     };

@@ -1,3 +1,4 @@
+import 'package:bblease/Flow/Rental/active_rent.dart';
 import 'package:bblease/Flow/UserInformation/orderDetails.dart';
 import 'package:bblease/Flow/welcome.dart';
 import 'package:bblease/utils/my_colors.dart';
@@ -303,7 +304,9 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                     ),
                     elevation: 0.0,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const ActiveRentDetails(),));
+                  },
                   child: Text(
                     'הזמנה נוכחית',
                     style:

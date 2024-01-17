@@ -1050,7 +1050,7 @@ class _CarDetailsState extends State<CarDetails> {
                                     ),
                                   ),
                                   onPressed: () {
-                                    User().rent = rent;
+                                   // User().currentRent = widget.rent;
                                     Map<String, bool> additionsMap = {};
 
                                     for (Addition addition
@@ -1070,6 +1070,7 @@ class _CarDetailsState extends State<CarDetails> {
                                     };
                                     showLoading(context);
                                     ApiService().newOrder(map, (res) {
+                                      User().currentRent=widget.rent;
                                       Navigator.pop(context);
                                       displayMessage(context,
                                           message: 'ההזמנה התקבלה בהצלחה',

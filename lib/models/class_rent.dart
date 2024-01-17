@@ -36,7 +36,7 @@ class Rental{
   String? url;
 
   @JsonKey(includeFromJson: false)
-  late List<Addition> additions;
+   List<Addition> additions=[];
 
   //Rental(this.startDate,this.endDate, this.car, this.insurance, this.limitedKM, this.deductible, this.price, this.url);
   Rental();

@@ -51,7 +51,7 @@ class _CarDetailsState extends State<CarDetails> {
   void initState() {
     debugPrint('widget.rent.car.pricePerDay ${widget.rent.car.pricePerDay}');
     dayDiff =
-        widget.rent.endDate!.difference(widget.rent.startDate!).inDays + 1;
+        widget.rent.endDate!.difference(widget.rent.startDate!).inDays/* + 1*/;
     rentPrice = (widget.rent.car.pricePerDay) * (dayDiff == 0 ? 1 : dayDiff);
     debugPrint('rentPrice $rentPrice');
     calculateAdditionsPrice();
@@ -1070,7 +1070,7 @@ class _CarDetailsState extends State<CarDetails> {
                                     };
                                     showLoading(context);
                                     ApiService().newOrder(map, (res) {
-                                      User().currentRent=widget.rent;
+                                     // User().currentRent=widget.rent;
                                       Navigator.pop(context);
                                       displayMessage(context,
                                           message: 'ההזמנה התקבלה בהצלחה',

@@ -46,7 +46,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
           child: Column(
             children: [
               SizedBox(height: 120.h,),
-              Text('פרטי הזמנה פעילה',style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.w600,color:const Color.fromRGBO(15, 21, 17, 1),)),
+              Text('פרטי הזמנה פעילה',style: TextStyle(fontSize: 26.sp, fontWeight: FontWeight.w600,color:const Color.fromRGBO(15, 21, 17, 1),)),
               SizedBox(height: 40.h,),
               Container(
                 height: 42.h,
@@ -56,9 +56,9 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                   children: [
                     SizedBox(width: 29.w,),
                     Icon(Icons.access_time,color: const Color(0xFFFB2576),size: 24.sp,),
-                    Text('  זמן שנותר ',style: TextStyle(fontSize: 22.sp),),
+                    Text('  זמן שנותר ',style: TextStyle(fontSize: 18.sp),),
                     const Spacer(),
-                    Text('  $_time ',style: TextStyle(fontSize: 22.sp),),
+                    Text('  $_time ',style: TextStyle(fontSize: 18.sp),),
                   ],
                 ),
               ),
@@ -71,9 +71,9 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                   children: [
                     SizedBox(width: 29.w,),
                     Icon(Icons.drive_eta_outlined,color: const Color(0xFFFB2576),size: 24.sp,),
-                    Text('  מספר רכב: ',style: TextStyle(fontSize: 22.sp),),
+                    Text('  מספר רכב: ',style: TextStyle(fontSize: 18.sp),),
                     const Spacer(),
-                    Text('  ${rent.car.carNumber} ',style: TextStyle(fontSize: 22.sp),),
+                    Text('  ${rent.car.carNumber} ',style: TextStyle(fontSize: 18.sp),),
                   ],
                 ),
               ),
@@ -86,15 +86,15 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                   children: [
                     SizedBox(width: 29.w,),
                     Icon(Icons.fmd_good_outlined,color: const Color(0xFFFB2576),size: 24.sp,),
-                    Text('  מיקום: ',style: TextStyle(fontSize: 22.sp),),
+                    Text('  מיקום: ',style: TextStyle(fontSize: 18.sp),),
                     const Spacer(),
-                    Text('   ${rent.car.city}  ',style: TextStyle(fontSize: 22.sp),),
+                    Text('   ${rent.car.city}  ',style: TextStyle(fontSize: 18.sp),),
                   ],
                 ),
               ),
               SizedBox(height: 8.h,),
               SizedBox(
-                width: 342.w,
+                width: 332.w,
                 child: Stack(
                   children: [
                     Container(
@@ -116,12 +116,12 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       progressColor: const Color(0xFF00DEDE),
                       backgroundColor:  const Color(0xFFF7F7F7),
                       lineHeight: 42.h,
-                      barRadius: const Radius.circular(8),
+                      barRadius: const Radius.circular(100),
                       percent: percent/100,
                       width: 265.w,
                       center: Padding(
                         padding: EdgeInsets.only(right: 180.w),
-                        child: Text('$percent%',style: TextStyle(fontSize: 22.sp)),
+                        child: Text('$percent%',style: TextStyle(fontSize: 20.sp)),
                       ),
                     )
                   ],
@@ -150,7 +150,10 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   SizedBox(height: 15.h,),
                                   Icon(Icons.report_problem_outlined,size: 24.sp,),
                                   SizedBox(height: 7.h,),
-                                  Text('דיווח\n על תקלה', style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500,),textAlign: TextAlign.center,)
+                                  Text('דיווח\n על תקלה', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w500,height: 1),
+                                    textAlign: TextAlign.center,
+
+                                  )
                                 ],
                               ),
                             ),
@@ -175,7 +178,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   SizedBox(height: 15.h,),
                                   Icon(Icons.drive_eta_outlined,size: 24.sp,),
                                   SizedBox(height: 8.h,),
-                                  Text('איפה חניתי', style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500,),textAlign: TextAlign.center,)
+                                  Text('איפה חניתי', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w500,),textAlign: TextAlign.center,)
                                 ],
                               ),
                             ),
@@ -200,7 +203,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   SizedBox(height: 15.h,),
                                   Icon(Icons.phone_outlined,size: 24.sp,),
                                   SizedBox(height: 8.h,),
-                                  Text('צור קשר', style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500,),textAlign: TextAlign.center,)
+                                  Text('צור קשר', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w500,),textAlign: TextAlign.center,)
                                 ],
                               ),
                             ),
@@ -230,7 +233,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                     SizedBox(height: 15.h,),
                                     Icon(Icons.person_outline,size: 24.sp,),
                                     SizedBox(height: 7.h,),
-                                    Text('הוספת נהג חדש', style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500,),textAlign: TextAlign.center,)
+                                    Text('הוספת נהג חדש', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w500,height: 1),textAlign: TextAlign.center,)
                                   ],
                                 ),
                               ),
@@ -257,7 +260,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                     SizedBox(height: 15.h,),
                                     Icon(Icons.camera_alt_outlined,size: 24.sp,),
                                     SizedBox(height: 8.h,),
-                                    Text('תיעוד רכב', style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500,),textAlign: TextAlign.center,)
+                                    Text('תיעוד רכב', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w500,height: 1),textAlign: TextAlign.center,)
                                   ],
                                 ),
                               ),
@@ -284,15 +287,15 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                     SizedBox(height: 15.h,),
                                     Icon(Icons.access_time,size: 24.sp,),
                                     SizedBox(height: 8.h,),
-                                    Text('סיום השכרה', style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500,),textAlign: TextAlign.center,)
+                                    Text('סיום השכרה', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w500,height: 1),textAlign: TextAlign.center,)
                                   ],
                                 ),
                               ),
                               onTap: (){
-                                /*ApiService().returnCar(rent., (orderJson) =>
+                                ApiService().returnCar(9875, (orderJson) =>
                                 {
-
-                                });*/
+print('return car')
+                                });
                               },
                             ),
                           ),
@@ -315,7 +318,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     ),
                     onPressed: (){
                     },
-                    child: Text('פתיחת דלתות',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
+                    child: Text('פתיחת דלתות',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),)),
               ),
               SizedBox(height: 12.h,),
               SizedBox(
@@ -329,7 +332,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     ),
                     onPressed: (){
                     },
-                    child: Text('נעילת דלתות',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
+                    child: Text('נעילת דלתות',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),)),
               ),
 
             ],

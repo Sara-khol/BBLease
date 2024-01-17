@@ -1,5 +1,6 @@
 import 'package:bblease/Flow/Rental/active_rent.dart';
 import 'package:bblease/Flow/UserInformation/orderDetails.dart';
+import 'package:bblease/Flow/home_page.dart';
 import 'package:bblease/Flow/welcome.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
@@ -305,7 +306,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                     elevation: 0.0,
                   ),
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const ActiveRentDetails(),));
+                    //Navigator.push(context, MaterialPageRoute(builder: (context) => const ActiveRentDetails(),));
                   },
                   child: Text(
                     'הזמנה נוכחית',
@@ -408,7 +409,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                   onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => WelcomeForm(),
+                        builder: (context) => HomePage(),
                       )),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,

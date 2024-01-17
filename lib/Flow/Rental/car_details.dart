@@ -1070,7 +1070,8 @@ class _CarDetailsState extends State<CarDetails> {
                                     };
                                     showLoading(context);
                                     ApiService().newOrder(map, (res) {
-                                     // User().currentRent=widget.rent;
+                                      widget.rent.orderNum=res;
+                                     User().currentRent=widget.rent;
                                       Navigator.pop(context);
                                       displayMessage(context,
                                           message: 'ההזמנה התקבלה בהצלחה',

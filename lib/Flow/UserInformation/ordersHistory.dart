@@ -306,7 +306,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                     elevation: 0.0,
                   ),
                   onPressed: () {
-                    //Navigator.push(context, MaterialPageRoute(builder: (context) => const ActiveRentDetails(),));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const ActiveRentDetails(),));
                   },
                   child: Text(
                     'הזמנה נוכחית',

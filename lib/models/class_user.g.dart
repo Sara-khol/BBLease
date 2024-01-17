@@ -25,13 +25,13 @@ User _$UserFromJson(Map<String, dynamic> json) => User()
   ..tranzilaStatus = json['status_tranzila'] as bool;
 
  _checkYoungDriver(String bd) {
-  String datePattern = "dd/MM/yyyy";
+
 
   // Current time - at this moment
   DateTime today = DateTime.now();
 
   // List of possible date patterns
-  List<String> possibleDatePatterns = ["dd/MM/yyyy", "dd.MM.yyyy"];
+  List<String> possibleDatePatterns = ["yyyy-MM-dd", "dd.MM.yyyy"];
 
   DateTime? birthDateDt;
 

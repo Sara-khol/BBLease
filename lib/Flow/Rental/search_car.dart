@@ -62,8 +62,8 @@ class _SearchCarState extends State<SearchCar> {
   }
 
   getCarsList()  async{
-    String start=intl.DateFormat('dd.MM.yyyy').format(widget.startDate!);
-    String end=intl.DateFormat('dd.MM.yyyy').format(widget.endDate!);
+    String start=intl.DateFormat('yyyy-MM-dd').format(widget.startDate!);
+    String end  =intl.DateFormat('yyyy-MM-dd').format(widget.endDate!);
      await ApiService().getCarsAround(start,end,widget.latitude!,widget.longitude!,_currentSliderValue.toInt()*10,(car){
       cars = car.map<Car>((entry) => (Car.fromJson(entry))).toList();
       setState(() {});

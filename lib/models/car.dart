@@ -35,7 +35,7 @@ class Car{
   late String type;
   /*@JsonKey(name: 'auto_geer')
   late bool autoGeer;*/
- /* @JsonKey(name: 'fuel_status')
+  /* @JsonKey(name: 'fuel_status')
   late double fuelStatus;*/
   @JsonKey(name: 'fuel_container_max')
   late double maxFuel;

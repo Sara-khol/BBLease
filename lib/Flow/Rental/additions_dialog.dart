@@ -1,7 +1,4 @@
 
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,7 +7,6 @@ import '../../models/car.dart';
 import '../../models/class_rent.dart';
 import '../../utils/my_colors.dart';
 import 'car_details.dart';
-
 
 class AdditionsDialog extends StatefulWidget {
   const AdditionsDialog({Key? key, required this.rent, required this.car, required this.additionsList}) : super(key: key);

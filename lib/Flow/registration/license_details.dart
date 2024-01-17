@@ -29,8 +29,8 @@ class _LicenseDetailsState extends State<LicenseDetails> {
       TextEditingController(text: User().licenseExpDate);
   final TextEditingController _issDate =
       TextEditingController(text: User().licenseIssDate);
-  final TextEditingController _degree =
-      TextEditingController(text: User().licenseDegree);
+  // final TextEditingController _degree =
+  //     TextEditingController(text: User().licenseDegree);
 
   String exp = User().licenseExpDate;
   String iss = User().licenseIssDate;
@@ -119,7 +119,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                         _expDate.text =
                             intl.DateFormat('dd/MM/yyyy').format(date);
                         // exp=date;
-                        exp = intl.DateFormat('dd/MM/yyyy').format(date);
+                        exp = intl.DateFormat('yyyy-MM-dd').format(date);
                       });
                     }
                   },
@@ -153,12 +153,12 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       setState(() {
                         _issDate.text =
                             intl.DateFormat('dd/MM/yyyy').format(date);
-                        iss = intl.DateFormat('dd/MM/yyyy').format(date);
+                        iss = intl.DateFormat('yyyy-MM-dd').format(date);
                       });
                     }
                   },
                 ),
-                SizedBox(
+         /*       SizedBox(
                   height: 16.h,
                 ),
                 TextFormField(
@@ -171,7 +171,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                     if (value == null || value.isEmpty) return 'זהו שדה חובה';
                     return null;
                   },
-                ),
+                ),*/
                 SizedBox(
                   height: 60.h,
                 ),
@@ -215,7 +215,8 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           User().licenseId = _licenseId.text;
-                          User().licenseDegree = _degree.text;
+                          //User().licenseDegree = _degree.text;
+                          User().licenseDegree ='';
                           User().licenseIssDate = iss.toString();
                           User().licenseExpDate = exp;
                           await registerUser();

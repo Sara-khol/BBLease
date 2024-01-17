@@ -7,13 +7,10 @@ import 'package:bblease/models/class_user.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_place/google_place.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:intl/intl.dart' as intl;
 
-import '../../models/additions.dart';
 import '../../models/class_rent.dart';
 
 
@@ -24,11 +21,11 @@ String location='';
 Rental rent=Rental();
 
 
-Future departurePoint( context ,address, nav, [sdate,edate]) {
+Future departurePoint(context ,address, nav, [sdate,edate]) {
   print('dialog address: $address');
 
 
-  TextEditingController controller=TextEditingController(text: address);
+  TextEditingController controller=TextEditingController(/*text: address*/);
   DetailsResult? searchedPlace;
 
   late GooglePlace googlePlace=GooglePlace('AIzaSyBfvApaTLzPlCzL3LakX6DBbj2l7NMBRV4');
@@ -184,7 +181,8 @@ Future departurePoint( context ,address, nav, [sdate,edate]) {
                                     //Navigator.pop(context);
                                     nav==0?rentalTerm(context):
                                         Navigator.push(context,
-                                            MaterialPageRoute(builder: (context) => SearchCar(location: location, latitude: latitude, longitude: longitude,startDate: sdate,endDate: edate),))
+                                          //  MaterialPageRoute(builder: (context) => SearchCar(location: location, latitude: latitude, longitude: longitude,startDate: sdate,endDate: edate),))
+                                            MaterialPageRoute(builder: (context) => SearchCar(location: 'ירושלים', latitude: 31.803110, longitude: 35.216148,startDate: sdate,endDate: edate),))
                                     ;
                                   },
                                 ),
@@ -240,8 +238,10 @@ Future rentalTerm( context, [s,e]){
               _setEndDateBasedOnSelection() {
                 if (startDate != null && diff != null) {
                   DateTime calculatedEndDate = startDate!.add(Duration(days: diff!.toInt()-1));
+                  calculatedEndDate=calculatedEndDate.add(Duration(days: 1));
                   end.text = intl.DateFormat('dd.MM.yyyy').format(calculatedEndDate);
                   endDate = calculatedEndDate;
+
                   rent.startDate=startDate!;
                   rent.endDate=endDate!;
 
@@ -518,7 +518,7 @@ Future rentalTerm( context, [s,e]){
                                                   endDate: endDate,
                                                   part: selectedPart??-1,
                                                 )
-                                           /*   (location: 'ירושלים',
+                                            /*  (location: 'ירושלים',
                                                   latitude: 31.803110,
                                                   longitude: 35.216148,
                                                 startDate: startDate,

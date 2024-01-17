@@ -19,7 +19,8 @@ Car _$CarFromJson(Map<String, dynamic> json) => Car(
       autoGeer: json['auto_geer'] ?? true,
       city: json['city'] as String,
       maxFuel: (json['fuel_container_max'] as num).toDouble(),
-    );
+    )..carImages =
+        (json['car_images'] as List<dynamic>).map((e) => e as String).toList();
 
 Map<String, dynamic> _$CarToJson(Car instance) => <String, dynamic>{
       'ID': instance.id,
@@ -27,6 +28,7 @@ Map<String, dynamic> _$CarToJson(Car instance) => <String, dynamic>{
       'model': instance.model,
       'seats_number': instance.seats,
       'doors_number': instance.doors,
+      'car_images': instance.carImages,
       'safety_chair': instance.safetyChair,
       'price_per_day': instance.pricePerDay,
       'price_per_hour': instance.pricePerHour,

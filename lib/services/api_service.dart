@@ -270,7 +270,8 @@ class ApiService {
   }
 
 
-  Future getAdditions(int carId,startDate,endDate ,Function(dynamic orderJson) onSuccess) async {
+  Future getAdditions(int carId,startDate, endDate ,Function(dynamic orderJson) onSuccess) async {
+     //DateTime nextDay= endDate.add(Duration(days: 1));
     String d1=intl.DateFormat('dd.MM.yyyy').format(startDate);
     String d2=intl.DateFormat('dd.MM.yyyy').format(endDate);
     print('${_baseUrl}wp/v2/get_extras_for_rent/$carId/$d1-$d2');

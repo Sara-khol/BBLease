@@ -363,4 +363,101 @@ Future displayQuestion(BuildContext context,{
   );
 }
 
+Future displayQuestion1(BuildContext context,{
+  required String message1,required String message2, required Function() onYes}) {
+  return showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context) => Container(
+       height: 250.h,
+        decoration: const BoxDecoration(color:Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+        ),
+        child: Column(children: [
+          SizedBox(height: 35.h),
+          Text('!היי, שים לב',style: TextStyle(color: colors.pinkColorApp,fontWeight: FontWeight.w600,fontSize: 28.sp)),
+          // const Spacer(),
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(message1,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        height:1,
+                        fontSize: 20.sp,
+                      )),
+                  Text(message2,
+                      textDirection: TextDirection.rtl,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        height:1,
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w700,
+                      )),
+                ],
+              ),
+            ),
+          ),
+         SizedBox(height: 20.h),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 42.h,
+                  width: 160.w,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: colors.turquoiseColorApp,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'ביטול',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w500),
+                      )),
+                ),
+                SizedBox(width: 13.h),
+                SizedBox(
+                  height: 42.h,
+                  width: 160.w,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: colors.turquoiseColorApp,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                      onPressed: () {
+                        onYes();
+                        Navigator.pop(context);
+
+                      },
+                      
+                      child: Text(
+                        'אישור',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w500),
+                      )),
+                ),
+
+              ]),
+          SizedBox(height: 22.h)
+        ])),
+    barrierColor: Colors.black12.withOpacity(0.1),
+    // shape: const RoundedRectangleBorder(
+    //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+  );
+}
+
 

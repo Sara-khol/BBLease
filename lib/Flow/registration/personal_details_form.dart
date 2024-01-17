@@ -154,7 +154,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                           setState(() {
                             _date.text =
                                 intl.DateFormat('dd/MM/yyyy').format(date);
-                            bdate = intl.DateFormat('dd/MM/yyyy').format(date);
+                            bdate = intl.DateFormat('yyyy-MM-dd').format(date);
                           });
                         }
                       },

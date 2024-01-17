@@ -17,6 +17,8 @@ class Car{
   late int seats;
   @JsonKey(name: 'doors_number')
   late int doors;
+  @JsonKey(name: 'car_images')
+  late List<String> carImages;
 
   @JsonKey(name: 'safety_chair')
   bool safetyChair=false;

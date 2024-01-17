@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/home_page.dart';
 import 'package:bblease/Flow/my_shared_preferences.dart';
@@ -17,15 +19,26 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'Flow/welcome.dart';
 import 'models/class_user.dart';
 
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
+}
+
 void main() async {
- WidgetsFlutterBinding.ensureInitialized();
+  HttpOverrides.global = new MyHttpOverrides();
+
+  WidgetsFlutterBinding.ensureInitialized();
 //await mySharedPreferences.initializeSharedPreferences(); // Initialize app state
 
 
 
   await SentryFlutter.init(
         (options) {
-      options.dsn = 'https://1a290abc6f7cde70a98f4c870720d628@o4505141567619072.ingest.sentry.io/4506534991298560';
+      // options.dsn = 'https://1a290abc6f7cde70a98f4c870720d628@o4505141567619072.ingest.sentry.io/4506534991298560';
+      options.dsn = 'https://69a96f2b12155c0d347296db8a687277@o4506574440759296.ingest.sentry.io/4506574487289856';
       // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
       // We recommend adjusting this value in production.
       options.tracesSampleRate = 1.0;
@@ -104,7 +117,7 @@ class MyApp extends StatelessWidget {
 
                            if(User().tranzilaStatus) {
                              MySharedPreferences().setLastUsage();
-                             return  HomePage();
+                             return  const HomePage();
                            }
                            else
                              {

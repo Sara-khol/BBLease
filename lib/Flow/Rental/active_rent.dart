@@ -1,3 +1,4 @@
+import 'package:bblease/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as intl;
@@ -23,7 +24,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
   late String park;*/
   late int percent;
 
-  Rental rent=User().rent;
+  Rental rent=User().currentRent;
 
   @override
   void initState() {
@@ -287,7 +288,12 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   ],
                                 ),
                               ),
-                              onTap: (){},
+                              onTap: (){
+                                /*ApiService().returnCar(rent., (orderJson) =>
+                                {
+
+                                });*/
+                              },
                             ),
                           ),
                         ),

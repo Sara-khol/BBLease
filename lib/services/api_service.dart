@@ -275,9 +275,22 @@ class ApiService {
     String d1=intl.DateFormat('yyyy-MM-dd').format(startDate);
     String d2=intl.DateFormat('yyyy-MM-dd').format(endDate);
 
-    print('${_baseUrl}wp/v2/get_extras_for_rent/$carId/$d1-$d2');
+    print('${_baseUrl}wp/v2/get_extras_for_rent/$carId/$d1*$d2');
     // Response response = await _dio.get('${_baseUrl}wp/v2/get_extras_for_rent/7994');
-    Response response = await _dio.get('${_baseUrl}wp/v2/get_extras_for_rent/$carId/$d1-$d2');
+    Response response = await _dio.get('${_baseUrl}wp/v2/get_extras_for_rent/$carId/$d1*$d2');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+    // Prints the raw data returned by the server
+  }
+
+  Future returnCar(int orderId ,Function(dynamic orderJson) onSuccess) async {
+    //DateTime nextDay= endDate.add(Duration(days: 1));
+    print('${_baseUrl}tranzila/v1/update_return_car/$orderId');
+    // Response response = await _dio.get('${_baseUrl}wp/v2/get_extras_for_rent/7994');
+    Response response = await _dio.get('${_baseUrl}tranzila/v1/update_return_car/$orderId');
     if(response.statusCode == 200) {
       var result = response.data;
       print('result: $result');

@@ -188,6 +188,7 @@ class _LicenseBackState extends State<LicenseBack> {
     final cameras = await availableCameras(); // Get a list of available cameras
     final camera = cameras.first; // Use the first camera
     _cameraController = CameraController(camera, ResolutionPreset.high,imageFormatGroup: ImageFormatGroup.yuv420,);
+
     await _cameraController.initialize().then((_) {
       if (!mounted) {
         return;

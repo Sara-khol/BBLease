@@ -41,6 +41,8 @@ class Car{
   late double maxFuel;
   @JsonKey(name: 'city')
   late String city;
+  @JsonKey(name: 'adress')
+  late String address;
   /*@JsonKey(name: 'number_vehicle_chip')
   late String numberVehicleChip;*/
 
@@ -59,7 +61,7 @@ class Car{
     //required this.fuelStatus,
     required this.city,
     required this.maxFuel,
-    //required this.numberVehicleChip,
+    required this.address,
   });
 
   /// Connect the generated [_$PersonFromJson] function to the `fromJson`

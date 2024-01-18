@@ -9,8 +9,8 @@ part of 'class_rent.dart';
 Rental _$RentalFromJson(Map<String, dynamic> json) => Rental()
   ..orderNum = json['ID'] as int?
   ..car = Car.fromJson(json['car'] as Map<String, dynamic>)
-  ..startDate =DateFormat("yyyy-MM-dd").parse(json['start_date'] as String)
-  ..endDate =DateFormat("yyyy-MM-dd").parse(json['end_date'] as String)
+  ..startDate = DateTime.parse(json['start_date'] as String)
+  ..endDate = DateTime.parse(json['end_date'] as String)
   ..insurance = json['insurance'] as int
   ..limitedKM = json['limit-km'] as int
   ..deductible = json['deductible'] as int

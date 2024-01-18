@@ -44,8 +44,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
         textDirection: TextDirection.rtl ,
         child: Column(
           children: [
-            Directionality(textDirection: TextDirection.ltr,
-                child: AppBarBibilease()),
+            const Directionality(textDirection: TextDirection.ltr, child: AppBarBibilease()),
             Padding(
               padding: EdgeInsets.only(left: 30.w,right: 30.w),
               child: Column(
@@ -94,7 +93,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                         Icon(Icons.fmd_good_outlined,color: const Color(0xFFFB2576),size: 24.sp,),
                         Text('  מיקום: ',style: TextStyle(fontSize: 18.sp),),
                         const Spacer(),
-                        Text('   ${rent.car.city}  ',style: TextStyle(fontSize: 18.sp),),
+                        Text('   ${rent.car.address}  ',style: TextStyle(fontSize: 18.sp),),
                       ],
                     ),
                   ),

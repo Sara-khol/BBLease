@@ -8,23 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="406ef940-5ca5-4e71-b141-3d6c4cbe2bd2" name="Changes" comment=" order details">
-      <change beforePath="$PROJECT_DIR$/.idea/BBLease.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BBLease.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/active_rent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/active_rent.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/map.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/map.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Flow/UserInformation/ordersHistory.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/UserInformation/ordersHistory.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/face_detector.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/face_detector.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/registration/license_back.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/license_back.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/registration/license_front.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/license_front.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/tel_to_registration.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/tel_to_registration.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/class_rent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/class_rent.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/class_rent.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/class_rent.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/class_user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/class_user.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,7 +188,15 @@
       <option name="project" value="LOCAL‎" />
       <updated>1705499100059</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL‎-00015" summary="fixes for realse version">
+      <option name="closed" value="true" />
+      <created>1705580133860</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL‎-00015" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1705580133864</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -239,7 +234,8 @@
     <MESSAGE value="fixes for last commit" />
     <MESSAGE value="fix problem in order history" />
     <MESSAGE value=" order details" />
-    <option name="LAST_COMMIT_MESSAGE" value=" order details" />
+    <MESSAGE value="fixes for realse version" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixes for realse version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -306,7 +302,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Flow/registration/license_front.dart</url>
-          <line>259</line>
+          <line>260</line>
           <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">

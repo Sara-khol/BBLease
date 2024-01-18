@@ -1,3 +1,5 @@
+import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
+import 'package:bblease/Flow/Rental/dialogs.dart';
 import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:bblease/services/api_service.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +27,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
   late String park;*/
   late int percent;
 
-  Rental rent=User().currentRent;
+  Rental rent=User().currentRent!;
 
   @override
   void initState() {
@@ -297,10 +299,16 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                     ),
                                   ),
                                   onTap: (){
-                                    ApiService().returnCar(rent.orderNum!, (orderJson) =>
-                                    {
-            print('return car')
-                                    });
+                                    showLoading(context);
+                                    ApiService().returnCar(rent.orderNum!,
+                                            (orderJson)  {
+
+                                          Navigator.pop(context);
+                                          displayMessage(context,message:'סיום ההשכרה נקלט בהצלחה',onClose: (){
+
+                                          });
+                                          print('return car');
+                                        });
                                   },
                                 ),
                               ),
@@ -321,9 +329,14 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                             borderRadius: BorderRadius.circular(100),
                           ),
                         ),
-                        onPressed: (){
-                        },
-                        child: Text('פתיחת דלתות',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),)),
+                        onPressed: () {},
+                        child: Text(
+                          'פתיחת דלתות',
+                          style: TextStyle(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white),
+                        )),
                   ),
                   SizedBox(height: 12.h,),
                   SizedBox(
@@ -335,9 +348,14 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                             borderRadius: BorderRadius.circular(100),
                           ),
                         ),
-                        onPressed: (){
-                        },
-                        child: Text('נעילת דלתות',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),)),
+                        onPressed: () {},
+                        child: Text(
+                          'נעילת דלתות',
+                          style: TextStyle(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white),
+                        )),
                   ),
 
                 ],

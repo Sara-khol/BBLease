@@ -299,15 +299,17 @@ class _OrdersHistoryState extends State<OrdersHistory> {
               width: 332.w,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromRGBO(0, 222, 222, 1),
+                    backgroundColor: User().currentRent!=null?turquoiseColorApp:turquoiseColorApp.withOpacity(0.5),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100),
                     ),
                     elevation: 0.0,
                   ),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const ActiveRentDetails(),));
-                  },
+                  onPressed: (User().currentRent!=null)?() {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const ActiveRentDetails(),));
+
+                  }:null,
                   child: Text(
                     'הזמנה נוכחית',
                     style:

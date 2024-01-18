@@ -47,7 +47,7 @@ class User{
   bool tranzilaStatus = false;
 
   @JsonKey(includeFromJson: false,includeToJson: false,)
-  late Rental currentRent;
+   Rental? currentRent;
 
   // void setBirthDate(String dateString) {
   //   try {

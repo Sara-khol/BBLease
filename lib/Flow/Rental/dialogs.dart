@@ -367,279 +367,274 @@ Future rentalTerm(context, [s, e]) {
             ),
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: SingleChildScrollView(
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(maxHeight: 600.h),
-                  child: Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.topRight,
-                        child: IconButton(
-                          icon: const Icon(Icons.close),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 30.w, right: 30.w),
-                        child: Column(
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Wrap(
+                children: [
+                  Container(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 30.w, right: 30.w),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'בחר טווח השכרה',
-                                  style: TextStyle(
-                                      fontSize: 26.sp,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.black),
-                                ),
-                                SizedBox(
-                                  width: 9.w,
-                                ),
-                                Icon(
-                                  Icons.calendar_today_outlined,
-                                  color: colors.pinkColorApp,
-                                  size: 24.sp,
-                                ),
-                              ],
+                            Text(
+                              'בחר טווח השכרה',
+                              style: TextStyle(
+                                  fontSize: 26.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black),
                             ),
                             SizedBox(
-                              height: 15.h,
+                              width: 9.w,
                             ),
-                            ConstrainedBox(
-                              constraints: BoxConstraints(maxHeight: 190.h),
-                              child: ListView(
-                                shrinkWrap: true,
-                                children: <Widget>[
-                                  _buildRadioTile('חצי יום', 1),
-                                  _buildRadioTile('יום', 2),
-                                  _buildRadioTile('שבוע', 3),
-                                  _buildRadioTile('חודש', 4),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20.h,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text('ממתי ?',
-                                    style: TextStyle(
-                                        fontSize: 22.sp,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.black)),
-                              ],
-                            ),
-                            TextFormField(
-                              readOnly: true,
-                              cursorColor: const Color.fromRGBO(15, 17, 21, 1),
-                              decoration: InputDecoration(
-                                  isDense: true,
-                                  labelStyle: TextStyle(
-                                    fontSize: 22.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: const Color.fromRGBO(15, 17, 21, 1),
-                                    fontFamily: 'PLONI',
-                                  ),
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.auto,
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      10.0,
-                                    ),
-                                    borderSide: const BorderSide(
-                                      color: Color.fromRGBO(15, 17, 21, 1),
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      10.0,
-                                    ),
-                                    borderSide: const BorderSide(
-                                      color: Color.fromRGBO(15, 17, 21, 1),
-                                    ),
-                                  ),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 12.w, horizontal: 20.h),
-                                  suffixIcon: Icon(
-                                    Icons.calendar_today_outlined,
-                                    color: colors.pinkColorApp,
-                                    size: 22.sp,
-                                  )),
-                              //style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
-                              controller: start,
-                              style: TextStyle(fontSize: 22.sp),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'זהו שדה חובה';
-                                }
-                              },
-                              onTap: () async {
-                                DateTime? date = await showDatePicker(
-                                    textDirection: TextDirection.rtl,
-                                    locale: const Locale("he", "HE"),
-                                    context: context,
-                                    initialDate: DateTime.now(),
-                                    firstDate: DateTime.now(),
-                                    lastDate: DateTime(2100));
-                                if (date != null) {
-                                  start.text = intl.DateFormat('dd.MM.yyyy')
-                                      .format(date);
-                                  print('start: ${start.text}');
-                                  startDate = date;
-                                  _setEndDateBasedOnSelection();
-                                }
-                              },
-                            ),
-                            SizedBox(
-                              height: 20.h,
-                            ),
-                            Visibility(
-                              visible: selectedValue != 1,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text('עד -',
-                                          style: TextStyle(
-                                              fontSize: 22.sp,
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.black)),
-                                    ],
-                                  ),
-                                  TextFormField(
-                                    readOnly: true,
-                                    cursorColor:
-                                        const Color.fromRGBO(15, 17, 21, 1),
-                                    decoration: InputDecoration(
-                                        isDense: true,
-                                        labelStyle: TextStyle(
-                                          fontSize: 22.sp,
-                                          fontWeight: FontWeight.w300,
-                                          color: const Color.fromRGBO(
-                                              15, 17, 21, 1),
-                                          fontFamily: 'PLONI',
-                                        ),
-                                        floatingLabelBehavior:
-                                            FloatingLabelBehavior.auto,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            10.0,
-                                          ),
-                                          borderSide: const BorderSide(
-                                            color:
-                                                Color.fromRGBO(15, 17, 21, 1),
-                                          ),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            10.0,
-                                          ),
-                                          borderSide: const BorderSide(
-                                            color:
-                                                Color.fromRGBO(15, 17, 21, 1),
-                                          ),
-                                        ),
-                                        contentPadding: EdgeInsets.symmetric(
-                                            vertical: 12.w, horizontal: 20.h),
-                                        suffixIcon: Icon(
-                                          Icons.calendar_today_outlined,
-                                          color: colors.pinkColorApp,
-                                          size: 22.sp,
-                                        )),
-                                    style: TextStyle(fontSize: 22.sp),
-                                    controller: end,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'זהו שדה חובה';
-                                      }
-                                    },
-                                    onTap: () async {
-                                      DateTime? date = await showDatePicker(
-                                          locale: const Locale("he", "HE"),
-                                          context: context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime.now(),
-                                          lastDate: DateTime(2100));
-                                      if (date != null) {
-                                        end.text = intl.DateFormat('dd.MM.yyyy')
-                                            .format(date);
-                                      }
-                                      endDate = date;
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Visibility(
-                                visible: selectedValue == 1,
-                                child: Container(
-                                  //color: Colors.yellow,
-                                  height: 100.h,
-                                  width: 300.w,
-                                  child: Column(
-                                    children: [
-                                      _buildRadioTile2('8:00-17:00 בוקר ', 1),
-                                      _buildRadioTile2('17:00-8:00 לילה', 2),
-                                    ],
-                                  ),
-                                )),
-                            SizedBox(
-                              height: 24.h,
-                            ),
-                            SizedBox(
-                              height: 48.h,
-                              width: 332.w,
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: colors.turquoiseColorApp,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(100),
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            maintainState: false,
-                                            builder: (context) =>
-                                                SearchCar (location: location,
-                                                  latitude: latitude,
-                                                  longitude:longitude,
-                                                  startDate: startDate,
-                                                  endDate: endDate,
-                                                  part: selectedPart??-1,
-                                                )
-                                                //     (
-                                                //   location: 'ירושלים',
-                                                //   latitude: 31.803110,
-                                                //   longitude: 35.216148,
-                                                //   startDate: startDate,
-                                                //   endDate: endDate,
-                                                //   part: selectedPart ?? -1,
-                                                // )
-                                        ));
-                                  },
-                                  child: const Text(
-                                    'אישור',
-                                    style: TextStyle(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white),
-                                  )),
+                            Icon(
+                              Icons.calendar_today_outlined,
+                              color: colors.pinkColorApp,
+                              size: 24.sp,
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        ConstrainedBox(
+                          constraints: BoxConstraints(maxHeight: 190.h),
+                          child: ListView(
+                            shrinkWrap: true,
+                            children: <Widget>[
+                              _buildRadioTile('חצי יום', 1),
+                              _buildRadioTile('יום', 2),
+                              _buildRadioTile('שבוע', 3),
+                              _buildRadioTile('חודש', 4),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text('ממתי ?',
+                                style: TextStyle(
+                                    fontSize: 22.sp,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black)),
+                          ],
+                        ),
+                        TextFormField(
+                          readOnly: true,
+                          cursorColor: const Color.fromRGBO(15, 17, 21, 1),
+                          decoration: InputDecoration(
+                              isDense: true,
+                              labelStyle: TextStyle(
+                                fontSize: 22.sp,
+                                fontWeight: FontWeight.w400,
+                                color: const Color.fromRGBO(15, 17, 21, 1),
+                                fontFamily: 'PLONI',
+                              ),
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.auto,
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(
+                                  10.0,
+                                ),
+                                borderSide: const BorderSide(
+                                  color: Color.fromRGBO(15, 17, 21, 1),
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(
+                                  10.0,
+                                ),
+                                borderSide: const BorderSide(
+                                  color: Color.fromRGBO(15, 17, 21, 1),
+                                ),
+                              ),
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 12.w, horizontal: 20.h),
+                              suffixIcon: Icon(
+                                Icons.calendar_today_outlined,
+                                color: colors.pinkColorApp,
+                                size: 22.sp,
+                              )),
+                          //style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
+                          controller: start,
+                          style: TextStyle(fontSize: 22.sp),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'זהו שדה חובה';
+                            }
+                          },
+                          onTap: () async {
+                            DateTime? date = await showDatePicker(
+                                textDirection: TextDirection.rtl,
+                                locale: const Locale("he", "HE"),
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime(2100));
+                            if (date != null) {
+                              start.text = intl.DateFormat('dd.MM.yyyy')
+                                  .format(date);
+                              print('start: ${start.text}');
+                              startDate = date;
+                              _setEndDateBasedOnSelection();
+                            }
+                          },
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        Visibility(
+                          visible: selectedValue != 1,
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text('עד -',
+                                      style: TextStyle(
+                                          fontSize: 22.sp,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.black)),
+                                ],
+                              ),
+                              TextFormField(
+                                readOnly: true,
+                                cursorColor:
+                                    const Color.fromRGBO(15, 17, 21, 1),
+                                decoration: InputDecoration(
+                                    isDense: true,
+                                    labelStyle: TextStyle(
+                                      fontSize: 22.sp,
+                                      fontWeight: FontWeight.w300,
+                                      color: const Color.fromRGBO(
+                                          15, 17, 21, 1),
+                                      fontFamily: 'PLONI',
+                                    ),
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.auto,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        10.0,
+                                      ),
+                                      borderSide: const BorderSide(
+                                        color:
+                                            Color.fromRGBO(15, 17, 21, 1),
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        10.0,
+                                      ),
+                                      borderSide: const BorderSide(
+                                        color:
+                                            Color.fromRGBO(15, 17, 21, 1),
+                                      ),
+                                    ),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 12.w, horizontal: 20.h),
+                                    suffixIcon: Icon(
+                                      Icons.calendar_today_outlined,
+                                      color: colors.pinkColorApp,
+                                      size: 22.sp,
+                                    )),
+                                style: TextStyle(fontSize: 22.sp),
+                                controller: end,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'זהו שדה חובה';
+                                  }
+                                },
+                                onTap: () async {
+                                  DateTime? date = await showDatePicker(
+                                      locale: const Locale("he", "HE"),
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime.now(),
+                                      lastDate: DateTime(2100));
+                                  if (date != null) {
+                                    end.text = intl.DateFormat('dd.MM.yyyy')
+                                        .format(date);
+                                  }
+                                  endDate = date;
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                        Visibility(
+                            visible: selectedValue == 1,
+                            child: Container(
+                              //color: Colors.yellow,
+                              height: 100.h,
+                              width: 300.w,
+                              child: Column(
+                                children: [
+                                  _buildRadioTile2('8:00-17:00 בוקר ', 1),
+                                  _buildRadioTile2('17:00-8:00 לילה', 2),
+                                ],
+                              ),
+                            )),
+                        SizedBox(
+                          height: 24.h,
+                        ),
+                        SizedBox(
+                          height: 48.h,
+                          width: 332.w,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: colors.turquoiseColorApp,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        maintainState: false,
+                                        builder: (context) =>
+                                             SearchCar(location: location,
+                                              latitude: latitude,
+                                              longitude:longitude,
+                                              startDate: startDate,
+                                              endDate: endDate,
+                                              part: selectedPart??-1,
+                                            )
+                                            //     (
+                                            //   location: 'ירושלים',
+                                            //   latitude: 31.803110,
+                                            //   longitude: 35.216148,
+                                            //   startDate: startDate,
+                                            //   endDate: endDate,
+                                            //   part: selectedPart ?? -1,
+                                            // )
+                                    ));
+                              },
+                              child: const Text(
+                                'אישור',
+                                style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white),
+                              )),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           );

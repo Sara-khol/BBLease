@@ -12,21 +12,10 @@ class Rental{
   int? orderNum;
   @JsonKey(name: 'car')
   late Car car;
-
   @JsonKey(name: 'start_date')
   late DateTime startDate;
   @JsonKey(name: 'end_date')
   late DateTime endDate;
-
-
-
-  @JsonKey(name: 'insurance')
-   // late bool insurance ;//כולל ביטוח
-   late int insurance ;//כולל ביטוח
-  @JsonKey(name: 'limit-km')
-  late int limitedKM ; //ללא הגבלת קילומטרים
-  @JsonKey(name: 'deductible')
-  late int deductible;//ללא השתתפות עצמית
 
 
   @JsonKey(name: 'price')

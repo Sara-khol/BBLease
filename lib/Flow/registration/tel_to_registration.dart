@@ -60,7 +60,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
           displayError(context,
               message: 'תעודת הזהות שהכנסת נחסמה בעבר הועבר לבדיקה');
         }else {
-          // if (status == 1)
+           if (status == 1)
           {
             displayError(context,
                 message: 'מספר הטלפון שהזנת  כבר קיים  במערכת');

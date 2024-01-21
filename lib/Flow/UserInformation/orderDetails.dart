@@ -37,7 +37,7 @@ class _OrderDetailsState extends State<OrderDetails> {
     dayDiff =
         widget.rent.endDate!.difference(widget.rent.startDate!).inDays /*+ 1*/;
     rentPrice = (widget.rent.car.pricePerDay) * (dayDiff == 0 ? 1 : dayDiff);
-    if(widget.rent.additions.isNotEmpty) {
+    if(widget.rent.additions!=null && widget.rent.additions!.isNotEmpty) {
       calculateAdditionsPrice();
     }
     super.initState();
@@ -45,7 +45,7 @@ class _OrderDetailsState extends State<OrderDetails> {
 
   void calculateAdditionsPrice() {
     additionsPrice = 0;
-    for (var item in widget.rent.additions) {
+    for (var item in widget.rent.additions!) {
       if (item.isChecked) additionsPrice += item.price;
     }
   }
@@ -300,51 +300,89 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                   SizedBox(
                                                     width: 9.w,
                                                   ),
-                                                  Text(
-                                                    widget.rent.car.city,
-                                                    style: TextStyle(
-                                                      color: Color(0xFF0F1511),
-                                                      fontSize: 20.sp,
-                                                      fontWeight:
-                                                          FontWeight.w400,
+                                                  Expanded(
+                                                    child: Text(
+                                                      widget.rent.car.address,
+                                                      style: TextStyle(
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        color: Color(0xFF0F1511),
+                                                        fontSize: 20.sp,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
                                                     ),
                                                   ),
-                                                  SizedBox(
-                                                    width: 36.w,
-                                                  ),
-                                                  Icon(
-                                                      Icons
-                                                          .calendar_today_outlined,
-                                                      size: 20.w),
-                                                  SizedBox(
-                                                    width: 16.w,
-                                                  ),
-                                                  Column(
-                                                    children: [
-                                                      Text(
-                                                        " מ- ${intl.DateFormat('dd.MM.yyyy').format(widget.rent.startDate)}",
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color(0xFF0F1511),
-                                                          fontSize: 18.sp,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        " עד- ${intl.DateFormat('dd.MM.yyyy').format(widget.rent.endDate)}",
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color(0xFF0F1511),
-                                                          fontSize: 18.sp,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  )
+                                                  // SizedBox(
+                                                  //   width: 30.w,
+                                                  // ),
+                                                  // Icon(
+                                                  //     Icons
+                                                  //         .calendar_today_outlined,
+                                                  //     size: 20.w),
+                                                  // SizedBox(
+                                                  //   width: 16.w,
+                                                  // ),
+                                                  // Column(
+                                                  //   children: [
+                                                  //     Text(
+                                                  //       " מ- ${intl.DateFormat('dd.MM.yyyy').format(widget.rent.startDate)}",
+                                                  //       style: TextStyle(
+                                                  //         color:
+                                                  //             Color(0xFF0F1511),
+                                                  //         fontSize: 18.sp,
+                                                  //         fontWeight:
+                                                  //             FontWeight.w400,
+                                                  //       ),
+                                                  //     ),
+                                                  //     Text(
+                                                  //       " עד- ${intl.DateFormat('dd.MM.yyyy').format(widget.rent.endDate)}",
+                                                  //       style: TextStyle(
+                                                  //         color:
+                                                  //             Color(0xFF0F1511),
+                                                  //         fontSize: 18.sp,
+                                                  //         fontWeight:
+                                                  //             FontWeight.w400,
+                                                  //       ),
+                                                  //     ),
+                                                  //   ],
+                                                  // )
                                                 ],
                                               ),
+                                              SizedBox(
+                                                height: 15.h,
+                                              ),
+                                            Row(children: [ Icon(
+                                                Icons
+                                                    .calendar_today_outlined,
+                                                size: 20.w),
+                                              SizedBox(
+                                                width: 16.w,
+                                              ),
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    " מ- ${intl.DateFormat('dd.MM.yyyy').format(widget.rent.startDate)}",
+                                                    style: TextStyle(
+                                                      color:
+                                                      Color(0xFF0F1511),
+                                                      fontSize: 18.sp,
+                                                      fontWeight:
+                                                      FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    " עד- ${intl.DateFormat('dd.MM.yyyy').format(widget.rent.endDate)}",
+                                                    style: TextStyle(
+                                                      color:
+                                                      Color(0xFF0F1511),
+                                                      fontSize: 18.sp,
+                                                      fontWeight:
+                                                      FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                ],
+                                              )],),
                                             /*  Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,

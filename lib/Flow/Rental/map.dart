@@ -22,7 +22,7 @@ class RentalWidget extends StatefulWidget {
 }
 
 class _RentalWidgetState extends State<RentalWidget> {
-  bool showButton=false;
+  bool dialogShown=false;
   late GoogleMapController _mapController;
   Address? formattedAddress;
   Future<Position> _determinePosition() async{
@@ -80,11 +80,12 @@ class _RentalWidgetState extends State<RentalWidget> {
 
       setState(() {
         _kGoogle = updatedPosition;
-        showButton=true;
-      });
 
+      });
+      if(!dialogShown) {
         print('going to dialog');
         departurePoint(context, formattedAddress?.formattedAddress, 0);
+      }
 
     } catch (e) {
       print("There was an issue fetching the location: $e");
@@ -182,39 +183,37 @@ class _RentalWidgetState extends State<RentalWidget> {
           ),
 
              AppBarBibilease(),
-          Visibility(
-            visible: showButton,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child:
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: SizedBox(
-                    height: 48.h,
-                    width: 150.w,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: turquoiseColorApp,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100),
-                          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child:
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: SizedBox(
+                  height: 48.h,
+                  width: 150.w,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: turquoiseColorApp,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
                         ),
-                        onPressed: () {
-                          departurePoint(context, formattedAddress?.formattedAddress, 0);
-                        },
-                        child: Text(
-                          '  לביצוע הזמנה  ',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            height: 1,
-                              color: Colors.white,
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w500),
-                        )),
-                  ),
+                      ),
+                      onPressed: () {
+                        dialogShown=true;
+                        departurePoint(context, formattedAddress?.formattedAddress, 0);
+                      },
+                      child: Text(
+                        '  לביצוע הזמנה  ',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          height: 1,
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w500),
+                      )),
                 ),
               ),
-          ),
+            ),
 
         ],
       ),

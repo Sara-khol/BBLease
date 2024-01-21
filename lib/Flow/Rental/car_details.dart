@@ -62,13 +62,12 @@ class _CarDetailsState extends State<CarDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Directionality(
-          textDirection: TextDirection.rtl,
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            SizedBox(height: 32.h),
+        textDirection: TextDirection.rtl,
+        child:
+          Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
             const Directionality(
                 textDirection: TextDirection.ltr, child: AppBarBibilease()),
-            SizedBox(height: 50.h),
+            SizedBox(height: 30.h),
             Text(
               widget.rent.car.model, //carDetails.postName,
               textAlign: TextAlign.right,

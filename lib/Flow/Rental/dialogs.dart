@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/Rental/car_details.dart';
 import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/Rental/search_car.dart';
@@ -227,20 +228,32 @@ Future departurePoint(context, address, nav, [sdate, edate]) {
                                           fontWeight: FontWeight.w500),
                                     ),
                                     onPressed: () {
-                                      //Navigator.pop(context);
-                                      nav == 0
-                                          ? rentalTerm(context)
-                                          : Navigator.push(
-                                              context,
-                                              MaterialPageRoute(builder: (context) => SearchCar(location: location, latitude: latitude, longitude: longitude,startDate: sdate,endDate: edate),));
-                                              // MaterialPageRoute(
-                                              //   builder: (context) => SearchCar(
-                                              //       location: 'ירושלים',
-                                              //       latitude: 31.803110,
-                                              //       longitude: 35.216148,
-                                              //       startDate: sdate,
-                                              //       endDate: edate),
-                                              // ));
+                                      if(controller.text.isNotEmpty) {
+                                        //Navigator.pop(context);
+                                        nav == 0
+                                            ? rentalTerm(context)
+                                            : Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SearchCar(location: location,
+                                                      latitude: latitude,
+                                                      longitude: longitude,
+                                                      startDate: sdate,
+                                                      endDate: edate),));
+                                        // MaterialPageRoute(
+                                        //   builder: (context) => SearchCar(
+                                        //       location: 'ירושלים',
+                                        //       latitude: 31.803110,
+                                        //       longitude: 35.216148,
+                                        //       startDate: sdate,
+                                        //       endDate: edate),
+                                        // ));
+                                      }
+                                      else
+                                        {
+                                          displayMessage(context,message: 'נא הזן כתובת');
+                                        }
                                     },
                                   ),
                                 ),

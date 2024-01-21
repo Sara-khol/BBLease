@@ -38,7 +38,8 @@ void main() async {
   await SentryFlutter.init(
         (options) {
       // options.dsn = 'https://1a290abc6f7cde70a98f4c870720d628@o4505141567619072.ingest.sentry.io/4506534991298560';
-      options.dsn = 'https://69a96f2b12155c0d347296db8a687277@o4506574440759296.ingest.sentry.io/4506574487289856';
+          options.dsn = kDebugMode ? '' : 'https://69a96f2b12155c0d347296db8a687277@o4506574440759296.ingest.sentry.io/4506574487289856';
+          // options.dsn = 'https://69a96f2b12155c0d347296db8a687277@o4506574440759296.ingest.sentry.io/4506574487289856';
       // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
       // We recommend adjusting this value in production.
       options.tracesSampleRate = 1.0;
@@ -50,7 +51,7 @@ void main() async {
   FlutterError.onError = (FlutterErrorDetails errorDetails) {
     if (kDebugMode) {
       FlutterError.presentError(errorDetails);
-      // myErrorsHandler.onErrorDetails(errorDetails);
+       //myErrorsHandler.onErrorDetails(errorDetails);
     }
     Sentry.captureException(
       errorDetails.exception,

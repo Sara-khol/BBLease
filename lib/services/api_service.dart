@@ -12,7 +12,8 @@ import '../models/class_user.dart';
 import 'package:intl/intl.dart' as intl;
 class ApiService {
   final Dio _dio = Dio();
-  final _baseUrl = 'https://bibilease.co.il/?rest_route=/';
+  // final _baseUrl = 'https://bibilease.co.il/?rest_route=/';
+  late String _baseUrl;
 
   ApiService._privateConstructor(){
     if(!kIsWeb) {
@@ -28,6 +29,13 @@ class ApiService {
         },
       );
     }
+    // if(kDebugMode)
+    //   {
+    //     _baseUrl = 'https://bibilease.appupgo.co.il/?rest_route=/';
+    //   }
+    // else{
+      _baseUrl = 'https://bibilease.co.il/?rest_route=/';
+  //  }
   } // Private constructor for singleton
 
   static final ApiService _instance = ApiService._privateConstructor();

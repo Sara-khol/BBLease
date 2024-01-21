@@ -30,8 +30,8 @@ class _OrdersHistoryState extends State<OrdersHistory> {
     super.initState();
   }
 
-  late DateTime s;
-  late DateTime e;
+   DateTime? s;
+   DateTime? e;
   bool initData = false;
 
   getOrders() async {
@@ -44,8 +44,8 @@ class _OrdersHistoryState extends State<OrdersHistory> {
 
       setState(() {
         if (orders.isNotEmpty) {
-          s = orders.first.startDate;
-          e = orders.last.endDate;
+          // s = orders.first.startDate;
+          // e = orders.last.endDate;
         }
       });
     });
@@ -341,13 +341,13 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                         context: context,
                         child: ListView.builder(
                           shrinkWrap: true,
-                          itemCount: 1,
+                          itemCount: orders.length,
                           itemBuilder: (context, index) {
                             Rental rent = orders[index];
-                            if (rent.startDate.isBefore(e) ||
-                                rent.startDate.compareTo(e) == 0 ||
-                                rent.endDate.isAfter(s) ||
-                                rent.endDate.compareTo(s) == 0) {
+                            if ((s==null || e==null) ||
+                                (rent.startDate.isBefore(e!) ||
+                                rent.startDate.compareTo(e!) == 0 ||
+                                rent.endDate.isAfter(s!) == 0)) {
                               return GestureDetector(
                                 onTap: () {
                                   Navigator.push(
@@ -361,6 +361,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                 child: Container(
                                   width: 332.w,
                                   height: 50.h,
+                                  margin: EdgeInsets.only(bottom: 22.h,left: 30.w,right: 30.w),
                                   decoration: BoxDecoration(
                                       color: Color(0xFFF7F7F7),
                                       borderRadius: BorderRadius.circular(8)),

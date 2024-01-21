@@ -22,7 +22,7 @@ Rental rent = Rental();
 Future departurePoint(context, address, nav, [sdate, edate]) {
   print('dialog address: $address');
 
-  TextEditingController controller = TextEditingController(/*text: address*/);
+  TextEditingController controller = TextEditingController(text: address);
   DetailsResult? searchedPlace;
 
   late GooglePlace googlePlace =
@@ -631,6 +631,9 @@ Future rentalTerm(context, [s, e]) {
                                     color: Colors.white),
                               )),
                         ),
+                        SizedBox(
+                          height: 25.h,
+                        )
                       ],
                     ),
                   ),

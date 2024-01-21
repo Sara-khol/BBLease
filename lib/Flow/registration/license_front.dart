@@ -257,6 +257,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                  child: TextButton(
                      onPressed: () async{
                      XFile xfile=await _cameraController.takePicture();
+                     debugPrint('xfile ${xfile.name}');
                      uploadSucceed(context,const LicenseFront(),const LicenseBack());
                      setState(() {
                        _imageFront= xfile;

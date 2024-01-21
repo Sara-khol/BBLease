@@ -24,8 +24,10 @@ class Rental{
   @JsonKey(name: 'url-order-pdf')
   String? url;
 
-  @JsonKey(includeFromJson: false)
-   List<Addition> additions=[];
+ @JsonKey(includeFromJson: false)
+ // @JsonKey(name: 'extras')
+   List<Addition>? additions=[];
+
 
   //Rental(this.startDate,this.endDate, this.car, this.insurance, this.limitedKM, this.deductible, this.price, this.url);
   Rental();

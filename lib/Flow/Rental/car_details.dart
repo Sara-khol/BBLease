@@ -42,7 +42,7 @@ class _CarDetailsState extends State<CarDetails> {
 
   void calculateAdditionsPrice() {
     price = 0;
-    for (var item in widget.rent.additions) {
+    for (var item in widget.rent.additions!) {
       if (item.isChecked) price += item.price;
     }
   }
@@ -532,16 +532,16 @@ class _CarDetailsState extends State<CarDetails> {
                                         top: 20.h),
                                     child: ListView.builder(
                                       shrinkWrap: true,
-                                      itemCount: widget.rent.additions.length,
+                                      itemCount: widget.rent.additions!.length,
                                       itemBuilder: (context, index) {
                                         if (widget
-                                            .rent.additions[index].isChecked) {
+                                            .rent.additions![index].isChecked) {
                                           return createExtra(
                                               index,
-                                              widget.rent.additions[index]
+                                              widget.rent.additions![index]
                                                           .name !=
                                                       'new_driver' &&
-                                                  widget.rent.additions[index]
+                                                  widget.rent.additions![index]
                                                           .name !=
                                                       'young_driver');
                                         }
@@ -1053,7 +1053,7 @@ class _CarDetailsState extends State<CarDetails> {
                                     Map<String, bool> additionsMap = {};
 
                                     for (Addition addition
-                                        in widget.rent.additions) {
+                                        in widget.rent.additions!) {
                                       additionsMap[addition.name] =
                                           addition.isChecked;
                                     }
@@ -1128,9 +1128,9 @@ class _CarDetailsState extends State<CarDetails> {
                     displayQuestion1(context,
                         message1: 'פעולה זו תבטל לך את התוספת של',
                         message2:
-                            ' ${widget.rent.additions[index].title} בסך ${widget.rent.additions[index].price} ש"ח ',
+                            ' ${widget.rent.additions![index].title} בסך ${widget.rent.additions![index].price} ש"ח ',
                         onYes: () {
-                      widget.rent.additions[index].isChecked = false;
+                      widget.rent.additions![index].isChecked = false;
                       calculateAdditionsPrice();
                       setState(() {});
                     });
@@ -1138,7 +1138,7 @@ class _CarDetailsState extends State<CarDetails> {
                   icon: Icon(Icons.close, color: colors.pinkColorApp)),
             ),
             Expanded(
-                child: Text(widget.rent.additions[index].title,
+                child: Text(widget.rent.additions![index].title,
                     style: TextStyle(
                         fontWeight: FontWeight.w600, fontSize: 18.sp))),
             Column(
@@ -1155,7 +1155,7 @@ class _CarDetailsState extends State<CarDetails> {
                 Row(
                   children: [
                     Text(
-                      '${widget.rent.additions[index].price} ₪ ',
+                      '${widget.rent.additions![index].price} ₪ ',
                       style: TextStyle(
                           fontWeight: FontWeight.w700, fontSize: 16.sp),
                     ),

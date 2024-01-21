@@ -34,11 +34,6 @@ class _AppBarBibileaseState extends State<AppBarBibilease> {
                 child: Icon(Icons.menu,color:Color(0xFF0F1511),size: 24.w,),
               onTap: () => sideMenu(context),
             ),
-            SizedBox(width: 14.w,),
-            GestureDetector(
-                child: Icon(Icons.account_circle_outlined,color:Color(0xFF0F1511),size:28.w),
-              onTap: ()=>personalArea(context),
-            ),
           ],
         ),
       ),

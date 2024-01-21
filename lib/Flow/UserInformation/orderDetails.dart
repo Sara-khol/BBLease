@@ -58,11 +58,11 @@ class _OrderDetailsState extends State<OrderDetails> {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 32.h),
+
                   const Directionality(
                       textDirection: TextDirection.ltr,
                       child: AppBarBibilease()),
-                  SizedBox(height: 50.h),
+                  SizedBox(height: 30.h),
                   Text(
                     ' הסטוריית הזמנות > פירוט הזמנה ',
                     style: TextStyle(

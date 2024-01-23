@@ -36,6 +36,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
   bool initData = false;
 
   getOrders() async {
+<<<<<<< HEAD
     print('getOrders');
     await ApiService().getUserOrders(User().userId, (rent) {
       print('onSuccess');
@@ -56,8 +57,27 @@ class _OrdersHistoryState extends State<OrdersHistory> {
           // s = orders.first.startDate;
           // e = orders.last.endDate;
         }*/
+=======
+   try {
+      await ApiService().getUserOrders(User().userId, (rent) {
+        print('onSuccess');
+        orders = rent.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
+        initData = true;
+        print('orders: ${orders.length}');
+
+        setState(() {
+          if (orders.isNotEmpty) {
+            // s = orders.first.startDate;
+            // e = orders.last.endDate;
+          }
+        });
+>>>>>>> 198779f503a9c07e7911ee93a0df3a35d4c83cc8
       });
-    });
+   }
+    catch( e,s)
+    {
+      debugPrint('error ${e} $s');
+    }
   }
 
   /*getActiveRent() async {

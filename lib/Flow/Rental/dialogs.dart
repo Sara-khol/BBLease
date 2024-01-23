@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/Rental/car_details.dart';
 import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/Rental/search_car.dart';
@@ -205,54 +206,61 @@ Future departurePoint(context, address, nav, [sdate, edate]) {
                       )
                           : Spacer(),
                       done ? Column(
-                        children: [
-                          SizedBox(
-                            height: 32.h,
-                          ),
-                          Container(
-                            width: 332.w,
-                            height: 48.h,
-                            decoration: BoxDecoration(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(25)),
-                              color: colors.turquoiseColorApp,
-                            ),
-                            child: TextButton(
-                              child: Text(
-                                'אישור',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 22.sp,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              onPressed: () {
-                                //Navigator.pop(context);
-                                nav == 0
-                                    ? rentalTerm(context)
-                                    : Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) =>
-                                        SearchCar(location: location,
-                                            latitude: latitude,
-                                            longitude: longitude,
-                                            startDate: sdate,
-                                            endDate: edate),));
-                                // MaterialPageRoute(
-                                //   builder: (context) => SearchCar(
-                                //       location: 'ירושלים',
-                                //       latitude: 31.803110,
-                                //       longitude: 35.216148,
-                                //       startDate: sdate,
-                                //       endDate: edate),
-                                // ));
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            height: 25.h,
-                          )
-                        ],
-                      )
+                              children: [
+                                SizedBox(
+                                  height: 32.h,
+                                ),
+                                Container(
+                                  width: 332.w,
+                                  height: 48.h,
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(25)),
+                                    color: colors.turquoiseColorApp,
+                                  ),
+                                  child: TextButton(
+                                    child: Text(
+                                      'אישור',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 22.sp,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    onPressed: () {
+                                      if(controller.text.isNotEmpty) {
+                                        //Navigator.pop(context);
+                                        nav == 0
+                                            ? rentalTerm(context)
+                                            : Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SearchCar(location: location,
+                                                      latitude: latitude,
+                                                      longitude: longitude,
+                                                      startDate: sdate,
+                                                      endDate: edate),));
+                                        // MaterialPageRoute(
+                                        //   builder: (context) => SearchCar(
+                                        //       location: 'ירושלים',
+                                        //       latitude: 31.803110,
+                                        //       longitude: 35.216148,
+                                        //       startDate: sdate,
+                                        //       endDate: edate),
+                                        // ));
+                                      }
+                                      else
+                                        {
+                                          displayMessage(context,message: 'נא הזן כתובת');
+                                        }
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 25.h,
+                                )
+                              ],
+                            )
                           : Container(),
                     ],
                   ),

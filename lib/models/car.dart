@@ -7,8 +7,8 @@ part 'car.g.dart';
 class Car{
   @JsonKey(name: 'ID')
   late int id;
-  /*@JsonKey(name: 'post_name')
-  late String postName;*/
+  @JsonKey(name: 'post_name')
+  late String postName;
   @JsonKey(name: 'car_number')
   late int carNumber;
   @JsonKey(name: 'model')

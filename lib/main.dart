@@ -14,7 +14,7 @@ import 'package:oktoast/oktoast.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
+//import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'Flow/welcome.dart';
 import 'models/class_user.dart';
@@ -87,11 +87,14 @@ class MyApp extends StatelessWidget {
           builder: (BuildContext context, Widget? child) {
             return MaterialApp(
               localizationsDelegates: [
-                GlobalMaterialLocalizations.delegate
+                //AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
               ],
               supportedLocales: [
-                const Locale('en'),
-                const Locale('he')
+                const Locale('he'),
+                //const Locale('en'),
+
               ],
               title: 'Flutter Demo',
               theme: ThemeData(

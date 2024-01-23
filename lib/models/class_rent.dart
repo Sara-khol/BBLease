@@ -24,6 +24,9 @@ class Rental{
   @JsonKey(name: 'url-order-pdf')
   String? url;
 
+  @JsonKey(name: 'status')
+  String? status;
+
  @JsonKey(includeFromJson: false)
  // @JsonKey(name: 'extras')
    List<Addition>? additions=[];

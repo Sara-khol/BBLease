@@ -67,7 +67,8 @@ dependencies:
   oktoast: ^3.4.0
   flutter_inappwebview: ^6.0.0
   sentry_flutter: ^7.14.0
-  #flutter_localization: ^0.2.0
+
+  flutter_localization: ^0.2.0
 
 
 

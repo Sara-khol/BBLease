@@ -22,11 +22,12 @@ class OrdersHistory extends StatefulWidget {
 
 class _OrdersHistoryState extends State<OrdersHistory> {
   List<Rental> orders = [];
+  late Rental currentRent;
 
   @override
   void initState() {
-
     getOrders();
+    //getActiveRent();
     super.initState();
   }
 
@@ -35,21 +36,42 @@ class _OrdersHistoryState extends State<OrdersHistory> {
   bool initData = false;
 
   getOrders() async {
-    print('getUsersList()');
+    print('getOrders');
     await ApiService().getUserOrders(User().userId, (rent) {
       print('onSuccess');
       orders = rent.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
-      initData = true;
+
       print('orders: ${orders.length}');
 
+      for(var item in orders) {
+        print(item.status);
+        if(item.status=="active-rentals") {
+          User().currentRent=item;
+        }
+      }
+      initData = true;
+
       setState(() {
-        if (orders.isNotEmpty) {
+        /*if (orders.isNotEmpty) {
           // s = orders.first.startDate;
           // e = orders.last.endDate;
-        }
+        }*/
       });
     });
   }
+
+  /*getActiveRent() async {
+    await ApiService().getActiveRent(User().userId, (rent) {
+      print(rent);
+        currentRent = rent.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
+        initData = true;
+        print('rent: ${currentRent?.orderNum}');
+
+        setState(() {        });
+
+    });
+
+  }*/
 
   filterByDate() {
     TextEditingController start = TextEditingController();
@@ -289,33 +311,43 @@ class _OrdersHistoryState extends State<OrdersHistory> {
               'ההזמנות שלי',
               style: TextStyle(
                 color: Color(0xFF0F1511),
-                fontSize: 28.sp,
+                fontSize: 26.sp,
                 fontWeight: FontWeight.w600,
               ),
             ),
             SizedBox(height: 40.h,),
-            Container(
-              height: 48.h,
-              width: 332.w,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: User().currentRent!=null?turquoiseColorApp:turquoiseColorApp.withOpacity(0.5),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100),
+             Container(
+                      height: 48.h,
+                      width: 332.w,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: initData&&User().currentRent!=null
+                                ? turquoiseColorApp
+                                : turquoiseColorApp.withOpacity(0.5),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            elevation: 0.0,
+                          ),
+                          onPressed: initData&&User().currentRent!=null
+                              ? () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ActiveRentDetails(),
+                                      ));
+                                }
+                              : null,
+                          child: Text(
+                            'הזמנה נוכחית',
+                            style: TextStyle(
+                                fontSize: 22.sp,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white),
+                          )),
                     ),
-                    elevation: 0.0,
-                  ),
-                  onPressed: (User().currentRent!=null)?() {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => const ActiveRentDetails(),));
 
-                  }:null,
-                  child: Text(
-                    'הזמנה נוכחית',
-                    style:
-                        TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500, color: Colors.white),
-                  )),
-            ),
             SizedBox(height: 67.h,),
             Row(
               children: [
@@ -392,7 +424,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                         ))
                     : Text(
                         'אין הזמנות קיימות',
-                        style: TextStyle(fontSize: 22.sp),
+                        style: TextStyle(fontSize: 18.sp),
                       )
                 : const Center(
                     child: CircularProgressIndicator(),

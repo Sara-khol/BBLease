@@ -25,6 +25,7 @@ class _RentalWidgetState extends State<RentalWidget> {
   bool dialogShown=false;
   late GoogleMapController _mapController;
   Address? formattedAddress;
+  double long=0, lat=0;
   Future<Position> _determinePosition() async{
     bool serviceEnabled;
     LocationPermission permission;
@@ -58,6 +59,8 @@ class _RentalWidgetState extends State<RentalWidget> {
         longitude: position.longitude,
         googleApiKey: 'AIzaSyBfvApaTLzPlCzL3LakX6DBbj2l7NMBRV4',
       );
+      long=position.longitude;
+      lat=position.latitude;
 
       print('address: ${formattedAddress?.formattedAddress}');
       CameraPosition updatedPosition = CameraPosition(
@@ -84,7 +87,7 @@ class _RentalWidgetState extends State<RentalWidget> {
       });
       if(!dialogShown) {
         print('going to dialog');
-        departurePoint(context, formattedAddress?.formattedAddress, 0);
+        departurePoint(context, formattedAddress?.formattedAddress, 0,latitude1: lat,longitude1: long);
       }
 
     } catch (e) {
@@ -201,7 +204,7 @@ class _RentalWidgetState extends State<RentalWidget> {
                       ),
                       onPressed: () {
                         dialogShown=true;
-                        departurePoint(context, formattedAddress?.formattedAddress, 0);
+                        departurePoint(context, formattedAddress?.formattedAddress, 0,latitude1: lat,longitude1: long);
                       },
                       child: Text(
                         '  לביצוע הזמנה  ',

@@ -21,10 +21,12 @@ String location = '';
 //late DateTime startDate,endDate;
 Rental rent = Rental();
 
-Future departurePoint(context, address, nav, [sdate, edate]) {
+Future departurePoint(context, address, nav,{double longitude1=0,double latitude1=0,sdate, edate}/*, [sdate, edate]*/) {
   print('dialog address: $address');
 
   location=address??'';
+  latitude= latitude1;
+  longitude= longitude1;
 
   TextEditingController controller = TextEditingController(text: address);
   DetailsResult? searchedPlace;
@@ -595,6 +597,7 @@ Future rentalTerm(context, [s, e]) {
                                 },
                                 onTap: () async {
                                   DateTime? date = await showDatePicker(
+                                      textDirection: TextDirection.rtl,
                                       locale: const Locale("he", "HE"),
                                       context: context,
                                       initialDate: DateTime.now(),

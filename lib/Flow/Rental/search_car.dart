@@ -678,7 +678,7 @@ class _SearchCarState extends State<SearchCar> {
                                     style: TextButton.styleFrom(
                                       minimumSize: Size(80, 20),
                                       padding: EdgeInsets.all(0)),
-                                    onPressed: ()=>{departurePoint(context,widget.location,1,widget.startDate,widget.endDate),},
+                                    onPressed: ()=>{departurePoint(context,widget.location,1,sdate: widget.startDate,edate: widget.endDate),},
                                     child: Text(
                                     'שנה כתובת ',
                                     style: TextStyle(

@@ -27,8 +27,9 @@ class Rental{
   @JsonKey(name: 'status')
   String? status;
 
- @JsonKey(includeFromJson: false)
- // @JsonKey(name: 'extras')
+
+ //@JsonKey(includeFromJson: false)
+ @JsonKey(name: 'extras')
    List<Addition>? additions=[];
 
 

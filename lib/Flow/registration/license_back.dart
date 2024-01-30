@@ -132,7 +132,7 @@ class _LicenseBackState extends State<LicenseBack> {
             //         Navigator.push(
             //             context,
             //             MaterialPageRoute(
-            //                 builder: (context) => const PersonalDetailsForm()));
+            //                 builder: (context) =>  FaceScanning()));
             //       },
             //       child:  Text(
             //         'הבא (רק לצורך הדגמה)',

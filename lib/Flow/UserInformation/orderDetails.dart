@@ -46,7 +46,7 @@ class _OrderDetailsState extends State<OrderDetails> {
   void calculateAdditionsPrice() {
     additionsPrice = 0;
     for (var item in widget.rent.additions!) {
-      if (item.isChecked) additionsPrice += item.price;
+     additionsPrice += item.price;
     }
   }
 

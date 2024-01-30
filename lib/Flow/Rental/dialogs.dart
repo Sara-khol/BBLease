@@ -23,6 +23,8 @@ Rental rent = Rental();
 Future departurePoint(context, address, nav, [sdate, edate]) {
   print('dialog address: $address');
 
+  location=address??'';
+
   TextEditingController controller = TextEditingController(text: address);
   DetailsResult? searchedPlace;
 
@@ -157,7 +159,13 @@ Future departurePoint(context, address, nav, [sdate, edate]) {
                         },
                         //=> isTyping=true,
                         onEditingComplete: () {
+                          debugPrint('onEditingComplete');
+                          if(controller.text.isNotEmpty)
                           done = true;
+                          else
+                            done=false;
+                          //todo setstate??
+
                           FocusScope.of(context).unfocus();
                         },
                       ),
@@ -228,7 +236,8 @@ Future departurePoint(context, address, nav, [sdate, edate]) {
                                           fontWeight: FontWeight.w500),
                                     ),
                                     onPressed: () {
-                                      if(controller.text.isNotEmpty) {
+                                      debugPrint("location $location longitude $longitude latitude $latitude");
+                                      if(controller.text.isNotEmpty && location.isNotEmpty) {
                                         //Navigator.pop(context);
                                         nav == 0
                                             ? rentalTerm(context)

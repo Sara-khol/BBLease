@@ -35,7 +35,7 @@ class ApiService {
     //   }
     // else{
       _baseUrl = 'https://bibilease.co.il/?rest_route=/';
-  //  }
+  // }
   } // Private constructor for singleton
 
   static final ApiService _instance = ApiService._privateConstructor();
@@ -106,6 +106,17 @@ class ApiService {
   Future getUserOrders(int userId, Function(dynamic orderJson) onSuccess) async {
     print('${_baseUrl}orders/get_customer_orders/$userId');
     Response response = await _dio.get('${_baseUrl}orders/get_customer_orders/$userId');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+    // Prints the raw data returned by the server
+  }
+
+  Future getUserAllOrders(int userId, Function(dynamic orderJson) onSuccess) async {
+    print('${_baseUrl}wp/v2/get_history_orders_or_future_orders_by_customer/$userId');
+    Response response = await _dio.get('${_baseUrl}wp/v2/get_history_orders_or_future_orders_by_customer/$userId');
     if(response.statusCode == 200) {
       var result = response.data;
       print('result: $result');

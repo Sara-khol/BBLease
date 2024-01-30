@@ -7,11 +7,20 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="406ef940-5ca5-4e71-b141-3d6c4cbe2bd2" name="Changes" comment="">
+    <list default="true" id="406ef940-5ca5-4e71-b141-3d6c4cbe2bd2" name="Changes" comment="changes in face detecting, &#10;enable display errors async,&#10;design fix in long listview,&#10;get all users orders">
+      <change beforePath="$PROJECT_DIR$/.idea/BBLease.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BBLease.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/search_car.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/search_car.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/UserInformation/orderDetails.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/UserInformation/orderDetails.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/UserInformation/ordersHistory.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/UserInformation/ordersHistory.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/face_detector.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/face_detector.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/license_back.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/license_back.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/class_rent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/class_rent.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/class_rent.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/class_rent.g.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/services/api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/api_service.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -213,7 +222,15 @@
       <option name="project" value="LOCAL‎" />
       <updated>1705826517878</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL‎-00018" summary="disable continue if did not enter address and more...">
+      <option name="closed" value="true" />
+      <created>1705865469311</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL‎-00018" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1705865469313</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -254,7 +271,9 @@
     <MESSAGE value="fixes for realse version" />
     <MESSAGE value="fixes from last update" />
     <MESSAGE value=" order history changes before version" />
-    <option name="LAST_COMMIT_MESSAGE" value=" order history changes before version" />
+    <MESSAGE value="disable continue if did not enter address and more..." />
+    <MESSAGE value="changes in face detecting, &#10;enable display errors async,&#10;design fix in long listview,&#10;get all users orders" />
+    <option name="LAST_COMMIT_MESSAGE" value="changes in face detecting, &#10;enable display errors async,&#10;design fix in long listview,&#10;get all users orders" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -283,21 +302,6 @@
           <url>file://$PROJECT_DIR$/lib/services/api_service.dart</url>
           <line>100</line>
           <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/UserInformation/ordersHistory.dart</url>
-          <line>39</line>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/UserInformation/ordersHistory.dart</url>
-          <line>41</line>
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/UserInformation/ordersHistory.dart</url>
-          <line>40</line>
-          <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/models/class_rent.g.dart</url>
@@ -361,33 +365,48 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Flow/UserInformation/ordersHistory.dart</url>
-          <line>46</line>
-          <option name="timeStamp" value="44" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/UserInformation/ordersHistory.dart</url>
-          <line>47</line>
-          <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/UserInformation/ordersHistory.dart</url>
           <line>346</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/main.dart</url>
-          <line>51</line>
+          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
+          <line>247</line>
           <option name="timeStamp" value="47" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/main.dart</url>
-          <line>50</line>
+          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
+          <line>248</line>
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/main.dart</url>
-          <line>52</line>
+          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
+          <line>202</line>
           <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
+          <line>186</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
+          <line>630</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
+          <line>631</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
+          <line>242</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/services/api_service.dart</url>
+          <line>92</line>
+          <option name="timeStamp" value="54" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

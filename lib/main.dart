@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:bblease/Flow/Rental/map.dart';
@@ -45,7 +46,7 @@ void main() async {
       options.tracesSampleRate = 1.0;
       options.debug=false;
     },
-    appRunner: () => runApp(MyApp()),
+    //appRunner: () => runApp(MyApp()),
   );
 
   FlutterError.onError = (FlutterErrorDetails errorDetails) {
@@ -59,7 +60,15 @@ void main() async {
     );
   };
 
-  // runApp( MyApp());
+  runZonedGuarded(() {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    runApp( MyApp());
+  }, (error, stackTrace) {
+    debugPrint('Zone Error Handler: $error');
+    debugPrint('$stackTrace');
+    // Handle the error as needed, e.g., log it
+  });
 }
 
 class MyApp extends StatelessWidget {

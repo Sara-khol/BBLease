@@ -6,7 +6,7 @@ import 'car.dart';
 part 'class_rent.g.dart';
 
 @JsonSerializable()
-class Rental {
+class Rental{
 
   @JsonKey(name: 'ID')
   int? orderNum;
@@ -23,6 +23,10 @@ class Rental {
 
   @JsonKey(name: 'url-order-pdf')
   String? url;
+
+  @JsonKey(name: 'status')
+  String? status;
+
 
  //@JsonKey(includeFromJson: false)
  @JsonKey(name: 'extras')

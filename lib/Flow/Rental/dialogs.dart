@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_place/google_place.dart';
 import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:intl/intl.dart' as intl;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/class_rent.dart';
 
@@ -28,6 +29,7 @@ Future departurePoint(context, address, nav, [sdate, edate]) {
   TextEditingController controller = TextEditingController(text: address);
   DetailsResult? searchedPlace;
 
+
   late GooglePlace googlePlace =
       GooglePlace('AIzaSyBfvApaTLzPlCzL3LakX6DBbj2l7NMBRV4');
   bool done = false;
@@ -37,18 +39,27 @@ Future departurePoint(context, address, nav, [sdate, edate]) {
   Timer? debounce;
 
   void autoCompleteSearch(String value) async {
-    var result = await googlePlace.autocomplete.get(value);
+    var result = await googlePlace.autocomplete.get(value,language: 'iw');
     if (result != null && result.predictions != null) {
+      //setState((){});
       predictions = result.predictions!;
+      print(predictions);
     }
   }
 
   return showModalBottomSheet<dynamic>(
       isScrollControlled: true,
       isDismissible: false,
+      barrierColor: Colors.black12.withOpacity(0.1),
+      elevation: 2,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+      ),
       context: context,
-      builder: (context) => Padding(
-            padding: EdgeInsets.only(
+      builder: (context) {
+        return StatefulBuilder(builder: (context, StateSetter setState) {
+            return Padding(
+              padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Directionality(
               textDirection: TextDirection.rtl,
@@ -71,16 +82,6 @@ Future departurePoint(context, address, nav, [sdate, edate]) {
                   ],
                 ),
                 constraints: BoxConstraints(maxHeight: 500.h),
-                // Container(
-                //   alignment: Alignment.topRight,
-                //   child: IconButton(
-                //     icon: const Icon(Icons.close),
-                //     onPressed: () {
-                //       Navigator.pop(context);
-                //     },
-                //   ),
-                // ),
-
                 child: Padding(
                   padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 20.h),
                   child: Column(
@@ -147,15 +148,18 @@ Future departurePoint(context, address, nav, [sdate, edate]) {
                             color: Color.fromRGBO(15, 17, 21, 1),
                             fontSize: 20.sp),
                         controller: controller,
+
                         onChanged: (value) {
-                          if (debounce?.isActive ?? false) debounce!.cancel();
-                          debounce =
-                              Timer(const Duration(milliseconds: 300), () {
-                            if (value.isNotEmpty) {
-                              autoCompleteSearch(value);
-                            } else
-                              predictions = [];
-                          });
+                          print('change');
+                          //if (debounce?.isActive ?? false) debounce!.cancel();
+                          //debounce =
+                          // Timer(const Duration(milliseconds: 300), () {
+                          if (value.isNotEmpty) {
+                            autoCompleteSearch(value);
+                          } else
+                            predictions = [];
+                          // });
+                          setState((){});
                         },
                         //=> isTyping=true,
                         onEditingComplete: () {
@@ -167,54 +171,49 @@ Future departurePoint(context, address, nav, [sdate, edate]) {
                           //todo setstate??
 
                           FocusScope.of(context).unfocus();
+
                         },
                       ),
                       predictions.isNotEmpty
                           ? Expanded(
-                              child: ListView.builder(
-                                  reverse: true,
-                                  shrinkWrap: true,
-                                  itemCount: predictions.length,
-                                  itemBuilder: (context, index) {
-                                    AutocompletePrediction prediction =
-                                        predictions[index];
-                                    return ListTile(
-                                      title: Text(
-                                        prediction.description.toString(),
-                                        style: TextStyle(fontSize: 20.sp),
-                                      ),
-                                      onTap: () async {
-                                        debugPrint(prediction.description);
-                                        done = true;
-                                        final placeId = prediction.placeId!;
-                                        debugPrint('placeId $placeId');
-                                        final details = await googlePlace
-                                            .details
-                                            .get(placeId);
-                                        if (details != null &&
-                                            details.result != null) {
-                                          debugPrint(
-                                              'details ${details.result}');
+                        child: ListView.builder(
+                            reverse: true,
+                            shrinkWrap: true,
+                            itemCount: predictions.length,
+                            itemBuilder: (context, index) {
+                              AutocompletePrediction prediction = predictions[index];
+                              return ListTile(
+                                title: Text(
+                                  prediction.description.toString(),
+                                  style: TextStyle(fontSize: 20.sp),
+                                ),
+                                onTap: () async {
+                                  print('selected address: ${prediction.description.toString()}');
+                                  controller.text=prediction.description.toString();
+                                  debugPrint(prediction.description);
+                                  //done = true;
+                                  final placeId = prediction.placeId!;
+                                  debugPrint('placeId $placeId');
+                                  final details = await googlePlace.details.get(placeId);
+                                  if (details != null && details.result != null) {
+                                    debugPrint('details ${details.result}');
+                                    searchedPlace = details.result;
+                                    controller.text = prediction.description.toString();
+                                    location = prediction.description.toString();//details.result!.name!;
+                                    latitude = searchedPlace!.geometry!.location!.lat;
+                                    longitude = searchedPlace!.geometry!.location!.lng;
+                                    print('$latitude . $longitude');
+                                    done = true;
+                                    print('selected text: ${controller.text}');
 
-                                          searchedPlace = details.result;
-                                          controller.text =
-                                              details.result!.name!;
-                                          location = controller.text;
-                                          latitude = searchedPlace!
-                                              .geometry!.location!.lat;
-                                          longitude = searchedPlace!
-                                              .geometry!.location!.lng;
-                                          print('$latitude . $longitude');
-                                          done = true;
-                                        }
-                                        predictions = [];
-                                      },
-                                    );
-                                  }),
-                            )
+                                  }
+                                  predictions = [];
+                                },
+                              );
+                            }),
+                      )
                           : Spacer(),
-                      done
-                          ? Column(
+                      done ? Column(
                               children: [
                                 SizedBox(
                                   height: 32.h,
@@ -277,13 +276,11 @@ Future departurePoint(context, address, nav, [sdate, edate]) {
                 ),
               ),
             ),
-          ),
-      barrierColor: Colors.black12.withOpacity(0.1),
-      //isDismissible: false,
-      elevation: 2,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-      ));
+                  );
+          }
+        );}
+
+  );
 }
 
 Future rentalTerm(context, [s, e]) {

@@ -13,6 +13,7 @@ Rental _$RentalFromJson(Map<String, dynamic> json) => Rental()
   ..endDate =DateFormat("yyyy-MM-dd").parse(json['end_date'] as String)
   ..price = (json['price'] as num).toDouble()
   ..url = json['url-order-pdf'] as String?
+  ..status = json['status'] as String?;
   ..additions = (json['extras'] as List<dynamic>?)
       ?.map((e) => Addition.fromJson(e as Map<String, dynamic>))
       .toList()
@@ -25,5 +26,6 @@ Map<String, dynamic> _$RentalToJson(Rental instance) => <String, dynamic>{
       'end_date': instance.endDate.toIso8601String(),
       'price': instance.price,
       'url-order-pdf': instance.url,
+      'status': instance.status,
       'extras': instance.additions,
     };

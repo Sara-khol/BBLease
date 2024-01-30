@@ -70,7 +70,6 @@ class _SearchCarState extends State<SearchCar> {
       createMap();
     });
   }
-
   createMap(){
     filteredCarsMap['all']=cars;
     for (var car in cars) {
@@ -105,8 +104,7 @@ class _SearchCarState extends State<SearchCar> {
               removeTop: true,
               child: type=='all'?
               Expanded(
-                child
-                    : ListView.builder(
+                child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: cars.length,
                   itemBuilder: (context, index) {
@@ -786,6 +784,7 @@ class _SearchCarState extends State<SearchCar> {
                                   onPressed: (){
                                     //TODO: call API
                                     print('call API');
+                                    getCarsList();
                                     Navigator.pop(context);
                                   },
                                   child: Text('הצג תוצאות נוספות',
@@ -809,5 +808,7 @@ class _SearchCarState extends State<SearchCar> {
 
     );
   }
+
+
 
 }

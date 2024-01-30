@@ -162,6 +162,7 @@ class _RentalWidgetState extends State<RentalWidget> {
         children: [
 
           GoogleMap(
+
           // given camera position
           initialCameraPosition: _kGoogle,
           // set markers on google map

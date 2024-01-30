@@ -21,48 +21,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User()
   ..licenseIssDate = json['license_date'] as String
   ..licenseDegree = json['license_level'] as String
   ..isNewDriver = json['is_new_driver'] as bool
-  ..isYoungDriver =  _checkYoungDriver(json['birth_date'] as String)
+  ..isYoungDriver = json['is_young_driver'] as bool
   ..tranzilaStatus = json['status_tranzila'] as bool;
-
- _checkYoungDriver(String bd) {
-
-
-  // Current time - at this moment
-  DateTime today = DateTime.now();
-
-  // List of possible date patterns
-  List<String> possibleDatePatterns = ["yyyy-MM-dd", "dd.MM.yyyy"];
-
-  DateTime? birthDateDt;
-
-  // Try parsing the date with different patterns
-  for (String datePattern in possibleDatePatterns) {
-    try {
-      birthDateDt = DateFormat(datePattern).parse(bd);
-      break; // Break out of the loop if parsing is successful
-    } catch (e) {
-      // Parsing failed with the current pattern, try the next one
-    }
-  }
-
-  if (birthDateDt == null) {
-    // Handle the case when none of the patterns successfully parsed the date
-    print("Error: Unable to parse the date");
-    return false;
-  }
-
-  // Parsed date to check
- // DateTime birthDateDt = DateFormat(datePattern).parse(bd);
-
-  // Date to check but moved 18 years ahead
-  DateTime adultDate = DateTime(
-    birthDateDt.year + 24,
-    birthDateDt.month,
-    birthDateDt.day,
-  );
-
-  return adultDate.isAfter(today) ;
-}
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'customer_id': instance.userId,

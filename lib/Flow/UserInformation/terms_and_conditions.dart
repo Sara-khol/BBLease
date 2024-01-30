@@ -2,8 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../customWidgets/appBarB.dart';
 
-import '../models/class_user.dart';
+import '../../models/class_user.dart';
 
 class Terms extends StatefulWidget {
   const Terms({Key? key}) : super(key: key);
@@ -23,20 +24,45 @@ class _TermsState extends State<Terms> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Column(
+      body:
+        Column(
           children: [
-            SizedBox(
-              height: 770.h,
+            Container(
+              color: Colors.white,
               child: Padding(
-                padding:  EdgeInsets.all(30),
-                child: SingleChildScrollView(
-                  child: Text(lorem*3),
+                padding: EdgeInsets.only(left: 24.w,right: 24.w,top:32.h,bottom: 20.h),
+                child: Row( children:[
+                  Text("Bibilease",
+                    style: TextStyle(
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF0F1511),
+                      fontFamily: 'PlusJakartaSans',)
+                    ,),
+                  Spacer(),
+                  GestureDetector(
+                    child: Icon(Icons.arrow_back_ios,color:Color(0xFF0F1511),size: 24.w,),
+                    onTap: () => Navigator.pop(context),
+                  ),
+                ],
                 ),
               ),
             ),
-
+            SizedBox(height: 40.h,),
+            Text(
+              'תקנון',
+              style: TextStyle(
+                color: Color(0xFF0F1511),
+                fontSize: 26.sp,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(height: 20.h,),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Text(lorem*3)
+              )
+            ),
             SizedBox(
               width: 332.w,
               height: 48.h,
@@ -58,7 +84,7 @@ class _TermsState extends State<Terms> {
             ),
           ],
         ),
-      ),
+
     );
   }
 }

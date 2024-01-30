@@ -99,11 +99,11 @@ class MyApp extends StatelessWidget {
               localizationsDelegates: [
                 //AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
+                //GlobalWidgetsLocalizations.delegate,
               ],
               supportedLocales: [
                 const Locale('he'),
-                //const Locale('en'),
+                const Locale('en'),
 
               ],
               title: 'Flutter Demo',

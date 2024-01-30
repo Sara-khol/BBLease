@@ -1,7 +1,7 @@
 import 'package:bblease/Flow/registration/payment_webVIew.dart';
 import 'package:bblease/Flow/registration/start_registration.dart';
 import 'package:bblease/Flow/registration/sucsses_registration.dart';
-import 'package:bblease/Flow/terms_and_conditions.dart';
+import 'package:bblease/Flow/UserInformation/terms_and_conditions.dart';
 import 'package:bblease/utils/common_funcs.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

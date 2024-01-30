@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
@@ -7,20 +12,21 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="406ef940-5ca5-4e71-b141-3d6c4cbe2bd2" name="Changes" comment="changes in face detecting, &#10;enable display errors async,&#10;design fix in long listview,&#10;get all users orders">
+    <list default="true" id="a2046089-2413-4290-b09b-b6e875558b2f" name="Changes" comment=" order history changes before version">
+      <change afterPath="$PROJECT_DIR$/lib/models/all_orders.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/BBLease.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BBLease.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/search_car.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/search_car.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Flow/UserInformation/orderDetails.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/UserInformation/orderDetails.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/UserInformation/ordersHistory.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/UserInformation/ordersHistory.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/face_detector.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/face_detector.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/license_back.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/license_back.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/UserInformation/profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/UserInformation/profile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/registration/tel_to_registration.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/registration/tel_to_registration.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/sideMenu.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/sideMenu.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/terms_and_conditions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/UserInformation/terms_and_conditions.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/class_rent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/class_rent.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/class_rent.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/class_rent.g.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/services/api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/api_service.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,18 +65,19 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;dart.settings&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
-  }
-}</component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="io.flutter.reload.alreadyRun" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/Flow/UserInformation" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\goapp\BBLease\lib\Flow\UserInformation" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
@@ -80,7 +87,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="406ef940-5ca5-4e71-b141-3d6c4cbe2bd2" name="Changes" comment="" />
+      <changelist id="a2046089-2413-4290-b09b-b6e875558b2f" name="Changes" comment="" />
       <created>1704011339766</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -222,15 +229,7 @@
       <option name="project" value="LOCAL‎" />
       <updated>1705826517878</updated>
     </task>
-    <task id="LOCAL‎-00018" summary="disable continue if did not enter address and more...">
-      <option name="closed" value="true" />
-      <created>1705865469311</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL‎-00018" />
-      <option name="project" value="LOCAL‎" />
-      <updated>1705865469313</updated>
-    </task>
-    <option name="localTasksCounter" value="19" />
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -271,9 +270,7 @@
     <MESSAGE value="fixes for realse version" />
     <MESSAGE value="fixes from last update" />
     <MESSAGE value=" order history changes before version" />
-    <MESSAGE value="disable continue if did not enter address and more..." />
-    <MESSAGE value="changes in face detecting, &#10;enable display errors async,&#10;design fix in long listview,&#10;get all users orders" />
-    <option name="LAST_COMMIT_MESSAGE" value="changes in face detecting, &#10;enable display errors async,&#10;design fix in long listview,&#10;get all users orders" />
+    <option name="LAST_COMMIT_MESSAGE" value=" order history changes before version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -297,11 +294,6 @@
           <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
           <line>149</line>
           <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/services/api_service.dart</url>
-          <line>100</line>
-          <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/models/class_rent.g.dart</url>
@@ -359,54 +351,19 @@
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/UserInformation/ordersHistory.dart</url>
-          <line>343</line>
-          <option name="timeStamp" value="41" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/UserInformation/ordersHistory.dart</url>
-          <line>346</line>
-          <option name="timeStamp" value="46" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
-          <line>247</line>
+          <url>file://$PROJECT_DIR$/lib/main.dart</url>
+          <line>51</line>
           <option name="timeStamp" value="47" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
-          <line>248</line>
+          <url>file://$PROJECT_DIR$/lib/main.dart</url>
+          <line>50</line>
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
-          <line>202</line>
+          <url>file://$PROJECT_DIR$/lib/main.dart</url>
+          <line>52</line>
           <option name="timeStamp" value="49" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
-          <line>186</line>
-          <option name="timeStamp" value="50" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
-          <line>630</line>
-          <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
-          <line>631</line>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
-          <line>242</line>
-          <option name="timeStamp" value="53" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/services/api_service.dart</url>
-          <line>92</line>
-          <option name="timeStamp" value="54" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

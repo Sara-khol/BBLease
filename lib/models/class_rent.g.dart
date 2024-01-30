@@ -13,7 +13,7 @@ Rental _$RentalFromJson(Map<String, dynamic> json) => Rental()
   ..endDate =DateFormat("yyyy-MM-dd").parse(json['end_date'] as String)
   ..price = (json['price'] as num).toDouble()
   ..url = json['url-order-pdf'] as String?
-  ..status = json['status'] as String?;
+  ..status = json['status'] as String?
   ..additions = (json['extras'] as List<dynamic>?)
       ?.map((e) => Addition.fromJson(e as Map<String, dynamic>))
       .toList()

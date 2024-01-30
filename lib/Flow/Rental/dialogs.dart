@@ -163,13 +163,12 @@ Future departurePoint(context, address, nav, [sdate, edate]) {
                         onEditingComplete: () {
                           done = true;
                           FocusScope.of(context).unfocus();
-
                         },
                       ),
                       predictions.isNotEmpty
                           ? Expanded(
                         child: ListView.builder(
-                            reverse: true,
+                            //reverse: true,
                             shrinkWrap: true,
                             itemCount: predictions.length,
                             itemBuilder: (context, index) {
@@ -432,12 +431,30 @@ Future rentalTerm(context, [s, e]) {
                         SizedBox(
                           height: 20.h,
                         ),
+                        Visibility(
+                            visible: selectedValue == 1,
+                            child: Container(
+                              //color: Colors.yellow,
+                              height: 100.h,
+                              width: 300.w,
+                              child: Column(
+                                children: [
+                                  Text('בחר טווח שעות',style: TextStyle(
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black)),
+                                  _buildRadioTile2('8:00-17:00 בוקר ', 1),
+                                  _buildRadioTile2('17:00-8:00 לילה', 2),
+                                ],
+                              ),
+                            )
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text('ממתי ?',
                                 style: TextStyle(
-                                    fontSize: 22.sp,
+                                    fontSize: 18.sp,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.black)),
                           ],
@@ -515,7 +532,7 @@ Future rentalTerm(context, [s, e]) {
                                 children: [
                                   Text('עד -',
                                       style: TextStyle(
-                                          fontSize: 22.sp,
+                                          fontSize: 18.sp,
                                           fontWeight: FontWeight.w700,
                                           color: Colors.black)),
                                 ],
@@ -584,19 +601,7 @@ Future rentalTerm(context, [s, e]) {
                             ],
                           ),
                         ),
-                        Visibility(
-                            visible: selectedValue == 1,
-                            child: Container(
-                              //color: Colors.yellow,
-                              height: 100.h,
-                              width: 300.w,
-                              child: Column(
-                                children: [
-                                  _buildRadioTile2('8:00-17:00 בוקר ', 1),
-                                  _buildRadioTile2('17:00-8:00 לילה', 2),
-                                ],
-                              ),
-                            )),
+
                         SizedBox(
                           height: 24.h,
                         ),
@@ -634,7 +639,7 @@ Future rentalTerm(context, [s, e]) {
                                     ));
                               },
                               child: const Text(
-                                'אישור',
+                                'המשך',
                                 style: TextStyle(
                                     fontSize: 22,
                                     fontWeight: FontWeight.w500,

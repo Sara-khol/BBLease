@@ -32,6 +32,9 @@ class Rental{
  @JsonKey(name: 'extras')
    List<Addition>? additions=[];
 
+  @JsonKey(includeFromJson: false)
+  int dayPart=1;
+
 
   //Rental(this.startDate,this.endDate, this.car, this.insurance, this.limitedKM, this.deductible, this.price, this.url);
   Rental();

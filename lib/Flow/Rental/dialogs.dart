@@ -312,17 +312,17 @@ Future rentalTerm(context, [s, e]) {
         return StatefulBuilder(builder: (context, StateSetter setState) {
           _setEndDateBasedOnSelection() {
             if (startDate != null && diff != null) {
-              DateTime calculatedEndDate =
-                  startDate!.add(Duration(days: diff!.toInt() - 1));
-              calculatedEndDate = calculatedEndDate.add(Duration(days: 1));
-              end.text =
-                  intl.DateFormat('dd.MM.yyyy').format(calculatedEndDate);
-              endDate = calculatedEndDate;
+                DateTime calculatedEndDate =
+                startDate!.add(Duration(days: diff!.toInt() - 1));
+                calculatedEndDate = calculatedEndDate.add(Duration(days: 1));
+                end.text =
+                    intl.DateFormat('dd.MM.yyyy').format(calculatedEndDate);
+                endDate = calculatedEndDate;
 
-              rent.startDate = startDate!;
-              rent.endDate = endDate!;
+                rent.startDate = startDate!;
+                rent.endDate = endDate!;
 
-              //setState((){});
+                //setState((){});
             }
           }
 
@@ -446,9 +446,10 @@ Future rentalTerm(context, [s, e]) {
                             visible: selectedValue == 1,
                             child: Container(
                               //color: Colors.yellow,
+                              margin: EdgeInsets.only(bottom: 15.h),
                               height: 100.h,
                               width: 300.w,
-                              child: Column(
+                              child: Wrap(
                                 children: [
                                   Text('בחר טווח שעות',style: TextStyle(
                                       fontSize: 18.sp,
@@ -628,27 +629,33 @@ Future rentalTerm(context, [s, e]) {
                                 ),
                               ),
                               onPressed: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        maintainState: false,
-                                        builder: (context) =>
-                                             SearchCar(location: location,
-                                              latitude: latitude,
-                                              longitude:longitude,
-                                              startDate: startDate,
-                                              endDate: endDate,
-                                              part: selectedPart??-1,
-                                            )
-                                            //     (
-                                            //   location: 'ירושלים',
-                                            //   latitude: 31.803110,
-                                            //   longitude: 35.216148,
-                                            //   startDate: startDate,
-                                            //   endDate: endDate,
-                                            //   part: selectedPart ?? -1,
-                                            // )
-                                    ));
+                                if(start.text.isNotEmpty && selectedValue!=null &&(selectedValue!=1 || selectedPart!=-1)) {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          maintainState: false,
+                                          builder: (context) =>
+                                              SearchCar(location: location,
+                                                latitude: latitude,
+                                                longitude: longitude,
+                                                startDate: startDate,
+                                                endDate: endDate,
+                                                part: selectedPart!=2 ? 1:selectedPart??1,
+                                              )
+                                        //     (
+                                        //   location: 'ירושלים',
+                                        //   latitude: 31.803110,
+                                        //   longitude: 35.216148,
+                                        //   startDate: startDate,
+                                        //   endDate: endDate,
+                                        //   part: selectedPart ?? -1,
+                                        // )
+                                      ));
+                                }
+                                else
+                                  {
+                                    displayMessage(context,message: 'נא מלא את כל הפרטים');
+                                  }
                               },
                               child: const Text(
                                 'המשך',

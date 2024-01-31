@@ -18,7 +18,7 @@ import '../../models/class_user.dart';
 import 'additions_dialog.dart';
 
 class SearchCar extends StatefulWidget {
-   SearchCar({super.key,this.part=-1, required this.location, required this.latitude, required this.longitude, this.startDate, this.endDate
+   SearchCar({super.key,this.part=1, required this.location, required this.latitude, required this.longitude, this.startDate, this.endDate
   });
 
    final int part;
@@ -51,6 +51,7 @@ class _SearchCarState extends State<SearchCar> {
   void initState()  {
     rent.startDate=widget.startDate!;
     rent.endDate=widget.endDate!;
+    rent.dayPart=widget.part;
     getCarsList();
     super.initState();
   }
@@ -64,7 +65,7 @@ class _SearchCarState extends State<SearchCar> {
   getCarsList()  async{
     String start=intl.DateFormat('yyyy-MM-dd').format(widget.startDate!);
     String end  =intl.DateFormat('yyyy-MM-dd').format(widget.endDate!);
-     await ApiService().getCarsAround(start,end,widget.latitude!,widget.longitude!,_currentSliderValue.toInt()*10,(car){
+     await ApiService().getCarsAround(start,end,widget.latitude!,widget.longitude!,_currentSliderValue.toInt()*10,widget.part,(car){
       cars = car.map<Car>((entry) => (Car.fromJson(entry))).toList();
       setState(() {});
       createMap();

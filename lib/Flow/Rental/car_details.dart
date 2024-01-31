@@ -1065,7 +1065,11 @@ class _CarDetailsState extends State<CarDetails> {
                                               .format(widget.rent.startDate),
                                       'end_date': intl.DateFormat('yyyy-MM-dd')
                                           .format(widget.rent.endDate),
-                                      'extra': additionsMap
+                                      'extra': additionsMap,
+                                      'whole_day':widget.rent.startDate.compareTo(widget.rent.endDate)!=0,
+                                      'half_day':widget.rent.startDate.compareTo(widget.rent.endDate)==0,
+                                      'morning':widget.rent.startDate.compareTo(widget.rent.endDate)==0?widget.rent.dayPart==1:false,
+                                      'evening':widget.rent.startDate.compareTo(widget.rent.endDate)==0?widget.rent.dayPart==2:false,
                                     };
                                     showLoading(context);
                                     ApiService().newOrder(map, (res) {

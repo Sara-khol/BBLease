@@ -89,11 +89,11 @@ class ApiService {
     // Prints the raw data returned by the server
   }
 
-  Future getCarsAround(String start,String end,double lat,double long,int km, Function(dynamic carJson) onSuccess) async {
-    print('${_baseUrl}wp/v2/get_vehicles_around_address/$start/$end/$lat/$long/$km/1');
+  Future getCarsAround(String start,String end,double lat,double long,int km, int dayPart,Function(dynamic carJson) onSuccess) async {
+    print('${_baseUrl}wp/v2/get_vehicles_around_address/$start/$end/$lat/$long/$km/$dayPart');
 
     // Response response = await _dio.get('${_baseUrl}wp/v2/get_all_vehicles');
-    Response response = await _dio.get('${_baseUrl}wp/v2/get_vehicles_around_address/$start/$end/$lat/$long/$km/1');
+    Response response = await _dio.get('${_baseUrl}wp/v2/get_vehicles_around_address/$start/$end/$lat/$long/$km/$dayPart');
     if(response.statusCode == 200) {
       var result = response.data;
       print(result);

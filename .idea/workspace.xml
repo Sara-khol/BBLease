@@ -7,18 +7,15 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="406ef940-5ca5-4e71-b141-3d6c4cbe2bd2" name="Changes" comment="fix merge">
-      <change beforePath="$PROJECT_DIR$/.idea/BBLease.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BBLease.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+    <list default="true" id="406ef940-5ca5-4e71-b141-3d6c4cbe2bd2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/car_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/car_details.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/map.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/map.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Flow/Rental/search_car.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Flow/Rental/search_car.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/class_rent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/class_rent.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/api_service.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -243,7 +240,15 @@
       <option name="project" value="LOCAL‎" />
       <updated>1706610199463</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL‎-00021" summary="fix - send current position to search car">
+      <option name="closed" value="true" />
+      <created>1706611693225</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL‎-00021" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1706611693225</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -287,31 +292,12 @@
     <MESSAGE value="disable continue if did not enter address and more..." />
     <MESSAGE value="changes in face detecting, &#10;enable display errors async,&#10;design fix in long listview,&#10;get all users orders" />
     <MESSAGE value="fix merge" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix merge" />
+    <MESSAGE value="fix - send current position to search car" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix - send current position to search car" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/sentry-7.14.0/lib/src/sentry.dart</url>
-          <line>186</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
-          <line>150</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
-          <line>153</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
-          <line>149</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/services/api_service.dart</url>
           <line>100</line>
@@ -403,26 +389,39 @@
           <option name="timeStamp" value="50" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
-          <line>630</line>
-          <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
-          <line>631</line>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
-          <line>242</line>
-          <option name="timeStamp" value="53" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/services/api_service.dart</url>
           <line>92</line>
           <option name="timeStamp" value="54" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
+          <line>345</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
+          <line>367</line>
+          <option name="timeStamp" value="56" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
+          <line>631</line>
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Flow/Rental/dialogs.dart</url>
+          <line>659</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="FlutterRunConfigurationType">
+        <watch expression="startDate" />
+        <watch expression="selectedValue" />
+        <watch expression="selectedValue!=1" />
+        <watch expression="selectedPart" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

@@ -9,6 +9,8 @@ part of 'car.dart';
 Car _$CarFromJson(Map<String, dynamic> json) => Car(
       id: json['ID'] as int,
       carNumber: json['car_number'] as int,
+      postName: json['post_name'] as String,
+      postTitle: json['post_title'] as String,
       model: json['model'] as String,
       seats: json['seats_number'] as int,
       doors: json['doors_number'] as int,
@@ -19,6 +21,7 @@ Car _$CarFromJson(Map<String, dynamic> json) => Car(
       maxFuel: (json['fuel_container_max'] as num).toDouble(),
       address: json['adress'] as String,
     )
+
       ..carImages =
           (json['car_images'] as List<dynamic>).map((e) => e as String).toList()
       ..parkPosition = (json['park_position'] as Map<String, dynamic>).map(
@@ -27,6 +30,8 @@ Car _$CarFromJson(Map<String, dynamic> json) => Car(
 
 Map<String, dynamic> _$CarToJson(Car instance) => <String, dynamic>{
       'ID': instance.id,
+      'post_name': instance.postName,
+      'post_title': instance.postTitle,
       'car_number': instance.carNumber,
       'model': instance.model,
       'seats_number': instance.seats,

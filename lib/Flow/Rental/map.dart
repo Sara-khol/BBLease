@@ -8,9 +8,13 @@ import 'package:geolocator/geolocator.dart';
 import 'package:flutter_address_from_latlng/flutter_address_from_latlng.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'package:custom_info_window/custom_info_window.dart';
 
 import '../../customWidgets/appBarB.dart';
+import '../../models/car.dart';
+import '../../services/api_service.dart';
 import '../../utils/my_colors.dart';
+import 'car_details_dialog.dart';
 import 'dialogs.dart';
 
 
@@ -22,9 +26,18 @@ class RentalWidget extends StatefulWidget {
 }
 
 class _RentalWidgetState extends State<RentalWidget> {
-  bool dialogShown=false;
+
+  CameraPosition _kGoogle = CameraPosition(target: LatLng(31.80012237280773, 35.212884511532316), zoom: 13,);
   late GoogleMapController _mapController;
   Address? formattedAddress;
+  late Uint8List  available;
+  late Uint8List  unAvailable;
+  List<Car> availableCars = [];
+  List<Car> unAvailableCars = [];
+  final List<Marker> _markers = <Marker>[];
+  bool dialogShown=false;
+  CustomInfoWindowController _customInfoWindowController = CustomInfoWindowController();
+
   Future<Position> _determinePosition() async{
     bool serviceEnabled;
     LocationPermission permission;
@@ -60,12 +73,12 @@ class _RentalWidgetState extends State<RentalWidget> {
       );
 
       print('address: ${formattedAddress?.formattedAddress}');
-      CameraPosition updatedPosition = CameraPosition(
+      /*CameraPosition updatedPosition = CameraPosition(
         target: LatLng(position.latitude, position.longitude),
         zoom: 17,
       );
 
-      _mapController.animateCamera(CameraUpdate.newCameraPosition(updatedPosition));
+      _mapController.animateCamera(CameraUpdate.newCameraPosition(updatedPosition));*/
 
       /*Marker userLocationMarker = Marker(
         markerId: MarkerId('userLocation'),
@@ -75,11 +88,10 @@ class _RentalWidgetState extends State<RentalWidget> {
       );*/
       // Add the user's location marker to the list of markers
       //_markers.add(userLocationMarker);
-      print('marker: ${_markers.length}');
 
 
       setState(() {
-        _kGoogle = updatedPosition;
+        //_kGoogle = updatedPosition;
 
       });
       if(!dialogShown) {
@@ -92,13 +104,28 @@ class _RentalWidgetState extends State<RentalWidget> {
     }
   }
 
-  CameraPosition _kGoogle = CameraPosition(target: LatLng(31.802364052347162, 35.09444909735681), zoom: 17,);
-  final List<Marker> _markers = <Marker>[];
+
+  getCarsList()  async{
+print('getCarsList');
+    await ApiService().getCarsAvailableOrNot((data){
+      print('onSuccess');
+      var available=data['available_car'];
+      var unavailable=data['active_car'];
+
+      availableCars = available.map<Car>((entry) => (Car.fromJson(entry))).toList();
+      unAvailableCars = unavailable.map<Car>((entry) => (Car.fromJson(entry))).toList();
+      print('bla bla ${availableCars.length+unAvailableCars.length}',);
+      setState(() {});
+
+      generateMarkers();
+    });
+
+  }
 
   //List<String> images = ['assets/images/Vector.png',];
 
   //TODO: get locations from API
-  final List<LatLng> _latLen = <LatLng>[
+  /*final List<LatLng> _latLen = <LatLng>[
 
     LatLng(31.814850481904614, 35.19863145952789),
     LatLng(31.812005967321277, 35.20367401242728),
@@ -106,7 +133,7 @@ class _RentalWidgetState extends State<RentalWidget> {
     LatLng(31.81572569953603, 35.19584196217929),
     LatLng(31.812334185013373, 35.19592779286694),
     LatLng(31.81895299286649, 35.19504802831853),
-  ];
+  ];*/
 
 // declared method to get Images
   Future<Uint8List> getImages(String path, int width) async{
@@ -114,76 +141,150 @@ class _RentalWidgetState extends State<RentalWidget> {
     ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetHeight: width);
     ui.FrameInfo fi = await codec.getNextFrame();
     return(await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
-
   }
 
 // created method for displaying custom markers according to index
-  loadData() async{
-    //for(int i=0 ;i<images.length; i++){
+  addMarkers() async{
+    print('loadData');
+    int index=0;
+    for(var car in availableCars){
+      _markers.add(
+          Marker(
+            markerId: MarkerId('${index++}'),
+            icon:   BitmapDescriptor.fromBytes(available) ,
+            visible: true,
+            position: LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),//_latLen[i],
+            onTap: () {
+              _customInfoWindowController.addInfoWindow!(
+                Container(
+                  decoration: BoxDecoration(
+                    color:  turquoiseColorApp,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: Center(
+                    child: TextButton(
+                      onPressed: () {
+                        carDetailsDialog(context,car,true);
+                      },
+                      child: Text(car.postTitle,style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,
+                        fontSize: 18.sp,),),
+                    ),
+                  ),
+                ),
+                LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),
+              );
+            },
+          )
+      );
+      print('marker: ${_markers.length}');
+    }
+    for(var car in unAvailableCars){
       //final Uint8List markIcons = await getImages(images[i], 50);
       // makers added according to index
       _markers.add(
           Marker(
-            // given marker id
-            markerId: MarkerId('i.toString()'),
-            // given marker icon
-            icon:  BitmapDescriptor.defaultMarker,//BitmapDescriptor.fromBytes(markIcons),
+            markerId: MarkerId('${index++}'),
+            icon:  BitmapDescriptor.fromBytes(unAvailable),
             visible: true,
-            // given position
-            position: LatLng(_kGoogle.target.latitude, _kGoogle.target.longitude),//_latLen[i],
-            infoWindow: InfoWindow(
-              // given title for marker
-              title: 'You are here',//'Location: '+i.toString(),
-            ),
+            position: LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),//_latLen[i],
+            onTap: () {
+              _customInfoWindowController.addInfoWindow!(
+                Container(
+                  decoration: BoxDecoration(
+                    color:  pinkColorApp,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: Center(
+                    child: TextButton(
+                      onPressed: () {
+                        carDetailsDialog(context,car,false);
+
+                      },
+                      child: Text(car.postTitle,style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,
+                        fontSize: 18.sp,),),
+                    ),
+                  ),
+                ),
+                LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),
+              );
+            },
           )
       );
-      setState(() {
-      });
-    //}
+    }
+    print('marker: ${_markers.length}');
+    setState(() {});
+  }
+
+  Future getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))?.buffer.asUint8List();
+  }
+
+  generateMarkers()async{
+    available=await getBytesFromAsset('assets/images/car-available.png', 300);
+    unAvailable=await getBytesFromAsset('assets/images/car-not-available.png', 300);
+    /*available=await BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(152.w,181.h)), 'assets/icons/car-available.png');
+    unAvailable=await BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(152.w,181.h)), 'assets/icons/car_not_available.png');*/
+    print('generate markers: $available, $unAvailable');
+    addMarkers();
   }
 
   @override
   void initState() {
     super.initState();
    /* _setCurrentLocation();*/
+    getCarsList();
+    //generateMarkers();
+
   }
 
   @override
   void dispose() {
+    _customInfoWindowController.dispose();
     _mapController.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-
           GoogleMap(
-
-          // given camera position
-          initialCameraPosition: _kGoogle,
-          // set markers on google map
-          markers: Set<Marker>.of(_markers),
-          // on below line we have given map type
-          mapType: MapType.normal,
-          zoomControlsEnabled: true,
-          // on below line we have enabled location
-          myLocationEnabled: true,
-          myLocationButtonEnabled: true,
-          // on below line we have enabled compass
-          compassEnabled: true,
-
-          // below line displays google map in our app
+            initialCameraPosition: _kGoogle,
+            markers: _markers.toSet(),//Set<Marker>.of(_markers),
+            mapType: MapType.normal,
+            zoomControlsEnabled: true,
+            myLocationEnabled: true,
+            myLocationButtonEnabled: true,
+            compassEnabled: true,
+            onTap: (position) {
+              _customInfoWindowController.hideInfoWindow!();
+            },
+            onCameraMove: (position) {
+              _customInfoWindowController.onCameraMove!();
+            },
           onMapCreated: (GoogleMapController controller){
             _mapController=controller;
+            _customInfoWindowController.googleMapController = controller;
             _setCurrentLocation();
             },
+            
           ),
+          CustomInfoWindow(
+            controller: _customInfoWindowController,
+            height: 48.h,
+            width: 114.w,
+            offset: 100,
 
-             AppBarBibilease(),
+          ),
+          AppBarBibilease(),
           Align(
             alignment: Alignment.bottomCenter,
             child:
@@ -215,10 +316,8 @@ class _RentalWidgetState extends State<RentalWidget> {
                 ),
               ),
             ),
-
         ],
       ),
     );
   }
-
 }

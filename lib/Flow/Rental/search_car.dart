@@ -342,7 +342,7 @@ class _SearchCarState extends State<SearchCar> {
                 ),
 
               ),
-              Icon(Icons.filter_alt_outlined,color: pinkColorApp,size: 20.sp,),
+                ImageIcon(AssetImage("assets/icons/Filter.png"),size: 20.w,),
              ], ),),
           //Spacer(),
           //SizedBox(width:33.w,),
@@ -505,7 +505,7 @@ class _SearchCarState extends State<SearchCar> {
                               ),
                             ),
                             SizedBox(width: 8.w,),
-                            Icon(Icons.filter_alt_outlined,color: Color(0xffFB2576),size: 24.w,),
+                            ImageIcon(AssetImage("assets/icons/Filter.png"),size: 20.w,),
                             Spacer(),
                             TextButton(
                               style: TextButton.styleFrom(

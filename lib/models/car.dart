@@ -9,6 +9,8 @@ class Car{
   late int id;
   @JsonKey(name: 'post_name')
   late String postName;
+  @JsonKey(name: 'post_title')
+  late String postTitle;
   @JsonKey(name: 'car_number')
   late int carNumber;
   @JsonKey(name: 'model')
@@ -49,6 +51,8 @@ class Car{
 
   Car({
     required this.id,
+    required this.postName,
+    required this.postTitle,
     required this.carNumber,
     required this.model,
     required this.seats,

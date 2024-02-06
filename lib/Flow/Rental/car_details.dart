@@ -376,11 +376,7 @@ class _CarDetailsState extends State<CarDetails> {
                                         //SizedBox(height: 20.h),
                                         Row(
                                           children: [
-                                            Icon(
-                                              Icons.calendar_today_outlined,
-                                              color: colors.blackColorApp,
-                                              size: 20.w,
-                                            ),
+                                            ImageIcon(AssetImage("assets/icons/Calendar.png"),size: 20.w,),
                                             SizedBox(
                                               width: 9.w,
                                             ),

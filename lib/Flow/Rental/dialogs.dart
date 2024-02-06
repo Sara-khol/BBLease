@@ -13,7 +13,11 @@ import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:intl/intl.dart' as intl;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../models/additions.dart';
+import '../../models/car.dart';
 import '../../models/class_rent.dart';
+import '../../services/api_service.dart';
+import 'additions_dialog.dart';
 
 double? latitude;
 double? longitude;
@@ -282,7 +286,7 @@ Future departurePoint(context, address, nav, [sdate, edate]) {
   );
 }
 
-Future rentalTerm(context, [s, e]) {
+Future rentalTerm(context, [DateTime? s,DateTime? e]) {
   TextEditingController start = TextEditingController();
   TextEditingController end = TextEditingController();
 
@@ -415,11 +419,8 @@ Future rentalTerm(context, [s, e]) {
                             SizedBox(
                               width: 9.w,
                             ),
-                            Icon(
-                              Icons.calendar_today_outlined,
-                              color: colors.pinkColorApp,
-                              size: 24.sp,
-                            ),
+                            ImageIcon(AssetImage("assets/icons/Calendar.png"),size: 20.w,color: pinkColorApp,),
+
                           ],
                         ),
                         SizedBox(
@@ -499,11 +500,8 @@ Future rentalTerm(context, [s, e]) {
                               ),
                               contentPadding: EdgeInsets.symmetric(
                                   vertical: 12.w, horizontal: 20.h),
-                              suffixIcon: Icon(
-                                Icons.calendar_today_outlined,
-                                color: colors.pinkColorApp,
-                                size: 22.sp,
-                              )),
+                              suffixIcon: ImageIcon(AssetImage("assets/icons/Calendar.png"),size: 20.w,color: pinkColorApp,),
+),
                           //style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
                           controller: start,
                           style: TextStyle(fontSize: 22.sp),
@@ -581,11 +579,7 @@ Future rentalTerm(context, [s, e]) {
                                     ),
                                     contentPadding: EdgeInsets.symmetric(
                                         vertical: 12.w, horizontal: 20.h),
-                                    suffixIcon: Icon(
-                                      Icons.calendar_today_outlined,
-                                      color: colors.pinkColorApp,
-                                      size: 22.sp,
-                                    )),
+                                    suffixIcon: ImageIcon(AssetImage("assets/icons/Calendar.png"),size: 20.w,color: pinkColorApp,),),
                                 style: TextStyle(fontSize: 22.sp),
                                 controller: end,
                                 validator: (value) {
@@ -625,6 +619,7 @@ Future rentalTerm(context, [s, e]) {
                                 ),
                               ),
                               onPressed: () {
+
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
@@ -673,6 +668,8 @@ Future rentalTerm(context, [s, e]) {
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(25))));
 }
+
+
 
 Future showLoading(BuildContext context) {
   return showDialog(

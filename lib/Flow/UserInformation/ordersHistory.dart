@@ -21,59 +21,48 @@ class OrdersHistory extends StatefulWidget {
 }
 
 class _OrdersHistoryState extends State<OrdersHistory> {
+
   List<Rental> ordersHistory = [];
   List<Rental> futureOrders = [];
   late Rental currentRent;
   int selected = 1; //history=1, future=2
 
+
   @override
   void initState() {
     getOrders();
-    //getActiveRent();
     super.initState();
   }
 
-   DateTime? s;
-   DateTime? e;
+  DateTime? s;
+  DateTime? e;
   bool initData = false;
 
   getOrders() async {
-try{
-    print('getOrders');
-    await ApiService().getUserOrders(User().userId, (data) {
-      print('onSuccess');
-      var historyJson= data['history'];
-      var futureJson= data['futurity'];
-      ordersHistory = historyJson.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
-      futureOrders = futureJson.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
-      //var orders = rent.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
-      //ordersHistory=orders['history'];
-      //futureOrders=orders['futurity'];
+    try {
+      print('getOrders');
+      await ApiService().getUserOrders(User().userId, (data) {
+        print('onSuccess');
+        var historyJson = data['history'];
+        var futureJson = data['futurity'];
+        ordersHistory = historyJson.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
+        futureOrders = futureJson.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
 
-      //print('orders: ${orders.length}');
-
-      for(var item in ordersHistory) {
-        print(item.status);
-        if(item.status=="active-rentals") {
-          User().currentRent=item;
+        for (var item in ordersHistory) {
+          print(item.status);
+          if (item.status == "active-rentals") {
+            User().currentRent = item;
+          }
         }
-      }
-      initData = true;
+        initData = true;
 
-      setState(() {});
-        /*if (orders.isNotEmpty) {
-          // s = orders.first.startDate;
-          // e = orders.last.endDate;
-        }*/
+        setState(() {});
       });
-   }
-    catch( e,s)
-    {
+    } catch (e, s) {
       debugPrint('error ${e} $s');
     }
   }
-
-  /*getActiveRent() async {
+    /*getActiveRent() async {
     await ApiService().getActiveRent(User().userId, (rent) {
       print(rent);
         currentRent = rent.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
@@ -86,507 +75,516 @@ try{
 
   }*/
 
-  filterByDate() {
-    TextEditingController start = TextEditingController();
-    TextEditingController end = TextEditingController();
-    return showModalBottomSheet<dynamic>(
-        isScrollControlled: true,
-        isDismissible: false,
-        context: context,
-        builder: (context) {
-          return StatefulBuilder(builder: (context, StateSetter setState) {
-            return Padding(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(maxHeight: 600.h),
-                  child: Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.topRight,
-                        child: IconButton(
-                          icon: const Icon(Icons.close),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
+    filterByDate() {
+      TextEditingController start = TextEditingController();
+      TextEditingController end = TextEditingController();
+      return showModalBottomSheet<dynamic>(
+          isScrollControlled: true,
+          isDismissible: false,
+          context: context,
+          builder: (context) {
+            return StatefulBuilder(builder: (context, StateSetter setState) {
+              return Padding(
+                padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(maxHeight: 600.h),
+                    child: Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                            icon: const Icon(Icons.close),
+                            onPressed: () {Navigator.pop(context);},
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 30.w, right: 30.w),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'סנן הזמנות לפי תאריך  ',
-                                  style: TextStyle(
+                        Padding(
+                          padding: EdgeInsets.only(left: 30.w, right: 30.w),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('סנן הזמנות לפי תאריך  ',
+                                    style: TextStyle(
+                                        fontSize: 22.sp,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.black),
+                                  ),
+                          ImageIcon(AssetImage("assets/icons/Calendar.png"),size: 20.w,color: pinkColorApp,),
+
+                                ],
+                              ),
+                              SizedBox(height: 26.h,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text('ממתי ?',
+                                      style: TextStyle(
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.black)),
+                                ],
+                              ),
+                              TextFormField(
+                                readOnly: true,
+                                cursorColor: const Color.fromRGBO(15, 17, 21, 1),
+                                decoration: InputDecoration(
+                                    isDense: true,
+                                    labelStyle: TextStyle(
                                       fontSize: 22.sp,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.black),
-                                ),
-                                Icon(
-                                  Icons.calendar_today_outlined,
-                                  color: pinkColorApp,
-                                  size: 24.sp,
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 26.h,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text('ממתי ?',
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.black)),
-                              ],
-                            ),
-                            TextFormField(
-                              readOnly: true,
-                              cursorColor: const Color.fromRGBO(15, 17, 21, 1),
-                              decoration: InputDecoration(
-                                  isDense: true,
-                                  labelStyle: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      color: const Color.fromRGBO(15, 17, 21, 1),
+                                      fontFamily: 'PLONI',
+                                    ),
+                                    floatingLabelBehavior:
+                                    FloatingLabelBehavior.auto,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        10.0,
+                                      ),
+                                      borderSide: const BorderSide(
+                                        color: Color.fromRGBO(15, 17, 21, 1),
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        10.0,
+                                      ),
+                                      borderSide: const BorderSide(
+                                        color: Color.fromRGBO(15, 17, 21, 1),
+                                      ),
+                                    ),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 12.w, horizontal: 20.h),
+                                    suffixIcon: ImageIcon(AssetImage("assets/icons/Calendar.png"),size: 20.w,color: pinkColorApp,),),
+                                //style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
+                                controller: start,
+                                style: TextStyle(
                                     fontSize: 22.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: const Color.fromRGBO(15, 17, 21, 1),
-                                    fontFamily: 'PLONI',
-                                  ),
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.auto,
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      10.0,
+                                    fontWeight: FontWeight.w300),
+                                onTap: () async {
+                                  DateTime? date = await showDatePicker(
+                                      locale: const Locale("he", "HE"),
+                                      textDirection: TextDirection.rtl,
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(2000),
+                                      lastDate: DateTime.now());
+                                  if (date != null) {
+                                    start.text = intl.DateFormat('dd.MM.yyyy')
+                                        .format(date);
+                                    print('start: ${start.text}');
+                                    s = date;
+                                  }
+                                },
+                              ),
+                              SizedBox(
+                                height: 20.h,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text('עד -',
+                                      style: TextStyle(
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.black)),
+                                ],
+                              ),
+                              TextFormField(
+                                readOnly: true,
+                                cursorColor: const Color.fromRGBO(
+                                    15, 17, 21, 1),
+                                decoration: InputDecoration(
+                                    isDense: true,
+                                    labelStyle: TextStyle(
+                                      fontSize: 22.sp,
+                                      fontWeight: FontWeight.w300,
+                                      color: const Color.fromRGBO(
+                                          15, 17, 21, 1),
+                                      fontFamily: 'PLONI',
                                     ),
-                                    borderSide: const BorderSide(
-                                      color: Color.fromRGBO(15, 17, 21, 1),
+                                    floatingLabelBehavior:
+                                    FloatingLabelBehavior.auto,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        10.0,
+                                      ),
+                                      borderSide: const BorderSide(
+                                        color: Color.fromRGBO(15, 17, 21, 1),
+                                      ),
                                     ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      10.0,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        10.0,
+                                      ),
+                                      borderSide: const BorderSide(
+                                        color: Color.fromRGBO(15, 17, 21, 1),
+                                      ),
                                     ),
-                                    borderSide: const BorderSide(
-                                      color: Color.fromRGBO(15, 17, 21, 1),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 12.w, horizontal: 20.h),
+                                    suffixIcon: ImageIcon(AssetImage("assets/icons/Calendar.png"),size: 20.w,)),
+                                style: TextStyle(fontSize: 22.sp),
+                                controller: end,
+                                onTap: () async {
+                                  DateTime? date = await showDatePicker(
+                                      locale: const Locale("he", "HE"),
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime.now(),
+                                      lastDate: DateTime(2100));
+                                  if (date != null) {
+                                    end.text = intl.DateFormat('dd.MM.yyyy')
+                                        .format(date);
+                                    e = date;
+                                  }
+                                },
+                              ),
+                              SizedBox(
+                                height: 30.h,
+                              ),
+                              SizedBox(
+                                height: 48.h,
+                                width: 332.w,
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: turquoiseColorApp,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            100),
+                                      ),
                                     ),
-                                  ),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 12.w, horizontal: 20.h),
-                                  suffixIcon: Icon(
-                                    Icons.calendar_today_outlined,
-                                    color: pinkColorApp,
-                                    size: 22.sp,
-                                  )),
-                              //style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
-                              controller: start,
-                              style: TextStyle(
-                                  fontSize: 22.sp, fontWeight: FontWeight.w300),
-                              onTap: () async {
-                                DateTime? date = await showDatePicker(
-                                    locale: const Locale("he", "HE"),
-                                    textDirection: TextDirection.rtl,
-                                    context: context,
-                                    initialDate: DateTime.now(),
-                                    firstDate: DateTime(2000),
-                                    lastDate: DateTime.now());
-                                if (date != null) {
-                                  start.text = intl.DateFormat('dd.MM.yyyy')
-                                      .format(date);
-                                  print('start: ${start.text}');
-                                  s = date;
-                                }
-                              },
-                            ),
-                            SizedBox(
-                              height: 20.h,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text('עד -',
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.black)),
-                              ],
-                            ),
-                            TextFormField(
-                              readOnly: true,
-                              cursorColor: const Color.fromRGBO(15, 17, 21, 1),
-                              decoration: InputDecoration(
-                                  isDense: true,
-                                  labelStyle: TextStyle(
-                                    fontSize: 22.sp,
-                                    fontWeight: FontWeight.w300,
-                                    color: const Color.fromRGBO(15, 17, 21, 1),
-                                    fontFamily: 'PLONI',
-                                  ),
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.auto,
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      10.0,
-                                    ),
-                                    borderSide: const BorderSide(
-                                      color: Color.fromRGBO(15, 17, 21, 1),
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      10.0,
-                                    ),
-                                    borderSide: const BorderSide(
-                                      color: Color.fromRGBO(15, 17, 21, 1),
-                                    ),
-                                  ),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 12.w, horizontal: 20.h),
-                                  suffixIcon: Icon(
-                                    Icons.calendar_today_outlined,
-                                    color: pinkColorApp,
-                                    size: 22.sp,
-                                  )),
-                              style: TextStyle(fontSize: 22.sp),
-                              controller: end,
-                              onTap: () async {
-                                DateTime? date = await showDatePicker(
-                                    locale: const Locale("he", "HE"),
-                                    context: context,
-                                    initialDate: DateTime.now(),
-                                    firstDate: DateTime.now(),
-                                    lastDate: DateTime(2100));
-                                if (date != null) {
-                                  end.text = intl.DateFormat('dd.MM.yyyy')
-                                      .format(date);
-                                  e = date;
-                                }
-                              },
-                            ),
-                            SizedBox(
-                              height: 30.h,
-                            ),
-                            SizedBox(
-                              height: 48.h,
-                              width: 332.w,
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: turquoiseColorApp,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(100),
-                                    ),
-                                  ),
-                                  onPressed: () => setState(() {}),
-                                  child: const Text(
-                                    'הצג',
-                                    style: TextStyle(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.w500),
-                                  )),
-                            ),
-                          ],
+                                    onPressed: () => setState(() {}),
+                                    child: const Text(
+                                      'הצג',
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w500),
+                                    )),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          });
-        },
-        barrierColor: Colors.black12.withOpacity(0.1),
-        //isDismissible: false,
-        elevation: 2,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-        ));
-  }
+              );
+            });
+          },
+          barrierColor: Colors.black12.withOpacity(0.1),
+          //isDismissible: false,
+          elevation: 2,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+          ));
+    }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Column(
-          children: [
-            Directionality(
-                textDirection: TextDirection.ltr, child: AppBarBibilease()),
-            SizedBox(height: 40.h),
-            Text(
-              'ההזמנות שלי',
-              style: TextStyle(
-                color: Color(0xFF0F1511),
-                fontSize: 26.sp,
-                fontWeight: FontWeight.w600,
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        body: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Column(
+            children: [
+              Directionality(
+                  textDirection: TextDirection.ltr, child: AppBarBibilease()),
+              SizedBox(height: 40.h),
+              Text(
+                'ההזמנות שלי',
+                style: TextStyle(
+                  color: Color(0xFF0F1511),
+                  fontSize: 26.sp,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            ),
-            SizedBox(height: 40.h,),
-             SizedBox(
-                      height: 48.h,
-                      width: 332.w,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: initData&&User().currentRent!=null
-                                ? turquoiseColorApp
-                                : turquoiseColorApp.withOpacity(0.5),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                            elevation: 0.0,
-                          ),
-                          onPressed: initData&&User().currentRent!=null
-                              ? () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const ActiveRentDetails(),
-                                      ));
-                                }
-                              : null,
+              SizedBox(height: 18.h,),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 38.w),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 34.h,
+                      width: 152.w,
+                      margin: EdgeInsets.zero,
+                      padding: EdgeInsets.zero,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: selected==1?blackColorApp:Colors.transparent,
+                      ),
+                      child: TextButton(
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            //minimumSize: Size(50, 30),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,),
+                          onPressed: () {
+                            setState(() {
+                              selected = 1;
+                            });
+                          },
                           child: Text(
-                            'הזמנה נוכחית',
+                            'היסטורית הזמנות',
                             style: TextStyle(
-                                fontSize: 22.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white),
+                                fontSize: 18.sp,
+                                fontWeight: selected == 1
+                                    ? FontWeight.w600
+                                    : FontWeight.w400,
+                                color: selected == 1
+                                    ? Colors.white
+                                    : blackColorApp),
                           )),
                     ),
-            SizedBox(height: 67.h,),
-            Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 38.w),
-              child: Row(
-
-                children: [
-                  Container(
-                    height: 34.h,
-                    width: 160.w,
-                    margin: EdgeInsets.zero,
-                    padding: EdgeInsets.zero,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: blackColorApp,
-                    ),
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                          //minimumSize: Size(50, 30),
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,),
-                        onPressed: () {
-                          setState(() {
-                            selected=1;
-                          });
-                        },
-                        child: Text(
-                          'היסטורית הזמנות',
-                          style: TextStyle(
-                              fontSize: 18.sp,
-                              fontWeight: selected==1?FontWeight.w600:FontWeight.w400,
-                              color: selected==1?Colors.white:blackColorApp),
-                        )),
-                  ),
-                  Spacer(),
-                  SizedBox(
-                    height: 34.h,
-                    width: 152.w,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:selected==2?blackColorApp:Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                          elevation: 0.0,
-                        ),
-                        onPressed: () {  setState(() {
-                          selected=2;
-                        });                    },
-                        child: Text(
-                          'הזמנות עתידיות',
-                          style: TextStyle(
-                              fontSize: 18.sp,
-                              fontWeight: selected==2?FontWeight.w700:FontWeight.w400,
-                              color: selected==2?Colors.white:blackColorApp),
-                        )),
-                  ),
-                ],
-              ),
-            ),
-            TextButton(
-                onPressed: () {},
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'סנן לפי תאריך  ',
-                      style: TextStyle(fontSize: 18.sp,color: blackColorApp),
-                    ),
-                    Icon(Icons.filter_alt_outlined,color: pinkColorApp,),
-                    SizedBox(width: 40.w,)
-                  ],
-                )
-            ),
-            SizedBox(height: 20.h,),
-            initData ? ordersHistory.isNotEmpty
-                    ? MediaQuery.removePadding(
-                        removeTop: true,
-                        context: context,
-                        child: selected==1 ?ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: ordersHistory.length,
-                          itemBuilder: (context, index) {
-                            Rental rent = ordersHistory[index];
-                            if ((s==null || e==null) ||
-                                (rent.startDate.isBefore(e!) ||
-                                rent.startDate.compareTo(e!) == 0 ||
-                                rent.endDate.isAfter(s!) == 0)) {
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => OrderDetails(
-                                          rent: rent,
-                                        ),
-                                      ));
-                                },
-                                child: Container(
-                                  width: 332.w,
-                                  height: 50.h,
-                                  margin: EdgeInsets.only(bottom: 22.h,left: 30.w,right: 30.w),
-                                  decoration: BoxDecoration(
-                                      color: Color(0xFFF7F7F7),
-                                      borderRadius: BorderRadius.circular(8)),
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 22.w),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          intl.DateFormat('dd.MM.yyyy')
-                                              .format(rent.startDate),
-                                          style: TextStyle(
-                                              fontSize: 18.sp,
-                                              fontWeight: FontWeight.w300),
-                                        ),
-                                        Spacer(),
-                                         Icon(
-                                          Icons.file_download,
-                                          color: pinkColorApp
-                                         ),
-
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }
+                    Spacer(),
+                    Container(
+                      height: 34.h,
+                      width: 152.w,
+                      margin: EdgeInsets.zero,
+                      padding: EdgeInsets.zero,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: selected==2?blackColorApp:Colors.transparent,
+                      ),
+                      child: TextButton(
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            //minimumSize: Size(50, 30),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,),
+                          onPressed: () {
+                            setState(() {
+                              selected = 2;
+                            });
                           },
-                        )
-                            :ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: futureOrders.length,
-                              itemBuilder: (context, index) {
-                                Rental rent = futureOrders[index];
-                                if ((s==null || e==null) ||
-                                    (rent.startDate.isBefore(e!) ||
-                                        rent.startDate.compareTo(e!) == 0 ||
-                                        rent.endDate.isAfter(s!) == 0)) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                     /* Navigator.push(
+                          child: Text(
+                            'הזמנות עתידיות',
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: selected == 2
+                                    ? FontWeight.w600
+                                    : FontWeight.w400,
+                                color: selected == 2
+                                    ? Colors.white
+                                    : blackColorApp),
+                          )),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 15.h,),
+              TextButton(
+                  onPressed: () {},
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'סנן לפי תאריך ',
+                        style: TextStyle(fontSize: 14.sp, color: blackColorApp),
+                      ),
+                      ImageIcon(AssetImage("assets/icons/Filter.png"),size: 20.w,),
+                      SizedBox(width: 40.w,)
+                    ],
+                  )
+              ),
+              SizedBox(height: 30.h,),
+              SizedBox(
+                height: 48.h,
+                width: 332.w,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: initData && User().currentRent != null
+                          ? turquoiseColorApp
+                          : turquoiseColorApp.withOpacity(0.5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      elevation: 0.0,
+                    ),
+                    onPressed: initData && User().currentRent != null
+                        ? () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                            const ActiveRentDetails(),
+                          ));
+                    }
+                        : null,
+                    child: Text(
+                      'הזמנה נוכחית',
+                      style: TextStyle(
+                          fontSize: 22.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white),
+                    )),
+              ),
+              SizedBox(height: 20.h,),
+              initData ? ordersHistory.isNotEmpty
+                  ? MediaQuery.removePadding(
+                  removeTop: true,
+                  context: context,
+                  child: selected == 1 ? ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: ordersHistory.length,
+                    itemBuilder: (context, index) {
+                      Rental rent = ordersHistory[index];
+                      if ((s == null || e == null) ||
+                          (rent.startDate.isBefore(e!) ||
+                              rent.startDate.compareTo(e!) == 0 ||
+                              rent.endDate.isAfter(s!))) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      OrderDetails(
+                                        rent: rent,
+                                      ),
+                                ));
+                          },
+                          child: Container(
+                            width: 332.w,
+                            height: 50.h,
+                            margin: EdgeInsets.only(
+                                bottom: 22.h, left: 30.w, right: 30.w),
+                            decoration: BoxDecoration(
+                                color: Color(0xFFF7F7F7),
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Padding(
+                              padding:
+                              EdgeInsets.symmetric(horizontal: 22.w),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    intl.DateFormat('dd.MM.yyyy')
+                                        .format(rent.startDate),
+                                    style: TextStyle(
+                                        fontSize: 18.sp,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  Spacer(),
+                                  Icon(
+                                      Icons.file_download,
+                                      color: pinkColorApp
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                  )
+                      : ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: futureOrders.length,
+                    itemBuilder: (context, index) {
+                      Rental rent = futureOrders[index];
+                      if ((s == null || e == null) ||
+                          (rent.startDate.isBefore(e!) ||
+                              rent.startDate.compareTo(e!) == 0 ||
+                              rent.endDate.isAfter(s!) == 0)) {
+                        return GestureDetector(
+                          onTap: () {
+                            /* Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) => OrderDetails(
                                               rent: rent,
                                             ),
                                           ));*/
-                                    },
-                                    child: Container(
-                                      width: 332.w,
-                                      height: 50.h,
-                                      margin: EdgeInsets.only(bottom: 22.h,left: 30.w,right: 30.w),
-                                      decoration: BoxDecoration(
-                                          color: Color(0xFFD9FFFD),
-                                          borderRadius: BorderRadius.circular(8)),
-                                      child: Padding(
-                                        padding:
-                                        EdgeInsets.symmetric(horizontal: 22.w),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                            'תחל בתאריך: ',
-                                            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600),
-                                          ),
-                                            Text(
-                                              intl.DateFormat('dd.MM.yyyy').format(rent.startDate),
-                                              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w300),
-                                            ),
-                                            Spacer(),
-                                            Icon(
-                                              Icons.access_time,
-                                              color: blackColorApp,
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }
-                              },
-                            ))
-                    : Text(
-                        'אין הזמנות קיימות',
-                        style: TextStyle(fontSize: 18.sp),
-                      )
-                : const Center(
+                          },
+                          child: Container(
+                            width: 332.w,
+                            height: 50.h,
+                            margin: EdgeInsets.only(
+                                bottom: 22.h, left: 30.w, right: 30.w),
+                            decoration: BoxDecoration(
+                                color: Color(0xFFD9FFFD),
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Padding(
+                              padding:
+                              EdgeInsets.symmetric(horizontal: 22.w),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'תחל בתאריך: ',
+                                    style: TextStyle(fontSize: 18.sp,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  Text(
+                                    intl.DateFormat('dd.MM.yyyy').format(
+                                        rent.startDate),
+                                    style: TextStyle(fontSize: 18.sp,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  Spacer(),
+                                  Icon(
+                                    Icons.access_time,
+                                    color: blackColorApp,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                  ))
+                  : Text(
+                'אין הזמנות קיימות',
+                style: TextStyle(fontSize: 18.sp),
+              )
+                  : const Center(
                     child: CircularProgressIndicator(),
-                  ),
-            Spacer(),
-            Container(
-              height: 48.h,
-              width: 332.w,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: turquoiseColorApp,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    elevation: 0.0,
-                  ),
-                  onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomePage(),
-                      )),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'חזרה לתפריט ראשי   ',
-                        style: TextStyle(
-                            fontSize: 22.sp,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white),
+              ),
+              Spacer(),
+              Container(
+                height: 48.h,
+                width: 332.w,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: turquoiseColorApp,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100),
                       ),
-                      Icon(
-                        Icons.home_outlined,
-                        color: Colors.white,
-                      )
-                    ],
-                  )),
-            ),
-            SizedBox(
-              height: 45.h,
-            ),
-          ],
+                      elevation: 0.0,
+                    ),
+                    onPressed: () =>
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomePage(),
+                            )),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'חזרה לתפריט ראשי   ',
+                          style: TextStyle(
+                              fontSize: 22.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white),
+                        ),
+                        Icon(
+                          Icons.home_outlined,
+                          color: Colors.white,
+                        )
+                      ],
+                    )),
+              ),
+              SizedBox(
+                height: 45.h,
+              ),
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
+    }
 }
+

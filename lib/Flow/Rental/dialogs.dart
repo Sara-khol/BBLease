@@ -25,10 +25,12 @@ String location = '';
 //late DateTime startDate,endDate;
 Rental rent = Rental();
 
-Future departurePoint(context, address, nav, [sdate, edate]) {
+Future departurePoint(context, address, nav,{double longitude1=0,double latitude1=0,sdate, edate}/*, [sdate, edate]*/) {
   print('dialog address: $address');
 
   location=address??'';
+  latitude= latitude1;
+  longitude= longitude1;
 
   TextEditingController controller = TextEditingController(text: address);
   DetailsResult? searchedPlace;
@@ -314,17 +316,17 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
         return StatefulBuilder(builder: (context, StateSetter setState) {
           _setEndDateBasedOnSelection() {
             if (startDate != null && diff != null) {
-              DateTime calculatedEndDate =
-                  startDate!.add(Duration(days: diff!.toInt() - 1));
-              calculatedEndDate = calculatedEndDate.add(Duration(days: 1));
-              end.text =
-                  intl.DateFormat('dd.MM.yyyy').format(calculatedEndDate);
-              endDate = calculatedEndDate;
+                DateTime calculatedEndDate =
+                startDate!.add(Duration(days: diff!.toInt() - 1));
+                calculatedEndDate = calculatedEndDate.add(Duration(days: 1));
+                end.text =
+                    intl.DateFormat('dd.MM.yyyy').format(calculatedEndDate);
+                endDate = calculatedEndDate;
 
-              rent.startDate = startDate!;
-              rent.endDate = endDate!;
+                rent.startDate = startDate!;
+                rent.endDate = endDate!;
 
-              //setState((){});
+                //setState((){});
             }
           }
 
@@ -445,9 +447,10 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                             visible: selectedValue == 1,
                             child: Container(
                               //color: Colors.yellow,
+                              margin: EdgeInsets.only(bottom: 15.h),
                               height: 100.h,
                               width: 300.w,
-                              child: Column(
+                              child: Wrap(
                                 children: [
                                   Text('בחר טווח שעות',style: TextStyle(
                                       fontSize: 18.sp,
@@ -589,6 +592,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                 },
                                 onTap: () async {
                                   DateTime? date = await showDatePicker(
+                                      textDirection: TextDirection.rtl,
                                       locale: const Locale("he", "HE"),
                                       context: context,
                                       initialDate: DateTime.now(),
@@ -619,28 +623,33 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                 ),
                               ),
                               onPressed: () {
-
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        maintainState: false,
-                                        builder: (context) =>
-                                             SearchCar(location: location,
-                                              latitude: latitude,
-                                              longitude:longitude,
-                                              startDate: startDate,
-                                              endDate: endDate,
-                                              part: selectedPart??-1,
-                                            )
-                                            //     (
-                                            //   location: 'ירושלים',
-                                            //   latitude: 31.803110,
-                                            //   longitude: 35.216148,
-                                            //   startDate: startDate,
-                                            //   endDate: endDate,
-                                            //   part: selectedPart ?? -1,
-                                            // )
-                                    ));
+                                if(start.text.isNotEmpty && selectedValue!=null &&(selectedValue!=1 || selectedPart!=-1)) {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          maintainState: false,
+                                          builder: (context) =>
+                                              SearchCar(location: location,
+                                                latitude: latitude,
+                                                longitude: longitude,
+                                                startDate: startDate,
+                                                endDate: endDate,
+                                                part: selectedPart!=2 ? 1:selectedPart??1,
+                                              )
+                                        //     (
+                                        //   location: 'ירושלים',
+                                        //   latitude: 31.803110,
+                                        //   longitude: 35.216148,
+                                        //   startDate: startDate,
+                                        //   endDate: endDate,
+                                        //   part: selectedPart ?? -1,
+                                        // )
+                                      ));
+                                }
+                                else
+                                  {
+                                    displayMessage(context,message: 'נא מלא את כל הפרטים');
+                                  }
                               },
                               child: const Text(
                                 'המשך',

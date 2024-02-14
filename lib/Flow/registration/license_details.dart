@@ -97,7 +97,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   cursorColor: colors.blackColorApp,
                   decoration: getInputDecoration('תוקף',
                       suffixIcon: Image.asset(
-                        'assets/images/Calendar.png',
+                        'assets/icons/Calendar.png',
                         width: 18.w,
                       )),
                   style:

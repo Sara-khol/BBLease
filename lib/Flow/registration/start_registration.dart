@@ -23,19 +23,15 @@ class _StartRegistrationState extends State<StartRegistration> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // SizedBox(height: 56.h),
-            Text("ברוכים הבאים לביביליס",style: TextStyle(color:Colors.black,fontWeight: FontWeight.w600,fontSize: 28.sp,),),
             SizedBox(height: 120.h),
-            Image.asset('assets/icons/teenyicons_id.png',width: 159.w, fit: BoxFit.cover,),
-            SizedBox(height: 130.h),
+            Text("תהליך הרשמה",style: TextStyle(color:Colors.black,fontWeight: FontWeight.w600,fontSize: 23.sp,),),
+            SizedBox(height: 32.h),
             Text("לתהליך הרישום, עליך להכין\nרשיון וכרטיס אשראי\nעל שמך בלבד!",
-              style: TextStyle(color:Colors.black,fontWeight: FontWeight.w600,fontSize: 22.sp,)
-               ,textDirection: TextDirection.rtl,textAlign: TextAlign.center),
-            SizedBox(height: 50.h),
-
-
-            SizedBox(height: 12.h),
-            //Spacer(),
+                style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20.sp,)
+                ,textDirection: TextDirection.rtl,textAlign: TextAlign.center),
+            SizedBox(height: 28.h),
+            Image.asset('assets/images/image1.png',width: 300.w, fit: BoxFit.cover,),
+            Spacer(),
             Container(
               height: 48.h,
               width: 332.w,
@@ -54,10 +50,10 @@ class _StartRegistrationState extends State<StartRegistration> {
                   child:  Text('אני מוכן!',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,
                   color: Colors.white),textDirection: TextDirection.rtl)),
             ),
+            SizedBox(height: 40.h,)
           ],
         ),
       ),
-
     );
   }
 }

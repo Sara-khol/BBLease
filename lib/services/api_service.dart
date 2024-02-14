@@ -286,4 +286,26 @@ class ApiService {
     // Prints the raw data returned by the server
   }
 
+  Future getOpeningCode(int orderId,Function(dynamic res) onSuccess) async {
+    print('${_baseUrl}wp/v2/return_code_open_doors/$orderId');
+    Response response = await _dio.get('${_baseUrl}wp/v2/return_code_open_doors/$orderId');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+    // Prints the raw data returned by the server
+  }
+
+  Future getFuelLevel(int carNum,Function(dynamic res) onSuccess) async {
+    print('${_baseUrl}wp/v2/return_car_fuel_level/$carNum');
+    Response response = await _dio.get('${_baseUrl}wp/v2/return_car_fuel_level/$carNum');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+    // Prints the raw data returned by the server
+  }
+
 }

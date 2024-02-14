@@ -2,6 +2,7 @@ import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/Rental/dialogs.dart';
 import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:bblease/services/api_service.dart';
+import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as intl;
@@ -9,11 +10,13 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../models/class_rent.dart';
 import '../../models/class_user.dart';
+import 'car_dialog.dart';
 
 
 class ActiveRentDetails extends StatefulWidget {
-  const ActiveRentDetails({Key? key}) : super(key: key);
+  const ActiveRentDetails({Key? key, required this.percent}) : super(key: key);
 
+   final int percent;
 
   @override
   State<ActiveRentDetails> createState() => _ActiveRentDetailsState();
@@ -23,19 +26,20 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
 
   DateTime time = DateTime.now();
   late String _time;
-  /*late int carNumber;
-  late String park;*/
-  late int percent;
-
   Rental rent=User().currentRent!;
 
   @override
   void initState() {
     super.initState();
-    _time = intl.DateFormat('kk:mm:ss').format(time);
-    /*carNumber=rent.car.carNumber??10100101;
-    park=rent.car.city;*/
-    percent=75;
+    _time = intl.DateFormat('kk:mm').format(time);
+  }
+
+
+  sendOpeningCode(){
+    ApiService().getOpeningCode(rent.orderNum!, (res) {
+      print(res);
+      openingCodeDialog(context, res);
+    });
   }
 
   
@@ -62,7 +66,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     child: Row(
                       children: [
                         SizedBox(width: 29.w,),
-                        Icon(Icons.access_time,color: const Color(0xFFFB2576),size: 24.sp,),
+                        Icon(Icons.access_time,color: pinkColorApp,size: 24.sp,),
                         Text('  זמן שנותר ',style: TextStyle(fontSize: 18.sp),),
                         const Spacer(),
                         Text('  $_time ',style: TextStyle(fontSize: 18.sp),),
@@ -77,7 +81,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     child: Row(
                       children: [
                         SizedBox(width: 29.w,),
-                        Icon(Icons.drive_eta_outlined,color: const Color(0xFFFB2576),size: 24.sp,),
+                        Icon(Icons.drive_eta_outlined,color: pinkColorApp,size: 24.sp,),
                         Text('  מספר רכב: ',style: TextStyle(fontSize: 18.sp),),
                         const Spacer(),
                         Text('  ${rent.car.carNumber} ',style: TextStyle(fontSize: 18.sp),),
@@ -92,7 +96,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     child: Row(
                       children: [
                         SizedBox(width: 29.w,),
-                        Icon(Icons.fmd_good_outlined,color: const Color(0xFFFB2576),size: 24.sp,),
+                        Icon(Icons.fmd_good_outlined,color: pinkColorApp,size: 24.sp,),
                         Text('  מיקום: ',style: TextStyle(fontSize: 18.sp),),
                         const Spacer(),
                         Text('   ${rent.car.address}  ',style: TextStyle(fontSize: 18.sp),),
@@ -111,7 +115,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                           child: Row(
                             children: [
                               SizedBox(width: 29.w,),
-                              Icon(Icons.local_gas_station_outlined,color: const Color(0xFFFB2576),size: 24.sp,),
+                              Icon(Icons.local_gas_station_outlined,color: pinkColorApp,size: 24.sp,),
                               SizedBox(width: 15.w,),
                             ],
                           ),
@@ -120,15 +124,20 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                           alignment: MainAxisAlignment.end,
                           isRTL: false,
                           animateFromLastPercent: true,
-                          progressColor: const Color(0xFF00DEDE),
+                          linearGradient: LinearGradient(
+                            colors: [
+                              turquoiseColorApp,
+                              const Color(0xFFF7F7F7)
+                            ],
+                          ),
                           backgroundColor:  const Color(0xFFF7F7F7),
                           lineHeight: 42.h,
                           barRadius: const Radius.circular(100),
-                          percent: percent/100,
+                          percent: widget.percent<0?0.02:widget.percent/100,
                           width: 265.w,
                           center: Padding(
-                            padding: EdgeInsets.only(right: 180.w),
-                            child: Text('$percent%',style: TextStyle(fontSize: 20.sp)),
+                            padding: EdgeInsets.only(right: 120.w),
+                            child: widget.percent>0?Text('${widget.percent}%',style: TextStyle(fontSize: 20.sp)):Text('לא נמצאו נתונים',style: TextStyle(fontSize: 16.sp)),
                           ),
                         )
                       ],
@@ -302,11 +311,8 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                     showLoading(context);
                                     ApiService().returnCar(rent.orderNum!,
                                             (orderJson)  {
-
                                           Navigator.pop(context);
-                                          displayMessage(context,message:'סיום ההשכרה נקלט בהצלחה',onClose: (){
-
-                                          });
+                                          displayMessage(context,message:'סיום ההשכרה נקלט בהצלחה',onClose: (){});
                                           print('return car');
                                         });
                                   },
@@ -324,12 +330,15 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     height: 48.h,
                     width: 332.w,
                     child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(backgroundColor: const Color.fromRGBO(0, 222, 222, 1),
+                        style: ElevatedButton.styleFrom(backgroundColor: turquoiseColorApp,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(100),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+
+                          sendOpeningCode();
+                        },
                         child: Text(
                           'פתיחת דלתות',
                           style: TextStyle(
@@ -343,7 +352,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     height: 48.h,
                     width: 332.w,
                     child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFFB2576),
+                        style: ElevatedButton.styleFrom(backgroundColor: pinkColorApp,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(100),
                           ),

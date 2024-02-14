@@ -383,7 +383,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                         'סנן לפי תאריך ',
                         style: TextStyle(fontSize: 14.sp, color: blackColorApp),
                       ),
-                      ImageIcon(AssetImage("assets/icons/Filter.png"),size: 20.w,),
+                      ImageIcon(AssetImage("assets/icons/Filter.png"),size: 20.w,color: pinkColorApp,),
                       SizedBox(width: 40.w,)
                     ],
                   )
@@ -404,12 +404,16 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                     ),
                     onPressed: initData && User().currentRent != null
                         ? () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                            const ActiveRentDetails(),
-                          ));
+                        ApiService().getFuelLevel(User().currentRent!.car.carNumber, (res) {
+                          var percent=res*100;
+                          setState(() {});
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                 ActiveRentDetails(percent: percent),
+                              ));
+                        });
                     }
                         : null,
                     child: Text(
@@ -511,6 +515,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                               EdgeInsets.symmetric(horizontal: 22.w),
                               child: Row(
                                 children: [
+                                  Icon(Icons.access_time),
                                   Text(
                                     'תחל בתאריך: ',
                                     style: TextStyle(fontSize: 18.sp,
@@ -523,10 +528,13 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                         fontWeight: FontWeight.w300),
                                   ),
                                   Spacer(),
-                                  Icon(
-                                    Icons.access_time,
-                                    color: blackColorApp,
-                                  )
+                                  IconButton(
+                                    onPressed: () {
+
+                                    },
+                                    icon: ImageIcon(AssetImage("assets/icons/trash.png"),size: 22.w,color: blackColorApp,),
+                                    ),
+
                                 ],
                               ),
                             ),

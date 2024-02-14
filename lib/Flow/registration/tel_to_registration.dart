@@ -152,19 +152,19 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 121.h,
+                SizedBox(height: 121.h,),
+                Text('התחברות', style: TextStyle(fontSize: 23.sp, fontWeight: FontWeight.w600,),),
+                SizedBox(height: 39.h,),
+                Row(
+                  children: [
+                    Text('התחבר',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600,decoration: widget.isRegister?TextDecoration.underline:TextDecoration.none,),),
+                    SizedBox(height: 73.h,),
+                    Text('הירשם',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600,decoration: widget.isRegister?TextDecoration.none:TextDecoration.underline),)
+                  ],
                 ),
-                Text(
-                  widget.isRegister
-                      ? "הזן מספר טלפון להרשמה"
-                      : "הזן מספר טלפון להתחברות",
-                  style:
-                      TextStyle(fontSize: 28.sp, fontWeight: FontWeight.w600),
-                ),
-                SizedBox(
-                  height: 50.h,
-                ),
+                SizedBox(height: 73.h,),
+                Text('הזן מספר טלפון לקבלת קוד', style: TextStyle(fontSize: 23.sp, fontWeight: FontWeight.w600,),),
+                SizedBox(height: 34.h,),
                 TextFormField(
                   controller: _phone,
                   keyboardType: TextInputType.number,
@@ -236,9 +236,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                     return null;
                   },
                 ),
-                SizedBox(
-                  height: 15.h,
-                ),
+                SizedBox(height: 15.h,),
                 Visibility(
                   visible: didSendCode && checkboxValue1,
                   child: TextFormField(

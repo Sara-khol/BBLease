@@ -381,7 +381,7 @@ class _SearchCarState extends State<SearchCar> {
               SizedBox(
                   width: 20.w,
                   height: 20.h,
-                  child: ImageIcon(AssetImage("assets/images/expansion.png"),color: Color(0xffFB2576),)),
+                  child: ImageIcon(AssetImage("assets/icons/expansion.png"),color: Color(0xffFB2576),)),
             ],
             ),),
         //  Expanded(child: SizedBox(width:48.w,)),
@@ -651,7 +651,7 @@ class _SearchCarState extends State<SearchCar> {
                             ),
                           ),
                           SizedBox(width: 8.w,),
-                          ImageIcon(AssetImage("assets/images/expansion.png"),color: Color(0xffFB2576),size: 20.w,),
+                          ImageIcon(AssetImage("assets/icons/expansion.png"),color: Color(0xffFB2576),size: 20.w,),
                         ],
                       ),
                       SizedBox(height: 23.h,),

@@ -14,7 +14,7 @@ import '../../customWidgets/appBarB.dart';
 import '../../models/car.dart';
 import '../../services/api_service.dart';
 import '../../utils/my_colors.dart';
-import 'car_details_dialog.dart';
+import 'car_dialog.dart';
 import 'dialogs.dart';
 
 
@@ -36,6 +36,7 @@ class _RentalWidgetState extends State<RentalWidget> {
   List<Car> unAvailableCars = [];
   final List<Marker> _markers = <Marker>[];
   bool dialogShown=false;
+  double long=0, lat=0;
   CustomInfoWindowController _customInfoWindowController = CustomInfoWindowController();
 
   Future<Position> _determinePosition() async{
@@ -75,12 +76,12 @@ class _RentalWidgetState extends State<RentalWidget> {
       lat=position.latitude;
 
       print('address: ${formattedAddress?.formattedAddress}');
-      /*CameraPosition updatedPosition = CameraPosition(
+      CameraPosition updatedPosition = CameraPosition(
         target: LatLng(position.latitude, position.longitude),
         zoom: 17,
       );
 
-      _mapController.animateCamera(CameraUpdate.newCameraPosition(updatedPosition));*/
+      _mapController.animateCamera(CameraUpdate.newCameraPosition(updatedPosition));
 
       /*Marker userLocationMarker = Marker(
         markerId: MarkerId('userLocation'),
@@ -88,12 +89,8 @@ class _RentalWidgetState extends State<RentalWidget> {
         infoWindow: InfoWindow(title: 'You are here'),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
       );*/
-      // Add the user's location marker to the list of markers
-      //_markers.add(userLocationMarker);
-
-
       setState(() {
-        //_kGoogle = updatedPosition;
+        _kGoogle = updatedPosition;
 
       });
       if(!dialogShown) {
@@ -122,27 +119,6 @@ print('getCarsList');
       generateMarkers();
     });
 
-  }
-
-  //List<String> images = ['assets/images/Vector.png',];
-
-  //TODO: get locations from API
-  /*final List<LatLng> _latLen = <LatLng>[
-
-    LatLng(31.814850481904614, 35.19863145952789),
-    LatLng(31.812005967321277, 35.20367401242728),
-    LatLng(31.81645504122628, 35.20084159973486),
-    LatLng(31.81572569953603, 35.19584196217929),
-    LatLng(31.812334185013373, 35.19592779286694),
-    LatLng(31.81895299286649, 35.19504802831853),
-  ];*/
-
-// declared method to get Images
-  Future<Uint8List> getImages(String path, int width) async{
-    ByteData data = await rootBundle.load(path);
-    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetHeight: width);
-    ui.FrameInfo fi = await codec.getNextFrame();
-    return(await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
   }
 
 // created method for displaying custom markers according to index

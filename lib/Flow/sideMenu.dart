@@ -1,5 +1,6 @@
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/UserInformation/profile.dart';
+import 'package:bblease/Flow/UserInformation/use_instructions.dart';
 import 'package:bblease/Flow/my_shared_preferences.dart';
 import 'package:bblease/Flow/welcome.dart';
 import 'package:bblease/utils/my_colors.dart' as colors;
@@ -11,6 +12,7 @@ import 'package:side_sheet/side_sheet.dart';
 import 'package:bblease/services/support.dart' as support;
 import '../models/class_user.dart';
 import '../utils/my_colors.dart';
+import 'UserInformation/contact_us.dart';
 
 
 Future sideMenu(context) {
@@ -116,7 +118,7 @@ Future sideMenu(context) {
                     ],
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => UseInstructions(),)),
               ),
               TextButton(
                 child: Padding(
@@ -176,9 +178,9 @@ Future sideMenu(context) {
                     ],
                   ),
                 ),
-                onPressed: () {},
+                onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUs(),),),
               ),
-              const Spacer(),
+               Spacer(),
               getBottomButtons(context),
               SizedBox(height: 30.h,),
             ],

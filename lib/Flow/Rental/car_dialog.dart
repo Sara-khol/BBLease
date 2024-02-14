@@ -80,7 +80,7 @@ Future carDetailsDialog(context,Car car,bool isAvailabe){
                                 ),
                               ),
                               onPressed: () {
-                                rentalTerm(context);
+                                //rentalTerm(context);
                               },
                               child: Text('אני רוצה להשכיר את הרכב הזה',
                                   style: TextStyle(
@@ -98,6 +98,72 @@ Future carDetailsDialog(context,Car car,bool isAvailabe){
       }
   );
 }
+
+Future openingCodeDialog(context,String code){
+  return showModalBottomSheet<dynamic>(
+      isScrollControlled: true,
+      isDismissible: true,
+      barrierColor: Colors.black12.withOpacity(0.1),
+      elevation: 2,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+      ),
+      context: context,
+      builder: (context) {
+        return Directionality(
+            textDirection: TextDirection.rtl,
+            child: Wrap(
+              children: [
+                Container(
+                  height: 28.h,
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 20.h),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'קוד לפתיחה  ',
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black),
+                          ),
+                          Icon(Icons.password, color: pinkColorApp,),
+                        ],
+                      ),
+                      SizedBox(height: 47.h),
+                      Text(' הקוד לפתיחה הינו ',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600,),),
+                      SizedBox(height: 40.w,),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.copy, color: turquoiseColorApp,),
+                          Text('  $code  ',style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.w700,),),
+                        ],
+                      ),
+                      SizedBox(height: 30.h),
+                    ]
+                ),
+              ],
+            )
+        );
+      }
+  );
+}
+
 
 Future rentalTerm1(context, Car car) {
   TextEditingController start = TextEditingController();

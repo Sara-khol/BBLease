@@ -14,6 +14,7 @@ Rental _$RentalFromJson(Map<String, dynamic> json) => Rental()
   ..price = (json['price'] as num).toDouble()
   ..url = json['url-order-pdf'] as String?
   ..status = json['status'] as String?
+  ..creationTime = DateTime.parse(json['post_creation_time'] as String)
   ..additions = (json['extras'] as List<dynamic>?)
       ?.map((e) => Addition.fromJson(e as Map<String, dynamic>))
       .toList();

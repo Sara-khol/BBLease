@@ -308,4 +308,39 @@ class ApiService {
     // Prints the raw data returned by the server
   }
 
+
+  Future sendFeedback( Map<String, dynamic> jsonMap,Function(dynamic res) onSuccess) async {
+    debugPrint('${_baseUrl}wp/v2/get_feedback');
+    debugPrint('data : ${json.encode(jsonMap)}');
+
+    Response response = await _dio.post('${_baseUrl}wp/v2/get_feedback',
+        data: json.encode(jsonMap));
+    // debugPrint('response $response');
+    debugPrint('data: ${response.data}');
+    if(response.statusCode==200) {
+      onSuccess(response.data);
+    }
+
+  }
+
+
+    Future signatureUpload(signature,Function() onSuccess) async {
+
+      FormData formData = FormData.fromMap({
+        "file" : MultipartFile.fromBytes(signature, filename: "signature.png"),
+        "post_id": User().userId
+      });
+
+      print('${_baseUrl}wp/v2/save_signature');
+      var response = await _dio.post('${_baseUrl}wp/v2/save_signature', data: formData,);
+      print("response.statusCode ${response.statusCode}");
+      if(response.statusCode == 200) {
+        print("response.data ${response.data.toString()}");
+        onSuccess();
+      }
+      else {
+        print(response.statusCode);
+      }
+    }
+
 }

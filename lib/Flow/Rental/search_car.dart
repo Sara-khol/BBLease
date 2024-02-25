@@ -169,9 +169,9 @@ class _SearchCarState extends State<SearchCar> {
                                      Column(
                                        crossAxisAlignment: CrossAxisAlignment.start,
                                        children: [
-                                         Text(car.model.length > 12 ? '${car.model.substring(0, 12)}...' : '${car.model}',style: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.w700,height: 1,),),
+                                         Text(car.postName.length > 12 ? '${car.postName.substring(0, 12)}...' : '${car.postName}',style: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.w700,height: 1,),),
                                          Text('או רכב זהה',style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w400,height: 1.15,),),
-                                         Text('נמצא במרחק 0.5 ק"מ',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
+                                         Text('נמצא במרחק X ק"מ',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
                                          Expanded(child: SizedBox(height: 29.h)),
                                          Text('${car.pricePerDay} ₪  |  ליום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
                                          Text('${car.pricePerDay*widget.endDate!.difference(widget.startDate!).inDays} ₪  |  סה"כ',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,height: 1.15,),),
@@ -261,7 +261,7 @@ class _SearchCarState extends State<SearchCar> {
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text(car.model.length > 12 ? '${car.model.substring(0, 12)}...' : '${car.model}',style: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.w700,height: 1,),),
+                                          Text(car.postName.length > 12 ? '${car.postName.substring(0, 12)}...' : '${car.postName}',style: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.w700,height: 1,),),
                                           Text('או רכב זהה',style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w400,height: 1.15,),),
                                           Text('נמצא במרחק 0.5ק"מ',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
                                           Expanded(child: SizedBox(height: 29.h)),

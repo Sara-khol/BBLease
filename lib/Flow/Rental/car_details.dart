@@ -69,7 +69,7 @@ class _CarDetailsState extends State<CarDetails> {
                 textDirection: TextDirection.ltr, child: AppBarBibilease()),
             SizedBox(height: 30.h),
             Text(
-              widget.rent.car.model, //carDetails.postName,
+              widget.rent.car.postName, //carDetails.postName,
               textAlign: TextAlign.right,
               style: TextStyle(
                 color: colors.blackColorApp,
@@ -156,7 +156,7 @@ class _CarDetailsState extends State<CarDetails> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(height: 41.h),
-                                        Text(widget.rent.car.model,
+                                        Text(widget.rent.car.postName,
                                             style: TextStyle(
                                               color: colors.blackColorApp,
                                               fontSize: 34.sp,

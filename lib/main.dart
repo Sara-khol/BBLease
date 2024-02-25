@@ -7,7 +7,7 @@ import 'package:bblease/Flow/my_shared_preferences.dart';
 import 'package:bblease/Flow/registration/payment_webVIew.dart';
 import 'package:bblease/services/api_service.dart';
 import 'package:bblease/utils/common_funcs.dart';
-import 'package:bblease/utils/my_colors.dart' as colors;
+import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -38,15 +38,12 @@ void main() async {
 
   await SentryFlutter.init(
         (options) {
-      // options.dsn = 'https://1a290abc6f7cde70a98f4c870720d628@o4505141567619072.ingest.sentry.io/4506534991298560';
           options.dsn = kDebugMode ? '' : 'https://69a96f2b12155c0d347296db8a687277@o4506574440759296.ingest.sentry.io/4506574487289856';
-          // options.dsn = 'https://69a96f2b12155c0d347296db8a687277@o4506574440759296.ingest.sentry.io/4506574487289856';
       // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
       // We recommend adjusting this value in production.
       options.tracesSampleRate = 1.0;
       options.debug=false;
     },
-    //appRunner: () => runApp(MyApp()),
   );
 
   FlutterError.onError = (FlutterErrorDetails errorDetails) {
@@ -80,10 +77,9 @@ class MyApp extends StatelessWidget {
     return MaterialStateProperty.resolveWith<Color?>(
       (Set<MaterialState> states) {
         if (states.contains(MaterialState.selected)) {
-          return colors
-              .turquoiseColorApp; // Return this color when the date is selected
+          return turquoiseColorApp; // Return this color when the date is selected
         }
-        return colors.turquoiseColorApp; // Otherwise, return this color
+        return turquoiseColorApp; // Otherwise, return this color
       },
     );
   }
@@ -111,12 +107,13 @@ class MyApp extends StatelessWidget {
                   fontFamily: 'PLONI',
                   scaffoldBackgroundColor: Colors.white,
                   textTheme: TextTheme(
-                      bodyMedium: TextStyle(color: colors.blackColorApp)),
+                      bodyMedium: TextStyle(color: blackColorApp)),
                   datePickerTheme: DatePickerThemeData(
                     backgroundColor: Colors.white,
                     elevation: 2,
                     headerBackgroundColor: Colors.white,
                     todayBackgroundColor: _customColor(),
+                    headerForegroundColor: pinkColorApp,
                     rangeSelectionBackgroundColor: Colors.cyan[100],
                   )
                   // primarySwatch: Color.fromARGB(15, 21, 17, 1),

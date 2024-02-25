@@ -28,6 +28,10 @@ class Rental{
   String? status;
 
 
+  @JsonKey(name:'post_creation_time',includeToJson: false)
+  late DateTime creationTime;
+
+
  //@JsonKey(includeFromJson: false)
  @JsonKey(name: 'extras')
    List<Addition>? additions=[];

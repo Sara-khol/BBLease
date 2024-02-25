@@ -12,6 +12,7 @@ import 'package:intl/intl.dart' as intl;
 
 import '../../models/class_user.dart';
 import '../../services/api_service.dart';
+import '../Rental/cancel_order_dialogs.dart';
 
 class OrdersHistory extends StatefulWidget {
   const OrdersHistory({Key? key}) : super(key: key);
@@ -529,9 +530,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                   ),
                                   Spacer(),
                                   IconButton(
-                                    onPressed: () {
-
-                                    },
+                                    onPressed: () => cancelOrderDialog(context,rent),
                                     icon: ImageIcon(AssetImage("assets/icons/trash.png"),size: 22.w,color: blackColorApp,),
                                     ),
 

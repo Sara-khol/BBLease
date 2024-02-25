@@ -1,7 +1,12 @@
+import 'package:bblease/Flow/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../models/class_user.dart';
+import '../../services/api_service.dart';
 import '../../utils/my_colors.dart';
+import '../Dialogs/buttom_dialogs.dart';
+import '../Rental/dialogs.dart';
 
 class ContactUs extends StatefulWidget {
   const ContactUs({Key? key}) : super(key: key);
@@ -16,6 +21,8 @@ class _ContactUsState extends State<ContactUs> {
   TextEditingController _phone=TextEditingController();
   TextEditingController _email=TextEditingController();
   TextEditingController _text=TextEditingController();
+
+
 
 
   @override
@@ -130,7 +137,27 @@ class _ContactUsState extends State<ContactUs> {
                             borderRadius: BorderRadius.circular(100),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Map<String, String> map = {
+                            "name":_name.text,
+                            "tel":_phone.text,
+                            "mail":_email.text,
+                            "msg":_text.text,
+                            "id":User().userId.toString()
+                          };
+                          showLoading(context);
+                          ApiService().newOrder(map, (res) {
+                            Navigator.pop(context);
+                            displayMessage(context,
+                                message: 'ההזמנה התקבלה בהצלחה',
+                                onClose: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => HomePage(),),
+                                  );
+                                });
+                          });
+                        },
                         child: Text(
                           'צרו איתי קשר',
                           style: TextStyle(

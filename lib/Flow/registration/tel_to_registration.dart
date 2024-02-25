@@ -156,15 +156,16 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                 Text('התחברות', style: TextStyle(fontSize: 23.sp, fontWeight: FontWeight.w600,),),
                 SizedBox(height: 39.h,),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('התחבר',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600,decoration: widget.isRegister?TextDecoration.underline:TextDecoration.none,),),
-                    SizedBox(height: 73.h,),
-                    Text('הירשם',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600,decoration: widget.isRegister?TextDecoration.none:TextDecoration.underline),)
+                    Text('התחבר',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400,decoration: widget.isRegister?TextDecoration.underline:TextDecoration.none,),),
+                    SizedBox(width: 150.w,),
+                    Text('הירשם',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400,decoration: widget.isRegister?TextDecoration.none:TextDecoration.underline),)
                   ],
                 ),
                 SizedBox(height: 73.h,),
-                Text('הזן מספר טלפון לקבלת קוד', style: TextStyle(fontSize: 23.sp, fontWeight: FontWeight.w600,),),
-                SizedBox(height: 34.h,),
+                Text('הזן מספר טלפון לקבלת קוד', style: TextStyle(fontSize: 23.sp, fontWeight: FontWeight.w600)),
+                SizedBox(height: 34.h),
                 TextFormField(
                   controller: _phone,
                   keyboardType: TextInputType.number,

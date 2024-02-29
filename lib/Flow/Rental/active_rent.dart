@@ -25,22 +25,23 @@ class ActiveRentDetails extends StatefulWidget {
 class _ActiveRentDetailsState extends State<ActiveRentDetails> {
 
   DateTime time = DateTime.now();
-  late String _time;
+  late String _time='00:00';
   Rental rent=User().currentRent!;
 
   @override
   void initState() {
     super.initState();
-    _time = intl.DateFormat('kk:mm').format(time);
+    _time = intl.DateFormat('HH:mm').format(time);
   }
 
 
-  sendOpeningCode(){
+ /* sendOpeningCode(){
     ApiService().getOpeningCode(rent.orderNum!, (res) {
       print(res);
       openingCodeDialog(context, res);
     });
-  }
+  }*/
+
 
   
   @override
@@ -336,8 +337,11 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                           ),
                         ),
                         onPressed: () {
-
-                          sendOpeningCode();
+                          ApiService().openDoors(rent.car.carNumber, (res) {
+                            print(res);
+                            openingCodeDialog(context, res);
+                          });
+                          //sendOpeningCode();
                         },
                         child: Text(
                           'פתיחת דלתות',
@@ -357,7 +361,12 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                             borderRadius: BorderRadius.circular(100),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          ApiService().lockDoors(rent.car.carNumber, (res) {
+                            print(res);
+                            openingCodeDialog(context, res);
+                          });
+                        },
                         child: Text(
                           'נעילת דלתות',
                           style: TextStyle(

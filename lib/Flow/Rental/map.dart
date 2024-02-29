@@ -133,7 +133,8 @@ print('getCarsList');
             visible: true,
             position: LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),//_latLen[i],
             onTap: () {
-              _customInfoWindowController.addInfoWindow!(
+              carDetailsDialog(context,car,true);
+             /* _customInfoWindowController.addInfoWindow!(
                 Container(
                   decoration: BoxDecoration(
                     color:  turquoiseColorApp,
@@ -152,7 +153,7 @@ print('getCarsList');
                   ),
                 ),
                 LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),
-              );
+              );*/
             },
           )
       );
@@ -164,11 +165,12 @@ print('getCarsList');
       _markers.add(
           Marker(
             markerId: MarkerId('${index++}'),
-            icon:  BitmapDescriptor.fromBytes(unAvailable),
+            icon: BitmapDescriptor.fromBytes(unAvailable),
             visible: true,
-            position: LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),//_latLen[i],
+            position: LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),
             onTap: () {
-              _customInfoWindowController.addInfoWindow!(
+              carDetailsDialog(context,car,false);
+              /*_customInfoWindowController.addInfoWindow!(
                 Container(
                   decoration: BoxDecoration(
                     color:  pinkColorApp,
@@ -188,7 +190,7 @@ print('getCarsList');
                   ),
                 ),
                 LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),
-              );
+              );*/
             },
           )
       );

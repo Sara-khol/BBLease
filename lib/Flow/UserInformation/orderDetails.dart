@@ -9,7 +9,6 @@ import '../../models/class_rent.dart';
 
 import 'package:intl/intl.dart' as intl;
 
-import '../../services/api_service.dart';
 
 class OrderDetails extends StatefulWidget {
   const OrderDetails({Key? key, required this.rent}) : super(key: key);

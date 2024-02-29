@@ -170,8 +170,8 @@ class _SearchCarState extends State<SearchCar> {
                                        crossAxisAlignment: CrossAxisAlignment.start,
                                        children: [
                                          Text(car.postName.length > 12 ? '${car.postName.substring(0, 12)}...' : '${car.postName}',style: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.w700,height: 1,),),
-                                         Text('או רכב זהה',style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w400,height: 1.15,),),
-                                         Text('נמצא במרחק X ק"מ',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
+                                         Text('או רכב זהה',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,height: 1.15,),),
+                                         Text(car.address,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500,height: 1.15,),),
                                          Expanded(child: SizedBox(height: 29.h)),
                                          Text('${car.pricePerDay} ₪  |  ליום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
                                          Text('${car.pricePerDay*widget.endDate!.difference(widget.startDate!).inDays} ₪  |  סה"כ',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,height: 1.15,),),
@@ -180,7 +180,7 @@ class _SearchCarState extends State<SearchCar> {
                                      Expanded(child: Padding(
                                        padding:  EdgeInsets.only(top:2.h),
                                        child: Align( alignment: Alignment.topLeft,
-                                           child: Icon(Icons.circle,color: Color(0xFF04AEB9),size: 8.w,)),
+                                           child: Icon(Icons.circle,color: turquoiseColorApp,size: 8.w,)),
                                      ),),
                                    ],),
                                ),
@@ -262,8 +262,8 @@ class _SearchCarState extends State<SearchCar> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(car.postName.length > 12 ? '${car.postName.substring(0, 12)}...' : '${car.postName}',style: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.w700,height: 1,),),
-                                          Text('או רכב זהה',style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w400,height: 1.15,),),
-                                          Text('נמצא במרחק 0.5ק"מ',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
+                                          Text('או רכב זהה',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,height: 1.15,),),
+                                          Text(car.address,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w700,height: 1.15,),),
                                           Expanded(child: SizedBox(height: 29.h)),
                                           Text('${car.pricePerDay} ₪  |  ליום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
                                           Text('${car.pricePerDay*widget.endDate!.difference(widget.startDate!).inDays} ₪  |  סה"כ',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,height: 1.15,),),
@@ -272,7 +272,7 @@ class _SearchCarState extends State<SearchCar> {
                                       Expanded(child: Padding(
                                         padding:  EdgeInsets.only(top:2.h),
                                         child: Align( alignment: Alignment.topLeft,
-                                            child: Icon(Icons.circle,color: Color(0xFF04AEB9),size: 8.w,)),
+                                            child: Icon(Icons.circle,color: turquoiseColorApp,size: 8.w,)),
                                       ),),
                                     ],),
                                 ),
@@ -343,7 +343,7 @@ class _SearchCarState extends State<SearchCar> {
                 ),
 
               ),
-                ImageIcon(AssetImage("assets/icons/Filter.png"),size: 20.w,),
+                ImageIcon(AssetImage("assets/icons/Filter.png"),size: 20.w,color: pinkColorApp,),
              ], ),),
           //Spacer(),
           //SizedBox(width:33.w,),
@@ -381,7 +381,7 @@ class _SearchCarState extends State<SearchCar> {
               SizedBox(
                   width: 20.w,
                   height: 20.h,
-                  child: ImageIcon(AssetImage("assets/icons/expansion.png"),color: Color(0xffFB2576),)),
+                  child: ImageIcon(AssetImage("assets/icons/expansion.png"),color: pinkColorApp,)),
             ],
             ),),
         //  Expanded(child: SizedBox(width:48.w,)),
@@ -519,7 +519,7 @@ class _SearchCarState extends State<SearchCar> {
                               child: Text(
                                 'נקה סינון',
                                 style: TextStyle(
-                                  color: Color(0xFFFB2576),
+                                  color: pinkColorApp,
                                   fontSize: 18.sp,
                                   fontWeight: FontWeight.w500,
                                   decoration: TextDecoration.underline,
@@ -651,7 +651,7 @@ class _SearchCarState extends State<SearchCar> {
                             ),
                           ),
                           SizedBox(width: 8.w,),
-                          ImageIcon(AssetImage("assets/icons/expansion.png"),color: Color(0xffFB2576),size: 20.w,),
+                          ImageIcon(AssetImage("assets/icons/expansion.png"),color:pinkColorApp,size: 20.w,),
                         ],
                       ),
                       SizedBox(height: 23.h,),
@@ -683,7 +683,7 @@ class _SearchCarState extends State<SearchCar> {
                                     child: Text(
                                     'שנה כתובת ',
                                     style: TextStyle(
-                                      color: Color(0xFFFB2576),
+                                      color: pinkColorApp,
                                       fontSize: 20.sp,
                                       fontWeight: FontWeight.w400,
                                       decoration: TextDecoration.underline,
@@ -725,15 +725,15 @@ class _SearchCarState extends State<SearchCar> {
                                   return SliderTheme(
                                       data: SliderTheme.of(context).copyWith(
                                         showValueIndicator: ShowValueIndicator.always,
-                                        valueIndicatorColor: Color(0xFF00DEDE), // This is what you are asking for
+                                        valueIndicatorColor: turquoiseColorApp, // This is what you are asking for
                                         inactiveTrackColor: Color(0xFFF6F6F6), // Custom Gray Color
-                                        activeTrackColor: Color(0xFF00DEDE),
-                                        thumbColor: Color(0xFF00DEDE),
+                                        activeTrackColor: turquoiseColorApp,
+                                        thumbColor: turquoiseColorApp,
                                         trackHeight: 8.0,
                                         overlayColor: Color(0xFFF6F6F6),  // Custom Thumb overlay Color
                                         thumbShape:RoundSliderThumbShape(enabledThumbRadius: 10.0),
                                         overlayShape:
-                                        RoundSliderOverlayShape(overlayRadius: 10.0),
+                                        RoundSliderOverlayShape(overlayRadius: 10),
                                           valueIndicatorTextStyle:TextStyle(
                                             color: Color(0xFF0F1511),
                                             fontSize: 18,
@@ -749,7 +749,7 @@ class _SearchCarState extends State<SearchCar> {
                                       //divisions: 10,
                                       label: _currentSliderValue.round().toString(),
                                       onChanged: (double value) {
-                                        state(() {
+                                        setState(() {
                                           _currentSliderValue = value;
                                         });
 
@@ -777,7 +777,7 @@ class _SearchCarState extends State<SearchCar> {
                               height: 48.h,
                               width: 332.w,
                               child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(0, 222, 222, 1.0),
+                                  style: ElevatedButton.styleFrom(backgroundColor: turquoiseColorApp,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(100),
                                     ),

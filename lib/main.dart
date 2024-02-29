@@ -1,11 +1,7 @@
 import 'dart:async';
 import 'dart:io';
-
-import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/home_page.dart';
-import 'package:bblease/Flow/my_shared_preferences.dart';
-import 'package:bblease/Flow/registration/payment_webVIew.dart';
-import 'package:bblease/services/api_service.dart';
+import 'package:bblease/Flow/my_shared_preferences.dart';import 'package:bblease/services/api_service.dart';
 import 'package:bblease/utils/common_funcs.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/foundation.dart';
@@ -108,12 +104,30 @@ class MyApp extends StatelessWidget {
                   scaffoldBackgroundColor: Colors.white,
                   textTheme: TextTheme(
                       bodyMedium: TextStyle(color: blackColorApp)),
+                  timePickerTheme: TimePickerThemeData(
+                    backgroundColor: Colors.white,
+                    cancelButtonStyle: ButtonStyle(foregroundColor: _customColor()),
+                    confirmButtonStyle: ButtonStyle(foregroundColor: _customColor()),
+                    dayPeriodColor: blackColorApp,
+                    dialBackgroundColor:  Colors.cyan[100],
+                    hourMinuteColor:  Colors.cyan[100],
+                    hourMinuteTextColor: blackColorApp,
+                    dialHandColor: turquoiseColorApp,
+
+                    elevation: 2,
+                    dialTextColor: blackColorApp,
+                    entryModeIconColor: pinkColorApp,
+                  ),
                   datePickerTheme: DatePickerThemeData(
                     backgroundColor: Colors.white,
                     elevation: 2,
                     headerBackgroundColor: Colors.white,
                     todayBackgroundColor: _customColor(),
-                    headerForegroundColor: pinkColorApp,
+                    headerForegroundColor: blackColorApp,
+                    cancelButtonStyle: ButtonStyle(foregroundColor: _customColor()),
+                    confirmButtonStyle: ButtonStyle(foregroundColor: _customColor()),
+                    todayBorder: BorderSide(color: blackColorApp),
+                    rangePickerBackgroundColor: turquoiseColorApp,
                     rangeSelectionBackgroundColor: Colors.cyan[100],
                   )
                   // primarySwatch: Color.fromARGB(15, 21, 17, 1),

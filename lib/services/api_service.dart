@@ -127,9 +127,9 @@ class ApiService {
 
   Future getVerificationCode(String phone,bool isSms, Function(dynamic carJson) onSuccess) async {
     int sendType=isSms?0:1;
-    debugPrint('sendType $sendType');
+    print('sendType $sendType');
     // print('${_baseUrl}wp/v2/check_user_connected/$sendType/$phone');
-    print('${_baseUrl}wp/v2/check_user_connected/1/$phone');
+    print('${_baseUrl}wp/v2/check_user_connected/$sendType/$phone');
     // Response response = await _dio.get('${_baseUrl}wp/v2/check_user_connected/1/$phone');
     Response response = await _dio.get('${_baseUrl}wp/v2/check_user_connected/$sendType/$phone');
     ///*Response response = await*/ _dio.get('${_baseUrl}wp/v2/check_user_connected/2/$phone');
@@ -342,5 +342,27 @@ class ApiService {
         print(response.statusCode);
       }
     }
+
+  Future openDoors(int carNum,Function(dynamic res) onSuccess) async {
+    print('${_baseUrl}wp/v2/vehicle_UNlock/$carNum');
+    Response response = await _dio.get('${_baseUrl}wp/v2/vehicle_UNlock/$carNum');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+    // Prints the raw data returned by the server
+  }
+
+  Future lockDoors(int carNum,Function(dynamic res) onSuccess) async {
+    print('${_baseUrl}wp/v2/vehicle_lock/$carNum');
+    Response response = await _dio.get('${_baseUrl}wp/v2/vehicle_lock/$carNum');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+    // Prints the raw data returned by the server
+  }
 
 }

@@ -311,25 +311,33 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
       context: context,
       builder: (context) {
         return StatefulBuilder(builder: (context, StateSetter setState) {
-          _setEndDateBasedOnSelection() {
+
+          setEndDateBasedOnSelection() {
+            print('setEndDateBasedOnSelection()  $diff', );
+
             if (startDate != null && diff != null) {
               DateTime calculatedEndDate;
-              diff!<1?
-              calculatedEndDate = startDate!.add(Duration(hours: 6)):
-                calculatedEndDate = startDate!.add(Duration(days: diff!.toInt()));
-                calculatedEndDate = calculatedEndDate.add(Duration(days: 1));
+              diff!<1
+                  ? calculatedEndDate = startDate!.add(Duration(hours: 6))
+                  : calculatedEndDate = startDate!.add(Duration(days: diff!.toInt()));
+                //calculatedEndDate = calculatedEndDate.add(Duration(days: 1));
                 endd.text = intl.DateFormat('dd.MM.yyyy').format(calculatedEndDate);
                 endh.text = intl.DateFormat('HH:mm').format(calculatedEndDate);
                 endDate = calculatedEndDate;
+                print('startDate $startDate');
+                print('endDate $endDate');
                 rent.startDate = startDate!;
                 rent.endDate = endDate!;
-
-                //setState((){});
+                setState((){});
+              startDate=null;
             }
           }
 
+
+
           RadioListTile _buildRadioTile(String title, int v) {
             return RadioListTile(
+              activeColor: turquoiseColorApp ,
               value: v,
               dense: true,
               title: Text(title, style: TextStyle(fontSize: 20.sp)),
@@ -342,9 +350,10 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                 setState(() {
                   selectedValue = value;
                   diff = map[title];
+                  print('diff $diff');
                   selectedPart = -1;
                 });
-                if (startDate != null) _setEndDateBasedOnSelection();
+                if (startDate != null) setEndDateBasedOnSelection();
               },
               groupValue: selectedValue,
             );
@@ -423,24 +432,20 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
 
                           ],
                         ),
-                        SizedBox(
-                          height: 15.h,
-                        ),
+                        SizedBox(height: 15.h,),
                         ConstrainedBox(
                           constraints: BoxConstraints(maxHeight: 190.h),
                           child: ListView(
                             shrinkWrap: true,
                             children: <Widget>[
-                              _buildRadioTile('חצי יום', 1),
+                              _buildRadioTile('6 שעות', 1),
                               _buildRadioTile('יום', 2),
                               _buildRadioTile('שבוע', 3),
                               _buildRadioTile('חודש', 4),
                             ],
                           ),
                         ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
+                        SizedBox(height: 20.h),
                         /*Visibility(
                             visible: selectedValue == 1,
                             child: Container(
@@ -501,21 +506,21 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                       .format(date);
                                   print('start: ${startd.text}');
                                   startDate = date;
-                                  _setEndDateBasedOnSelection();
+                                  //setEndDateBasedOnSelection();
                                 }
                               },
                             ),
                             SizedBox(width: 9.h,),
                             TextFormField(
-                              readOnly: true,
+                              //readOnly: true,
                               cursorColor: const Color.fromRGBO(15, 17, 21, 1),
                               decoration: getInputDecoration(
-                                '00:00',
+                                '',
                                 131,
                                 suffixIcon: Icon(Icons.access_time,size: 20.w,color: pinkColorApp,),
                               ),
                               //style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
-                              controller: startd,
+                              controller: starth,
                               style: TextStyle(fontSize: 22.sp),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -524,73 +529,124 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                               },
                               onTap: () async {
                                 final TimeOfDay? starttime = await showTimePicker(
-                                    context: context,
-                                  initialTime: TimeOfDay(hour: 00, minute: 00),
-                                  initialEntryMode: TimePickerEntryMode.input,
+                                  //locale: const Locale("he", "HE"),
+                                  context: context,
+                                  initialTime: /*startDate!=null?TimeOfDay(hour: startDate!.hour, minute: startDate!.minute):*/TimeOfDay(hour: 00, minute: 00),
+                                  initialEntryMode: TimePickerEntryMode.dial,
+                                  builder: (BuildContext context, Widget? child) => MediaQuery(
+                                    data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+                                    child: Localizations.override(
+                                      context: context,
+                                      locale: const Locale("he", "HE"),
+                                      child: child!,
+                                    ),
+                                  ),
                                 );
+                                print('starttime $starttime');
 
                                 if (starttime != null) {
-                                  final hour = starttime.hour.toString().padLeft(2,'0');
-                                  final minute = starttime.minute.toString().padLeft(2,'0');
-                                  starth.text = '$hour:$minute';
-                                  print('start: ${startd.text}');
-
-                                  startDate = startDate!.add(Duration(hours: starttime.hour, minutes: starttime.minute));
-
-                                  _setEndDateBasedOnSelection();
+                                  //final hour = starttime.hour.toString().padLeft(2,'0');
+                                  //final minute = starttime.minute.toString().padLeft(2,'0');
+                                 //startDate!.add(Duration(hours: starttime.hour, minutes: starttime.minute));
+                                  //if (startDate != null) {
+                                  startDate = DateTime(startDate!.year, startDate!.month, startDate!.day, starttime.hour, starttime.minute);
+                                  //}
+                                  starth.text = '${startDate!.hour}:${startDate!.minute}';
+                                  print('start: $startDate');
+                                  setEndDateBasedOnSelection();
                                 }
                               },
                             ),
                           ],
                         ),
                         SizedBox(height: 20.h,),
-                        Visibility(
-                          visible: selectedValue != 1,
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text('עד -',
-                                      style: TextStyle(
-                                          fontSize: 18.sp,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.black)),
-                                ],
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text('עד -',
+                                style: TextStyle(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black)),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            TextFormField(
+                              readOnly: true,
+                              cursorColor:
+                                  const Color.fromRGBO(15, 17, 21, 1),
+                              decoration: getInputDecoration(
+                                '',
+                                  192,
+                                  suffixIcon: ImageIcon(AssetImage("assets/icons/Calendar.png"),size: 20.w,color: pinkColorApp,),
                               ),
-                              TextFormField(
-                                readOnly: true,
-                                cursorColor:
-                                    const Color.fromRGBO(15, 17, 21, 1),
-                                decoration: getInputDecoration(
-                                  '',
-                                    192,
-                                    suffixIcon: ImageIcon(AssetImage("assets/icons/Calendar.png"),size: 20.w,color: pinkColorApp,),
-                                ),
-                                style: TextStyle(fontSize: 22.sp),
-                                controller: endd,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'זהו שדה חובה';
-                                  }
-                                },
-                                onTap: () async {
-                                  DateTime? date = await showDatePicker(
-                                      textDirection: TextDirection.rtl,
-                                      locale: const Locale("he", "HE"),
+                              style: TextStyle(fontSize: 22.sp),
+                              controller: endd,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'זהו שדה חובה';
+                                }
+                              },
+                              onTap: () async {
+                                DateTime? date = await showDatePicker(
+                                    textDirection: TextDirection.rtl,
+                                    locale: const Locale("he", "HE"),
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime.now(),
+                                    lastDate: DateTime(2100));
+                                if (date != null) {
+                                  endd.text = intl.DateFormat('dd.MM.yyyy')
+                                      .format(date);
+                                }
+                                endDate = date;
+                              },
+                            ),
+                            SizedBox(width: 9.h,),
+                            TextFormField(
+                              readOnly: true,
+                              cursorColor: const Color.fromRGBO(15, 17, 21, 1),
+                              decoration: getInputDecoration(
+                                '',
+                                131,
+                                suffixIcon: Icon(Icons.access_time,size: 20.w,color: pinkColorApp,),
+                              ),
+                              //style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
+                              controller: endh,
+                              style: TextStyle(fontSize: 22.sp),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'זהו שדה חובה';
+                                }
+                              },
+                              onTap: () async {
+                                final TimeOfDay? endtime = await showTimePicker(
+                                  context: context,
+                                  cancelText: '',
+                                  initialTime: TimeOfDay(hour: 00, minute: 00),
+                                  initialEntryMode: TimePickerEntryMode.input,
+                                  builder: (BuildContext context, Widget? child) => MediaQuery(
+                                    data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+                                    child: Localizations.override(
                                       context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime.now(),
-                                      lastDate: DateTime(2100));
-                                  if (date != null) {
-                                    endd.text = intl.DateFormat('dd.MM.yyyy')
-                                        .format(date);
-                                  }
-                                  endDate = date;
-                                },
-                              ),
-                            ],
-                          ),
+                                      locale: const Locale("he", "HE"),
+                                      child: child!,
+                                    ),
+                                  ),
+                                );
+
+                                if (endtime != null) {
+                                  final hour = endtime.hour.toString().padLeft(2,'0');
+                                  final minute = endtime.minute.toString().padLeft(2,'0');
+                                  starth.text = '$hour:$minute';
+                                  print('end: ${endh.text}');
+
+                                  startDate = startDate!.add(Duration(hours: endtime.hour, minutes: endtime.minute));
+                                }
+                              },
+                            ),
+                          ],
                         ),
 
                         SizedBox(
@@ -607,7 +663,10 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                 ),
                               ),
                               onPressed: () {
-                                if(startd.text.isNotEmpty && selectedValue!=null &&(selectedValue!=1 || selectedPart!=-1)) {
+                                print('data: ');
+                                print(startDate);
+                                print(endDate);
+                                if(startd.text.isNotEmpty && selectedValue!=null) {
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
@@ -616,8 +675,8 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                               SearchCar(location: location,
                                                 latitude: latitude,
                                                 longitude: longitude,
-                                                startDate: startDate,
-                                                endDate: endDate,
+                                                startDate: rent.startDate,
+                                                endDate: rent.endDate,
                                                 part: selectedPart!=2 ? 1:selectedPart??1,
                                               )
                                         //     (

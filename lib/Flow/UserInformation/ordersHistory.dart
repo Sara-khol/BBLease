@@ -43,7 +43,6 @@ class _OrdersHistoryState extends State<OrdersHistory> {
     try {
       print('getOrders');
       await ApiService().getUserOrders(User().userId, (data) {
-        print('onSuccess');
         var historyJson = data['history'];
         var futureJson = data['futurity'];
         ordersHistory = historyJson.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
@@ -53,6 +52,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
           print(item.status);
           if (item.status == "active-rentals") {
             User().currentRent = item;
+            ordersHistory.remove(item);
           }
         }
         initData = true;
@@ -406,19 +406,21 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                     onPressed: initData && User().currentRent != null
                         ? () {
                         ApiService().getFuelLevel(User().currentRent!.car.carNumber, (res) {
-                          var percent=res*100;
-                          setState(() {});
+                          print('onSuccess');
+                          double percent=res>=0?res*100:-1;
+                          //setState(() {});
+                          print('navigator');
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                 ActiveRentDetails(percent: percent),
+                                 ActiveRentDetails(percent: percent.toInt()),
                               ));
                         });
                     }
                         : null,
                     child: Text(
-                      'הזמנה נוכחית',
+                      'הזמנה פעילה',
                       style: TextStyle(
                           fontSize: 22.sp,
                           fontWeight: FontWeight.w500,

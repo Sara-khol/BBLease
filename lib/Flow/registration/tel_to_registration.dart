@@ -2,23 +2,19 @@ import 'package:bblease/Flow/registration/payment_webVIew.dart';
 import 'package:bblease/Flow/registration/start_registration.dart';
 import 'package:bblease/Flow/registration/sucsses_registration.dart';
 import 'package:bblease/Flow/UserInformation/terms_and_conditions.dart';
-import 'package:bblease/utils/common_funcs.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:bblease/utils/my_colors.dart' as colors;
+import 'package:bblease/utils/my_colors.dart';
 
 import '../../models/class_user.dart';
 import '../../services/api_service.dart';
 import '../Dialogs/buttom_dialogs.dart';
 import '../Rental/dialogs.dart';
-import '../Rental/map.dart';
 import '../my_shared_preferences.dart';
 
 class TelToRegistrationForm extends StatefulWidget {
-  final bool isRegister;
 
-  const TelToRegistrationForm({Key? key, required this.isRegister})
+  const TelToRegistrationForm({Key? key})
       : super(key: key);
 
   @override
@@ -30,6 +26,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
   final TextEditingController _phone = TextEditingController();
   final TextEditingController _code = TextEditingController();
   FocusNode textSecondFocusNode = new FocusNode();
+  bool isRegister=true;
 
   bool didSendCode = false;
 
@@ -48,8 +45,8 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
     await ApiService().getVerificationCode(_phone.text, isSms, (value) {
       Navigator.pop(context);
       int status = value['status'];
-
-      if (widget.isRegister) {
+      print('status: $status');
+      if (!isRegister) {
         if (status == 4 || status == 5) {
         //  code = value['code'];
          // debugPrint('status $status code $code');
@@ -59,14 +56,16 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
         if (status == 3) {
           displayError(context,
               message: 'תעודת הזהות שהכנסת נחסמה בעבר הועבר לבדיקה');
-        }else {
+        }
+        else {
            if (status == 1)
           {
             displayError(context,
                 message: 'מספר הטלפון שהזנת  כבר קיים  במערכת');
           }
         }
-      } else {
+      }
+      else {
         if (status == 1) {
          // code = value['code'];
          // debugPrint('status $status code $code');
@@ -98,7 +97,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
       if (vStatus == 3) {
         displayError(context, message: 'קוד האימות אינו תואם');
       } else {
-        if (widget.isRegister) {
+        if (!isRegister) {
           if (vStatus == 5) {
             User().phoneNumber = _phone.text;
 
@@ -158,37 +157,49 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('התחבר',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400,decoration: widget.isRegister?TextDecoration.underline:TextDecoration.none,),),
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          isRegister=true;
+                        });
+                      },
+                        child: Text('התחבר',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400,color: Colors.black,decoration: isRegister?TextDecoration.underline:TextDecoration.none,),)),
                     SizedBox(width: 150.w,),
-                    Text('הירשם',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400,decoration: widget.isRegister?TextDecoration.none:TextDecoration.underline),)
+                    TextButton(
+                        onPressed: () {
+                          setState(() {
+                            isRegister=false;
+                          });
+                        },
+                        child: Text('הירשם',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400,color: Colors.black,decoration: isRegister?TextDecoration.none:TextDecoration.underline),))
                   ],
                 ),
-                SizedBox(height: 73.h,),
+                SizedBox(height: 60.h,),
                 Text('הזן מספר טלפון לקבלת קוד', style: TextStyle(fontSize: 23.sp, fontWeight: FontWeight.w600)),
                 SizedBox(height: 34.h),
                 TextFormField(
                   controller: _phone,
                   keyboardType: TextInputType.number,
-                  cursorColor: colors.blackColorApp,
+                  cursorColor: blackColorApp,
                   decoration: InputDecoration(
                     isDense: true,
                     labelText: "מס' נייד",
                     labelStyle: TextStyle(
                       fontSize: 22.sp,
                       fontWeight: FontWeight.w300,
-                      color: colors.blackColorApp,
+                      color: blackColorApp,
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide: BorderSide(
-                        color: colors.blackColorApp,
+                        color: blackColorApp,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide: BorderSide(
-                        color: colors.blackColorApp,
+                        color: blackColorApp,
                       ),
                     ),
                     errorBorder: OutlineInputBorder(
@@ -211,8 +222,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                         padding: EdgeInsets.only(right: 20.w, left: 14.w),
                         child: Icon(Icons.phone,
                             size: 23.sp,
-                            color: colors
-                                .pinkColorApp) //Image.asset('assets/images/Phone.png', width: 24.w,),
+                            color: pinkColorApp) //Image.asset('assets/images/Phone.png', width: 24.w,),
                         ),
                     prefixIconConstraints: const BoxConstraints(
                       maxHeight: 26,
@@ -222,15 +232,14 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                             padding: EdgeInsets.only(left: 14.w),
                             child: Icon(Icons.edit_note,
                                 size: 23.sp,
-                                color: colors
-                                    .turquoiseColorApp) //Image.asset('assets/images/Phone.png', width: 24.w,),
+                                color: turquoiseColorApp) //Image.asset('assets/images/Phone.png', width: 24.w,),
                             )
                         : null,
                   ),
                   style: TextStyle(
                       fontSize: 22.sp,
                       fontWeight: FontWeight.w300,
-                      color: colors.blackColorApp),
+                      color: blackColorApp),
                   validator: (value) {
                     if (value == null || value.length < 10)
                       return 'מספר הטלפון חייב להיות בן 10 ספרות';
@@ -244,26 +253,26 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                     keyboardType: TextInputType.number,
                     controller: _code,
                     focusNode: textSecondFocusNode,
-                    cursorColor: colors.blackColorApp,
+                    cursorColor: blackColorApp,
                     decoration: InputDecoration(
                       isDense: true,
                       labelText: "הזן סיסמא שהתקבלה",
                       labelStyle: TextStyle(
                         fontSize: 22.sp,
                         fontWeight: FontWeight.w300,
-                        color: colors.blackColorApp,
+                        color: blackColorApp,
                       ),
                       floatingLabelBehavior: FloatingLabelBehavior.auto,
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide(
-                          color: colors.blackColorApp,
+                          color: blackColorApp,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide(
-                          color: colors.blackColorApp,
+                          color: blackColorApp,
                         ),
                       ),
                       errorBorder: OutlineInputBorder(
@@ -286,18 +295,17 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                           padding: EdgeInsets.only(right: 20.w, left: 14.w),
                           child: Icon(Icons.password,
                               size: 23.sp,
-                              color: colors
-                                  .pinkColorApp) //Image.asset('assets/images/Phone.png', width: 24.w,),
+                              color: pinkColorApp) //Image.asset('assets/images/Phone.png', width: 24.w,),
                           ),
                       prefixIconConstraints: const BoxConstraints(
                         maxHeight: 26,
                       ),
-                      prefixIconColor: colors.pinkColorApp,
+                      prefixIconColor: pinkColorApp,
                     ),
                     style: TextStyle(
                         fontSize: 22.sp,
                         fontWeight: FontWeight.w300,
-                        color: colors.blackColorApp),
+                        color: blackColorApp),
                     validator: (value) {
                       //todo remove checking code correct here ??
                       if (value == null /*|| value != code.toString()*/)
@@ -337,14 +345,14 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                               )),
                         ],
                       ),
-                      checkColor: colors.blackColorApp,
+                      checkColor: blackColorApp,
                       activeColor: Colors.transparent,
                       // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       controlAffinity: ListTileControlAffinity.leading,
                       checkboxShape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4)),
                       side: BorderSide(
-                        color: colors.blackColorApp,
+                        color: blackColorApp,
                         width: 1.5,
                       ),
                     ),
@@ -363,9 +371,9 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                           child: Text('שלח שוב SMS',
                               style: TextStyle(
                                   fontWeight: FontWeight.w300,
-                                  fontSize: 22.sp,
+                                  fontSize: 18.sp,
                                   decoration: TextDecoration.underline,
-                                  color: colors.blackColorApp))),
+                                  color: blackColorApp))),
                       TextButton(
                           onPressed: () {
                             _code.text = '';
@@ -375,9 +383,9 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                             'שלח שוב שיחה קולית',
                             style: TextStyle(
                                 fontWeight: FontWeight.w300,
-                                fontSize: 22.sp,
+                                fontSize: 18.sp,
                                 decoration: TextDecoration.underline,
-                                color: colors.blackColorApp),
+                                color: blackColorApp),
                           )),
                       // SizedBox(
                       //   height: 100.h,
@@ -397,7 +405,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                         width: 332.w,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: colors.turquoiseColorApp,
+                              backgroundColor:turquoiseColorApp,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(100),
                               ),

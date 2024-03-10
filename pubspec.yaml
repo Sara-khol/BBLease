@@ -71,6 +71,7 @@ dependencies:
   flutter_localization: ^0.2.0
   custom_info_window: ^1.0.1
   signature: ^5.4.1
+  #flutter_launcher_icons: ^0.13.1
 
 
 
@@ -91,6 +92,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -103,6 +105,11 @@ dev_dependencies:
   build_runner: ^2.4.6
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/appIcon.png"
 
 # The following section is specific to Flutter packages.
 flutter:

@@ -7,9 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as intl;
 import '../Dialogs/buttom_dialogs.dart';
 import '../Rental/dialogs.dart';
-import '../my_shared_preferences.dart';
-import 'sucsses_registration.dart';
-import 'package:bblease/utils/my_colors.dart' as colors;
+
+import 'package:bblease/utils/my_colors.dart';
 
 class LicenseDetails extends StatefulWidget {
   const LicenseDetails({Key? key}) : super(key: key);
@@ -68,7 +67,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       style: TextStyle(
                         fontSize: 28.sp,
                         fontWeight: FontWeight.w600,
-                        color: colors.blackColorApp,
+                        color: blackColorApp,
                         fontFamily: 'PLONI',
                       ),
                     ),
@@ -79,10 +78,9 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  cursorColor: colors.blackColorApp,
+                  cursorColor: blackColorApp,
                   decoration: getInputDecoration('מספר רשיון נהיגה'),
-                  style:
-                      TextStyle(color: colors.blackColorApp, fontSize: 22.sp),
+                  style: TextStyle(color: blackColorApp, fontSize: 22.sp),
                   controller: _licenseId,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'זהו שדה חובה';
@@ -94,14 +92,14 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                 ),
                 TextFormField(
                   readOnly: true,
-                  cursorColor: colors.blackColorApp,
+                  cursorColor: blackColorApp,
                   decoration: getInputDecoration('תוקף',
                       suffixIcon: Image.asset(
                         'assets/icons/Calendar.png',
                         width: 18.w,
                       )),
                   style:
-                      TextStyle(color: colors.blackColorApp, fontSize: 22.sp),
+                      TextStyle(color: blackColorApp, fontSize: 22.sp),
                   controller: _expDate,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'זהו שדה חובה';
@@ -129,14 +127,14 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                 ),
                 TextFormField(
                   readOnly: true,
-                  cursorColor: colors.blackColorApp,
+                  cursorColor: blackColorApp,
                   decoration: getInputDecoration('תאריך הנפקה',
                       suffixIcon: const Icon(
                         Icons.calendar_today_outlined,
                         color: Color.fromRGBO(251, 37, 118, 1),
                       )),
                   style:
-                      TextStyle(color: colors.blackColorApp, fontSize: 22.sp),
+                      TextStyle(color: blackColorApp, fontSize: 22.sp),
                   controller: _issDate,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'זהו שדה חובה';
@@ -162,10 +160,10 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   height: 16.h,
                 ),
                 TextFormField(
-                  cursorColor: colors.blackColorApp,
+                  cursorColor: blackColorApp,
                   decoration: getInputDecoration('דרגת רשיון'),
                   style:
-                      TextStyle(color: colors.blackColorApp, fontSize: 22.sp),
+                      TextStyle(color: blackColorApp, fontSize: 22.sp),
                   controller: _degree,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'זהו שדה חובה';
@@ -183,7 +181,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       style: TextStyle(
                           fontFamily: 'PLONI',
                           fontSize: 20.sp,
-                          color: colors.blackColorApp),
+                          color: blackColorApp),
                     ),
                     value: User().isNewDriver,
                     onChanged: (bool? value) {
@@ -191,13 +189,13 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                         User().isNewDriver = value!;
                       });
                     },
-                    checkColor: colors.blackColorApp,
+                    checkColor: blackColorApp,
                     activeColor: Colors.transparent,
                     controlAffinity: ListTileControlAffinity.leading,
                     checkboxShape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4)),
                     side: BorderSide(
-                      color: colors.blackColorApp,
+                      color: blackColorApp,
                       width: 1.5,
                     ),
                   ),
@@ -207,7 +205,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   width: 250.w,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: colors.turquoiseColorApp,
+                        backgroundColor: turquoiseColorApp,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100),
                         ),
@@ -243,26 +241,26 @@ class _LicenseDetailsState extends State<LicenseDetails> {
       labelStyle: TextStyle(
         fontSize: 22.sp,
         fontWeight: FontWeight.w300,
-        color: colors.blackColorApp,
+        color: blackColorApp,
         fontFamily: 'PLONI',
       ),
       floatingLabelBehavior: FloatingLabelBehavior.auto,
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(
-          color: colors.blackColorApp,
+          color: blackColorApp,
         ),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(
-          color: colors.blackColorApp,
+          color: blackColorApp,
         ),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(
-          color: colors.blackColorApp,
+          color: blackColorApp,
         ),
       ),
       focusedErrorBorder: OutlineInputBorder(

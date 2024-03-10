@@ -1,7 +1,5 @@
-import 'dart:math';
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/registration/face_scanning.dart';
-import 'package:bblease/Flow/registration/personal_details_form.dart';
 import 'package:bblease/Flow/registration/text_recognition.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:bblease/services/support.dart' as support;
@@ -10,8 +8,9 @@ import 'package:camera/camera.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:bblease/utils/my_colors.dart' as colors;
+import 'package:bblease/utils/my_colors.dart';
 
+import '../../utils/my_colors.dart';
 
 
 class LicenseBack extends StatefulWidget {
@@ -58,7 +57,7 @@ class _LicenseBackState extends State<LicenseBack> {
               style: TextStyle(
                 fontSize: 28.sp,
                 fontWeight: FontWeight.w600,
-                color: colors.blackColorApp,
+                color: blackColorApp,
                 fontFamily: 'PLONI',
               ),
             ),
@@ -68,7 +67,7 @@ class _LicenseBackState extends State<LicenseBack> {
               style: TextStyle(
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w400,
-                color:  colors.blackColorApp,
+                color: blackColorApp,
                 fontFamily: 'PLONI',
               ),
               textAlign: TextAlign.center,
@@ -93,7 +92,7 @@ class _LicenseBackState extends State<LicenseBack> {
               style: TextStyle(
                 fontSize: 24.sp,
                 fontWeight: FontWeight.w500,
-                color:  colors.blackColorApp,
+                color: blackColorApp,
                 fontFamily: 'PLONI',
               ),
               textAlign: TextAlign.center,
@@ -113,7 +112,7 @@ class _LicenseBackState extends State<LicenseBack> {
                   backgroundColor: Color.fromRGBO(247, 247, 247, 1),
                   center: Padding(
                     padding: EdgeInsets.only(left: 65.w,),
-                    child: Text('2/3',style: TextStyle(color: Colors.white, fontSize: 12.sp ),),
+                    child: Text('2/3',style: TextStyle(color: Colors.white, fontSize: 12.sp ,height: 0.11),),
                   ),
                 ),
               ],
@@ -153,7 +152,7 @@ class _LicenseBackState extends State<LicenseBack> {
                         color: Colors.white)),
                     heroTag: "btn2",
                     elevation: 2,
-                    backgroundColor: colors.turquoiseColorApp,
+                    backgroundColor: turquoiseColorApp,
                     onPressed: ()=>support.call,
                       icon: Icon(Icons.phone_outlined,size: 22.sp,color: Colors.white,)
                   ),
@@ -170,7 +169,7 @@ class _LicenseBackState extends State<LicenseBack> {
                         color: Colors.white)),
                     heroTag: "btn1",
                     elevation: 2,
-                    backgroundColor: colors.turquoiseColorApp,
+                    backgroundColor: turquoiseColorApp,
                     onPressed: _onUploadButtonPressed,
                     icon:  Icon(Icons.file_upload_outlined,size: 22.sp,color: Colors.white,)
                   ),
@@ -205,7 +204,7 @@ class _LicenseBackState extends State<LicenseBack> {
       context: context,
       builder: (BuildContext context) {
         if (!_cameraController.value.isInitialized) {
-          return Center(child: CircularProgressIndicator());
+          return Center(child: CircularProgressIndicator(color: pinkColorApp,));
         }
         return Dialog(
           backgroundColor: Colors.transparent,
@@ -239,7 +238,7 @@ class _LicenseBackState extends State<LicenseBack> {
                   height: 40.h,
                   width: 80.w,
                   decoration: BoxDecoration(
-                      color: colors.turquoiseColorApp,
+                      color: turquoiseColorApp,
                       borderRadius: BorderRadius.all(Radius.circular(70))
                   ),
                   child: TextButton(
@@ -273,12 +272,17 @@ class _LicenseBackState extends State<LicenseBack> {
     }
     XFile? result = await ImagePicker().pickImage(source: ImageSource.gallery);
     if(result != null) {
+      uploadSucceed(context,LicenseBack(),FaceScanning());
       setState(() {
-        _imageBack = result;
+        _imageBack= result;
+        //_cameraController.pausePreview();
+        if (_imageBack != null) {
+          User().regImages[1]=_imageBack;
+          TextRecognition(1);
+        }
       });
-      User().regImages[1]=_imageBack;
     }
-    showImagePreview;
+    //showImagePreview;
   }
 
   showImagePreview(){

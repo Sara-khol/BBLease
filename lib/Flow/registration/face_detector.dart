@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:bblease/Flow/registration/sucsses_registration.dart';
 import 'package:bblease/Flow/registration/verification.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:camera/camera.dart';
@@ -9,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-// import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 
 class CameraFaceDetection extends StatefulWidget {
   @override
@@ -17,7 +15,7 @@ class CameraFaceDetection extends StatefulWidget {
 }
 
 class _CameraFaceDetectionState extends State<CameraFaceDetection> {
-  CameraController? _cameraController;
+  late CameraController _cameraController;
   late FaceDetector _faceDetector;
   late bool _isDetecting;
   bool isCapture = false;
@@ -51,7 +49,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
       rotation = InputImageRotationValue.fromRawValue(sensorOrientation);
     } else if (Platform.isAndroid) {
       var rotationCompensation =
-          _orientations[_cameraController!.value.deviceOrientation];
+          _orientations[_cameraController.value.deviceOrientation];
       if (rotationCompensation == null) return null;
       if (camera.lensDirection == CameraLensDirection.front) {
         // front-facing
@@ -96,8 +94,8 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
     _initializeFaceDetector();
 
     cameras = await availableCameras();
-     selfiCamera= cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.front);
-   // selfiCamera = cameras[0];
+     //selfiCamera= cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.front);
+    selfiCamera = cameras[0];
     _cameraController = CameraController(
       selfiCamera,
       ResolutionPreset.max,
@@ -108,24 +106,24 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
           : ImageFormatGroup.bgra8888,
     );
 
-    await _cameraController!.initialize();
-    // _cameraController!.initialize().then((_) {
-    //   if (!mounted) {
-    //     return;
-    //   }
-    //   setState(() {});
-    //   _startDetecting();
-    // });
+    await _cameraController.initialize();
+     _cameraController.initialize().then((_) async {
+       if (!mounted) {
+         return;
+       }
+       if (mounted && _cameraController != null) {
+         setState(() {});
+         _startDetecting();
+       }
+       else {
+         debugPrint('_cameraController is null or widget is not mounted');
+         Sentry.addBreadcrumb(Breadcrumb(
+             message: '_cameraController is null or widget is not mounted'));
+         await Sentry.captureMessage('???? ');
+       }
+     });
 
-    if (mounted && _cameraController != null) {
-      setState(() {});
-      _startDetecting();
-    } else {
-      debugPrint('_cameraController is null or widget is not mounted');
-      Sentry.addBreadcrumb(Breadcrumb(
-          message: '_cameraController is null or widget is not mounted'));
-      await Sentry.captureMessage('???? ');
-    }
+
   }
 
   void _initializeFaceDetector() {
@@ -154,7 +152,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
   void _startDetecting() {
     print('_startDetecting');
 
-    _cameraController!.startImageStream((CameraImage image) {
+    _cameraController.startImageStream((CameraImage image) {
       if (!_isDetecting) {
         _isDetecting = true;
 
@@ -199,15 +197,15 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
       print('_capturePicture');
 
       if (_cameraController != null &&
-          _cameraController!.value.isStreamingImages) {
+          _cameraController.value.isStreamingImages) {
         try {
-          await _cameraController!.stopImageStream();
-          await _cameraController!.pausePreview();
+          await _cameraController.stopImageStream();
+          await _cameraController.pausePreview();
           Sentry.addBreadcrumb(Breadcrumb(message: 'ok'));
           debugPrint('okkkkk');
           isCapture = true;
 
-          XFile file = await _cameraController!.takePicture();
+          XFile file = await _cameraController.takePicture();
           print("Picture captured: ${file.path}");
           // if (file != null) {
 
@@ -239,7 +237,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
 
   @override
   void dispose() {
-    _cameraController!.dispose();
+    _cameraController.dispose();
     _faceDetector.close();
     super.dispose();
   }
@@ -251,7 +249,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
     }
     return Column(
       children: [
-        Expanded(child: CameraPreview(_cameraController!)),
+        Expanded(child: CameraPreview(_cameraController)),
         ElevatedButton.icon(
             icon: Icon(Icons.camera),
             onPressed: _capturePicture,

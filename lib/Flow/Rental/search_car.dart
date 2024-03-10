@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bblease/Flow/Rental/dialogs.dart';
+import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:bblease/models/car.dart';
 import 'package:bblease/models/class_rent.dart';
@@ -18,10 +19,9 @@ import '../../models/class_user.dart';
 import 'additions_dialog.dart';
 
 class SearchCar extends StatefulWidget {
-   SearchCar({super.key,this.part=1, required this.location, required this.latitude, required this.longitude, this.startDate, this.endDate
+   SearchCar({super.key, required this.location, required this.latitude, required this.longitude, this.startDate, this.endDate
   });
 
-   final int part;
  final String location;
  final double? latitude;
 final  double? longitude;
@@ -49,9 +49,9 @@ class _SearchCarState extends State<SearchCar> {
 
   @override
   void initState()  {
+   mapController.dispose();
     rent.startDate=widget.startDate!;
     rent.endDate=widget.endDate!;
-    rent.dayPart=widget.part;
     getCarsList();
     super.initState();
   }
@@ -65,7 +65,7 @@ class _SearchCarState extends State<SearchCar> {
   getCarsList()  async{
     String start=intl.DateFormat('yyyy-MM-dd').format(widget.startDate!);
     String end  =intl.DateFormat('yyyy-MM-dd').format(widget.endDate!);
-     await ApiService().getCarsAround(start,end,widget.latitude!,widget.longitude!,_currentSliderValue.toInt()*10,widget.part,(car){
+     await ApiService().getCarsAround(start,end,widget.latitude!,widget.longitude!,_currentSliderValue.toInt()*10,1,(car){
       cars = car.map<Car>((entry) => (Car.fromJson(entry))).toList();
       setState(() {});
       createMap();
@@ -301,7 +301,7 @@ class _SearchCarState extends State<SearchCar> {
                 builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     // If the Future is still running, show the progress indicator
-                    return CircularProgressIndicator();
+                    return CircularProgressIndicator(color: pinkColorApp,);
                   } else {
                     // If the Future is complete, update the UI accordingly
                     return Text('לא נמצאו רכבים באזורך');
@@ -687,6 +687,7 @@ class _SearchCarState extends State<SearchCar> {
                                       fontSize: 20.sp,
                                       fontWeight: FontWeight.w400,
                                       decoration: TextDecoration.underline,
+                                      decorationColor: pinkColorApp,
                                       height: 1,
 
                                     ),
@@ -763,7 +764,7 @@ class _SearchCarState extends State<SearchCar> {
                             Align(
                               alignment: Alignment.center,
                               child: Text(
-                                'הוסף $_currentSliderValue ק”מ לטווח החיפוש הנוכחי',
+                                'הוסף ${_currentSliderValue.toInt()}  ק”מ לטווח החיפוש הנוכחי',
                                 style: TextStyle(
                                   color: Color(0xFF0F1511),
                                   fontSize: 20.sp,
@@ -789,7 +790,7 @@ class _SearchCarState extends State<SearchCar> {
                                     Navigator.pop(context);
                                   },
                                   child: Text('הצג תוצאות נוספות',
-                                    style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
+                                    style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white),)),
                             ),
                           ],
                         ),

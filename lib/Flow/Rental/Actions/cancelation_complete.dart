@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:signature/signature.dart';
 
-import '../../models/class_rent.dart';
-import '../../utils/my_colors.dart';
+import '../../../models/class_rent.dart';
+import '../../../utils/my_colors.dart';
 
 class CancelationComplete extends StatelessWidget {
   const CancelationComplete({Key? key}) : super(key: key);
@@ -73,7 +73,7 @@ class CancelationComplete extends StatelessWidget {
                     borderRadius: BorderRadius.circular(100),
                   ),
                 ),
-                onPressed: () {    },
+                onPressed: () {  },
                 child: Directionality(
                   textDirection: TextDirection.rtl,
                   child: Row(

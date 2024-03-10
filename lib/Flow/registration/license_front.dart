@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/registration/text_recognition.dart';
 import 'package:bblease/models/class_user.dart';
@@ -8,7 +7,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:bblease/services/support.dart' as support;
 import 'license_back.dart';
 
@@ -53,7 +51,7 @@ class _LicenseFrontState extends State<LicenseFront> {
               style: TextStyle(
                 fontSize: 28.sp,
                 fontWeight: FontWeight.w600,
-                color: colors.blackColorApp,
+                color: blackColorApp,
                 fontFamily: 'PLONI',
               ),
             ),
@@ -63,7 +61,7 @@ class _LicenseFrontState extends State<LicenseFront> {
               style: TextStyle(
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w400,
-                color:  colors.blackColorApp,
+                color:  blackColorApp,
                 fontFamily: 'PLONI',
                 height: 1
               ),
@@ -95,7 +93,7 @@ class _LicenseFrontState extends State<LicenseFront> {
               style: TextStyle(
                 fontSize: 24.sp,
                 fontWeight: FontWeight.w500,
-                color:  colors.blackColorApp,
+                color: blackColorApp,
                 fontFamily: 'PLONI',
               ),
               textAlign: TextAlign.center,
@@ -125,7 +123,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                     ),
                     child: Text(
                       '1/3',
-                      style: TextStyle(color: Colors.white, fontSize: 12.sp),
+                      style: TextStyle(color: Colors.white, fontSize: 12.sp,height: 0.11),
                     ),
                   ),
                 ),
@@ -164,7 +162,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                     label: Text('תמיכה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white)),
                     elevation: 2,
                     heroTag: "btn2",
-                    backgroundColor: colors.turquoiseColorApp,
+                    backgroundColor: turquoiseColorApp,
                     onPressed: ()=>support.call,
                     icon: Icon(Icons.phone_outlined,size: 22.sp,color: Colors.white,)
                   ),
@@ -177,7 +175,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                     elevation: 2,
                     label: Text('העלאת תמונה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white)),
                     heroTag: "btn1",
-                    backgroundColor:  colors.turquoiseColorApp,
+                    backgroundColor: turquoiseColorApp,
                     onPressed: _onUploadButtonPressed,
                     icon:  Icon(Icons.file_upload_outlined,size: 22.sp,color: Colors.white,)
                   ),
@@ -216,7 +214,7 @@ class _LicenseFrontState extends State<LicenseFront> {
       context: context,
       builder: (BuildContext context) {
         if (!_cameraController.value.isInitialized) {
-          return Center(child: CircularProgressIndicator());
+          return Center(child: CircularProgressIndicator(color: pinkColorApp,));
         }
         return Dialog(
           backgroundColor: Colors.transparent,
@@ -250,7 +248,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                  height: 40.h,
                  width: 80.w,
                  decoration: BoxDecoration(
-                   color: colors.turquoiseColorApp,
+                   color: turquoiseColorApp,
                      borderRadius: BorderRadius.all(Radius.circular(70))
                  ),
 
@@ -287,13 +285,19 @@ class _LicenseFrontState extends State<LicenseFront> {
     XFile? result = await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (result != null) {
-      setState(() {
-        _imageFront = result;
-      });
-      User().regImages[0] = _imageFront;
+        uploadSucceed(context,const LicenseFront(),const LicenseBack());
+        setState(() {
+          _imageFront= result;
+          //_cameraController.pausePreview();
+          if (_imageFront != null) {
+            User().regImages[0]=_imageFront;
+            TextRecognition(0);
+          }
+        });
+      //User().regImages[0] = _imageFront;
     }
 
-    showImagePreview;
+    //showImagePreview;
   }
 
   showImagePreview() {

@@ -12,7 +12,7 @@ import 'package:intl/intl.dart' as intl;
 
 import '../../models/class_user.dart';
 import '../../services/api_service.dart';
-import '../Rental/cancel_order_dialogs.dart';
+import '../Rental/Actions/cancel_order_dialogs.dart';
 
 class OrdersHistory extends StatefulWidget {
   const OrdersHistory({Key? key}) : super(key: key);
@@ -45,16 +45,21 @@ class _OrdersHistoryState extends State<OrdersHistory> {
       await ApiService().getUserOrders(User().userId, (data) {
         var historyJson = data['history'];
         var futureJson = data['futurity'];
+        print(historyJson);
+        print(futureJson);
         ordersHistory = historyJson.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
         futureOrders = futureJson.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
+        print(ordersHistory.length);
+        print(futureJson.length);
 
         for (var item in ordersHistory) {
           print(item.status);
           if (item.status == "active-rentals") {
             User().currentRent = item;
-            ordersHistory.remove(item);
           }
         }
+        ordersHistory = ordersHistory.where((item) => item.status != "active-rentals").toList();
+
         initData = true;
 
         setState(() {});
@@ -548,8 +553,8 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                 'אין הזמנות קיימות',
                 style: TextStyle(fontSize: 18.sp),
               )
-                  : const Center(
-                    child: CircularProgressIndicator(),
+                  :  Center(
+                    child: CircularProgressIndicator(color: pinkColorApp,),
               ),
               Spacer(),
               Container(

@@ -1,22 +1,11 @@
-import 'dart:async';
-import 'dart:math';
-import 'dart:typed_data';
-import 'dart:ui';
-import 'dart:io';
 
-import 'package:bblease/Flow/registration/verification.dart';
-import 'package:bblease/models/class_user.dart';
-import 'package:bblease/utils/my_colors.dart' as colors;
-import 'package:camera/camera.dart';
+import 'dart:ui';
+import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:image/image.dart' as img;
 import 'package:bblease/services/support.dart' as support;
-import 'package:bblease/utils/my_colors.dart' as colors;
 import 'face_detector.dart';
 
 
@@ -287,11 +276,11 @@ print('faces.length: ${faces.length}');
                   percent: 0.99,
                   animation: true,
                   barRadius: const Radius.circular(16),
-                  linearGradient: LinearGradient(colors: [ Color.fromRGBO(254, 193, 216, 1), Color.fromRGBO(251, 39, 119, 1)], ),
+                  linearGradient: LinearGradient(colors: [ Color.fromRGBO(254, 193, 216, 1), Color.fromRGBO(251, 39, 119, 1)]),
                   backgroundColor: Color.fromRGBO(247, 247, 247, 1),
                   center: Padding(
                     padding: EdgeInsets.only(left: 270.w,),
-                    child: Text('3/3',style: TextStyle(color: Colors.white, fontSize: 12.sp ),),
+                    child: Text('3/3',style: TextStyle(color: Colors.white, fontSize: 12.sp ,height: 0.11),),
                   ),
                 ),
               ],
@@ -303,7 +292,7 @@ print('faces.length: ${faces.length}');
               margin:EdgeInsets.only(bottom:40.sp ),
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(25)),
-                color: colors.turquoiseColorApp,
+                color: turquoiseColorApp,
               ),
               child: TextButton(
                 child: Text('תמיכה',style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.w500),),

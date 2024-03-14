@@ -52,9 +52,10 @@ class _OrdersHistoryState extends State<OrdersHistory> {
           print(item.status);
           if (item.status == "active-rentals") {
             User().currentRent = item;
-            ordersHistory.remove(item);
+
           }
         }
+        ordersHistory = ordersHistory.where((item) => item.status != "active-rentals").toList();
         initData = true;
 
         setState(() {});

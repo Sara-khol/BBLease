@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import 'additional_driver.dart';
 import 'class_rent.dart';
 
 part 'class_user.g.dart';
@@ -48,6 +49,8 @@ class User{
 
   @JsonKey(includeFromJson: false,includeToJson: false,)
    Rental? currentRent;
+
+ AdditionalDriver? additionalDriver;
 
   // void setBirthDate(String dateString) {
   //   try {

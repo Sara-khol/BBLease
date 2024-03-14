@@ -1,4 +1,6 @@
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
+import 'package:bblease/Flow/Rental/Actions/car_docu.dart';
+import 'package:bblease/Flow/Rental/Actions/report_accident.dart';
 import 'package:bblease/Flow/Rental/dialogs.dart';
 import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:bblease/services/api_service.dart';
@@ -174,7 +176,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                     ],
                                   ),
                                 ),
-                                onTap: () { },
+                                onTap: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => ReportAccident(),)),
                               ),
                             ),
                           ),
@@ -281,7 +283,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                       ],
                                     ),
                                   ),
-                                  onTap: (){},
+                                  onTap: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => CarDocu(),)),
                                 ),
                               ),
                             ),

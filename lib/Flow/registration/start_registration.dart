@@ -43,7 +43,7 @@ class _StartRegistrationState extends State<StartRegistration> {
                   onPressed: (){
                     Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const LicenseFront()));
+                        MaterialPageRoute(builder: (context) => const LicenseFront(index: 1,)));
                   },
                   child:  Text('אני מוכן!',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,
                   color: Colors.white),textDirection: TextDirection.rtl)),

@@ -14,6 +14,7 @@ class ApiService {
   final Dio _dio = Dio();
   // final _baseUrl = 'https://bibilease.co.il/?rest_route=/';
   late String _baseUrl;
+  //String devURL='https://bibilease.quicksolutions.co.il/wp-json/';
 
   ApiService._privateConstructor(){
     if(!kIsWeb) {
@@ -34,7 +35,8 @@ class ApiService {
     //     _baseUrl = 'https://bibilease.appupgo.co.il/?rest_route=/';
     //   }
     // else{
-      _baseUrl = 'https://bibilease.co.il/?rest_route=/';
+      //_baseUrl = 'https://bibilease.co.il/?rest_route=/';
+      _baseUrl = 'https://bibilease.quicksolutions.co.il/wp-json/';
   // }
   } // Private constructor for singleton
 
@@ -77,11 +79,11 @@ class ApiService {
     // Prints the raw data returned by the server
   }
 
-  Future getCarsAround(String start,String end,double lat,double long,int km, int dayPart,Function(dynamic carJson) onSuccess) async {
-    print('${_baseUrl}wp/v2/get_vehicles_around_address/$start/$end/$lat/$long/$km/$dayPart');
+  Future getCarsAround(String start,String end,double lat,double long,int km,stime,etime,Function(dynamic carJson) onSuccess) async {
+    print('${_baseUrl}wp/v2/get_vehicles_around_address1/$start/$end/$lat/$long/$km/$stime/$etime');
 
     // Response response = await _dio.get('${_baseUrl}wp/v2/get_all_vehicles');
-    Response response = await _dio.get('${_baseUrl}wp/v2/get_vehicles_around_address/$start/$end/$lat/$long/$km/$dayPart');
+    Response response = await _dio.get('${_baseUrl}wp/v2/get_vehicles_around_address1/$start/$end/$lat/$long/$km/$stime/$etime');
     if(response.statusCode == 200) {
       var result = response.data;
       print(result);

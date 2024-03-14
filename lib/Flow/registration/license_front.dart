@@ -11,7 +11,8 @@ import 'package:bblease/services/support.dart' as support;
 import 'license_back.dart';
 
 class LicenseFront extends StatefulWidget {
-  const LicenseFront({Key? key}) : super(key: key);
+  const LicenseFront({Key? key, required this.index}) : super(key: key);
+  final int index;
 
   @override
   State<LicenseFront> createState() => _LicenseFrontState();
@@ -49,7 +50,7 @@ class _LicenseFrontState extends State<LicenseFront> {
             Text(
               'סרוק רישיון',
               style: TextStyle(
-                fontSize: 28.sp,
+                fontSize: 24.sp,
                 fontWeight: FontWeight.w600,
                 color: blackColorApp,
                 fontFamily: 'PLONI',
@@ -101,33 +102,36 @@ class _LicenseFrontState extends State<LicenseFront> {
             ),
             SizedBox(height: 60.h),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                LinearPercentIndicator(
-                  width: 332.w,
-                  lineHeight: 17.h,
-                  percent: 0.33,
-                  animation: true,
-                  barRadius: const Radius.circular(16),
-                  linearGradient: LinearGradient(
-                    colors: [
-                      Color.fromRGBO(254, 193, 216, 1),
-                      Color.fromRGBO(251, 39, 119, 1)
-                    ],
-                  ),
-                  backgroundColor: Color.fromRGBO(247, 247, 247, 1),
-                  center: Padding(
-                    padding: EdgeInsets.only(
-                      right: 140.w,
+            Visibility(
+              visible: widget.index==1,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  LinearPercentIndicator(
+                    width: 332.w,
+                    lineHeight: 17.h,
+                    percent: 0.33,
+                    animation: true,
+                    barRadius: const Radius.circular(16),
+                    linearGradient: LinearGradient(
+                      colors: [
+                        Color.fromRGBO(254, 193, 216, 1),
+                        Color.fromRGBO(251, 39, 119, 1)
+                      ],
                     ),
-                    child: Text(
-                      '1/3',
-                      style: TextStyle(color: Colors.white, fontSize: 12.sp,height: 0.11),
+                    backgroundColor: Color.fromRGBO(247, 247, 247, 1),
+                    center: Padding(
+                      padding: EdgeInsets.only(
+                        right: 140.w,
+                      ),
+                      child: Text(
+                        '1/3',
+                        style: TextStyle(color: Colors.white, fontSize: 12.sp,height: 0.11),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             SizedBox(height: 60.h),
             // Container(
@@ -152,35 +156,38 @@ class _LicenseFrontState extends State<LicenseFront> {
             //       )),
             // ),
             // SizedBox(height: 12.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 129.w,
-                  height: 48.h,
-                  child: FloatingActionButton.extended(
-                    label: Text('תמיכה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white)),
-                    elevation: 2,
-                    heroTag: "btn2",
-                    backgroundColor: turquoiseColorApp,
-                    onPressed: ()=>support.call,
-                    icon: Icon(Icons.phone_outlined,size: 22.sp,color: Colors.white,)
+            Visibility(
+              visible: widget.index==1,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 129.w,
+                    height: 48.h,
+                    child: FloatingActionButton.extended(
+                      label: Text('תמיכה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white)),
+                      elevation: 2,
+                      heroTag: "btn2",
+                      backgroundColor: turquoiseColorApp,
+                      onPressed: ()=>support.call,
+                      icon: Icon(Icons.phone_outlined,size: 22.sp,color: Colors.white,)
+                    ),
                   ),
-                ),
-                SizedBox(width: 20.w),
-                SizedBox(
-                  width: 183.w,
-                  height: 48.h,
-                  child: FloatingActionButton.extended(
-                    elevation: 2,
-                    label: Text('העלאת תמונה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white)),
-                    heroTag: "btn1",
-                    backgroundColor: turquoiseColorApp,
-                    onPressed: _onUploadButtonPressed,
-                    icon:  Icon(Icons.file_upload_outlined,size: 22.sp,color: Colors.white,)
+                  SizedBox(width: 20.w),
+                  SizedBox(
+                    width: 183.w,
+                    height: 48.h,
+                    child: FloatingActionButton.extended(
+                      elevation: 2,
+                      label: Text('העלאת תמונה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white)),
+                      heroTag: "btn1",
+                      backgroundColor: turquoiseColorApp,
+                      onPressed: _onUploadButtonPressed,
+                      icon:  Icon(Icons.file_upload_outlined,size: 22.sp,color: Colors.white,)
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             // SizedBox(height: 40),
           ],
@@ -256,8 +263,9 @@ class _LicenseFrontState extends State<LicenseFront> {
                      onPressed: () async{
                      XFile xfile=await _cameraController.takePicture();
                      debugPrint('xfile ${xfile.name}');
-                     uploadSucceed(context,const LicenseFront(),const LicenseBack());
-                     setState(() {
+                     uploadSucceed(context,const LicenseFront(index: 1), LicenseBack(index: widget.index,));
+                     if(widget.index==1) {
+                       setState(() {
                        _imageFront= xfile;
                        _cameraController.pausePreview();
                        if (_imageFront != null) {
@@ -265,6 +273,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                          TextRecognition(0);
                        }
                      });
+                     }
                    },
                    child: Text('צלם',style: (TextStyle(color: Colors.white, )),),
                  ),
@@ -285,7 +294,7 @@ class _LicenseFrontState extends State<LicenseFront> {
     XFile? result = await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (result != null) {
-        uploadSucceed(context,const LicenseFront(),const LicenseBack());
+        uploadSucceed(context,const LicenseFront(index: 1,), LicenseBack(index: widget.index,));
         setState(() {
           _imageFront= result;
           //_cameraController.pausePreview();

@@ -49,9 +49,9 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                 SizedBox(
                   height: 50.h,
                 ),
-                const Icon(
+                 Icon(
                   Icons.account_circle_outlined,
-                  color: Color.fromRGBO(0, 222, 222, 1),
+                  color: turquoiseColorApp,
                   size: 60,
                   weight: 100,
                 ),
@@ -129,9 +129,9 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   readOnly: true,
                   cursorColor: blackColorApp,
                   decoration: getInputDecoration('תאריך הנפקה',
-                      suffixIcon: const Icon(
+                      suffixIcon:  Icon(
                         Icons.calendar_today_outlined,
-                        color: Color.fromRGBO(251, 37, 118, 1),
+                        color: pinkColorApp,
                       )),
                   style:
                       TextStyle(color: blackColorApp, fontSize: 22.sp),

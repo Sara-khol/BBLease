@@ -45,7 +45,7 @@ Future cancelOrderDialog(context,rent){
                         Text(
                           'ביטול הזמנה',
                           style: TextStyle(
-                              fontSize: 28.sp,
+                              fontSize: 23.sp,
                               fontWeight: FontWeight.w600,
                               color: pinkColorApp),
                         ),

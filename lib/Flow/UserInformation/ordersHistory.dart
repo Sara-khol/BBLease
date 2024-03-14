@@ -438,19 +438,14 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                   ),
                   onPressed: initData && User().currentRent != null
                       ? () {
-                          ApiService().getFuelLevel(
-                              User().currentRent!.car.carNumber, (res) {
-                            print('onSuccess');
-                            double percent = res >= 0 ? res * 100 : -1;
-                            //setState(() {});
-                            print('navigator');
+
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ActiveRentDetails(
-                                      percent: percent.toInt()),
+                                     ),
                                 ));
-                          });
+
                         }
                       : null,
                   child: Text(

@@ -1,8 +1,6 @@
-import 'dart:io';
 import 'package:bblease/models/class_user.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 
 
 void TextRecognition(int index) async {
@@ -60,9 +58,6 @@ Future<void> extractData(String data) async {
   }
   User().firstName = extractedData['2'] ?? '';
   User().lastName = extractedData['1'] ?? '';
-  // User().setBirthDate(extractedData['3'] ?? '01.01.1970')  ;
-  // User().setLicenseIssDate(extractedData['4a'] ?? '01.01.1970') ;
-  // User().setLicenseExpDate(extractedData['4b'] ?? '01.01.1970');
 
   User().birthDate=extractedData['3'] ?? '';
   User().licenseIssDate=extractedData['4a'] ?? '';

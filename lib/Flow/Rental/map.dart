@@ -18,6 +18,7 @@ import 'car_dialog.dart';
 import 'dialogs.dart';
 
 
+late GoogleMapController mapController;
 class RentalWidget extends StatefulWidget {
   const RentalWidget({super.key});
 
@@ -28,7 +29,7 @@ class RentalWidget extends StatefulWidget {
 class _RentalWidgetState extends State<RentalWidget> {
 
   CameraPosition _kGoogle = CameraPosition(target: LatLng(31.80012237280773, 35.212884511532316), zoom: 13,);
-  late GoogleMapController _mapController;
+
   Address? formattedAddress;
   late Uint8List  available;
   late Uint8List  unAvailable;
@@ -37,7 +38,7 @@ class _RentalWidgetState extends State<RentalWidget> {
   final List<Marker> _markers = <Marker>[];
   bool dialogShown=false;
   double long=0, lat=0;
-  CustomInfoWindowController _customInfoWindowController = CustomInfoWindowController();
+  //CustomInfoWindowController _customInfoWindowController = CustomInfoWindowController();
 
   Future<Position> _determinePosition() async{
     bool serviceEnabled;
@@ -81,7 +82,7 @@ class _RentalWidgetState extends State<RentalWidget> {
         zoom: 17,
       );
 
-      _mapController.animateCamera(CameraUpdate.newCameraPosition(updatedPosition));
+      mapController.animateCamera(CameraUpdate.newCameraPosition(updatedPosition));
 
       /*Marker userLocationMarker = Marker(
         markerId: MarkerId('userLocation'),
@@ -226,8 +227,8 @@ print('getCarsList');
 
   @override
   void dispose() {
-    _customInfoWindowController.dispose();
-    _mapController.dispose();
+    //_customInfoWindowController.dispose();
+    mapController.dispose();
     super.dispose();
   }
 
@@ -244,26 +245,21 @@ print('getCarsList');
             myLocationEnabled: true,
             myLocationButtonEnabled: true,
             compassEnabled: true,
-            onTap: (position) {
-              _customInfoWindowController.hideInfoWindow!();
-            },
-            onCameraMove: (position) {
-              _customInfoWindowController.onCameraMove!();
-            },
+
           onMapCreated: (GoogleMapController controller){
-            _mapController=controller;
-            _customInfoWindowController.googleMapController = controller;
+            mapController=controller;
+            //_customInfoWindowController.googleMapController = controller;
             _setCurrentLocation();
             },
             
           ),
-          CustomInfoWindow(
+         /* CustomInfoWindow(
             controller: _customInfoWindowController,
             height: 48.h,
             width: 114.w,
             offset: 100,
 
-          ),
+          ),*/
           AppBarBibilease(),
           Align(
             alignment: Alignment.bottomCenter,

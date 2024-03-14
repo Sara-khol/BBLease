@@ -71,7 +71,7 @@ class _CarDetailsState extends State<CarDetails> {
               textAlign: TextAlign.right,
               style: TextStyle(
                 color: colors.blackColorApp,
-                fontSize: 34.sp,
+                fontSize: 30.sp,
                 fontWeight: FontWeight.w700,
                 height: null,
               ),
@@ -80,9 +80,8 @@ class _CarDetailsState extends State<CarDetails> {
               'רכב זה זמין רק בחיבור לאפליקציה',
               style: TextStyle(
                 color: colors.blackColorApp,
-                fontSize: 20.sp,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w400,
-                height: null,
               ),
             ),
             SizedBox(height: 30.h),
@@ -151,7 +150,7 @@ class _CarDetailsState extends State<CarDetails> {
                                         Text(widget.rent.car.postName,
                                             style: TextStyle(
                                               color: colors.blackColorApp,
-                                              fontSize: 34.sp,
+                                              fontSize: 30.sp,
                                               fontWeight: FontWeight.w700,
                                               height: 1.15,
                                             )),
@@ -159,7 +158,7 @@ class _CarDetailsState extends State<CarDetails> {
                                           '200 ק"מ',
                                           style: TextStyle(
                                             color: colors.blackColorApp,
-                                            fontSize: 22.sp,
+                                            fontSize: 18.sp,
                                             fontWeight: FontWeight.w600,
                                             height: 1.15,
                                           ),
@@ -286,7 +285,7 @@ class _CarDetailsState extends State<CarDetails> {
                                           'פרטי הרכב',
                                           style: TextStyle(
                                             color: colors.blackColorApp,
-                                            fontSize: 22.sp,
+                                            fontSize: 18.sp,
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
@@ -321,7 +320,7 @@ class _CarDetailsState extends State<CarDetails> {
                                               widget.rent.car.city,
                                               style: TextStyle(
                                                 color: colors.blackColorApp,
-                                                fontSize: 20.sp,
+                                                fontSize: 16.sp,
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -338,7 +337,7 @@ class _CarDetailsState extends State<CarDetails> {
                                               '${intl.DateFormat('dd.MM.yyyy').format(widget.rent.startDate!)} - ${intl.DateFormat('dd.MM.yyyy').format(widget.rent.endDate!)}',
                                               style: TextStyle(
                                                 color: colors.blackColorApp,
-                                                fontSize: 20.sp,
+                                                fontSize: 16.sp,
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -437,7 +436,7 @@ class _CarDetailsState extends State<CarDetails> {
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               color: colors.blackColorApp,
-                                              fontSize: 22.sp,
+                                              fontSize: 18.sp,
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -508,7 +507,7 @@ class _CarDetailsState extends State<CarDetails> {
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               color: colors.blackColorApp,
-                                              fontSize: 22.sp,
+                                              fontSize: 18.sp,
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -751,13 +750,13 @@ class _CarDetailsState extends State<CarDetails> {
                                             // ' ${((rentPrice+price)*1.17).round()} ₪'
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w700,
-                                                fontSize: 22.sp)),
+                                                fontSize: 18.sp)),
                                         SizedBox(height: 7.h),
                                         Text(
                                           'פירוט התשלום',
                                           style: TextStyle(
                                               fontWeight: FontWeight.w400,
-                                              fontSize: 18.sp),
+                                              fontSize: 16.sp),
                                         ),
                                         SizedBox(height: 10.h),
                                         Container(
@@ -775,40 +774,40 @@ class _CarDetailsState extends State<CarDetails> {
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Text('השכרה',style: TextStyle(fontSize: 18.sp)),
+                                                        Text('השכרה',style: TextStyle(fontSize: 16.sp)),
                                                         SizedBox(height: 17.h),
-                                                        Text('תוספות', style: TextStyle(fontSize: 18.sp)),
+                                                        Text('תוספות', style: TextStyle(fontSize: 16.sp)),
                                                         SizedBox(height: 17.h),
-                                                        Text('מע”מ', style: TextStyle(fontSize: 18.sp)),
+                                                        Text('מע”מ', style: TextStyle(fontSize: 16.sp)),
                                                         SizedBox(height: 17.h),
-                                                        Text('סך הכל', overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18.sp, color: pinkColorApp))
+                                                        Text('סך הכל', overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16.sp, color: pinkColorApp))
                                                       ],
                                                     ),
                                                     // SizedBox(width: 25.h),
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Text('₪ $rentPrice', style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w700)),
+                                                        Text('₪ $rentPrice', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w700)),
                                                         SizedBox(height: 17.h),
-                                                        Text('₪ $price',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700)),
+                                                        Text('₪ $price',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700)),
                                                         SizedBox(height: 17.h),
-                                                        Text('₪ ${((rentPrice + price) * 0.17).round()}', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700)),
+                                                        Text('₪ ${((rentPrice + price) * 0.17).round()}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700)),
                                                         SizedBox(height: 17.h),
-                                                        Text('₪ ${(rentPrice + price) + ((rentPrice + price) * 0.17).round()}', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700, color: pinkColorApp)),
+                                                        Text('₪ ${(rentPrice + price) + ((rentPrice + price) * 0.17).round()}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700, color: pinkColorApp)),
                                                       ],
                                                     ),
                                                     // SizedBox(width: 20.h),
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Text('${dayDiff == 0 ? 1 : dayDiff} ימים * ${widget.rent.car.pricePerDay} ליום', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500)),
+                                                        Text('${dayDiff == 0 ? 1 : dayDiff} ימים * ${widget.rent.car.pricePerDay} ליום', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500)),
                                                         SizedBox(height: 17.h),
-                                                        Text('תוספות', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500)),
+                                                        Text('תוספות', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500)),
                                                         SizedBox(height: 17.h),
-                                                        Text('תוספת 17%', style: TextStyle(fontSize: 18.sp, fontWeight:
+                                                        Text('תוספת 17%', style: TextStyle(fontSize: 16.sp, fontWeight:
                                                         FontWeight.w500)),
                                                         SizedBox(height: 17.h),
-                                                        Text('תשלום כולל מע”מ', overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500, color: pinkColorApp)),
+                                                        Text('תשלום כולל מע”מ', overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: pinkColorApp)),
                                                       ],
                                                     )
                                                   ],
@@ -825,7 +824,7 @@ class _CarDetailsState extends State<CarDetails> {
                                           'התשלום יגבה אוטמטית באמצעות מערכת הסליקה ממספר אשראי שמופיע במערכת על שמך',
                                           style: TextStyle(
                                               fontWeight: FontWeight.w400,
-                                              fontSize: 18.sp),
+                                              fontSize: 16.sp),
                                         ),
                                         SizedBox(height: 20.h),
                                       ],
@@ -863,7 +862,7 @@ class _CarDetailsState extends State<CarDetails> {
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               color: colors.blackColorApp,
-                                              fontSize: 22.sp,
+                                              fontSize: 18.sp,
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -923,7 +922,7 @@ class _CarDetailsState extends State<CarDetails> {
                                     'לתשלום',
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 22.sp,
+                                        fontSize: 18.sp,
                                         fontWeight: FontWeight.w500),
                                   )),
                             ),
@@ -969,7 +968,7 @@ class _CarDetailsState extends State<CarDetails> {
                   icon: Icon(Icons.close, color: colors.pinkColorApp)),
             ),
             Expanded(
-                child: Text(widget.rent.additions![index].title, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18.sp))),
+                child: Text(widget.rent.additions![index].title, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp))),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [

@@ -1,11 +1,9 @@
-import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/home_page.dart';
-import 'package:bblease/models/class_rent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../models/class_user.dart';
 import '../welcome.dart';
-import 'package:bblease/utils/my_colors.dart' as colors;
+import 'package:bblease/utils/my_colors.dart';
 
 class SucssesRegistrationForm extends StatefulWidget {
   const SucssesRegistrationForm({Key? key}) : super(key: key);
@@ -34,19 +32,19 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
                         fontSize: 28.sp,
                         height: 1,
                         fontWeight: FontWeight.w700,
-                        color: colors.blackColorApp)),
+                        color: blackColorApp)),
                 Text("הרשמתך בוצעה בהצלחה",
                     style: TextStyle(
                         fontSize: 28.sp,
                         height: 1,
                         fontWeight: FontWeight.w700,
-                        color: colors.blackColorApp)),
+                        color: blackColorApp)),
                 Text("כעת ניתן להזמין רכב על שמך!",
                     style: TextStyle(
                         fontSize: 24.sp,
                         height: 1,
                         fontWeight: FontWeight.w700,
-                        color: colors.blackColorApp)),
+                        color: blackColorApp)),
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -56,7 +54,7 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
                         width: 332.w,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: colors.turquoiseColorApp,
+                              backgroundColor: turquoiseColorApp,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(100),
                               ),
@@ -74,34 +72,40 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
                                     fontWeight: FontWeight.w500))),
                       ),
                       SizedBox(height: 12.h),
-                      SizedBox(
-                        width: 332.w,
+                      Container(
                         height: 48.h,
-                        child: FloatingActionButton.extended(
-                          label: Text(
-                            'צא מהאפליקציה',
-                            style: TextStyle(
-                              color: Colors.white,
-                                letterSpacing: 0.1,
-                                fontSize: 22.sp,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          heroTag: "btn2",
-                          elevation: 2,
-                          backgroundColor: colors.turquoiseColorApp,
-                          icon: const Icon(
-                            Icons.exit_to_app_outlined,
-                            fill: 0,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const WelcomeForm()));
-                          },
-                        ),
+                        width: 332.w,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: turquoiseColorApp,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>  WelcomeForm()));
+                            },
+
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.exit_to_app_outlined,
+                                  fill: 0,
+                                  color: Colors.white,
+                                ),
+                                Text('   צא מהאפליקציה',
+                                    style: TextStyle(
+                                        fontSize: 22.sp,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500)),
+                              ],
+                            )),
                       ),
+
                       SizedBox(height: 40.h),
                     ],
                   ),

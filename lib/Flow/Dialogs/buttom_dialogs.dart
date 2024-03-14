@@ -374,7 +374,7 @@ Future displayQuestion1(BuildContext context,{
         ),
         child: Column(children: [
           SizedBox(height: 35.h),
-          Text('!היי, שים לב',style: TextStyle(color: colors.pinkColorApp,fontWeight: FontWeight.w600,fontSize: 28.sp)),
+          Text('! שים לב',style: TextStyle(color: colors.pinkColorApp,fontWeight: FontWeight.w600,fontSize: 28.sp)),
           // const Spacer(),
           Expanded(
             child: Align(

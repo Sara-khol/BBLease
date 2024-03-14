@@ -55,8 +55,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
               width: 370.w,
               height: 455.h,
               margin: const EdgeInsets.all(10.0),
-              decoration:
-                  BoxDecoration(border: Border.all(color: turquoiseColorApp)),
+              //decoration: BoxDecoration(border: Border.all(color: turquoiseColorApp)),
               child: InAppWebView(
                 initialUrlRequest: URLRequest(url: WebUri(widget.url)),
                 // initialUrl: "https://flutter.dev/",

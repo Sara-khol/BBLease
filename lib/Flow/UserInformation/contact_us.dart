@@ -146,10 +146,10 @@ class _ContactUsState extends State<ContactUs> {
                             "id":User().userId.toString()
                           };
                           showLoading(context);
-                          ApiService().newOrder(map, (res) {
+                          ApiService().sendFeedback(map, (res) {
                             Navigator.pop(context);
                             displayMessage(context,
-                                message: 'ההזמנה התקבלה בהצלחה',
+                                message: 'ההודעה התקבלה בהצלחה',
                                 onClose: () {
                                   Navigator.push(
                                       context,

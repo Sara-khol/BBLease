@@ -14,7 +14,7 @@ class ApiService {
   final Dio _dio = Dio();
   // final _baseUrl = 'https://bibilease.co.il/?rest_route=/';
   late String _baseUrl;
-  //String devURL='https://bibilease.quicksolutions.co.il/wp-json/';
+  String devURL='https://bibilease.quicksolutions.co.il/wp-json/';
 
   ApiService._privateConstructor(){
     if(!kIsWeb) {
@@ -35,8 +35,8 @@ class ApiService {
     //     _baseUrl = 'https://bibilease.appupgo.co.il/?rest_route=/';
     //   }
     // else{
-      //_baseUrl = 'https://bibilease.co.il/?rest_route=/';
-      _baseUrl = 'https://bibilease.quicksolutions.co.il/wp-json/';
+      _baseUrl = 'https://bibilease.co.il/?rest_route=/';
+      //_baseUrl = 'https://bibilease.quicksolutions.co.il/wp-json/';
   // }
   } // Private constructor for singleton
 
@@ -300,8 +300,9 @@ class ApiService {
   }
 
   Future getFuelLevel(int carNum,Function(dynamic res) onSuccess) async {
-    print('${_baseUrl}wp/v2/return_car_fuel_level/$carNum');
-    Response response = await _dio.get('${_baseUrl}wp/v2/return_car_fuel_level/$carNum');
+    https://bibilease.quicksolutions.co.il/wp-json/wp/v2/get_car_fuel_level_by_KM_and_by_fuel_percentage/73592802
+    print('${devURL}wp/v2/get_car_fuel_level_by_KM_and_by_fuel_percentage/$carNum');
+    Response response = await _dio.get('${devURL}wp/v2/get_car_fuel_level_by_KM_and_by_fuel_percentage/$carNum');
     if(response.statusCode == 200) {
       var result = response.data;
       print('result: $result');
@@ -310,6 +311,17 @@ class ApiService {
     // Prints the raw data returned by the server
   }
 
+  Future getTimeRemain(int orderId,Function(dynamic res) onSuccess) async {
+
+    print('${_baseUrl}wp/v2/get_remaining_rental_time/$orderId');
+    Response response = await _dio.get('${_baseUrl}wp/v2/get_remaining_rental_time/$orderId');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+    // Prints the raw data returned by the server
+  }
 
   Future sendFeedback( Map<String, dynamic> jsonMap,Function(dynamic res) onSuccess) async {
     debugPrint('${_baseUrl}wp/v2/get_feedback');

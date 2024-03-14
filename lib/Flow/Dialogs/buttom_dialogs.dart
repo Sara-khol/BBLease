@@ -1,8 +1,12 @@
+import 'package:bblease/Flow/Rental/Actions/report_accident.dart';
 import 'package:bblease/Flow/registration/license_front.dart';
 import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../utils/my_colors.dart';
+import 'package:bblease/services/support.dart' as support;
 
 Future errorNoMatch(BuildContext context, Widget page) {
   return showModalBottomSheet(
@@ -374,7 +378,7 @@ Future displayQuestion1(BuildContext context,{
         ),
         child: Column(children: [
           SizedBox(height: 35.h),
-          Text('! שים לב',style: TextStyle(color: colors.pinkColorApp,fontWeight: FontWeight.w600,fontSize: 28.sp)),
+          Text(message1,style: TextStyle(color: colors.pinkColorApp,fontWeight: FontWeight.w600,fontSize: 28.sp)),
           // const Spacer(),
           Expanded(
             child: Align(
@@ -382,19 +386,11 @@ Future displayQuestion1(BuildContext context,{
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(message1,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        height:1,
-                        fontSize: 20.sp,
-                      )),
                   Text(message2,
-                      textDirection: TextDirection.rtl,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         height:1,
                         fontSize: 20.sp,
-                        fontWeight: FontWeight.w700,
                       )),
                 ],
               ),
@@ -457,6 +453,82 @@ Future displayQuestion1(BuildContext context,{
     barrierColor: Colors.black12.withOpacity(0.1),
     // shape: const RoundedRectangleBorder(
     //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+  );
+}
+
+Future reportAccident(context){
+  return showModalBottomSheet<dynamic>(
+      isScrollControlled: true,
+      isDismissible: true,
+      barrierColor: Colors.black12.withOpacity(0.1),
+      elevation: 2,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+      ),
+      context: context,
+      builder: (context) {
+        return Directionality(
+            textDirection: TextDirection.rtl,
+            child: Padding(
+              padding: EdgeInsets.only(left: 30.w, right: 30.w, ),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 45.h),
+                    Text(
+                      'דווח על תקלה',
+                      style: TextStyle(
+                          fontSize: 23.sp,
+                          fontWeight: FontWeight.w600,
+                          color: pinkColorApp),
+                    ),
+                    SizedBox(height: 84.h),
+
+                    Row(
+                      children: [
+                        Container(
+                          height: 48.h,
+                          width: 160.w,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: turquoiseColorApp,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                              ),
+                              onPressed: () =>support.call,
+                              child: Text('לתקשר עם נציג',
+                                  style: TextStyle(
+                                      fontSize: 20.sp,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500))),
+                        ),
+                        SizedBox(width: 13.w,),
+                        Container(
+                          height: 48.h,
+                          width: 160.w,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: turquoiseColorApp,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                              ),
+                              onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => ReportAccident(),)),
+                              child: Text('השאר הודעה',
+                                  style: TextStyle(
+                                      fontSize: 20.sp,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500))),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 22.h),
+                  ]
+              ),
+            )
+        );
+      }
   );
 }
 

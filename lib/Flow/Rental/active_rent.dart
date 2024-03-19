@@ -461,7 +461,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     ],
                   ),
                 ),
-                SizedBox(height: 54.h,),
+                SizedBox(height: 33.h,),
                 Container(
                   height: 95.h,
                   // width: 393.w,

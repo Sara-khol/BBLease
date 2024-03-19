@@ -60,6 +60,7 @@ class _LicenseBackState extends State<LicenseBack> {
                 fontWeight: FontWeight.w600,
                 color: blackColorApp,
                 fontFamily: 'PLONI',
+                height: 1,
               ),
             ),
             SizedBox(height: 30.h),
@@ -70,6 +71,7 @@ class _LicenseBackState extends State<LicenseBack> {
                 fontWeight: FontWeight.w400,
                 color: blackColorApp,
                 fontFamily: 'PLONI',
+                height: 1,
               ),
               textAlign: TextAlign.center,
               textDirection: TextDirection.rtl,
@@ -95,6 +97,7 @@ class _LicenseBackState extends State<LicenseBack> {
                 fontWeight: FontWeight.w500,
                 color: blackColorApp,
                 fontFamily: 'PLONI',
+                height: 1,
               ),
               textAlign: TextAlign.center,
               textDirection: TextDirection.rtl,
@@ -160,8 +163,11 @@ class _LicenseBackState extends State<LicenseBack> {
                       elevation: 2,
                       backgroundColor: turquoiseColorApp,
                       onPressed: ()=>support.call,
-                        icon: Icon(Icons.phone_outlined,size: 22.sp,color: Colors.white,)
-                    ),
+                        icon: ImageIcon(
+                          AssetImage("assets/icons/Phone.png"),
+                          size: 22.sp,
+                            color: Colors.white,
+                        ),),
                   ),
                   SizedBox(width: 20.w),
 

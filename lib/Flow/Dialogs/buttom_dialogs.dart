@@ -56,9 +56,10 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
         ),
             child: Column(
               children: [
-                SizedBox(height: 45.h,),
-                Text('התצלום עלה בהצלחה', style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w600, color: colors.pinkColorApp),),
-                SizedBox(height: 64.h,),
+                SizedBox(height: 50.h,),
+                Text('התצלום עלה בהצלחה', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w700, color: colors.pinkColorApp,height: 1),),
+                //SizedBox(height: 74.h,),
+                Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,12 +67,13 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
                     Container(
                       width: 160.w,
                       height: 48.h,
+
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(25)),
                         color: colors.turquoiseColorApp,
                       ),
                       child: TextButton(
-                        child: Text('סרוק פעם נוספת',textAlign:TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 20.sp, fontWeight: FontWeight.w500),),
+                        child: Text('סרוק פעם נוספת',textAlign:TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w500,height: 1),),
                         onPressed: () {
                           Navigator.pop(context);
                           Navigator.pop(context);
@@ -91,7 +93,7 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
                         color:colors.turquoiseColorApp,
                       ),
                       child: TextButton(
-                        child: Text('אישור',style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.w500)),
+                        child: Text('אישור',style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w500,height: 1)),
                         onPressed: () {
                           Navigator.pop(context);
                           Navigator.pop(context);

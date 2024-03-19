@@ -14,7 +14,7 @@ class ApiService {
   final Dio _dio = Dio();
   // final _baseUrl = 'https://bibilease.co.il/?rest_route=/';
   late String _baseUrl;
-  String devURL='https://bibilease.quicksolutions.co.il/wp-json/';
+  String devURL='https://bibilease.co.il/wp-json/';
 
   ApiService._privateConstructor(){
     if(!kIsWeb) {

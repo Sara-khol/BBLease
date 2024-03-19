@@ -2,7 +2,9 @@
 import 'package:bblease/Flow/registration/payment_webVIew.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:bblease/services/api_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as intl;
 import '../Dialogs/buttom_dialogs.dart';
@@ -28,8 +30,8 @@ class _LicenseDetailsState extends State<LicenseDetails> {
       TextEditingController(text: User().licenseExpDate);
   final TextEditingController _issDate =
       TextEditingController(text: User().licenseIssDate);
-  // final TextEditingController _degree =
-  //     TextEditingController(text: User().licenseDegree);
+  final TextEditingController _degree =
+       TextEditingController(text: User().licenseDegree);
 
   String exp = User().licenseExpDate;
   String iss = User().licenseIssDate;
@@ -43,20 +45,20 @@ class _LicenseDetailsState extends State<LicenseDetails> {
         child: Form(
           key: _formKey,
           child: Padding(
-            padding: EdgeInsets.only(right: 30.w, left: 30.w),
+            padding: EdgeInsets.only(right: 30.w, left: 31.w),
             child: ListView(
               children: [
                 SizedBox(
-                  height: 50.h,
+                  height: 53.h,
                 ),
                  Icon(
                   Icons.account_circle_outlined,
                   color: turquoiseColorApp,
-                  size: 60,
+                  size: 60.w,
                   weight: 100,
                 ),
                 SizedBox(
-                  height: 10.h,
+                  height: 8.h,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -65,8 +67,8 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                     Text(
                       'פרטי רשיון נהיגה',
                       style: TextStyle(
-                        fontSize: 28.sp,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w700,
                         color: blackColorApp,
                         fontFamily: 'PLONI',
                       ),
@@ -74,13 +76,13 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   ],
                 ),
                 SizedBox(
-                  height: 50.h,
+                  height: 34.h,
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   cursorColor: blackColorApp,
                   decoration: getInputDecoration('מספר רשיון נהיגה'),
-                  style: TextStyle(color: blackColorApp, fontSize: 22.sp),
+                  style: TextStyle(color: blackColorApp, fontSize: 18.sp),
                   controller: _licenseId,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'זהו שדה חובה';
@@ -88,7 +90,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   },
                 ),
                 SizedBox(
-                  height: 16.h,
+                  height: 12.h,
                 ),
                 TextFormField(
                   readOnly: true,
@@ -96,10 +98,10 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   decoration: getInputDecoration('תוקף',
                       suffixIcon: Image.asset(
                         'assets/icons/Calendar.png',
-                        width: 18.w,
+                        width: 24.w,
                       )),
                   style:
-                      TextStyle(color: blackColorApp, fontSize: 22.sp),
+                      TextStyle(color: blackColorApp, fontSize: 18.sp),
                   controller: _expDate,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'זהו שדה חובה';
@@ -123,18 +125,18 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   },
                 ),
                 SizedBox(
-                  height: 16.h,
+                  height: 12.h,
                 ),
                 TextFormField(
                   readOnly: true,
                   cursorColor: blackColorApp,
                   decoration: getInputDecoration('תאריך הנפקה',
-                      suffixIcon:  Icon(
-                        Icons.calendar_today_outlined,
-                        color: pinkColorApp,
+                      suffixIcon:   Image.asset(
+                        'assets/icons/Calendar.png',
+                        width: 24.w,
                       )),
                   style:
-                      TextStyle(color: blackColorApp, fontSize: 22.sp),
+                      TextStyle(color: blackColorApp, fontSize: 18.sp),
                   controller: _issDate,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'זהו שדה חובה';
@@ -156,22 +158,22 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                     }
                   },
                 ),
-         /*       SizedBox(
-                  height: 16.h,
+               SizedBox(
+                  height: 12.h,
                 ),
                 TextFormField(
                   cursorColor: blackColorApp,
                   decoration: getInputDecoration('דרגת רשיון'),
                   style:
-                      TextStyle(color: blackColorApp, fontSize: 22.sp),
+                      TextStyle(color: blackColorApp, fontSize: 18.sp),
                   controller: _degree,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'זהו שדה חובה';
                     return null;
                   },
-                ),*/
+                ),
                 SizedBox(
-                  height: 60.h,
+                  height: 27.h,
                 ),
                 ListTileTheme(
                   horizontalTitleGap: 1.0,
@@ -180,7 +182,8 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       "נהג חדש",
                       style: TextStyle(
                           fontFamily: 'PLONI',
-                          fontSize: 20.sp,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w400,
                           color: blackColorApp),
                     ),
                     value: User().isNewDriver,
@@ -200,32 +203,36 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                     ),
                   ),
                 ),
+                //Spacer(),
+                SizedBox(height: 152.h),
                 Container(
-                  height: 48.h,
-                  width: 250.w,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: turquoiseColorApp,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
-                        ),
+                height: 42.h,
+                width: 332.w,
+
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: turquoiseColorApp,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100),
                       ),
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          User().licenseId = _licenseId.text;
-                          //User().licenseDegree = _degree.text;
-                          User().licenseDegree ='';
-                          User().licenseIssDate = iss.toString();
-                          User().licenseExpDate = exp;
-                          await registerUser();
-                        }
-                      },
-                      child: Text('הבא',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22.sp,
-                              fontWeight: FontWeight.w500))),
-                ),
+                    ),
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        User().licenseId = _licenseId.text;
+                        User().licenseDegree = _degree.text;
+                        User().licenseDegree ='';
+                        User().licenseIssDate = iss.toString();
+                        User().licenseExpDate = exp;
+                        await registerUser();
+                      }
+                    },
+                    child: Text('הבא',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w500))),
+                                  ),
+                SizedBox(height: 40.h,),
               ],
             ),
           ),
@@ -239,7 +246,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
       isDense: true,
       labelText: text,
       labelStyle: TextStyle(
-        fontSize: 22.sp,
+        fontSize: 18.sp,
         fontWeight: FontWeight.w300,
         color: blackColorApp,
         fontFamily: 'PLONI',

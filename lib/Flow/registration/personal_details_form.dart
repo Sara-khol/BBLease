@@ -52,14 +52,14 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                   setState(() => formIsValid = _formKey.currentState!.validate()),
               key: _formKey,
               child: Padding(
-                padding: EdgeInsets.only(left: 30.w, right: 30.w),
+                padding: EdgeInsets.only(left: 31.w, right: 30.w),
                 child: Column(
                   children: [
-                    SizedBox(height: 50.h,),
+                    SizedBox(height: 53.h,),
                     Icon(
                       Icons.account_circle_outlined,
                       color:turquoiseColorApp,
-                      size: 60.sp,
+                      size: 60.w,
                       weight: 50,
                     ),
                     SizedBox(height: 8.h,),
@@ -69,19 +69,19 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                         Text(
                           'פרטים אישיים',
                           style: TextStyle(
-                              fontSize: 28.sp,
-                              fontWeight: FontWeight.w600,
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w700,
                               fontFamily: 'PLONI',
                               height: 1),
                         ),
                       ],
                     ),
-                    SizedBox(height: 50.h,),
+                    SizedBox(height: 34.h,),
                     TextFormField(
                       textInputAction: TextInputAction.next,
                       cursorColor: blackColorApp,
                       decoration: getInputDecoration('שם פרטי'),
-                      style: TextStyle(color: blackColorApp,fontSize: 22.sp),
+                      style: TextStyle(color: blackColorApp,fontWeight: FontWeight.w300,fontSize: 18.sp,),
                       controller: _firstName,
                       validator: (value) {
                         if (value == null || value.isEmpty)
@@ -94,7 +94,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       textInputAction: TextInputAction.next,
                       cursorColor: blackColorApp,
                       decoration: getInputDecoration('שם משפחה'),
-                      style: TextStyle(color: blackColorApp,fontSize: 22.sp),
+                      style: TextStyle(color: blackColorApp,fontSize: 18.sp,fontWeight: FontWeight.w300,),
                       validator: (value) {
                         if (value == null || value.isEmpty)
                           return 'זהו שדה חובה';
@@ -108,7 +108,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       cursorColor: blackColorApp,
                       decoration: getInputDecoration('שם לחשבונית (לא חובה)'),
                       //floatingLabelBehavior: FloatingLabelBehavior.auto,
-                      style: TextStyle(color: blackColorApp,fontSize: 22.sp),
+                      style: TextStyle(color: blackColorApp,fontSize: 18.sp,fontWeight: FontWeight.w300,),
                       controller: _name,
                     ),
                     SizedBox(height: 12.h,),
@@ -116,7 +116,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       keyboardType: TextInputType.number,
                       cursorColor: blackColorApp,
                       decoration: getInputDecoration('תעודת זהות / דרכון'),
-                      style: TextStyle(color: blackColorApp,fontSize: 22.sp),
+                      style: TextStyle(color: blackColorApp,fontSize: 18.sp,fontWeight: FontWeight.w300,),
                       controller: _tz,
                       validator: (value) {
                         if (value == null || value.isEmpty || value.length != 9)
@@ -131,7 +131,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       decoration: getInputDecoration(
                           'תאריך לידה (מגיל 21 בלבד)',
                           isDate: true),
-                      style: TextStyle(color: blackColorApp,fontSize: 22.sp),
+                      style: TextStyle(color: blackColorApp,fontSize: 18.sp,fontWeight: FontWeight.w300,),
                       controller: _date,
                       onTap: () async {
                         DateTime? date = await showDatePicker(
@@ -159,7 +159,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       textInputAction: TextInputAction.next,
                       cursorColor: blackColorApp,
                       decoration: getInputDecoration('אימייל', suffixText: '   הכנס אמייל פעיל  '),
-                      style: TextStyle(color: blackColorApp,fontSize: 22.sp),
+                      style: TextStyle(color: blackColorApp,fontSize: 18.sp,fontWeight: FontWeight.w300,),
                       controller: _email,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -179,7 +179,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       cursorColor: blackColorApp,
                       readOnly: true,
                       decoration: getInputDecoration("מס' נייד", suffixText: '   הכנס נייד זמין  '),
-                      style: TextStyle(color: blackColorApp,fontSize: 22.sp),
+                      style: TextStyle(color: blackColorApp,fontSize: 18.sp,fontWeight: FontWeight.w300,),
                       controller: _phone,
                       validator: (value) {
                         if (value == null || value.length < 10)
@@ -195,7 +195,8 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                             style: TextStyle(
                                 height: 1,
                                 fontFamily: 'PLONI',
-                                fontSize: 22.sp)),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 18.sp)),
                         value: checkboxValue1,
                         onChanged: (bool? value) {
                           setState(() {
@@ -212,8 +213,9 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                         ),
                       ),
                     ),
+                    SizedBox(height:  127.h),
                     SizedBox(
-                      height: 48.h,
+                      height: 42.h,
                       width: 332.w,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -240,7 +242,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                             'הבא',
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 22.sp,
+                                fontSize: 18.sp,
                                 fontWeight: FontWeight.w500),
                           )),
                     ),
@@ -261,7 +263,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
       labelText: text,
 
       labelStyle: TextStyle(
-          fontSize: 22.sp,
+          fontSize: 18.sp,
           fontWeight: FontWeight.w300,
           color: blackColorApp,
           fontFamily: 'PLONI'),
@@ -296,8 +298,11 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
         ),
       ) ,
       suffixIcon: isDate
-          ? Icon(Icons.calendar_today_outlined,
-              color: pinkColorApp)
+          ?ImageIcon(
+        AssetImage("assets/icons/Calendar.png"),
+        size: 24.w,
+        color:pinkColorApp,
+      )
           : suffixText.isNotEmpty
               ? Text(suffixText,
                   style: TextStyle(
@@ -305,6 +310,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                     fontWeight: FontWeight.w400,
                     color: turquoiseColorApp,
                     fontFamily: 'PLONI',
+                    height: 1,
                   ))
               : null,
       suffixIconConstraints: !isDate ? BoxConstraints(maxHeight: 26) : null,

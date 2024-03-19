@@ -288,14 +288,19 @@ print('faces.length: ${faces.length}');
             SizedBox(height: 60.h,),
             Container(
               width: 332.w,
-              height: 48.h,
+              height: 44.h,
               margin:EdgeInsets.only(bottom:40.sp ),
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(25)),
                 color: turquoiseColorApp,
               ),
               child: TextButton(
-                child: Text('תמיכה',style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.w500),),
+                child: Text('תמיכה',
+                    textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22.sp,
+                      fontWeight: FontWeight.w500,height: 1),),
                 onPressed: () {
                   support.call;
                   //TODO: call for help

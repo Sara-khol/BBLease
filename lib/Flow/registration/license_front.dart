@@ -66,6 +66,8 @@ class _LicenseFrontState extends State<LicenseFront> {
                 fontFamily: 'PLONI',
                 height: 1
               ),
+              textAlign: TextAlign.center,
+              textDirection: TextDirection.rtl,
             ),
             SizedBox(height: 63.h),
             SizedBox(
@@ -96,6 +98,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                 fontWeight: FontWeight.w500,
                 color: blackColorApp,
                 fontFamily: 'PLONI',
+                height: 1,
               ),
               textAlign: TextAlign.center,
               textDirection: TextDirection.rtl,
@@ -170,7 +173,11 @@ class _LicenseFrontState extends State<LicenseFront> {
                       heroTag: "btn2",
                       backgroundColor: turquoiseColorApp,
                       onPressed: ()=>support.call,
-                      icon: Icon(Icons.phone_outlined,size: 22.sp,color: Colors.white,)
+                      icon: ImageIcon(
+                        AssetImage("assets/icons/Phone.png"),
+                        size: 22.w,
+                        color:Colors.white,
+                      ),
                     ),
                   ),
                   SizedBox(width: 20.w),

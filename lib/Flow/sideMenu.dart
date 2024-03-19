@@ -272,9 +272,5 @@ getBottomButtons(context) {
              )),
        ),
      ),
-
-
-
-
    ],);
 }

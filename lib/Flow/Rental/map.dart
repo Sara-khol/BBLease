@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
@@ -7,9 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_address_from_latlng/flutter_address_from_latlng.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import 'package:custom_info_window/custom_info_window.dart';
-
+import 'package:http/http.dart' as http;
 import '../../customWidgets/appBarB.dart';
 import '../../models/car.dart';
 import '../../services/api_service.dart';
@@ -30,7 +29,7 @@ class _RentalWidgetState extends State<RentalWidget> {
 
   CameraPosition _kGoogle = CameraPosition(target: LatLng(31.80012237280773, 35.212884511532316), zoom: 13,);
 
-  Address? formattedAddress;
+  //Address? formattedAddress;
   late Uint8List  available;
   late Uint8List  unAvailable;
   List<Car> availableCars = [];
@@ -64,19 +63,43 @@ class _RentalWidgetState extends State<RentalWidget> {
     return position;
   }
 
+  Future<String?> getAddressFromLatLng(double latitude, double longitude, String apiKey) async {
+    final String url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$apiKey&language=he';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final decoded = json.decode(response.body);
+        if (decoded['status'] == 'OK') {
+          return decoded['results'][0]['formatted_address'];
+        }
+      }
+    } catch (e) {
+      print('Error retrieving address: $e');
+    }
+
+    return null;
+  }
+
   void _setCurrentLocation() async {
     print('_setCurrentLocation');
     try {
       Position position = await _determinePosition();
-      formattedAddress = await FlutterAddressFromLatLng().getStreetAddress(
+      /*formattedAddress = await FlutterAddressFromLatLng().getStreetAddress(
         latitude: position.latitude,
         longitude: position.longitude,
         googleApiKey: 'AIzaSyBfvApaTLzPlCzL3LakX6DBbj2l7NMBRV4',
+      );*/
+      final formattedAddress = await getAddressFromLatLng(
+        position.latitude,
+        position.longitude,
+        'AIzaSyBfvApaTLzPlCzL3LakX6DBbj2l7NMBRV4',
       );
       long=position.longitude;
       lat=position.latitude;
 
-      print('address: ${formattedAddress?.formattedAddress}');
+      //print('address: ${formattedAddress?.formattedAddress}');
+      print('address: $formattedAddress');
       CameraPosition updatedPosition = CameraPosition(
         target: LatLng(position.latitude, position.longitude),
         zoom: 17,
@@ -96,6 +119,7 @@ class _RentalWidgetState extends State<RentalWidget> {
       });
       if(!dialogShown) {
         print('going to dialog');
+        var formattedAddress;
         departurePoint(context, formattedAddress?.formattedAddress, 0,latitude1: lat,longitude1: long);
       }
 
@@ -278,6 +302,8 @@ print('getCarsList');
                       ),
                       onPressed: () {
                         dialogShown=true;
+                        //departurePoint(context, formattedAddress?.formattedAddress, 0,latitude1: lat,longitude1: long);
+                        var formattedAddress;
                         departurePoint(context, formattedAddress?.formattedAddress, 0,latitude1: lat,longitude1: long);
                       },
                       child: Text(

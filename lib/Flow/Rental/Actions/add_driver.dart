@@ -66,7 +66,7 @@ class _AddDriverState extends State<AddDriver> {
                       ),
                     ),
                     onPressed: ()  {
-                      addDriver(true);
+                      addDriver(false);
                     },
                     child: Text('הוסף',
                         style: TextStyle(

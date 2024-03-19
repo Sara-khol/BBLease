@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
+import 'package:bblease/Flow/Rental/active_rent.dart';
 import 'package:bblease/Flow/home_page.dart';
 import 'package:bblease/Flow/my_shared_preferences.dart';import 'package:bblease/services/api_service.dart';
 import 'package:bblease/utils/common_funcs.dart';
@@ -14,6 +16,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 //import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'Flow/welcome.dart';
+import 'models/class_rent.dart';
 import 'models/class_user.dart';
 
 class MyHttpOverrides extends HttpOverrides{
@@ -138,9 +141,11 @@ class MyApp extends StatelessWidget {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         if (snapshot.data is bool && snapshot.data == true) {
-
                            if(User().tranzilaStatus) {
                              MySharedPreferences().setLastUsage();
+                             if(User().currentRent!=null) {
+                               return const ActiveRentDetails();
+                             }
                              return  const HomePage();
                            }
                            else
@@ -179,6 +184,11 @@ class MyApp extends StatelessWidget {
       {
          await ApiService().getUserById(userId, (res) {
            User.fromJson(res['customer']);
+           print('before');
+           if(res["active-order"]!=null/*||res["active-order"].isNotEmpty*/) {
+             print(res["active-order"]);
+             User().currentRent=Rental.fromJson(res["active-order"]);
+           }
            debugPrint('user name  ${User().firstName}');
          });
       }

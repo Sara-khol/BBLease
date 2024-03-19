@@ -5,6 +5,7 @@ import 'package:bblease/Flow/Rental/Actions/add_driver.dart';
 import 'package:bblease/Flow/Rental/Actions/car_docu.dart';
 import 'package:bblease/Flow/Rental/Actions/report_accident.dart';
 import 'package:bblease/Flow/Rental/dialogs.dart';
+import 'package:bblease/Flow/home_page.dart';
 import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:bblease/services/api_service.dart';
 import 'package:bblease/utils/my_colors.dart';
@@ -33,7 +34,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
 
   bool isLocked=true;
 
-  int percent= -1;
+  double  percent= -1;
   int km= -1;
 
 
@@ -398,7 +399,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                   ),
                                   child: Text(
-                                    'הארכת השכרה  ',
+                                    '  הארכת השכרה   ',
                                     style: TextStyle(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.w500,
@@ -430,13 +431,18 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                               ),
                             ),
                             onPressed: () {
+                              if(DateTime.now().isBefore(rent.endDate)){
+                                displayQuestion1(context, header:' שים לב',
+                                  message: 'בסיום השכרה נוכחית\nתחיוב בעלות ההשכרה כולה בהתאם לתקנון', onYes: () =>endRental(),);
+                              }
                               showLoading(context);
                               ApiService().returnCar(rent.orderNum!,
                                   (orderJson) {
                                 Navigator.pop(context);
-                                displayMessage(context,
+                                /*displayMessage(context,
                                     message: 'סיום ההשכרה נקלט בהצלחה',
-                                    onClose: () {});
+                                    onClose: () {});*/
+                                endRental();
                                 print('return car');
                               });
                             },
@@ -444,7 +450,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                               // mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text(
-                                  'סיום השכרה  ',
+                                  '   סיום השכרה   ',
                                   style: TextStyle(
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w500,
@@ -606,7 +612,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   ],
                                 ),
                               ),
-                              onTap: () => displayQuestion1(context,message2: 'ודא כי יש ברשותך את פרטי הרשיון\nשל הנהג הנוסף',message1: 'ברצונך להוסיף נהג חדש?',
+                              onTap: () => displayQuestion1(context,message: 'ודא כי יש ברשותך את פרטי הרשיון\nשל הנהג הנוסף',header: 'ברצונך להוסיף נהג חדש?',
                                   onYes: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AddDriver(),))),
                             ),
                           ),
@@ -649,7 +655,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   ],
                                 ),
                               ),
-                              onTap: () => displayQuestion1(context,message1: 'צעד חכם!',message2: 'ודא שהתמונות מצולמות באיכות טובה',
+                              onTap: () => displayQuestion1(context,header: 'צעד חכם!',message: 'ודא שהתמונות מצולמות באיכות טובה',
                                   onYes: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CarDocu(),))),
                             ),
                           ),
@@ -864,6 +870,69 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
           ],
         ),
       ),
+    );
+  }
+
+  Future endRental() {
+    return showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) => Container(
+          //height: 180.h,
+          decoration: const BoxDecoration(color:Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+          ),
+          child: Column(
+              children: [
+            SizedBox(height: 45.h),
+            // const Spacer(),
+            Text('השכרה מספר ${rent.orderNum} הסתיימה',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: pinkColorApp,
+                  fontSize: 22.sp,
+                  fontWeight: FontWeight.w700,
+                )),
+                SizedBox(height: 24.h),
+                Text('השכרה מספר בדקות הקרובות תופיע קבלה באזור האישי או במייל',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: blackColorApp,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w400,
+                    )),
+                Text('מודים שבחרת בביביליס\nמחכים לראותך שוב :)',
+                    textAlign: TextAlign.center,
+                    textDirection: TextDirection.rtl,
+                    style: TextStyle(
+                      color: blackColorApp,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w200,
+                    )),
+            SizedBox(height: 11.h),
+            SizedBox(
+              height: 42.h,
+              width: 332.w,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: turquoiseColorApp,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  ),
+                  onPressed: () =>Navigator.push(context, MaterialPageRoute(builder:  (context) => HomePage(),)),
+                  child: Text(
+                    'חזור למסך הראשי',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w500),
+                  )),
+            ),
+            SizedBox(height: 22.h)
+          ])),
+      barrierColor: Colors.black12.withOpacity(0.1),
+      // shape: const RoundedRectangleBorder(
+      //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
     );
   }
 }

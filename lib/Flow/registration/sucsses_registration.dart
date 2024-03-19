@@ -103,7 +103,8 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
                                         color: Colors.white,
                                         fontWeight: FontWeight.w500)),
                               ],
-                            )),
+                            )
+                        ),
                       ),
 
                       SizedBox(height: 40.h),

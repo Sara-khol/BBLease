@@ -4,6 +4,7 @@ import 'package:bblease/Flow/home_page.dart';
 import 'package:bblease/Flow/welcome.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../customWidgets/appBarB.dart';
@@ -308,6 +309,9 @@ class _OrdersHistoryState extends State<OrdersHistory> {
 
   @override
   Widget build(BuildContext context) {
+
+    Icon downloadIcon = Icon(Icons.file_download, color: pinkColorApp);
+
     return Scaffold(
       body: Directionality(
         textDirection: TextDirection.rtl,
@@ -474,8 +478,8 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                       (rent.startDate.isBefore(e!) ||
                                           rent.startDate.compareTo(e!) == 0 ||
                                           rent.endDate.isAfter(s!))) {
-                                    return GestureDetector(
-                                      onTap: () {
+                                    return TextButton(
+                                      onPressed: () {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -489,9 +493,9 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                         width: 332.w,
                                         height: 50.h,
                                         margin: EdgeInsets.only(
-                                            bottom: 22.h,
-                                            left: 30.w,
-                                            right: 30.w),
+                                            //bottom: 22.h,
+                                            left: 20.w,
+                                            right: 20.w),
                                         decoration: BoxDecoration(
                                             color: Color(0xFFF7F7F7),
                                             borderRadius:
@@ -506,12 +510,29 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                                     .format(rent.startDate),
                                                 style: TextStyle(
                                                     fontSize: 18.sp,
-                                                    fontWeight:
-                                                        FontWeight.w300),
+                                                    fontWeight: FontWeight.w300,
+                                                  color: Colors.black
+                                                ),
                                               ),
                                               Spacer(),
-                                              Icon(Icons.file_download,
-                                                  color: pinkColorApp),
+                                              IconButton(
+                                                onPressed: () {
+                                                  print(rent.url);
+
+                                                  FileDownloader.downloadFile(
+                                                    url: rent.url!,
+                                                    onDownloadCompleted: (path) =>
+                                                        setState(() {
+                                                          print('download complete');
+                                                          downloadIcon = Icon(
+                                                            Icons.check_circle_outline,
+                                                            color: pinkColorApp,
+                                                          );
+                                                        }),
+                                                  );
+                                                },
+                                                icon: downloadIcon),
+
                                             ],
                                           ),
                                         ),

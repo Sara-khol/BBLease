@@ -460,7 +460,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                     context: context,
                                     initialDate: DateTime.now(),
                                     firstDate: DateTime.now(),
-                                    lastDate: DateTime(2100));
+                                    lastDate: DateTime.now().add(const Duration(days: 14)));
                                 if (date != null) {
                                   startd.text = intl.DateFormat('dd.MM.yyyy').format(date);
                                   print('start: ${startd.text}');
@@ -732,7 +732,7 @@ checkPickedRange(context,DateTime start,DateTime end,Duration diff){
   print(start);
   print(end);
   if(start.difference(end)>diff){
-    displayQuestion1(context, message2: 'בחרת טווח השכרה קצר יותר ממה שציינת קודם', message1: 'שים לב!',
+    displayQuestion1(context, message: 'בחרת טווח השכרה קצר יותר ממה שציינת קודם', header: 'שים לב!',
         onYes: () => Navigator.push(context, MaterialPageRoute(builder: (context) =>
             SearchCar(
                 location: location,
@@ -745,7 +745,7 @@ checkPickedRange(context,DateTime start,DateTime end,Duration diff){
 
   }
   if(start.difference(end)<diff){
-    displayQuestion1(context, message2: 'בחרת טווח השכרה ארוך יותר ממה שציינת קודם', message1: 'שים לב!',
+    displayQuestion1(context, message: 'בחרת טווח השכרה ארוך יותר ממה שציינת קודם', header: 'שים לב!',
       onYes: () => Navigator.push(context, MaterialPageRoute(builder: (context) =>
           SearchCar(
             location: location,

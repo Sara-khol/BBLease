@@ -1,8 +1,8 @@
-import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
-
+import 'additional_driver.dart';
 import 'additions.dart';
 import 'car.dart';
+
 part 'class_rent.g.dart';
 
 @JsonSerializable()
@@ -36,9 +36,7 @@ class Rental{
  @JsonKey(name: 'extras')
    List<Addition>? additions=[];
 
-  @JsonKey(includeFromJson: false)
-  int dayPart=1;
-
+  AdditionalDriver? additionalDriver;
 
   //Rental(this.startDate,this.endDate, this.car, this.insurance, this.limitedKM, this.deductible, this.price, this.url);
   Rental();

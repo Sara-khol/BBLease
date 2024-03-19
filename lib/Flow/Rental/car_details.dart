@@ -897,10 +897,10 @@ class _CarDetailsState extends State<CarDetails> {
                                       'start_date': intl.DateFormat('yyyy-MM-dd').format(widget.rent.startDate),
                                       'end_date': intl.DateFormat('yyyy-MM-dd').format(widget.rent.endDate),
                                       'extra': additionsMap,
-                                      'whole_day':widget.rent.startDate.compareTo(widget.rent.endDate)!=0,
-                                      'half_day':widget.rent.startDate.compareTo(widget.rent.endDate)==0,
-                                      'morning':widget.rent.startDate.compareTo(widget.rent.endDate)==0?widget.rent.dayPart==1:false,
-                                      'evening':widget.rent.startDate.compareTo(widget.rent.endDate)==0?widget.rent.dayPart==2:false,
+                                      //'whole_day':widget.rent.startDate.compareTo(widget.rent.endDate)!=0,
+                                      //'half_day':widget.rent.startDate.compareTo(widget.rent.endDate)==0,
+                                      //'morning':widget.rent.startDate.compareTo(widget.rent.endDate)==0?widget.rent.dayPart==1:false,
+                                      //'evening':widget.rent.startDate.compareTo(widget.rent.endDate)==0?widget.rent.dayPart==2:false,
                                     };
                                     showLoading(context);
                                     ApiService().newOrder(map, (res) {
@@ -957,8 +957,8 @@ class _CarDetailsState extends State<CarDetails> {
               child: IconButton(
                   onPressed: () {
                     displayQuestion1(context,
-                        message1: 'פעולה זו תבטל לך את התוספת של',
-                        message2: ' ${widget.rent.additions![index].title} בסך ${widget.rent.additions![index].price} ש"ח ',
+                        header: 'פעולה זו תבטל לך את התוספת של',
+                        message: ' ${widget.rent.additions![index].title} בסך ${widget.rent.additions![index].price} ש"ח ',
                         onYes: () {
                       widget.rent.additions![index].isChecked = false;
                       calculateAdditionsPrice();

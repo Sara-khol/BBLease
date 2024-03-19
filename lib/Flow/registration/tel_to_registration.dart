@@ -1,3 +1,5 @@
+import 'package:bblease/Flow/Rental/active_rent.dart';
+import 'package:bblease/Flow/home_page.dart';
 import 'package:bblease/Flow/registration/payment_webVIew.dart';
 import 'package:bblease/Flow/registration/start_registration.dart';
 import 'package:bblease/Flow/registration/sucsses_registration.dart';
@@ -110,14 +112,29 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
           if (vStatus == 1) {
             User.fromJson(response['customer']);
             debugPrint('user name  ${User().firstName}');
+
+            //todo: go to active rent
+            /*if(response["active-order"]!=null||response["active-order"].isNotEmpty) {
+              User().currentRent=Rental.fromJson(response["active-order"]);
+            }*/
+            print('after if');
             MySharedPreferences().setLastUsage();
             MySharedPreferences().setUserId(User().userId);
             if (User().tranzilaStatus) {
+              print('in');
+              if(User().currentRent!=null){
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                        const ActiveRentDetails() ),
+                        (route) => false);
+              }
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          const SucssesRegistrationForm() /*RentalWidget()*/),
+                          const HomePage() /*RentalWidget()*/),
                   (route) => false);
             }
             else

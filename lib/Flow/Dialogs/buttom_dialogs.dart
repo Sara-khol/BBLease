@@ -54,7 +54,7 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
             child: Column(
               children: [
                 SizedBox(height: 50.h,),
-                Text('התצלום עלה בהצלחה', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w700, color: colors.pinkColorApp,height: 1),),
+                Text('התצלום עלה בהצלחה', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w700, color: pinkColorApp,height: 1),),
                 //SizedBox(height: 74.h,),
                 Spacer(),
                 Row(
@@ -530,5 +530,6 @@ Future reportAccident(context){
       }
   );
 }
+
 
 

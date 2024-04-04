@@ -14,7 +14,7 @@ class ApiService {
   final Dio _dio = Dio();
   // final _baseUrl = 'https://bibilease.co.il/?rest_route=/';
   late String _baseUrl;
-  String devURL='https://bibilease.co.il/wp-json/';
+  String devURL='https://bibilease.quicksolutions.co.il/wp-json/';
 
   ApiService._privateConstructor(){
     if(!kIsWeb) {
@@ -35,8 +35,8 @@ class ApiService {
     //     _baseUrl = 'https://bibilease.appupgo.co.il/?rest_route=/';
     //   }
     // else{
-      _baseUrl = 'https://bibilease.co.il/?rest_route=/';
-      //_baseUrl = 'https://bibilease.quicksolutions.co.il/wp-json/';
+      //_baseUrl = 'https://bibilease.co.il/?rest_route=/';
+      _baseUrl = 'https://bibilease.quicksolutions.co.il/?rest_route=/';
   // }
   } // Private constructor for singleton
 
@@ -377,6 +377,67 @@ class ApiService {
       onSuccess(result);
     }
     // Prints the raw data returned by the server
+  }
+
+    Future updatePersonalDetails( Map<String, dynamic> jsonMap,Function(dynamic res) onSuccess) async {
+      debugPrint('${_baseUrl}wp/v2/update_personal_information');
+      debugPrint('data : ${json.encode(jsonMap)}');
+
+      Response response = await _dio.post('${_baseUrl}wp/v2/update_personal_information',
+          data: json.encode(jsonMap));
+      // debugPrint('response $response');
+      debugPrint('data: ${response.data}');
+      if(response.statusCode==200) {
+        onSuccess(response.data);
+      }
+
+    }
+
+  Future updatePersonalContact( Map<String, dynamic> jsonMap,Function(dynamic res) onSuccess) async {
+    debugPrint('${_baseUrl}wp/v2/update_personal_contact');
+    debugPrint('data : ${json.encode(jsonMap)}');
+
+    Response response = await _dio.post('${_baseUrl}wp/v2/update_personal_contact',
+        data: json.encode(jsonMap));
+    // debugPrint('response $response');
+    debugPrint('data: ${response.data}');
+    if(response.statusCode==200) {
+      onSuccess(response.data);
+    }
+
+  }
+  Future updatePersonalDriverLicense( Map<String, dynamic> jsonMap,Function(dynamic res) onSuccess) async {
+    debugPrint('${_baseUrl}wp/v2/update_driving_license_personal');
+    debugPrint('data : ${json.encode(jsonMap)}');
+
+    Response response = await _dio.post('${_baseUrl}wp/v2/update_driving_license_personal',
+        data: json.encode(jsonMap));
+    // debugPrint('response $response');
+    debugPrint('data: ${response.data}');
+    if(response.statusCode==200) {
+      onSuccess(response.data);
+    }
+  }
+
+  Future deleteAccount(int customerID,Function(dynamic res) onSuccess) async {
+    print('${_baseUrl}customer/update_status_customr/$customerID');
+    Response response = await _dio.get('${_baseUrl}customer/update_status_customr/$customerID');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+    // Prints the raw data returned by the server
+  }
+
+  getStatusPaymentAfterUpdate(String phone,Function(dynamic res) onSuccess) async {
+    print('${_baseUrl}tranzila/v1/tranzila_status_after_update/$phone');
+    Response response = await _dio.get('${_baseUrl}tranzila/v1/tranzila_status_after_update/$phone');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print(result);
+      onSuccess(result);
+    }
   }
 
 }

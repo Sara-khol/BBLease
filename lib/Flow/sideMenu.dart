@@ -1,4 +1,5 @@
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
+import 'package:bblease/Flow/UserInformation/price_list.dart';
 import 'package:bblease/Flow/UserInformation/profile.dart';
 import 'package:bblease/Flow/UserInformation/use_instructions.dart';
 import 'package:bblease/Flow/my_shared_preferences.dart';
@@ -99,7 +100,7 @@ Future sideMenu(context) {
                     children: [
                       Icon(Icons.credit_card, color: colors.blackColorApp,),
                       SizedBox(width: 10.w,),
-                      Flexible(child: Text('פרטי כרטיס אשראי',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, height: 1, color: blackColorApp)),)
+                      Flexible(child: Text('עדכון פרטי אשראי',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, height: 1, color: blackColorApp)),)
                     ],
                   ),
                 ),
@@ -148,7 +149,7 @@ Future sideMenu(context) {
                     ],
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => PriceList())),
               ),
               TextButton(
                 child: Padding(
@@ -178,9 +179,9 @@ Future sideMenu(context) {
                     ],
                   ),
                 ),
-                onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUs(),),),
+                onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => const ContactUs(),),),
               ),
-               Spacer(),
+              const Spacer(),
               getBottomButtons(context),
               SizedBox(height: 30.h,),
             ],

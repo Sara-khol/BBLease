@@ -270,17 +270,17 @@ class _LicenseFrontState extends State<LicenseFront> {
                      onPressed: () async{
                      XFile xfile=await _cameraController.takePicture();
                      debugPrint('xfile ${xfile.name}');
-                     uploadSucceed(context,const LicenseFront(index: 1), LicenseBack(index: widget.index,));
-                     if(widget.index==1) {
+                     uploadSucceed(context, LicenseFront(index: widget.index), LicenseBack(index: widget.index,));
+
                        setState(() {
                        _imageFront= xfile;
                        _cameraController.pausePreview();
                        if (_imageFront != null) {
-                         User().regImages[0]=_imageFront;
-                         TextRecognition(0);
+                         widget.index==1?User().regImages[0]=_imageFront:User().additionalDriver.images[0]=_imageFront;
+                         widget.index==1?TextRecognition(0):null;
                        }
                      });
-                     }
+
                    },
                    child: Text('צלם',style: (TextStyle(color: Colors.white, )),),
                  ),
@@ -306,8 +306,8 @@ class _LicenseFrontState extends State<LicenseFront> {
           _imageFront= result;
           //_cameraController.pausePreview();
           if (_imageFront != null) {
-            User().regImages[0]=_imageFront;
-            TextRecognition(0);
+            widget.index==1?User().regImages[0]=_imageFront:User().additionalDriver.images[0]=_imageFront;
+            widget.index==1?TextRecognition(0):null;
           }
         });
       //User().regImages[0] = _imageFront;

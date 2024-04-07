@@ -1,4 +1,6 @@
 import 'package:bblease/Flow/registration/license_front.dart';
+import 'package:bblease/models/additional_driver.dart';
+import 'package:bblease/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -66,7 +68,11 @@ class _AddDriverState extends State<AddDriver> {
                       ),
                     ),
                     onPressed: ()  {
-                      addDriver(false);
+                      ApiService().getAdditionalDriver(_controller.text, (res) {
+                        res==-1?
+                        addDriver(true)
+                        :addDriver(false,res);
+                      });
                     },
                     child: Text('הוסף',
                         style: TextStyle(
@@ -82,7 +88,7 @@ class _AddDriverState extends State<AddDriver> {
     );
   }
 
-  Future addDriver(bool isNew){
+  Future addDriver(bool isNew,[json]){
     return showModalBottomSheet<dynamic>(
         isScrollControlled: true,
         isDismissible: true,
@@ -124,7 +130,9 @@ class _AddDriverState extends State<AddDriver> {
                                 borderRadius: BorderRadius.circular(100),
                               ),
                             ),
-                            onPressed: () =>isNew?Navigator.push(context, MaterialPageRoute(builder:(context) => LicenseFront(index: 2))):(){},
+                            onPressed: () =>isNew?Navigator.push(context, MaterialPageRoute(builder:(context) => LicenseFront(index: 2))):(){
+                              rent.additionalDriver=AdditionalDriver.fromJson(json);
+                            },
                             child: Text('הוספת נהג',
                                 style: TextStyle(
                                     fontSize: 20.sp,

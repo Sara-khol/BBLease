@@ -1,5 +1,6 @@
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/registration/face_scanning.dart';
+import 'package:bblease/Flow/registration/license_details.dart';
 import 'package:bblease/Flow/registration/text_recognition.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:bblease/services/support.dart' as support;
@@ -257,17 +258,21 @@ class _LicenseBackState extends State<LicenseBack> {
                   child: TextButton(
                     onPressed: () async{
                       XFile xfile=await _cameraController.takePicture();
-                      widget.index==1?uploadSucceed(context,LicenseBack(index: 1),FaceScanning()):null;
+
+                      widget.index==1
+                          ?uploadSucceed(context,LicenseBack(index: widget.index),FaceScanning())
+                          :uploadSucceed(context,LicenseBack(index: widget.index),LicenseDetails(index: widget.index));
                       setState(() {
                         _imageBack= xfile;
                         _cameraController.pausePreview();
                         if (_imageBack != null) {
-                          User().regImages[1]=_imageBack;
-                          TextRecognition(1);
+                          widget.index==1?User().regImages[1]=_imageBack:User().additionalDriver.images[1]=_imageBack;
+                          widget.index==1?TextRecognition(1):null;
                         }
                       });
                     },
-                    child: Text('צלם',style: (TextStyle(color: Colors.white, )),),
+
+                    child: Text('צלם',style: (TextStyle(color: Colors.white)),),
                   ),
                 ),)
             ],
@@ -290,8 +295,8 @@ class _LicenseBackState extends State<LicenseBack> {
         _imageBack= result;
         //_cameraController.pausePreview();
         if (_imageBack != null) {
-          User().regImages[1]=_imageBack;
-          TextRecognition(1);
+          widget.index==1?User().regImages[1]=_imageBack:User().additionalDriver.images[1]=_imageBack;
+          widget.index==1?TextRecognition(1):null;
         }
       });
     }

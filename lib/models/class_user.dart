@@ -50,6 +50,9 @@ class User{
   @JsonKey(includeFromJson: false,includeToJson: false,)
    Rental? currentRent;
 
+ @JsonKey(includeFromJson: false,includeToJson: false,)
+ AdditionalDriver additionalDriver=AdditionalDriver();
+
 
   // void setBirthDate(String dateString) {
   //   try {

@@ -1,22 +1,16 @@
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
-import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/UserInformation/ordersHistory.dart';
-import 'package:bblease/Flow/home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:bblease/utils/my_colors.dart' as colors;
+import 'package:bblease/utils/my_colors.dart';
 import '../../customWidgets/appBarB.dart';
 import '../../models/additions.dart';
-import '../../models/car.dart';
 import '../../models/class_rent.dart';
-
 import 'package:intl/intl.dart' as intl;
 import 'package:carousel_slider/carousel_slider.dart';
-
 import '../../models/class_user.dart';
 import '../../services/api_service.dart';
-import '../../utils/my_colors.dart';
 import 'dialogs.dart';
 
 class CarDetails extends StatefulWidget {
@@ -36,14 +30,14 @@ class CarDetails extends StatefulWidget {
 
 class _CarDetailsState extends State<CarDetails> {
   //late Car carDetails;
-  double price = 0;
+  double additionsPrice = 0;
   late int rentPrice;
   late int dayDiff;
 
   void calculateAdditionsPrice() {
-    price = 0;
+    additionsPrice = 0;
     for (var item in widget.rent.additions!) {
-      if (item.isChecked) price += item.price;
+      if (item.isChecked) additionsPrice += item.price;
     }
   }
 
@@ -70,7 +64,7 @@ class _CarDetailsState extends State<CarDetails> {
               widget.rent.car.postName, //carDetails.postName,
               textAlign: TextAlign.right,
               style: TextStyle(
-                color: colors.blackColorApp,
+                color: blackColorApp,
                 fontSize: 30.sp,
                 fontWeight: FontWeight.w700,
                 height: null,
@@ -79,7 +73,7 @@ class _CarDetailsState extends State<CarDetails> {
             Text(
               'רכב זה זמין רק בחיבור לאפליקציה',
               style: TextStyle(
-                color: colors.blackColorApp,
+                color: blackColorApp,
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w400,
               ),
@@ -117,7 +111,7 @@ class _CarDetailsState extends State<CarDetails> {
                   padding: EdgeInsets.only(right: 10.w),
                   child: RawScrollbar(
                     thumbVisibility: true,
-                    thumbColor: colors.turquoiseColorApp,
+                    thumbColor: turquoiseColorApp,
                     thickness: 3,
                     child: Scrollbar(
                       thumbVisibility: true,
@@ -149,7 +143,7 @@ class _CarDetailsState extends State<CarDetails> {
                                         SizedBox(height: 41.h),
                                         Text(widget.rent.car.postName,
                                             style: TextStyle(
-                                              color: colors.blackColorApp,
+                                              color: blackColorApp,
                                               fontSize: 30.sp,
                                               fontWeight: FontWeight.w700,
                                               height: 1.15,
@@ -157,7 +151,7 @@ class _CarDetailsState extends State<CarDetails> {
                                         Text(
                                           '200 ק"מ',
                                           style: TextStyle(
-                                            color: colors.blackColorApp,
+                                            color: blackColorApp,
                                             fontSize: 18.sp,
                                             fontWeight: FontWeight.w600,
                                             height: 1.15,
@@ -169,11 +163,11 @@ class _CarDetailsState extends State<CarDetails> {
                                           children: [
                                             Column(
                                               children: [
-                                                Icon(Icons.chair_outlined, color: colors.pinkColorApp,),
+                                                Icon(Icons.chair_outlined, color: pinkColorApp,),
                                                 SizedBox(height: 10.h),
                                                 Text('${widget.rent.car.seats} מושבים',
                                                     style: TextStyle(
-                                                      color: colors.blackColorApp,
+                                                      color: blackColorApp,
                                                       fontSize: 16.sp,
                                                       fontWeight: FontWeight.w400,
                                                     ))
@@ -183,13 +177,13 @@ class _CarDetailsState extends State<CarDetails> {
                                               children: [
                                                 Icon(
                                                   Icons.sensor_door_outlined,
-                                                  color: colors.pinkColorApp,
+                                                  color: pinkColorApp,
                                                 ),
                                                 SizedBox(height: 10.h),
                                                 Text(
                                                   '${widget.rent.car.doors} דלתות',
                                                   style: TextStyle(
-                                                    color: colors.blackColorApp,
+                                                    color: blackColorApp,
                                                     fontSize: 16.sp,
                                                     fontWeight: FontWeight.w400,
                                                   ),
@@ -202,7 +196,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                       Icon(
                                                         Icons.hdr_auto_outlined,
                                                         color:
-                                                            colors.pinkColorApp,
+                                                            pinkColorApp,
                                                       ),
                                                       SizedBox(height: 10.h),
                                                       Text(
@@ -222,7 +216,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                       Icon(
                                                         Icons.flash_on_outlined,
                                                         color:
-                                                            colors.pinkColorApp,
+                                                            pinkColorApp,
                                                       ),
                                                       SizedBox(height: 10.h),
                                                       Text(
@@ -240,11 +234,11 @@ class _CarDetailsState extends State<CarDetails> {
                                             if (widget.rent.car.type == 'היברידי')
                                               Column(
                                                 children: [
-                                                  Icon(Icons.electrical_services_outlined, color: colors.pinkColorApp,),
+                                                  Icon(Icons.electrical_services_outlined, color: pinkColorApp,),
                                                   SizedBox(height: 10.h),
                                                   Text('היברידי',
                                                     style: TextStyle(
-                                                      color: colors.blackColorApp,
+                                                      color: blackColorApp,
                                                       fontSize: 16.sp,
                                                       fontWeight: FontWeight.w400,
                                                     ),
@@ -284,7 +278,7 @@ class _CarDetailsState extends State<CarDetails> {
                                         Text(
                                           'פרטי הרכב',
                                           style: TextStyle(
-                                            color: colors.blackColorApp,
+                                            color: blackColorApp,
                                             fontSize: 18.sp,
                                             fontWeight: FontWeight.w400,
                                           ),
@@ -314,12 +308,12 @@ class _CarDetailsState extends State<CarDetails> {
                                         SizedBox(height: 40.h),
                                         Row(
                                           children: [
-                                            Icon(Icons.fmd_good_outlined, color: colors.blackColorApp, size: 20.w),
+                                            Icon(Icons.fmd_good_outlined, color: blackColorApp, size: 20.w),
                                             SizedBox(width: 9.w,),
                                             Text(
                                               widget.rent.car.city,
                                               style: TextStyle(
-                                                color: colors.blackColorApp,
+                                                color: blackColorApp,
                                                 fontSize: 16.sp,
                                                 fontWeight: FontWeight.w400,
                                               ),
@@ -336,7 +330,7 @@ class _CarDetailsState extends State<CarDetails> {
                                             Text(
                                               '${intl.DateFormat('dd.MM.yyyy').format(widget.rent.startDate!)} - ${intl.DateFormat('dd.MM.yyyy').format(widget.rent.endDate!)}',
                                               style: TextStyle(
-                                                color: colors.blackColorApp,
+                                                color: blackColorApp,
                                                 fontSize: 16.sp,
                                                 fontWeight: FontWeight.w400,
                                               ),
@@ -350,7 +344,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                   .start,
                                               children: [
                                                 Text('כולל', style: TextStyle(
-                                                  color: colors.blackColorApp,
+                                                  color: blackColorApp,
                                                   fontSize: 20.sp,
                                                   fontWeight: FontWeight.w600,
                                                   height: 1.15,),),
@@ -435,7 +429,7 @@ class _CarDetailsState extends State<CarDetails> {
                                             'פרטי השכרה',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                              color: colors.blackColorApp,
+                                              color: blackColorApp,
                                               fontSize: 18.sp,
                                               fontWeight: FontWeight.w400,
                                             ),
@@ -506,7 +500,7 @@ class _CarDetailsState extends State<CarDetails> {
                                             'תוספות',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                              color: colors.blackColorApp,
+                                              color: blackColorApp,
                                               fontSize: 18.sp,
                                               fontWeight: FontWeight.w400,
                                             ),
@@ -746,7 +740,7 @@ class _CarDetailsState extends State<CarDetails> {
                                         SizedBox(height: 40.h),
                                         Text(
                                             // 'סך הכל לתשלום       ${widget.rent.car.pricePerDay * (dayDiff == 0 ? 1 : dayDiff)} ₪',
-                                            'סך הכל לתשלום       ${((rentPrice + price) * 0.17 + (rentPrice + price)).round()} ₪',
+                                            'סך הכל לתשלום       ${((rentPrice + additionsPrice) * 0.17 + (rentPrice + additionsPrice)).round()} ₪',
                                             // ' ${((rentPrice+price)*1.17).round()} ₪'
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w700,
@@ -787,13 +781,13 @@ class _CarDetailsState extends State<CarDetails> {
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Text('₪ $rentPrice', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w700)),
+                                                        Text('₪ ${(rentPrice*0.83).round()}', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w700)),
                                                         SizedBox(height: 17.h),
-                                                        Text('₪ $price',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700)),
+                                                        Text('₪ ${(additionsPrice*0.83).round()}',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700)),
                                                         SizedBox(height: 17.h),
-                                                        Text('₪ ${((rentPrice + price) * 0.17).round()}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700)),
+                                                        Text('₪ ${((rentPrice + additionsPrice) * 0.17).round()}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700)),
                                                         SizedBox(height: 17.h),
-                                                        Text('₪ ${(rentPrice + price) + ((rentPrice + price) * 0.17).round()}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700, color: pinkColorApp)),
+                                                        Text('₪ ${(rentPrice + additionsPrice)}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700, color: pinkColorApp)),
                                                       ],
                                                     ),
                                                     // SizedBox(width: 20.h),
@@ -861,7 +855,7 @@ class _CarDetailsState extends State<CarDetails> {
                                             'תשלום',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                              color: colors.blackColorApp,
+                                              color: blackColorApp,
                                               fontSize: 18.sp,
                                               fontWeight: FontWeight.w400,
                                             ),
@@ -879,7 +873,7 @@ class _CarDetailsState extends State<CarDetails> {
                               width: 332.w,
                               child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: colors.turquoiseColorApp,
+                                    backgroundColor: turquoiseColorApp,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(100),
                                     ),
@@ -897,6 +891,8 @@ class _CarDetailsState extends State<CarDetails> {
                                       'start_date': intl.DateFormat('yyyy-MM-dd').format(widget.rent.startDate),
                                       'end_date': intl.DateFormat('yyyy-MM-dd').format(widget.rent.endDate),
                                       'extra': additionsMap,
+                                      'start_hour':intl.DateFormat('HH:mm').format(widget.rent.startDate),
+                                      'end-hour':intl.DateFormat('HH:mm').format(widget.rent.endDate),
                                       //'whole_day':widget.rent.startDate.compareTo(widget.rent.endDate)!=0,
                                       //'half_day':widget.rent.startDate.compareTo(widget.rent.endDate)==0,
                                       //'morning':widget.rent.startDate.compareTo(widget.rent.endDate)==0?widget.rent.dayPart==1:false,
@@ -965,14 +961,14 @@ class _CarDetailsState extends State<CarDetails> {
                       setState(() {});
                     });
                   },
-                  icon: Icon(Icons.close, color: colors.pinkColorApp)),
+                  icon: Icon(Icons.close, color: pinkColorApp)),
             ),
             Expanded(
                 child: Text(widget.rent.additions![index].title, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp))),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Icon(Icons.check, color: colors.turquoiseColorApp, size: 21.sp,),
+                Icon(Icons.check, color: turquoiseColorApp, size: 21.sp,),
                 SizedBox(height: 16.h,),
                 Row(
                   children: [

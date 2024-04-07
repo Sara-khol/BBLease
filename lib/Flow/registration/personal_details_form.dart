@@ -235,7 +235,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                             User().getNotification = checkboxValue1;
                             setState(() {});
                             if (_formKey.currentState!.validate()) {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const LicenseDetails()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const LicenseDetails(index: 1,)));
                             }
                           },
                           child: Text(

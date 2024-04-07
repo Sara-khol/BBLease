@@ -71,6 +71,8 @@ dependencies:
   flutter_localization: ^0.2.0
   custom_info_window: ^1.0.1
   signature: ^5.4.1
+  url_launcher: ^6.2.5
+  sms_autofill: ^2.3.1
   #flutter_launcher_icons: ^0.13.1
 
 

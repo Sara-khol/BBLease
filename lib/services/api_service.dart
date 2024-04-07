@@ -14,7 +14,7 @@ class ApiService {
   final Dio _dio = Dio();
   // final _baseUrl = 'https://bibilease.co.il/?rest_route=/';
   late String _baseUrl;
-  String devURL='https://bibilease.co.il/wp-json/';
+  String devURL='https://bibilease.quicksolutions.co.il/wp-json/';
 
   ApiService._privateConstructor(){
     if(!kIsWeb) {
@@ -45,7 +45,7 @@ class ApiService {
   factory ApiService() {
     return _instance;
   }
-  Future getAllCars(  Function(dynamic carJson) onSuccess) async {
+  /*Future getAllCars(  Function(dynamic carJson) onSuccess) async {
     Response response = await _dio.get('${_baseUrl}wp/v2/get_all_vehicles');
     if(response.statusCode == 200) {
       var result = response.data;
@@ -53,9 +53,9 @@ class ApiService {
       onSuccess(result);
     }
     // Prints the raw data returned by the server
-  }
+  }*/
 
-  Future getCarById(int carId, Function(dynamic carJson) onSuccess) async {
+  /*Future getCarById(int carId, Function(dynamic carJson) onSuccess) async {
 
     // Response response = await _dio.get('${_baseUrl}wp/v2/get_all_vehicles');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_vehicle/$carId');
@@ -65,9 +65,9 @@ class ApiService {
       onSuccess(result);
     }
     // Prints the raw data returned by the server
-  }
+  }*/
 
-  Future getCarsInBranch(String city, Function(dynamic carJson) onSuccess) async {
+  /*Future getCarsInBranch(String city, Function(dynamic carJson) onSuccess) async {
 
     // Response response = await _dio.get('${_baseUrl}wp/v2/get_all_vehicles');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_list_vehicles_by_city/$city');
@@ -77,7 +77,7 @@ class ApiService {
       onSuccess(result);
     }
     // Prints the raw data returned by the server
-  }
+  }*/
 
   Future getCarsAround(String start,String end,double lat,double long,int km,stime,etime,Function(dynamic carJson) onSuccess) async {
     print('${_baseUrl}wp/v2/get_vehicles_around_address1/$start/$end/$lat/$long/$km/$stime/$etime');
@@ -127,13 +127,13 @@ class ApiService {
     // Prints the raw data returned by the server
   }
 
-  Future getVerificationCode(String phone,bool isSms, Function(dynamic carJson) onSuccess) async {
-    int sendType=isSms?0:1;
-    print('sendType $sendType');
+  Future getVerificationCode(String phone,int type, Function(dynamic carJson) onSuccess) async {
+    //int sendType=isSms?0:1;
+    print('sendType $type');
     // print('${_baseUrl}wp/v2/check_user_connected/$sendType/$phone');
-    print('${_baseUrl}wp/v2/check_user_connected/$sendType/$phone');
+    print('${_baseUrl}wp/v2/check_user_connected/$type/$phone');
     // Response response = await _dio.get('${_baseUrl}wp/v2/check_user_connected/1/$phone');
-    Response response = await _dio.get('${_baseUrl}wp/v2/check_user_connected/$sendType/$phone');
+    Response response = await _dio.get('${_baseUrl}wp/v2/check_user_connected/$type/$phone');
     ///*Response response = await*/ _dio.get('${_baseUrl}wp/v2/check_user_connected/2/$phone');
     if(response.statusCode == 200) {
       var result = response.data;
@@ -371,6 +371,40 @@ class ApiService {
   Future lockDoors(int carNum,Function(dynamic res) onSuccess) async {
     print('${_baseUrl}wp/v2/vehicle_lock/$carNum');
     Response response = await _dio.get('${_baseUrl}wp/v2/vehicle_lock/$carNum');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+    // Prints the raw data returned by the server
+  }
+
+  Future getParkPosition(int carNum,Function(dynamic res) onSuccess) async {
+    print('${devURL}wp/v2/car_address_location/$carNum');
+    Response response = await _dio.get('${devURL}wp/v2/car_address_location/$carNum');
+    print(response.statusCode);
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+    // Prints the raw data returned by the server
+  }
+
+  Future getAdditionalDriver(String id,Function(dynamic res) onSuccess) async {
+    print('${devURL}wp/v2/get_additional_driver_details/$id');
+    Response response = await _dio.get('${devURL}wp/v2/get_additional_driver_details/$id');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+    // Prints the raw data returned by the server
+  }
+
+  Future getPriceList(Function(dynamic res) onSuccess) async {
+    print('${devURL}wp/v2/');
+    Response response = await _dio.get('${devURL}wp/v2/');
     if(response.statusCode == 200) {
       var result = response.data;
       print('result: $result');

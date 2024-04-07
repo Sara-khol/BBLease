@@ -1,9 +1,9 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/Rental/Actions/add_driver.dart';
 import 'package:bblease/Flow/Rental/Actions/car_docu.dart';
-import 'package:bblease/Flow/Rental/Actions/report_accident.dart';
 import 'package:bblease/Flow/Rental/dialogs.dart';
 import 'package:bblease/Flow/home_page.dart';
 import 'package:bblease/customWidgets/appBarB.dart';
@@ -15,6 +15,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:url_launcher/url_launcher.dart';
 import '../../models/class_rent.dart';
 import '../../models/class_user.dart';
 import 'car_dialog.dart';
@@ -28,9 +29,13 @@ class ActiveRentDetails extends StatefulWidget {
 
 class _ActiveRentDetailsState extends State<ActiveRentDetails> {
 
-  late String _time = '00:00:00';
+  String _time = '00:00:00';
   Rental rent = User().currentRent!;
   //final ScrollController _controller = ScrollController();
+
+  Duration duration = Duration(minutes: 1); // Set the initial countdown time
+  Timer? timer,reminder;
+
 
   bool isLocked=true;
 
@@ -40,6 +45,10 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
 
   getTime(){
     ApiService().getTimeRemain(rent.orderNum!, (res) => setState(()=>_time=res));
+  }
+
+  void startTimer() {
+    timer = Timer.periodic(Duration(seconds: 1), (_) => setCountDown());
   }
 
   getFuel(){
@@ -52,11 +61,25 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
     });
   }
 
+  void setCountDown() {
+    final reduceSecondsBy = 1;
+    setState(() {
+      final seconds = duration.inSeconds - reduceSecondsBy;
+      if (seconds < 0) {
+        timer!.cancel();
+        // You can also trigger an event when the timer is up.
+      } else {
+        duration = Duration(seconds: seconds);
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     getTime();
     getFuel();
+    reminder=Timer(Duration(minutes: 10), () =>addDriveReminder());
   }
    sendOpeningCode(){
     ApiService().getOpeningCode(rent.orderNum!, (res) {
@@ -488,7 +511,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8)),
                             color: Colors.white,
-                            shadows: [
+                            shadows: const [
                               BoxShadow(
                                 color: Color(0x0C000000),
                                 blurRadius: 40,
@@ -534,7 +557,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8)),
                             color: Colors.white,
-                            shadows: [
+                            shadows: const [
                               BoxShadow(
                                 color: Color(0x0C000000),
                                 blurRadius: 40,
@@ -570,7 +593,12 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                 ],
                               ),
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              ApiService().getParkPosition(rent.car.carNumber, (res) {
+                                print(res);
+                                findPark(res);
+                              });
+                            },
                           ),
                         ),
                       ),
@@ -583,7 +611,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8)),
                             color: Colors.white,
-                            shadows: [
+                            shadows: const [
                               BoxShadow(
                                 color: Color(0x0C000000),
                                 blurRadius: 40,
@@ -627,7 +655,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8)),
                             color: Colors.white,
-                            shadows: [
+                            shadows: const [
                               BoxShadow(
                                 color: Color(0x0C000000),
                                 blurRadius: 40,
@@ -669,7 +697,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                           decoration: ShapeDecoration(
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                             color: Colors.white,
-                            shadows: [
+                            shadows: const [
                               BoxShadow(
                                 color: Color(0x0C000000),
                                 blurRadius: 40,
@@ -802,18 +830,15 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      width: 16.w,
-                    ),
+                    SizedBox(width: 16.w,),
                     Container(
                       width: 108.w,
                       height: 114.h,
                       clipBehavior: Clip.antiAlias,
                       decoration: ShapeDecoration(
                         color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
-                        shadows: [
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                        shadows: const [
                           BoxShadow(
                             color: Color(0x0C000000),
                             blurRadius: 40,
@@ -824,20 +849,24 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       ),
                       child: GestureDetector(
                         onVerticalDragEnd: (details) {
-                          ApiService().openDoors(rent.car.carNumber, (res) {
+                          if(isLocked) {
+                            ApiService().openDoors(rent.car.carNumber, (res) {
                                 print(res);
                                setState(() {
                                  isLocked=false;
                                });
+                               _showFloatingDialog();
                               });
-                          ApiService().lockDoors(rent.car.carNumber,
+                          }
+                          else {
+                            ApiService().lockDoors(rent.car.carNumber,
                                   (res) {
                                 print(res);
                                 setState(() {
                                   isLocked=true;
                                 });
                               });
-
+                          }
                         },
                         child: Column(
                           children: [
@@ -856,7 +885,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                             ImageIcon(
                               isLocked?AssetImage("assets/icons/lock.png"):AssetImage("assets/icons/unlock.png"),
                               size: 24.w,
-                              color: isLocked?pinkColorApp:turquoiseColorApp,
+                              color: isLocked?pinkColorApp.withOpacity(0.5):turquoiseColorApp.withOpacity(0.5),
                             ),
                             //SizedBox(height:10.h),
                           ],
@@ -873,8 +902,185 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
     );
   }
 
-  Future endRental() {
+  Future findPark(String address) {
+
     return showModalBottomSheet(
+      isDismissible: false,
+      elevation: 2,
+      isScrollControlled: false,
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 250.h,
+          decoration: const BoxDecoration(color:Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+          ),
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: Column(
+                children: [
+                  SizedBox(height: 45.h),
+                  // const Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('כתובת חנית הרכב  ',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: blackColorApp,
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.w700,
+                          )
+                      ),
+                      ImageIcon(AssetImage("assets/icons/car_icon.png"),size: 24.w,color: pinkColorApp,),
+                    ],
+                  ),
+                  SizedBox(height: 40.h),
+                  Text(address,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: blackColorApp,
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.w500,
+                      )
+                  ),
+                  SizedBox(height: 25.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('פתח ניווט באמצעות      ',
+                          style: TextStyle(
+                            color: blackColorApp,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w400,
+                          )
+                      ),
+                      IconButton(
+                          onPressed: () => openWaze(0, 0),
+                          icon: ImageIcon(AssetImage("assets/icons/waze.png"),color: turquoiseColorApp,)),
+                      SizedBox(width: 23.w,),
+                      IconButton(
+                        onPressed: () => openGoogleMaps(0, 0),
+                        icon: ImageIcon(AssetImage("assets/icons/maps.png"),color: turquoiseColorApp,)),
+                    ],
+                  )
+                ]
+            ),
+          )
+      ),
+      barrierColor: Colors.black12.withOpacity(0.1),
+      // shape: const RoundedRectangleBorder(
+      //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+    );
+  }
+
+  Future addDriveReminder(){
+    return showModalBottomSheet<dynamic>(
+        isScrollControlled: true,
+        isDismissible: true,
+        barrierColor: Colors.black12.withOpacity(0.1),
+        elevation: 2,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+        ),
+        context: context,
+        builder: (context) {
+          return Directionality(
+              textDirection: TextDirection.rtl,
+              child: Padding(
+                padding: EdgeInsets.only(left: 30.w, right: 30.w, ),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 35.h),
+                      Text(
+                        'הי,שים לב!',
+                        style: TextStyle(
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black),
+                      ),
+                      SizedBox(height: 51.h),
+                      Text('בחרת בהוספת נהג נוסף,\nועוד לא מלאת את הפרטים',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500,),),
+                      SizedBox(height: 26.h),
+                      Row(
+                        children: [
+                          Container(
+                            height: 48.h,
+                            width: 160.w,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: turquoiseColorApp,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                ),
+                                onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => AddDriver(),)),
+                                child: Text('למלא עכשיו',
+                                    style: TextStyle(
+                                        fontSize: 20.sp,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500))),
+                          ),
+                          SizedBox(width: 13.h),
+                          Container(
+                            height: 48.h,
+                            width: 160.w,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: turquoiseColorApp,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  reminder=Timer(const Duration(minutes: 10), () =>addDriveReminder());
+                                  Navigator.pop(context);
+                                },
+                                child: Text('בהמשך',
+                                    style: TextStyle(
+                                        fontSize: 20.sp,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500))),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20.h),
+                    ]
+                ),
+              )
+          );
+        }
+    );
+  }
+
+  // Function to open a location in Waze
+  Future<void> openWaze(double latitude, double longitude) async {
+    var url = 'https://waze.com/ul?ll=$latitude,$longitude&navigate=yes';
+    if (await canLaunchUrl(Uri(path: url))) {
+      await launchUrl(Uri(path: url));
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+// Function to open a location in Google Maps
+  Future<void> openGoogleMaps(double latitude, double longitude) async {
+    var url = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
+    if (await canLaunchUrl(Uri(path: url))) {
+      await launchUrl(Uri(path: url));
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+
+  Future endRental() {
+
+    bool ended =false;
+    return showModalBottomSheet(
+      isDismissible: false,
+      elevation: 2,
+      isScrollControlled: false,
       context: context,
       builder: (BuildContext context) => Container(
           //height: 180.h,
@@ -885,29 +1091,42 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
               children: [
             SizedBox(height: 45.h),
             // const Spacer(),
-            Text('השכרה מספר ${rent.orderNum} הסתיימה',
+            Text(ended? 'השכרה מספר ${rent.orderNum} הסתיימה':'סיום השכרה',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: pinkColorApp,
                   fontSize: 22.sp,
                   fontWeight: FontWeight.w700,
-                )),
+                )
+            ),
                 SizedBox(height: 24.h),
-                Text('השכרה מספר בדקות הקרובות תופיע קבלה באזור האישי או במייל',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: blackColorApp,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w400,
-                    )),
-                Text('מודים שבחרת בביביליס\nמחכים לראותך שוב :)',
-                    textAlign: TextAlign.center,
-                    textDirection: TextDirection.rtl,
-                    style: TextStyle(
-                      color: blackColorApp,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w200,
-                    )),
+                Visibility(
+                  visible: !ended,
+                    child: Container()),
+                Visibility(
+                    visible: !ended,
+                    child: Text('בלחיצת אישור ינעלו דלתות הרכב\nוקוד הפתיחה ישתנה',style: TextStyle(color: pinkColorApp),)),
+                Visibility(
+                  visible: ended,
+                  child: Text('השכרה מספר בדקות הקרובות תופיע קבלה באזור האישי או במייל',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: blackColorApp,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w400,
+                      )),
+                ),
+                Visibility(
+                  visible: ended,
+                  child: Text('מודים שבחרת בביביליס\nמחכים לראותך שוב :)',
+                      textAlign: TextAlign.center,
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                        color: blackColorApp,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w200,
+                      )),
+                ),
             SizedBox(height: 11.h),
             SizedBox(
               height: 42.h,
@@ -919,9 +1138,14 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       borderRadius: BorderRadius.circular(100),
                     ),
                   ),
-                  onPressed: () =>Navigator.push(context, MaterialPageRoute(builder:  (context) => HomePage(),)),
+                  onPressed: () {
+
+                    ended
+                        ? Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()))
+                        : setState(() {ended=true;});
+                    },
                   child: Text(
-                    'חזור למסך הראשי',
+                    ended?'צא למסך הראשי':'מאשר',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 18.sp,
@@ -933,6 +1157,48 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
       barrierColor: Colors.black12.withOpacity(0.1),
       // shape: const RoundedRectangleBorder(
       //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+    );
+  }
+
+  void _showFloatingDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shadowColor: Colors.grey.withOpacity(0.3),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+          ), //this right here
+          child: Container(
+            height: 185.h,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                    child: CloseButton()),
+
+                ImageIcon(AssetImage("assets/icons/car_open_doors.png"),size: 20.sp,color: pinkColorApp,),
+                SizedBox(height: 30.h),
+
+                Text(
+                  'הדלתות פתוחות',
+                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20.sp),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  'נסיעה בטוחה!',
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20.sp),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20.h),
+
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

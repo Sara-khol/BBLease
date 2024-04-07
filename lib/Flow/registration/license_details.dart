@@ -1,5 +1,6 @@
 
 import 'package:bblease/Flow/registration/payment_webVIew.dart';
+import 'package:bblease/models/additional_driver.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:bblease/services/api_service.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,7 +14,9 @@ import '../Rental/dialogs.dart';
 import 'package:bblease/utils/my_colors.dart';
 
 class LicenseDetails extends StatefulWidget {
-  const LicenseDetails({Key? key}) : super(key: key);
+  const LicenseDetails({Key? key, required this.index}) : super(key: key);
+
+  final int index;
 
   @override
   State<LicenseDetails> createState() => _LicenseDetailsState();
@@ -22,19 +25,22 @@ class LicenseDetails extends StatefulWidget {
 class _LicenseDetailsState extends State<LicenseDetails> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _licenseId =
-      TextEditingController(text: User().licenseId);
-
-  // TextEditingController _expDate=TextEditingController(text: intl.DateFormat('dd-mm-yyyy').format(User().licenseExpDate));
-  final TextEditingController _expDate =
-      TextEditingController(text: User().licenseExpDate);
-  final TextEditingController _issDate =
-      TextEditingController(text: User().licenseIssDate);
-  final TextEditingController _degree =
-       TextEditingController(text: User().licenseDegree);
+  late TextEditingController _licenseId ;
+  late TextEditingController _expDate   ;
+  late TextEditingController _issDate   ;
+  late TextEditingController _degree    ;
 
   String exp = User().licenseExpDate;
   String iss = User().licenseIssDate;
+
+  @override
+  void initState() {
+    _licenseId = TextEditingController(text: widget.index==1?User().licenseId:'');
+    _expDate   = TextEditingController(text: widget.index==1?User().licenseExpDate:'');
+    _issDate   = TextEditingController(text: widget.index==1?User().licenseIssDate:'');
+    _degree    = TextEditingController(text: widget.index==1?User().licenseDegree:'');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,14 +57,17 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                 SizedBox(
                   height: 53.h,
                 ),
-                 Icon(
-                  Icons.account_circle_outlined,
-                  color: turquoiseColorApp,
-                  size: 60.w,
-                  weight: 100,
-                ),
+                 Visibility(
+                   visible: widget.index==1,
+                   child: Icon(
+                    Icons.account_circle_outlined,
+                    color: turquoiseColorApp,
+                    size: 60.w,
+                    weight: 100,
+                   ),
+                 ),
                 SizedBox(
-                  height: 8.h,
+                  height: widget.index==1?8.h:53.h,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -186,10 +195,10 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                           fontWeight: FontWeight.w400,
                           color: blackColorApp),
                     ),
-                    value: User().isNewDriver,
+                    value: widget.index==1?User().isNewDriver:false,
                     onChanged: (bool? value) {
                       setState(() {
-                        User().isNewDriver = value!;
+                        widget.index==1?User().isNewDriver = value!:null;
                       });
                     },
                     checkColor: blackColorApp,
@@ -206,10 +215,9 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                 //Spacer(),
                 SizedBox(height: 152.h),
                 Container(
-                height: 42.h,
-                width: 332.w,
-
-                child: ElevatedButton(
+                  height: 42.h,
+                  width: 332.w,
+                  child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: turquoiseColorApp,
                       shape: RoundedRectangleBorder(
@@ -218,20 +226,30 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                     ),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        User().licenseId = _licenseId.text;
-                        User().licenseDegree = _degree.text;
-                        User().licenseDegree ='';
-                        User().licenseIssDate = iss.toString();
-                        User().licenseExpDate = exp;
-                        await registerUser();
+                        if(widget.index==1){
+                          User().licenseId = _licenseId.text;
+                          User().licenseDegree = _degree.text;
+                          //User().licenseDegree ='';
+                          User().licenseIssDate = iss.toString();
+                          User().licenseExpDate = exp;
+                          await registerUser();
+                        }
+                        else{
+                          User().additionalDriver.licenseId = _licenseId.text;
+                          User().additionalDriver.licenseDegree = _degree.text;
+                          //User().additionalDriver.licenseDegree ='';
+                          User().additionalDriver.licenseIssDate = iss.toString();
+                          User().additionalDriver.licenseExpDate = exp;
+                        }
                       }
                     },
-                    child: Text('הבא',
+                    child: Text(widget.index==1?'הבא':'אשר פרטים',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
-                            fontWeight: FontWeight.w500))),
-                                  ),
+                            fontWeight: FontWeight.w500))
+                  ),
+                ),
                 SizedBox(height: 40.h,),
               ],
             ),
@@ -319,5 +337,56 @@ class _LicenseDetailsState extends State<LicenseDetails> {
 
       }
     });
+  }
+  Future addDriverSucceed() {
+    return showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) => Container(
+          height: 180.h,
+          decoration: const BoxDecoration(color:Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+          ),
+          child: Column(children: [
+            SizedBox(height: 25.h),
+            // const Spacer(),
+            Center(
+              child: Text('הוספת נהג',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    height:1,
+                    color: pinkColorApp,
+                    fontSize: 22.sp,
+                    fontWeight: FontWeight.w700,
+                  )),
+            ),
+            //SizedBox(height: 20.h),
+            SizedBox(
+              height: 42.h,
+              width: 332.w,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: turquoiseColorApp,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  ),
+                  onPressed: () {
+                    rent.additionalDriver=User().additionalDriver;
+                    User().additionalDriver=AdditionalDriver();
+                  },
+                  child: Text(
+                    'שמור והמשך בנסיעה',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w500),
+                  )),
+            ),
+            SizedBox(height: 22.h)
+          ])),
+      barrierColor: Colors.black12.withOpacity(0.1),
+      // shape: const RoundedRectangleBorder(
+      //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+    );
   }
 }

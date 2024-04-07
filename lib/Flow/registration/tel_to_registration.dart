@@ -2,7 +2,6 @@ import 'package:bblease/Flow/Rental/active_rent.dart';
 import 'package:bblease/Flow/home_page.dart';
 import 'package:bblease/Flow/registration/payment_webVIew.dart';
 import 'package:bblease/Flow/registration/start_registration.dart';
-import 'package:bblease/Flow/registration/sucsses_registration.dart';
 import 'package:bblease/Flow/UserInformation/terms_and_conditions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -43,9 +42,9 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
  // late int code;
   final _formKey = GlobalKey<FormState>();
 
-  getVerificationCode(bool isSms) async {
+  getVerificationCode(int type) async {
     showLoading(context);
-    await ApiService().getVerificationCode(_phone.text, isSms, (value) {
+    await ApiService().getVerificationCode(_phone.text, type, (value) {
       Navigator.pop(context);
       int status = value['status'];
       print('status: $status');
@@ -115,8 +114,8 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
             debugPrint('user name  ${User().firstName}');
 
             //todo: go to active rent
-            /*if(response["active-order"]!=null||response["active-order"].isNotEmpty) {
-              User().currentRent=Rental.fromJson(response["active-order"]);
+            /*if(response["active_order"]!=-1||response["active_order"].isNotEmpty) {
+              User().currentRent=Rental.fromJson(response["active_order"]);
             }*/
             print('after if');
             MySharedPreferences().setLastUsage();
@@ -196,80 +195,84 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                       ],
                     ),
                     SizedBox(height: 70.h,),
-                    Text(isRegister?'הזן מספר טלפון לקבלת קוד התחברות':'הזן מספר טלפון לקבלת קוד הרשמה', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w200,height: 1)),
+                    Text(isRegister?'הזן מספר טלפון לקבלת קוד התחברות':'הזן מספר טלפון לקבלת קוד הרשמה', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w400,height: 1)),
                     SizedBox(height: 34.h),
-                    TextFormField(
-                      controller: _phone,
-                      keyboardType: TextInputType.number,
-                      cursorColor: blackColorApp,
-                      decoration: InputDecoration(
-                        isDense: true,
-                        labelText: "מס' נייד",
-                        labelStyle: TextStyle(
-                          fontSize: 22.sp,
-                          fontWeight: FontWeight.w300,
-                          color: blackColorApp,
-                        ),
-                        floatingLabelBehavior: FloatingLabelBehavior.auto,
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide(
+                    SizedBox(
+                      height: 50.h,
+                      child: TextFormField(
+                        controller: _phone,
+                        keyboardType: TextInputType.number,
+                        cursorColor: blackColorApp,
+                        decoration: InputDecoration(
+                          constraints: BoxConstraints(maxHeight: 48.h),
+                          isDense: true,
+                          labelText: "מס' נייד",
+                          labelStyle: TextStyle(
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.w300,
                             color: blackColorApp,
                           ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide(
-                            color: blackColorApp,
-                          ),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(
-                            color: Colors.red,
-                          ),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(
-                            color: Colors.red,
-                          ),
-                        ),
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: 10.h,
-                          horizontal: 20.w,
-                        ),
-                        prefixIcon: Padding(
-                            padding: EdgeInsets.only(right: 20.w, left: 14.w),
-                            child:ImageIcon(
-                              AssetImage("assets/icons/Phone.png"),
-                              size: 24.w,
-                              color:pinkColorApp,
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(
+                              color: blackColorApp,
                             ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(
+                              color: blackColorApp,
+                            ),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: Colors.red,
+                            ),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: Colors.red,
+                            ),
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: 10.h,
+                            horizontal: 20.w,
+                          ),
+                          prefixIcon: Padding(
+                              padding: EdgeInsets.only(right: 20.w, left: 14.w),
+                              child:ImageIcon(
+                                AssetImage("assets/icons/Phone.png"),
+                                size: 24.w,
+                                color:pinkColorApp,
+                              ),
+                          ),
+                          prefixIconConstraints: const BoxConstraints(
+                            maxHeight: 26,
+                          ),
+                          suffixIcon: didSendCode
+                              ? Padding(
+                                  padding: EdgeInsets.only(left: 14.w),
+                                  child:ImageIcon(
+                                    AssetImage("assets/icons/edit.png"),
+                                    size: 20.w,
+                                    color:turquoiseColorApp,
+                                  ),
+                          )
+                              : null,
                         ),
-                        prefixIconConstraints: const BoxConstraints(
-                          maxHeight: 26,
-                        ),
-                        suffixIcon: didSendCode
-                            ? Padding(
-                                padding: EdgeInsets.only(left: 14.w),
-                                child:ImageIcon(
-                                  AssetImage("assets/icons/edit.png"),
-                                  size: 20.w,
-                                  color:turquoiseColorApp,
-                                ),
-                        )
-                            : null,
+                        style: TextStyle(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w300,
+                            color: blackColorApp),
+                        validator: (value) {
+                          if (value == null || value.length < 10)
+                            return 'מספר הטלפון חייב להיות בן 10 ספרות';
+                          return null;
+                        },
                       ),
-                      style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w300,
-                          color: blackColorApp),
-                      validator: (value) {
-                        if (value == null || value.length < 10)
-                          return 'מספר הטלפון חייב להיות בן 10 ספרות';
-                        return null;
-                      },
                     ),
                     SizedBox(height: 8.h,),
                     Visibility(
@@ -280,6 +283,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                         focusNode: textSecondFocusNode,
                         cursorColor: blackColorApp,
                         decoration: InputDecoration(
+                          constraints: BoxConstraints(maxHeight: 48.h),
                           isDense: true,
                           labelText: "הזן סיסמא שהתקבלה",
                           labelStyle: TextStyle(
@@ -346,104 +350,117 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                     //SizedBox(height: 34.h),
                     Visibility(
                       visible: !didSendCode,
-                      child: ListTileTheme(
-                        horizontalTitleGap: 1.0,
-                        child: CheckboxListTile(
-                          value: checkboxValue1,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              checkboxValue1 = value!;
-                            });
-                          },
-                          title: Row(
-                            children: [
-                              Text(
-                                'אני מאשר/ת את ',
-                                style: TextStyle(fontSize: 18.sp),
-                              ),
-                              GestureDetector(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => const Terms())),
-                                  child: Text(
-                                    'תנאי השימוש',
-                                    style: TextStyle(
-                                        fontSize: 18.sp,
-                                        decoration: TextDecoration.underline),
-                                  )),
-                            ],
-                          ),
-                          checkColor: blackColorApp,
-                          activeColor: Colors.transparent,
-                          // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          controlAffinity: ListTileControlAffinity.leading,
-                          checkboxShape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4)),
-                          side: BorderSide(
-                            color: blackColorApp,
-                            width: 1.5,
+                      child: SizedBox(
+                        height: 40.h,
+                        child: ListTileTheme(
+                          horizontalTitleGap: 1.0,
+                          child: CheckboxListTile(
+                            value: checkboxValue1,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                checkboxValue1 = value!;
+                              });
+                            },
+                            title: Row(
+                              children: [
+                                Text(
+                                  'אני מאשר/ת את ',
+                                  style: TextStyle(fontSize: 18.sp),
+                                ),
+                                GestureDetector(
+                                    onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => const Terms())),
+                                    child: Text(
+                                      'תנאי השימוש',
+                                      style: TextStyle(
+                                          fontSize: 18.sp,
+                                          decoration: TextDecoration.underline),
+                                    )),
+                              ],
+                            ),
+                            checkColor: blackColorApp,
+                            activeColor: Colors.transparent,
+                            // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            controlAffinity: ListTileControlAffinity.leading,
+                            checkboxShape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4)),
+                            side: BorderSide(
+                              color: blackColorApp,
+                              width: 1.5,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                     SizedBox(height: 81.h,),
+                    //SizedBox(height: 81.h,),
                     //Spacer(),
                     Visibility(
                       visible: didSendCode,
-                      child: Column(
-                        children: [
-                          TextButton(
-                              onPressed: () {
-                                _code.text = '';
-                                getVerificationCode(true);
-                              },
-                              child: Text('שלח שוב SMS',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 18.sp,
-                                      decoration: TextDecoration.underline,
-                                      color: blackColorApp))),
-                          TextButton(
-                              onPressed: () {
-                                _code.text = '';
-                                getVerificationCode(false);
-                              },
-                              child: Text(
-                                'שלח שוב שיחה קולית',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 18.sp,
-                                    decoration: TextDecoration.underline,
-                                    color: blackColorApp),
-                              )),
-                          TextButton(
-                              onPressed: () {
-                                _code.text = '';
-                                //getVerificationCode(false);
-                              },
-                              child: Text(
-                                'שלח שוב ווטסאפ',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 18.sp,
-                                    decoration: TextDecoration.underline,
-                                    color: blackColorApp),
-                              )),
-                          // SizedBox(
-                          //   height: 100.h,
-                          // ),
-                        ],
+                      child: SizedBox(
+                        height: 350.h,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              TextButton(
+                                  onPressed: () {
+                                    _code.text = '';
+                                    getVerificationCode(0);
+                                  },
+                                  child: Text('שלח שוב SMS',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 18.sp,
+                                          decoration: TextDecoration.underline,
+                                          color: blackColorApp))),
+                              TextButton(
+                                  onPressed: () {
+                                    _code.text = '';
+                                    getVerificationCode(1);
+                                  },
+                                  child: Text(
+                                    'שלח שוב שיחה קולית',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 18.sp,
+                                        decoration: TextDecoration.underline,
+                                        color: blackColorApp),
+                                  )),
+                              TextButton(
+                                  onPressed: () {
+                                    _code.text = '';
+                                    getVerificationCode(2);
+                                  },
+                                  child: Text(
+                                    'שלח שוב ווטסאפ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 18.sp,
+                                        decoration: TextDecoration.underline,
+                                        color: blackColorApp),
+                                  )),
+                              // SizedBox(
+                              //   height: 100.h,
+                              // ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
+                   Visibility(
+                     visible: !didSendCode,
+                       child: SizedBox(height: 340.h,)),
 
                     Flexible(
                       fit: FlexFit.loose,
                       child: Align(
                         alignment: Alignment.bottomCenter,
-                        child: Padding(
+                        child:
+                        Padding(
                           padding: EdgeInsets.only(bottom: 40.h),
-
                           child: SizedBox(
                             height: 48.h,
                             width: 332.w,
@@ -464,7 +481,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                                     if (_formKey.currentState!.validate() &&
                                         checkboxValue1) {
                                       setState(() {});
-                                      getVerificationCode(true);
+                                      getVerificationCode(0);
                                     } else {
                                       if (!checkboxValue1) {
                                         displayError(context,

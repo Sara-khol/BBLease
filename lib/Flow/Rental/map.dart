@@ -64,6 +64,7 @@ class _RentalWidgetState extends State<RentalWidget> {
   }
 
   Future<String?> getAddressFromLatLng(double latitude, double longitude, String apiKey) async {
+    print('getAddressFromLatLng');
     final String url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$apiKey&language=he';
 
     try {
@@ -71,6 +72,7 @@ class _RentalWidgetState extends State<RentalWidget> {
       if (response.statusCode == 200) {
         final decoded = json.decode(response.body);
         if (decoded['status'] == 'OK') {
+          print("my location: ${decoded['results'][0]['formatted_address']}");
           return decoded['results'][0]['formatted_address'];
         }
       }
@@ -115,8 +117,8 @@ class _RentalWidgetState extends State<RentalWidget> {
       );*/
       setState(() {
         _kGoogle = updatedPosition;
-
       });
+
       if(!dialogShown) {
         print('going to dialog');
         var formattedAddress;

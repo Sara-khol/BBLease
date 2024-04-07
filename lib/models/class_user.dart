@@ -28,6 +28,12 @@ class User{
   late String email='';
   @JsonKey(name: 'phone_number')
   late String phoneNumber='';
+  @JsonKey(name: 'customer_another_phone')
+ late String anotherPhone='';
+ @JsonKey(name: 'customer_city')
+ late String city='';
+ @JsonKey(name: 'customer_address')
+ late String address='';
   @JsonKey(name: 'is_approve_get_ads')
   bool getNotification=true;
 
@@ -46,6 +52,10 @@ class User{
   bool isYoungDriver = false;
   @JsonKey(name: 'status_tranzila')
   bool tranzilaStatus = false;
+  @JsonKey(name: 'tranzila_ccno')
+  late String tranzilaCcno = '';
+  @JsonKey(name: 'tranzila_card_exp_date')
+  late String tranzilaCardExpDate = '';
 
   @JsonKey(includeFromJson: false,includeToJson: false,)
    Rental? currentRent;
@@ -126,6 +136,9 @@ class User{
     birthDate = "";
     email = "";
     phoneNumber = "";
+    anotherPhone = "";
+    city = "";
+    address = "";
     getNotification = true;
     licenseId = "";
     licenseExpDate = "";
@@ -133,5 +146,7 @@ class User{
     licenseDegree = "";
     isNewDriver = false;
     tranzilaStatus = false;
+    tranzilaCcno= "";
+    tranzilaCardExpDate = "";
   }
 }

@@ -97,6 +97,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
       // in case code is not correct get from service error.
       // not supposed to get to here because checked before sending
       if (vStatus == 3) {
+
         displayError(context, message: 'קוד האימות אינו תואם');
       } else {
         if (!isRegister) {

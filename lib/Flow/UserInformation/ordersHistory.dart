@@ -317,9 +317,15 @@ class _OrdersHistoryState extends State<OrdersHistory> {
         textDirection: TextDirection.rtl,
         child: Column(
           children: [
-            Directionality(
-                textDirection: TextDirection.ltr, child: AppBarBibilease()),
-            SizedBox(height: 40.h),
+           // Directionality(textDirection: TextDirection.ltr, child: AppBarBibilease()),
+            SizedBox(height: 24.h,),
+            Padding(
+              padding:  EdgeInsets.only(right: 23.w),
+              child: Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
+            ),
+            SizedBox(height: 42.h),
             Text(
               'ההזמנות שלי',
               style: TextStyle(

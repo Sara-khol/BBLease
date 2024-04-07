@@ -58,9 +58,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
 
-                  const Directionality(
-                      textDirection: TextDirection.ltr,
-                      child: AppBarBibilease()),
+                  const Directionality(textDirection: TextDirection.ltr,child: AppBarBibilease()),
                   SizedBox(height: 30.h),
                   Text(
                     ' הסטוריית הזמנות > פירוט הזמנה ',

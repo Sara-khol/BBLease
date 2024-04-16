@@ -2,8 +2,8 @@ import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../models/class_rent.dart';
-import '../../utils/my_colors.dart';
+import '../../../models/class_rent.dart';
+import '../../../utils/my_colors.dart';
 import 'cancel_order_dialogs.dart';
 
 class CancelOrder extends StatefulWidget {

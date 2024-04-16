@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 import 'dart:ui';
-import 'package:bblease/Flow/Rental/cancelation_complete.dart';
+import 'package:bblease/Flow/Rental/Actions/cancelation_complete.dart';
 import 'package:bblease/services/api_service.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/src/form_data.dart';
@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:signature/signature.dart';
 
-import '../../models/class_user.dart';
+import '../../../models/class_user.dart';
 import 'cancel_order.dart';
 
 Future cancelOrderDialog(context,rent){
@@ -45,7 +45,7 @@ Future cancelOrderDialog(context,rent){
                         Text(
                           'ביטול הזמנה',
                           style: TextStyle(
-                              fontSize: 28.sp,
+                              fontSize: 23.sp,
                               fontWeight: FontWeight.w600,
                               color: pinkColorApp),
                         ),

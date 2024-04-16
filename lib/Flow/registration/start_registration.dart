@@ -1,9 +1,7 @@
 import 'package:bblease/Flow/registration/license_front.dart';
-import 'package:bblease/utils/my_colors.dart' as colors;
+import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:bblease/utils/my_colors.dart' as colors;
-
 
 
 class StartRegistration extends StatefulWidget {
@@ -36,7 +34,7 @@ class _StartRegistrationState extends State<StartRegistration> {
               height: 48.h,
               width: 332.w,
               child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: colors.turquoiseColorApp,
+                  style: ElevatedButton.styleFrom(backgroundColor: turquoiseColorApp,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100),
                     ),
@@ -45,7 +43,7 @@ class _StartRegistrationState extends State<StartRegistration> {
                   onPressed: (){
                     Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const LicenseFront()));
+                        MaterialPageRoute(builder: (context) => const LicenseFront(index: 1,)));
                   },
                   child:  Text('אני מוכן!',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,
                   color: Colors.white),textDirection: TextDirection.rtl)),

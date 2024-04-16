@@ -17,7 +17,11 @@ Rental _$RentalFromJson(Map<String, dynamic> json) => Rental()
   ..creationTime = DateTime.parse(json['post_creation_time'] as String)
   ..additions = (json['extras'] as List<dynamic>?)
       ?.map((e) => Addition.fromJson(e as Map<String, dynamic>))
-      .toList();
+      .toList()
+  ..additionalDriver = json['additionalDriver'] == null
+      ? null
+      : AdditionalDriver.fromJson(
+          json['additionalDriver'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$RentalToJson(Rental instance) => <String, dynamic>{
       'ID': instance.orderNum,
@@ -28,4 +32,5 @@ Map<String, dynamic> _$RentalToJson(Rental instance) => <String, dynamic>{
       'url-order-pdf': instance.url,
       'status': instance.status,
       'extras': instance.additions,
+      'additionalDriver': instance.additionalDriver,
     };

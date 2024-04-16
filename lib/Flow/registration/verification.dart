@@ -1,11 +1,6 @@
 import 'package:bblease/Flow/registration/personal_details_form.dart';
-import 'package:bblease/Flow/registration/sucsses_registration.dart';
-//import 'package:cross_file_image/cross_file_image.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../models/class_user.dart';
 import '../../services/api_service.dart';
 
 class Verification extends StatefulWidget {

@@ -165,6 +165,7 @@ Future openingCodeDialog(context,String code){
 }
 
 
+/*
 Future rentalTerm1(context, Car car) {
   TextEditingController start = TextEditingController();
   TextEditingController end = TextEditingController();
@@ -172,13 +173,15 @@ Future rentalTerm1(context, Car car) {
   DateTime? startDate;
   DateTime? endDate;
   double? diff;
-  /*if (s != null && e != null) {
+  */
+/*if (s != null && e != null) {
     start.text = intl.DateFormat('dd.MM.yyyy').format(s);
     end.text = intl.DateFormat('dd.MM.yyyy').format(e);
 
     startDate = s;
     endDate = e;
-  }*/
+  }*//*
+
 
   int? selectedValue;
   int? selectedPart;
@@ -526,6 +529,7 @@ Future rentalTerm1(context, Car car) {
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(25))));
 }
+*/
 
 
 Future additionsDialog(context, car,startDate,endDate)async {

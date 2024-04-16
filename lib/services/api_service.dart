@@ -14,6 +14,7 @@ class ApiService {
   final Dio _dio = Dio();
   // final _baseUrl = 'https://bibilease.co.il/?rest_route=/';
   late String _baseUrl;
+  String devURL='https://bibilease.quicksolutions.co.il/wp-json/';
 
   ApiService._privateConstructor(){
     if(!kIsWeb) {
@@ -34,7 +35,8 @@ class ApiService {
     //     _baseUrl = 'https://bibilease.appupgo.co.il/?rest_route=/';
     //   }
     // else{
-      _baseUrl = 'https://bibilease.co.il/?rest_route=/';
+      //_baseUrl = 'https://bibilease.co.il/?rest_route=/';
+      _baseUrl = 'https://bibilease.quicksolutions.co.il/?rest_route=/';
   // }
   } // Private constructor for singleton
 
@@ -43,7 +45,7 @@ class ApiService {
   factory ApiService() {
     return _instance;
   }
-  Future getAllCars(  Function(dynamic carJson) onSuccess) async {
+  /*Future getAllCars(  Function(dynamic carJson) onSuccess) async {
     Response response = await _dio.get('${_baseUrl}wp/v2/get_all_vehicles');
     if(response.statusCode == 200) {
       var result = response.data;
@@ -51,9 +53,9 @@ class ApiService {
       onSuccess(result);
     }
     // Prints the raw data returned by the server
-  }
+  }*/
 
-  Future getCarById(int carId, Function(dynamic carJson) onSuccess) async {
+  /*Future getCarById(int carId, Function(dynamic carJson) onSuccess) async {
 
     // Response response = await _dio.get('${_baseUrl}wp/v2/get_all_vehicles');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_vehicle/$carId');
@@ -63,9 +65,9 @@ class ApiService {
       onSuccess(result);
     }
     // Prints the raw data returned by the server
-  }
+  }*/
 
-  Future getCarsInBranch(String city, Function(dynamic carJson) onSuccess) async {
+  /*Future getCarsInBranch(String city, Function(dynamic carJson) onSuccess) async {
 
     // Response response = await _dio.get('${_baseUrl}wp/v2/get_all_vehicles');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_list_vehicles_by_city/$city');
@@ -75,13 +77,13 @@ class ApiService {
       onSuccess(result);
     }
     // Prints the raw data returned by the server
-  }
+  }*/
 
-  Future getCarsAround(String start,String end,double lat,double long,int km, int dayPart,Function(dynamic carJson) onSuccess) async {
-    print('${_baseUrl}wp/v2/get_vehicles_around_address/$start/$end/$lat/$long/$km/$dayPart');
+  Future getCarsAround(String start,String end,double lat,double long,int km,stime,etime,Function(dynamic carJson) onSuccess) async {
+    print('${_baseUrl}wp/v2/get_vehicles_around_address1/$start/$end/$lat/$long/$km/$stime/$etime');
 
     // Response response = await _dio.get('${_baseUrl}wp/v2/get_all_vehicles');
-    Response response = await _dio.get('${_baseUrl}wp/v2/get_vehicles_around_address/$start/$end/$lat/$long/$km/$dayPart');
+    Response response = await _dio.get('${_baseUrl}wp/v2/get_vehicles_around_address1/$start/$end/$lat/$long/$km/$stime/$etime');
     if(response.statusCode == 200) {
       var result = response.data;
       print(result);
@@ -125,13 +127,13 @@ class ApiService {
     // Prints the raw data returned by the server
   }
 
-  Future getVerificationCode(String phone,bool isSms, Function(dynamic carJson) onSuccess) async {
-    int sendType=isSms?0:1;
-    debugPrint('sendType $sendType');
+  Future getVerificationCode(String phone,int type, Function(dynamic carJson) onSuccess) async {
+    //int sendType=isSms?0:1;
+    print('sendType $type');
     // print('${_baseUrl}wp/v2/check_user_connected/$sendType/$phone');
-    print('${_baseUrl}wp/v2/check_user_connected/1/$phone');
+    print('${_baseUrl}wp/v2/check_user_connected/$type/$phone');
     // Response response = await _dio.get('${_baseUrl}wp/v2/check_user_connected/1/$phone');
-    Response response = await _dio.get('${_baseUrl}wp/v2/check_user_connected/$sendType/$phone');
+    Response response = await _dio.get('${_baseUrl}wp/v2/check_user_connected/$type/$phone');
     ///*Response response = await*/ _dio.get('${_baseUrl}wp/v2/check_user_connected/2/$phone');
     if(response.statusCode == 200) {
       var result = response.data;
@@ -298,8 +300,9 @@ class ApiService {
   }
 
   Future getFuelLevel(int carNum,Function(dynamic res) onSuccess) async {
-    print('${_baseUrl}wp/v2/return_car_fuel_level/$carNum');
-    Response response = await _dio.get('${_baseUrl}wp/v2/return_car_fuel_level/$carNum');
+    https://bibilease.quicksolutions.co.il/wp-json/wp/v2/get_car_fuel_level_by_KM_and_by_fuel_percentage/73592802
+    print('${devURL}wp/v2/get_car_fuel_level_by_KM_and_by_fuel_percentage/$carNum');
+    Response response = await _dio.get('${devURL}wp/v2/get_car_fuel_level_by_KM_and_by_fuel_percentage/$carNum');
     if(response.statusCode == 200) {
       var result = response.data;
       print('result: $result');
@@ -308,6 +311,17 @@ class ApiService {
     // Prints the raw data returned by the server
   }
 
+  Future getTimeRemain(int orderId,Function(dynamic res) onSuccess) async {
+
+    print('${_baseUrl}wp/v2/get_remaining_rental_time/$orderId');
+    Response response = await _dio.get('${_baseUrl}wp/v2/get_remaining_rental_time/$orderId');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+    // Prints the raw data returned by the server
+  }
 
   Future sendFeedback( Map<String, dynamic> jsonMap,Function(dynamic res) onSuccess) async {
     debugPrint('${_baseUrl}wp/v2/get_feedback');
@@ -342,5 +356,108 @@ class ApiService {
         print(response.statusCode);
       }
     }
+
+  Future openDoors(int carNum,Function(dynamic res) onSuccess) async {
+    print('${_baseUrl}wp/v2/vehicle_UNlock/$carNum');
+    Response response = await _dio.get('${_baseUrl}wp/v2/vehicle_UNlock/$carNum');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+    // Prints the raw data returned by the server
+  }
+
+  Future lockDoors(int carNum,Function(dynamic res) onSuccess) async {
+    print('${_baseUrl}wp/v2/vehicle_lock/$carNum');
+    Response response = await _dio.get('${_baseUrl}wp/v2/vehicle_lock/$carNum');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+    // Prints the raw data returned by the server
+  }
+
+    Future updatePersonalDetails( Map<String, dynamic> jsonMap,Function(dynamic res) onSuccess) async {
+      debugPrint('${_baseUrl}wp/v2/update_personal_information');
+      debugPrint('data : ${json.encode(jsonMap)}');
+
+      Response response = await _dio.post('${_baseUrl}wp/v2/update_personal_information',
+          data: json.encode(jsonMap));
+      // debugPrint('response $response');
+      debugPrint('data: ${response.data}');
+      if(response.statusCode==200) {
+        onSuccess(response.data);
+      }
+
+    }
+
+  Future updatePersonalContact( Map<String, dynamic> jsonMap,Function(dynamic res) onSuccess) async {
+    debugPrint('${_baseUrl}wp/v2/update_personal_contact');
+    debugPrint('data : ${json.encode(jsonMap)}');
+
+    Response response = await _dio.post('${_baseUrl}wp/v2/update_personal_contact',
+        data: json.encode(jsonMap));
+    // debugPrint('response $response');
+    debugPrint('data: ${response.data}');
+    if(response.statusCode==200) {
+      onSuccess(response.data);
+    }
+
+  }
+  Future updatePersonalDriverLicense( Map<String, dynamic> jsonMap,Function(dynamic res) onSuccess) async {
+    debugPrint('${_baseUrl}wp/v2/update_driving_license_personal');
+    debugPrint('data : ${json.encode(jsonMap)}');
+
+    Response response = await _dio.post('${_baseUrl}wp/v2/update_driving_license_personal',
+        data: json.encode(jsonMap));
+    // debugPrint('response $response');
+    debugPrint('data: ${response.data}');
+    if(response.statusCode==200) {
+      onSuccess(response.data);
+    }
+  }
+
+  Future deleteAccount(int customerID,Function(dynamic res) onSuccess) async {
+    print('${_baseUrl}customer/update_status_customr/$customerID');
+    Response response = await _dio.get('${_baseUrl}customer/update_status_customr/$customerID');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+  }
+
+  Future getAdditionalDriver(String id,Function(dynamic res) onSuccess) async {
+    print('${devURL}wp/v2/get_additional_driver_details/$id');
+    Response response = await _dio.get('${devURL}wp/v2/get_additional_driver_details/$id');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+    
+  }
+
+  Future getPriceList(Function(dynamic res) onSuccess) async {
+    print('${devURL}wp/v2/');
+    Response response = await _dio.get('${devURL}wp/v2/');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+  }
+    
+  Future getStatusPaymentAfterUpdate(String phone,Function(dynamic res) onSuccess) async {
+    print('${_baseUrl}tranzila/v1/tranzila_status_after_update/$phone');
+    Response response = await _dio.get('${_baseUrl}tranzila/v1/tranzila_status_after_update/$phone');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print(result);
+      onSuccess(result);
+    }
+  }
 
 }

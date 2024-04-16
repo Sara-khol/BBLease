@@ -9,7 +9,6 @@ import '../../models/class_rent.dart';
 
 import 'package:intl/intl.dart' as intl;
 
-import '../../services/api_service.dart';
 
 class OrderDetails extends StatefulWidget {
   const OrderDetails({Key? key, required this.rent}) : super(key: key);
@@ -59,9 +58,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
 
-                  const Directionality(
-                      textDirection: TextDirection.ltr,
-                      child: AppBarBibilease()),
+                  const Directionality(textDirection: TextDirection.ltr,child: AppBarBibilease()),
                   SizedBox(height: 30.h),
                   Text(
                     ' הסטוריית הזמנות > פירוט הזמנה ',

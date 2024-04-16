@@ -1,4 +1,5 @@
 
+import 'package:bblease/Flow/Rental/Actions/add_driver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -41,10 +42,87 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
 
         });
         //rent.waze=value!;
-
       },
     );
+  }
 
+  Future addDriverDialog(){
+    return showModalBottomSheet<dynamic>(
+        isScrollControlled: true,
+        isDismissible: true,
+        barrierColor: Colors.black12.withOpacity(0.1),
+        elevation: 2,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+        ),
+        context: context,
+        builder: (context) {
+          return Directionality(
+              textDirection: TextDirection.rtl,
+              child: Padding(
+                padding: EdgeInsets.only(left: 30.w, right: 30.w, ),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 35.h),
+                      Text(
+                        'הי,שים לב!',
+                        style: TextStyle(
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black),
+                      ),
+                      SizedBox(height: 51.h),
+                      Text('בחרת בהוספת נהג נוסף,\nתרצה למלא את הפרטים?',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500,),),
+                      SizedBox(height: 26.h),
+                      Row(
+                        children: [
+                          Container(
+                            height: 48.h,
+                            width: 160.w,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: turquoiseColorApp,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                ),
+                                onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => AddDriver(),)),
+                                child: Text('עכשיו',
+                                    style: TextStyle(
+                                        fontSize: 20.sp,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500))),
+                          ),
+                          SizedBox(width: 13.h),
+                          Container(
+                            height: 48.h,
+                            width: 160.w,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: turquoiseColorApp,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                ),
+                                onPressed: () {
+
+                                },
+                                child: Text('בתחילת הנסיעה',
+                                    style: TextStyle(
+                                        fontSize: 20.sp,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500))),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20.h),
+                    ]
+                ),
+              )
+          );
+        }
+    );
   }
 
   @override
@@ -92,11 +170,11 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                     ListView.builder(
                       itemCount: widget.additionsList.length,
                       shrinkWrap: true,
+                      padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {
                         return createCheckBox(index);
-                      },),
-
-
+                      },
+                    ),
 
                     SizedBox(height: 20.h,),
 
@@ -106,11 +184,15 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: turquoiseColorApp,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
-                          ),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),),
                           onPressed: () {
                             widget.rent.additions=widget.additionsList;
                             widget.rent.car=widget.car;
+                            bool containsAdditionalDriver = widget.additionsList.any((addition) => addition.name == 'additional_driver');
+                            if(containsAdditionalDriver){
+                              addDriverDialog();
+
+                            }
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
@@ -131,6 +213,8 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
     );
   }
 }
+
+
 
 
 

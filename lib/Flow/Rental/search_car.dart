@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bblease/Flow/Rental/dialogs.dart';
+import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:bblease/models/car.dart';
 import 'package:bblease/models/class_rent.dart';
@@ -18,10 +19,9 @@ import '../../models/class_user.dart';
 import 'additions_dialog.dart';
 
 class SearchCar extends StatefulWidget {
-   SearchCar({super.key,this.part=1, required this.location, required this.latitude, required this.longitude, this.startDate, this.endDate
+   SearchCar({super.key, required this.location, required this.latitude, required this.longitude, this.startDate, this.endDate
   });
 
-   final int part;
  final String location;
  final double? latitude;
 final  double? longitude;
@@ -49,9 +49,9 @@ class _SearchCarState extends State<SearchCar> {
 
   @override
   void initState()  {
+   mapController.dispose();
     rent.startDate=widget.startDate!;
     rent.endDate=widget.endDate!;
-    rent.dayPart=widget.part;
     getCarsList();
     super.initState();
   }
@@ -65,7 +65,9 @@ class _SearchCarState extends State<SearchCar> {
   getCarsList()  async{
     String start=intl.DateFormat('yyyy-MM-dd').format(widget.startDate!);
     String end  =intl.DateFormat('yyyy-MM-dd').format(widget.endDate!);
-     await ApiService().getCarsAround(start,end,widget.latitude!,widget.longitude!,_currentSliderValue.toInt()*10,widget.part,(car){
+    String timef=intl.DateFormat('HH:mm').format(widget.startDate!);
+    String timet  =intl.DateFormat('HH:mm').format(widget.endDate!);
+     await ApiService().getCarsAround(start,end,widget.latitude!,widget.longitude!,_currentSliderValue.toInt()*10,timef,timet,(car){
       cars = car.map<Car>((entry) => (Car.fromJson(entry))).toList();
       setState(() {});
       createMap();
@@ -170,8 +172,8 @@ class _SearchCarState extends State<SearchCar> {
                                        crossAxisAlignment: CrossAxisAlignment.start,
                                        children: [
                                          Text(car.postName.length > 12 ? '${car.postName.substring(0, 12)}...' : '${car.postName}',style: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.w700,height: 1,),),
-                                         Text('או רכב זהה',style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w400,height: 1.15,),),
-                                         Text('נמצא במרחק X ק"מ',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
+                                         Text('או רכב זהה',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,height: 1.15,),),
+                                         Text(car.address,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500,height: 1.15,),),
                                          Expanded(child: SizedBox(height: 29.h)),
                                          Text('${car.pricePerDay} ₪  |  ליום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
                                          Text('${car.pricePerDay*widget.endDate!.difference(widget.startDate!).inDays} ₪  |  סה"כ',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,height: 1.15,),),
@@ -180,7 +182,7 @@ class _SearchCarState extends State<SearchCar> {
                                      Expanded(child: Padding(
                                        padding:  EdgeInsets.only(top:2.h),
                                        child: Align( alignment: Alignment.topLeft,
-                                           child: Icon(Icons.circle,color: Color(0xFF04AEB9),size: 8.w,)),
+                                           child: Icon(Icons.circle,color: turquoiseColorApp,size: 8.w,)),
                                      ),),
                                    ],),
                                ),
@@ -262,8 +264,8 @@ class _SearchCarState extends State<SearchCar> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(car.postName.length > 12 ? '${car.postName.substring(0, 12)}...' : '${car.postName}',style: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.w700,height: 1,),),
-                                          Text('או רכב זהה',style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w400,height: 1.15,),),
-                                          Text('נמצא במרחק 0.5ק"מ',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
+                                          Text('או רכב זהה',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,height: 1.15,),),
+                                          Text(car.address,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w700,height: 1.15,),),
                                           Expanded(child: SizedBox(height: 29.h)),
                                           Text('${car.pricePerDay} ₪  |  ליום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
                                           Text('${car.pricePerDay*widget.endDate!.difference(widget.startDate!).inDays} ₪  |  סה"כ',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,height: 1.15,),),
@@ -272,7 +274,7 @@ class _SearchCarState extends State<SearchCar> {
                                       Expanded(child: Padding(
                                         padding:  EdgeInsets.only(top:2.h),
                                         child: Align( alignment: Alignment.topLeft,
-                                            child: Icon(Icons.circle,color: Color(0xFF04AEB9),size: 8.w,)),
+                                            child: Icon(Icons.circle,color: turquoiseColorApp,size: 8.w,)),
                                       ),),
                                     ],),
                                 ),
@@ -301,7 +303,7 @@ class _SearchCarState extends State<SearchCar> {
                 builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     // If the Future is still running, show the progress indicator
-                    return CircularProgressIndicator();
+                    return CircularProgressIndicator(color: pinkColorApp,);
                   } else {
                     // If the Future is complete, update the UI accordingly
                     return Text('לא נמצאו רכבים באזורך');
@@ -343,7 +345,7 @@ class _SearchCarState extends State<SearchCar> {
                 ),
 
               ),
-                ImageIcon(AssetImage("assets/icons/Filter.png"),size: 20.w,),
+                ImageIcon(AssetImage("assets/icons/Filter.png"),size: 20.w,color: pinkColorApp,),
              ], ),),
           //Spacer(),
           //SizedBox(width:33.w,),
@@ -381,7 +383,7 @@ class _SearchCarState extends State<SearchCar> {
               SizedBox(
                   width: 20.w,
                   height: 20.h,
-                  child: ImageIcon(AssetImage("assets/icons/expansion.png"),color: Color(0xffFB2576),)),
+                  child: ImageIcon(AssetImage("assets/icons/expansion.png"),color: pinkColorApp,)),
             ],
             ),),
         //  Expanded(child: SizedBox(width:48.w,)),
@@ -519,7 +521,7 @@ class _SearchCarState extends State<SearchCar> {
                               child: Text(
                                 'נקה סינון',
                                 style: TextStyle(
-                                  color: Color(0xFFFB2576),
+                                  color: pinkColorApp,
                                   fontSize: 18.sp,
                                   fontWeight: FontWeight.w500,
                                   decoration: TextDecoration.underline,
@@ -651,7 +653,7 @@ class _SearchCarState extends State<SearchCar> {
                             ),
                           ),
                           SizedBox(width: 8.w,),
-                          ImageIcon(AssetImage("assets/icons/expansion.png"),color: Color(0xffFB2576),size: 20.w,),
+                          ImageIcon(AssetImage("assets/icons/expansion.png"),color:pinkColorApp,size: 20.w,),
                         ],
                       ),
                       SizedBox(height: 23.h,),
@@ -683,10 +685,11 @@ class _SearchCarState extends State<SearchCar> {
                                     child: Text(
                                     'שנה כתובת ',
                                     style: TextStyle(
-                                      color: Color(0xFFFB2576),
+                                      color: pinkColorApp,
                                       fontSize: 20.sp,
                                       fontWeight: FontWeight.w400,
                                       decoration: TextDecoration.underline,
+                                      decorationColor: pinkColorApp,
                                       height: 1,
 
                                     ),
@@ -725,15 +728,15 @@ class _SearchCarState extends State<SearchCar> {
                                   return SliderTheme(
                                       data: SliderTheme.of(context).copyWith(
                                         showValueIndicator: ShowValueIndicator.always,
-                                        valueIndicatorColor: Color(0xFF00DEDE), // This is what you are asking for
+                                        valueIndicatorColor: turquoiseColorApp, // This is what you are asking for
                                         inactiveTrackColor: Color(0xFFF6F6F6), // Custom Gray Color
-                                        activeTrackColor: Color(0xFF00DEDE),
-                                        thumbColor: Color(0xFF00DEDE),
+                                        activeTrackColor: turquoiseColorApp,
+                                        thumbColor: turquoiseColorApp,
                                         trackHeight: 8.0,
                                         overlayColor: Color(0xFFF6F6F6),  // Custom Thumb overlay Color
                                         thumbShape:RoundSliderThumbShape(enabledThumbRadius: 10.0),
                                         overlayShape:
-                                        RoundSliderOverlayShape(overlayRadius: 10.0),
+                                        RoundSliderOverlayShape(overlayRadius: 10),
                                           valueIndicatorTextStyle:TextStyle(
                                             color: Color(0xFF0F1511),
                                             fontSize: 18,
@@ -749,7 +752,7 @@ class _SearchCarState extends State<SearchCar> {
                                       //divisions: 10,
                                       label: _currentSliderValue.round().toString(),
                                       onChanged: (double value) {
-                                        state(() {
+                                        setState(() {
                                           _currentSliderValue = value;
                                         });
 
@@ -763,7 +766,7 @@ class _SearchCarState extends State<SearchCar> {
                             Align(
                               alignment: Alignment.center,
                               child: Text(
-                                'הוסף $_currentSliderValue ק”מ לטווח החיפוש הנוכחי',
+                                'הוסף ${_currentSliderValue.toInt()}  ק”מ לטווח החיפוש הנוכחי',
                                 style: TextStyle(
                                   color: Color(0xFF0F1511),
                                   fontSize: 20.sp,
@@ -777,7 +780,7 @@ class _SearchCarState extends State<SearchCar> {
                               height: 48.h,
                               width: 332.w,
                               child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(0, 222, 222, 1.0),
+                                  style: ElevatedButton.styleFrom(backgroundColor: turquoiseColorApp,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(100),
                                     ),
@@ -789,7 +792,7 @@ class _SearchCarState extends State<SearchCar> {
                                     Navigator.pop(context);
                                   },
                                   child: Text('הצג תוצאות נוספות',
-                                    style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),)),
+                                    style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white),)),
                             ),
                           ],
                         ),

@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/registration/text_recognition.dart';
 import 'package:bblease/models/class_user.dart';
@@ -8,12 +7,12 @@ import 'package:camera/camera.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:bblease/services/support.dart' as support;
 import 'license_back.dart';
 
 class LicenseFront extends StatefulWidget {
-  const LicenseFront({Key? key}) : super(key: key);
+  const LicenseFront({Key? key, required this.index}) : super(key: key);
+  final int index;
 
   @override
   State<LicenseFront> createState() => _LicenseFrontState();
@@ -51,9 +50,9 @@ class _LicenseFrontState extends State<LicenseFront> {
             Text(
               'סרוק רישיון',
               style: TextStyle(
-                fontSize: 28.sp,
+                fontSize: 24.sp,
                 fontWeight: FontWeight.w600,
-                color: colors.blackColorApp,
+                color: blackColorApp,
                 fontFamily: 'PLONI',
               ),
             ),
@@ -63,10 +62,12 @@ class _LicenseFrontState extends State<LicenseFront> {
               style: TextStyle(
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w400,
-                color:  colors.blackColorApp,
+                color:  blackColorApp,
                 fontFamily: 'PLONI',
                 height: 1
               ),
+              textAlign: TextAlign.center,
+              textDirection: TextDirection.rtl,
             ),
             SizedBox(height: 63.h),
             SizedBox(
@@ -95,41 +96,45 @@ class _LicenseFrontState extends State<LicenseFront> {
               style: TextStyle(
                 fontSize: 24.sp,
                 fontWeight: FontWeight.w500,
-                color:  colors.blackColorApp,
+                color: blackColorApp,
                 fontFamily: 'PLONI',
+                height: 1,
               ),
               textAlign: TextAlign.center,
               textDirection: TextDirection.rtl,
             ),
             SizedBox(height: 60.h),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                LinearPercentIndicator(
-                  width: 332.w,
-                  lineHeight: 17.h,
-                  percent: 0.33,
-                  animation: true,
-                  barRadius: const Radius.circular(16),
-                  linearGradient: LinearGradient(
-                    colors: [
-                      Color.fromRGBO(254, 193, 216, 1),
-                      Color.fromRGBO(251, 39, 119, 1)
-                    ],
-                  ),
-                  backgroundColor: Color.fromRGBO(247, 247, 247, 1),
-                  center: Padding(
-                    padding: EdgeInsets.only(
-                      right: 140.w,
+            Visibility(
+              visible: widget.index==1,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  LinearPercentIndicator(
+                    width: 332.w,
+                    lineHeight: 17.h,
+                    percent: 0.33,
+                    animation: true,
+                    barRadius: const Radius.circular(16),
+                    linearGradient: LinearGradient(
+                      colors: [
+                        Color.fromRGBO(254, 193, 216, 1),
+                        Color.fromRGBO(251, 39, 119, 1)
+                      ],
                     ),
-                    child: Text(
-                      '1/3',
-                      style: TextStyle(color: Colors.white, fontSize: 12.sp),
+                    backgroundColor: Color.fromRGBO(247, 247, 247, 1),
+                    center: Padding(
+                      padding: EdgeInsets.only(
+                        right: 140.w,
+                      ),
+                      child: Text(
+                        '1/3',
+                        style: TextStyle(color: Colors.white, fontSize: 12.sp,height: 0.11),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             SizedBox(height: 60.h),
             // Container(
@@ -154,35 +159,42 @@ class _LicenseFrontState extends State<LicenseFront> {
             //       )),
             // ),
             // SizedBox(height: 12.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 129.w,
-                  height: 48.h,
-                  child: FloatingActionButton.extended(
-                    label: Text('תמיכה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white)),
-                    elevation: 2,
-                    heroTag: "btn2",
-                    backgroundColor: colors.turquoiseColorApp,
-                    onPressed: ()=>support.call,
-                    icon: Icon(Icons.phone_outlined,size: 22.sp,color: Colors.white,)
+            Visibility(
+              visible: widget.index==1,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 129.w,
+                    height: 48.h,
+                    child: FloatingActionButton.extended(
+                      label: Text('תמיכה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white)),
+                      elevation: 2,
+                      heroTag: "btn2",
+                      backgroundColor: turquoiseColorApp,
+                      onPressed: ()=>support.call,
+                      icon: ImageIcon(
+                        AssetImage("assets/icons/Phone.png"),
+                        size: 22.w,
+                        color:Colors.white,
+                      ),
+                    ),
                   ),
-                ),
-                SizedBox(width: 20.w),
-                SizedBox(
-                  width: 183.w,
-                  height: 48.h,
-                  child: FloatingActionButton.extended(
-                    elevation: 2,
-                    label: Text('העלאת תמונה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white)),
-                    heroTag: "btn1",
-                    backgroundColor:  colors.turquoiseColorApp,
-                    onPressed: _onUploadButtonPressed,
-                    icon:  Icon(Icons.file_upload_outlined,size: 22.sp,color: Colors.white,)
+                  SizedBox(width: 20.w),
+                  SizedBox(
+                    width: 183.w,
+                    height: 48.h,
+                    child: FloatingActionButton.extended(
+                      elevation: 2,
+                      label: Text('העלאת תמונה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white)),
+                      heroTag: "btn1",
+                      backgroundColor: turquoiseColorApp,
+                      onPressed: _onUploadButtonPressed,
+                      icon:  Icon(Icons.file_upload_outlined,size: 22.sp,color: Colors.white,)
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             // SizedBox(height: 40),
           ],
@@ -216,7 +228,7 @@ class _LicenseFrontState extends State<LicenseFront> {
       context: context,
       builder: (BuildContext context) {
         if (!_cameraController.value.isInitialized) {
-          return Center(child: CircularProgressIndicator());
+          return Center(child: CircularProgressIndicator(color: pinkColorApp,));
         }
         return Dialog(
           backgroundColor: Colors.transparent,
@@ -250,7 +262,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                  height: 40.h,
                  width: 80.w,
                  decoration: BoxDecoration(
-                   color: colors.turquoiseColorApp,
+                   color: turquoiseColorApp,
                      borderRadius: BorderRadius.all(Radius.circular(70))
                  ),
 
@@ -258,15 +270,17 @@ class _LicenseFrontState extends State<LicenseFront> {
                      onPressed: () async{
                      XFile xfile=await _cameraController.takePicture();
                      debugPrint('xfile ${xfile.name}');
-                     uploadSucceed(context,const LicenseFront(),const LicenseBack());
-                     setState(() {
+                     uploadSucceed(context, LicenseFront(index: widget.index), LicenseBack(index: widget.index,));
+
+                       setState(() {
                        _imageFront= xfile;
                        _cameraController.pausePreview();
                        if (_imageFront != null) {
-                         User().regImages[0]=_imageFront;
-                         TextRecognition(0);
+                         widget.index==1?User().regImages[0]=_imageFront:User().additionalDriver.images[0]=_imageFront;
+                         widget.index==1?TextRecognition(0):null;
                        }
                      });
+
                    },
                    child: Text('צלם',style: (TextStyle(color: Colors.white, )),),
                  ),
@@ -287,13 +301,19 @@ class _LicenseFrontState extends State<LicenseFront> {
     XFile? result = await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (result != null) {
-      setState(() {
-        _imageFront = result;
-      });
-      User().regImages[0] = _imageFront;
+        uploadSucceed(context,const LicenseFront(index: 1,), LicenseBack(index: widget.index,));
+        setState(() {
+          _imageFront= result;
+          //_cameraController.pausePreview();
+          if (_imageFront != null) {
+            widget.index==1?User().regImages[0]=_imageFront:User().additionalDriver.images[0]=_imageFront;
+            widget.index==1?TextRecognition(0):null;
+          }
+        });
+      //User().regImages[0] = _imageFront;
     }
 
-    showImagePreview;
+    //showImagePreview;
   }
 
   showImagePreview() {

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
@@ -7,9 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_address_from_latlng/flutter_address_from_latlng.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import 'package:custom_info_window/custom_info_window.dart';
-
+import 'package:http/http.dart' as http;
 import '../../customWidgets/appBarB.dart';
 import '../../models/car.dart';
 import '../../services/api_service.dart';
@@ -18,6 +17,7 @@ import 'car_dialog.dart';
 import 'dialogs.dart';
 
 
+late GoogleMapController mapController;
 class RentalWidget extends StatefulWidget {
   const RentalWidget({super.key});
 
@@ -28,8 +28,8 @@ class RentalWidget extends StatefulWidget {
 class _RentalWidgetState extends State<RentalWidget> {
 
   CameraPosition _kGoogle = CameraPosition(target: LatLng(31.80012237280773, 35.212884511532316), zoom: 13,);
-  late GoogleMapController _mapController;
-  Address? formattedAddress;
+
+  //Address? formattedAddress;
   late Uint8List  available;
   late Uint8List  unAvailable;
   List<Car> availableCars = [];
@@ -37,7 +37,7 @@ class _RentalWidgetState extends State<RentalWidget> {
   final List<Marker> _markers = <Marker>[];
   bool dialogShown=false;
   double long=0, lat=0;
-  CustomInfoWindowController _customInfoWindowController = CustomInfoWindowController();
+  //CustomInfoWindowController _customInfoWindowController = CustomInfoWindowController();
 
   Future<Position> _determinePosition() async{
     bool serviceEnabled;
@@ -63,25 +63,51 @@ class _RentalWidgetState extends State<RentalWidget> {
     return position;
   }
 
+  Future<String?> getAddressFromLatLng(double latitude, double longitude, String apiKey) async {
+    print('getAddressFromLatLng');
+    final String url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$apiKey&language=he';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final decoded = json.decode(response.body);
+        if (decoded['status'] == 'OK') {
+          print("my location: ${decoded['results'][0]['formatted_address']}");
+          return decoded['results'][0]['formatted_address'];
+        }
+      }
+    } catch (e) {
+      print('Error retrieving address: $e');
+    }
+
+    return null;
+  }
+
   void _setCurrentLocation() async {
     print('_setCurrentLocation');
     try {
       Position position = await _determinePosition();
-      formattedAddress = await FlutterAddressFromLatLng().getStreetAddress(
+      /*formattedAddress = await FlutterAddressFromLatLng().getStreetAddress(
         latitude: position.latitude,
         longitude: position.longitude,
         googleApiKey: 'AIzaSyBfvApaTLzPlCzL3LakX6DBbj2l7NMBRV4',
+      );*/
+      final formattedAddress = await getAddressFromLatLng(
+        position.latitude,
+        position.longitude,
+        'AIzaSyBfvApaTLzPlCzL3LakX6DBbj2l7NMBRV4',
       );
       long=position.longitude;
       lat=position.latitude;
 
-      print('address: ${formattedAddress?.formattedAddress}');
+      //print('address: ${formattedAddress?.formattedAddress}');
+      print('address: $formattedAddress');
       CameraPosition updatedPosition = CameraPosition(
         target: LatLng(position.latitude, position.longitude),
         zoom: 17,
       );
 
-      _mapController.animateCamera(CameraUpdate.newCameraPosition(updatedPosition));
+      mapController.animateCamera(CameraUpdate.newCameraPosition(updatedPosition));
 
       /*Marker userLocationMarker = Marker(
         markerId: MarkerId('userLocation'),
@@ -91,10 +117,11 @@ class _RentalWidgetState extends State<RentalWidget> {
       );*/
       setState(() {
         _kGoogle = updatedPosition;
-
       });
+
       if(!dialogShown) {
         print('going to dialog');
+        var formattedAddress;
         departurePoint(context, formattedAddress?.formattedAddress, 0,latitude1: lat,longitude1: long);
       }
 
@@ -133,7 +160,8 @@ print('getCarsList');
             visible: true,
             position: LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),//_latLen[i],
             onTap: () {
-              _customInfoWindowController.addInfoWindow!(
+              carDetailsDialog(context,car,true);
+             /* _customInfoWindowController.addInfoWindow!(
                 Container(
                   decoration: BoxDecoration(
                     color:  turquoiseColorApp,
@@ -152,7 +180,7 @@ print('getCarsList');
                   ),
                 ),
                 LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),
-              );
+              );*/
             },
           )
       );
@@ -164,11 +192,12 @@ print('getCarsList');
       _markers.add(
           Marker(
             markerId: MarkerId('${index++}'),
-            icon:  BitmapDescriptor.fromBytes(unAvailable),
+            icon: BitmapDescriptor.fromBytes(unAvailable),
             visible: true,
-            position: LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),//_latLen[i],
+            position: LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),
             onTap: () {
-              _customInfoWindowController.addInfoWindow!(
+              carDetailsDialog(context,car,false);
+              /*_customInfoWindowController.addInfoWindow!(
                 Container(
                   decoration: BoxDecoration(
                     color:  pinkColorApp,
@@ -188,7 +217,7 @@ print('getCarsList');
                   ),
                 ),
                 LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),
-              );
+              );*/
             },
           )
       );
@@ -224,8 +253,8 @@ print('getCarsList');
 
   @override
   void dispose() {
-    _customInfoWindowController.dispose();
-    _mapController.dispose();
+    //_customInfoWindowController.dispose();
+    mapController.dispose();
     super.dispose();
   }
 
@@ -242,26 +271,21 @@ print('getCarsList');
             myLocationEnabled: true,
             myLocationButtonEnabled: true,
             compassEnabled: true,
-            onTap: (position) {
-              _customInfoWindowController.hideInfoWindow!();
-            },
-            onCameraMove: (position) {
-              _customInfoWindowController.onCameraMove!();
-            },
+
           onMapCreated: (GoogleMapController controller){
-            _mapController=controller;
-            _customInfoWindowController.googleMapController = controller;
+            mapController=controller;
+            //_customInfoWindowController.googleMapController = controller;
             _setCurrentLocation();
             },
             
           ),
-          CustomInfoWindow(
+         /* CustomInfoWindow(
             controller: _customInfoWindowController,
             height: 48.h,
             width: 114.w,
             offset: 100,
 
-          ),
+          ),*/
           AppBarBibilease(),
           Align(
             alignment: Alignment.bottomCenter,
@@ -280,6 +304,8 @@ print('getCarsList');
                       ),
                       onPressed: () {
                         dialogShown=true;
+                        //departurePoint(context, formattedAddress?.formattedAddress, 0,latitude1: lat,longitude1: long);
+                        var formattedAddress;
                         departurePoint(context, formattedAddress?.formattedAddress, 0,latitude1: lat,longitude1: long);
                       },
                       child: Text(

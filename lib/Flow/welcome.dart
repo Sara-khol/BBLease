@@ -1,6 +1,4 @@
-import 'package:bblease/utils/my_colors.dart' as colors;
-import 'package:bblease/Flow/UserInformation/ordersHistory.dart';
-import 'package:bblease/Flow/navigation.dart';
+import 'package:bblease/utils/my_colors.dart';
 import 'package:bblease/Flow/registration/tel_to_registration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,7 +19,7 @@ class WelcomeForm extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
            SizedBox(height: 56.h),
-            Text("Welcome to Bibilease",style: TextStyle(color: colors.pinkColorApp,fontWeight: FontWeight.w700,fontSize: 30.sp,),),
+            Text("Welcome to Bibilease",style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.w700,fontSize: 30.sp,),),
             SizedBox(height: 36.h),
             Expanded(child: Image.asset('assets/images/BB.png',width: 392.w, fit: BoxFit.contain)),
             SizedBox(height: 48.h),
@@ -29,7 +27,7 @@ class WelcomeForm extends StatelessWidget {
               height: 48.h,
               width: 332.w,
               child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: colors.turquoiseColorApp,
+                  style: ElevatedButton.styleFrom(backgroundColor: turquoiseColorApp,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100),
                     ),
@@ -50,7 +48,7 @@ class WelcomeForm extends StatelessWidget {
               width: 332.w,
               margin: EdgeInsets.only(bottom: 35.h),
               child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: colors.pinkColorApp,
+                  style: ElevatedButton.styleFrom(backgroundColor: pinkColorApp,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100),
                     ),
@@ -59,7 +57,7 @@ class WelcomeForm extends StatelessWidget {
                   onPressed: (){
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const Navigation()));
+                          MaterialPageRoute(builder: (context) => const TelToRegistrationForm()));
                   },
                   child:  Text('הבא',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color:Colors.white),)),
             ),

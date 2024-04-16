@@ -40,6 +40,35 @@ class _PaymentWebViewState extends State<PaymentWebView> {
     return Scaffold(
         body: SafeArea(
       child: Column(children: <Widget>[
+        SizedBox(
+          height: 53.h,
+        ),
+        Icon(
+          Icons.account_circle_outlined,
+          color: turquoiseColorApp,
+          size: 60.w,
+          weight: 100,
+        ),
+        SizedBox(
+          height: 8.h,
+        ), Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'פרטי אשראי',
+              style: TextStyle(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w700,
+                color: blackColorApp,
+                fontFamily: 'PLONI',
+              ),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 34.h,
+        ),
         Container(
             padding: EdgeInsets.only(top: 15.h),
             child: progress < 1.0
@@ -55,8 +84,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
               width: 370.w,
               height: 455.h,
               margin: const EdgeInsets.all(10.0),
-              decoration:
-                  BoxDecoration(border: Border.all(color: turquoiseColorApp)),
+              //decoration: BoxDecoration(border: Border.all(color: turquoiseColorApp)),
               child: InAppWebView(
                 initialUrlRequest: URLRequest(url: WebUri(widget.url)),
                 // initialUrl: "https://flutter.dev/",

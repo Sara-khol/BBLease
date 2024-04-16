@@ -1,18 +1,22 @@
 
 import 'package:bblease/Flow/registration/payment_webVIew.dart';
+import 'package:bblease/models/additional_driver.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:bblease/services/api_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as intl;
 import '../Dialogs/buttom_dialogs.dart';
 import '../Rental/dialogs.dart';
-import '../my_shared_preferences.dart';
-import 'sucsses_registration.dart';
-import 'package:bblease/utils/my_colors.dart' as colors;
+
+import 'package:bblease/utils/my_colors.dart';
 
 class LicenseDetails extends StatefulWidget {
-  const LicenseDetails({Key? key}) : super(key: key);
+  const LicenseDetails({Key? key, required this.index}) : super(key: key);
+
+  final int index;
 
   @override
   State<LicenseDetails> createState() => _LicenseDetailsState();
@@ -21,19 +25,22 @@ class LicenseDetails extends StatefulWidget {
 class _LicenseDetailsState extends State<LicenseDetails> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _licenseId =
-      TextEditingController(text: User().licenseId);
-
-  // TextEditingController _expDate=TextEditingController(text: intl.DateFormat('dd-mm-yyyy').format(User().licenseExpDate));
-  final TextEditingController _expDate =
-      TextEditingController(text: User().licenseExpDate);
-  final TextEditingController _issDate =
-      TextEditingController(text: User().licenseIssDate);
-  // final TextEditingController _degree =
-  //     TextEditingController(text: User().licenseDegree);
+  late TextEditingController _licenseId ;
+  late TextEditingController _expDate   ;
+  late TextEditingController _issDate   ;
+  late TextEditingController _degree    ;
 
   String exp = User().licenseExpDate;
   String iss = User().licenseIssDate;
+
+  @override
+  void initState() {
+    _licenseId = TextEditingController(text: widget.index==1?User().licenseId:'');
+    _expDate   = TextEditingController(text: widget.index==1?User().licenseExpDate:'');
+    _issDate   = TextEditingController(text: widget.index==1?User().licenseIssDate:'');
+    _degree    = TextEditingController(text: widget.index==1?User().licenseDegree:'');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,20 +51,23 @@ class _LicenseDetailsState extends State<LicenseDetails> {
         child: Form(
           key: _formKey,
           child: Padding(
-            padding: EdgeInsets.only(right: 30.w, left: 30.w),
+            padding: EdgeInsets.only(right: 30.w, left: 31.w),
             child: ListView(
               children: [
                 SizedBox(
-                  height: 50.h,
+                  height: 53.h,
                 ),
-                const Icon(
-                  Icons.account_circle_outlined,
-                  color: Color.fromRGBO(0, 222, 222, 1),
-                  size: 60,
-                  weight: 100,
-                ),
+                 Visibility(
+                   visible: widget.index==1,
+                   child: Icon(
+                    Icons.account_circle_outlined,
+                    color: turquoiseColorApp,
+                    size: 60.w,
+                    weight: 100,
+                   ),
+                 ),
                 SizedBox(
-                  height: 10.h,
+                  height: widget.index==1?8.h:53.h,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,23 +76,22 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                     Text(
                       'פרטי רשיון נהיגה',
                       style: TextStyle(
-                        fontSize: 28.sp,
-                        fontWeight: FontWeight.w600,
-                        color: colors.blackColorApp,
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w700,
+                        color: blackColorApp,
                         fontFamily: 'PLONI',
                       ),
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: 50.h,
+                  height: 34.h,
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  cursorColor: colors.blackColorApp,
+                  cursorColor: blackColorApp,
                   decoration: getInputDecoration('מספר רשיון נהיגה'),
-                  style:
-                      TextStyle(color: colors.blackColorApp, fontSize: 22.sp),
+                  style: TextStyle(color: blackColorApp, fontSize: 18.sp),
                   controller: _licenseId,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'זהו שדה חובה';
@@ -90,18 +99,18 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   },
                 ),
                 SizedBox(
-                  height: 16.h,
+                  height: 12.h,
                 ),
                 TextFormField(
                   readOnly: true,
-                  cursorColor: colors.blackColorApp,
+                  cursorColor: blackColorApp,
                   decoration: getInputDecoration('תוקף',
                       suffixIcon: Image.asset(
                         'assets/icons/Calendar.png',
-                        width: 18.w,
+                        width: 24.w,
                       )),
                   style:
-                      TextStyle(color: colors.blackColorApp, fontSize: 22.sp),
+                      TextStyle(color: blackColorApp, fontSize: 18.sp),
                   controller: _expDate,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'זהו שדה חובה';
@@ -125,18 +134,18 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   },
                 ),
                 SizedBox(
-                  height: 16.h,
+                  height: 12.h,
                 ),
                 TextFormField(
                   readOnly: true,
-                  cursorColor: colors.blackColorApp,
+                  cursorColor: blackColorApp,
                   decoration: getInputDecoration('תאריך הנפקה',
-                      suffixIcon: const Icon(
-                        Icons.calendar_today_outlined,
-                        color: Color.fromRGBO(251, 37, 118, 1),
+                      suffixIcon:   Image.asset(
+                        'assets/icons/Calendar.png',
+                        width: 24.w,
                       )),
                   style:
-                      TextStyle(color: colors.blackColorApp, fontSize: 22.sp),
+                      TextStyle(color: blackColorApp, fontSize: 18.sp),
                   controller: _issDate,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'זהו שדה חובה';
@@ -158,22 +167,22 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                     }
                   },
                 ),
-         /*       SizedBox(
-                  height: 16.h,
+               SizedBox(
+                  height: 12.h,
                 ),
                 TextFormField(
-                  cursorColor: colors.blackColorApp,
+                  cursorColor: blackColorApp,
                   decoration: getInputDecoration('דרגת רשיון'),
                   style:
-                      TextStyle(color: colors.blackColorApp, fontSize: 22.sp),
+                      TextStyle(color: blackColorApp, fontSize: 18.sp),
                   controller: _degree,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'זהו שדה חובה';
                     return null;
                   },
-                ),*/
+                ),
                 SizedBox(
-                  height: 60.h,
+                  height: 27.h,
                 ),
                 ListTileTheme(
                   horizontalTitleGap: 1.0,
@@ -182,52 +191,66 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       "נהג חדש",
                       style: TextStyle(
                           fontFamily: 'PLONI',
-                          fontSize: 20.sp,
-                          color: colors.blackColorApp),
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w400,
+                          color: blackColorApp),
                     ),
-                    value: User().isNewDriver,
+                    value: widget.index==1?User().isNewDriver:false,
                     onChanged: (bool? value) {
                       setState(() {
-                        User().isNewDriver = value!;
+                        widget.index==1?User().isNewDriver = value!:null;
                       });
                     },
-                    checkColor: colors.blackColorApp,
+                    checkColor: blackColorApp,
                     activeColor: Colors.transparent,
                     controlAffinity: ListTileControlAffinity.leading,
                     checkboxShape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4)),
                     side: BorderSide(
-                      color: colors.blackColorApp,
+                      color: blackColorApp,
                       width: 1.5,
                     ),
                   ),
                 ),
+                //Spacer(),
+                SizedBox(height: 152.h),
                 Container(
-                  height: 48.h,
-                  width: 250.w,
+                  height: 42.h,
+                  width: 332.w,
                   child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: colors.turquoiseColorApp,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
-                        ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: turquoiseColorApp,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100),
                       ),
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
+                    ),
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        if(widget.index==1){
                           User().licenseId = _licenseId.text;
-                          //User().licenseDegree = _degree.text;
-                          User().licenseDegree ='';
+                          User().licenseDegree = _degree.text;
+                          //User().licenseDegree ='';
                           User().licenseIssDate = iss.toString();
                           User().licenseExpDate = exp;
                           await registerUser();
                         }
-                      },
-                      child: Text('הבא',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22.sp,
-                              fontWeight: FontWeight.w500))),
+                        else{
+                          User().additionalDriver.licenseId = _licenseId.text;
+                          User().additionalDriver.licenseDegree = _degree.text;
+                          //User().additionalDriver.licenseDegree ='';
+                          User().additionalDriver.licenseIssDate = iss.toString();
+                          User().additionalDriver.licenseExpDate = exp;
+                        }
+                      }
+                    },
+                    child: Text(widget.index==1?'הבא':'אשר פרטים',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w500))
+                  ),
                 ),
+                SizedBox(height: 40.h,),
               ],
             ),
           ),
@@ -241,28 +264,28 @@ class _LicenseDetailsState extends State<LicenseDetails> {
       isDense: true,
       labelText: text,
       labelStyle: TextStyle(
-        fontSize: 22.sp,
+        fontSize: 18.sp,
         fontWeight: FontWeight.w300,
-        color: colors.blackColorApp,
+        color: blackColorApp,
         fontFamily: 'PLONI',
       ),
       floatingLabelBehavior: FloatingLabelBehavior.auto,
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(
-          color: colors.blackColorApp,
+          color: blackColorApp,
         ),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(
-          color: colors.blackColorApp,
+          color: blackColorApp,
         ),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(
-          color: colors.blackColorApp,
+          color: blackColorApp,
         ),
       ),
       focusedErrorBorder: OutlineInputBorder(
@@ -314,5 +337,56 @@ class _LicenseDetailsState extends State<LicenseDetails> {
 
       }
     });
+  }
+  Future addDriverSucceed() {
+    return showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) => Container(
+          height: 180.h,
+          decoration: const BoxDecoration(color:Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+          ),
+          child: Column(children: [
+            SizedBox(height: 25.h),
+            // const Spacer(),
+            Center(
+              child: Text('הוספת נהג',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    height:1,
+                    color: pinkColorApp,
+                    fontSize: 22.sp,
+                    fontWeight: FontWeight.w700,
+                  )),
+            ),
+            //SizedBox(height: 20.h),
+            SizedBox(
+              height: 42.h,
+              width: 332.w,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: turquoiseColorApp,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  ),
+                  onPressed: () {
+                    rent.additionalDriver=User().additionalDriver;
+                    User().additionalDriver=AdditionalDriver();
+                  },
+                  child: Text(
+                    'שמור והמשך בנסיעה',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w500),
+                  )),
+            ),
+            SizedBox(height: 22.h)
+          ])),
+      barrierColor: Colors.black12.withOpacity(0.1),
+      // shape: const RoundedRectangleBorder(
+      //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+    );
   }
 }

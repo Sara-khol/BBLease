@@ -114,6 +114,13 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   controller: _expDate,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'זהו שדה חובה';
+                    else {
+                      DateTime now = DateTime.now();
+                      DateTime inputDate = intl.DateFormat('dd/MM/yyyy').parse(value);
+                      if (inputDate.isBefore(DateTime(now.year, now.month, now.day))) {
+                        return 'רישיון לא בתוקף';
+                      }
+                    }
                     return null;
                   },
                   onTap: () async {

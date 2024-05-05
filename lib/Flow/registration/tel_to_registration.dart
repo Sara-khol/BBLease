@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bblease/utils/my_colors.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 
 import '../../models/class_user.dart';
 import '../../services/api_service.dart';
@@ -36,6 +37,11 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
   void initState() {
     User().clear();
     super.initState();
+    _listenForSmsCode();
+  }
+
+  void _listenForSmsCode() async {
+    await SmsAutoFill().listenForCode;
   }
 
   // late int status;
@@ -340,7 +346,6 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                             fontWeight: FontWeight.w300,
                             color: blackColorApp),
                         validator: (value) {
-                          //todo remove checking code correct here ??
                           if (value == null /*|| value != code.toString()*/)
                             // return 'קוד שגוי';
                             return 'נא הזן קוד';

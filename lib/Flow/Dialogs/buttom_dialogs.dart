@@ -530,5 +530,64 @@ Future reportAccident(context){
   );
 }
 
+Future displayErrorInValidation(BuildContext context) {
+  return showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context) => Container(
+      height: 230.h,
+      decoration: const BoxDecoration(color:Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+      ),
+      child:
+        Column(children: [
+          SizedBox(height: 45.h),
+          Text('שגיאה',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                height:1,
+                color: pinkColorApp,
+                fontSize: 22.sp,
+                fontWeight: FontWeight.w700,
+              )),
+          // const Spacer(),
+          SizedBox(height: 33.h),
+          Text('המערכת נתקלה בבעיה בזיהוי שלך\nהועבר לבדיקה',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                height:1,
+                color: blackColorApp,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w400,
+              )),
+          SizedBox(height: 34.h),
+          SizedBox(
+            height: 42.h,
+            width: 160.w,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: turquoiseColorApp,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'סגור',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w500),
+                )),
+          ),
+          SizedBox(height: 22.h)
+        ])),
+    barrierColor: Colors.black12.withOpacity(0.1),
+    // shape: const RoundedRectangleBorder(
+    //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+  );
+}
+
 
 

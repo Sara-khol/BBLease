@@ -684,7 +684,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                 ),
                               ),
                               onTap: () => displayQuestion1(context,header: 'צעד חכם!',message: 'ודא שהתמונות מצולמות באיכות טובה',
-                                  onYes: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CarDocu(),))),
+                                  onYes: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CarDocu(carNum: rent.car.carNumber,),))),
                             ),
                           ),
                         ),

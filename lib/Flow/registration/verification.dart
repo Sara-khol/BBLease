@@ -1,7 +1,9 @@
 import 'package:bblease/Flow/registration/personal_details_form.dart';
+import 'package:bblease/models/class_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../services/api_service.dart';
+import '../Dialogs/buttom_dialogs.dart';
 
 class Verification extends StatefulWidget {
   const Verification({Key? key}) : super(key: key);
@@ -23,9 +25,18 @@ class _VerificationState extends State<Verification> {
     );
   }
 
+  faceDetection(){
+    ApiService().faceRecognition(User().phoneNumber, (res) {
+      if(res==true)
+        uploadImages();
+      else
+        displayErrorInValidation(context);
+    });
+  }
+
   @override
   void initState() {
-    uploadImages();
+
     super.initState();
   }
 
@@ -48,7 +59,6 @@ class _VerificationState extends State<Verification> {
               Text('תהליך זה עלול להימשך כמה דקות אנא התאזר בסבלנות תודה',style: TextStyle(fontSize: 22.sp),textDirection: TextDirection.rtl,textAlign: TextAlign.center,),
               SizedBox(height: 30.h,),
               //Image(image: XFileImage(User().regImages[2]!)),
-
             ],
           ),
         ),

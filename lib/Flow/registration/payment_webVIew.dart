@@ -38,8 +38,8 @@ class _PaymentWebViewState extends State<PaymentWebView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      child: Column(children: <Widget>[
+      body: SafeArea(
+        child: Column(children: <Widget>[
         SizedBox(
           height: 53.h,
         ),
@@ -51,7 +51,8 @@ class _PaymentWebViewState extends State<PaymentWebView> {
         ),
         SizedBox(
           height: 8.h,
-        ), Row(
+        ),
+        Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -61,7 +62,6 @@ class _PaymentWebViewState extends State<PaymentWebView> {
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w700,
                 color: blackColorApp,
-                fontFamily: 'PLONI',
               ),
             ),
           ],
@@ -79,58 +79,69 @@ class _PaymentWebViewState extends State<PaymentWebView> {
                   )
                 : Container()),
         Expanded(
-          child: Center(
-            child: Container(
-              width: 370.w,
-              height: 455.h,
-              margin: const EdgeInsets.all(10.0),
-              //decoration: BoxDecoration(border: Border.all(color: turquoiseColorApp)),
-              child: InAppWebView(
-                initialUrlRequest: URLRequest(url: WebUri(widget.url)),
-                // initialUrl: "https://flutter.dev/",
-                // initialOptions: InAppWebViewGroupOptions(
-                //     crossPlatform: InAppWebViewOptions(
-                //       debuggingEnabled: true,
-                //     )
-                // ),
-                onWebViewCreated: (InAppWebViewController controller) {
-                  _webViewController = controller;
-                },
-                // onLoadStart: (InAppWebViewController controller,WebUri?  url) {
-                //   setState(() {
-                //     this.url = url.data!.charset;
-                //   });
-                // },
-                // onLoadStop: (InAppWebViewController controller,  url) async {
-                //   setState(() {
-                //     this.url = url;
-                //   });
-                // },
-                onReceivedServerTrustAuthRequest:
-                    (InAppWebViewController controller,
-                        URLAuthenticationChallenge challenge) async {
-                  return ServerTrustAuthResponse(
-                      action: ServerTrustAuthResponseAction.PROCEED);
-                },
-                onProgressChanged:
-                    (InAppWebViewController controller, int progress) async {
-                   {
-                    this.progress = progress / 100;
-                    if(this.progress==1 && !startCheckStatus)
-                      {
-                        startCheckStatus=true;
-                        await Future.delayed(const Duration(seconds: 3));
-                        getStatus();
-                      // Timer(const Duration(seconds: 3), () {getStatus();});
+          child: Column(
+            children: [
+              Container(
+                width: 370.w,
+                height: 455.h,
+                margin: const EdgeInsets.all(10.0),
+                //decoration: BoxDecoration(border: Border.all(color: turquoiseColorApp)),
+                child: InAppWebView(
+                  initialUrlRequest: URLRequest(url: WebUri(widget.url)),
+                  // initialUrl: "https://flutter.dev/",
+                  // initialOptions: InAppWebViewGroupOptions(
+                  //     crossPlatform: InAppWebViewOptions(
+                  //       debuggingEnabled: true,
+                  //     )
+                  // ),
+                  onWebViewCreated: (InAppWebViewController controller) {
+                    _webViewController = controller;
+                  },
+                  // onLoadStart: (InAppWebViewController controller,WebUri?  url) {
+                  //   setState(() {
+                  //     this.url = url.data!.charset;
+                  //   });
+                  // },
+                  // onLoadStop: (InAppWebViewController controller,  url) async {
+                  //   setState(() {
+                  //     this.url = url;
+                  //   });
+                  // },
+                  onReceivedServerTrustAuthRequest:
+                      (InAppWebViewController controller,
+                          URLAuthenticationChallenge challenge) async {
+                    return ServerTrustAuthResponse(
+                        action: ServerTrustAuthResponseAction.PROCEED);
+                  },
+                  onProgressChanged:
+                      (InAppWebViewController controller, int progress) async {
+                     {
+                      this.progress = progress / 100;
+                      if(this.progress==1 && !startCheckStatus)
+                        {
+                          startCheckStatus=true;
+                          await Future.delayed(const Duration(seconds: 3));
+                          getStatus();
+                        // Timer(const Duration(seconds: 3), () {getStatus();});
+                        }
+                      if(mounted) {
+                        setState(() {});
                       }
-                    if(mounted) {
-                      setState(() {});
                     }
-                  }
-                },
+                  },
 
+                ),
               ),
-            ),
+              SizedBox(height: 65.h,),
+              Text(
+                'נא להכניס אשראי על שמך בלבד!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+              )
+            ],
           ),
         ),
         // ButtonBar(

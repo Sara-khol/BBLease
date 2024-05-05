@@ -9,6 +9,7 @@ import 'package:google_place/google_place.dart';
 import 'package:intl/intl.dart' as intl;
 
 import '../../models/class_rent.dart';
+import '../UserInformation/contact_us.dart';
 
 
 double? latitude;
@@ -596,9 +597,15 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                             ),
                           ],
                         ),
+                        SizedBox(
+                          height: 12.h,
+                        ),
+                        TextButton(
+                            onPressed: () => Navigator.push(context,MaterialPageRoute(builder: (context) => ContactUs(),)),
+                            child: Text('השאר פרטים לנציג',style: TextStyle(fontSize: 16.sp),textAlign: TextAlign.center,)),
 
                         SizedBox(
-                          height: 24.h,
+                          height: 12.h,
                         ),
                         SizedBox(
                           height: 48.h,
@@ -714,7 +721,7 @@ getInputDecoration(String text,double width, {Widget? suffixIcon}) {
 Future showLoading(BuildContext context) {
   return showDialog(
     context: context,
-    barrierDismissible: false,
+    barrierDismissible: true,
     barrierColor: Colors.black12.withOpacity(0.2),
     builder: (context) {
       return Center(

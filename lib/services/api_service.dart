@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:camera/camera.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
@@ -14,7 +15,7 @@ class ApiService {
   final Dio _dio = Dio();
   // final _baseUrl = 'https://bibilease.co.il/?rest_route=/';
   late String _baseUrl;
-  String devURL='https://bibilease.quicksolutions.co.il/wp-json/';
+  //String devURL='https://bibilease.quicksolutions.co.il/wp-json/';
 
   ApiService._privateConstructor(){
     if(!kIsWeb) {
@@ -301,8 +302,8 @@ class ApiService {
 
   Future getFuelLevel(int carNum,Function(dynamic res) onSuccess) async {
     https://bibilease.quicksolutions.co.il/wp-json/wp/v2/get_car_fuel_level_by_KM_and_by_fuel_percentage/73592802
-    print('${devURL}wp/v2/get_car_fuel_level_by_KM_and_by_fuel_percentage/$carNum');
-    Response response = await _dio.get('${devURL}wp/v2/get_car_fuel_level_by_KM_and_by_fuel_percentage/$carNum');
+    print('${_baseUrl}wp/v2/get_car_fuel_level_by_KM_and_by_fuel_percentage/$carNum');
+    Response response = await _dio.get('${_baseUrl}wp/v2/get_car_fuel_level_by_KM_and_by_fuel_percentage/$carNum');
     if(response.statusCode == 200) {
       var result = response.data;
       print('result: $result');
@@ -430,8 +431,8 @@ class ApiService {
   }
 
   Future getAdditionalDriver(String id,Function(dynamic res) onSuccess) async {
-    print('${devURL}wp/v2/get_additional_driver_details/$id');
-    Response response = await _dio.get('${devURL}wp/v2/get_additional_driver_details/$id');
+    print('${_baseUrl}wp/v2/get_additional_driver_details/$id');
+    Response response = await _dio.get('${_baseUrl}wp/v2/get_additional_driver_details/$id');
     if(response.statusCode == 200) {
       var result = response.data;
       print('result: $result');
@@ -441,8 +442,19 @@ class ApiService {
   }
 
   Future getPriceList(Function(dynamic res) onSuccess) async {
-    print('${devURL}wp/v2/');
-    Response response = await _dio.get('${devURL}wp/v2/');
+    print('${_baseUrl}wp/v2/');
+    Response response = await _dio.get('${_baseUrl}wp/v2/');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+  }
+
+  Future getParkPosition(int carNum,Function(dynamic res) onSuccess) async {
+    print('${_baseUrl}wp/v2/car_address_location/$carNum');
+    Response response = await _dio.get('${_baseUrl}wp/v2/car_address_location/$carNum');
+    print(response.statusCode);
     if(response.statusCode == 200) {
       var result = response.data;
       print('result: $result');
@@ -458,6 +470,70 @@ class ApiService {
       print(result);
       onSuccess(result);
     }
+  }
+
+  Future carDocumentation(int carNum ,List<XFile?> images,Function(dynamic res) onSuccess) async {
+    List<MultipartFile> imageFiles = [];
+    for (var item in images) {
+      if (item != null) {
+        imageFiles.add(
+          await MultipartFile.fromFile(
+            item.path,
+            filename: item.path.split('/').last,
+          ),
+        );
+      }
+    }
+
+    FormData formData = FormData.fromMap({
+      "image_1": imageFiles[0],
+      "image_2": imageFiles[1],
+      "image_3": imageFiles[2],
+      "image_4": imageFiles[3],
+
+    });
+
+    debugPrint('${_baseUrl}wp/v2/Vehicle_documentation/$carNum');
+    debugPrint('data : ${json.encode(formData)}');
+    Response response = await _dio.post('${_baseUrl}wp/v2/Vehicle_documentation/$carNum',
+        data: json.encode(formData));
+    debugPrint('data: ${response.data}');
+    if(response.statusCode==200) {
+      onSuccess(response.data);
+    }
+
+  }
+
+  Future faceRecognition(String phone ,Function(dynamic res) onSuccess) async {
+    List<MultipartFile> imageFiles = [];
+    imageFiles.add(
+      await MultipartFile.fromFile(
+      User().regImages[0]!.path,
+      filename: User().regImages[0]!.path.split('/').last,
+      ),
+    );
+    imageFiles.add(
+      await MultipartFile.fromFile(
+        User().regImages[2]!.path,
+        filename: User().regImages[2]!.path.split('/').last,
+      ),
+    );
+
+    print('uploadList.toString() ${imageFiles.toString()}');
+    FormData formData = FormData.fromMap({
+      "license_front": imageFiles[0],
+      "face": imageFiles[2],
+    });
+
+    debugPrint('${_baseUrl}wp/v2/is_same_person/$phone');
+    debugPrint('data : ${json.encode(formData)}');
+    Response response = await _dio.post('${_baseUrl}wp/v2/is_same_person/$phone',
+        data: json.encode(formData));
+    debugPrint('data: ${response.data}');
+    if(response.statusCode==200) {
+      onSuccess(response.data);
+    }
+
   }
 
 }

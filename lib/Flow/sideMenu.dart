@@ -4,7 +4,7 @@ import 'package:bblease/Flow/UserInformation/profile.dart';
 import 'package:bblease/Flow/UserInformation/use_instructions.dart';
 import 'package:bblease/Flow/my_shared_preferences.dart';
 import 'package:bblease/Flow/welcome.dart';
-import 'package:bblease/utils/my_colors.dart' as colors;
+import 'package:bblease/utils/my_colors.dart';
 import 'package:bblease/Flow/UserInformation/ordersHistory.dart';
 import 'package:bblease/Flow/UserInformation/terms_and_conditions.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:side_sheet/side_sheet.dart';
 import 'package:bblease/services/support.dart' as support;
 import '../models/class_user.dart';
-import '../utils/my_colors.dart';
 import 'UserInformation/benefits_and_promotions.dart';
 import 'UserInformation/contact_us.dart';
 
@@ -36,7 +35,7 @@ Future sideMenu(context) {
                   children: [
                     Text('האיזור האישי שלי', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w700),),
                     SizedBox(height: 12.h,),
-                    Icon(Icons.account_circle_outlined, size: 38.sp, color: colors.blackColorApp,),
+                    Icon(Icons.account_circle_outlined, size: 38.sp, color: blackColorApp,),
                     SizedBox(height: 6.h,),
                     User().firstName.isNotEmpty && User().lastName.isNotEmpty
                         ? Text('${User().firstName} ${User().lastName}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),)
@@ -44,172 +43,192 @@ Future sideMenu(context) {
                   ],
                 ),
                 SizedBox(height: 34.h),
-                TextButton(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Icon(Icons.account_circle_outlined, color: colors.blackColorApp,),
-                        SizedBox(width: 10.w,),
-                        Flexible(child: Text('פרופיל אישי', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: colors.blackColorApp,height: 1),))
-                      ],
+                SizedBox(
+                  height: 55.h,
+                  child: TextButton(
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(Icons.account_circle_outlined, color: blackColorApp,),
+                          SizedBox(width: 10.w,),
+                          Flexible(child: Text('פרופיל אישי', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: blackColorApp,height: 1),))
+                        ],
+                      ),
                     ),
+                    onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalProfile(),)),
                   ),
-                  onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalProfile(),)),
                 ),
-                TextButton(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ImageIcon(AssetImage("assets/icons/car1.png"),size: 24.w,color: colors.blackColorApp,),
-                        SizedBox(width: 10.w,),
-                        Flexible(child: Text('היסטורית הזמנות', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: colors.blackColorApp,height: 1),))
-                      ],
+                SizedBox(
+                  height: 55.h,
+                  child: TextButton(
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ImageIcon(AssetImage("assets/icons/car1.png"),size: 24.w,color: blackColorApp,),
+                          SizedBox(width: 10.w,),
+                          Flexible(child: Text('היסטורית הזמנות', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: blackColorApp,height: 1),))
+                        ],
+                      ),
                     ),
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => OrdersHistory(),)),
                   ),
-                  onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => OrdersHistory(),)),
                 ),
-                TextButton(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                       // Image.asset('assets/images/mingcute_car-line.png',width: 24.w,),
+                SizedBox(
+                  height: 55.h,
+                  child: TextButton(
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                         // Image.asset('assets/images/mingcute_car-line.png',width: 24.w,),
 
-                        ImageIcon(AssetImage("assets/icons/mingcute_car-line.png"),size: 24.w,color: colors.blackColorApp,),
-                        SizedBox(width: 10.w,),
-                        Flexible(child: Text('הזמנות עתידיות', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: colors.blackColorApp,height: 1),))
-                      ],
+                          ImageIcon(AssetImage("assets/icons/mingcute_car-line.png"),size: 24.w,color: blackColorApp,),
+                          SizedBox(width: 10.w,),
+                          Flexible(child: Text('הזמנות עתידיות', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: blackColorApp,height: 1),))
+                        ],
+                      ),
                     ),
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => OrdersHistory(),)),
                   ),
-                  onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => OrdersHistory(),)),
                 ),
-                TextButton(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ImageIcon(AssetImage("assets/icons/Creditcard.png"),size: 24.w,color: colors.blackColorApp,),
-                        SizedBox(width: 10.w,),
-                        Flexible(child: Text('עידכון כ. אשראי',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, height: 1, color: blackColorApp)),)
-                      ],
+                SizedBox(
+                  height: 55.h,
+                  child: TextButton(
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ImageIcon(AssetImage("assets/icons/Creditcard.png"),size: 24.w,color: blackColorApp,),
+                          SizedBox(width: 10.w,),
+                          Flexible(child: Text('עידכון כ. אשראי',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, height: 1, color: blackColorApp)),)
+                        ],
+                      ),
                     ),
+                    onPressed: () {},
                   ),
-                  onPressed: () {},
                 ),
-                TextButton(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ImageIcon(AssetImage("assets/icons/video.png"),size: 24.w,color: colors.blackColorApp,),
-                        SizedBox(width: 10.w,),
-                        Flexible(child: Text('סרטוני הדרכה', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: colors.blackColorApp,height: 1),))
-                      ],
+                SizedBox(
+                  height: 55.h,
+                  child: TextButton(
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ImageIcon(AssetImage("assets/icons/video.png"),size: 24.w,color: blackColorApp,),
+                          SizedBox(width: 10.w,),
+                          Flexible(child: Text('סרטוני הדרכה', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: blackColorApp,height: 1),))
+                        ],
+                      ),
                     ),
+                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => UseInstructions(),)),
                   ),
-                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => UseInstructions(),)),
                 ),
-                TextButton(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Icon(Icons.error_outline_outlined, color: colors.blackColorApp,),
-                        SizedBox(width: 10.w,),
-                        Flexible(child: Text('תקנון', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: colors.blackColorApp,height: 1),))
-                      ],
+                SizedBox(
+                  height: 55.h,
+                  child: TextButton(
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(Icons.error_outline_outlined, color: blackColorApp,),
+                          SizedBox(width: 10.w,),
+                          Flexible(child: Text('תקנון', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: blackColorApp,height: 1),))
+                        ],
+                      ),
                     ),
+                    onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => Terms())),
                   ),
-                  onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => Terms())),
                 ),
-                TextButton(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ImageIcon(AssetImage("assets/icons/wallet.png"),size: 24.w,color: colors.blackColorApp,),
-                        SizedBox(width: 10.w,),
-                        Flexible(child: Text('מחירון', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: colors.blackColorApp,height: 1),))
-                      ],
+                SizedBox(
+                  height: 55.h,
+                  child: TextButton(
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ImageIcon(AssetImage("assets/icons/wallet.png"),size: 24.w,color: blackColorApp,),
+                          SizedBox(width: 10.w,),
+                          Flexible(child: Text('מחירון', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: blackColorApp,height: 1),))
+                        ],
+                      ),
                     ),
+                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PriceList())),
                   ),
-                  onPressed: () {},
                 ),
-                TextButton(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ImageIcon(AssetImage("assets/icons/solar_sale-linear.png"),size: 24.w,color: colors.blackColorApp,),
-                        SizedBox(width: 10.w,),
-                        Flexible(child: Text('הטבות ומבצעים', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: colors.blackColorApp,height: 1),))
-                      ],
+                SizedBox(
+                  height: 55.h,
+                  child: TextButton(
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ImageIcon(AssetImage("assets/icons/solar_sale-linear.png"),size: 24.w,color: blackColorApp,),
+                          SizedBox(width: 10.w,),
+                          Flexible(child: Text('הטבות ומבצעים', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: blackColorApp,height: 1),))
+                        ],
+                      ),
                     ),
+                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => BenefitsAndPromotions())),
                   ),
-                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => BenefitsAndPromotions())),
                 ),
-                TextButton(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ImageIcon(AssetImage("assets/icons/Phone.png"),size: 24.w,color: colors.blackColorApp,),
-                        SizedBox(width: 10.w,),
-                        Flexible(child: Text('צור קשר', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: colors.blackColorApp,height: 1),))
-                      ],
+                SizedBox(
+                  height: 55.h,
+                  child: TextButton(
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ImageIcon(AssetImage("assets/icons/Phone.png"),size: 24.w,color: blackColorApp,),
+                          SizedBox(width: 10.w,),
+                          Flexible(child: Text('צור קשר', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: blackColorApp,height: 1),))
+                        ],
+                      ),
                     ),
+                    onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUs(),),),
                   ),
-                  onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUs(),),),
                 ),
-                TextButton(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Icon(Icons.logout,color:  colors.blackColorApp,),
-                        SizedBox(width: 10.w,),
-                        Flexible(child: Text('התנתק', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: colors.blackColorApp,height: 1),))
-                      ],
+                SizedBox(
+                  height: 55.h,
+                  child: TextButton(
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(Icons.logout,color:  blackColorApp,),
+                          SizedBox(width: 10.w,),
+                          Flexible(child: Text('התנתק', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: blackColorApp,height: 1),))
+                        ],
+                      ),
                     ),
+                    onPressed: (){
+                      displayQuestion(context,message:'?האם אתה בטוח שברצונך להתנתק',onYes: ()
+                      {
+                        MySharedPreferences().clearAllSharedPreference();
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const WelcomeForm(
+                                )),
+                                (route) => false);
+                      });
+                    }
                   ),
-                  onPressed: (){
-                    displayQuestion(context,message:'?האם אתה בטוח שברצונך להתנתק',onYes: ()
-                    {
-                      MySharedPreferences().clearAllSharedPreference();
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const WelcomeForm(
-                              )),
-                              (route) => false);
-                    });
-                  }
                 ),
                  //Spacer(),
                 getBottomButtons(context),

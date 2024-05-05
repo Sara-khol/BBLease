@@ -41,6 +41,8 @@ class _PersonalProfileState extends State<PersonalProfile> {
          child: Directionality(
            textDirection: ui.TextDirection.rtl,
            child: Column(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             //crossAxisAlignment: CrossAxisAlignment.stretch,
              children: [
               // Directionality(textDirection: ui.TextDirection.ltr, child: AppBarBibilease()),
                SizedBox(height: 24.h,),
@@ -55,8 +57,8 @@ class _PersonalProfileState extends State<PersonalProfile> {
                Icon(
                  Icons.account_circle_outlined,
                  color: turquoiseColorApp,
-                 size: 60.w,
-                 weight: 100,
+                 size: 55.sp,
+                 weight: 50,
                ),
                SizedBox(height: 8.h,),
                Text('פרופיל אישי', style: TextStyle(color: Color(0xFF0F1511), fontSize: 24.sp, fontWeight: FontWeight.w600,),),
@@ -162,7 +164,8 @@ class _PersonalProfileState extends State<PersonalProfile> {
                    ],
                  ),
                ),
-               SizedBox(height: 74.h,),
+               //SizedBox(height: 74.h,),
+               //Spacer(),
                SizedBox(
                  width: 332.w,
                  height: 44.h,

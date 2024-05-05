@@ -1,3 +1,4 @@
+import 'package:bblease/services/api_service.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,7 +6,9 @@ import 'package:image_picker/image_picker.dart';
 
 
 class CarDocu extends StatefulWidget {
-  const CarDocu({Key? key}) : super(key: key);
+  const CarDocu({Key? key, required this.carNum}) : super(key: key);
+
+  final int carNum;
 
   @override
   State<CarDocu> createState() => _CarDocuState();
@@ -20,6 +23,12 @@ class _CarDocuState extends State<CarDocu> {
     // TODO: implement initState
     images = List<XFile?>.generate(4, (index) => null);
     super.initState();
+  }
+
+  sendImages(){
+    ApiService().carDocumentation(widget.carNum,images, (res) {
+
+    },);
   }
 
 
@@ -237,12 +246,9 @@ class _CarDocuState extends State<CarDocu> {
                             setState(() {
                               allLoaded = true;
                             });
-
+                            sendImages();
                           }
-
                           if(!allLoaded) missingImage();
-
-                          
                         },
                         child:  Text('שלח תמונות',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color:Colors.white),)),
                   ),

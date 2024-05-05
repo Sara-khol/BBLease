@@ -478,71 +478,77 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                             ? ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: ordersHistory.length,
+                                //padding: EdgeInsets.only(bottom: 8.h),
                                 itemBuilder: (context, index) {
                                   Rental rent = ordersHistory[index];
                                   if ((s == null || e == null) ||
                                       (rent.startDate.isBefore(e!) ||
                                           rent.startDate.compareTo(e!) == 0 ||
                                           rent.endDate.isAfter(s!))) {
-                                    return TextButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  OrderDetails(
-                                                rent: rent,
-                                              ),
-                                            ));
-                                      },
-                                      child: Container(
-                                        width: 332.w,
-                                        height: 50.h,
-                                        margin: EdgeInsets.only(
-                                            //bottom: 22.h,
-                                            left: 20.w,
-                                            right: 20.w),
-                                        decoration: BoxDecoration(
-                                            color: Color(0xFFF7F7F7),
-                                            borderRadius:
-                                                BorderRadius.circular(8)),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 22.w),
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                intl.DateFormat('dd.MM.yyyy')
-                                                    .format(rent.startDate),
-                                                style: TextStyle(
-                                                    fontSize: 18.sp,
-                                                    fontWeight: FontWeight.w300,
-                                                  color: Colors.black
-                                                ),
-                                              ),
-                                              Spacer(),
-                                              IconButton(
-                                                onPressed: () {
-                                                  print(rent.url);
+                                    return Column(
+                                      children: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      OrderDetails(
+                                                    rent: rent,
+                                                  ),
+                                                ));
+                                          },
+                                          child: Container(
+                                            width: 332.w,
+                                            height: 50.h,
+                                            margin: EdgeInsets.only(
+                                                //bottom: 22.h,
+                                                left: 20.w,
+                                                right: 20.w),
+                                            decoration: BoxDecoration(
+                                                color: Color(0xFFF7F7F7),
+                                                borderRadius:
+                                                    BorderRadius.circular(8)),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 22.w),
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    intl.DateFormat('dd.MM.yyyy')
+                                                        .format(rent.startDate),
+                                                    style: TextStyle(
+                                                        fontSize: 18.sp,
+                                                        fontWeight: FontWeight.w300,
+                                                      color: Colors.black
+                                                    ),
+                                                  ),
+                                                  Spacer(),
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      print(rent.url);
 
-                                                  FileDownloader.downloadFile(
-                                                    url: rent.url!,
-                                                    onDownloadCompleted: (path) =>
-                                                        setState(() {
-                                                          print('download complete');
-                                                          downloadIcon = Icon(
-                                                            Icons.check_circle_outline,
-                                                            color: pinkColorApp,
-                                                          );
-                                                        }),
-                                                  );
-                                                },
-                                                icon: downloadIcon),
+                                                      FileDownloader.downloadFile(
+                                                        url: rent.url!,
+                                                        onDownloadCompleted: (path) =>
+                                                            setState(() {
+                                                              print('download complete');
+                                                              downloadIcon = Icon(
+                                                                Icons.check_circle_outline,
+                                                                color: pinkColorApp,
+                                                              );
+                                                            }),
+                                                      );
+                                                    },
+                                                    icon: downloadIcon),
 
-                                            ],
+                                                ],
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
+                                        SizedBox(height: 8.h,)
+                                      ],
                                     );
                                   }
                                 },

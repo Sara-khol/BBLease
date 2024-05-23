@@ -69,7 +69,7 @@ class _EditPaymentWebViewState extends State<EditPaymentWebView> {
                 'פרופיל אישי',
                 style: TextStyle(
                   fontSize: 20.sp,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.bold,
                   color: blackColorApp,
                   fontFamily: 'PLONI',
                 ),
@@ -83,7 +83,7 @@ class _EditPaymentWebViewState extends State<EditPaymentWebView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children:[
                 Image.asset('assets/icons/f7_creditcard.png',width: 26.w,),
-                Text('  אמצעי תשלום',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,)),
+                Text('  אמצעי תשלום',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
               ]
           ),
           SizedBox(
@@ -198,7 +198,7 @@ class _EditPaymentWebViewState extends State<EditPaymentWebView> {
           //         style: TextStyle(
           //             color: Colors.white,
           //             fontSize: 22.sp,
-          //             fontWeight: FontWeight.w500)),
+          //             fontWeight: FontWeight.normal)),
           //     onPressed: () {
           //       getStatus();
           //     },

@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 22.sp,
-                      fontWeight: FontWeight.w500),
+                      fontWeight: FontWeight.normal),
                 )),
           ),
           SizedBox(

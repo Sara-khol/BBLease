@@ -13,9 +13,9 @@ Future errorNoMatch(BuildContext context, Widget page) {
             child: Column(
               children: [
                 SizedBox(height: 36.h,),
-                Text('אופס, שימו לב', style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w600, color: pinkColorApp),),
+                Text('אופס, שימו לב', style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.bold, color: pinkColorApp),),
                 SizedBox(height: 25.h,),
-                Text('התמונה שעלתה באיכות גרועה לא נוכל לבצע אימות', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400, color: Colors.black,),),
+                Text('התמונה שעלתה באיכות גרועה לא נוכל לבצע אימות', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal, color: Colors.black,),),
                 SizedBox(height: 26.h,),
                 Container(
                   width: 332.w,
@@ -25,7 +25,7 @@ Future errorNoMatch(BuildContext context, Widget page) {
                     color: turquoiseColorApp,
                   ),
                   child: TextButton(
-                    child: Text('נסה שנית', style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.w500),),
+                    child: Text('נסה שנית', style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.normal),),
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => page));
@@ -54,7 +54,7 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
             child: Column(
               children: [
                 SizedBox(height: 50.h,),
-                Text('התצלום עלה בהצלחה', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w700, color: pinkColorApp,height: 1),),
+                Text('התצלום עלה בהצלחה', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold, color: pinkColorApp,height: 1),),
                 //SizedBox(height: 74.h,),
                 Spacer(),
                 Row(
@@ -69,7 +69,7 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
                         color: turquoiseColorApp,
                       ),
                       child: TextButton(
-                        child: Text('סרוק פעם נוספת',textAlign:TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w500,height: 1),),
+                        child: Text('סרוק פעם נוספת',textAlign:TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.normal,height: 1),),
                         onPressed: () {
                           Navigator.pop(context);
                           Navigator.pop(context);
@@ -89,7 +89,7 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
                         color:turquoiseColorApp,
                       ),
                       child: TextButton(
-                        child: Text('אישור',style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w500,height: 1)),
+                        child: Text('אישור',style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.normal,height: 1)),
                         onPressed: () {
                           Navigator.pop(context);
                           Navigator.pop(context);
@@ -128,7 +128,7 @@ Future displayError(BuildContext context,{bool existsData=true,String type='',
                 style: TextStyle(
                     color: pinkColorApp,
                     fontSize: 28.sp,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.bold,
                     height: 1)),
            // const Spacer(),
             Expanded(
@@ -141,7 +141,7 @@ Future displayError(BuildContext context,{bool existsData=true,String type='',
                       height:1,
                       color: blackColorApp,
                       fontSize: 20.sp,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.normal,
                     )),
               ),
             ),
@@ -173,7 +173,7 @@ Future displayError(BuildContext context,{bool existsData=true,String type='',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
-                            fontWeight: FontWeight.w500),
+                            fontWeight: FontWeight.normal),
                       )),
                 ),
                 SizedBox(width: 13.h),
@@ -193,13 +193,13 @@ Future displayError(BuildContext context,{bool existsData=true,String type='',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
-                            fontWeight: FontWeight.w500),
+                            fontWeight: FontWeight.normal),
                       )),
                 ),
               ])
             :  SizedBox(
              height: 42.h,
-             width: 160.w,
+             width: 332.w,
              child: ElevatedButton(
                  style: ElevatedButton.styleFrom(
                    backgroundColor: turquoiseColorApp,
@@ -215,7 +215,7 @@ Future displayError(BuildContext context,{bool existsData=true,String type='',
                    style: TextStyle(
                        color: Colors.white,
                        fontSize: 18.sp,
-                       fontWeight: FontWeight.w500),
+                       fontWeight: FontWeight.normal),
                  )),
            ),
             SizedBox(height: 22.h)
@@ -246,7 +246,7 @@ Future displayMessage(BuildContext context,{
                     height:1,
                     color: blackColorApp,
                     fontSize: 20.sp,
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.normal,
                   )),
             ),
           ),
@@ -273,7 +273,7 @@ Future displayMessage(BuildContext context,{
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18.sp,
-                      fontWeight: FontWeight.w500),
+                      fontWeight: FontWeight.normal),
                 )),
           ),
           SizedBox(height: 22.h)
@@ -304,7 +304,7 @@ Future displayQuestion(BuildContext context,{
                     height:1,
                     color: pinkColorApp,
                     fontSize: 20.sp,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.normal,
                   )),
             ),
           ),
@@ -330,7 +330,7 @@ Future displayQuestion(BuildContext context,{
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
-                            fontWeight: FontWeight.w500),
+                            fontWeight: FontWeight.normal),
                       )),
                 ),
                 SizedBox(width: 13.h),
@@ -352,7 +352,7 @@ Future displayQuestion(BuildContext context,{
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
-                            fontWeight: FontWeight.w500),
+                            fontWeight: FontWeight.normal),
                       )),
                 ),
 
@@ -376,7 +376,7 @@ Future displayQuestion1(BuildContext context,{
         ),
         child: Column(children: [
           SizedBox(height: 35.h),
-          Text(header,style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.w600,fontSize: 28.sp)),
+          Text(header,style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.bold,fontSize: 28.sp)),
           // const Spacer(),
           Expanded(
             child: Align(
@@ -416,7 +416,7 @@ Future displayQuestion1(BuildContext context,{
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
-                            fontWeight: FontWeight.w500),
+                            fontWeight: FontWeight.normal),
                       )),
                 ),
                 SizedBox(width: 13.h),
@@ -441,7 +441,7 @@ Future displayQuestion1(BuildContext context,{
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
-                            fontWeight: FontWeight.w500),
+                            fontWeight: FontWeight.normal),
                       )),
                 ),
 
@@ -477,7 +477,7 @@ Future reportAccident(context){
                       'דווח על תקלה',
                       style: TextStyle(
                           fontSize: 23.sp,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.bold,
                           color: pinkColorApp),
                     ),
                     SizedBox(height: 84.h),
@@ -499,7 +499,7 @@ Future reportAccident(context){
                                   style: TextStyle(
                                       fontSize: 20.sp,
                                       color: Colors.white,
-                                      fontWeight: FontWeight.w500))),
+                                      fontWeight: FontWeight.normal))),
                         ),
                         SizedBox(width: 13.w,),
                         Container(
@@ -517,7 +517,7 @@ Future reportAccident(context){
                                   style: TextStyle(
                                       fontSize: 20.sp,
                                       color: Colors.white,
-                                      fontWeight: FontWeight.w500))),
+                                      fontWeight: FontWeight.normal))),
                         ),
                       ],
                     ),
@@ -547,7 +547,7 @@ Future displayErrorInValidation(BuildContext context) {
                 height:1,
                 color: pinkColorApp,
                 fontSize: 22.sp,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.bold,
               )),
           // const Spacer(),
           SizedBox(height: 33.h),
@@ -557,7 +557,7 @@ Future displayErrorInValidation(BuildContext context) {
                 height:1,
                 color: blackColorApp,
                 fontSize: 16.sp,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.normal,
               )),
           SizedBox(height: 34.h),
           SizedBox(
@@ -578,7 +578,7 @@ Future displayErrorInValidation(BuildContext context) {
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18.sp,
-                      fontWeight: FontWeight.w500),
+                      fontWeight: FontWeight.normal),
                 )),
           ),
           SizedBox(height: 22.h)

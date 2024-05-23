@@ -13,6 +13,8 @@ import '../Rental/dialogs.dart';
 
 import 'package:bblease/utils/my_colors.dart';
 
+import '../UserInformation/terms_and_conditions.dart';
+
 class LicenseDetails extends StatefulWidget {
   const LicenseDetails({Key? key, required this.index}) : super(key: key);
 
@@ -32,6 +34,8 @@ class _LicenseDetailsState extends State<LicenseDetails> {
 
   String exp = User().licenseExpDate;
   String iss = User().licenseIssDate;
+
+  bool checkboxValue1 = false;
 
   @override
   void initState() {
@@ -77,7 +81,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       'פרטי רשיון נהיגה',
                       style: TextStyle(
                         fontSize: 20.sp,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.bold,
                         color: blackColorApp,
                         fontFamily: 'PLONI',
                       ),
@@ -199,7 +203,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       style: TextStyle(
                           fontFamily: 'PLONI',
                           fontSize: 18.sp,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.normal,
                           color: blackColorApp),
                     ),
                     value: widget.index==1?User().isNewDriver:false,
@@ -219,6 +223,41 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                     ),
                   ),
                 ),
+
+                Visibility(
+                  visible: widget.index==1,
+                  child:  Row(
+                      children: [
+                        Text(
+                          'יש לחתום על ',
+                          style: TextStyle(fontSize: 18.sp),
+                        ),
+                        TextButton(
+                            onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Terms(index: 2,))),
+                            child: Text(
+                              'תנאי ההשכרה',
+                              style: TextStyle(
+                                color: blackColorApp,
+                                  fontSize: 18.sp,
+                                  decoration: TextDecoration.underline),
+                            )),
+                      ],
+                  )
+                    /*checkColor: blackColorApp,
+                    activeColor: Colors.transparent,
+                    // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    controlAffinity: ListTileControlAffinity.leading,
+                    checkboxShape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4)),
+                    side: BorderSide(
+                      color: blackColorApp,
+                      width: 1.5,
+                    ),
+                  ),*/
+                ),
                 //Spacer(),
                 SizedBox(height: 152.h),
                 Container(
@@ -232,7 +271,12 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       ),
                     ),
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
+                      if (User().signature.isEmpty&&widget.index==1) {
+                        displayError(context,
+                            message: 'יש לחתום על תנאי השכרה',
+                            closeButton: true);
+                      }
+                      else if (_formKey.currentState!.validate()) {
                         if(widget.index==1){
                           User().licenseId = _licenseId.text;
                           User().licenseDegree = _degree.text;
@@ -254,7 +298,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
-                            fontWeight: FontWeight.w500))
+                            fontWeight: FontWeight.normal))
                   ),
                 ),
                 SizedBox(height: 40.h,),
@@ -363,7 +407,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                     height:1,
                     color: pinkColorApp,
                     fontSize: 22.sp,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.bold,
                   )),
             ),
             //SizedBox(height: 20.h),
@@ -386,7 +430,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 18.sp,
-                        fontWeight: FontWeight.w500),
+                        fontWeight: FontWeight.normal),
                   )),
             ),
             SizedBox(height: 22.h)

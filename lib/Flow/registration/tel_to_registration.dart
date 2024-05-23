@@ -45,7 +45,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
   }
 
   // late int status;
- // late int code;
+  // late int code;
   final _formKey = GlobalKey<FormState>();
 
   getVerificationCode(int type) async {
@@ -56,8 +56,8 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
       print('status: $status');
       if (!isRegister) {
         if (status == 4 || status == 5) {
-        //  code = value['code'];
-         // debugPrint('status $status code $code');
+          //  code = value['code'];
+          // debugPrint('status $status code $code');
           didSendCode = true;
           textSecondFocusNode.requestFocus();
         }
@@ -66,7 +66,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
               message: 'תעודת הזהות שהכנסת נחסמה בעבר הועבר לבדיקה');
         }
         else {
-           if (status == 1)
+          if (status == 1)
           {
             displayError(context,
                 message: 'מספר הטלפון שהזנת  כבר קיים  במערכת');
@@ -75,8 +75,8 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
       }
       else {
         if (status == 1) {
-         // code = value['code'];
-         // debugPrint('status $status code $code');
+          // code = value['code'];
+          // debugPrint('status $status code $code');
           didSendCode = true;
           textSecondFocusNode.requestFocus();
         } else {
@@ -97,69 +97,69 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
   verifyCode() async {
     showLoading(context);
     await ApiService().codeVerification(_phone.text, _code.text,
-        (response) {
-       Navigator.pop(context);
-      int vStatus = response['status'];
-      // in case code is not correct get from service error.
-      // not supposed to get to here because checked before sending
-      if (vStatus == 3) {
+            (response) {
+          Navigator.pop(context);
+          int vStatus = response['status'];
+          // in case code is not correct get from service error.
+          // not supposed to get to here because checked before sending
+          if (vStatus == 3) {
 
-        displayError(context, message: 'קוד האימות אינו תואם');
-      } else {
-        if (!isRegister) {
-          if (vStatus == 5) {
-            User().phoneNumber = _phone.text;
+            displayError(context, message: 'קוד האימות אינו תואם');
+          } else {
+            if (!isRegister) {
+              if (vStatus == 5) {
+                User().phoneNumber = _phone.text;
 
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const StartRegistration()));
-          }
-        } else {
-          if (vStatus == 1) {
-            User.fromJson(response['customer']);
-            debugPrint('user name  ${User().firstName}');
-
-            //todo: go to active rent
-            /*if(response["active_order"]!=-1||response["active_order"].isNotEmpty) {
-              User().currentRent=Rental.fromJson(response["active_order"]);
-            }*/
-            print('after if');
-            MySharedPreferences().setLastUsage();
-            MySharedPreferences().setUserId(User().userId);
-            if (User().tranzilaStatus) {
-              print('in');
-              if(User().currentRent!=null){
-                Navigator.pushAndRemoveUntil(
+                Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                        const ActiveRentDetails() ),
-                        (route) => false);
+                        builder: (context) => const StartRegistration()));
               }
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          const HomePage() /*RentalWidget()*/),
-                  (route) => false);
-            }
-            else
-              {
-                ApiService().getPaymentUrl(User().userId, (res) {
+            } else {
+              if (vStatus == 1) {
+                User.fromJson(response['customer']);
+                debugPrint('user name  ${User().firstName}');
+
+                //todo: go to active rent
+                /*if(response["active_order"]!=-1||response["active_order"].isNotEmpty) {
+              User().currentRent=Rental.fromJson(response["active_order"]);
+            }*/
+                print('after if');
+                MySharedPreferences().setLastUsage();
+                MySharedPreferences().setUserId(User().userId);
+                if (User().tranzilaStatus) {
+                  print('in');
+                  if(User().currentRent!=null){
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                            const ActiveRentDetails() ),
+                            (route) => false);
+                  }
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => PaymentWebView(
-                            url: res,
-                          )),
+                          builder: (context) =>
+                          const HomePage() /*RentalWidget()*/),
                           (route) => false);
-                });
+                }
+                else
+                {
+                  ApiService().getPaymentUrl(User().userId, (res) {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PaymentWebView(
+                              url: res,
+                            )),
+                            (route) => false);
+                  });
+                }
               }
+            }
           }
-        }
-      }
-    });
+        });
   }
 
   @override
@@ -179,18 +179,18 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: 100.h,),
-                    Text('התחברות', style: TextStyle(fontSize: 23.sp, fontWeight: FontWeight.w600,height: 1),),
+                    Text('התחברות', style: TextStyle(fontSize: 23.sp, fontWeight: FontWeight.bold,height: 1),),
                     SizedBox(height: 29.h,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextButton(
-                          onPressed: () {
-                            setState(() {
-                              isRegister=true;
-                            });
-                          },
-                            child: Text('התחבר',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400,color: Colors.black,decoration: isRegister?TextDecoration.underline:TextDecoration.none,height: 1),)),
+                            onPressed: () {
+                              setState(() {
+                                isRegister=true;
+                              });
+                            },
+                            child: Text('התחבר',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal,color: Colors.black,decoration: isRegister?TextDecoration.underline:TextDecoration.none,height: 1),)),
                         SizedBox(width: 150.w,),
                         TextButton(
                             onPressed: () {
@@ -198,25 +198,25 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                                 isRegister=false;
                               });
                             },
-                            child: Text('הירשם',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400,color: Colors.black,decoration: isRegister?TextDecoration.none:TextDecoration.underline,height: 1),))
+                            child: Text('הירשם',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal,color: Colors.black,decoration: isRegister?TextDecoration.none:TextDecoration.underline,height: 1),))
                       ],
                     ),
                     SizedBox(height: 70.h,),
-                    Text(isRegister?'הזן מספר טלפון לקבלת קוד התחברות':'הזן מספר טלפון לקבלת קוד הרשמה', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w400,height: 1)),
+                    Text(isRegister?'הזן מספר טלפון לקבלת קוד התחברות':'הזן מספר טלפון לקבלת קוד הרשמה', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,height: 1)),
                     SizedBox(height: 34.h),
                     SizedBox(
-                      height: 50.h,
+                      height: 70.h,
                       child: TextFormField(
                         controller: _phone,
                         keyboardType: TextInputType.number,
                         cursorColor: blackColorApp,
                         decoration: InputDecoration(
-                          constraints: BoxConstraints(maxHeight: 48.h),
+                          //constraints: BoxConstraints(maxHeight: 48.h),
                           isDense: true,
                           labelText: "מס' נייד",
                           labelStyle: TextStyle(
                             fontSize: 22.sp,
-                            fontWeight: FontWeight.w300,
+                            fontWeight: FontWeight.normal,
                             color: blackColorApp,
                           ),
                           floatingLabelBehavior: FloatingLabelBehavior.auto,
@@ -249,30 +249,30 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                             horizontal: 20.w,
                           ),
                           prefixIcon: Padding(
-                              padding: EdgeInsets.only(right: 20.w, left: 14.w),
-                              child:ImageIcon(
-                                AssetImage("assets/icons/Phone.png"),
-                                size: 24.w,
-                                color:pinkColorApp,
-                              ),
+                            padding: EdgeInsets.only(right: 20.w, left: 14.w),
+                            child:ImageIcon(
+                              AssetImage("assets/icons/Phone.png"),
+                              size: 24.w,
+                              color:pinkColorApp,
+                            ),
                           ),
                           prefixIconConstraints: const BoxConstraints(
                             maxHeight: 26,
                           ),
                           suffixIcon: didSendCode
                               ? Padding(
-                                  padding: EdgeInsets.only(left: 14.w),
-                                  child:ImageIcon(
-                                    AssetImage("assets/icons/edit.png"),
-                                    size: 20.w,
-                                    color:turquoiseColorApp,
-                                  ),
+                            padding: EdgeInsets.only(left: 14.w),
+                            child:ImageIcon(
+                              AssetImage("assets/icons/edit.png"),
+                              size: 20.w,
+                              color:turquoiseColorApp,
+                            ),
                           )
                               : null,
                         ),
                         style: TextStyle(
                             fontSize: 18.sp,
-                            fontWeight: FontWeight.w300,
+                            fontWeight: FontWeight.normal,
                             color: blackColorApp),
                         validator: (value) {
                           if (value == null || value.length < 10)
@@ -294,8 +294,8 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                           isDense: true,
                           labelText: "הזן סיסמא שהתקבלה",
                           labelStyle: TextStyle(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w300,
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.normal,
                             color: blackColorApp,
                             height: 1,
                           ),
@@ -329,13 +329,13 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                             horizontal: 20.w,
                           ),
                           prefixIcon: Padding(
-                              padding: EdgeInsets.only(right: 20.w, left: 14.w),
-                              child: ImageIcon(
-                                AssetImage("assets/icons/Password.png"),
-                                size: 24.w,
-                                color:pinkColorApp,
-                              ),
-                              ),
+                            padding: EdgeInsets.only(right: 20.w, left: 14.w),
+                            child: ImageIcon(
+                              AssetImage("assets/icons/Password.png"),
+                              size: 24.w,
+                              color:pinkColorApp,
+                            ),
+                          ),
                           prefixIconConstraints: const BoxConstraints(
                             maxHeight: 26,
                           ),
@@ -343,7 +343,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                         ),
                         style: TextStyle(
                             fontSize: 22.sp,
-                            fontWeight: FontWeight.w300,
+                            fontWeight: FontWeight.normal,
                             color: blackColorApp),
                         validator: (value) {
                           if (value == null /*|| value != code.toString()*/)
@@ -377,7 +377,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                                     onTap: () => Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => const Terms())),
+                                            builder: (context) => const Terms(index: 1,))),
                                     child: Text(
                                       'תנאי השימוש',
                                       style: TextStyle(
@@ -418,7 +418,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                                   },
                                   child: Text('שלח שוב SMS',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w300,
+                                          fontWeight: FontWeight.normal,
                                           fontSize: 18.sp,
                                           decoration: TextDecoration.underline,
                                           color: blackColorApp))),
@@ -430,7 +430,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                                   child: Text(
                                     'שלח שוב שיחה קולית',
                                     style: TextStyle(
-                                        fontWeight: FontWeight.w300,
+                                        fontWeight: FontWeight.normal,
                                         fontSize: 18.sp,
                                         decoration: TextDecoration.underline,
                                         color: blackColorApp),
@@ -443,7 +443,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                                   child: Text(
                                     'שלח שוב ווטסאפ',
                                     style: TextStyle(
-                                        fontWeight: FontWeight.w300,
+                                        fontWeight: FontWeight.normal,
                                         fontSize: 18.sp,
                                         decoration: TextDecoration.underline,
                                         color: blackColorApp),
@@ -456,9 +456,9 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                         ),
                       ),
                     ),
-                   Visibility(
-                     visible: !didSendCode,
-                       child: SizedBox(height: 340.h,)),
+                    Visibility(
+                        visible: !didSendCode,
+                        child: SizedBox(height: 340.h,)),
 
                     Flexible(
                       fit: FlexFit.loose,
@@ -506,7 +506,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                                 child: Text('אישור',
                                     style: TextStyle(
                                         fontSize: 22.sp,
-                                        fontWeight: FontWeight.w500,
+                                        fontWeight: FontWeight.normal,
                                         color: Colors.white))),
                           ),
                         ),

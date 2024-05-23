@@ -49,7 +49,7 @@ class _BenefitsAndPromotionsState extends State<BenefitsAndPromotions> {
                  crossAxisAlignment: CrossAxisAlignment.center,
                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                  children: [
-                   Text('הטבות ומבצעים', style: TextStyle(color: Color(0xFF0F1511), fontSize: 22.sp, fontWeight: FontWeight.w600,),),
+                   Text('הטבות ומבצעים', style: TextStyle(color: Color(0xFF0F1511), fontSize: 22.sp, fontWeight: FontWeight.bold,),),
                
                    Column(
                      mainAxisAlignment: MainAxisAlignment.center,
@@ -57,10 +57,10 @@ class _BenefitsAndPromotionsState extends State<BenefitsAndPromotions> {
                      children: [
                        Image.asset("assets/images/date_bad.png"),
                        SizedBox(height: 12.h,),
-                       Text('אופס...\nכרגע אין הטבות\nומבצעים פעילים',style: TextStyle(color: Color(0xFFAAABAA), fontSize: 20.sp, fontWeight: FontWeight.w400,),),
+                       Text('אופס...\nכרגע אין הטבות\nומבצעים פעילים',style: TextStyle(color: Color(0xFFAAABAA), fontSize: 20.sp, fontWeight: FontWeight.normal,),),
                      ],
                    ),
-                    Text('השארו מעודכנים וגלו מה חדש',style: TextStyle(color: Color(0xFF0F1511), fontSize: 18.sp, fontWeight: FontWeight.w400,),),
+                    Text('השארו מעודכנים וגלו מה חדש',style: TextStyle(color: Color(0xFF0F1511), fontSize: 18.sp, fontWeight: FontWeight.normal,),),
                  ],
                ),
              ),

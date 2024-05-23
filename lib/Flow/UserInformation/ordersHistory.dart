@@ -16,7 +16,8 @@ import '../../services/api_service.dart';
 import '../Rental/Actions/cancel_order_dialogs.dart';
 
 class OrdersHistory extends StatefulWidget {
-  const OrdersHistory({Key? key}) : super(key: key);
+  const OrdersHistory({Key? key, required this.index}) : super(key: key);
+  final int index;
 
   @override
   State<OrdersHistory> createState() => _OrdersHistoryState();
@@ -26,7 +27,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
   List<Rental> ordersHistory = [];
   List<Rental> futureOrders = [];
   late Rental currentRent;
-  int selected = 1; //history=1, future=2
+  late int selected=widget.index;//history=1, future=2
 
   @override
   void initState() {
@@ -124,7 +125,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                   'סנן הזמנות לפי תאריך  ',
                                   style: TextStyle(
                                       fontSize: 22.sp,
-                                      fontWeight: FontWeight.w700,
+                                      fontWeight: FontWeight.bold,
                                       color: Colors.black),
                                 ),
                                 ImageIcon(
@@ -143,7 +144,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                 Text('ממתי ?',
                                     style: TextStyle(
                                         fontSize: 20.sp,
-                                        fontWeight: FontWeight.w700,
+                                        fontWeight: FontWeight.bold,
                                         color: Colors.black)),
                               ],
                             ),
@@ -154,7 +155,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                 isDense: true,
                                 labelStyle: TextStyle(
                                   fontSize: 22.sp,
-                                  fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.normal,
                                   color: const Color.fromRGBO(15, 17, 21, 1),
                                   fontFamily: 'PLONI',
                                 ),
@@ -213,7 +214,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                 Text('עד -',
                                     style: TextStyle(
                                         fontSize: 20.sp,
-                                        fontWeight: FontWeight.w700,
+                                        fontWeight: FontWeight.bold,
                                         color: Colors.black)),
                               ],
                             ),
@@ -286,7 +287,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                     'הצג',
                                     style: TextStyle(
                                         fontSize: 22,
-                                        fontWeight: FontWeight.w500),
+                                        fontWeight: FontWeight.normal),
                                   )),
                             ),
                           ],
@@ -331,7 +332,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
               style: TextStyle(
                 color: Color(0xFF0F1511),
                 fontSize: 26.sp,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.bold,
               ),
             ),
             SizedBox(
@@ -366,8 +367,8 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                           style: TextStyle(
                               fontSize: 18.sp,
                               fontWeight: selected == 1
-                                  ? FontWeight.w600
-                                  : FontWeight.w400,
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
                               color:
                                   selected == 1 ? Colors.white : blackColorApp),
                         )),
@@ -398,8 +399,8 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                           style: TextStyle(
                               fontSize: 18.sp,
                               fontWeight: selected == 2
-                                  ? FontWeight.w600
-                                  : FontWeight.w400,
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
                               color:
                                   selected == 2 ? Colors.white : blackColorApp),
                         )),
@@ -462,7 +463,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                     'הזמנה פעילה',
                     style: TextStyle(
                         fontSize: 22.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.normal,
                         color: Colors.white),
                   )),
             ),
@@ -594,7 +595,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                                 style: TextStyle(
                                                     fontSize: 18.sp,
                                                     fontWeight:
-                                                        FontWeight.w600),
+                                                        FontWeight.bold),
                                               ),
                                               Text(
                                                 intl.DateFormat('dd.MM.yyyy')
@@ -658,7 +659,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                         'חזרה לתפריט ראשי   ',
                         style: TextStyle(
                             fontSize: 22.sp,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.normal,
                             color: Colors.white),
                       ),
                       Icon(

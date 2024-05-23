@@ -60,7 +60,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
               'פרטי אשראי',
               style: TextStyle(
                 fontSize: 20.sp,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.bold,
                 color: blackColorApp,
               ),
             ),
@@ -138,7 +138,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 18.sp,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.bold,
                 ),
               )
             ],
@@ -189,7 +189,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
         //         style: TextStyle(
         //             color: Colors.white,
         //             fontSize: 22.sp,
-        //             fontWeight: FontWeight.w500)),
+        //             fontWeight: FontWeight.normal)),
         //     onPressed: () {
         //       getStatus();
         //     },

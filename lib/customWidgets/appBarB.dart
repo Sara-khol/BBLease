@@ -25,7 +25,7 @@ class _AppBarBibileaseState extends State<AppBarBibilease> {
            Text("Bibilease",
            style: TextStyle(
              fontSize: 24.sp,
-             fontWeight: FontWeight.w700,
+             fontWeight: FontWeight.bold,
              color: Color(0xFF0F1511),
              fontFamily: 'PlusJakartaSans',)
             ,),

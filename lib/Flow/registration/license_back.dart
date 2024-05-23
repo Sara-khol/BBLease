@@ -1,6 +1,7 @@
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/registration/face_scanning.dart';
 import 'package:bblease/Flow/registration/license_details.dart';
+import 'package:bblease/Flow/registration/personal_details_form.dart';
 import 'package:bblease/Flow/registration/text_recognition.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:bblease/services/support.dart' as support;
@@ -58,7 +59,7 @@ class _LicenseBackState extends State<LicenseBack> {
               'סרוק רישיון',
               style: TextStyle(
                 fontSize: 24.sp,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.bold,
                 color: blackColorApp,
                 fontFamily: 'PLONI',
                 height: 1,
@@ -69,7 +70,7 @@ class _LicenseBackState extends State<LicenseBack> {
               'לצורך הסריקה נשתמש בטכנולוגית SC\n במידה וניתקלתם בבעיה פנו לנציג החברה',
               style: TextStyle(
                 fontSize: 20.sp,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.normal,
                 color: blackColorApp,
                 fontFamily: 'PLONI',
                 height: 1,
@@ -95,7 +96,7 @@ class _LicenseBackState extends State<LicenseBack> {
               'רשיון נהיגה צד אחורי',
               style: TextStyle(
                 fontSize: 24.sp,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.normal,
                 color: blackColorApp,
                 fontFamily: 'PLONI',
                 height: 1,
@@ -143,7 +144,7 @@ class _LicenseBackState extends State<LicenseBack> {
             //       },
             //       child:  Text(
             //         'הבא (רק לצורך הדגמה)',
-            //         style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color:Colors.white),
+            //         style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.normal,color:Colors.white),
             //       )),
             // ),
             SizedBox(height: 60.h),
@@ -158,7 +159,7 @@ class _LicenseBackState extends State<LicenseBack> {
                     child: FloatingActionButton.extended(
                       label: Text('תמיכה',style: TextStyle(
                           fontSize: 22.sp,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.normal,
                           color: Colors.white)),
                       heroTag: "btn2",
                       elevation: 2,
@@ -178,7 +179,7 @@ class _LicenseBackState extends State<LicenseBack> {
                     child: FloatingActionButton.extended(
                       label: Text('העלאת תמונה',style: TextStyle(
                           fontSize: 22.sp,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.normal,
                           color: Colors.white)),
                       heroTag: "btn1",
                       elevation: 2,
@@ -260,7 +261,7 @@ class _LicenseBackState extends State<LicenseBack> {
                       XFile xfile=await _cameraController.takePicture();
 
                       widget.index==1
-                          ?uploadSucceed(context,LicenseBack(index: widget.index),FaceScanning())
+                          ?uploadSucceed(context,LicenseBack(index: widget.index),PersonalDetailsForm()/*FaceScanning()*/)
                           :uploadSucceed(context,LicenseBack(index: widget.index),LicenseDetails(index: widget.index));
                       setState(() {
                         _imageBack= xfile;
@@ -290,7 +291,7 @@ class _LicenseBackState extends State<LicenseBack> {
     }
     XFile? result = await ImagePicker().pickImage(source: ImageSource.gallery);
     if(result != null) {
-      uploadSucceed(context,LicenseBack(index: 1),FaceScanning());
+      uploadSucceed(context,LicenseBack(index: 1),PersonalDetailsForm()/*FaceScanning()*/);
       setState(() {
         _imageBack= result;
         //_cameraController.pausePreview();

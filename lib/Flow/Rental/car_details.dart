@@ -66,7 +66,7 @@ class _CarDetailsState extends State<CarDetails> {
               style: TextStyle(
                 color: blackColorApp,
                 fontSize: 30.sp,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.bold,
                 height: null,
               ),
             ),
@@ -75,7 +75,7 @@ class _CarDetailsState extends State<CarDetails> {
               style: TextStyle(
                 color: blackColorApp,
                 fontSize: 16.sp,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.normal,
               ),
             ),
             SizedBox(height: 30.h),
@@ -145,7 +145,7 @@ class _CarDetailsState extends State<CarDetails> {
                                             style: TextStyle(
                                               color: blackColorApp,
                                               fontSize: 30.sp,
-                                              fontWeight: FontWeight.w700,
+                                              fontWeight: FontWeight.bold,
                                               height: 1.15,
                                             )),
                                         Text(
@@ -153,7 +153,7 @@ class _CarDetailsState extends State<CarDetails> {
                                           style: TextStyle(
                                             color: blackColorApp,
                                             fontSize: 18.sp,
-                                            fontWeight: FontWeight.w600,
+                                            fontWeight: FontWeight.bold,
                                             height: 1.15,
                                           ),
                                         ),
@@ -169,7 +169,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                     style: TextStyle(
                                                       color: blackColorApp,
                                                       fontSize: 16.sp,
-                                                      fontWeight: FontWeight.w400,
+                                                      fontWeight: FontWeight.normal,
                                                     ))
                                               ],
                                             ),
@@ -185,7 +185,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                   style: TextStyle(
                                                     color: blackColorApp,
                                                     fontSize: 16.sp,
-                                                    fontWeight: FontWeight.w400,
+                                                    fontWeight: FontWeight.normal,
                                                   ),
                                                 )
                                               ],
@@ -206,7 +206,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                               .blackColorApp,
                                                           fontSize: 16.sp,
                                                           fontWeight:
-                                                              FontWeight.w400,
+                                                              FontWeight.normal,
                                                         ),
                                                       )
                                                     ],
@@ -226,7 +226,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                               .blackColorApp,
                                                           fontSize: 16.sp,
                                                           fontWeight:
-                                                              FontWeight.w400,
+                                                              FontWeight.normal,
                                                         ),
                                                       )
                                                     ],
@@ -240,7 +240,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                     style: TextStyle(
                                                       color: blackColorApp,
                                                       fontSize: 16.sp,
-                                                      fontWeight: FontWeight.w400,
+                                                      fontWeight: FontWeight.normal,
                                                     ),
                                                   )
                                                 ],
@@ -280,7 +280,7 @@ class _CarDetailsState extends State<CarDetails> {
                                           style: TextStyle(
                                             color: blackColorApp,
                                             fontSize: 18.sp,
-                                            fontWeight: FontWeight.w400,
+                                            fontWeight: FontWeight.normal,
                                           ),
                                         ),
                                       ],
@@ -311,11 +311,11 @@ class _CarDetailsState extends State<CarDetails> {
                                             Icon(Icons.fmd_good_outlined, color: blackColorApp, size: 20.w),
                                             SizedBox(width: 9.w,),
                                             Text(
-                                              widget.rent.car.city,
+                                              widget.rent.car.address,
                                               style: TextStyle(
                                                 color: blackColorApp,
                                                 fontSize: 16.sp,
-                                                fontWeight: FontWeight.w400,
+                                                fontWeight: FontWeight.normal,
                                               ),
                                             ),
                                           ],
@@ -328,11 +328,11 @@ class _CarDetailsState extends State<CarDetails> {
                                               width: 9.w,
                                             ),
                                             Text(
-                                              '${intl.DateFormat('dd.MM.yyyy').format(widget.rent.startDate!)} - ${intl.DateFormat('dd.MM.yyyy').format(widget.rent.endDate!)}',
+                                              '${intl.DateFormat('dd.MM.yyyy HH:mm').format(widget.rent.startDate!)} - ${intl.DateFormat('dd.MM.yyyy HH:mm').format(widget.rent.endDate!)}',
                                               style: TextStyle(
                                                 color: blackColorApp,
                                                 fontSize: 16.sp,
-                                                fontWeight: FontWeight.w400,
+                                                fontWeight: FontWeight.normal,
                                               ),
                                             ),
                                             Spacer(),
@@ -346,7 +346,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                 Text('כולל', style: TextStyle(
                                                   color: blackColorApp,
                                                   fontSize: 20.sp,
-                                                  fontWeight: FontWeight.w600,
+                                                  fontWeight: FontWeight.bold,
                                                   height: 1.15,),),
                                                 Row(
                                                   children: [
@@ -431,7 +431,7 @@ class _CarDetailsState extends State<CarDetails> {
                                             style: TextStyle(
                                               color: blackColorApp,
                                               fontSize: 18.sp,
-                                              fontWeight: FontWeight.w400,
+                                              fontWeight: FontWeight.normal,
                                             ),
                                           ),
                                         ],
@@ -502,7 +502,7 @@ class _CarDetailsState extends State<CarDetails> {
                                             style: TextStyle(
                                               color: blackColorApp,
                                               fontSize: 18.sp,
-                                              fontWeight: FontWeight.w400,
+                                              fontWeight: FontWeight.normal,
                                             ),
                                           ),
                                         ],
@@ -536,12 +536,12 @@ class _CarDetailsState extends State<CarDetails> {
                                               'סך הכל לתשלום       ${(rentPrice +
                                                   price) * 0.17} ₪',
                                               style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
+                                                  fontWeight: FontWeight.bold,
                                                   fontSize: 22.sp),),
                                             SizedBox(height: 7.h),
                                             Text('פירוט התשלום',
                                               style: TextStyle(
-                                                  fontWeight: FontWeight.w400,
+                                                  fontWeight: FontWeight.normal,
                                                   fontSize: 18.sp),),
                                             SizedBox(height: 10.h),
                                             Container(
@@ -714,7 +714,7 @@ class _CarDetailsState extends State<CarDetails> {
                                             Text(
                                               'התשלום יגבה אוטמטית באמצעות מערכת הסליקה ממספר אשראי שמופיע במערכת על שמך',
                                               style: TextStyle(
-                                                  fontWeight: FontWeight.w400,
+                                                  fontWeight: FontWeight.normal,
                                                   fontSize: 18.sp),),
                                             SizedBox(height: 20.h),
 
@@ -743,13 +743,13 @@ class _CarDetailsState extends State<CarDetails> {
                                             'סך הכל לתשלום       ${((rentPrice + additionsPrice) * 0.17 + (rentPrice + additionsPrice)).round()} ₪',
                                             // ' ${((rentPrice+price)*1.17).round()} ₪'
                                             style: TextStyle(
-                                                fontWeight: FontWeight.w700,
+                                                fontWeight: FontWeight.bold,
                                                 fontSize: 18.sp)),
                                         SizedBox(height: 7.h),
                                         Text(
                                           'פירוט התשלום',
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w400,
+                                              fontWeight: FontWeight.normal,
                                               fontSize: 16.sp),
                                         ),
                                         SizedBox(height: 10.h),
@@ -781,27 +781,27 @@ class _CarDetailsState extends State<CarDetails> {
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Text('₪ ${(rentPrice*0.83).round()}', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w700)),
+                                                        Text('₪ ${(rentPrice*0.83).round()}', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold)),
                                                         SizedBox(height: 17.h),
-                                                        Text('₪ ${(additionsPrice*0.83).round()}',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700)),
+                                                        Text('₪ ${(additionsPrice*0.83).round()}',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold)),
                                                         SizedBox(height: 17.h),
-                                                        Text('₪ ${((rentPrice + additionsPrice) * 0.17).round()}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700)),
+                                                        Text('₪ ${((rentPrice + additionsPrice) * 0.17).round()}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold)),
                                                         SizedBox(height: 17.h),
-                                                        Text('₪ ${(rentPrice + additionsPrice)}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700, color: pinkColorApp)),
+                                                        Text('₪ ${(rentPrice + additionsPrice)}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: pinkColorApp)),
                                                       ],
                                                     ),
                                                     // SizedBox(width: 20.h),
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Text('${dayDiff == 0 ? 1 : dayDiff} ימים * ${widget.rent.car.pricePerDay} ליום', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500)),
+                                                        Text('${dayDiff == 0 ? 1 : dayDiff} ימים * ${widget.rent.car.pricePerDay} ליום', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal)),
                                                         SizedBox(height: 17.h),
-                                                        Text('תוספות', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500)),
+                                                        Text('תוספות', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal)),
                                                         SizedBox(height: 17.h),
                                                         Text('תוספת 17%', style: TextStyle(fontSize: 16.sp, fontWeight:
-                                                        FontWeight.w500)),
+                                                        FontWeight.normal)),
                                                         SizedBox(height: 17.h),
-                                                        Text('תשלום כולל מע”מ', overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: pinkColorApp)),
+                                                        Text('תשלום כולל מע”מ', overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal, color: pinkColorApp)),
                                                       ],
                                                     )
                                                   ],
@@ -817,7 +817,7 @@ class _CarDetailsState extends State<CarDetails> {
                                         Text(
                                           'התשלום יגבה אוטמטית באמצעות מערכת הסליקה ממספר אשראי שמופיע במערכת על שמך',
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w400,
+                                              fontWeight: FontWeight.normal,
                                               fontSize: 16.sp),
                                         ),
                                         SizedBox(height: 20.h),
@@ -857,7 +857,7 @@ class _CarDetailsState extends State<CarDetails> {
                                             style: TextStyle(
                                               color: blackColorApp,
                                               fontSize: 18.sp,
-                                              fontWeight: FontWeight.w400,
+                                              fontWeight: FontWeight.normal,
                                             ),
                                           ),
                                         ],
@@ -891,13 +891,14 @@ class _CarDetailsState extends State<CarDetails> {
                                       'start_date': intl.DateFormat('yyyy-MM-dd').format(widget.rent.startDate),
                                       'end_date': intl.DateFormat('yyyy-MM-dd').format(widget.rent.endDate),
                                       'extra': additionsMap,
-                                      'start_hour':intl.DateFormat('HH:mm').format(widget.rent.startDate),
+                                      'start-hour':intl.DateFormat('HH:mm').format(widget.rent.startDate),
                                       'end-hour':intl.DateFormat('HH:mm').format(widget.rent.endDate),
                                       //'whole_day':widget.rent.startDate.compareTo(widget.rent.endDate)!=0,
                                       //'half_day':widget.rent.startDate.compareTo(widget.rent.endDate)==0,
                                       //'morning':widget.rent.startDate.compareTo(widget.rent.endDate)==0?widget.rent.dayPart==1:false,
                                       //'evening':widget.rent.startDate.compareTo(widget.rent.endDate)==0?widget.rent.dayPart==2:false,
                                     };
+                                    print(map);
                                     showLoading(context);
                                     ApiService().newOrder(map, (res) {
                                       widget.rent.orderNum=res;
@@ -909,7 +910,7 @@ class _CarDetailsState extends State<CarDetails> {
                                         Navigator.pushAndRemoveUntil(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) => const OrdersHistory()),
+                                                builder: (context) => const OrdersHistory(index: 2,)),
                                             (route) => false);
                                       });
                                     });
@@ -919,7 +920,7 @@ class _CarDetailsState extends State<CarDetails> {
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 18.sp,
-                                        fontWeight: FontWeight.w500),
+                                        fontWeight: FontWeight.normal),
                                   )),
                             ),
                             SizedBox(
@@ -964,7 +965,7 @@ class _CarDetailsState extends State<CarDetails> {
                   icon: Icon(Icons.close, color: pinkColorApp)),
             ),
             Expanded(
-                child: Text(widget.rent.additions![index].title, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp))),
+                child: Text(widget.rent.additions![index].title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp))),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -972,7 +973,7 @@ class _CarDetailsState extends State<CarDetails> {
                 SizedBox(height: 16.h,),
                 Row(
                   children: [
-                    Text('${widget.rent.additions![index].price} ₪ ', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.sp),),
+                    Text('${widget.rent.additions![index].price} ₪ ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),),
                     Text('ליום', style: TextStyle(fontSize: 16.sp),),
                   ],
                 )

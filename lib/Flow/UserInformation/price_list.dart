@@ -72,7 +72,7 @@ class _PriceListState extends State<PriceList> {
                 child: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))
               ),
               SizedBox(height: 42.h,),
-              Text('מחירון', textAlign: TextAlign.center, style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w700,)),
+              Text('מחירון', textAlign: TextAlign.center, style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold,)),
               SizedBox(height: 37.h,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

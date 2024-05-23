@@ -20,7 +20,7 @@ class CustomInfoWindow extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.normal,
             fontSize: 20.sp,
           ),
         ),

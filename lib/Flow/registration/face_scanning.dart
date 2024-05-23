@@ -210,14 +210,14 @@ print('faces.length: ${faces.length}');
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('סרוק פנים',style: TextStyle(color: Colors.black,fontSize: 28.sp,fontWeight: FontWeight.w600),),
+            Text('סרוק פנים',style: TextStyle(color: Colors.black,fontSize: 28.sp,fontWeight: FontWeight.bold),),
             SizedBox(height: 5.h,),
-            Text('עמוד מול המצלמה',style: TextStyle(color: Colors.black,fontSize: 20.sp,fontWeight: FontWeight.w400)),
+            Text('עמוד מול המצלמה',style: TextStyle(color: Colors.black,fontSize: 20.sp,fontWeight: FontWeight.normal)),
             SizedBox(height: 35.h,),
             Expanded(
               child: Stack(
                   children:[
-                    Center(child: CameraFaceDetection()),
+    /*Center(child: CameraFaceDetection()),*/
                     /*FutureBuilder(
                         future: _initializeCamera(),
                         builder:(context,snapshot){
@@ -300,7 +300,7 @@ print('faces.length: ${faces.length}');
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 22.sp,
-                      fontWeight: FontWeight.w500,height: 1),),
+                      fontWeight: FontWeight.normal,height: 1),),
                 onPressed: () {
                   support.call;
                   //TODO: call for help

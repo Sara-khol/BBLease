@@ -57,14 +57,14 @@ class _EditDrivingLicensePersonalState extends State<EditDrivingLicensePersonal>
                  weight: 100,
                ),
                SizedBox(height: 8.h,),
-               Text('פרופיל אישי', style: TextStyle(color: Color(0xFF0F1511), fontSize: 24.sp, fontWeight: FontWeight.w600,),),
+               Text('פרופיל אישי', style: TextStyle(color: Color(0xFF0F1511), fontSize: 24.sp, fontWeight: FontWeight.bold,),),
                SizedBox(height: 35.h,),
                Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                    children:[
                      Image.asset('assets/icons/car_icon.png',width: 26.w,),
                      SizedBox(width: 6.w),
-                     Text('רישיון נהיגה',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,)),
+                     Text('רישיון נהיגה',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
                    ]
                ),
                SizedBox(
@@ -190,7 +190,7 @@ class _EditDrivingLicensePersonalState extends State<EditDrivingLicensePersonal>
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 18.sp,
-                  fontWeight: FontWeight.w500),
+                  fontWeight: FontWeight.normal),
             ),
             onPressed: () {
               User().licenseId = _licenseId.text;

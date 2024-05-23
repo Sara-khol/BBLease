@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'PLONI';
+  src: url('fonts/ploni-bold-aaa.eot');
+  src: url('fonts/ploni-bold-aaa.eot?#iefix') format('embedded-opentype'),
+       url('fonts/ploni-bold-aaa.woff2') format('woff2'),
+       url('fonts/ploni-bold-aaa.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PLONI';
+  src: url('fonts/ploni-regular-aaa.eot');
+  src: url('fonts/ploni-regular-aaa.eot?#iefix') format('embedded-opentype'),
+       url('fonts/ploni-regular-aaa.woff2') format('woff2'),
+       url('fonts/ploni-regular-aaa.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Define additional font faces if needed */

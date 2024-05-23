@@ -5,9 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../customWidgets/appBarB.dart';
 
 import '../../models/class_user.dart';
+import '../Rental/Actions/cancel_order_dialogs.dart';
 
 class Terms extends StatefulWidget {
-  const Terms({Key? key}) : super(key: key);
+  const Terms({Key? key, required this.index}) : super(key: key);
+  final int index;
 
   @override
   State<Terms> createState() => _TermsState();
@@ -35,7 +37,7 @@ class _TermsState extends State<Terms> {
                   Text("Bibilease",
                     style: TextStyle(
                       fontSize: 24.sp,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.bold,
                       color: Color(0xFF0F1511),
                       fontFamily: 'PlusJakartaSans',)
                     ,),
@@ -54,7 +56,7 @@ class _TermsState extends State<Terms> {
               style: TextStyle(
                 color: Color(0xFF0F1511),
                 fontSize: 26.sp,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.bold,
               ),
             ),
             SizedBox(height: 20.h,),
@@ -67,18 +69,19 @@ class _TermsState extends State<Terms> {
               width: 332.w,
               height: 48.h,
               child: FloatingActionButton.extended(
-                label: Text('חזרה', style: TextStyle(letterSpacing: 0.1,
-                    fontSize: 22.sp,
-                    fontWeight: FontWeight.w500),),
+                label: Text(widget.index==1?'חזרה':'חתימה', style: TextStyle(letterSpacing: 0.1,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.normal),),
                 heroTag: "btn2",
                 backgroundColor: colors.turquoiseColorApp,
-                icon: Icon(
-                  Icons.exit_to_app_outlined,
-                  fill: 0,
-                  color: Colors.white,
-                ),
                 onPressed: () {
-                  Navigator.pop(context);
+                  widget.index==1?
+                  Navigator.pop(context):
+                  {
+                        signCancelOrderDialog(context, 'טופס אישור תנאים',
+                            'קראתי ואני מאשר/ת את התנאים'),
+                    Navigator.pop(context)
+                      };
                 },
               ),
             ),

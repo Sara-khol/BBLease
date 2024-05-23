@@ -33,13 +33,13 @@ Future sideMenu(context) {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text('האיזור האישי שלי', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w700),),
+                    Text('האיזור האישי שלי', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),),
                     SizedBox(height: 12.h,),
                     Icon(Icons.account_circle_outlined, size: 38.sp, color: blackColorApp,),
                     SizedBox(height: 6.h,),
                     User().firstName.isNotEmpty && User().lastName.isNotEmpty
-                        ? Text('${User().firstName} ${User().lastName}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),)
-                        : Text('שם משתמש', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600))
+                        ? Text('${User().firstName} ${User().lastName}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),)
+                        : Text('שם משתמש', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold))
                   ],
                 ),
                 SizedBox(height: 34.h),
@@ -53,7 +53,7 @@ Future sideMenu(context) {
                         children: [
                           Icon(Icons.account_circle_outlined, color: blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('פרופיל אישי', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: blackColorApp,height: 1),))
+                          Flexible(child: Text('פרופיל אישי', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: blackColorApp,height: 1),))
                         ],
                       ),
                     ),
@@ -70,13 +70,13 @@ Future sideMenu(context) {
                         children: [
                           ImageIcon(AssetImage("assets/icons/car1.png"),size: 24.w,color: blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('היסטורית הזמנות', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: blackColorApp,height: 1),))
+                          Flexible(child: Text('היסטורית הזמנות', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: blackColorApp,height: 1),))
                         ],
                       ),
                     ),
                     onPressed: () => Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => OrdersHistory(),)),
+                        MaterialPageRoute(builder: (context) => OrdersHistory(index: 1,),)),
                   ),
                 ),
                 SizedBox(
@@ -91,13 +91,13 @@ Future sideMenu(context) {
 
                           ImageIcon(AssetImage("assets/icons/mingcute_car-line.png"),size: 24.w,color: blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('הזמנות עתידיות', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: blackColorApp,height: 1),))
+                          Flexible(child: Text('הזמנות עתידיות', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: blackColorApp,height: 1),))
                         ],
                       ),
                     ),
                     onPressed: () => Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => OrdersHistory(),)),
+                        MaterialPageRoute(builder: (context) => OrdersHistory(index: 2,),)),
                   ),
                 ),
                 SizedBox(
@@ -110,7 +110,7 @@ Future sideMenu(context) {
                         children: [
                           ImageIcon(AssetImage("assets/icons/Creditcard.png"),size: 24.w,color: blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('עידכון כ. אשראי',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, height: 1, color: blackColorApp)),)
+                          Flexible(child: Text('עידכון כ. אשראי',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, height: 1, color: blackColorApp)),)
                         ],
                       ),
                     ),
@@ -127,7 +127,7 @@ Future sideMenu(context) {
                         children: [
                           ImageIcon(AssetImage("assets/icons/video.png"),size: 24.w,color: blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('סרטוני הדרכה', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: blackColorApp,height: 1),))
+                          Flexible(child: Text('סרטוני הדרכה', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: blackColorApp,height: 1),))
                         ],
                       ),
                     ),
@@ -144,11 +144,11 @@ Future sideMenu(context) {
                         children: [
                           Icon(Icons.error_outline_outlined, color: blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('תקנון', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: blackColorApp,height: 1),))
+                          Flexible(child: Text('תקנון', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: blackColorApp,height: 1),))
                         ],
                       ),
                     ),
-                    onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => Terms())),
+                    onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => Terms(index: 1,))),
                   ),
                 ),
                 SizedBox(
@@ -161,7 +161,7 @@ Future sideMenu(context) {
                         children: [
                           ImageIcon(AssetImage("assets/icons/wallet.png"),size: 24.w,color: blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('מחירון', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: blackColorApp,height: 1),))
+                          Flexible(child: Text('מחירון', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: blackColorApp,height: 1),))
                         ],
                       ),
                     ),
@@ -178,7 +178,7 @@ Future sideMenu(context) {
                         children: [
                           ImageIcon(AssetImage("assets/icons/solar_sale-linear.png"),size: 24.w,color: blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('הטבות ומבצעים', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: blackColorApp,height: 1),))
+                          Flexible(child: Text('הטבות ומבצעים', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: blackColorApp,height: 1),))
                         ],
                       ),
                     ),
@@ -195,7 +195,7 @@ Future sideMenu(context) {
                         children: [
                           ImageIcon(AssetImage("assets/icons/Phone.png"),size: 24.w,color: blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('צור קשר', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: blackColorApp,height: 1),))
+                          Flexible(child: Text('צור קשר', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: blackColorApp,height: 1),))
                         ],
                       ),
                     ),
@@ -212,7 +212,7 @@ Future sideMenu(context) {
                         children: [
                           Icon(Icons.logout,color:  blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('התנתק', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: blackColorApp,height: 1),))
+                          Flexible(child: Text('התנתק', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: blackColorApp,height: 1),))
                         ],
                       ),
                     ),
@@ -277,7 +277,7 @@ getBottomButtons(context) {
                    'התנתק',
                    style: TextStyle(
                        fontSize: 18.sp,
-                       fontWeight: FontWeight.w500,
+                       fontWeight: FontWeight.normal,
                        color: Colors.white),
                  ),
                  SizedBox(width: 18.w),
@@ -310,7 +310,7 @@ getBottomButtons(context) {
                children: [
                  Text(
                    'חיוג במקרה חירום ',
-                   style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500, color: Colors.white),
+                   style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: Colors.white),
                  ),
                  //SizedBox(width: 18.w),
                  Icon(

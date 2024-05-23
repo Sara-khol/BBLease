@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:flutter_address_from_latlng/flutter_address_from_latlng.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import '../../customWidgets/appBarB.dart';
@@ -29,7 +29,7 @@ class _RentalWidgetState extends State<RentalWidget> {
 
   CameraPosition _kGoogle = CameraPosition(target: LatLng(31.80012237280773, 35.212884511532316), zoom: 13,);
 
-  //Address? formattedAddress;
+   String? formattedAddress;
   late Uint8List  available;
   late Uint8List  unAvailable;
   List<Car> availableCars = [];
@@ -92,10 +92,10 @@ class _RentalWidgetState extends State<RentalWidget> {
         longitude: position.longitude,
         googleApiKey: 'AIzaSyBfvApaTLzPlCzL3LakX6DBbj2l7NMBRV4',
       );*/
-      final formattedAddress = await getAddressFromLatLng(
+      formattedAddress = await getAddressFromLatLng(
         position.latitude,
         position.longitude,
-        'AIzaSyBfvApaTLzPlCzL3LakX6DBbj2l7NMBRV4',
+        'AIzaSyDrD1omOKsD-QCghL7Oaq1LmU6mgxvqaLs',
       );
       long=position.longitude;
       lat=position.latitude;
@@ -121,8 +121,9 @@ class _RentalWidgetState extends State<RentalWidget> {
 
       if(!dialogShown) {
         print('going to dialog');
-        var formattedAddress;
-        departurePoint(context, formattedAddress?.formattedAddress, 0,latitude1: lat,longitude1: long);
+        //var formattedAddress;
+        if(formattedAddress!=null)
+        departurePoint(context, formattedAddress, 0,latitude1: lat,longitude1: long);
       }
 
     } catch (e) {
@@ -174,7 +175,7 @@ print('getCarsList');
                       onPressed: () {
                         carDetailsDialog(context,car,true);
                       },
-                      child: Text(car.postTitle,style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,
+                      child: Text(car.postTitle,style: TextStyle(color: Colors.white,fontWeight: FontWeight.normal,
                         fontSize: 18.sp,),),
                     ),
                   ),
@@ -211,7 +212,7 @@ print('getCarsList');
                         carDetailsDialog(context,car,false);
 
                       },
-                      child: Text(car.postTitle,style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,
+                      child: Text(car.postTitle,style: TextStyle(color: Colors.white,fontWeight: FontWeight.normal,
                         fontSize: 18.sp,),),
                     ),
                   ),
@@ -234,8 +235,8 @@ print('getCarsList');
   }
 
   generateMarkers()async{
-    available=await getBytesFromAsset('assets/images/car-available.png', 300);
-    unAvailable=await getBytesFromAsset('assets/images/car-not-available.png', 300);
+    available=await getBytesFromAsset('assets/images/car-available.png', kIsWeb?50:300);
+    unAvailable=await getBytesFromAsset('assets/images/car-not-available.png', kIsWeb?50:300);
     /*available=await BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(152.w,181.h)), 'assets/icons/car-available.png');
     unAvailable=await BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(152.w,181.h)), 'assets/icons/car_not_available.png');*/
     print('generate markers: $available, $unAvailable');
@@ -248,7 +249,6 @@ print('getCarsList');
    /* _setCurrentLocation();*/
     getCarsList();
     //generateMarkers();
-
   }
 
   @override
@@ -305,8 +305,9 @@ print('getCarsList');
                       onPressed: () {
                         dialogShown=true;
                         //departurePoint(context, formattedAddress?.formattedAddress, 0,latitude1: lat,longitude1: long);
-                        var formattedAddress;
-                        departurePoint(context, formattedAddress?.formattedAddress, 0,latitude1: lat,longitude1: long);
+                        //var formattedAddress;
+                        if(formattedAddress!=null)
+                        departurePoint(context, formattedAddress, 0,latitude1: lat,longitude1: long);
                       },
                       child: Text(
                         '  לביצוע הזמנה  ',
@@ -315,7 +316,7 @@ print('getCarsList');
                           height: 1,
                             color: Colors.white,
                             fontSize: 18.sp,
-                            fontWeight: FontWeight.w500),
+                            fontWeight: FontWeight.normal),
                       )),
                 ),
               ),

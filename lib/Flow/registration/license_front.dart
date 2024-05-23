@@ -51,7 +51,7 @@ class _LicenseFrontState extends State<LicenseFront> {
               'סרוק רישיון',
               style: TextStyle(
                 fontSize: 24.sp,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.bold,
                 color: blackColorApp,
                 fontFamily: 'PLONI',
               ),
@@ -61,7 +61,7 @@ class _LicenseFrontState extends State<LicenseFront> {
               'לצורך הסריקה נשתמש בטכנולוגית SC\n במידה וניתקלתם בבעיה פנו לנציג החברה',
               style: TextStyle(
                 fontSize: 20.sp,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.normal,
                 color:  blackColorApp,
                 fontFamily: 'PLONI',
                 height: 1
@@ -95,7 +95,7 @@ class _LicenseFrontState extends State<LicenseFront> {
               'רשיון נהיגה צד קדמי',
               style: TextStyle(
                 fontSize: 24.sp,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.normal,
                 color: blackColorApp,
                 fontFamily: 'PLONI',
                 height: 1,
@@ -155,7 +155,7 @@ class _LicenseFrontState extends State<LicenseFront> {
             //       },
             //       child:  Text(
             //         'הבא (רק לצורך הדגמה)',
-            //         style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color:Colors.white),
+            //         style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.normal,color:Colors.white),
             //       )),
             // ),
             // SizedBox(height: 12.h),
@@ -168,7 +168,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                     width: 129.w,
                     height: 48.h,
                     child: FloatingActionButton.extended(
-                      label: Text('תמיכה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white)),
+                      label: Text('תמיכה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.normal,color: Colors.white)),
                       elevation: 2,
                       heroTag: "btn2",
                       backgroundColor: turquoiseColorApp,
@@ -186,7 +186,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                     height: 48.h,
                     child: FloatingActionButton.extended(
                       elevation: 2,
-                      label: Text('העלאת תמונה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white)),
+                      label: Text('העלאת תמונה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.normal,color: Colors.white)),
                       heroTag: "btn1",
                       backgroundColor: turquoiseColorApp,
                       onPressed: _onUploadButtonPressed,

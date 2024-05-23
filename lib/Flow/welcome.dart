@@ -19,7 +19,7 @@ class WelcomeForm extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
            SizedBox(height: 56.h),
-            Text("Welcome to Bibilease",style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.w700,fontSize: 30.sp,),),
+            Text("Welcome to Bibilease",style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.bold,fontSize: 30.sp,),),
             SizedBox(height: 36.h),
             Expanded(child: Image.asset('assets/images/BB.png',width: 392.w, fit: BoxFit.contain)),
             SizedBox(height: 48.h),
@@ -40,7 +40,7 @@ class WelcomeForm extends StatelessWidget {
                     //departurePoint(context);
 
                   },
-                  child: Text('צפו בסרטון ההדרכה שלנו',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color:Colors.white),)),
+                  child: Text('צפו בסרטון ההדרכה שלנו',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.normal,color:Colors.white),)),
             ),
             SizedBox(height: 12.h),
             Container(
@@ -59,7 +59,7 @@ class WelcomeForm extends StatelessWidget {
                           context,
                           MaterialPageRoute(builder: (context) => const TelToRegistrationForm()));
                   },
-                  child:  Text('הבא',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color:Colors.white),)),
+                  child:  Text('הבא',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.normal,color:Colors.white),)),
             ),
           ],
         ),

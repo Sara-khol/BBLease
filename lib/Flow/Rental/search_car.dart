@@ -96,9 +96,9 @@ class _SearchCarState extends State<SearchCar> {
             children: [
             Directionality(textDirection: TextDirection.ltr,child: AppBarBibilease()),
             SizedBox(height:40.h),
-            Text('הי, מצאנו באזורך ${cars.length} רכבים',style: TextStyle(color:blackColorApp, fontSize: 28.sp, fontWeight: FontWeight.w600, height: 1.2,),),
+            Text('הי, מצאנו באזורך ${cars.length} רכבים',style: TextStyle(color:blackColorApp, fontSize: 28.sp, fontWeight: FontWeight.bold, height: 1.2,),),
             Text('${widget.location}  ${intl.DateFormat('dd.MM.yy').format(widget.startDate!)} ',textAlign:TextAlign.center,
-              style: TextStyle(color: const Color(0xFF0F1511), fontSize: 18.sp, fontWeight: FontWeight.w400, height: 1.15,),),
+              style: TextStyle(color: const Color(0xFF0F1511), fontSize: 18.sp, fontWeight: FontWeight.normal, height: 1.15,),),
             SizedBox(height: 16.h),//26
             topButtons(context),
             SizedBox(height: 13.h),//23
@@ -171,12 +171,12 @@ class _SearchCarState extends State<SearchCar> {
                                      Column(
                                        crossAxisAlignment: CrossAxisAlignment.start,
                                        children: [
-                                         Text(car.postName.length > 12 ? '${car.postName.substring(0, 12)}...' : '${car.postName}',style: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.w700,height: 1,),),
-                                         Text('או רכב זהה',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,height: 1.15,),),
-                                         Text(car.address,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500,height: 1.15,),),
+                                         Text(car.postName.length > 12 ? '${car.postName.substring(0, 12)}...' : '${car.postName}',style: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.bold,height: 1,),),
+                                         Text('או רכב זהה',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.normal,height: 1.15,),),
+                                         Text(car.address,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.normal,height: 1.15,),),
                                          Expanded(child: SizedBox(height: 29.h)),
-                                         Text('${car.pricePerDay} ₪  |  ליום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
-                                         Text('${car.pricePerDay*widget.endDate!.difference(widget.startDate!).inDays} ₪  |  סה"כ',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,height: 1.15,),),
+                                         Text('${car.pricePerDay} ₪  |  ליום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.bold,height: 1.15,),),
+                                         Text('${car.pricePerDay*widget.endDate!.difference(widget.startDate!).inDays} ₪  |  סה"כ',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.normal,height: 1.15,),),
                                        ],
                                      ),
                                      Expanded(child: Padding(
@@ -263,12 +263,12 @@ class _SearchCarState extends State<SearchCar> {
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text(car.postName.length > 12 ? '${car.postName.substring(0, 12)}...' : '${car.postName}',style: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.w700,height: 1,),),
-                                          Text('או רכב זהה',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,height: 1.15,),),
-                                          Text(car.address,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w700,height: 1.15,),),
+                                          Text(car.postName.length > 12 ? '${car.postName.substring(0, 12)}...' : '${car.postName}',style: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.bold,height: 1,),),
+                                          Text('או רכב זהה',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.normal,height: 1.15,),),
+                                          Text(car.address,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.bold,height: 1.15,),),
                                           Expanded(child: SizedBox(height: 29.h)),
-                                          Text('${car.pricePerDay} ₪  |  ליום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w700,height: 1.15,),),
-                                          Text('${car.pricePerDay*widget.endDate!.difference(widget.startDate!).inDays} ₪  |  סה"כ',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,height: 1.15,),),
+                                          Text('${car.pricePerDay} ₪  |  ליום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.bold,height: 1.15,),),
+                                          Text('${car.pricePerDay*widget.endDate!.difference(widget.startDate!).inDays} ₪  |  סה"כ',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.normal,height: 1.15,),),
                                         ],
                                       ),
                                       Expanded(child: Padding(
@@ -341,7 +341,7 @@ class _SearchCarState extends State<SearchCar> {
                 style: TextStyle(
                   color: Color(0xFF0F1511),
                   fontSize: 18.sp,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.normal,
                 ),
 
               ),
@@ -356,7 +356,7 @@ class _SearchCarState extends State<SearchCar> {
                 style: TextStyle(
                   color: const Color(0xFF0F1511),
                   fontSize: 18.sp,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.normal,
 
                 ),
               ),
@@ -376,7 +376,7 @@ class _SearchCarState extends State<SearchCar> {
                 style: TextStyle(
                   color: const Color(0xFF0F1511),
                   fontSize: 18.sp,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.normal,
 
                 ),
               ),
@@ -504,7 +504,7 @@ class _SearchCarState extends State<SearchCar> {
                               style: TextStyle(
                                 color: Color(0xFF0F1511),
                                 fontSize: 22.sp,
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                             SizedBox(width: 8.w,),
@@ -523,7 +523,7 @@ class _SearchCarState extends State<SearchCar> {
                                 style: TextStyle(
                                   color: pinkColorApp,
                                   fontSize: 18.sp,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.normal,
                                   decoration: TextDecoration.underline,
                                   height: 1,
                                 ),
@@ -581,7 +581,7 @@ class _SearchCarState extends State<SearchCar> {
                     color: blackColorApp,
                     // fontSize: 16.sp,
                     fontSize: 18.sp,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -648,7 +648,7 @@ class _SearchCarState extends State<SearchCar> {
                             style: TextStyle(
                               color: Color(0xFF0F1511),
                               fontSize: 22.sp,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.bold,
                               //height: 1,
                             ),
                           ),
@@ -673,7 +673,7 @@ class _SearchCarState extends State<SearchCar> {
                                     style: TextStyle(
                                       color: Color(0xFF0F1511),
                                       fontSize: 20.sp,
-                                      fontWeight: FontWeight.w400,
+                                      fontWeight: FontWeight.normal,
                                       height: 1,
                                     ),
                                   ),
@@ -687,7 +687,7 @@ class _SearchCarState extends State<SearchCar> {
                                     style: TextStyle(
                                       color: pinkColorApp,
                                       fontSize: 20.sp,
-                                      fontWeight: FontWeight.w400,
+                                      fontWeight: FontWeight.normal,
                                       decoration: TextDecoration.underline,
                                       decorationColor: pinkColorApp,
                                       height: 1,
@@ -705,7 +705,7 @@ class _SearchCarState extends State<SearchCar> {
                               style: TextStyle(
                                 color: Color(0xFF0F1511),
                                 fontSize: 24.sp,
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeight.bold,
                                 height: 1,
                               ),
                             ),
@@ -716,7 +716,7 @@ class _SearchCarState extends State<SearchCar> {
                               style: TextStyle(
                                 color: Color(0xFF0F1511),
                                 fontSize: 20.sp,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.normal,
                                 height: 1,
                               ),
                             ),
@@ -740,7 +740,7 @@ class _SearchCarState extends State<SearchCar> {
                                           valueIndicatorTextStyle:TextStyle(
                                             color: Color(0xFF0F1511),
                                             fontSize: 18,
-                                            fontWeight: FontWeight.w500,
+                                            fontWeight: FontWeight.normal,
                                             fontFamily: 'PLONI',
                                           ),
                                         valueIndicatorShape: PaddleSliderValueIndicatorShape(),
@@ -770,7 +770,7 @@ class _SearchCarState extends State<SearchCar> {
                                 style: TextStyle(
                                   color: Color(0xFF0F1511),
                                   fontSize: 20.sp,
-                                  fontWeight: FontWeight.w700,
+                                  fontWeight: FontWeight.bold,
                                   height: 1,
                                 ),
                               ),
@@ -792,7 +792,7 @@ class _SearchCarState extends State<SearchCar> {
                                     Navigator.pop(context);
                                   },
                                   child: Text('הצג תוצאות נוספות',
-                                    style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color: Colors.white),)),
+                                    style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.normal,color: Colors.white),)),
                             ),
                           ],
                         ),

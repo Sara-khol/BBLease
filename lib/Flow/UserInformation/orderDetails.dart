@@ -1,14 +1,14 @@
-import 'package:bblease/Flow/welcome.dart';
 import 'package:bblease/utils/my_colors.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../customWidgets/appBarB.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import '../../models/class_rent.dart';
-
 import 'package:intl/intl.dart' as intl;
-
+//import 'dart:html';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+//import 'dart:io' if (dart.library.html) 'dart:html' as html;
 
 class OrderDetails extends StatefulWidget {
   const OrderDetails({Key? key, required this.rent}) : super(key: key);
@@ -26,15 +26,12 @@ class _OrderDetailsState extends State<OrderDetails> {
   double additionsPrice=0;
 
   int isDownloaded = 0;
-  Widget downloadIcon = Icon(
-    Icons.download,
-    color: Colors.white,
-  );
+  Widget downloadIcon = Icon(Icons.download, color: Colors.white,);
+
 
   @override
   void initState() {
-    dayDiff =
-        widget.rent.endDate!.difference(widget.rent.startDate!).inDays /*+ 1*/;
+    dayDiff = widget.rent.endDate!.difference(widget.rent.startDate!).inDays /*+ 1*/;
     rentPrice = (widget.rent.car.pricePerDay) * (dayDiff == 0 ? 1 : dayDiff);
     if(widget.rent.additions!=null && widget.rent.additions!.isNotEmpty) {
       calculateAdditionsPrice();
@@ -49,6 +46,16 @@ class _OrderDetailsState extends State<OrderDetails> {
     }
   }
 
+  void downloadFileWeb() {
+    String url=widget.rent.url!;
+    String fileName='bibilease.pdf';
+    if(kIsWeb){
+      /*final anchor = AnchorElement(href: url)
+        ..setAttribute("download", fileName)
+        ..click();*/
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,16 +64,14 @@ class _OrderDetailsState extends State<OrderDetails> {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-
-                  const Directionality(textDirection: TextDirection.ltr,child: AppBarBibilease()),
+                  IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios)),
                   SizedBox(height: 30.h),
                   Text(
                     ' הסטוריית הזמנות > פירוט הזמנה ',
                     style: TextStyle(
                       color: Color(0xFF0F1511),
                       fontSize: 20.sp,
-                      fontWeight: FontWeight.w400,
-                      height: null,
+                      fontWeight: FontWeight.normal,
                     ),
                   ),
                   Text(
@@ -75,7 +80,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                     style: TextStyle(
                       color: Color(0xFF0F1511),
                       fontSize: 34.sp,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.bold,
                       height: null,
                     ),
                   ),
@@ -83,8 +88,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                   Container(
                     height: 130.h,
                     width: 292.w,
-                    child: Image.network(widget.rent.car.carImages.first,
-                        width: 290.w, height: 126.h, fit: BoxFit.fitWidth),
+                    child: Image.network(widget.rent.car.carImages.first, width: 290.w, height: 126.h, fit: BoxFit.fitWidth),
                   ),
                   SizedBox(height: 20.h),
                   Expanded(
@@ -101,10 +105,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                             child: Directionality(
                               textDirection: TextDirection.rtl,
                               child: ListView(
-                                padding: EdgeInsets.only(
-                                  left: 17.w,
-                                  right: 11.w,
-                                ),
+                                padding: EdgeInsets.only(left: 17.w, right: 11.w,),
                                 shrinkWrap: true,
                                 children: [
                                   Stack(
@@ -115,108 +116,47 @@ class _OrderDetailsState extends State<OrderDetails> {
                                         decoration: ShapeDecoration(
                                           color: Color(0xFFF6F6F6),
                                           shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
+                                            borderRadius: BorderRadius.circular(25),
                                           ),
                                         ),
                                         child: Padding(
-                                          padding: EdgeInsets.only(
-                                              right: 33.w, left: 50.w),
+                                          padding: EdgeInsets.only(right: 33.w, left: 50.w),
                                           child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               SizedBox(height: 40.h),
                                               Row(
                                                 children: [
-                                                  Text(
-                                                    'מספר הזמנה: ${widget.rent.orderNum} ',
+                                                  Text('מספר הזמנה: ${widget.rent.orderNum} ',
                                                     style: TextStyle(
                                                       color: Color(0xFF0F1511),
                                                       fontSize: 20.sp,
-                                                      fontWeight:
-                                                          FontWeight.w600,
+                                                      fontWeight: FontWeight.bold,
                                                     ),
                                                   ),
                                                   Spacer(),
                                                   Text(
-                                                    intl.DateFormat(
-                                                            'dd.MM.yyyy')
-                                                        .format(widget
-                                                            .rent.startDate),
-                                                    style: TextStyle(
-                                                      color: Color(0xFF0F1511),
-                                                      fontSize: 20.sp,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
+                                                    intl.DateFormat('dd.MM.yyyy').format(widget.rent.startDate),
+                                                    style: TextStyle(color: Color(0xFF0F1511), fontSize: 20.sp, fontWeight: FontWeight.bold,),
                                                   ),
                                                 ],
                                               ),
-                                              SizedBox(
-                                                height: 20.h,
-                                              ),
-                                              Text(
-                                                widget.rent.car.model,
-                                                style: TextStyle(
-                                                  color: Color(0xFF0F1511),
-                                                  fontSize: 32.sp,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                              ),
+                                              SizedBox(height: 20.h,),
+                                              Text(widget.rent.car.model, style: TextStyle(color: Color(0xFF0F1511), fontSize: 32.sp, fontWeight: FontWeight.bold,),),
                                               Row(
                                                 children: [
                                                   Column(
                                                     children: [
-                                                      Text(
-                                                        'מספר רכב',
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color(0xFF0F1511),
-                                                          fontSize: 18.sp,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        widget
-                                                            .rent.car.carNumber
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color(0xFF0F1511),
-                                                          fontSize: 20.sp,
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                        ),
+                                                      Text('מספר רכב', style: TextStyle(color: Color(0xFF0F1511), fontSize: 18.sp, fontWeight: FontWeight.normal,),),
+                                                      Text(widget.rent.car.carNumber.toString(), style: TextStyle(color: Color(0xFF0F1511), fontSize: 20.sp, fontWeight: FontWeight.bold,),
                                                       ),
                                                     ],
                                                   ),
-                                                  SizedBox(
-                                                    width: 60.w,
-                                                  ),
+                                                  SizedBox(width: 60.w,),
                                                   Column(
                                                     children: [
-                                                      Text(
-                                                        'קטגוריית רכב',
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color(0xFF0F1511),
-                                                          fontSize: 18.sp,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        widget.rent.car.type,
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color(0xFF0F1511),
-                                                          fontSize: 20.sp,
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                        ),
-                                                      ),
+                                                      Text('קטגוריית רכב', style: TextStyle(color: Color(0xFF0F1511), fontSize: 18.sp, fontWeight: FontWeight.normal,),),
+                                                      Text(widget.rent.car.type, style: TextStyle(color: Color(0xFF0F1511), fontSize: 20.sp, fontWeight: FontWeight.bold,),),
                                                     ],
                                                   )
                                                 ],
@@ -229,15 +169,11 @@ class _OrderDetailsState extends State<OrderDetails> {
                                       Align(
                                         alignment: Alignment.topCenter,
                                         child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 20.w, vertical: 6.h),
+                                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
                                           clipBehavior: Clip.antiAlias,
                                           decoration: ShapeDecoration(
                                             color: Colors.white,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25),
-                                            ),
+                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
                                             shadows: const [
                                               BoxShadow(
                                                 color: Color(0x33A7A7A7),
@@ -249,19 +185,10 @@ class _OrderDetailsState extends State<OrderDetails> {
                                           ),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
-                                              Text(
-                                                'פרטי הזמנה',
-                                                style: TextStyle(
-                                                  color: Color(0xFF0F1511),
-                                                  fontSize: 22.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
+                                              Text('פרטי הזמנה', style: TextStyle(color: Color(0xFF0F1511), fontSize: 22.sp, fontWeight: FontWeight.normal,),),
                                             ],
                                           ),
                                         ),
@@ -276,38 +203,21 @@ class _OrderDetailsState extends State<OrderDetails> {
                                         margin: EdgeInsets.only(top: 17.h),
                                         decoration: ShapeDecoration(
                                           color: Color(0xFFF6F6F6),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                          ),
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
                                         ),
                                         child: Padding(
-                                          padding: EdgeInsets.only(
-                                              right: 30.w, left: 20.w),
+                                          padding: EdgeInsets.only(right: 30.w, left: 20.w),
                                           child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               SizedBox(height: 35.h),
                                               Row(
                                                 children: [
-                                                  Icon(Icons.fmd_good_outlined,
-                                                      color: Color(0xFF0F1511),
-                                                      size: 20.w),
-                                                  SizedBox(
-                                                    width: 9.w,
-                                                  ),
+                                                  Icon(Icons.fmd_good_outlined, color: Color(0xFF0F1511), size: 20.w),
+                                                  SizedBox(width: 9.w,),
                                                   Expanded(
-                                                    child: Text(
-                                                      widget.rent.car.address,
-                                                      style: TextStyle(
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        color: Color(0xFF0F1511),
-                                                        fontSize: 20.sp,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
+                                                    child: Text(widget.rent.car.address,
+                                                      style: TextStyle(overflow: TextOverflow.ellipsis, color: Color(0xFF0F1511), fontSize: 20.sp, fontWeight: FontWeight.normal,),
                                                     ),
                                                   ),
                                                   // SizedBox(
@@ -329,7 +239,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                   //             Color(0xFF0F1511),
                                                   //         fontSize: 18.sp,
                                                   //         fontWeight:
-                                                  //             FontWeight.w400,
+                                                  //             FontWeight.normal,
                                                   //       ),
                                                   //     ),
                                                   //     Text(
@@ -339,43 +249,34 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                   //             Color(0xFF0F1511),
                                                   //         fontSize: 18.sp,
                                                   //         fontWeight:
-                                                  //             FontWeight.w400,
+                                                  //             FontWeight.normal,
                                                   //       ),
                                                   //     ),
                                                   //   ],
                                                   // )
                                                 ],
                                               ),
-                                              SizedBox(
-                                                height: 15.h,
-                                              ),
-                                            Row(children: [ Icon(
-                                                Icons
-                                                    .calendar_today_outlined,
-                                                size: 20.w),
-                                              SizedBox(
-                                                width: 16.w,
-                                              ),
+                                              SizedBox(height: 15.h,),
+                                            Row(
+                                              children: [
+                                                Icon(Icons.calendar_today_outlined, size: 20.w),
+                                              SizedBox(width: 16.w,),
                                               Column(
                                                 children: [
-                                                  Text(
-                                                    " מ- ${intl.DateFormat('dd.MM.yyyy').format(widget.rent.startDate)}",
+                                                  Text(" מ- ${intl.DateFormat('dd.MM.yyyy').format(widget.rent.startDate)}",
                                                     style: TextStyle(
-                                                      color:
-                                                      Color(0xFF0F1511),
+                                                      color: Color(0xFF0F1511),
                                                       fontSize: 18.sp,
                                                       fontWeight:
-                                                      FontWeight.w400,
+                                                      FontWeight.normal,
                                                     ),
                                                   ),
-                                                  Text(
-                                                    " עד- ${intl.DateFormat('dd.MM.yyyy').format(widget.rent.endDate)}",
+                                                  Text(" עד- ${intl.DateFormat('dd.MM.yyyy').format(widget.rent.endDate)}",
                                                     style: TextStyle(
-                                                      color:
-                                                      Color(0xFF0F1511),
+                                                      color: Color(0xFF0F1511),
                                                       fontSize: 18.sp,
                                                       fontWeight:
-                                                      FontWeight.w400,
+                                                      FontWeight.normal,
                                                     ),
                                                   ),
                                                 ],
@@ -390,7 +291,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                       color: Color(0xFF0F1511),
                                                       fontSize: 20.sp,
                                                       fontWeight:
-                                                          FontWeight.w600,
+                                                          FontWeight.bold,
                                                       height: 1.15,
                                                     ),
                                                   ),
@@ -411,7 +312,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                               Color(0xFF0F1511),
                                                           fontSize: 20.sp,
                                                           fontWeight:
-                                                              FontWeight.w400,
+                                                              FontWeight.normal,
                                                         ),
                                                       ),
                                                     ],
@@ -433,7 +334,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                               Color(0xFF0F1511),
                                                           fontSize: 20.sp,
                                                           fontWeight:
-                                                              FontWeight.w400,
+                                                              FontWeight.normal,
                                                         ),
                                                       ),
                                                     ],
@@ -455,16 +356,14 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                               Color(0xFF0F1511),
                                                           fontSize: 20.sp,
                                                           fontWeight:
-                                                              FontWeight.w400,
+                                                              FontWeight.normal,
                                                         ),
                                                       ),
                                                     ],
                                                   ),
                                                 ],
                                               ),*/
-                                              SizedBox(
-                                                height: 20.h,
-                                              )
+                                              SizedBox(height: 20.h,)
                                             ],
                                           ),
                                         ),
@@ -472,16 +371,11 @@ class _OrderDetailsState extends State<OrderDetails> {
                                       Align(
                                           alignment: Alignment.topCenter,
                                           child: Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 20.w,
-                                                vertical: 6.h),
+                                            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
                                             clipBehavior: Clip.antiAlias,
                                             decoration: ShapeDecoration(
                                               color: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
-                                              ),
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
                                               shadows: const [
                                                 BoxShadow(
                                                   color: Color(0x33A7A7A7),
@@ -493,18 +387,15 @@ class _OrderDetailsState extends State<OrderDetails> {
                                             ),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
-                                                Text(
-                                                  'פרטי השכרה',
+                                                Text('פרטי השכרה',
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     color: Color(0xFF0F1511),
                                                     fontSize: 22.sp,
-                                                    fontWeight: FontWeight.w400,
+                                                    fontWeight: FontWeight.normal,
                                                   ),
                                                 ),
                                               ],
@@ -521,50 +412,29 @@ class _OrderDetailsState extends State<OrderDetails> {
                                         margin: EdgeInsets.only(top: 13.h),
                                         decoration: ShapeDecoration(
                                           color: Color(0xFFF6F6F6),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                          ),
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
                                         ),
                                         child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 20.w, vertical: 10.h),
+                                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                                           child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               SizedBox(height: 40.h),
                                               Row(
                                                 children: [
-                                                  Text(
-                                                    'סך הכל לתשלום',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        fontSize: 24.sp),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 40.w,
-                                                  ),
+                                                  Text('סך הכל לתשלום', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24.sp),),
+                                                  SizedBox(width: 40.w,),
                                                   Text(
                                                     //todo ?? does not match
                                                     // '${widget.rent.price} ₪',
                                                     '₪ ${(rentPrice + additionsPrice) + ((rentPrice + additionsPrice) * 0.17).round()}',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        fontSize: 24.sp),
+                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24.sp),
                                                   ),
                                                 ],
                                               ),
                                               TextButton(
-                                                  onPressed: () =>
-                                                      paymentDetails(context),
-                                                  child: Text(
-                                                    '  פירוט התשלום >  ',
-                                                    style: TextStyle(
-                                                        fontSize: 18.sp),
-                                                  ))
+                                                  onPressed: () => paymentDetails(context),
+                                                  child: Text('  פירוט התשלום >  ', style: TextStyle(fontSize: 18.sp),))
                                             ],
                                           ),
                                         ),
@@ -572,16 +442,11 @@ class _OrderDetailsState extends State<OrderDetails> {
                                       Align(
                                           alignment: Alignment.topCenter,
                                           child: Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 20.w,
-                                                vertical: 6.h),
+                                            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
                                             clipBehavior: Clip.antiAlias,
                                             decoration: ShapeDecoration(
                                               color: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
-                                              ),
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
                                               shadows: const [
                                                 BoxShadow(
                                                   color: Color(0x33A7A7A7),
@@ -593,18 +458,15 @@ class _OrderDetailsState extends State<OrderDetails> {
                                             ),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
-                                                Text(
-                                                  'תשלום',
+                                                Text('תשלום',
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     color: Color(0xFF0F1511),
                                                     fontSize: 22.sp,
-                                                    fontWeight: FontWeight.w400,
+                                                    fontWeight: FontWeight.normal,
                                                   ),
                                                 ),
                                               ],
@@ -618,72 +480,53 @@ class _OrderDetailsState extends State<OrderDetails> {
                                     width: 332.w,
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor:
-                                              Color.fromRGBO(0, 222, 222, 1),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(100),
-                                          ),
+                                          backgroundColor: Color.fromRGBO(0, 222, 222, 1),
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
                                           elevation: 0.0,
                                         ),
                                         onPressed: () {
                                           print(widget.rent.url);
-
-                                          FileDownloader.downloadFile(
-                                            url: widget.rent.url!,
-                                            onProgress: (fileName, progress) =>
-                                                setState(() {
-                                              isDownloaded = 1;
-                                              downloadIcon = SizedBox(
-                                                  height: 20.h,
-                                                  width: 20.w,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    color: Colors.white,
-                                                  ));
-                                            }),
-                                            onDownloadCompleted: (path) =>
-                                                setState(() {
+                                          if (kIsWeb) {
+                                            downloadFileWeb();
+                                          // Optionally, update UI immediately since web doesn't track download progress
+                                            setState(() {
                                               isDownloaded = 2;
                                               downloadIcon = Icon(
                                                 Icons.check_circle_outline,
                                                 color: Colors.white,
                                               );
-                                            }),
-                                          );
+                                            });
+                                          }
+                                          else {
+                                            FileDownloader.downloadFile(
+                                              url: widget.rent.url!,
+                                              onProgress: (fileName, progress) => setState(() {
+                                                isDownloaded = 1;
+                                                downloadIcon = SizedBox(
+                                                    height: 20.h,
+                                                    width: 20.w,
+                                                    child: CircularProgressIndicator(color: Colors.white,));
+                                              }),
+                                              onDownloadCompleted: (path) => setState(() {
+                                                isDownloaded = 2;
+                                                downloadIcon = Icon(
+                                                  Icons.check_circle_outline,
+                                                  color: Colors.white,
+                                                );
+                                              }),
+                                            );
+                                          }
                                         },
                                         child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 27.w),
+                                          padding: EdgeInsets.symmetric(horizontal: 27.w),
                                           child: Row(
                                             children: [
                                               if (isDownloaded == 0)
-                                                Text(
-                                                  'להורדה',
-                                                  style: TextStyle(
-                                                      fontSize: 22.sp,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: Colors.white),
-                                                ),
+                                                Text('להורדה', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.normal, color: Colors.white),),
                                               if (isDownloaded == 1)
-                                                Text(
-                                                  'מוריד...',
-                                                  style: TextStyle(
-                                                      fontSize: 22.sp,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: Colors.white),
-                                                ),
+                                                Text('מוריד...', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.normal, color: Colors.white),),
                                               if (isDownloaded == 2)
-                                                Text(
-                                                  'ההורדה הושלמה',
-                                                  style: TextStyle(
-                                                      fontSize: 22.sp,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: Colors.white),
-                                                ),
+                                                Text('ההורדה הושלמה', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.normal, color: Colors.white),),
                                               Spacer(),
                                               downloadIcon
                                             ],
@@ -696,27 +539,16 @@ class _OrderDetailsState extends State<OrderDetails> {
                                     width: 332.w,
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor:
-                                              Color.fromRGBO(0, 222, 222, 1),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(100),
-                                          ),
+                                          backgroundColor: Color.fromRGBO(0, 222, 222, 1),
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
                                           elevation: 0.0,
                                         ),
                                         onPressed: () => Navigator.pop(context),
                                         child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 27.w),
+                                          padding: EdgeInsets.symmetric(horizontal: 27.w),
                                           child: Row(
                                             children: [
-                                              Text(
-                                                'חזרה לאזור המידע',
-                                                style: TextStyle(
-                                                    fontSize: 22.sp,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Colors.white),
-                                              ),
+                                              Text('חזרה לאזור המידע', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.normal, color: Colors.white),),
                                               Spacer(),
                                               Icon(
                                                 Icons.account_circle_outlined,
@@ -745,8 +577,7 @@ class _OrderDetailsState extends State<OrderDetails> {
       context: context,
       barrierColor: Colors.black12.withOpacity(0.1),
       elevation: 2,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
       ),
       builder: (context) => Directionality(
         textDirection: TextDirection.rtl,
@@ -792,7 +623,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                           'פירוט תשלום',
                           style: TextStyle(
                               fontSize: 22.sp,
-                              fontWeight: FontWeight.w700),
+                              fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           width: 9.w,
@@ -822,17 +653,17 @@ class _OrderDetailsState extends State<OrderDetails> {
                             Text('השכרה',
                                 style: TextStyle(
                                     fontSize: 20.sp,
-                                    fontWeight: FontWeight.w400)),
+                                    fontWeight: FontWeight.normal)),
                             SizedBox(height: 17.h),
                             Text('תוספות',
                                 style: TextStyle(
                                     fontSize: 20.sp,
-                                    fontWeight: FontWeight.w400)),
+                                    fontWeight: FontWeight.normal)),
                             SizedBox(height: 17.h),
                             Text('מע”מ',
                                 style: TextStyle(
                                     fontSize: 20.sp,
-                                    fontWeight: FontWeight.w400)),
+                                    fontWeight: FontWeight.normal)),
                             SizedBox(height: 17.h),
                             Text('סך הכל',
                                 overflow:
@@ -840,7 +671,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                     .ellipsis,
                                 style: TextStyle(
                                     fontSize: 20.sp,
-                                    fontWeight: FontWeight.w400,
+                                    fontWeight: FontWeight.normal,
                                     color:pinkColorApp)),
                           ],
                         ),
@@ -855,22 +686,22 @@ class _OrderDetailsState extends State<OrderDetails> {
                                 '₪ ${rentPrice}',
                                 style: TextStyle(
                                     fontSize: 20.sp,
-                                    fontWeight: FontWeight.w700)),
+                                    fontWeight: FontWeight.bold)),
                             SizedBox(height: 17.h),
                             Text('₪ $additionsPrice',
                                 style: TextStyle(
                                     fontSize: 20.sp,
-                                    fontWeight: FontWeight.w700)),
+                                    fontWeight: FontWeight.bold)),
                             SizedBox(height: 17.h),
                             Text('₪ ${((rentPrice + additionsPrice) * 0.17).round()}',
                                 style: TextStyle(
                                     fontSize: 20.sp,
-                                    fontWeight: FontWeight.w700)),
+                                    fontWeight: FontWeight.bold)),
                             SizedBox(height: 17.h),
                             Text('₪ ${(rentPrice + additionsPrice) + ((rentPrice + additionsPrice) * 0.17).round()}',
                                 style: TextStyle(
                                     fontSize: 20.sp,
-                                    fontWeight: FontWeight.w700)),
+                                    fontWeight: FontWeight.bold)),
                           ],
                         ),
                        // SizedBox(width: 50.h),
@@ -880,17 +711,17 @@ class _OrderDetailsState extends State<OrderDetails> {
                                 '${dayDiff == 0 ? 1 : dayDiff} ימים * ${widget.rent.car.pricePerDay} ליום ',
                                 style: TextStyle(
                                     fontSize: 20.sp,
-                                    fontWeight: FontWeight.w500)),
+                                    fontWeight: FontWeight.normal)),
                             SizedBox(height: 17.h),
                             Text('תוספות',
                                 style: TextStyle(
                                     fontSize: 20.sp,
-                                    fontWeight: FontWeight.w500)),
+                                    fontWeight: FontWeight.normal)),
                             SizedBox(height: 17.h),
                             Text('תוספת 17%',
                                 style: TextStyle(
                                     fontSize: 20.sp,
-                                    fontWeight: FontWeight.w500)),
+                                    fontWeight: FontWeight.normal)),
                             SizedBox(height: 17.h),
                             Text('תשלום כולל מע”מ',
                                 overflow:
@@ -898,7 +729,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                     .ellipsis,
                                 style: TextStyle(
                                     fontSize: 20.sp,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.normal,
                                     color: pinkColorApp)),
                           ],
                         )

@@ -41,7 +41,7 @@ class UseInstructions extends StatelessWidget {
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.normal,
                         height: 0.06,
                       ),
                     ),
@@ -59,7 +59,7 @@ class UseInstructions extends StatelessWidget {
               style: TextStyle(
                 color: blackColorApp,
                 fontSize: 23.sp,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.bold,
                 height: 0.05,
               ),
             ),
@@ -73,7 +73,7 @@ class UseInstructions extends StatelessWidget {
               style: TextStyle(
                 color: blackColorApp,
                 fontSize: 18.sp,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.bold,
                 height: 0.07,
               ),
             ),
@@ -87,7 +87,7 @@ class UseInstructions extends StatelessWidget {
               style: TextStyle(
                 color: blackColorApp,
                 fontSize: 18.sp,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.bold,
                 height: 0.07,
               ),
             ),
@@ -108,7 +108,7 @@ class UseInstructions extends StatelessWidget {
                       style: TextStyle(
                         color: turquoiseColorApp,
                         fontSize: 60.sp,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.bold,
                         height: 0,
                       ),
                     ),
@@ -122,7 +122,7 @@ class UseInstructions extends StatelessWidget {
                       style: TextStyle(
                         color: blackColorApp,
                         fontSize: 16.sp,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.normal,
                         height: 0,
                       ),
                     ),
@@ -147,7 +147,7 @@ class UseInstructions extends StatelessWidget {
                       style: TextStyle(
                         color: turquoiseColorApp,
                         fontSize: 60.sp,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.bold,
                         height: 0,
                       ),
                     ),
@@ -161,7 +161,7 @@ class UseInstructions extends StatelessWidget {
                       style: TextStyle(
                         color: blackColorApp,
                         fontSize: 16.sp,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.normal,
                         height: 0,
                       ),
                     ),
@@ -186,7 +186,7 @@ class UseInstructions extends StatelessWidget {
                       style: TextStyle(
                         color: turquoiseColorApp,
                         fontSize: 60.sp,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.bold,
                         height: 0,
                       ),
                     ),
@@ -200,7 +200,7 @@ class UseInstructions extends StatelessWidget {
                       style: TextStyle(
                         color: blackColorApp,
                         fontSize: 16.sp,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.normal,
                         height: 0,
                       ),
                     ),
@@ -225,7 +225,7 @@ class UseInstructions extends StatelessWidget {
                       style: TextStyle(
                         color: turquoiseColorApp,
                         fontSize: 60.sp,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.bold,
                         height: 0,
                       ),
                     ),
@@ -239,7 +239,7 @@ class UseInstructions extends StatelessWidget {
                       style: TextStyle(
                         color: blackColorApp,
                         fontSize: 16.sp,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.normal,
                         height: 0,
                       ),
                     ),

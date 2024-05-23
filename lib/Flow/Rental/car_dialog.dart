@@ -46,7 +46,7 @@ Future carDetailsDialog(context,Car car,bool isAvailabe){
                            'פרטי רכב',
                            style: TextStyle(
                                fontSize: 18.sp,
-                               fontWeight: FontWeight.w700,
+                               fontWeight: FontWeight.bold,
                                color: Colors.black),
                          ),
                         SizedBox(height: 25.h),
@@ -54,17 +54,17 @@ Future carDetailsDialog(context,Car car,bool isAvailabe){
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Icon(Icons.drive_eta_outlined, color: pinkColorApp,),
-                            Text('  ${car.postTitle}  ',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500,),),
+                            Text('  ${car.postTitle}  ',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),),
                             SizedBox(width: 50.w,),
                             ImageIcon(AssetImage("assets/icons/Filter.png"),size: 20.w,color: pinkColorApp,),
-                            Text('  ${car.type}  ',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500,),),
+                            Text('  ${car.type}  ',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),),
                           ],
                         ),
                         SizedBox(height: 13.h),
                         Row(
                           children: [
                             Icon(Icons.fmd_good_outlined, color: pinkColorApp,),
-                            Text('  ${car.address}  ',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500,),),
+                            Text('  ${car.address}  ',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),),
                           ],
                         ),
                         SizedBox(height: 16.h),
@@ -86,7 +86,7 @@ Future carDetailsDialog(context,Car car,bool isAvailabe){
                                   style: TextStyle(
                                       fontSize: 20.sp,
                                       color: Colors.white,
-                                      fontWeight: FontWeight.w500))),
+                                      fontWeight: FontWeight.normal))),
                         ),
                         SizedBox(height: 20.h),
                       ]
@@ -137,21 +137,21 @@ Future openingCodeDialog(context,String code){
                             'קוד לפתיחה  ',
                             style: TextStyle(
                                 fontSize: 18.sp,
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeight.bold,
                                 color: Colors.black),
                           ),
                           Icon(Icons.password, color: pinkColorApp,),
                         ],
                       ),
                       SizedBox(height: 47.h),
-                      Text(' הקוד לפתיחה הינו ',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600,),),
+                      Text(' הקוד לפתיחה הינו ',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold,),),
                       SizedBox(height: 40.w,),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.copy, color: turquoiseColorApp,),
-                          Text('  $code  ',style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.w700,),),
+                          Text('  $code  ',style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold,),),
                         ],
                       ),
                       SizedBox(height: 30.h),
@@ -295,7 +295,7 @@ Future rentalTerm1(context, Car car) {
                               'בחר טווח השכרה',
                               style: TextStyle(
                                   fontSize: 26.sp,
-                                  fontWeight: FontWeight.w700,
+                                  fontWeight: FontWeight.bold,
                                   color: Colors.black),
                             ),
                             SizedBox(
@@ -332,7 +332,7 @@ Future rentalTerm1(context, Car car) {
                                 children: [
                                   Text('בחר טווח שעות',style: TextStyle(
                                       fontSize: 18.sp,
-                                      fontWeight: FontWeight.w700,
+                                      fontWeight: FontWeight.bold,
                                       color: Colors.black)),
                                   _buildRadioTile2('8:00-17:00 בוקר ', 1),
                                   _buildRadioTile2('17:00-8:00 לילה', 2),
@@ -346,7 +346,7 @@ Future rentalTerm1(context, Car car) {
                             Text('ממתי ?',
                                 style: TextStyle(
                                     fontSize: 18.sp,
-                                    fontWeight: FontWeight.w700,
+                                    fontWeight: FontWeight.bold,
                                     color: Colors.black)),
                           ],
                         ),
@@ -357,7 +357,7 @@ Future rentalTerm1(context, Car car) {
                             isDense: true,
                             labelStyle: TextStyle(
                               fontSize: 22.sp,
-                              fontWeight: FontWeight.w400,
+                              fontWeight: FontWeight.normal,
                               color: const Color.fromRGBO(15, 17, 21, 1),
                               fontFamily: 'PLONI',
                             ),
@@ -421,7 +421,7 @@ Future rentalTerm1(context, Car car) {
                                   Text('עד -',
                                       style: TextStyle(
                                           fontSize: 18.sp,
-                                          fontWeight: FontWeight.w700,
+                                          fontWeight: FontWeight.bold,
                                           color: Colors.black)),
                                 ],
                               ),
@@ -507,7 +507,7 @@ Future rentalTerm1(context, Car car) {
                                 'המשך',
                                 style: TextStyle(
                                     fontSize: 22,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.normal,
                                     color: Colors.white),
                               )),
                         ),

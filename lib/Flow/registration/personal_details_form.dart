@@ -70,7 +70,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                           'פרטים אישיים',
                           style: TextStyle(
                               fontSize: 20.sp,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.bold,
                               fontFamily: 'PLONI',
                               height: 1),
                         ),
@@ -195,7 +195,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                             style: TextStyle(
                                 height: 1,
                                 fontFamily: 'PLONI',
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.normal,
                                 fontSize: 18.sp)),
                         value: checkboxValue1,
                         onChanged: (bool? value) {
@@ -243,7 +243,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18.sp,
-                                fontWeight: FontWeight.w500),
+                                fontWeight: FontWeight.normal),
                           )),
                     ),
                     SizedBox(height: 40.h,),
@@ -307,7 +307,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
               ? Text(suffixText,
                   style: TextStyle(
                     fontSize: 20.sp,
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.normal,
                     color: turquoiseColorApp,
                     fontFamily: 'PLONI',
                     height: 1,

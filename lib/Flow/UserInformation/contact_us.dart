@@ -39,8 +39,8 @@ class _ContactUsState extends State<ContactUs> {
                 SizedBox(height: 35.h,),
                 Align(alignment: Alignment.topRight,child: IconButton(onPressed: () =>Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
                 SizedBox(height: 62.h,),
-                Text('יש שאלה?',style: TextStyle(fontSize: 23.sp,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
-                Text('אנחנו כאן בשבילך',style: TextStyle(fontSize: 28.sp,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
+                Text('יש שאלה?',style: TextStyle(fontSize: 23.sp,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+                Text('אנחנו כאן בשבילך',style: TextStyle(fontSize: 28.sp,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                 SizedBox(height: 19.h,),
                 TextFormField(
                   keyboardType: TextInputType.name,
@@ -162,7 +162,7 @@ class _ContactUsState extends State<ContactUs> {
                             'צרו איתי קשר',
                             style: TextStyle(
                                 fontSize: 20.sp,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.normal,
                                 color: Colors.white),
                           )
                       ),

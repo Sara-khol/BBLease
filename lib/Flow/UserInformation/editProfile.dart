@@ -58,13 +58,13 @@ class _EditPersonalDetailsState extends State<EditPersonalDetails> {
                  weight: 100,
                ),
                SizedBox(height: 8.h,),
-               Text('פרופיל אישי', style: TextStyle(color: Color(0xFF0F1511), fontSize: 24.sp, fontWeight: FontWeight.w600,),),
+               Text('פרופיל אישי', style: TextStyle(color: Color(0xFF0F1511), fontSize: 24.sp, fontWeight: FontWeight.bold,),),
                SizedBox(height: 35.h,),
                Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                    children:[
                      Icon(Icons.account_circle_outlined,color: pinkColorApp,size: 26.sp,),
-                     Text('  פרטים אישיים',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,)),
+                     Text('  פרטים אישיים',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
                    ]
                ),
                SizedBox(
@@ -152,7 +152,7 @@ class _EditPersonalDetailsState extends State<EditPersonalDetails> {
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 18.sp,
-                  fontWeight: FontWeight.w500),
+                  fontWeight: FontWeight.normal),
             ),
             onPressed: () {
               User().firstName = _firstName.text;
@@ -240,7 +240,7 @@ getInputDecoration(String text, {bool isDate = false, String suffixText = ''}) {
         ? Text(suffixText,
         style: TextStyle(
           fontSize: 20.sp,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.normal,
           color: turquoiseColorApp,
           fontFamily: 'PLONI',
           height: 1,

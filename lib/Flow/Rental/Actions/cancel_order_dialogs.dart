@@ -46,11 +46,11 @@ Future cancelOrderDialog(context,rent){
                           'ביטול הזמנה',
                           style: TextStyle(
                               fontSize: 23.sp,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.bold,
                               color: pinkColorApp),
                         ),
                         SizedBox(height: 51.h),
-                        Text('האם הינך בטוח שברצונך לבטל הזמנה זו? ',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w400,),textDirection: TextDirection.rtl,),
+                        Text('האם הינך בטוח שברצונך לבטל הזמנה זו? ',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),textDirection: TextDirection.rtl,),
                         SizedBox(height: 20.h),
                         Row(
                           children: [
@@ -71,7 +71,7 @@ Future cancelOrderDialog(context,rent){
                                       style: TextStyle(
                                           fontSize: 20.sp,
                                           color: Colors.white,
-                                          fontWeight: FontWeight.w500))),
+                                          fontWeight: FontWeight.normal))),
                             ),
                             SizedBox(width: 13.w),
 
@@ -90,7 +90,7 @@ Future cancelOrderDialog(context,rent){
                                       style: TextStyle(
                                           fontSize: 20.sp,
                                           color: Colors.white,
-                                          fontWeight: FontWeight.w500))),
+                                          fontWeight: FontWeight.normal))),
                             ),
                           ],
                         ),
@@ -105,7 +105,7 @@ Future cancelOrderDialog(context,rent){
   );
 }
 
-Future signCancelOrderDialog(context){
+Future signCancelOrderDialog(context,String headline,String text){
 
   final SignatureController _controller = SignatureController(
     penStrokeWidth: 2,
@@ -146,17 +146,17 @@ Future signCancelOrderDialog(context){
                           mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              'טופס ביטול הזמנה  ',
+                              '$headline  ',
                               style: TextStyle(
                                 fontSize: 18.sp,
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                             Icon(Icons.error_outline,color: pinkColorApp,)
                           ],
                         ),
                         SizedBox(height: 41.h),
-                        Text('אישור וחתימה לביטול הזמנה',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w400,),textDirection: TextDirection.rtl,),
+                        Text(text,style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),textDirection: TextDirection.rtl,),
                         Container(
                             decoration: BoxDecoration(border: Border(bottom: BorderSide(
                                 color: Colors.black,
@@ -202,7 +202,12 @@ Future signCancelOrderDialog(context){
                                 if(_controller.isNotEmpty){
                                   //final signature= await exportSignature(_controller);
                                   final signature = await _controller.toPngBytes();
-                                  ApiService().signatureUpload(signature, () {
+                                  headline=="טופס תנאי השכרה"?
+                                  {
+                                    User().signature = signature!,
+                                    Navigator.pop(context),
+                                  }
+                                      :ApiService().signatureUpload(signature, () {
                                     print('onSuccess');
                                     _controller.dispose();
                                     Navigator.push(context, MaterialPageRoute(
@@ -211,14 +216,14 @@ Future signCancelOrderDialog(context){
                                   }
                                 );
                                 }
-
                                 //rentalTerm(context);
                               },
                               child: Text('אישור',
                                   style: TextStyle(
                                       fontSize: 20.sp,
                                       color: Colors.white,
-                                      fontWeight: FontWeight.w500))),
+                                      fontWeight: FontWeight.normal)
+                              )),
                         ),
                         SizedBox(height: 22.h),
                       ]

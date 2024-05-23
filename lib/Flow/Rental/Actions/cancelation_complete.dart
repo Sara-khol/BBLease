@@ -20,14 +20,14 @@ class CancelationComplete extends StatelessWidget {
         children: [
           AppBarBibilease(),
           SizedBox(height: 40.h,),
-          Text('ההזמנה בוטלה',style: TextStyle(fontSize: 24.sp,fontWeight: FontWeight.w600),textAlign: TextAlign.center,),
+          Text('ההזמנה בוטלה',style: TextStyle(fontSize: 24.sp,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
           SizedBox(height: 33.h,),
           Text('מידע נוסף מחכה לך באזור האישי',
-            style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w400),textAlign: TextAlign.center,),
+            style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.normal),textAlign: TextAlign.center,),
           SizedBox(height: 60.h,),
           Image.asset('assets/images/image1.png',width: 300.w,),
           SizedBox(height: 70.h,),
-          Text('מקווים לראותך שוב בקרוב!',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.w600),textAlign: TextAlign.center,textDirection: TextDirection.rtl,),
+          Text('מקווים לראותך שוב בקרוב!',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.bold),textAlign: TextAlign.center,textDirection: TextDirection.rtl,),
           SizedBox(height: 138.h,),
           Container(
             height: 48.h,
@@ -52,7 +52,7 @@ class CancelationComplete extends StatelessWidget {
                           style: TextStyle(
                           fontSize: 20.sp,
                           color: Colors.white,
-                          fontWeight: FontWeight.w500)
+                          fontWeight: FontWeight.normal)
                       ),
                       SizedBox(width: 166.h,),
                       Icon(Icons.account_circle_outlined,color: Colors.white,)
@@ -84,7 +84,7 @@ class CancelationComplete extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 20.sp,
                               color: Colors.white,
-                              fontWeight: FontWeight.w500)
+                              fontWeight: FontWeight.normal)
                       ),
                       SizedBox(width: 136.h,),
                       Icon(Icons.logout,color: Colors.white),

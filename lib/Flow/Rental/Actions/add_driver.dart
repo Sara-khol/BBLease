@@ -32,14 +32,14 @@ class _AddDriverState extends State<AddDriver> {
               Text('הוספת נהג',
                 style: TextStyle(
                     fontSize: 22.sp,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(height: 38.h,),
               Text('הכנס ת.ז של הנהג שברצונך להוסיף',
                 style: TextStyle(
                   fontSize: 18.sp,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.normal,
                 ),
               ),
               SizedBox(height: 20.h,),
@@ -78,7 +78,7 @@ class _AddDriverState extends State<AddDriver> {
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20.sp,
-                            fontWeight: FontWeight.w500))),
+                            fontWeight: FontWeight.normal))),
               ),
               SizedBox(height: 30.h,)
 
@@ -111,13 +111,13 @@ class _AddDriverState extends State<AddDriver> {
                         'הוספת נהג',
                         style: TextStyle(
                             fontSize: 23.sp,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.bold,
                             color: pinkColorApp),
                       ),
                       SizedBox(height: 36.h),
                       Text(isNew?'נהג זה אינו מוכר במערכת\nעליך לסרוק את רישיון הנהיגה שלו: על שמו ובתוקף'
                           :'נהג זה מופיע כמשתמש מוכר במערכת\nניתן לצרפו בקלות ובמהירות בלחיצת כפתור',
-                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400,)
+                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal,)
                         ,textDirection: TextDirection.rtl,),
                       SizedBox(height: 20.h),
                       Container(
@@ -137,7 +137,7 @@ class _AddDriverState extends State<AddDriver> {
                                 style: TextStyle(
                                     fontSize: 20.sp,
                                     color: Colors.white,
-                                    fontWeight: FontWeight.w500))),
+                                    fontWeight: FontWeight.normal))),
                       ),
                       SizedBox(height: 22.h),
                     ]

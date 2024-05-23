@@ -61,7 +61,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                  weight: 50,
                ),
                SizedBox(height: 8.h,),
-               Text('פרופיל אישי', style: TextStyle(color: Color(0xFF0F1511), fontSize: 24.sp, fontWeight: FontWeight.w600,),),
+               Text('פרופיל אישי', style: TextStyle(color: Color(0xFF0F1511), fontSize: 24.sp, fontWeight: FontWeight.bold,),),
                SizedBox(height: 40.h,),
                SizedBox(
                  width: 300.w,
@@ -71,7 +71,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                      Row(
                        children:[
                          Icon(Icons.account_circle_outlined,color: pinkColorApp,size: 26.sp,),
-                         Text('  פרטים אישיים',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,)),
+                         Text('  פרטים אישיים',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
                          Spacer(),
                          IconButton(onPressed: () {
                            Navigator.push(
@@ -81,8 +81,8 @@ class _PersonalProfileState extends State<PersonalProfile> {
                            icon:  Image.asset('assets/icons/edit.png',color: pinkColorApp,width: 26.w), )
                  ]
                      ),
-                     Text('${User().firstName} ${User().lastName}',style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,)),
-                     Text(User().tz,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,)),
+                     Text('${User().firstName} ${User().lastName}',style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
+                     Text(User().tz,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
                    ],
                  ),
                ),
@@ -95,7 +95,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                      Row(
                          children:[
                            Image.asset('assets/icons/Phone.png',width: 26.w,),
-                           Text('  פרטי התקשרות',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,)),
+                           Text('  פרטי התקשרות',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
                            Spacer(),
                            IconButton(onPressed: () {
                               Navigator.push(
@@ -105,8 +105,8 @@ class _PersonalProfileState extends State<PersonalProfile> {
                             },icon:  Image.asset('assets/icons/edit.png',color: pinkColorApp,width: 26.w), )
                          ]
                      ),
-                     Text(User().phoneNumber,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,)),
-                     Text(User().email,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,)),
+                     Text(User().phoneNumber,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
+                     Text(User().email,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
                    ],
                  ),
                ),
@@ -119,7 +119,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                      Row(
                          children:[
                            Image.asset('assets/icons/driver_license.png',width: 26.w,),
-                           Text('  רשיון נהיגה',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,)),
+                           Text('  רשיון נהיגה',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
                            Spacer(),
                            IconButton(onPressed: () {Navigator.push(
                                context,
@@ -128,8 +128,8 @@ class _PersonalProfileState extends State<PersonalProfile> {
                            },icon:  Image.asset('assets/icons/edit.png',color: pinkColorApp,width: 26.w,), )
                          ]
                      ),
-                     Text(User().licenseId,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,),),
-                     Text(formattedDateString,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,)),
+                     Text(User().licenseId,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,),),
+                     Text(formattedDateString,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
                    ],
                  ),
                ),
@@ -142,7 +142,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                      Row(
                          children:[
                            Image.asset('assets/icons/f7_creditcard.png',width: 26.w,),
-                           Text('  אמצעי תשלום',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,),),
+                           Text('  אמצעי תשלום',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,),),
                            Spacer(),
                            IconButton(onPressed: () /*async*/{
                             /*await ApiService().getPaymentUrl(User().userId, (res) {
@@ -159,8 +159,8 @@ class _PersonalProfileState extends State<PersonalProfile> {
                          ]
                      ),
 
-                     Text('${User().tranzilaCardExpDate} **** **** ****',style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,)),
-                     Text('**/**', style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.w400,)),
+                     Text('${User().tranzilaCardExpDate} **** **** ****',style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
+                     Text('**/**', style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
                    ],
                  ),
                ),
@@ -179,7 +179,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                       children: [
                         Text('מחיקת חשבון',style: TextStyle(
                            fontSize: 18.sp,
-                           fontWeight: FontWeight.w500,
+                           fontWeight: FontWeight.normal,
                            height: 1,
                            color: Colors.white,), ),
                             Spacer(),
@@ -204,7 +204,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                        children: [
                          Text('מחיקת חשבון',style: TextStyle(
                              fontSize: 18.sp,
-                             fontWeight: FontWeight.w500,
+                             fontWeight: FontWeight.normal,
                              color: Colors.white,),
                            /*textAlign: TextAlign.start*/),
 
@@ -263,7 +263,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
               child: Column(children: [
                 SizedBox(height: 35.h),
 
-                Text("מחיקת חשבון",style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.w600,fontSize: 28.sp)),
+                Text("מחיקת חשבון",style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.bold,fontSize: 28.sp)),
                 // const Spacer(),
                 Visibility(
                   visible: didYes,
@@ -301,7 +301,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 18.sp,
-                                            fontWeight: FontWeight.w500),
+                                            fontWeight: FontWeight.normal),
                                       )),
                                 ),
                                 SizedBox(width: 13.h),
@@ -335,7 +335,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 18.sp,
-                                            fontWeight: FontWeight.w500),
+                                            fontWeight: FontWeight.normal),
                                       )),
                                 ),
 
@@ -413,7 +413,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                   SizedBox(height: 38.h),
                   Image.asset('assets/images/loading.png',width:24.w,color: Colors.white,),
                   SizedBox(height: 14.h),
-                  Text('רק דקה :) \nטוען מסך ראשי...',style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.w600,fontSize: 20.sp,),textDirection: ui.TextDirection.rtl,),
+                  Text('רק דקה :) \nטוען מסך ראשי...',style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.bold,fontSize: 20.sp,),textDirection: ui.TextDirection.rtl,),
                   // const Spacer(),
 
 

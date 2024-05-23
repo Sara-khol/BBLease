@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:io';
+//import 'dart:nativewrappers/_internal/vm/lib/core_patch.dart';
 import 'dart:typed_data';
 import 'package:bblease/Flow/registration/verification.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
@@ -22,6 +24,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
   late List<CameraDescription> cameras;
   late CameraDescription selfiCamera;
 
+
   final _orientations = {
     DeviceOrientation.portraitUp: 0,
     DeviceOrientation.landscapeLeft: 90,
@@ -33,7 +36,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
   void initState() {
     super.initState();
     _isDetecting = false;
-    _initializeCamera();
+    //_initializeCamera();
     //_initializeFaceDetector();
   }
 
@@ -89,25 +92,28 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
     );
   }
 
-  Future<void> _initializeCamera() async {
+  Future<bool> _initializeCamera() async {
     print('_initializeCamera');
     _initializeFaceDetector();
-
+    print('_initializeCamera');
     cameras = await availableCameras();
      //selfiCamera= cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.front);
-    selfiCamera = cameras[0];
+    //selfiCamera = cameras[0];
+    print(cameras.length);
     _cameraController = CameraController(
-      selfiCamera,
-      ResolutionPreset.max,
+      cameras.first,
+      ResolutionPreset.high,
       enableAudio: false,
       /*ResolutionPreset.medium,*/
       imageFormatGroup: Platform.isAndroid
-          ? ImageFormatGroup.nv21 // for Android
+          ? ImageFormatGroup.yuv420 // for Android
           : ImageFormatGroup.bgra8888,
     );
 
-    await _cameraController.initialize();
-     _cameraController.initialize().then((_) async {
+   await _cameraController.initialize();
+    await _cameraController.initialize().then((_) async {
+
+      print('camera controller has been initialized');
        if (!mounted) {
          return;
        }
@@ -122,7 +128,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
          await Sentry.captureMessage('???? ');
        }
      });
-
+return true;
 
   }
 
@@ -244,17 +250,24 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
 
   @override
   Widget build(BuildContext context) {
-    if (_cameraController == null) {
-      return Container();
-    }
-    return Column(
-      children: [
-        Expanded(child: CameraPreview(_cameraController)),
-        ElevatedButton.icon(
-            icon: Icon(Icons.camera),
-            onPressed: _capturePicture,
-            label: Text('צלם'))
-      ],
+    return FutureBuilder(
+      future: _initializeCamera(),
+      builder: (context,snapshot) {
+        print('snapshot: $snapshot');
+        if(snapshot.hasData) {
+          return Column(
+          children: [
+            //Expanded(child: CameraPreview(_cameraController)),
+            ElevatedButton.icon(
+                icon: Icon(Icons.camera),
+                onPressed: _capturePicture,
+                label: Text('צלם'))
+          ],
+        );
+        }
+        else
+          return Container();
+      }
     );
     /*SizedBox(
       height: 500,

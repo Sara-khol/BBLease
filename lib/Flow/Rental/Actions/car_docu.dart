@@ -46,16 +46,16 @@ class _CarDocuState extends State<CarDocu> {
                   Align(alignment: Alignment.centerRight,
                       child: IconButton(onPressed: () =>Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
                   SizedBox(height: 62.h,),
-                  Text('תיעוד רכב',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
+                  Text('תיעוד רכב',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                   SizedBox(height: 36.h,),
-                  Text('\nמומלץ תמיד לתעד את הרכב\nבתחילת הנסיעה!!\n', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w400,),),
-                  Text('אם ישנם נזקים , נדע לא לחייב אתכם עליהם', style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w400,),),
-                  Text(' \n\nנסיעה בטוחה :)', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600,),),
+                  Text('\nמומלץ תמיד לתעד את הרכב\nבתחילת הנסיעה!!\n', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),),
+                  Text('אם ישנם נזקים , נדע לא לחייב אתכם עליהם', style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.normal,),),
+                  Text(' \n\nנסיעה בטוחה :)', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold,),),
                   SizedBox(height: 57.h,),
                   ImageIcon(AssetImage("assets/icons/heart.png"),size: 26.w,color: turquoiseColorApp,),
                   SizedBox(height: 8.h,),
                   Text('צלמו תמונה חדה וברורה!',
-                    style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w400),textAlign: TextAlign.center,),
+                    style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.normal),textAlign: TextAlign.center,),
                   SizedBox(height: 25.h,),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal:70.w),
@@ -92,7 +92,7 @@ class _CarDocuState extends State<CarDocu> {
                                                 ? Icon(Icons.camera_alt_outlined,size: 24.sp,)
                                                 :ImageIcon(AssetImage("assets/icons/done.png"),size: 24.w,color: turquoiseColorApp,),
                                             SizedBox(height: 10.h,),
-                                            Text('צד קדמי', style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.w500,height: 1),textAlign: TextAlign.center,)
+                                            Text('צד קדמי', style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.normal,height: 1),textAlign: TextAlign.center,)
                                           ],
                                         ),
                                       ),
@@ -129,7 +129,7 @@ class _CarDocuState extends State<CarDocu> {
                                                 ? Icon(Icons.camera_alt_outlined,size: 24.sp,)
                                                 :ImageIcon(AssetImage("assets/icons/done.png"),size: 24.w,color: turquoiseColorApp,),
                                             SizedBox(height: 10.h,),
-                                            Text('צד ימין', style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.w500,height: 1),textAlign: TextAlign.center,)
+                                            Text('צד ימין', style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.normal,height: 1),textAlign: TextAlign.center,)
                                           ],
                                         ),
                                       ),
@@ -170,7 +170,7 @@ class _CarDocuState extends State<CarDocu> {
                                                 ? Icon(Icons.camera_alt_outlined,size: 24.sp,)
                                                 :ImageIcon(AssetImage("assets/icons/done.png"),size: 24.w,color: turquoiseColorApp,),
                                             SizedBox(height: 10.h,),
-                                            Text('צד אחורי', style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.w500,height: 1),textAlign: TextAlign.center,)
+                                            Text('צד אחורי', style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.normal,height: 1),textAlign: TextAlign.center,)
                                           ],
                                         ),
                                       ),
@@ -207,7 +207,7 @@ class _CarDocuState extends State<CarDocu> {
                                                 ? Icon(Icons.camera_alt_outlined,size: 24.sp,)
                                                 :ImageIcon(AssetImage("assets/icons/done.png"),size: 24.w,color: turquoiseColorApp,),
                                             SizedBox(height: 10.h,),
-                                            Text('צד שמאל', style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.w500,height: 1),textAlign: TextAlign.center,)
+                                            Text('צד שמאל', style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.normal,height: 1),textAlign: TextAlign.center,)
                                           ],
                                         ),
                                       ),
@@ -250,7 +250,7 @@ class _CarDocuState extends State<CarDocu> {
                           }
                           if(!allLoaded) missingImage();
                         },
-                        child:  Text('שלח תמונות',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,color:Colors.white),)),
+                        child:  Text('שלח תמונות',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.normal,color:Colors.white),)),
                   ),
 
 
@@ -310,12 +310,12 @@ class _CarDocuState extends State<CarDocu> {
                             'חסרות תמונות',
                             style: TextStyle(
                                 fontSize: 23.sp,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.bold,
                                 color: pinkColorApp),
                           ),
                           SizedBox(height: 40.h),
                           Text('כדי לבצע שליחה עליך לצלם\nתמונות ל-4 הכיוונים ',
-                            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w400,),
+                            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),
                             textDirection: TextDirection.rtl,
                           textAlign: TextAlign.center,),
                           SizedBox(height: 27.h),
@@ -334,7 +334,7 @@ class _CarDocuState extends State<CarDocu> {
                                     style: TextStyle(
                                         fontSize: 20.sp,
                                         color: Colors.white,
-                                        fontWeight: FontWeight.w500))),
+                                        fontWeight: FontWeight.normal))),
                           ),
                           SizedBox(height: 22.h),
                         ]
@@ -381,12 +381,12 @@ class _CarDocuState extends State<CarDocu> {
                             'עריכת תמונה',
                             style: TextStyle(
                                 fontSize: 23.sp,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.bold,
                                 color: pinkColorApp),
                           ),
                           SizedBox(height: 40.h),
                           Text('מה ברצונך לעשות עם תמונה "$side”',
-                            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w400,),
+                            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),
                             textDirection: TextDirection.rtl,
                             textAlign: TextAlign.center,),
                           SizedBox(height: 27.h),
@@ -408,7 +408,7 @@ class _CarDocuState extends State<CarDocu> {
                                         style: TextStyle(
                                             fontSize: 20.sp,
                                             color: Colors.white,
-                                            fontWeight: FontWeight.w500))),
+                                            fontWeight: FontWeight.normal))),
                               ),
                               SizedBox(width: 13.w,),
                               Container(
@@ -433,7 +433,7 @@ class _CarDocuState extends State<CarDocu> {
                                         style: TextStyle(
                                             fontSize: 20.sp,
                                             color: Colors.white,
-                                            fontWeight: FontWeight.w500))),
+                                            fontWeight: FontWeight.normal))),
                               ),
                             ],
                           ),
@@ -498,7 +498,7 @@ class _CarDocuState extends State<CarDocu> {
                                       color: Color(0xFF0F1511),
                                       fontSize: 20.sp,
                                       decoration: TextDecoration.none,
-                                      fontWeight: FontWeight.w600,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   TextSpan(
@@ -507,7 +507,7 @@ class _CarDocuState extends State<CarDocu> {
                                       color: Color(0xFF0F1511),
                                       fontSize: 20.sp,
                                       decoration: TextDecoration.none,
-                                      fontWeight: FontWeight.w400,
+                                      fontWeight: FontWeight.normal,
                                     ),
                                   ),
                                 ],
@@ -516,13 +516,13 @@ class _CarDocuState extends State<CarDocu> {
                             ),
                             /*Text('התמונה נמחקה בהצלחה',
                               style: TextStyle(fontSize: 20.sp,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.bold,
                                   color: blackColorApp,
                                 decoration: TextDecoration.none
                               ),
                               textAlign: TextAlign.center,),
                             Text(' נסו לצלם תמונה חדשה:)  ',
-                              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400,
+                              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal,
                                   color: blackColorApp,
                                 decoration: TextDecoration.none
                               ),

@@ -22,10 +22,10 @@ class _StartRegistrationState extends State<StartRegistration> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 120.h),
-            Text("תהליך הרשמה",style: TextStyle(color:Colors.black,fontWeight: FontWeight.w600,fontSize: 23.sp,),),
+            Text("תהליך הרשמה",style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold,fontSize: 23.sp,),),
             SizedBox(height: 32.h),
             Text("לתהליך הרישום, עליך להכין\nרשיון וכרטיס אשראי\nעל שמך בלבד!",
-                style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20.sp,)
+                style: TextStyle(fontWeight: FontWeight.normal,fontSize: 20.sp,)
                 ,textDirection: TextDirection.rtl,textAlign: TextAlign.center),
             SizedBox(height: 28.h),
             Image.asset('assets/images/image1.png',width: 300.w, fit: BoxFit.cover,),
@@ -45,7 +45,7 @@ class _StartRegistrationState extends State<StartRegistration> {
                         context,
                         MaterialPageRoute(builder: (context) => const LicenseFront(index: 1,)));
                   },
-                  child:  Text('אני מוכן!',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500,
+                  child:  Text('אני מוכן!',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.normal,
                   color: Colors.white),textDirection: TextDirection.rtl)),
             ),
             SizedBox(height: 40.h,)

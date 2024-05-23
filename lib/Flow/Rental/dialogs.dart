@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/Rental/search_car.dart';
 import 'package:bblease/utils/my_colors.dart';
@@ -30,7 +30,8 @@ Future departurePoint(context, address, nav,{double longitude1=0,double latitude
 
 
   late GooglePlace googlePlace =
-      GooglePlace('AIzaSyBfvApaTLzPlCzL3LakX6DBbj2l7NMBRV4');
+      GooglePlace('AIzaSyDrD1omOKsD-QCghL7Oaq1LmU6mgxvqaLs');
+
   bool done = false;
 
   List<AutocompletePrediction> predictions = [];
@@ -93,7 +94,7 @@ Future departurePoint(context, address, nav,{double longitude1=0,double latitude
                             'מאיפה תרצה לצאת?',
                             style: TextStyle(
                                 fontSize: 26.sp,
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeight.bold,
                                 color: Colors.black),
                           ),
                           SizedBox(
@@ -117,7 +118,7 @@ Future departurePoint(context, address, nav,{double longitude1=0,double latitude
                             labelText: "",
                             labelStyle: TextStyle(
                               fontSize: 22.sp,
-                              fontWeight: FontWeight.w400,
+                              fontWeight: FontWeight.normal,
                               color: const Color.fromRGBO(15, 17, 21, 1),
                               fontFamily: 'PLONI',
                             ),
@@ -230,12 +231,12 @@ Future departurePoint(context, address, nav,{double longitude1=0,double latitude
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 22.sp,
-                                          fontWeight: FontWeight.w500),
+                                          fontWeight: FontWeight.normal),
                                     ),
                                     onPressed: () {
                                       debugPrint("location $location longitude $longitude latitude $latitude");
                                       print('address: $address');
-                                      if(controller.text.isNotEmpty && location.isNotEmpty) {
+                                      if(kIsWeb||controller.text.isNotEmpty && location.isNotEmpty) {
                                         //Navigator.pop(context);
                                         nav == 0
                                             ? rentalTerm(context)
@@ -323,8 +324,14 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                   ? calculatedEndDate = startDate!.add(Duration(hours: 6))
                   : calculatedEndDate = startDate!.add(Duration(days: diff!.toInt()));
                 //calculatedEndDate = calculatedEndDate.add(Duration(days: 1));
+              if(kIsWeb){
+                endd.text = intl.DateFormat('yyyy.MM.dd').format(calculatedEndDate);
+                endh.text = intl.DateFormat('mm:HH').format(calculatedEndDate);
+              }
+              else{
                 endd.text = intl.DateFormat('dd.MM.yyyy').format(calculatedEndDate);
                 endh.text = intl.DateFormat('HH:mm').format(calculatedEndDate);
+              }
                 endDate = calculatedEndDate;
                 print('startDate $startDate');
                 print('endDate $endDate');
@@ -403,7 +410,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                               'בחר טווח השכרה',
                               style: TextStyle(
                                   fontSize: 26.sp,
-                                  fontWeight: FontWeight.w700,
+                                  fontWeight: FontWeight.bold,
                                   color: Colors.black),
                             ),
                             SizedBox(
@@ -433,7 +440,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                             Text('ממתי ?',
                                 style: TextStyle(
                                     fontSize: 18.sp,
-                                    fontWeight: FontWeight.w700,
+                                    fontWeight: FontWeight.bold,
                                     color: Colors.black)),
                           ],
                         ),
@@ -463,7 +470,10 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                     firstDate: DateTime.now(),
                                     lastDate: DateTime.now().add(const Duration(days: 14)));
                                 if (date != null) {
-                                  startd.text = intl.DateFormat('dd.MM.yyyy').format(date);
+                                  if(kIsWeb){
+                                    startd.text = intl.DateFormat('yyyy.MM.dd').format(date);
+                                  }
+                                  else startd.text = intl.DateFormat('dd.MM.yyyy').format(date);
                                   print('start: ${startd.text}');
                                   startDate = date;
                                   //setEndDateBasedOnSelection();
@@ -482,9 +492,10 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                 }
                               },
                               onTap: () async {
-                                final TimeOfDay? starttime = await showTimePicker(
+                                final now = DateTime.now();
+                                 TimeOfDay? starttime = await showTimePicker(
                                   context: context,
-                                  initialTime: /*startDate!=null?TimeOfDay(hour: startDate!.hour, minute: startDate!.minute):*/TimeOfDay(hour: 00, minute: 00),
+                                  initialTime: startDate==now?TimeOfDay.now():TimeOfDay(hour: 00, minute: 00),
                                   initialEntryMode: TimePickerEntryMode.dial,
                                   builder: (BuildContext context, Widget? child) => MediaQuery(
                                     data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
@@ -497,16 +508,25 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                 );
                                 print('starttime $starttime');
                                 print('startDate $startDate');
-
+                                if (starttime != null) {
+                                  final pickedDateTime = DateTime(now.year, now.month, now.day, starttime.hour, starttime.minute);
+                                  if (pickedDateTime.isBefore(now)) {
+                                    displayMessage(context,message: 'שעת תחילת ההשכרה חלפה כבר\nאנא שנה את בחירתך');
+                                    setState(()=>starttime=null);
+                                  }
+                                }
                                 if (startDate != null &&starttime != null) {
                                   //final hour = starttime.hour.toString().padLeft(2,'0');
                                   //final minute = starttime.minute.toString().padLeft(2,'0');
                                  //startDate!.add(Duration(hours: starttime.hour, minutes: starttime.minute));
                                   //if (startDate != null) {
-                                  startDate = DateTime(startDate!.year, startDate!.month, startDate!.day, starttime.hour, starttime.minute);
+                                  startDate = DateTime(startDate!.year, startDate!.month, startDate!.day, starttime!.hour, starttime!.minute);
                                   //}
-                                  starth.text = '${startDate!.hour.toString().padLeft(2,'0')}:${startDate!.minute.toString().padLeft(2,'0')}';
+                                  kIsWeb
+                                      ? starth.text = '${startDate!.minute.toString().padLeft(2,'0')}:${startDate!.hour.toString().padLeft(2,'0')}'
+                                      : starth.text = '${startDate!.hour.toString().padLeft(2,'0')}:${startDate!.minute.toString().padLeft(2,'0')}';
                                   print('start: $startDate');
+                                  print('start: ${starth.text}');
                                   setEndDateBasedOnSelection();
                                 }
                               },
@@ -520,7 +540,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                             Text('עד -',
                                 style: TextStyle(
                                     fontSize: 18.sp,
-                                    fontWeight: FontWeight.w700,
+                                    fontWeight: FontWeight.bold,
                                     color: Colors.black)),
                           ],
                         ),
@@ -589,8 +609,12 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                   final duration=findDuration(diff);
                                   checkPickedRange(context,startDate!,endDate!,duration);
                                   }
-                                  endh.text = '${endDate!.hour.toString().padLeft(2,'0')}:${endDate!.minute.toString().padLeft(2,'0')}';
+                                  kIsWeb
+                                      ?  endh.text = '${endDate!.minute.toString().padLeft(2,'0')}:${endDate!.hour.toString().padLeft(2,'0')}'
+                                      :  endh.text = '${endDate!.hour.toString().padLeft(2,'0')}:${endDate!.minute.toString().padLeft(2,'0')}';
+                                  //endh.text = '${endDate!.hour.toString().padLeft(2,'0')}:${endDate!.minute.toString().padLeft(2,'0')}';
                                   print('end: $endDate');
+                                  print('end: ${endh.text}');
                                   //setEndDateBasedOnSelection();
                                 }
                               },
@@ -644,7 +668,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                 'המשך',
                                 style: TextStyle(
                                     fontSize: 22,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.normal,
                                     color: Colors.white),
                               )),
                         ),

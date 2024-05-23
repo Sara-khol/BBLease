@@ -1,4 +1,6 @@
 
+import 'dart:typed_data';
+
 import 'package:camera/camera.dart';
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -57,12 +59,14 @@ class User{
   @JsonKey(name: 'tranzila_card_exp_date')
   late String tranzilaCardExpDate = '';
 
+ @JsonKey(name: 'signature',includeFromJson: false,includeToJson: false)
+ late Uint8List signature ;
+
   @JsonKey(includeFromJson: false,includeToJson: false,)
    Rental? currentRent;
 
  @JsonKey(includeFromJson: false,includeToJson: false,)
  AdditionalDriver additionalDriver=AdditionalDriver();
-
 
   // void setBirthDate(String dateString) {
   //   try {
@@ -125,6 +129,11 @@ class User{
 
   /// Connect the generated [_$PersonToJson] function to the `toJson` method.
   Map<String, dynamic> toJson() => _$UserToJson(this);
+
+  @override
+  String toString(){
+    return 'name:$firstName,family_name:$lastName,doc_name:$name,phone_number:$phoneNumber,email:$email,birth_date:$birthDate,id_number: $tz,license_number: $licenseId,license_exp:$licenseExpDate,license_date:$licenseIssDate,license_level:$licenseDegree,is_new_driver: $isNewDriver,is_approve_get_ads:$getNotification';
+  }
 
   void clear() {
     userId = -1;

@@ -156,10 +156,14 @@ class ApiService {
   }
 
   Future registerCustomerDetails(Function(dynamic res) onSuccess) async {
+    FormData formData = FormData.fromMap({
+      "file": MultipartFile.fromBytes(User().signature, filename: 'signature.jpg'), // Adjust filename and content type
+      "text": User().toString(),
+    });
     print('${_baseUrl}wp/v2/registration_customer_detailes');
-    print('data: ${User().toJson()}');
+    print('data: ${User().toString()}');
     Response response = await _dio.post('${_baseUrl}wp/v2/registration_customer_detailes',
-        data: User().toJson());
+        data: formData);
    // debugPrint('response $response');
     debugPrint('data: ${response.data}');
     if(response.statusCode==200) {

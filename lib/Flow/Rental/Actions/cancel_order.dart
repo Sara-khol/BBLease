@@ -31,7 +31,7 @@ class _CancelOrderState extends State<CancelOrder> {
         children: [
           AppBarBibilease(),
           SizedBox(height: 40.h,),
-          Text('ביטול הזמנה',style: TextStyle(fontSize: 24.sp,fontWeight: FontWeight.w600),textAlign: TextAlign.center,),
+          Text('ביטול הזמנה',style: TextStyle(fontSize: 24.sp,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
           SizedBox(height: 33.h,),
 
           Padding(
@@ -39,7 +39,7 @@ class _CancelOrderState extends State<CancelOrder> {
             child: Text(difference<=15
                 ?'לא יגבה ממך תשלום עבור שירות זה'
                 :'ביטול הזמנה בשלב זה יגבה ממך תשלום בשווי ההזמנה מפני שעברו יותר מ-15 דקות',
-              style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w400),textAlign: TextAlign.center,),
+              style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.normal),textAlign: TextAlign.center,),
           ),
           SizedBox(height: 33.h,),
           Spacer(),
@@ -54,13 +54,13 @@ class _CancelOrderState extends State<CancelOrder> {
                   ),
                 ),
                 onPressed: () {
-                  signCancelOrderDialog(context);
+                  signCancelOrderDialog(context,'טופס ביטול הזמנה','אישור וחתימה לביטול הזמנה');
                 },
                 child: Text('לחתימה',
                     style: TextStyle(
                         fontSize: 20.sp,
                         color: Colors.white,
-                        fontWeight: FontWeight.w500)
+                        fontWeight: FontWeight.normal)
                 )
             ),
           ),
@@ -70,5 +70,3 @@ class _CancelOrderState extends State<CancelOrder> {
     );
   }
 }
-
-

@@ -52,9 +52,9 @@ class _VerificationState extends State<Verification> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               //SizedBox(height: 120.h,),
-              Text('התצלום עלה בהצלחה',style: TextStyle(fontSize: 32.sp,fontWeight: FontWeight.w600),textDirection: TextDirection.rtl,textAlign: TextAlign.center,),
+              Text('התצלום עלה בהצלחה',style: TextStyle(fontSize: 32.sp,fontWeight: FontWeight.bold),textDirection: TextDirection.rtl,textAlign: TextAlign.center,),
               SizedBox(height: 50.h,),
-              Text('המערכת בסריקה',style: TextStyle(fontSize: 28.sp,fontWeight: FontWeight.w600),),
+              Text('המערכת בסריקה',style: TextStyle(fontSize: 28.sp,fontWeight: FontWeight.bold),),
               SizedBox(height: 30.h,),
               Text('תהליך זה עלול להימשך כמה דקות אנא התאזר בסבלנות תודה',style: TextStyle(fontSize: 22.sp),textDirection: TextDirection.rtl,textAlign: TextAlign.center,),
               SizedBox(height: 30.h,),

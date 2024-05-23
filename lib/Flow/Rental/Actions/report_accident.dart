@@ -41,10 +41,10 @@ class _ReportAccidentState extends State<ReportAccident> {
                   alignment: Alignment.centerRight,
                     child: IconButton(onPressed: () =>Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
                 SizedBox(height: 62.h,),
-                Text('דווח על תקלה',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
+                Text('דווח על תקלה',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                 SizedBox(height: 36.h,),
                 Text('נתקלת בבעיה בהפעלת הרכב?\nבעיה באפליקציה?\nלכל שאלה אנחנו כאן :)',
-                  style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w400),textAlign: TextAlign.center,),
+                  style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.normal),textAlign: TextAlign.center,),
                 SizedBox(height: 39.h,),
                 TextFormField(
                   keyboardType: TextInputType.name,
@@ -115,7 +115,7 @@ class _ReportAccidentState extends State<ReportAccident> {
                         image==null?'צרף תמונה':image!.name,
                         style: TextStyle(
                         fontSize: 20.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.normal,
                         color: Colors.white),
                       )
                   ),
@@ -162,7 +162,7 @@ class _ReportAccidentState extends State<ReportAccident> {
                         'צרו איתי קשר',
                         style: TextStyle(
                             fontSize: 20.sp,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.normal,
                             color: Colors.white),
                       )
                   ),
@@ -251,7 +251,7 @@ class _ReportAccidentState extends State<ReportAccident> {
                             'צירוף תמונה',
                             style: TextStyle(
                                 fontSize: 23.sp,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.bold,
                                 color: pinkColorApp),
                           ),
                           SizedBox(height: 80.h),
@@ -272,7 +272,7 @@ class _ReportAccidentState extends State<ReportAccident> {
                                         style: TextStyle(
                                             fontSize: 20.sp,
                                             color: Colors.white,
-                                            fontWeight: FontWeight.w500))),
+                                            fontWeight: FontWeight.normal))),
                               ),
                               SizedBox(width: 13.w),
 
@@ -292,7 +292,7 @@ class _ReportAccidentState extends State<ReportAccident> {
                                         style: TextStyle(
                                             fontSize: 18.sp,
                                             color: Colors.white,
-                                            fontWeight: FontWeight.w500)
+                                            fontWeight: FontWeight.normal)
                                     )),
                               ),
                             ],

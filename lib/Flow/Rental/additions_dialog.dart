@@ -69,11 +69,11 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                         'הי,שים לב!',
                         style: TextStyle(
                             fontSize: 22.sp,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.bold,
                             color: Colors.black),
                       ),
                       SizedBox(height: 51.h),
-                      Text('בחרת בהוספת נהג נוסף,\nתרצה למלא את הפרטים?',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500,),),
+                      Text('בחרת בהוספת נהג נוסף,\nתרצה למלא את הפרטים?',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal,),),
                       SizedBox(height: 26.h),
                       Row(
                         children: [
@@ -92,7 +92,7 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                                     style: TextStyle(
                                         fontSize: 20.sp,
                                         color: Colors.white,
-                                        fontWeight: FontWeight.w500))),
+                                        fontWeight: FontWeight.normal))),
                           ),
                           SizedBox(width: 13.h),
                           Container(
@@ -112,7 +112,7 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                                     style: TextStyle(
                                         fontSize: 20.sp,
                                         color: Colors.white,
-                                        fontWeight: FontWeight.w500))),
+                                        fontWeight: FontWeight.normal))),
                           ),
                         ],
                       ),
@@ -159,7 +159,7 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                       children: [
                         Text('התאם תנאי השכרה', style: TextStyle(
                             fontSize: 26.sp,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.bold,
                             color: Colors.black),),
                         SizedBox(width: 9.w,),
                         Icon(
@@ -201,7 +201,7 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                           },
                           child:  Text('סיום', style: TextStyle(
                               fontSize: 22.sp,
-                              fontWeight: FontWeight.w500,color: Colors.white),)),
+                              fontWeight: FontWeight.normal,color: Colors.white),)),
                     ),
                   ],
                 ),

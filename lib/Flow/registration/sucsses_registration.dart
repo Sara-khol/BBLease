@@ -31,19 +31,19 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
                     style: TextStyle(
                         fontSize: 28.sp,
                         height: 1,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.bold,
                         color: blackColorApp)),
                 Text("הרשמתך בוצעה בהצלחה",
                     style: TextStyle(
                         fontSize: 28.sp,
                         height: 1,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.bold,
                         color: blackColorApp)),
                 Text("כעת ניתן להזמין רכב על שמך!",
                     style: TextStyle(
                         fontSize: 24.sp,
                         height: 1,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.bold,
                         color: blackColorApp)),
                 Expanded(
                   child: Column(
@@ -69,7 +69,7 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
                                 style: TextStyle(
                                     fontSize: 22.sp,
                                     color: Colors.white,
-                                    fontWeight: FontWeight.w500))),
+                                    fontWeight: FontWeight.normal))),
                       ),
                       SizedBox(height: 12.h),
                       Container(
@@ -101,7 +101,7 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
                                     style: TextStyle(
                                         fontSize: 22.sp,
                                         color: Colors.white,
-                                        fontWeight: FontWeight.w500)),
+                                        fontWeight: FontWeight.normal)),
                               ],
                             )
                         ),

@@ -7,7 +7,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import '../../models/class_rent.dart';
 import 'package:intl/intl.dart' as intl;
 //import 'dart:html';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+// import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 //import 'dart:io' if (dart.library.html) 'dart:html' as html;
 
 class OrderDetails extends StatefulWidget {

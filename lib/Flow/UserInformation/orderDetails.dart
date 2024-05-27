@@ -52,8 +52,8 @@ class _OrderDetailsState extends State<OrderDetails> {
     if(kIsWeb){
       /*final anchor = AnchorElement(href: url)
         ..setAttribute("download", fileName)
-        ..click();*/
-    }
+        ..click();
+    }*/
   }
 
   @override
@@ -748,3 +748,4 @@ class _OrderDetailsState extends State<OrderDetails> {
     );
   }
 }
+

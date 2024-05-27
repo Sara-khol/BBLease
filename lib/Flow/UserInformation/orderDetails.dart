@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:universal_html/html.dart' as html;
 import '../../models/class_rent.dart';
 import 'package:intl/intl.dart' as intl;
 //import 'dart:html';
@@ -50,10 +51,10 @@ class _OrderDetailsState extends State<OrderDetails> {
     String url=widget.rent.url!;
     String fileName='bibilease.pdf';
     if(kIsWeb){
-      /*final anchor = AnchorElement(href: url)
+      final anchor =html.AnchorElement(href: url)
         ..setAttribute("download", fileName)
         ..click();
-    }*/
+    }
   }
 
   @override

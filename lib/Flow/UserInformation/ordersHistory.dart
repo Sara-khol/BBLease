@@ -476,155 +476,159 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                         removeTop: true,
                         context: context,
                         child: selected == 1
-                            ? ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: ordersHistory.length,
-                                //padding: EdgeInsets.only(bottom: 8.h),
-                                itemBuilder: (context, index) {
-                                  Rental rent = ordersHistory[index];
-                                  if ((s == null || e == null) ||
-                                      (rent.startDate.isBefore(e!) ||
-                                          rent.startDate.compareTo(e!) == 0 ||
-                                          rent.endDate.isAfter(s!))) {
-                                    return Column(
-                                      children: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      OrderDetails(
-                                                    rent: rent,
-                                                  ),
-                                                ));
-                                          },
-                                          child: Container(
-                                            width: 332.w,
-                                            height: 50.h,
-                                            margin: EdgeInsets.only(
-                                                //bottom: 22.h,
-                                                left: 20.w,
-                                                right: 20.w),
-                                            decoration: BoxDecoration(
-                                                color: Color(0xFFF7F7F7),
-                                                borderRadius:
-                                                    BorderRadius.circular(8)),
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 22.w),
-                                              child: Row(
-                                                children: [
-                                                  Text(
-                                                    intl.DateFormat('dd.MM.yyyy')
-                                                        .format(rent.startDate),
-                                                    style: TextStyle(
-                                                        fontSize: 18.sp,
-                                                        fontWeight: FontWeight.w300,
-                                                      color: Colors.black
+                            ? Expanded(
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: ordersHistory.length,
+                                  //padding: EdgeInsets.only(bottom: 8.h),
+                                  itemBuilder: (context, index) {
+                                    Rental rent = ordersHistory[index];
+                                    if ((s == null || e == null) ||
+                                        (rent.startDate.isBefore(e!) ||
+                                            rent.startDate.compareTo(e!) == 0 ||
+                                            rent.endDate.isAfter(s!))) {
+                                      return Column(
+                                        children: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        OrderDetails(
+                                                      rent: rent,
                                                     ),
-                                                  ),
-                                                  Spacer(),
-                                                  IconButton(
-                                                    onPressed: () {
-                                                      print(rent.url);
+                                                  ));
+                                            },
+                                            child: Container(
+                                              width: 332.w,
+                                              height: 50.h,
+                                              margin: EdgeInsets.only(
+                                                  //bottom: 22.h,
+                                                  left: 20.w,
+                                                  right: 20.w),
+                                              decoration: BoxDecoration(
+                                                  color: Color(0xFFF7F7F7),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8)),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 22.w),
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                      intl.DateFormat('dd.MM.yyyy')
+                                                          .format(rent.startDate),
+                                                      style: TextStyle(
+                                                          fontSize: 18.sp,
+                                                          fontWeight: FontWeight.w300,
+                                                        color: Colors.black
+                                                      ),
+                                                    ),
+                                                    Spacer(),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        print(rent.url);
 
-                                                      FileDownloader.downloadFile(
-                                                        url: rent.url!,
-                                                        onDownloadCompleted: (path) =>
-                                                            setState(() {
-                                                              print('download complete');
-                                                              downloadIcon = Icon(
-                                                                Icons.check_circle_outline,
-                                                                color: pinkColorApp,
-                                                              );
-                                                            }),
-                                                      );
-                                                    },
-                                                    icon: downloadIcon),
+                                                        FileDownloader.downloadFile(
+                                                          url: rent.url!,
+                                                          onDownloadCompleted: (path) =>
+                                                              setState(() {
+                                                                print('download complete');
+                                                                downloadIcon = Icon(
+                                                                  Icons.check_circle_outline,
+                                                                  color: pinkColorApp,
+                                                                );
+                                                              }),
+                                                        );
+                                                      },
+                                                      icon: downloadIcon),
 
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(height: 8.h,)
-                                      ],
-                                    );
-                                  }
-                                },
-                              )
-                            : ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: futureOrders.length,
-                                itemBuilder: (context, index) {
-                                  Rental rent = futureOrders[index];
-                                  if ((s == null || e == null) ||
-                                      (rent.startDate.isBefore(e!) ||
-                                          rent.startDate.compareTo(e!) == 0 ||
-                                          rent.endDate.isAfter(s!) == 0)) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        /* Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => OrderDetails(
-                                              rent: rent,
-                                            ),
-                                          ));*/
-                                      },
-                                      child: Container(
-                                        width: 332.w,
-                                        height: 50.h,
-                                        margin: EdgeInsets.only(
-                                            bottom: 22.h,
-                                            left: 30.w,
-                                            right: 30.w),
-                                        decoration: BoxDecoration(
-                                            color: Color(0xFFD9FFFD),
-                                            borderRadius:
-                                                BorderRadius.circular(8)),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 22.w),
-                                          child: Row(
-                                            children: [
-                                              Icon(Icons.access_time),
-                                              Text(
-                                                'תחל בתאריך: ',
-                                                style: TextStyle(
-                                                    fontSize: 18.sp,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              Text(
-                                                intl.DateFormat('dd.MM.yyyy')
-                                                    .format(rent.startDate),
-                                                style: TextStyle(
-                                                    fontSize: 18.sp,
-                                                    fontWeight:
-                                                        FontWeight.w300),
-                                              ),
-                                              Spacer(),
-                                              IconButton(
-                                                onPressed: () =>
-                                                    cancelOrderDialog(
-                                                        context, rent),
-                                                icon: ImageIcon(
-                                                  AssetImage(
-                                                      "assets/icons/trash.png"),
-                                                  size: 22.w,
-                                                  color: blackColorApp,
+                                                  ],
                                                 ),
                                               ),
-                                            ],
+                                            ),
+                                          ),
+                                          SizedBox(height: 8.h,)
+                                        ],
+                                      );
+                                    }
+                                  },
+                                ),
+                            )
+                            : Expanded(
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: futureOrders.length,
+                                  itemBuilder: (context, index) {
+                                    Rental rent = futureOrders[index];
+                                    if ((s == null || e == null) ||
+                                        (rent.startDate.isBefore(e!) ||
+                                            rent.startDate.compareTo(e!) == 0 ||
+                                            rent.endDate.isAfter(s!) == 0)) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          /* Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => OrderDetails(
+                                                rent: rent,
+                                              ),
+                                            ));*/
+                                        },
+                                        child: Container(
+                                          width: 332.w,
+                                          height: 50.h,
+                                          margin: EdgeInsets.only(
+                                              bottom: 22.h,
+                                              left: 30.w,
+                                              right: 30.w),
+                                          decoration: BoxDecoration(
+                                              color: Color(0xFFD9FFFD),
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 22.w),
+                                            child: Row(
+                                              children: [
+                                                Icon(Icons.access_time),
+                                                Text(
+                                                  'תחל בתאריך: ',
+                                                  style: TextStyle(
+                                                      fontSize: 18.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                Text(
+                                                  intl.DateFormat('dd.MM.yyyy')
+                                                      .format(rent.startDate),
+                                                  style: TextStyle(
+                                                      fontSize: 18.sp,
+                                                      fontWeight:
+                                                          FontWeight.w300),
+                                                ),
+                                                Spacer(),
+                                                IconButton(
+                                                  onPressed: () =>
+                                                      cancelOrderDialog(
+                                                          context, rent),
+                                                  icon: ImageIcon(
+                                                    AssetImage(
+                                                        "assets/icons/trash.png"),
+                                                    size: 22.w,
+                                                    color: blackColorApp,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  }
-                                },
-                              ))
+                                      );
+                                    }
+                                  },
+                                ),
+                            ))
                     : Text(
                         'אין הזמנות קיימות',
                         style: TextStyle(fontSize: 18.sp),
@@ -634,7 +638,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                       color: pinkColorApp,
                     ),
                   ),
-            Spacer(),
+          if (ordersHistory.isEmpty)   const Spacer(),
             Container(
               height: 48.h,
               width: 332.w,

@@ -509,7 +509,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                 print('starttime $starttime');
                                 print('startDate $startDate');
                                 if (starttime != null) {
-                                  final pickedDateTime = DateTime(now.year, now.month, now.day, starttime.hour, starttime.minute);
+                                  final pickedDateTime = DateTime(startDate!.year, startDate!.month, startDate!.day, starttime.hour, starttime.minute);
                                   if (pickedDateTime.isBefore(now)) {
                                     displayMessage(context,message: 'שעת תחילת ההשכרה חלפה כבר\nאנא שנה את בחירתך');
                                     setState(()=>starttime=null);

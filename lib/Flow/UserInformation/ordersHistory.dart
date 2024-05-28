@@ -638,7 +638,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                       color: pinkColorApp,
                     ),
                   ),
-          //  Spacer(),
+          if (ordersHistory.isEmpty)   const Spacer(),
             Container(
               height: 48.h,
               width: 332.w,

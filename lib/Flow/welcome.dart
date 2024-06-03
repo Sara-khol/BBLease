@@ -63,7 +63,9 @@ class WelcomeForm extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 22.sp,
                         fontWeight: FontWeight.normal,
-                        color: Colors.white),
+                        color: Colors.white,
+                        //height: 2.3
+                    ),
                   )),
             ),
             SizedBox(height: 12.h),
@@ -78,6 +80,7 @@ class WelcomeForm extends StatelessWidget {
                       borderRadius: BorderRadius.circular(100),
                     ),
                     elevation: 0.0,
+                    padding: EdgeInsets.zero,
                   ),
                   onPressed: () {
                     Navigator.push(
@@ -86,12 +89,16 @@ class WelcomeForm extends StatelessWidget {
                             builder: (context) =>
                                 const TelToRegistrationForm()));
                   },
-                  child: Text(
-                    'הבא',
-                    style: TextStyle(
-                        fontSize: 22.sp,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.white),
+                  child: Center(
+                    child: Text(
+                      'הבא',
+                      style: TextStyle(
+                          fontSize: 22.sp,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.white,
+                        height: 2.3
+                      ),
+                    ),
                   )),
             ),
           ],

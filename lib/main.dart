@@ -1,9 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 import 'package:bblease/Flow/Rental/active_rent.dart';
+import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/home_page.dart';
-import 'package:bblease/Flow/my_shared_preferences.dart';import 'package:bblease/services/api_service.dart';
+import 'package:bblease/Flow/my_shared_preferences.dart';
+import 'package:bblease/services/api_service.dart';
 import 'package:bblease/utils/common_funcs.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/foundation.dart';
@@ -13,8 +14,7 @@ import 'package:oktoast/oktoast.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-//import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:accessibility_tools/accessibility_tools.dart';
 import 'Flow/welcome.dart';
 import 'models/class_rent.dart';
 import 'models/class_user.dart';
@@ -29,7 +29,6 @@ class MyHttpOverrides extends HttpOverrides{
 
 void main() async {
   HttpOverrides.global = new MyHttpOverrides();
-
   WidgetsFlutterBinding.ensureInitialized();
 //await mySharedPreferences.initializeSharedPreferences(); // Initialize app state
 
@@ -72,10 +71,10 @@ class MyApp extends StatelessWidget {
   late final Future<bool> myFuture = isLogin();
 
 
-  MaterialStateProperty<Color?> _customColor() {
-    return MaterialStateProperty.resolveWith<Color?>(
-      (Set<MaterialState> states) {
-        if (states.contains(MaterialState.selected)) {
+   WidgetStateProperty<Color?> _customColor() {
+    return WidgetStateProperty.resolveWith<Color?>(
+      (Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
           return turquoiseColorApp; // Return this color when the date is selected
         }
         return turquoiseColorApp; // Otherwise, return this color
@@ -146,7 +145,7 @@ class MyApp extends StatelessWidget {
                              if(User().currentRent!=null) {
                                return const ActiveRentDetails();
                              }
-                             return  const HomePage();
+                             return  const RentalWidget();
                            }
                            else
                              {

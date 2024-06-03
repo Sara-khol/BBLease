@@ -446,8 +446,18 @@ class ApiService {
   }
 
   Future getPriceList(Function(dynamic res) onSuccess) async {
-    print('${_baseUrl}wp/v2/');
-    Response response = await _dio.get('${_baseUrl}wp/v2/');
+    print('${_baseUrl}payment/v2/price_list_api');
+    Response response = await _dio.get('${_baseUrl}payment/v2/price_list_api');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print('result: $result');
+      onSuccess(result);
+    }
+  }
+
+  Future getPromotions(Function(dynamic res) onSuccess) async {
+    print('${_baseUrl}payment/v2/get_promotions_api');
+    Response response = await _dio.get('${_baseUrl}payment/v2/get_promotions_api');
     if(response.statusCode == 200) {
       var result = response.data;
       print('result: $result');

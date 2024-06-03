@@ -56,7 +56,7 @@ Future carDetailsDialog(context,Car car,bool isAvailabe){
                             Icon(Icons.drive_eta_outlined, color: pinkColorApp,),
                             Text('  ${car.postTitle}  ',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),),
                             SizedBox(width: 50.w,),
-                            ImageIcon(AssetImage("assets/icons/Filter.png"),size: 20.w,color: pinkColorApp,),
+                            ImageIcon(AssetImage("assets/icons/Filter.png"),color: pinkColorApp,),
                             Text('  ${car.type}  ',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),),
                           ],
                         ),

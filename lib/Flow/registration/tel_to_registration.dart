@@ -1,4 +1,5 @@
 import 'package:bblease/Flow/Rental/active_rent.dart';
+import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/home_page.dart';
 import 'package:bblease/Flow/registration/payment_webVIew.dart';
 import 'package:bblease/Flow/registration/start_registration.dart';
@@ -141,7 +142,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                          const HomePage() /*RentalWidget()*/),
+                          const RentalWidget() /*RentalWidget()*/),
                           (route) => false);
                 }
                 else
@@ -152,6 +153,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                         MaterialPageRoute(
                             builder: (context) => PaymentWebView(
                               url: res,
+                              index: 1,
                             )),
                             (route) => false);
                   });
@@ -215,7 +217,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                           isDense: true,
                           labelText: "מס' נייד",
                           labelStyle: TextStyle(
-                            fontSize: 22.sp,
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.normal,
                             color: blackColorApp,
                           ),
@@ -294,7 +296,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                           isDense: true,
                           labelText: "הזן סיסמא שהתקבלה",
                           labelStyle: TextStyle(
-                            fontSize: 22.sp,
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.normal,
                             color: blackColorApp,
                             height: 1,
@@ -342,7 +344,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                           prefixIconColor: pinkColorApp,
                         ),
                         style: TextStyle(
-                            fontSize: 22.sp,
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.normal,
                             color: blackColorApp),
                         validator: (value) {
@@ -472,7 +474,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                             width: 332.w,
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor:turquoiseColorApp,
+                                  backgroundColor:_phone.text.length!=10&&!checkboxValue1?Colors.grey:turquoiseColorApp,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(100),
                                   ),
@@ -507,7 +509,8 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                                     style: TextStyle(
                                         fontSize: 22.sp,
                                         fontWeight: FontWeight.normal,
-                                        color: Colors.white))),
+                                        color: Colors.white,
+                                        height: 2.3))),
                           ),
                         ),
                       ),

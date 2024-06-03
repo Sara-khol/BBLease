@@ -38,11 +38,11 @@ class _SearchCarState extends State<SearchCar> {
   List<Car> cars=[];
   Map<String, List<Car>> filteredCarsMap = {};
 
-  final _controller = ScrollController();
+  final _scrollController = ScrollController();
   bool showProgressIndicator = true;
 
   Rental rent=Rental();
-  //bool isTapped=false;
+  bool isTapped=false;
 
   double _currentSliderValue = 3;
   String type='all';
@@ -58,7 +58,7 @@ class _SearchCarState extends State<SearchCar> {
 
   @override
   void dispose(){
-  _controller.dispose();
+  _scrollController.dispose();
     super.dispose();
   }
 
@@ -83,6 +83,8 @@ class _SearchCarState extends State<SearchCar> {
       }
     }
   }
+
+  //int? _hoveredIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -112,95 +114,106 @@ class _SearchCarState extends State<SearchCar> {
                   itemCount: cars.length,
                   itemBuilder: (context, index) {
                     Car car= cars[index];
-                    return GestureDetector(
-                      onTap: ()async{
-                        /*setState((){
-                          isTapped=true;
-                        }),*/
-                      /*  Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => CarDetails(car,startDate: widget.startDate,endDate: widget.endDate, rent: null,))
-                        );*/
-                        showLoading(context);
-                        await ApiService().getAdditions(car.id,widget.startDate,widget.endDate, (orderJson) {
-                          Navigator.pop(context);
-                          List<Addition> additions=[];
-                          additions = orderJson.map<Addition>((entry) => (Addition.fromJson(entry))).toList();
-                          for(Addition item in additions){
-                            if(item.name=='new_driver'||item.name=='young_driver'){
-                              item.isEnabled=false;
-                              if(item.name=='new_driver'&&User().isNewDriver||
-                                  item.name=='young_driver'&&User().isYoungDriver){
-                                item.isChecked=true;
-                              }
-                            }
-                          }
-                          //setState(() {});
-                          showModalBottomSheet(
-                            isScrollControlled: true,
-                            isDismissible: false,
-                            barrierColor: Colors.black12.withOpacity(0.1),
-                            backgroundColor: Colors.white,
-                            //isDismissible: false,
-                            elevation: 2,
-                            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
-                            context: context,
-                            builder: (_) => AdditionsDialog(rent: rent, car: car, additionsList: additions),
-                          );
-                          //extras(context,car,widget.startDate,widget.endDate,additions);
+                    //bool isHovered = _hoveredIndex == index;
+                    return  /*MouseRegion(
+                      onEnter: (_) {
+                        print('enter to index $index');
+                        setState(() {
+                          _hoveredIndex = index;
                         });
-
                       },
-                      child: Container(
-                        width: 347.w,
-                        height: 152.h,
-                        margin:  EdgeInsets.only(right: 23.w,left: 23.w,bottom: 12.h,),
-                        child: Stack(
-                          children: [
-                           Card(
-                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-                             shadowColor: Colors.transparent,
-                             margin: EdgeInsets.only(left:20.w),
-                             color: /*isTapped?Color(0xffEFFFFE):*/Color(0xffF7F7F7),
-                             child:Padding(
-                               padding:  EdgeInsets.only(bottom: 10.h,top:10.h,right: 14.w,left:11.w),
-                               child: IntrinsicHeight(
-                                 child: Row(
-                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                   children: [
-                                     Column(
-                                       crossAxisAlignment: CrossAxisAlignment.start,
+                      onExit: (_) {
+                        print('exit from index $index');
+                        setState(() {
+                          _hoveredIndex = null;
+                        });
+                      },
+                      child:*/ GestureDetector(
+                          onTap: ()async{
+                            /*  Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => CarDetails(car,startDate: widget.startDate,endDate: widget.endDate, rent: null,))
+                          );*/
+                            showLoading(context);
+                            await ApiService().getAdditions(car.id,widget.startDate,widget.endDate, (orderJson) {
+                              Navigator.pop(context);
+                              List<Addition> additions=[];
+                              additions = orderJson.map<Addition>((entry) => (Addition.fromJson(entry))).toList();
+                              for(Addition item in additions){
+                                if(item.name=='new_driver'||item.name=='young_driver'){
+                                  item.isEnabled=false;
+                                  if(item.name=='new_driver'&&User().isNewDriver||
+                                      item.name=='young_driver'&&User().isYoungDriver){
+                                    item.isChecked=true;
+                                  }
+                                }
+                              }
+                              //setState(() {});
+                              showModalBottomSheet(
+                                isScrollControlled: true,
+                                isDismissible: false,
+                                barrierColor: Colors.black12.withOpacity(0.1),
+                                backgroundColor: Colors.white,
+                                //isDismissible: false,
+                                elevation: 2,
+                                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
+                                context: context,
+                                builder: (_) => AdditionsDialog(rent: rent, car: car, additionsList: additions),
+                              );
+                              //extras(context,car,widget.startDate,widget.endDate,additions);
+                            });
+                          },
+                          child: Container(
+                            width: 347.w,
+                            height: 152.h,
+                            margin:  EdgeInsets.only(right: 23.w,left: 23.w,bottom: 12.h,),
+                            child: Stack(
+                              children: [
+                               Card(
+                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                                 shadowColor: Colors.transparent,
+                                 margin: EdgeInsets.only(left:20.w),
+                                 color: /*isHovered?Colors.yellow*//*Color(0xffEFFFFE):*/Color(0xffF7F7F7),
+                                 child:Padding(
+                                   padding:  EdgeInsets.only(bottom: 10.h,top:10.h,right: 14.w,left:11.w),
+                                   child: IntrinsicHeight(
+                                     child: Row(
+                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                        children: [
-                                         Text(car.postName.length > 12 ? '${car.postName.substring(0, 12)}...' : '${car.postName}',style: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.bold,height: 1,),),
-                                         Text('או רכב זהה',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.normal,height: 1.15,),),
-                                         Text(car.address,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.normal,height: 1.15,),),
-                                         Expanded(child: SizedBox(height: 29.h)),
-                                         Text('${car.pricePerDay} ₪  |  ליום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.bold,height: 1.15,),),
-                                         Text('${car.pricePerDay*widget.endDate!.difference(widget.startDate!).inDays} ₪  |  סה"כ',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.normal,height: 1.15,),),
-                                       ],
-                                     ),
-                                     Expanded(child: Padding(
-                                       padding:  EdgeInsets.only(top:2.h),
-                                       child: Align( alignment: Alignment.topLeft,
-                                           child: Icon(Icons.circle,color: turquoiseColorApp,size: 8.w,)),
-                                     ),),
-                                   ],),
+                                         Column(
+                                           crossAxisAlignment: CrossAxisAlignment.start,
+                                           children: [
+                                             Text(car.postName.length > 12 ? '${car.postName.substring(0, 12)}...' : '${car.postName}',style: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.bold,height: 1,),),
+                                             Text('או רכב זהה',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.normal,height: 1.15,),),
+                                             Text(car.address,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.normal,height: 1.15,),),
+                                             Expanded(child: SizedBox(height: 29.h)),
+                                             Text('${car.pricePerDay} ₪  |  ליום',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.bold,height: 1.15,),),
+                                             Text('${car.pricePerDay*widget.endDate!.difference(widget.startDate!).inDays} ₪  |  סה"כ',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.normal,height: 1.15,),),
+                                           ],
+                                         ),
+                                         Expanded(child: Padding(
+                                           padding:  EdgeInsets.only(top:2.h),
+                                           child: Align( alignment: Alignment.topLeft,
+                                               child: Icon(Icons.circle,color: turquoiseColorApp,size: 8.w,)),
+                                         ),),
+                                       ],),
+                                   ),
+                                 ),
+                                ),
+                               if(car.carImages.isNotEmpty)  Positioned.fill(
+                                 child: Align(
+                                  alignment: Alignment.bottomLeft,
+                                   child: Container(
+                                      margin: EdgeInsets.only(bottom:10.h),
+                                       child: Image.network(car.carImages.first,  width:175.w,
+                                         height:75.h,)),
+                                 )
                                ),
-                             ),
-                            ),
-                           if(car.carImages.isNotEmpty)  Positioned.fill(
-                             child: Align(
-                              alignment: Alignment.bottomLeft,
-                               child: Container(
-                                  margin: EdgeInsets.only(bottom:10.h),
-                                   child: Image.network(car.carImages.first,  width:175.w,
-                                     height:75.h,)),
-                             )
+                              ],
                            ),
-                          ],
-                       ),
-                     ),
-                   );
+                                               ),
+                       // ),
+                    );
                   },
                 ),
               )
@@ -334,7 +347,7 @@ class _SearchCarState extends State<SearchCar> {
         children: [
         //  SizedBox(width:25.w,),
           TextButton(
-            onPressed: () => {filterCarType(context,_controller),},
+            onPressed: () => {filterCarType(context,_scrollController),},
               child: Row(children: [
                 Text(
                 'סנן ',
@@ -345,7 +358,7 @@ class _SearchCarState extends State<SearchCar> {
                 ),
 
               ),
-                ImageIcon(AssetImage("assets/icons/Filter.png"),size: 20.w,color: pinkColorApp,),
+                ImageIcon(AssetImage("assets/icons/Filter.png"),color: pinkColorApp,),
              ], ),),
           //Spacer(),
           //SizedBox(width:33.w,),
@@ -369,7 +382,7 @@ class _SearchCarState extends State<SearchCar> {
             ),),
           //Spacer(),
          // SizedBox(width:30.w,),
-          TextButton(  onPressed: () => {expansionSearch(context,_controller,  _currentSliderValue ,),},
+          TextButton(  onPressed: () => {expansionSearch(context,_scrollController,  _currentSliderValue ,),},
             child: Row(children: [
               Text(
                 ' הגדל טווח חיפוש ',
@@ -508,7 +521,7 @@ class _SearchCarState extends State<SearchCar> {
                               ),
                             ),
                             SizedBox(width: 8.w,),
-                            ImageIcon(AssetImage("assets/icons/Filter.png"),size: 20.w,),
+                            ImageIcon(AssetImage("assets/icons/Filter.png"),),
                             Spacer(),
                             TextButton(
                               style: TextButton.styleFrom(
@@ -653,7 +666,7 @@ class _SearchCarState extends State<SearchCar> {
                             ),
                           ),
                           SizedBox(width: 8.w,),
-                          ImageIcon(AssetImage("assets/icons/expansion.png"),color:pinkColorApp,size: 20.w,),
+                          ImageIcon(AssetImage("assets/icons/expansion.png"),color:pinkColorApp,),
                         ],
                       ),
                       SizedBox(height: 23.h,),

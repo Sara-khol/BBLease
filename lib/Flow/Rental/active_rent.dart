@@ -122,7 +122,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     child: Row(
                       children: [
                         SizedBox(width: 29.w,),
-                        ImageIcon(AssetImage("assets/icons/car_icon.png"), size: 24.w, color: pinkColorApp,),
+                        ImageIcon(AssetImage("assets/icons/car_icon.png"), color: pinkColorApp,),
                         Text('  מספר רכב: ', style: TextStyle(fontSize: 18.sp),),
                         const Spacer(),
                         Padding(
@@ -931,7 +931,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                             fontWeight: FontWeight.bold,
                           )
                       ),
-                      ImageIcon(AssetImage("assets/icons/car_icon.png"),size: 24.w,color: pinkColorApp,),
+                      ImageIcon(AssetImage("assets/icons/car_icon.png"),color: pinkColorApp,),
                     ],
                   ),
                   SizedBox(height: 40.h),
@@ -1179,7 +1179,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                   alignment: Alignment.topRight,
                     child: CloseButton()),
 
-                ImageIcon(AssetImage("assets/icons/car_open_doors.png"),size: 20.sp,color: pinkColorApp,),
+                ImageIcon(AssetImage("assets/icons/car_open_doors.png"),color: pinkColorApp,),
                 SizedBox(height: 30.h),
 
                 Text(

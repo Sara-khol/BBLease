@@ -71,7 +71,8 @@ Future cancelOrderDialog(context,rent){
                                       style: TextStyle(
                                           fontSize: 20.sp,
                                           color: Colors.white,
-                                          fontWeight: FontWeight.normal))),
+                                          fontWeight: FontWeight.normal,
+                                          height: 2.3))),
                             ),
                             SizedBox(width: 13.w),
 
@@ -90,7 +91,8 @@ Future cancelOrderDialog(context,rent){
                                       style: TextStyle(
                                           fontSize: 20.sp,
                                           color: Colors.white,
-                                          fontWeight: FontWeight.normal))),
+                                          fontWeight: FontWeight.normal,
+                                          height: 2.3))),
                             ),
                           ],
                         ),
@@ -222,7 +224,8 @@ Future signCancelOrderDialog(context,String headline,String text){
                                   style: TextStyle(
                                       fontSize: 20.sp,
                                       color: Colors.white,
-                                      fontWeight: FontWeight.normal)
+                                      fontWeight: FontWeight.normal,
+                                      height: 2.3)
                               )),
                         ),
                         SizedBox(height: 22.h),

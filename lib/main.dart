@@ -1,9 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 import 'package:bblease/Flow/Rental/active_rent.dart';
+import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/home_page.dart';
-import 'package:bblease/Flow/my_shared_preferences.dart';import 'package:bblease/services/api_service.dart';
+import 'package:bblease/Flow/my_shared_preferences.dart';
+import 'package:bblease/services/api_service.dart';
 import 'package:bblease/utils/common_funcs.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/foundation.dart';
@@ -13,8 +14,7 @@ import 'package:oktoast/oktoast.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-//import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:accessibility_tools/accessibility_tools.dart';
 import 'Flow/welcome.dart';
 import 'models/class_rent.dart';
 import 'models/class_user.dart';
@@ -29,7 +29,6 @@ class MyHttpOverrides extends HttpOverrides{
 
 void main() async {
   HttpOverrides.global = new MyHttpOverrides();
-
   WidgetsFlutterBinding.ensureInitialized();
 //await mySharedPreferences.initializeSharedPreferences(); // Initialize app state
 
@@ -72,10 +71,10 @@ class MyApp extends StatelessWidget {
   late final Future<bool> myFuture = isLogin();
 
 
-  MaterialStateProperty<Color?> _customColor() {
-    return MaterialStateProperty.resolveWith<Color?>(
-      (Set<MaterialState> states) {
-        if (states.contains(MaterialState.selected)) {
+   WidgetStateProperty<Color?> _customColor() {
+    return WidgetStateProperty.resolveWith<Color?>(
+      (Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
           return turquoiseColorApp; // Return this color when the date is selected
         }
         return turquoiseColorApp; // Otherwise, return this color
@@ -103,76 +102,74 @@ class MyApp extends StatelessWidget {
                     const Locale('he'),
                     const Locale('en'),
 
-                  ],
-                  title: 'Flutter Demo',
-                  theme: ThemeData(
-                      fontFamily: 'PLONI',
-                      scaffoldBackgroundColor: Colors.white,
-                      textTheme: TextTheme(
-                          bodyMedium: TextStyle(color: blackColorApp)),
-                      timePickerTheme: TimePickerThemeData(
-                        backgroundColor: Colors.white,
-                        cancelButtonStyle: ButtonStyle(foregroundColor: _customColor()),
-                        confirmButtonStyle: ButtonStyle(foregroundColor: _customColor()),
-                        dayPeriodColor: blackColorApp,
-                        dialBackgroundColor:  Colors.cyan[100],
-                        hourMinuteColor:  Colors.cyan[100],
-                        hourMinuteTextColor: blackColorApp,
-                        dialHandColor: turquoiseColorApp,
+              ],
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                  fontFamily: 'PLONI',
+                  scaffoldBackgroundColor: Colors.white,
+                  textTheme: TextTheme(
+                      bodyMedium: TextStyle(color: blackColorApp)),
+                  timePickerTheme: TimePickerThemeData(
+                    backgroundColor: Colors.white,
+                    cancelButtonStyle: ButtonStyle(foregroundColor: _customColor()),
+                    confirmButtonStyle: ButtonStyle(foregroundColor: _customColor()),
+                    dayPeriodColor: blackColorApp,
+                    dialBackgroundColor:  Colors.cyan[100],
+                    hourMinuteColor:  Colors.cyan[100],
+                    hourMinuteTextColor: blackColorApp,
+                    dialHandColor: turquoiseColorApp,
 
-                        elevation: 2,
-                        dialTextColor: blackColorApp,
-                        entryModeIconColor: pinkColorApp,
-                      ),
-                      datePickerTheme: DatePickerThemeData(
-                        backgroundColor: Colors.white,
-                        elevation: 2,
-                        headerBackgroundColor: Colors.white,
-                        todayBackgroundColor: _customColor(),
-                        headerForegroundColor: blackColorApp,
-                        cancelButtonStyle: ButtonStyle(foregroundColor: _customColor()),
-                        confirmButtonStyle: ButtonStyle(foregroundColor: _customColor()),
-                        todayBorder: BorderSide(color: blackColorApp),
-                        rangePickerBackgroundColor: turquoiseColorApp,
-                        rangeSelectionBackgroundColor: Colors.cyan[100],
-                      )
-                      // primarySwatch: Color.fromARGB(15, 21, 17, 1),
-                      ),
-                  home: Scaffold(
-                    body: FutureBuilder<bool>(
-                        future:myFuture,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            if (snapshot.data is bool && snapshot.data == true) {
-                               if(User().tranzilaStatus) {
-                                 MySharedPreferences().setLastUsage();
-                                 if(User().currentRent!=null) {
-                                   return const ActiveRentDetails();
-                                 }
-                                 return  const HomePage();
-                               }
-                               else
-                                 {
-                                   return const WelcomeForm();
-                                 }
-                            }
-                            return const WelcomeForm();
-                          }
-                          if(snapshot.hasError)
-                            {
-                              debugPrint('error: ${snapshot.error}');
-                             CommonFuncs().showMyToast('בעיה בלתי צפויה, נסה להכנס שנית');
-                             return Container();
-                            }
-                          else {
-                            return Center(child: CircularProgressIndicator(color: pinkColorApp,));
-                          }
-                        }),
+                    elevation: 2,
+                    dialTextColor: blackColorApp,
+                    entryModeIconColor: pinkColorApp,
                   ),
-                );
-              });
-        }
-      ),
+                  datePickerTheme: DatePickerThemeData(
+                    backgroundColor: Colors.white,
+                    elevation: 2,
+                    headerBackgroundColor: Colors.white,
+                    todayBackgroundColor: _customColor(),
+                    headerForegroundColor: blackColorApp,
+                    cancelButtonStyle: ButtonStyle(foregroundColor: _customColor()),
+                    confirmButtonStyle: ButtonStyle(foregroundColor: _customColor()),
+                    todayBorder: BorderSide(color: blackColorApp),
+                    rangePickerBackgroundColor: turquoiseColorApp,
+                    rangeSelectionBackgroundColor: Colors.cyan[100],
+                  )
+                  // primarySwatch: Color.fromARGB(15, 21, 17, 1),
+                  ),
+              home: Scaffold(
+                body: FutureBuilder<bool>(
+                    future:myFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data is bool && snapshot.data == true) {
+                           if(User().tranzilaStatus) {
+                             MySharedPreferences().setLastUsage();
+                             if(User().currentRent!=null) {
+                               return const ActiveRentDetails();
+                             }
+                             return  const RentalWidget();
+                           }
+                           else
+                             {
+                               return const WelcomeForm();
+                             }
+                        }
+                        return const WelcomeForm();
+                      }
+                      if(snapshot.hasError)
+                        {
+                          debugPrint('error: ${snapshot.error}');
+                         CommonFuncs().showMyToast('בעיה בלתי צפויה, נסה להכנס שנית');
+                         return Container();
+                        }
+                      else {
+                        return Center(child: CircularProgressIndicator(color: pinkColorApp,));
+                      }
+                    }),
+              ),
+            );
+          }),
     );
   }
 

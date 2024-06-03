@@ -1,4 +1,5 @@
 import 'package:bblease/Flow/Rental/active_rent.dart';
+import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/home_page.dart';
 import 'package:bblease/Flow/registration/payment_webVIew.dart';
 import 'package:bblease/Flow/registration/start_registration.dart';
@@ -19,7 +20,9 @@ import 'package:bblease/customWidgets/customText.dart';
 import 'package:bblease/customWidgets/customTextFormField.dart' ;
 
 class TelToRegistrationForm extends StatefulWidget {
-  const TelToRegistrationForm({Key? key}) : super(key: key);
+
+  const TelToRegistrationForm({Key? key})
+      : super(key: key);
 
   @override
   State<TelToRegistrationForm> createState() => _TelToRegistrationFormState();
@@ -30,7 +33,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
   final TextEditingController _phone = TextEditingController();
   final TextEditingController _code = TextEditingController();
   FocusNode textSecondFocusNode = new FocusNode();
-  bool isRegister = true;
+  bool isRegister=true;
 
   bool didSendCode = false;
 
@@ -65,13 +68,16 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
         if (status == 3) {
           displayError(context,
               message: 'תעודת הזהות שהכנסת נחסמה בעבר הועבר לבדיקה');
-        } else {
-          if (status == 1) {
+        }
+        else {
+          if (status == 1)
+          {
             displayError(context,
                 message: 'מספר הטלפון שהזנת  כבר קיים  במערכת');
           }
         }
-      } else {
+      }
+      else {
         if (status == 1) {
           // code = value['code'];
           // debugPrint('status $status code $code');
@@ -94,65 +100,71 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
 
   verifyCode() async {
     showLoading(context);
-    await ApiService().codeVerification(_phone.text, _code.text, (response) {
-      Navigator.pop(context);
-      int vStatus = response['status'];
-      // in case code is not correct get from service error.
-      // not supposed to get to here because checked before sending
-      if (vStatus == 3) {
-        displayError(context, message: 'קוד האימות אינו תואם');
-      } else {
-        if (!isRegister) {
-          if (vStatus == 5) {
-            User().phoneNumber = _phone.text;
+    await ApiService().codeVerification(_phone.text, _code.text,
+            (response) {
+          Navigator.pop(context);
+          int vStatus = response['status'];
+          // in case code is not correct get from service error.
+          // not supposed to get to here because checked before sending
+          if (vStatus == 3) {
 
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const StartRegistration()));
-          }
-        } else {
-          if (vStatus == 1) {
-            User.fromJson(response['customer']);
-            debugPrint('user name  ${User().firstName}');
+            displayError(context, message: 'קוד האימות אינו תואם');
+          } else {
+            if (!isRegister) {
+              if (vStatus == 5) {
+                User().phoneNumber = _phone.text;
 
-            //todo: go to active rent
-            /*if(response["active_order"]!=-1||response["active_order"].isNotEmpty) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const StartRegistration()));
+              }
+            } else {
+              if (vStatus == 1) {
+                User.fromJson(response['customer']);
+                debugPrint('user name  ${User().firstName}');
+
+                //todo: go to active rent
+                /*if(response["active_order"]!=-1||response["active_order"].isNotEmpty) {
               User().currentRent=Rental.fromJson(response["active_order"]);
             }*/
-            print('after if');
-            MySharedPreferences().setLastUsage();
-            MySharedPreferences().setUserId(User().userId);
-            if (User().tranzilaStatus) {
-              print('in');
-              if (User().currentRent != null) {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ActiveRentDetails()),
-                    (route) => false);
-              }
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          const HomePage() /*RentalWidget()*/),
-                  (route) => false);
-            } else {
-              ApiService().getPaymentUrl(User().userId, (res) {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PaymentWebView(
+                print('after if');
+                MySharedPreferences().setLastUsage();
+                MySharedPreferences().setUserId(User().userId);
+                if (User().tranzilaStatus) {
+                  print('in');
+                  if(User().currentRent!=null){
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                            const ActiveRentDetails() ),
+                            (route) => false);
+                  }
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                          const RentalWidget() /*RentalWidget()*/),
+                          (route) => false);
+                }
+                else
+                {
+                  ApiService().getPaymentUrl(User().userId, (res) {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PaymentWebView(
                               url: res,
+                              index: 1,
                             )),
-                    (route) => false);
-              });
+                            (route) => false);
+                  });
+                }
+              }
             }
           }
-        }
-      }
-    });
+        });
   }
 
   @override
@@ -509,57 +521,61 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                         height: 340.h,
                       )),
 
-                  Flexible(
-                    fit: FlexFit.loose,
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: 40.h),
-                        child: SizedBox(
-                          height: 48.h,
-                          width: 332.w,
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: turquoiseColorApp,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(100),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child:
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 40.h),
+                          child: SizedBox(
+                            height: 48.h,
+                            width: 332.w,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:_phone.text.length!=10&&!checkboxValue1?Colors.grey:turquoiseColorApp,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
                                 ),
-                              ),
-                              onPressed: () {
-                                if (didSendCode && _code.text == '') {
-                                  displayError(context,
-                                      message: 'יש להכניס קוד אימות',
-                                      closeButton: true);
-                                } else if (!didSendCode) {
-                                  if (_formKey.currentState!.validate() &&
-                                      checkboxValue1) {
-                                    setState(() {});
-                                    getVerificationCode(0);
-                                  } else {
-                                    if (!checkboxValue1) {
-                                      displayError(context,
-                                          message: 'יש לאשר את תנאי השימוש',
-                                          closeButton: true);
+                                onPressed: () {
+                                  if(didSendCode && _code.text==''){
+                                    displayError(context,
+                                        message: 'יש להכניס קוד אימות',
+                                        closeButton: true);
+                                  }
+                                  else if (!didSendCode) {
+                                    if (_formKey.currentState!.validate() &&
+                                        checkboxValue1) {
+                                      setState(() {});
+                                      getVerificationCode(0);
+                                    } else {
+                                      if (!checkboxValue1) {
+                                        displayError(context,
+                                            message: 'יש לאשר את תנאי השימוש',
+                                            closeButton: true);
+                                      }
                                     }
                                   }
-                                }
-                                // if (step == 1 && didSendCode == true) {
-                                else {
-                                  if (_formKey.currentState!.validate()) {
-                                    verifyCode();
+                                  // if (step == 1 && didSendCode == true) {
+                                  else {
+                                    if (_formKey.currentState!.validate()) {
+                                      verifyCode();
+                                    }
                                   }
-                                }
-                              },
-                              child: CustomText('אישור',
-                                  style: TextStyle(
-                                      fontSize: 22.sp,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.white))),
+                                },
+                                child: Text('אישור',
+                                    style: TextStyle(
+                                        fontSize: 22.sp,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.white,
+                                        height: 2.3))),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

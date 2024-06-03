@@ -12,30 +12,11 @@ Future errorNoMatch(BuildContext context, Widget page) {
             height: 230.h,
             child: Column(
               children: [
-                SizedBox(
-                  height: 36.h,
-                ),
-                Text(
-                  'אופס, שימו לב',
-                  style: TextStyle(
-                      fontSize: 32.sp,
-                      fontWeight: FontWeight.bold,
-                      color: pinkColorApp),
-                ),
-                SizedBox(
-                  height: 25.h,
-                ),
-                Text(
-                  'התמונה שעלתה באיכות גרועה לא נוכל לבצע אימות',
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.black,
-                  ),
-                ),
-                SizedBox(
-                  height: 26.h,
-                ),
+                SizedBox(height: 36.h,),
+                Text('אופס, שימו לב', style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.bold, color: pinkColorApp),),
+                SizedBox(height: 25.h,),
+                Text('התמונה שעלתה באיכות גרועה לא נוכל לבצע אימות', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal, color: Colors.black,),),
+                SizedBox(height: 26.h,),
                 Container(
                   width: 332.w,
                   height: 48.h,
@@ -44,31 +25,21 @@ Future errorNoMatch(BuildContext context, Widget page) {
                     color: turquoiseColorApp,
                   ),
                   child: TextButton(
-                    child: Text(
-                      'נסה שנית',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22.sp,
-                          fontWeight: FontWeight.normal),
-                    ),
+                    child: Text('נסה שנית', style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.normal),),
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => page));
                     },
                   ),
                 ),
-                SizedBox(
-                  height: 22.h,
-                ),
+                SizedBox(height: 22.h,),
               ],
             ),
           ),
       barrierColor: Colors.black12.withOpacity(0.1),
       isDismissible: false,
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-      ));
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),));
 }
 
 Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
@@ -77,23 +48,13 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
       context: context,
       builder: (BuildContext context) => Container(
             height: 230.h,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-            ),
+        decoration: const BoxDecoration(color:Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+        ),
             child: Column(
               children: [
-                SizedBox(
-                  height: 50.h,
-                ),
-                Text(
-                  'התצלום עלה בהצלחה',
-                  style: TextStyle(
-                      fontSize: 22.sp,
-                      fontWeight: FontWeight.bold,
-                      color: pinkColorApp,
-                      height: 1),
-                ),
+                SizedBox(height: 50.h,),
+                Text('התצלום עלה בהצלחה', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold, color: pinkColorApp,height: 1),),
                 //SizedBox(height: 74.h,),
                 Spacer(),
                 Row(
@@ -108,15 +69,7 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
                         color: turquoiseColorApp,
                       ),
                       child: TextButton(
-                        child: Text(
-                          'סרוק פעם נוספת',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.normal,
-                              height: 1),
-                        ),
+                        child: Text('סרוק פעם נוספת',textAlign:TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.normal,height: 1),),
                         onPressed: () {
                           Navigator.pop(context);
                           Navigator.pop(context);
@@ -127,38 +80,28 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
                         },
                       ),
                     ),
-                    SizedBox(
-                      width: 13.w,
-                    ),
+                    SizedBox(width: 13.w,),
                     Container(
                       width: 160.w,
                       height: 48.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(25)),
-                        color: turquoiseColorApp,
+                        color:turquoiseColorApp,
                       ),
                       child: TextButton(
-                        child: Text('אישור',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.normal,
-                                height: 1)),
+                        child: Text('אישור',style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.normal,height: 1)),
                         onPressed: () {
                           Navigator.pop(context);
                           Navigator.pop(context);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => nextPage));
-  },
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => nextPage));
+                        },
                       ),
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 22.h,
-                ),
+                SizedBox(height: 22.h,),
               ],
             ),
           ),
@@ -170,98 +113,45 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
       ));
 }
 
-Future displayError(BuildContext context,
-    {bool existsData = true,
-    String type = '',
-    String message = '',
-    Function()? onEdit,
-    bool closeButton = false}) {
+Future displayError(BuildContext context,{bool existsData=true,String type='',
+  String message='',Function()? onEdit,bool closeButton=false}) {
   return showModalBottomSheet(
-    context: context,
-    builder: (BuildContext context) => Container(
-        height: 230.h,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-        ),
-        child: Column(children: [
-          SizedBox(height: 25.h),
-          Text('שגיאה',
-              style: TextStyle(
-                  color: pinkColorApp,
-                  fontSize: 28.sp,
-                  fontWeight: FontWeight.bold,
-                  height: 1)),
-          // const Spacer(),
-          Expanded(
-            child: Center(
-              child: Text(
-                  message == ''
-                      ? existsData
-                          ? '$type כבר קיימת במערכת\nבמידה והינך רשום התחבר לאזור האישי שלך\nבמידה ואינך רשום פנה לנציג לברור השגיאה'
-                          : 'מספר טלפון אינו תואם למספר אותו הכנסת באימות'
-                      : message,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    height: 1,
-                    color: blackColorApp,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.normal,
-                  )),
-            ),
+      context: context,
+      builder: (BuildContext context) => Container(
+          height: 230.h,
+          decoration: const BoxDecoration(color:Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
           ),
-          //SizedBox(height: 20.h),
-          !closeButton
-              ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  SizedBox(
-                    height: 42.h,
-                    width: 160.w,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: turquoiseColorApp,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                        ),
-                        onPressed: () {
-                          if (onEdit != null) {
-                            onEdit();
-                          } else {
-                            Navigator.pop(context);
-                          }
-                        },
-                        child: Text(
-                          'ערוך פרטים',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.normal),
-                        )),
-                  ),
-                  SizedBox(width: 13.h),
-                  SizedBox(
-                    height: 42.h,
-                    width: 160.w,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: turquoiseColorApp,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                        ),
-                        onPressed: () {},
-                        child: Text(
-                          'פניה לנציג',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.normal),
-                        )),
-                  ),
-                ])
-              : SizedBox(
+          child: Column(children: [
+            SizedBox(height: 25.h),
+            Text('שגיאה',
+                style: TextStyle(
+                    color: pinkColorApp,
+                    fontSize: 28.sp,
+                    fontWeight: FontWeight.bold,
+                    height: 1)),
+           // const Spacer(),
+            Expanded(
+              child: Center(
+                child: Text(
+                 message==''?  existsData?  '$type כבר קיימת במערכת\nבמידה והינך רשום התחבר לאזור האישי שלך\nבמידה ואינך רשום פנה לנציג לברור השגיאה':
+                   'מספר טלפון אינו תואם למספר אותו הכנסת באימות':message,
+                   textAlign: TextAlign.center,
+                    style: TextStyle(
+                      height:1,
+                      color: blackColorApp,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.normal,
+                    )),
+              ),
+            ),
+            //SizedBox(height: 20.h),
+           !closeButton? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
                   height: 42.h,
-                  width: 332.w,
+                  width: 160.w,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: turquoiseColorApp,
@@ -270,32 +160,81 @@ Future displayError(BuildContext context,
                         ),
                       ),
                       onPressed: () {
-                        Navigator.pop(context);
+                        if(onEdit!=null)
+                          {
+                            onEdit();
+                          }
+                        else {
+                          Navigator.pop(context);
+                        }
                       },
                       child: Text(
-                        'סגור',
+                        'ערוך פרטים',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
                             fontWeight: FontWeight.normal),
                       )),
                 ),
-          SizedBox(height: 22.h)
-        ])),
-    barrierColor: Colors.black12.withOpacity(0.1),
-    // shape: const RoundedRectangleBorder(
-    //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-  );
+                SizedBox(width: 13.h),
+                SizedBox(
+                  height: 42.h,
+                  width: 160.w,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: turquoiseColorApp,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        'פניה לנציג',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.normal,
+                            height: 2.3),
+                      )),
+                ),
+              ])
+            :  SizedBox(
+             height: 42.h,
+             width: 332.w,
+             child: ElevatedButton(
+                 style: ElevatedButton.styleFrom(
+                   backgroundColor: turquoiseColorApp,
+                   shape: RoundedRectangleBorder(
+                     borderRadius: BorderRadius.circular(100),
+                   ),
+                 ),
+                 onPressed: () {
+                     Navigator.pop(context);
+                 },
+                 child: Text(
+                   'סגור',
+                   style: TextStyle(
+                       color: Colors.white,
+                       fontSize: 18.sp,
+                       fontWeight: FontWeight.normal,
+                       height: 2.3),
+                 )),
+           ),
+            SizedBox(height: 22.h)
+          ])),
+      barrierColor: Colors.black12.withOpacity(0.1),
+      // shape: const RoundedRectangleBorder(
+      //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+      );
 }
 
-Future displayMessage(BuildContext context,
-    {String message = '', Function()? onClose}) {
+Future displayMessage(BuildContext context,{
+  String message='',Function()? onClose}) {
   return showModalBottomSheet(
     context: context,
     builder: (BuildContext context) => Container(
         height: 180.h,
-        decoration: const BoxDecoration(
-          color: Colors.white,
+        decoration: const BoxDecoration(color:Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
         ),
         child: Column(children: [
@@ -306,7 +245,7 @@ Future displayMessage(BuildContext context,
               child: Text(message,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    height: 1,
+                    height:1,
                     color: blackColorApp,
                     fontSize: 20.sp,
                     fontWeight: FontWeight.normal,
@@ -314,7 +253,7 @@ Future displayMessage(BuildContext context,
             ),
           ),
           //SizedBox(height: 20.h),
-          SizedBox(
+           SizedBox(
             height: 42.h,
             width: 160.w,
             child: ElevatedButton(
@@ -326,16 +265,18 @@ Future displayMessage(BuildContext context,
                 ),
                 onPressed: () {
                   Navigator.pop(context);
-                  if (onClose != null) {
-                    onClose();
-                  }
+                  if(onClose!=null)
+                    {
+                      onClose();
+                    }
                 },
                 child: Text(
                   'סגור',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18.sp,
-                      fontWeight: FontWeight.normal),
+                      fontWeight: FontWeight.normal,
+                      height: 2.3),
                 )),
           ),
           SizedBox(height: 22.h)
@@ -346,14 +287,13 @@ Future displayMessage(BuildContext context,
   );
 }
 
-Future displayQuestion(BuildContext context,
-    {String message = '', required Function() onYes}) {
+Future displayQuestion(BuildContext context,{
+  String message='', required Function() onYes}) {
   return showModalBottomSheet(
     context: context,
     builder: (BuildContext context) => Container(
         height: 180.h,
-        decoration: const BoxDecoration(
-          color: Colors.white,
+        decoration: const BoxDecoration(color:Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
         ),
         child: Column(children: [
@@ -364,7 +304,7 @@ Future displayQuestion(BuildContext context,
               child: Text(message,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    height: 1,
+                    height:1,
                     color: pinkColorApp,
                     fontSize: 20.sp,
                     fontWeight: FontWeight.normal,
@@ -372,51 +312,56 @@ Future displayQuestion(BuildContext context,
             ),
           ),
           //SizedBox(height: 20.h),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            SizedBox(
-              height: 42.h,
-              width: 100.w,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: turquoiseColorApp,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text(
-                    'לא',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.normal),
-                  )),
-            ),
-            SizedBox(width: 13.h),
-            SizedBox(
-              height: 42.h,
-              width: 100.w,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: turquoiseColorApp,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                  ),
-                  onPressed: () {
-                    onYes();
-                  },
-                  child: Text(
-                    'כן',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.normal),
-                  )),
-            ),
-          ]),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 42.h,
+                  width: 100.w,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: turquoiseColorApp,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'לא',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.normal,
+                            height: 2.3),
+                      )),
+                ),
+                SizedBox(width: 13.h),
+                SizedBox(
+                  height: 42.h,
+                  width: 100.w,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: turquoiseColorApp,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                      onPressed: () {
+                        onYes();
+                      },
+                      child: Text(
+                        'כן',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.normal,
+                            height: 2.3),
+                      )),
+                ),
+
+              ]),
           SizedBox(height: 22.h)
         ])),
     barrierColor: Colors.black12.withOpacity(0.1),
@@ -425,25 +370,18 @@ Future displayQuestion(BuildContext context,
   );
 }
 
-Future displayQuestion1(BuildContext context,
-    {required String header,
-    required String message,
-    required Function() onYes}) {
+Future displayQuestion1(BuildContext context,{
+  required String header,required String message, required Function() onYes}) {
   return showModalBottomSheet(
     context: context,
     builder: (BuildContext context) => Container(
-        height: 250.h,
-        decoration: const BoxDecoration(
-          color: Colors.white,
+       height: 250.h,
+        decoration: const BoxDecoration(color:Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
         ),
         child: Column(children: [
           SizedBox(height: 35.h),
-          Text(header,
-              style: TextStyle(
-                  color: pinkColorApp,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 28.sp)),
+          Text(header,style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.bold,fontSize: 28.sp)),
           // const Spacer(),
           Expanded(
             child: Align(
@@ -454,60 +392,67 @@ Future displayQuestion1(BuildContext context,
                   Text(message,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        height: 1,
+                        height:1,
                         fontSize: 20.sp,
                       )),
                 ],
               ),
             ),
           ),
-          SizedBox(height: 20.h),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            SizedBox(
-              height: 42.h,
-              width: 160.w,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: turquoiseColorApp,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text(
-                    'ביטול',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.normal),
-                  )),
-            ),
-            SizedBox(width: 13.h),
-            SizedBox(
-              height: 42.h,
-              width: 160.w,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: turquoiseColorApp,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                  ),
-                  onPressed: () {
-                    onYes();
-                    Navigator.pop(context);
-                  },
-                  child: Text(
-                    'אישור',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.normal),
-                  )),
-            ),
-          ]),
+         SizedBox(height: 20.h),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 42.h,
+                  width: 160.w,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: turquoiseColorApp,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'ביטול',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.normal,
+                            height: 2.3),
+                      )),
+                ),
+                SizedBox(width: 13.h),
+                SizedBox(
+                  height: 42.h,
+                  width: 160.w,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: turquoiseColorApp,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                      onPressed: () {
+                        onYes();
+                        Navigator.pop(context);
+
+                      },
+                      
+                      child: Text(
+                        'אישור',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.normal,
+                            height: 2.3),
+                      )),
+                ),
+
+              ]),
           SizedBox(height: 22.h)
         ])),
     barrierColor: Colors.black12.withOpacity(0.1),
@@ -516,7 +461,7 @@ Future displayQuestion1(BuildContext context,
   );
 }
 
-Future reportAccident(context) {
+Future reportAccident(context){
   return showModalBottomSheet<dynamic>(
       isScrollControlled: true,
       isDismissible: true,
@@ -530,10 +475,7 @@ Future reportAccident(context) {
         return Directionality(
             textDirection: TextDirection.rtl,
             child: Padding(
-              padding: EdgeInsets.only(
-                left: 30.w,
-                right: 30.w,
-              ),
+              padding: EdgeInsets.only(left: 30.w, right: 30.w, ),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -546,6 +488,7 @@ Future reportAccident(context) {
                           color: pinkColorApp),
                     ),
                     SizedBox(height: 84.h),
+
                     Row(
                       children: [
                         Container(
@@ -558,16 +501,15 @@ Future reportAccident(context) {
                                   borderRadius: BorderRadius.circular(100),
                                 ),
                               ),
-                              onPressed: () => support.call,
+                              onPressed: () =>support.call,
                               child: Text('לתקשר עם נציג',
                                   style: TextStyle(
                                       fontSize: 20.sp,
                                       color: Colors.white,
-                                      fontWeight: FontWeight.normal))),
+                                      fontWeight: FontWeight.normal,
+                                      height: 2.3))),
                         ),
-                        SizedBox(
-                          width: 13.w,
-                        ),
+                        SizedBox(width: 13.w,),
                         Container(
                           height: 48.h,
                           width: 160.w,
@@ -578,40 +520,40 @@ Future reportAccident(context) {
                                   borderRadius: BorderRadius.circular(100),
                                 ),
                               ),
-                              onPressed: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ReportAccident(),
-                                  )),
+                              onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => ReportAccident(),)),
                               child: Text('השאר הודעה',
                                   style: TextStyle(
                                       fontSize: 20.sp,
                                       color: Colors.white,
-                                      fontWeight: FontWeight.normal))),
+                                      fontWeight: FontWeight.normal,
+                                      height: 2.3))),
                         ),
                       ],
                     ),
                     SizedBox(height: 22.h),
-                  ]),
-            ));
-      });
+                  ]
+              ),
+            )
+        );
+      }
+  );
 }
 
 Future displayErrorInValidation(BuildContext context) {
   return showModalBottomSheet(
     context: context,
     builder: (BuildContext context) => Container(
-        height: 230.h,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-        ),
-        child: Column(children: [
+      height: 230.h,
+      decoration: const BoxDecoration(color:Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+      ),
+      child:
+        Column(children: [
           SizedBox(height: 45.h),
           Text('שגיאה',
               textAlign: TextAlign.center,
               style: TextStyle(
-                height: 1,
+                height:1,
                 color: pinkColorApp,
                 fontSize: 22.sp,
                 fontWeight: FontWeight.bold,
@@ -621,7 +563,7 @@ Future displayErrorInValidation(BuildContext context) {
           Text('המערכת נתקלה בבעיה בזיהוי שלך\nהועבר לבדיקה',
               textAlign: TextAlign.center,
               style: TextStyle(
-                height: 1,
+                height:1,
                 color: blackColorApp,
                 fontSize: 16.sp,
                 fontWeight: FontWeight.normal,
@@ -645,7 +587,8 @@ Future displayErrorInValidation(BuildContext context) {
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18.sp,
-                      fontWeight: FontWeight.normal),
+                      fontWeight: FontWeight.normal,
+                      height: 2.3),
                 )),
           ),
           SizedBox(height: 22.h)
@@ -655,3 +598,6 @@ Future displayErrorInValidation(BuildContext context) {
     //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
   );
 }
+
+
+

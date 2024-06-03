@@ -323,7 +323,7 @@ class _CarDetailsState extends State<CarDetails> {
                                         //SizedBox(height: 20.h),
                                         Row(
                                           children: [
-                                            ImageIcon(AssetImage("assets/icons/Calendar.png"),size: 20.w,),
+                                            ImageIcon(AssetImage("assets/icons/Calendar.png"),),
                                             SizedBox(
                                               width: 9.w,
                                             ),

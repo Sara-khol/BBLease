@@ -416,7 +416,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                             SizedBox(
                               width: 9.w,
                             ),
-                            ImageIcon(AssetImage("assets/icons/Calendar.png"),size: 20.w,color: pinkColorApp,),
+                            ImageIcon(AssetImage("assets/icons/Calendar.png"),color: pinkColorApp,),
 
                           ],
                         ),
@@ -452,7 +452,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                               decoration: getInputDecoration(
                                   '',
                                   192,
-                                  suffixIcon: ImageIcon(AssetImage("assets/icons/Calendar.png"),size: 20.w,color: pinkColorApp,),
+                                  suffixIcon: ImageIcon(AssetImage("assets/icons/Calendar.png"),color: pinkColorApp,),
                             ),
                               controller: startd,
                               style: TextStyle(fontSize: 22.sp),
@@ -509,7 +509,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                 print('starttime $starttime');
                                 print('startDate $startDate');
                                 if (starttime != null) {
-                                  final pickedDateTime = DateTime(now.year, now.month, now.day, starttime.hour, starttime.minute);
+                                  final pickedDateTime = DateTime(startDate!.year, startDate!.month, startDate!.day, starttime.hour, starttime.minute);
                                   if (pickedDateTime.isBefore(now)) {
                                     displayMessage(context,message: 'שעת תחילת ההשכרה חלפה כבר\nאנא שנה את בחירתך');
                                     setState(()=>starttime=null);
@@ -549,7 +549,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                             TextFormField(
                               readOnly: true,
                               cursorColor: const Color.fromRGBO(15, 17, 21, 1),
-                              decoration: getInputDecoration('', 192, suffixIcon: ImageIcon(AssetImage("assets/icons/Calendar.png"),size: 20.w,color: pinkColorApp,),),
+                              decoration: getInputDecoration('', 192, suffixIcon: ImageIcon(AssetImage("assets/icons/Calendar.png"),color: pinkColorApp,),),
                               style: TextStyle(fontSize: 22.sp),
                               controller: endd,
                               validator: (value) {

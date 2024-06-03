@@ -52,7 +52,7 @@ class _CarDocuState extends State<CarDocu> {
                   Text('אם ישנם נזקים , נדע לא לחייב אתכם עליהם', style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.normal,),),
                   Text(' \n\nנסיעה בטוחה :)', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold,),),
                   SizedBox(height: 57.h,),
-                  ImageIcon(AssetImage("assets/icons/heart.png"),size: 26.w,color: turquoiseColorApp,),
+                  ImageIcon(AssetImage("assets/icons/heart.png"),color: turquoiseColorApp,),
                   SizedBox(height: 8.h,),
                   Text('צלמו תמונה חדה וברורה!',
                     style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.normal),textAlign: TextAlign.center,),
@@ -250,7 +250,10 @@ class _CarDocuState extends State<CarDocu> {
                           }
                           if(!allLoaded) missingImage();
                         },
-                        child:  Text('שלח תמונות',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.normal,color:Colors.white),)),
+                        child:  Text('שלח תמונות',
+                          style: TextStyle(fontSize: 22.sp,
+                              fontWeight: FontWeight.normal,
+                              color:Colors.white, height: 2.3),)),
                   ),
 
 
@@ -334,7 +337,8 @@ class _CarDocuState extends State<CarDocu> {
                                     style: TextStyle(
                                         fontSize: 20.sp,
                                         color: Colors.white,
-                                        fontWeight: FontWeight.normal))),
+                                        fontWeight: FontWeight.normal,
+                                        height: 2.3))),
                           ),
                           SizedBox(height: 22.h),
                         ]
@@ -408,7 +412,7 @@ class _CarDocuState extends State<CarDocu> {
                                         style: TextStyle(
                                             fontSize: 20.sp,
                                             color: Colors.white,
-                                            fontWeight: FontWeight.normal))),
+                                            fontWeight: FontWeight.normal,))),
                               ),
                               SizedBox(width: 13.w,),
                               Container(
@@ -487,7 +491,7 @@ class _CarDocuState extends State<CarDocu> {
                         mainAxisSize: MainAxisSize.min,
                           children: [
                             SizedBox(height: 8.h),
-                            ImageIcon(AssetImage("assets/icons/trash.png"),size: 24.w,color: pinkColorApp,),
+                            ImageIcon(AssetImage("assets/icons/trash.png"),color: pinkColorApp,),
                             SizedBox(height: 27.h),
                             Text.rich(
                               TextSpan(

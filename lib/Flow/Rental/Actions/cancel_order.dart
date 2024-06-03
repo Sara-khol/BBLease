@@ -60,7 +60,8 @@ class _CancelOrderState extends State<CancelOrder> {
                     style: TextStyle(
                         fontSize: 20.sp,
                         color: Colors.white,
-                        fontWeight: FontWeight.normal)
+                        fontWeight: FontWeight.normal,
+                        height: 2.3)
                 )
             ),
           ),

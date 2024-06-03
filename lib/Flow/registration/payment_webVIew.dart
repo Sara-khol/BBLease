@@ -13,8 +13,9 @@ import '../my_shared_preferences.dart';
 
 class PaymentWebView extends StatefulWidget {
   final String url;
+  final int index;
 
-  const PaymentWebView({super.key, required this.url});
+  const PaymentWebView({super.key, required this.url, required this.index});
 
   @override
   State<PaymentWebView> createState() => _PaymentWebViewState();
@@ -204,6 +205,11 @@ class _PaymentWebViewState extends State<PaymentWebView> {
     await ApiService().getStatusPayment(User().phoneNumber, (res) async {
       if(res)
         {
+          if(widget.index==2)
+            {
+              Navigator.pop(context);
+            }
+          else{
           MySharedPreferences().setLastUsage();
           MySharedPreferences().setUserId(User().userId);
           Navigator.pushAndRemoveUntil(
@@ -211,6 +217,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
               MaterialPageRoute(
                   builder: (context) => const SucssesRegistrationForm()),
                   (route) => false);
+        }
         }
      else
        {

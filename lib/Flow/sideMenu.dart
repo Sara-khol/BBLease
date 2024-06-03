@@ -3,6 +3,7 @@ import 'package:bblease/Flow/UserInformation/price_list.dart';
 import 'package:bblease/Flow/UserInformation/profile.dart';
 import 'package:bblease/Flow/UserInformation/use_instructions.dart';
 import 'package:bblease/Flow/my_shared_preferences.dart';
+import 'package:bblease/Flow/registration/payment_webVIew.dart';
 import 'package:bblease/Flow/welcome.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:bblease/Flow/UserInformation/ordersHistory.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:side_sheet/side_sheet.dart';
 import 'package:bblease/services/support.dart' as support;
 import '../models/class_user.dart';
+import '../services/api_service.dart';
 import 'UserInformation/benefits_and_promotions.dart';
 import 'UserInformation/contact_us.dart';
 
@@ -53,7 +55,7 @@ Future sideMenu(context) {
                         children: [
                           Icon(Icons.account_circle_outlined, color: blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('פרופיל אישי', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: blackColorApp,height: 1),))
+                          Flexible(child: Text('פרופיל אישי', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
                         ],
                       ),
                     ),
@@ -68,9 +70,9 @@ Future sideMenu(context) {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ImageIcon(AssetImage("assets/icons/car1.png"),size: 24.w,color: blackColorApp,),
+                          ImageIcon(AssetImage("assets/icons/car1.png"),color: blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('היסטורית הזמנות', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: blackColorApp,height: 1),))
+                          Flexible(child: Text('היסטורית הזמנות', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
                         ],
                       ),
                     ),
@@ -89,9 +91,9 @@ Future sideMenu(context) {
                         children: [
                          // Image.asset('assets/images/mingcute_car-line.png',width: 24.w,),
 
-                          ImageIcon(AssetImage("assets/icons/mingcute_car-line.png"),size: 24.w,color: blackColorApp,),
+                          ImageIcon(AssetImage("assets/icons/mingcute_car-line.png"),color: blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('הזמנות עתידיות', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: blackColorApp,height: 1),))
+                          Flexible(child: Text('הזמנות עתידיות', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
                         ],
                       ),
                     ),
@@ -108,13 +110,25 @@ Future sideMenu(context) {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ImageIcon(AssetImage("assets/icons/Creditcard.png"),size: 24.w,color: blackColorApp,),
+                          ImageIcon(AssetImage("assets/icons/Creditcard.png"),color: blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('עידכון כ. אשראי',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, height: 1, color: blackColorApp)),)
+                          Flexible(child: Text('עידכון כ. אשראי',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, height: 1.5, color: blackColorApp)),)
                         ],
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      ApiService().getPaymentUrl(User().userId, (res) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PaymentWebView(
+                                  url: res,
+                                  index: 2,
+                                )),
+                               );
+                      });
+                    }
+
                   ),
                 ),
                 SizedBox(
@@ -125,9 +139,9 @@ Future sideMenu(context) {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ImageIcon(AssetImage("assets/icons/video.png"),size: 24.w,color: blackColorApp,),
+                          ImageIcon(AssetImage("assets/icons/video.png"),color: blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('סרטוני הדרכה', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: blackColorApp,height: 1),))
+                          Flexible(child: Text('סרטוני הדרכה', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
                         ],
                       ),
                     ),
@@ -144,7 +158,7 @@ Future sideMenu(context) {
                         children: [
                           Icon(Icons.error_outline_outlined, color: blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('תקנון', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: blackColorApp,height: 1),))
+                          Flexible(child: Text('תקנון', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
                         ],
                       ),
                     ),
@@ -159,9 +173,9 @@ Future sideMenu(context) {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ImageIcon(AssetImage("assets/icons/wallet.png"),size: 24.w,color: blackColorApp,),
+                          ImageIcon(AssetImage("assets/icons/wallet.png"),color: blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('מחירון', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: blackColorApp,height: 1),))
+                          Flexible(child: Text('מחירון', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
                         ],
                       ),
                     ),
@@ -176,9 +190,9 @@ Future sideMenu(context) {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ImageIcon(AssetImage("assets/icons/solar_sale-linear.png"),size: 24.w,color: blackColorApp,),
+                          ImageIcon(AssetImage("assets/icons/solar_sale-linear.png"),color: blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('הטבות ומבצעים', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: blackColorApp,height: 1),))
+                          Flexible(child: Text('הטבות ומבצעים', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
                         ],
                       ),
                     ),
@@ -193,9 +207,9 @@ Future sideMenu(context) {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ImageIcon(AssetImage("assets/icons/Phone.png"),size: 24.w,color: blackColorApp,),
+                          ImageIcon(AssetImage("assets/icons/Phone.png"),color: blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('צור קשר', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: blackColorApp,height: 1),))
+                          Flexible(child: Text('צור קשר', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
                         ],
                       ),
                     ),
@@ -212,7 +226,7 @@ Future sideMenu(context) {
                         children: [
                           Icon(Icons.logout,color:  blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('התנתק', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: blackColorApp,height: 1),))
+                          Flexible(child: Text('התנתק', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
                         ],
                       ),
                     ),

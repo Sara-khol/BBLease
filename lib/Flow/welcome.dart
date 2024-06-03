@@ -8,6 +8,8 @@ class WelcomeForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var orientation = MediaQuery.of(context).orientation;
+    debugPrint('orientation ${orientation.name} ');
     return Scaffold(
       body: Center(
         child: Column(
@@ -63,7 +65,9 @@ class WelcomeForm extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 22.sp,
                         fontWeight: FontWeight.normal,
-                        color: Colors.white),
+                        color: Colors.white,
+                        //height: 2.3
+                    ),
                   )),
             ),
             SizedBox(height: 12.h),
@@ -78,20 +82,25 @@ class WelcomeForm extends StatelessWidget {
                       borderRadius: BorderRadius.circular(100),
                     ),
                     elevation: 0.0,
+                    padding: EdgeInsets.zero,
                   ),
                   onPressed: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const TelToRegistrationForm()));
+                    const TelToRegistrationForm()));
                   },
-                  child: Text(
-                    'הבא',
-                    style: TextStyle(
-                        fontSize: 22.sp,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.white),
+                  child: Center(
+                    child: Text(
+                      'הבא',
+                      style: TextStyle(
+                          fontSize: 22.sp,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.white,
+                        height: 2.3
+                      ),
+                    ),
                   )),
             ),
           ],

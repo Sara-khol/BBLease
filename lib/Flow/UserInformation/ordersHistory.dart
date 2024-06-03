@@ -47,12 +47,8 @@ class _OrdersHistoryState extends State<OrdersHistory> {
         var futureJson = data['futurity'];
         print(historyJson);
         print(futureJson);
-        ordersHistory = historyJson
-            .map<Rental>((entry) => (Rental.fromJson(entry)))
-            .toList();
-        futureOrders = futureJson
-            .map<Rental>((entry) => (Rental.fromJson(entry)))
-            .toList();
+        ordersHistory = historyJson.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
+        futureOrders = futureJson.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
         print(ordersHistory.length);
         print(futureJson.length);
 
@@ -62,9 +58,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
             User().currentRent = item;
           }
         }
-        ordersHistory = ordersHistory
-            .where((item) => item.status != "active-rentals")
-            .toList();
+        ordersHistory = ordersHistory.where((item) => item.status != "active-rentals").toList();
 
         initData = true;
 
@@ -341,6 +335,8 @@ class _OrdersHistoryState extends State<OrdersHistory> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 38.w),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
                     height: 34.h,
@@ -366,11 +362,11 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                           'היסטורית הזמנות',
                           style: TextStyle(
                               fontSize: 18.sp,
+                              height: 2.15,
                               fontWeight: selected == 1
                                   ? FontWeight.bold
                                   : FontWeight.normal,
-                              color:
-                                  selected == 1 ? Colors.white : blackColorApp),
+                              color: selected == 1 ? Colors.white : blackColorApp),
                         )),
                   ),
                   Spacer(),
@@ -398,6 +394,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                           'הזמנות עתידיות',
                           style: TextStyle(
                               fontSize: 18.sp,
+                              height: 2.15,
                               fontWeight: selected == 2
                                   ? FontWeight.bold
                                   : FontWeight.normal,
@@ -459,12 +456,21 @@ class _OrdersHistoryState extends State<OrdersHistory> {
 
                         }
                       : null,
-                  child: Text(
-                    'הזמנה פעילה',
-                    style: TextStyle(
-                        fontSize: 22.sp,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.white),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+
+                    children: [
+                      ImageIcon(AssetImage("assets/icons/car1.png"), color: Colors.white,),
+                      SizedBox(width:52.w),
+                      Text(
+                        'פתח הזמנה פעילה',
+                        style: TextStyle(
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.white),
+                      ),
+                    ],
                   )),
             ),
             SizedBox(
@@ -503,17 +509,11 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                             child: Container(
                                               width: 332.w,
                                               height: 50.h,
-                                              margin: EdgeInsets.only(
-                                                  //bottom: 22.h,
-                                                  left: 20.w,
-                                                  right: 20.w),
-                                              decoration: BoxDecoration(
-                                                  color: Color(0xFFF7F7F7),
-                                                  borderRadius:
-                                                      BorderRadius.circular(8)),
+                                              margin: EdgeInsets.only(left: 20.w,right: 20.w),
+                                              decoration: BoxDecoration(color: Color(0xFFF7F7F7),
+                                                  borderRadius: BorderRadius.circular(8)),
                                               child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 22.w),
+                                                padding: EdgeInsets.symmetric(horizontal: 22.w),
                                                 child: Row(
                                                   children: [
                                                     Text(
@@ -549,7 +549,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(height: 8.h,)
+                                          SizedBox(height: 20.h,)
                                         ],
                                       );
                                     }

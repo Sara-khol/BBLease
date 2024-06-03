@@ -193,7 +193,8 @@ Future displayError(BuildContext context,{bool existsData=true,String type='',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
-                            fontWeight: FontWeight.normal),
+                            fontWeight: FontWeight.normal,
+                            height: 2.3),
                       )),
                 ),
               ])
@@ -215,7 +216,8 @@ Future displayError(BuildContext context,{bool existsData=true,String type='',
                    style: TextStyle(
                        color: Colors.white,
                        fontSize: 18.sp,
-                       fontWeight: FontWeight.normal),
+                       fontWeight: FontWeight.normal,
+                       height: 2.3),
                  )),
            ),
             SizedBox(height: 22.h)
@@ -273,7 +275,8 @@ Future displayMessage(BuildContext context,{
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18.sp,
-                      fontWeight: FontWeight.normal),
+                      fontWeight: FontWeight.normal,
+                      height: 2.3),
                 )),
           ),
           SizedBox(height: 22.h)
@@ -330,7 +333,8 @@ Future displayQuestion(BuildContext context,{
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
-                            fontWeight: FontWeight.normal),
+                            fontWeight: FontWeight.normal,
+                            height: 2.3),
                       )),
                 ),
                 SizedBox(width: 13.h),
@@ -352,7 +356,8 @@ Future displayQuestion(BuildContext context,{
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
-                            fontWeight: FontWeight.normal),
+                            fontWeight: FontWeight.normal,
+                            height: 2.3),
                       )),
                 ),
 
@@ -416,7 +421,8 @@ Future displayQuestion1(BuildContext context,{
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
-                            fontWeight: FontWeight.normal),
+                            fontWeight: FontWeight.normal,
+                            height: 2.3),
                       )),
                 ),
                 SizedBox(width: 13.h),
@@ -441,7 +447,8 @@ Future displayQuestion1(BuildContext context,{
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
-                            fontWeight: FontWeight.normal),
+                            fontWeight: FontWeight.normal,
+                            height: 2.3),
                       )),
                 ),
 
@@ -499,7 +506,8 @@ Future reportAccident(context){
                                   style: TextStyle(
                                       fontSize: 20.sp,
                                       color: Colors.white,
-                                      fontWeight: FontWeight.normal))),
+                                      fontWeight: FontWeight.normal,
+                                      height: 2.3))),
                         ),
                         SizedBox(width: 13.w,),
                         Container(
@@ -517,7 +525,8 @@ Future reportAccident(context){
                                   style: TextStyle(
                                       fontSize: 20.sp,
                                       color: Colors.white,
-                                      fontWeight: FontWeight.normal))),
+                                      fontWeight: FontWeight.normal,
+                                      height: 2.3))),
                         ),
                       ],
                     ),
@@ -578,7 +587,8 @@ Future displayErrorInValidation(BuildContext context) {
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18.sp,
-                      fontWeight: FontWeight.normal),
+                      fontWeight: FontWeight.normal,
+                      height: 2.3),
                 )),
           ),
           SizedBox(height: 22.h)

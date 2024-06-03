@@ -579,8 +579,6 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
               ),
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

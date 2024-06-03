@@ -86,88 +86,93 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OKToast(
-      child: ScreenUtilInit(
-          designSize: const Size(393, 852),
-          minTextAdapt: true,
-          builder: (BuildContext context, Widget? child) {
-            return MaterialApp(
-              localizationsDelegates: [
-                //AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                //GlobalWidgetsLocalizations.delegate,
-              ],
-              supportedLocales: [
-                const Locale('he'),
-                const Locale('en'),
+      child: OrientationBuilder(
+        builder: (context,orientation) {
+          debugPrint('orientation main ${orientation.name} ');
+          return ScreenUtilInit(
+              designSize: orientation==Orientation.portrait? Size(393, 852):Size(1440, 1024),
+              minTextAdapt: true,
+              builder: (BuildContext context, Widget? child) {
+                return MaterialApp(
+                  localizationsDelegates: [
+                    //AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    //GlobalWidgetsLocalizations.delegate,
+                  ],
+                  supportedLocales: [
+                    const Locale('he'),
+                    const Locale('en'),
 
-              ],
-              title: 'Flutter Demo',
-              theme: ThemeData(
-                  fontFamily: 'PLONI',
-                  scaffoldBackgroundColor: Colors.white,
-                  textTheme: TextTheme(
-                      bodyMedium: TextStyle(color: blackColorApp)),
-                  timePickerTheme: TimePickerThemeData(
-                    backgroundColor: Colors.white,
-                    cancelButtonStyle: ButtonStyle(foregroundColor: _customColor()),
-                    confirmButtonStyle: ButtonStyle(foregroundColor: _customColor()),
-                    dayPeriodColor: blackColorApp,
-                    dialBackgroundColor:  Colors.cyan[100],
-                    hourMinuteColor:  Colors.cyan[100],
-                    hourMinuteTextColor: blackColorApp,
-                    dialHandColor: turquoiseColorApp,
+                  ],
+                  title: 'Flutter Demo',
+                  theme: ThemeData(
+                      fontFamily: 'PLONI',
+                      scaffoldBackgroundColor: Colors.white,
+                      textTheme: TextTheme(
+                          bodyMedium: TextStyle(color: blackColorApp)),
+                      timePickerTheme: TimePickerThemeData(
+                        backgroundColor: Colors.white,
+                        cancelButtonStyle: ButtonStyle(foregroundColor: _customColor()),
+                        confirmButtonStyle: ButtonStyle(foregroundColor: _customColor()),
+                        dayPeriodColor: blackColorApp,
+                        dialBackgroundColor:  Colors.cyan[100],
+                        hourMinuteColor:  Colors.cyan[100],
+                        hourMinuteTextColor: blackColorApp,
+                        dialHandColor: turquoiseColorApp,
 
-                    elevation: 2,
-                    dialTextColor: blackColorApp,
-                    entryModeIconColor: pinkColorApp,
+                        elevation: 2,
+                        dialTextColor: blackColorApp,
+                        entryModeIconColor: pinkColorApp,
+                      ),
+                      datePickerTheme: DatePickerThemeData(
+                        backgroundColor: Colors.white,
+                        elevation: 2,
+                        headerBackgroundColor: Colors.white,
+                        todayBackgroundColor: _customColor(),
+                        headerForegroundColor: blackColorApp,
+                        cancelButtonStyle: ButtonStyle(foregroundColor: _customColor()),
+                        confirmButtonStyle: ButtonStyle(foregroundColor: _customColor()),
+                        todayBorder: BorderSide(color: blackColorApp),
+                        rangePickerBackgroundColor: turquoiseColorApp,
+                        rangeSelectionBackgroundColor: Colors.cyan[100],
+                      )
+                      // primarySwatch: Color.fromARGB(15, 21, 17, 1),
+                      ),
+                  home: Scaffold(
+                    body: FutureBuilder<bool>(
+                        future:myFuture,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            if (snapshot.data is bool && snapshot.data == true) {
+                               if(User().tranzilaStatus) {
+                                 MySharedPreferences().setLastUsage();
+                                 if(User().currentRent!=null) {
+                                   return const ActiveRentDetails();
+                                 }
+                                 return  const HomePage();
+                               }
+                               else
+                                 {
+                                   return const WelcomeForm();
+                                 }
+                            }
+                            return const WelcomeForm();
+                          }
+                          if(snapshot.hasError)
+                            {
+                              debugPrint('error: ${snapshot.error}');
+                             CommonFuncs().showMyToast('בעיה בלתי צפויה, נסה להכנס שנית');
+                             return Container();
+                            }
+                          else {
+                            return Center(child: CircularProgressIndicator(color: pinkColorApp,));
+                          }
+                        }),
                   ),
-                  datePickerTheme: DatePickerThemeData(
-                    backgroundColor: Colors.white,
-                    elevation: 2,
-                    headerBackgroundColor: Colors.white,
-                    todayBackgroundColor: _customColor(),
-                    headerForegroundColor: blackColorApp,
-                    cancelButtonStyle: ButtonStyle(foregroundColor: _customColor()),
-                    confirmButtonStyle: ButtonStyle(foregroundColor: _customColor()),
-                    todayBorder: BorderSide(color: blackColorApp),
-                    rangePickerBackgroundColor: turquoiseColorApp,
-                    rangeSelectionBackgroundColor: Colors.cyan[100],
-                  )
-                  // primarySwatch: Color.fromARGB(15, 21, 17, 1),
-                  ),
-              home: Scaffold(
-                body: FutureBuilder<bool>(
-                    future:myFuture,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        if (snapshot.data is bool && snapshot.data == true) {
-                           if(User().tranzilaStatus) {
-                             MySharedPreferences().setLastUsage();
-                             if(User().currentRent!=null) {
-                               return const ActiveRentDetails();
-                             }
-                             return  const HomePage();
-                           }
-                           else
-                             {
-                               return const WelcomeForm();
-                             }
-                        }
-                        return const WelcomeForm();
-                      }
-                      if(snapshot.hasError)
-                        {
-                          debugPrint('error: ${snapshot.error}');
-                         CommonFuncs().showMyToast('בעיה בלתי צפויה, נסה להכנס שנית');
-                         return Container();
-                        }
-                      else {
-                        return Center(child: CircularProgressIndicator(color: pinkColorApp,));
-                      }
-                    }),
-              ),
-            );
-          }),
+                );
+              });
+        }
+      ),
     );
   }
 

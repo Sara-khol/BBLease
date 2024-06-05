@@ -4,17 +4,20 @@ import 'package:bblease/Flow/home_page.dart';
 import 'package:bblease/Flow/registration/payment_webVIew.dart';
 import 'package:bblease/Flow/registration/start_registration.dart';
 import 'package:bblease/Flow/UserInformation/terms_and_conditions.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:bblease/landspace_widget.dart';
+import 'package:flutter/cupertino.dart' hide Orientation;
+import 'package:flutter/material.dart'  ;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bblease/utils/my_colors.dart';
-import 'package:sms_autofill/sms_autofill.dart';
+import 'package:sms_autofill/sms_autofill.dart'hide Orientation;
 
 import '../../models/class_user.dart';
 import '../../services/api_service.dart';
 import '../Dialogs/buttom_dialogs.dart';
 import '../Rental/dialogs.dart';
 import '../my_shared_preferences.dart';
+import 'package:bblease/customWidgets/customText.dart';
+import 'package:bblease/customWidgets/customTextFormField.dart' ;
 
 class TelToRegistrationForm extends StatefulWidget {
 
@@ -167,300 +170,356 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.top),
-          child: Directionality(
-            textDirection: TextDirection.rtl,
-            child: Form(
-              key: _formKey,
-              child: Padding(
-                padding: EdgeInsets.only(right: 31.w, left: 30.w),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 100.h,),
-                    Text('התחברות', style: TextStyle(fontSize: 23.sp, fontWeight: FontWeight.bold,height: 1),),
-                    SizedBox(height: 29.h,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextButton(
-                            onPressed: () {
-                              setState(() {
-                                isRegister=true;
-                              });
-                            },
-                            child: Text('התחבר',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal,color: Colors.black,decoration: isRegister?TextDecoration.underline:TextDecoration.none,height: 1),)),
-                        SizedBox(width: 150.w,),
-                        TextButton(
-                            onPressed: () {
-                              setState(() {
-                                isRegister=false;
-                              });
-                            },
-                            child: Text('הירשם',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal,color: Colors.black,decoration: isRegister?TextDecoration.none:TextDecoration.underline,height: 1),))
-                      ],
-                    ),
-                    SizedBox(height: 70.h,),
-                    Text(isRegister?'הזן מספר טלפון לקבלת קוד התחברות':'הזן מספר טלפון לקבלת קוד הרשמה', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,height: 1)),
-                    SizedBox(height: 34.h),
-                    SizedBox(
-                      height: 70.h,
-                      child: TextFormField(
-                        controller: _phone,
-                        keyboardType: TextInputType.number,
-                        cursorColor: blackColorApp,
-                        decoration: InputDecoration(
-                          //constraints: BoxConstraints(maxHeight: 48.h),
-                          isDense: true,
-                          labelText: "מס' נייד",
-                          labelStyle: TextStyle(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.normal,
+      body: OrientationBuilder(builder: (context, orientation) {
+        if (orientation == Orientation.landscape)
+          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_image.png', 580.w));
+        return buildContent();
+      }),
+    );
+  }
+
+  buildContent() {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.top),
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: EdgeInsets.only(right: 31.w, left: 30.w),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 100.h,
+                  ),
+                  CustomText(
+                    'התחברות',
+                    style: TextStyle(
+                        fontSize: 23.sp,
+                        fontWeight: FontWeight.bold,
+                        height: 1),
+                  ),
+                  SizedBox(
+                    height: 29.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            setState(() {
+                              isRegister = true;
+                            });
+                          },
+                          child: CustomText(
+                            'התחבר',
+                            style: TextStyle(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black,
+                                decoration: isRegister
+                                    ? TextDecoration.underline
+                                    : TextDecoration.none,
+                                height: 1),
+                          )),
+                      SizedBox(
+                        width: 150.w,
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            setState(() {
+                              isRegister = false;
+                            });
+                          },
+                          child: CustomText(
+                            'הירשם',
+                            style: TextStyle(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black,
+                                decoration: isRegister
+                                    ? TextDecoration.none
+                                    : TextDecoration.underline,
+                                height: 1),
+                          ))
+                    ],
+                  ),
+                  SizedBox(
+                    height: 70.h,
+                  ),
+                  CustomText(
+                      isRegister
+                          ? 'הזן מספר טלפון לקבלת קוד התחברות'
+                          : 'הזן מספר טלפון לקבלת קוד הרשמה',
+                      style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.normal,
+                          height: 1)),
+                  SizedBox(height: 34.h),
+                  SizedBox(
+                    height: 70.h,
+                    child: CustomTextFormField(
+                      controller: _phone,
+                      keyboardType: TextInputType.number,
+                      cursorColor: blackColorApp,
+                      decoration: InputDecoration(
+                        //constraints: BoxConstraints(maxHeight: 48.h),
+                        isDense: true,
+                        labelText: "מס' נייד",
+                        labelStyle: TextStyle(
+                          fontSize: 22.sp,
+                          fontWeight: FontWeight.normal,
+                          color: blackColorApp,
+                        ),
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(
                             color: blackColorApp,
                           ),
-                          floatingLabelBehavior: FloatingLabelBehavior.auto,
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(
-                              color: blackColorApp,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(
-                              color: blackColorApp,
-                            ),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: const BorderSide(
-                              color: Colors.red,
-                            ),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: const BorderSide(
-                              color: Colors.red,
-                            ),
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                            vertical: 10.h,
-                            horizontal: 20.w,
-                          ),
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.only(right: 20.w, left: 14.w),
-                            child:ImageIcon(
-                              AssetImage("assets/icons/Phone.png"),
-                              size: 24.w,
-                              color:pinkColorApp,
-                            ),
-                          ),
-                          prefixIconConstraints: const BoxConstraints(
-                            maxHeight: 26,
-                          ),
-                          suffixIcon: didSendCode
-                              ? Padding(
-                            padding: EdgeInsets.only(left: 14.w),
-                            child:ImageIcon(
-                              AssetImage("assets/icons/edit.png"),
-                              size: 20.w,
-                              color:turquoiseColorApp,
-                            ),
-                          )
-                              : null,
                         ),
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.normal,
-                            color: blackColorApp),
-                        validator: (value) {
-                          if (value == null || value.length < 10)
-                            return 'מספר הטלפון חייב להיות בן 10 ספרות';
-                          return null;
-                        },
-                      ),
-                    ),
-                    SizedBox(height: 8.h,),
-                    Visibility(
-                      visible: didSendCode && checkboxValue1,
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        controller: _code,
-                        focusNode: textSecondFocusNode,
-                        cursorColor: blackColorApp,
-                        decoration: InputDecoration(
-                          constraints: BoxConstraints(maxHeight: 48.h),
-                          isDense: true,
-                          labelText: "הזן סיסמא שהתקבלה",
-                          labelStyle: TextStyle(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.normal,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(
                             color: blackColorApp,
-                            height: 1,
                           ),
-                          floatingLabelBehavior: FloatingLabelBehavior.auto,
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(
-                              color: blackColorApp,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(
-                              color: blackColorApp,
-                            ),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: const BorderSide(
-                              color: Colors.red,
-                            ),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: const BorderSide(
-                              color: Colors.red,
-                            ),
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                            vertical: 10.h,
-                            horizontal: 20.w,
-                          ),
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.only(right: 20.w, left: 14.w),
-                            child: ImageIcon(
-                              AssetImage("assets/icons/Password.png"),
-                              size: 24.w,
-                              color:pinkColorApp,
-                            ),
-                          ),
-                          prefixIconConstraints: const BoxConstraints(
-                            maxHeight: 26,
-                          ),
-                          prefixIconColor: pinkColorApp,
                         ),
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.normal,
-                            color: blackColorApp),
-                        validator: (value) {
-                          if (value == null /*|| value != code.toString()*/)
-                            // return 'קוד שגוי';
-                            return 'נא הזן קוד';
-                          return null;
-                        },
-                      ),
-                    ),
-                    //SizedBox(height: 34.h),
-                    Visibility(
-                      visible: !didSendCode,
-                      child: SizedBox(
-                        height: 40.h,
-                        child: ListTileTheme(
-                          horizontalTitleGap: 1.0,
-                          child: CheckboxListTile(
-                            value: checkboxValue1,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                checkboxValue1 = value!;
-                              });
-                            },
-                            title: Row(
-                              children: [
-                                Text(
-                                  'אני מאשר/ת את ',
-                                  style: TextStyle(fontSize: 18.sp),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: const BorderSide(
+                            color: Colors.red,
+                          ),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: const BorderSide(
+                            color: Colors.red,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 10.h,
+                          horizontal: 20.w,
+                        ),
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.only(right: 20.w, left: 14.w),
+                          child: ImageIcon(
+                            AssetImage("assets/icons/Phone.png"),
+                            size: 24.w,
+                            color: pinkColorApp,
+                          ),
+                        ),
+                        prefixIconConstraints: const BoxConstraints(
+                          maxHeight: 26,
+                        ),
+                        suffixIcon: didSendCode
+                            ? Padding(
+                                padding: EdgeInsets.only(left: 14.w),
+                                child: ImageIcon(
+                                  AssetImage("assets/icons/edit.png"),
+                                  size: 20.w,
+                                  color: turquoiseColorApp,
                                 ),
-                                GestureDetector(
-                                    onTap: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => const Terms(index: 1,))),
-                                    child: Text(
-                                      'תנאי השימוש',
-                                      style: TextStyle(
-                                          fontSize: 18.sp,
-                                          decoration: TextDecoration.underline),
-                                    )),
-                              ],
-                            ),
-                            checkColor: blackColorApp,
-                            activeColor: Colors.transparent,
-                            // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            controlAffinity: ListTileControlAffinity.leading,
-                            checkboxShape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4)),
-                            side: BorderSide(
-                              color: blackColorApp,
-                              width: 1.5,
-                            ),
+                              )
+                            : null,
+                      ),
+                      style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.normal,
+                          color: blackColorApp),
+                      validator: (value) {
+                        if (value == null || value.length < 10)
+                          return 'מספר הטלפון חייב להיות בן 10 ספרות';
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  Visibility(
+                    visible: didSendCode && checkboxValue1,
+                    child: CustomTextFormField(
+                      keyboardType: TextInputType.number,
+                      controller: _code,
+                      focusNode: textSecondFocusNode,
+                      cursorColor: blackColorApp,
+                      decoration: InputDecoration(
+                        constraints: BoxConstraints(maxHeight: 48.h),
+                        isDense: true,
+                        labelText: "הזן סיסמא שהתקבלה",
+                        labelStyle: TextStyle(
+                          fontSize: 22.sp,
+                          fontWeight: FontWeight.normal,
+                          color: blackColorApp,
+                          height: 1,
+                        ),
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(
+                            color: blackColorApp,
                           ),
                         ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(
+                            color: blackColorApp,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: const BorderSide(
+                            color: Colors.red,
+                          ),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: const BorderSide(
+                            color: Colors.red,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 10.h,
+                          horizontal: 20.w,
+                        ),
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.only(right: 20.w, left: 14.w),
+                          child: ImageIcon(
+                            AssetImage("assets/icons/Password.png"),
+                            size: 24.w,
+                            color: pinkColorApp,
+                          ),
+                        ),
+                        prefixIconConstraints: const BoxConstraints(
+                          maxHeight: 26,
+                        ),
+                        prefixIconColor: pinkColorApp,
                       ),
+                      style: TextStyle(
+                          fontSize: 22.sp,
+                          fontWeight: FontWeight.normal,
+                          color: blackColorApp),
+                      validator: (value) {
+                        if (value == null /*|| value != code.toString()*/)
+                          // return 'קוד שגוי';
+                          return 'נא הזן קוד';
+                        return null;
+                      },
                     ),
-                    //SizedBox(height: 81.h,),
-                    //Spacer(),
-                    Visibility(
-                      visible: didSendCode,
-                      child: SizedBox(
-                        height: 350.h,
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                  ),
+                  //SizedBox(height: 34.h),
+                  Visibility(
+                    visible: !didSendCode,
+                    child: SizedBox(
+                      height: 40.h,
+                      child: ListTileTheme(
+                        horizontalTitleGap: 1.0,
+                        child: CheckboxListTile(
+                          value: checkboxValue1,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              checkboxValue1 = value!;
+                            });
+                          },
+                          title: Row(
                             children: [
-                              TextButton(
-                                  onPressed: () {
-                                    _code.text = '';
-                                    getVerificationCode(0);
-                                  },
-                                  child: Text('שלח שוב SMS',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 18.sp,
-                                          decoration: TextDecoration.underline,
-                                          color: blackColorApp))),
-                              TextButton(
-                                  onPressed: () {
-                                    _code.text = '';
-                                    getVerificationCode(1);
-                                  },
-                                  child: Text(
-                                    'שלח שוב שיחה קולית',
+                              CustomText(
+                                'אני מאשר/ת את ',
+                                style: TextStyle(fontSize: 18.sp),
+                              ),
+                              GestureDetector(
+                                  onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => const Terms(
+                                                index: 1,
+                                              ))),
+                                  child: CustomText(
+                                    'תנאי השימוש',
                                     style: TextStyle(
-                                        fontWeight: FontWeight.normal,
                                         fontSize: 18.sp,
-                                        decoration: TextDecoration.underline,
-                                        color: blackColorApp),
+                                        decoration: TextDecoration.underline),
                                   )),
-                              TextButton(
-                                  onPressed: () {
-                                    _code.text = '';
-                                    getVerificationCode(2);
-                                  },
-                                  child: Text(
-                                    'שלח שוב ווטסאפ',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 18.sp,
-                                        decoration: TextDecoration.underline,
-                                        color: blackColorApp),
-                                  )),
-                              // SizedBox(
-                              //   height: 100.h,
-                              // ),
                             ],
                           ),
+                          checkColor: blackColorApp,
+                          activeColor: Colors.transparent,
+                          // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          controlAffinity: ListTileControlAffinity.leading,
+                          checkboxShape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4)),
+                          side: BorderSide(
+                            color: blackColorApp,
+                            width: 1.5,
+                          ),
                         ),
                       ),
                     ),
-                    Visibility(
-                        visible: !didSendCode,
-                        child: SizedBox(height: 340.h,)),
+                  ),
+                  //SizedBox(height: 81.h,),
+                  //Spacer(),
+                  Visibility(
+                    visible: didSendCode,
+                    child: SizedBox(
+                      height: 350.h,
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            TextButton(
+                                onPressed: () {
+                                  _code.text = '';
+                                  getVerificationCode(0);
+                                },
+                                child: CustomText('שלח שוב SMS',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 18.sp,
+                                        decoration: TextDecoration.underline,
+                                        color: blackColorApp))),
+                            TextButton(
+                                onPressed: () {
+                                  _code.text = '';
+                                  getVerificationCode(1);
+                                },
+                                child: CustomText(
+                                  'שלח שוב שיחה קולית',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 18.sp,
+                                      decoration: TextDecoration.underline,
+                                      color: blackColorApp),
+                                )),
+                            TextButton(
+                                onPressed: () {
+                                  _code.text = '';
+                                  getVerificationCode(2);
+                                },
+                                child: CustomText(
+                                  'שלח שוב ווטסאפ',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 18.sp,
+                                      decoration: TextDecoration.underline,
+                                      color: blackColorApp),
+                                )),
+                            // SizedBox(
+                            //   height: 100.h,
+                            // ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                      visible: !didSendCode,
+                      child: SizedBox(
+                        height: 340.h,
+                      )),
 
                     Flexible(
                       fit: FlexFit.loose,
@@ -520,8 +579,6 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
               ),
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

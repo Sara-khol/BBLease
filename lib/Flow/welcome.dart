@@ -8,6 +8,8 @@ class WelcomeForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var orientation = MediaQuery.of(context).orientation;
+    debugPrint('orientation ${orientation.name} ');
     return Scaffold(
       body: Center(
         child: Column(
@@ -87,7 +89,7 @@ class WelcomeForm extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const TelToRegistrationForm()));
+                    const TelToRegistrationForm()));
                   },
                   child: Center(
                     child: Text(

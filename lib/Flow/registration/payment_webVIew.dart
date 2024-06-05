@@ -50,8 +50,15 @@ class _PaymentWebViewState extends State<PaymentWebView> {
   buildContent(Orientation o) {
     return SafeArea(
       child: Column(children: <Widget>[
+        SizedBox(height: 24.h,),
+        Padding(
+          padding:  EdgeInsets.only(right: 23.w),
+          child: Align(
+              alignment: Alignment.topRight,
+              child: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
+        ),
         SizedBox(
-          height: 53.h,
+          height: 25.h,
         ),
         Icon(
           Icons.account_circle_outlined,

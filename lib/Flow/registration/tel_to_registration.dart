@@ -261,7 +261,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                   SizedBox(height: 34.h),
                   SizedBox(
                     height: 70.h,
-                    child: CustomTextFormField(
+                    child: TextFormField(
                       controller: _phone,
                       keyboardType: TextInputType.number,
                       cursorColor: blackColorApp,
@@ -341,7 +341,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                   ),
                   Visibility(
                     visible: didSendCode && checkboxValue1,
-                    child: CustomTextFormField(
+                    child: TextFormField(
                       keyboardType: TextInputType.number,
                       controller: _code,
                       focusNode: textSecondFocusNode,

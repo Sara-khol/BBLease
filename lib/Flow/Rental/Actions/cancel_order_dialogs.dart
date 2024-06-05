@@ -204,8 +204,8 @@ Future signCancelOrderDialog(context,String headline,String text){
                                 if(_controller.isNotEmpty){
                                   //final signature= await exportSignature(_controller);
                                   final signature = await _controller.toPngBytes();
-                                  headline=="טופס תנאי השכרה"?
-                                  {
+                                  // headline=="טופס תנאי השכרה"?
+                                  headline=="טופס אישור תנאים"?                                  {
                                     User().signature = signature!,
                                     Navigator.pop(context),
                                   }

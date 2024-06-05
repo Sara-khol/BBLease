@@ -1,47 +1,40 @@
 
+import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:flutter/material.dart';
 
-class LandSpaceWidget extends StatefulWidget {
+class LandSpaceWidget extends StatelessWidget {
   final Widget mainWidget;
   final ImageProperties imageProperties;
+  final bool showAppBar;
 
-  const LandSpaceWidget({super.key, required this.mainWidget, required this.imageProperties});
+  const LandSpaceWidget({super.key, required this.mainWidget, required this.imageProperties,this.showAppBar=false});
 
-  @override
-  State<LandSpaceWidget> createState() => _LandSpaceWidgetState();
-}
-
-class _LandSpaceWidgetState extends State<LandSpaceWidget> {
   // late final Map<Type, ImageProperties> _widgetImageMap = {
-  //    TelToRegistrationForm: ImageProperties('l_image.png', 580.w),
-  //    PersonalDetailsForm: ImageProperties('l_register1.png', 618.w),
-  // };
- // late ImageProperties _imageProperties;
-
-  // @override
-  // void initState() {
-  //   _imageProperties = _widgetImageMap[widget.mainWidget.runtimeType] ??
-  //       ImageProperties('l_image.png', 580.w);
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child: Row(
+      child: Column(
         children: [
-          Expanded(child: widget.mainWidget),
+       if(showAppBar)   const Directionality(
+              textDirection: TextDirection.ltr, child: AppBarBibilease()),
           Expanded(
-            child: Container(
+            child: Row(
+              children: [
+                Expanded(child: mainWidget),
+                Expanded(
+                  child: Container(
 
-              child: Center(
-                  child: Image.asset(
-               'assets/images/${widget.imageProperties.imagePath}',
-                width: widget.imageProperties.imageWidth,
-              )),
+                    child: Center(
+                        child: Image.asset(
+                     'assets/images/${imageProperties.imagePath}',
+                      width: imageProperties.imageWidth,
+                    )),
+                  ),
+                )
+              ],
             ),
-          )
+          ),
         ],
       ),
     );

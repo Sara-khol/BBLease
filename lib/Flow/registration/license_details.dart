@@ -1,5 +1,6 @@
 
 import 'package:bblease/Flow/registration/payment_webVIew.dart';
+import 'package:bblease/landspace_widget.dart';
 import 'package:bblease/models/additional_driver.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:bblease/services/api_service.dart';
@@ -50,220 +51,233 @@ class _LicenseDetailsState extends State<LicenseDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Form(
-          key: _formKey,
-          child: Padding(
-            padding: EdgeInsets.only(right: 30.w, left: 31.w),
-            child: ListView(
-              children: [
-                SizedBox(
-                  height: 53.h,
+      body: OrientationBuilder(
+        builder: (context,orientation) {
+          return  orientation==Orientation.landscape?
+            LandSpaceWidget( mainWidget: buildContent(),imageProperties: ImageProperties('l_register1.png', 618.w)):
+                buildContent();
+
+        }
+      ),
+    );
+  }
+
+  buildContent()
+  {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Form(
+        key: _formKey,
+        child: Padding(
+          padding: EdgeInsets.only(right: 30.w, left: 31.w),
+          child: ListView(
+            children: [
+              SizedBox(
+                height: 53.h,
+              ),
+              Visibility(
+                visible: widget.index==1,
+                child: Icon(
+                  Icons.account_circle_outlined,
+                  color: turquoiseColorApp,
+                  size: 60.w,
+                  weight: 100,
                 ),
-                 Visibility(
-                   visible: widget.index==1,
-                   child: Icon(
-                    Icons.account_circle_outlined,
-                    color: turquoiseColorApp,
-                    size: 60.w,
-                    weight: 100,
-                   ),
-                 ),
-                SizedBox(
-                  height: widget.index==1?8.h:53.h,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'פרטי רשיון נהיגה',
-                      style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.bold,
-                        color: blackColorApp,
-                        fontFamily: 'PLONI',
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 34.h,
-                ),
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  cursorColor: blackColorApp,
-                  decoration: getInputDecoration('מספר רשיון נהיגה'),
-                  style: TextStyle(color: blackColorApp, fontSize: 18.sp),
-                  controller: _licenseId,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) return 'זהו שדה חובה';
-                    return null;
-                  },
-                ),
-                SizedBox(
-                  height: 12.h,
-                ),
-                TextFormField(
-                  readOnly: true,
-                  cursorColor: blackColorApp,
-                  decoration: getInputDecoration('תוקף',
-                      suffixIcon: Image.asset(
-                        'assets/icons/Calendar.png',
-                        width: 24.w,
-                      )),
-                  style:
-                      TextStyle(color: blackColorApp, fontSize: 18.sp),
-                  controller: _expDate,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) return 'זהו שדה חובה';
-                    else {
-                      DateTime now = DateTime.now();
-                      DateTime inputDate = intl.DateFormat('dd/MM/yyyy').parse(value);
-                      if (inputDate.isBefore(DateTime(now.year, now.month, now.day))) {
-                        return 'רישיון לא בתוקף';
-                      }
-                    }
-                    return null;
-                  },
-                  onTap: () async {
-                    DateTime? date = await showDatePicker(
-                        locale: const Locale("he", "HE"),
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime(2100));
-                    if (date != null) {
-                      setState(() {
-                        _expDate.text =
-                            intl.DateFormat('dd/MM/yyyy').format(date);
-                        // exp=date;
-                        exp = intl.DateFormat('yyyy-MM-dd').format(date);
-                      });
-                    }
-                  },
-                ),
-                SizedBox(
-                  height: 12.h,
-                ),
-                TextFormField(
-                  readOnly: true,
-                  cursorColor: blackColorApp,
-                  decoration: getInputDecoration('תאריך הנפקה',
-                      suffixIcon:   Image.asset(
-                        'assets/icons/Calendar.png',
-                        width: 24.w,
-                      )),
-                  style:
-                      TextStyle(color: blackColorApp, fontSize: 18.sp),
-                  controller: _issDate,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) return 'זהו שדה חובה';
-                    return null;
-                  },
-                  onTap: () async {
-                    DateTime? date = await showDatePicker(
-                        locale: const Locale("he", "HE"),
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1950),
-                        lastDate: DateTime.now());
-                    if (date != null) {
-                      setState(() {
-                        _issDate.text =
-                            intl.DateFormat('dd/MM/yyyy').format(date);
-                        iss = intl.DateFormat('yyyy-MM-dd').format(date);
-                      });
-                    }
-                  },
-                ),
-               SizedBox(
-                  height: 12.h,
-                ),
-                TextFormField(
-                  cursorColor: blackColorApp,
-                  decoration: getInputDecoration('דרגת רשיון'),
-                  style:
-                      TextStyle(color: blackColorApp, fontSize: 18.sp),
-                  controller: _degree,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) return 'זהו שדה חובה';
-                    return null;
-                  },
-                ),
-                SizedBox(
-                  height: 27.h,
-                ),
-                ListTileTheme(
-                  horizontalTitleGap: 1.0,
-                  child: CheckboxListTile(
-                    title: Text(
-                      "נהג חדש",
-                      style: TextStyle(
-                          fontFamily: 'PLONI',
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.normal,
-                          color: blackColorApp),
-                    ),
-                    value: widget.index==1?User().isNewDriver:false,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        widget.index==1?User().isNewDriver = value!:null;
-                      });
-                    },
-                    checkColor: blackColorApp,
-                    activeColor: Colors.transparent,
-                    controlAffinity: ListTileControlAffinity.leading,
-                    checkboxShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4)),
-                    side: BorderSide(
+              ),
+              SizedBox(
+                height: widget.index==1?8.h:53.h,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'פרטי רשיון נהיגה',
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
                       color: blackColorApp,
-                      width: 1.5,
+                      fontFamily: 'PLONI',
                     ),
                   ),
+                ],
+              ),
+              SizedBox(
+                height: 34.h,
+              ),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                cursorColor: blackColorApp,
+                decoration: getInputDecoration('מספר רשיון נהיגה'),
+                style: TextStyle(color: blackColorApp, fontSize: 18.sp),
+                controller: _licenseId,
+                validator: (value) {
+                  if (value == null || value.isEmpty) return 'זהו שדה חובה';
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 12.h,
+              ),
+              TextFormField(
+                readOnly: true,
+                cursorColor: blackColorApp,
+                decoration: getInputDecoration('תוקף',
+                    suffixIcon: Image.asset(
+                      'assets/icons/Calendar.png',
+                      width: 24.w,
+                    )),
+                style:
+                TextStyle(color: blackColorApp, fontSize: 18.sp),
+                controller: _expDate,
+                validator: (value) {
+                  if (value == null || value.isEmpty) return 'זהו שדה חובה';
+                  else {
+                    DateTime now = DateTime.now();
+                    DateTime inputDate = intl.DateFormat('dd/MM/yyyy').parse(value);
+                    if (inputDate.isBefore(DateTime(now.year, now.month, now.day))) {
+                      return 'רישיון לא בתוקף';
+                    }
+                  }
+                  return null;
+                },
+                onTap: () async {
+                  DateTime? date = await showDatePicker(
+                      locale: const Locale("he", "HE"),
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2100));
+                  if (date != null) {
+                    setState(() {
+                      _expDate.text =
+                          intl.DateFormat('dd/MM/yyyy').format(date);
+                      // exp=date;
+                      exp = intl.DateFormat('yyyy-MM-dd').format(date);
+                    });
+                  }
+                },
+              ),
+              SizedBox(
+                height: 12.h,
+              ),
+              TextFormField(
+                readOnly: true,
+                cursorColor: blackColorApp,
+                decoration: getInputDecoration('תאריך הנפקה',
+                    suffixIcon:   Image.asset(
+                      'assets/icons/Calendar.png',
+                      width: 24.w,
+                    )),
+                style:
+                TextStyle(color: blackColorApp, fontSize: 18.sp),
+                controller: _issDate,
+                validator: (value) {
+                  if (value == null || value.isEmpty) return 'זהו שדה חובה';
+                  return null;
+                },
+                onTap: () async {
+                  DateTime? date = await showDatePicker(
+                      locale: const Locale("he", "HE"),
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1950),
+                      lastDate: DateTime.now());
+                  if (date != null) {
+                    setState(() {
+                      _issDate.text =
+                          intl.DateFormat('dd/MM/yyyy').format(date);
+                      iss = intl.DateFormat('yyyy-MM-dd').format(date);
+                    });
+                  }
+                },
+              ),
+              SizedBox(
+                height: 12.h,
+              ),
+              TextFormField(
+                cursorColor: blackColorApp,
+                decoration: getInputDecoration('דרגת רשיון'),
+                style:
+                TextStyle(color: blackColorApp, fontSize: 18.sp),
+                controller: _degree,
+                validator: (value) {
+                  if (value == null || value.isEmpty) return 'זהו שדה חובה';
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 27.h,
+              ),
+              ListTileTheme(
+                horizontalTitleGap: 1.0,
+                child: CheckboxListTile(
+                  title: Text(
+                    "נהג חדש",
+                    style: TextStyle(
+                        fontFamily: 'PLONI',
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.normal,
+                        color: blackColorApp),
+                  ),
+                  value: widget.index==1?User().isNewDriver:false,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      widget.index==1?User().isNewDriver = value!:null;
+                    });
+                  },
+                  checkColor: blackColorApp,
+                  activeColor: Colors.transparent,
+                  controlAffinity: ListTileControlAffinity.leading,
+                  checkboxShape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4)),
+                  side: BorderSide(
+                    color: blackColorApp,
+                    width: 1.5,
+                  ),
                 ),
+              ),
 
-                Visibility(
+              Visibility(
                   visible: widget.index==1,
                   child:  Row(
-                      children: [
-                        Text(
-                          'יש לחתום על ',
-                          style: TextStyle(fontSize: 18.sp),
-                        ),
-                        TextButton(
-                            onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Terms(index: 2,))),
-                            child: Text(
-                              'תנאי ההשכרה',
-                              style: TextStyle(
+                    children: [
+                      Text(
+                        'יש לחתום על ',
+                        style: TextStyle(fontSize: 18.sp),
+                      ),
+                      TextButton(
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Terms(index: 2,))),
+                          child: Text(
+                            'תנאי ההשכרה',
+                            style: TextStyle(
                                 color: blackColorApp,
-                                  fontSize: 18.sp,
-                                  decoration: TextDecoration.underline),
-                            )),
-                      ],
+                                fontSize: 18.sp,
+                                decoration: TextDecoration.underline),
+                          )),
+                    ],
                   )
-                    /*checkColor: blackColorApp,
-                    activeColor: Colors.transparent,
-                    // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    controlAffinity: ListTileControlAffinity.leading,
-                    checkboxShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4)),
-                    side: BorderSide(
-                      color: blackColorApp,
-                      width: 1.5,
-                    ),
-                  ),*/
-                ),
-                //Spacer(),
-                SizedBox(height: 152.h),
-                Container(
-                  height: 42.h,
-                  width: 332.w,
-                  child: ElevatedButton(
+                /*checkColor: blackColorApp,
+                          activeColor: Colors.transparent,
+                          // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          controlAffinity: ListTileControlAffinity.leading,
+                          checkboxShape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4)),
+                          side: BorderSide(
+                            color: blackColorApp,
+                            width: 1.5,
+                          ),
+                        ),*/
+              ),
+              //Spacer(),
+              SizedBox(height: 152.h),
+              Container(
+                height: 42.h,
+                width: 332.w,
+                child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: turquoiseColorApp,
                       shape: RoundedRectangleBorder(
@@ -299,11 +313,10 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                             color: Colors.white,
                             fontSize: 18.sp,
                             fontWeight: FontWeight.normal))
-                  ),
                 ),
-                SizedBox(height: 40.h,),
-              ],
-            ),
+              ),
+              SizedBox(height: 40.h,),
+            ],
           ),
         ),
       ),

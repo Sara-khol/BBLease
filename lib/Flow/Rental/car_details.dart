@@ -1,5 +1,6 @@
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/UserInformation/ordersHistory.dart';
+import 'package:bblease/landspace_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -54,79 +55,93 @@ class _CarDetailsState extends State<CarDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Directionality(
+      body:OrientationBuilder(
+        builder: (context,orientation) {
+          return orientation==Orientation.landscape?
+          LandSpaceWidget(
+              mainWidget: buildContent(orientation),
+              imageProperties: ImageProperties('l_register1.png', 618.w),
+              showAppBar:true):
+          buildContent(orientation);
+  }));
+  }
+
+  buildContent(Orientation o)
+  {
+    return  Directionality(
         textDirection: TextDirection.rtl,
         child:
-          Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            const Directionality(textDirection: TextDirection.ltr, child: AppBarBibilease()),
-            SizedBox(height: 30.h),
-            Text(
-              widget.rent.car.postName, //carDetails.postName,
-              textAlign: TextAlign.right,
-              style: TextStyle(
-                color: blackColorApp,
-                fontSize: 30.sp,
-                fontWeight: FontWeight.bold,
-                height: null,
+        Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+         if(o==Orientation.portrait) const Directionality(textDirection: TextDirection.ltr, child: AppBarBibilease()),
+          SizedBox(height: 30.h),
+          Text(
+            widget.rent.car.postName, //carDetails.postName,
+            textAlign: TextAlign.right,
+            style: TextStyle(
+              color: blackColorApp,
+              fontSize: 30.sp,
+              fontWeight: FontWeight.bold,
+              height: null,
+            ),
+          ),
+          Text(
+            'רכב זה זמין רק בחיבור לאפליקציה',
+            style: TextStyle(
+              color: blackColorApp,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+          SizedBox(height: 30.h),
+          if (widget.rent.car.carImages.isNotEmpty)
+            Container(
+              height: 130.h,
+              width: 292.w,
+              child: /*Image.network(widget.rent.car.carImages.first)*/
+              CarouselSlider(
+                  items: widget.rent.car.carImages.map((i) {
+                    return Image.network(i, width: 290.w, height: 126.h,);
+                  }).toList(),
+                  options: CarouselOptions(
+                    enlargeCenterPage: true,
+                    autoPlay: false,
+                    enableInfiniteScroll: false,
+                    reverse: true,
+                    padEnds: true,
+                  )
               ),
             ),
-            Text(
-              'רכב זה זמין רק בחיבור לאפליקציה',
-              style: TextStyle(
-                color: blackColorApp,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            SizedBox(height: 30.h),
-            if (widget.rent.car.carImages.isNotEmpty)
-              Container(
-                height: 130.h,
-                width: 292.w,
-                child: /*Image.network(widget.rent.car.carImages.first)*/
-                    CarouselSlider(
-                        items: widget.rent.car.carImages.map((i) {
-                          return Image.network(i, width: 290.w, height: 126.h,);
-                        }).toList(),
-                        options: CarouselOptions(
-                          enlargeCenterPage: true,
-                          autoPlay: false,
-                          enableInfiniteScroll: false,
-                          reverse: true,
-                          padEnds: true,
-                        )
-                    ),
-              ),
-            Stack(
-              children: [
-                Image.asset('assets/images/Ellipse.png',
-                    width: 232.w, height: 35.5.h),
-              ],
-            ),
-            SizedBox(height: 40.h),
-            Expanded(
-              child: Directionality(
-                textDirection: TextDirection.ltr,
-                child: Padding(
-                  padding: EdgeInsets.only(right: 10.w),
-                  child: RawScrollbar(
+          Stack(
+            children: [
+              Image.asset('assets/images/Ellipse.png',
+                  width: 232.w, height: 35.5.h),
+            ],
+          ),
+          SizedBox(height: 40.h),
+          Expanded(
+            child: Directionality(
+              textDirection: TextDirection.ltr,
+              child: Padding(
+                padding: EdgeInsets.only(right: 10.w),
+                child: RawScrollbar(
+                  thumbVisibility: true,
+                  thumbColor: turquoiseColorApp,
+                  thickness: 3,
+                  child: Scrollbar(
                     thumbVisibility: true,
-                    thumbColor: turquoiseColorApp,
-                    thickness: 3,
-                    child: Scrollbar(
-                      thumbVisibility: true,
-                      child: Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: ListView(
-                          padding: EdgeInsets.only(
-                            left: 17.w,
-                            right: 11.w,
-                          ),
-                          shrinkWrap: true,
-                          children: [
-                            Stack(
-                              children: [
-                                Container(
+                    child: Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: ListView(
+                        padding: EdgeInsets.only(
+                          left: 17.w,
+                          right: 11.w,
+                        ),
+                        shrinkWrap: true,
+                        children: [
+                          Stack(
+                            children: [
+                              Center(
+                                child: Container(
                                   width: 355.w,
                                   margin: EdgeInsets.only(top: 13.h),
                                   decoration: ShapeDecoration(
@@ -190,47 +205,47 @@ class _CarDetailsState extends State<CarDetails> {
                                                 )
                                               ],
                                             ),
-                                           /* widget.rent.car.autoGeer
-                                                ? Column(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.hdr_auto_outlined,
-                                                        color:
-                                                            pinkColorApp,
-                                                      ),
-                                                      SizedBox(height: 10.h),
-                                                      Text(
-                                                        'אוטומטי',
-                                                        style: TextStyle(
-                                                          color: colors
-                                                              .blackColorApp,
-                                                          fontSize: 16.sp,
-                                                          fontWeight:
-                                                              FontWeight.normal,
+                                            /* widget.rent.car.autoGeer
+                                                  ? Column(
+                                                      children: [
+                                                        Icon(
+                                                          Icons.hdr_auto_outlined,
+                                                          color:
+                                                              pinkColorApp,
                                                         ),
-                                                      )
-                                                    ],
-                                                  )
-                                                : Column(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.flash_on_outlined,
-                                                        color:
-                                                            pinkColorApp,
-                                                      ),
-                                                      SizedBox(height: 10.h),
-                                                      Text(
-                                                        'ידני',
-                                                        style: TextStyle(
-                                                          color: colors
-                                                              .blackColorApp,
-                                                          fontSize: 16.sp,
-                                                          fontWeight:
-                                                              FontWeight.normal,
+                                                        SizedBox(height: 10.h),
+                                                        Text(
+                                                          'אוטומטי',
+                                                          style: TextStyle(
+                                                            color: colors
+                                                                .blackColorApp,
+                                                            fontSize: 16.sp,
+                                                            fontWeight:
+                                                                FontWeight.normal,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    )
+                                                  : Column(
+                                                      children: [
+                                                        Icon(
+                                                          Icons.flash_on_outlined,
+                                                          color:
+                                                              pinkColorApp,
                                                         ),
-                                                      )
-                                                    ],
-                                                  ),*/
+                                                        SizedBox(height: 10.h),
+                                                        Text(
+                                                          'ידני',
+                                                          style: TextStyle(
+                                                            color: colors
+                                                                .blackColorApp,
+                                                            fontSize: 16.sp,
+                                                            fontWeight:
+                                                                FontWeight.normal,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),*/
                                             if (widget.rent.car.type == 'היברידי')
                                               Column(
                                                 children: [
@@ -252,47 +267,49 @@ class _CarDetailsState extends State<CarDetails> {
                                     ),
                                   ),
                                 ),
-                                Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 20.w, vertical: 6.h),
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: ShapeDecoration(
-                                      color: Colors.white,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
-                                      shadows: [
-                                        BoxShadow(
-                                          color: Color(0x33A7A7A7),
-                                          blurRadius: 40,
-                                          offset: Offset(0, 4),
-                                          spreadRadius: 0,
-                                        )
-                                      ],
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'פרטי הרכב',
-                                          style: TextStyle(
-                                            color: blackColorApp,
-                                            fontSize: 18.sp,
-                                            fontWeight: FontWeight.normal,
-                                          ),
+                              ),
+                              Align(
+                                alignment: Alignment.topCenter,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20.w, vertical: 6.h),
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: ShapeDecoration(
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
+                                    shadows: [
+                                      BoxShadow(
+                                        color: Color(0x33A7A7A7),
+                                        blurRadius: 40,
+                                        offset: Offset(0, 4),
+                                        spreadRadius: 0,
+                                      )
+                                    ],
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'פרטי הרכב',
+                                        style: TextStyle(
+                                          color: blackColorApp,
+                                          fontSize: 18.sp,
+                                          fontWeight: FontWeight.normal,
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                            SizedBox(height: 20.h),
-                            Stack(
-                              children: [
-                                Container(
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20.h),
+                          Stack(
+                            children: [
+                              Center(
+                                child: Container(
                                   width: 355.w,
                                   //height: 260.h,
                                   margin: EdgeInsets.only(top: 13.h),
@@ -340,109 +357,111 @@ class _CarDetailsState extends State<CarDetails> {
                                         ),
                                         SizedBox(height: 18.h),
                                         /*    Column(
-                                              crossAxisAlignment: CrossAxisAlignment
-                                                  .start,
-                                              children: [
-                                                Text('כולל', style: TextStyle(
-                                                  color: blackColorApp,
-                                                  fontSize: 20.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                  height: 1.15,),),
-                                                Row(
-                                                  children: [
-                                                    Icon(Icons.check,
-                                                      color: colors
-                                                          .turquoiseColorApp,),
-                                                    SizedBox(width: 9.w,),
-                                                    Text('ביטוח',
-                                                      style: TextStyle(
+                                                crossAxisAlignment: CrossAxisAlignment
+                                                    .start,
+                                                children: [
+                                                  Text('כולל', style: TextStyle(
+                                                    color: blackColorApp,
+                                                    fontSize: 20.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                    height: 1.15,),),
+                                                  Row(
+                                                    children: [
+                                                      Icon(Icons.check,
                                                         color: colors
-                                                            .blackColorApp,
-                                                        fontSize: 20.sp,
-                                                        fontWeight: FontWeight
-                                                            .w400,),),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Icon(Icons.check,
-                                                      color: colors
-                                                          .turquoiseColorApp,),
-                                                    SizedBox(width: 9.w,),
-                                                    Text('ללא הגבלת קילומטרים',
-                                                      style: TextStyle(
+                                                            .turquoiseColorApp,),
+                                                      SizedBox(width: 9.w,),
+                                                      Text('ביטוח',
+                                                        style: TextStyle(
+                                                          color: colors
+                                                              .blackColorApp,
+                                                          fontSize: 20.sp,
+                                                          fontWeight: FontWeight
+                                                              .w400,),),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Icon(Icons.check,
                                                         color: colors
-                                                            .blackColorApp,
-                                                        fontSize: 20.sp,
-                                                        fontWeight: FontWeight
-                                                            .w400,),),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Icon(Icons.check,
-                                                      color: colors
-                                                          .turquoiseColorApp,),
-                                                    SizedBox(width: 9.w,),
-                                                    Text('השתתפות עצמית בנזקים',
-                                                      style: TextStyle(
+                                                            .turquoiseColorApp,),
+                                                      SizedBox(width: 9.w,),
+                                                      Text('ללא הגבלת קילומטרים',
+                                                        style: TextStyle(
+                                                          color: colors
+                                                              .blackColorApp,
+                                                          fontSize: 20.sp,
+                                                          fontWeight: FontWeight
+                                                              .w400,),),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Icon(Icons.check,
                                                         color: colors
-                                                            .blackColorApp,
-                                                        fontSize: 20.sp,
-                                                        fontWeight: FontWeight
-                                                            .w400,),)
-                                                  ],
-                                                ),
-                                              ],
-                                            ),*/
+                                                            .turquoiseColorApp,),
+                                                      SizedBox(width: 9.w,),
+                                                      Text('השתתפות עצמית בנזקים',
+                                                        style: TextStyle(
+                                                          color: colors
+                                                              .blackColorApp,
+                                                          fontSize: 20.sp,
+                                                          fontWeight: FontWeight
+                                                              .w400,),)
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),*/
                                         SizedBox(height: 20.h,)
                                       ],
                                     ),
                                   ),
                                 ),
-                                Align(
-                                    alignment: Alignment.topCenter,
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 20.w, vertical: 6.h),
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: ShapeDecoration(
-                                        color: Colors.white,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(25),
-                                        ),
-                                        shadows: const [
-                                          BoxShadow(
-                                            color: Color(0x33A7A7A7),
-                                            blurRadius: 40,
-                                            offset: Offset(0, 4),
-                                            spreadRadius: 0,
-                                          )
-                                        ],
+                              ),
+                              Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 20.w, vertical: 6.h),
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: ShapeDecoration(
+                                      color: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(25),
                                       ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'פרטי השכרה',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: blackColorApp,
-                                              fontSize: 18.sp,
-                                              fontWeight: FontWeight.normal,
-                                            ),
+                                      shadows: const [
+                                        BoxShadow(
+                                          color: Color(0x33A7A7A7),
+                                          blurRadius: 40,
+                                          offset: Offset(0, 4),
+                                          spreadRadius: 0,
+                                        )
+                                      ],
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'פרטי השכרה',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: blackColorApp,
+                                            fontSize: 18.sp,
+                                            fontWeight: FontWeight.normal,
                                           ),
-                                        ],
-                                      ),
-                                    )),
-                              ],
-                            ),
-                            SizedBox(height: 20.h),
-                            Stack(
-                              children: [
-                                Container(
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                            ],
+                          ),
+                          SizedBox(height: 20.h),
+                          Stack(
+                            children: [
+                              Center(
+                                child: Container(
                                   width: 355.w,
                                   //height: 265.h,
                                   margin: EdgeInsets.only(top: 13.h),
@@ -470,50 +489,51 @@ class _CarDetailsState extends State<CarDetails> {
                                     ),
                                   ),
                                 ),
-                                Align(
-                                    alignment: Alignment.topCenter,
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 20.w, vertical: 6.h),
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: ShapeDecoration(
-                                        color: Colors.white,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                        ),
-                                        shadows: const [
-                                          BoxShadow(
-                                            color: Color(0x33A7A7A7),
-                                            blurRadius: 40,
-                                            offset: Offset(0, 4),
-                                            spreadRadius: 0,
-                                          )
-                                        ],
+                              ),
+                              Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 20.w, vertical: 6.h),
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: ShapeDecoration(
+                                      color: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(25),
                                       ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'תוספות',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: blackColorApp,
-                                              fontSize: 18.sp,
-                                              fontWeight: FontWeight.normal,
-                                            ),
+                                      shadows: const [
+                                        BoxShadow(
+                                          color: Color(0x33A7A7A7),
+                                          blurRadius: 40,
+                                          offset: Offset(0, 4),
+                                          spreadRadius: 0,
+                                        )
+                                      ],
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'תוספות',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: blackColorApp,
+                                            fontSize: 18.sp,
+                                            fontWeight: FontWeight.normal,
                                           ),
-                                        ],
-                                      ),
-                                    )),
-                              ],
-                            ),
-                            SizedBox(height: 33.h),
-                            Stack(
-                              children: [
-                                /*  Container(
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                            ],
+                          ),
+                          SizedBox(height: 33.h),
+                          Stack(
+                            children: [
+                              /*  Container(
                                       width: 355.w,
                                       //height: 265.h,
                                       margin: EdgeInsets.only(top: 13.h),
@@ -722,7 +742,8 @@ class _CarDetailsState extends State<CarDetails> {
                                         ),
                                       ),
                                     ),*/
-                                Container(
+                              Center(
+                                child: Container(
                                   width: 355.w,
                                   //height: 265.h,
                                   margin: EdgeInsets.only(top: 13.h),
@@ -739,7 +760,7 @@ class _CarDetailsState extends State<CarDetails> {
                                       children: [
                                         SizedBox(height: 40.h),
                                         Text(
-                                            // 'סך הכל לתשלום       ${widget.rent.car.pricePerDay * (dayDiff == 0 ? 1 : dayDiff)} ₪',
+                                          // 'סך הכל לתשלום       ${widget.rent.car.pricePerDay * (dayDiff == 0 ? 1 : dayDiff)} ₪',
                                             'סך הכל לתשלום       ${((rentPrice + additionsPrice) * 0.17 + (rentPrice + additionsPrice)).round()} ₪',
                                             // ' ${((rentPrice+price)*1.17).round()} ₪'
                                             style: TextStyle(
@@ -825,117 +846,117 @@ class _CarDetailsState extends State<CarDetails> {
                                     ),
                                   ),
                                 ),
-                                Align(
-                                    alignment: Alignment.topCenter,
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 20.w, vertical: 6.h),
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: ShapeDecoration(
-                                        color: Colors.white,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                        ),
-                                        shadows: const [
-                                          BoxShadow(
-                                            color: Color(0x33A7A7A7),
-                                            blurRadius: 40,
-                                            offset: Offset(0, 4),
-                                            spreadRadius: 0,
-                                          )
-                                        ],
+                              ),
+                              Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 20.w, vertical: 6.h),
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: ShapeDecoration(
+                                      color: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(25),
                                       ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'תשלום',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: blackColorApp,
-                                              fontSize: 18.sp,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 25.h,
-                            ),
-                            SizedBox(
-                              height: 48.h,
-                              width: 332.w,
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: turquoiseColorApp,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(100),
+                                      shadows: const [
+                                        BoxShadow(
+                                          color: Color(0x33A7A7A7),
+                                          blurRadius: 40,
+                                          offset: Offset(0, 4),
+                                          spreadRadius: 0,
+                                        )
+                                      ],
                                     ),
-                                  ),
-                                  onPressed: () {
-                                   // User().currentRent = widget.rent;
-                                    Map<String, bool> additionsMap = {};
-
-                                    for (Addition addition in widget.rent.additions!) {
-                                      additionsMap[addition.name] = addition.isChecked;
-                                    }
-                                    Map<String, dynamic> map = {
-                                      'phone-number': User().phoneNumber,
-                                      'car-number': widget.rent.car.carNumber,
-                                      'start_date': intl.DateFormat('yyyy-MM-dd').format(widget.rent.startDate),
-                                      'end_date': intl.DateFormat('yyyy-MM-dd').format(widget.rent.endDate),
-                                      'extra': additionsMap,
-                                      'start-hour':intl.DateFormat('HH:mm').format(widget.rent.startDate),
-                                      'end-hour':intl.DateFormat('HH:mm').format(widget.rent.endDate),
-                                      //'whole_day':widget.rent.startDate.compareTo(widget.rent.endDate)!=0,
-                                      //'half_day':widget.rent.startDate.compareTo(widget.rent.endDate)==0,
-                                      //'morning':widget.rent.startDate.compareTo(widget.rent.endDate)==0?widget.rent.dayPart==1:false,
-                                      //'evening':widget.rent.startDate.compareTo(widget.rent.endDate)==0?widget.rent.dayPart==2:false,
-                                    };
-                                    print(map);
-                                    showLoading(context);
-                                    ApiService().newOrder(map, (res) {
-                                      widget.rent.orderNum=res;
-                                     User().currentRent=widget.rent;
-                                      Navigator.pop(context);
-                                      displayMessage(context,
-                                          message: 'ההזמנה התקבלה בהצלחה',
-                                          onClose: () {
-                                        Navigator.pushAndRemoveUntil(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => const OrdersHistory(index: 2,)),
-                                            (route) => false);
-                                      });
-                                    });
-                                  },
-                                  child: Text(
-                                    'לתשלום',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18.sp,
-                                        fontWeight: FontWeight.normal),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'תשלום',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: blackColorApp,
+                                            fontSize: 18.sp,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   )),
-                            ),
-                            SizedBox(
-                              height: 30.h,
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 25.h,
+                          ),
+                          SizedBox(
+                            height: 48.h,
+                            width: 332.w,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: turquoiseColorApp,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  // User().currentRent = widget.rent;
+                                  Map<String, bool> additionsMap = {};
+
+                                  for (Addition addition in widget.rent.additions!) {
+                                    additionsMap[addition.name] = addition.isChecked;
+                                  }
+                                  Map<String, dynamic> map = {
+                                    'phone-number': User().phoneNumber,
+                                    'car-number': widget.rent.car.carNumber,
+                                    'start_date': intl.DateFormat('yyyy-MM-dd').format(widget.rent.startDate),
+                                    'end_date': intl.DateFormat('yyyy-MM-dd').format(widget.rent.endDate),
+                                    'extra': additionsMap,
+                                    'start-hour':intl.DateFormat('HH:mm').format(widget.rent.startDate),
+                                    'end-hour':intl.DateFormat('HH:mm').format(widget.rent.endDate),
+                                    //'whole_day':widget.rent.startDate.compareTo(widget.rent.endDate)!=0,
+                                    //'half_day':widget.rent.startDate.compareTo(widget.rent.endDate)==0,
+                                    //'morning':widget.rent.startDate.compareTo(widget.rent.endDate)==0?widget.rent.dayPart==1:false,
+                                    //'evening':widget.rent.startDate.compareTo(widget.rent.endDate)==0?widget.rent.dayPart==2:false,
+                                  };
+                                  print(map);
+                                  showLoading(context);
+                                  ApiService().newOrder(map, (res) {
+                                    widget.rent.orderNum=res;
+                                    User().currentRent=widget.rent;
+                                    Navigator.pop(context);
+                                    displayMessage(context,
+                                        message: 'ההזמנה התקבלה בהצלחה',
+                                        onClose: () {
+                                          Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => const OrdersHistory(index: 2,)),
+                                                  (route) => false);
+                                        });
+                                  });
+                                },
+                                child: Text(
+                                  'לתשלום',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.normal),
+                                )),
+                          ),
+                          SizedBox(
+                            height: 30.h,
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),
               ),
             ),
-          ])),
-    );
+          ),
+        ]));
   }
 
   Widget createExtra(index, bool showRemove) {

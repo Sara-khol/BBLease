@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bblease/Flow/registration/sucsses_registration.dart';
+import 'package:bblease/landspace_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,20 +28,28 @@ class _PaymentWebViewState extends State<PaymentWebView> {
   late InAppWebViewController _webViewController;
   String url = "";
   double progress = 0;
-  bool startCheckStatus=false;
+  bool startCheckStatus = false;
 
   @override
   void initState() {
-
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(children: <Widget>[
+    return OrientationBuilder(builder: (context, orientation) {
+      return Scaffold(
+          body: orientation == Orientation.landscape
+              ? LandSpaceWidget(
+                  mainWidget: buildContent(orientation),
+                  imageProperties: ImageProperties('l_register1.png', 618.w))
+              : buildContent(orientation));
+    });
+  }
+
+  buildContent(Orientation o) {
+    return SafeArea(
+      child: Column(children: <Widget>[
         SizedBox(
           height: 53.h,
         ),
@@ -83,8 +92,8 @@ class _PaymentWebViewState extends State<PaymentWebView> {
           child: Column(
             children: [
               Container(
-                width: 370.w,
-                height: 455.h,
+                //width:o==Orientation.portrait? 370.w:550.w,
+                height:o==Orientation.portrait? 455.h:650.h,
                 margin: const EdgeInsets.all(10.0),
                 //decoration: BoxDecoration(border: Border.all(color: turquoiseColorApp)),
                 child: InAppWebView(
@@ -116,24 +125,24 @@ class _PaymentWebViewState extends State<PaymentWebView> {
                   },
                   onProgressChanged:
                       (InAppWebViewController controller, int progress) async {
-                     {
+                    {
                       this.progress = progress / 100;
-                      if(this.progress==1 && !startCheckStatus)
-                        {
-                          startCheckStatus=true;
-                          await Future.delayed(const Duration(seconds: 3));
-                          getStatus();
+                      if (this.progress == 1 && !startCheckStatus) {
+                        startCheckStatus = true;
+                        await Future.delayed(const Duration(seconds: 3));
+                        getStatus();
                         // Timer(const Duration(seconds: 3), () {getStatus();});
-                        }
-                      if(mounted) {
+                      }
+                      if (mounted) {
                         setState(() {});
                       }
                     }
                   },
-
                 ),
               ),
-              SizedBox(height: 65.h,),
+              SizedBox(
+                height: 65.h,
+              ),
               Text(
                 'נא להכניס אשראי על שמך בלבד!',
                 textAlign: TextAlign.center,
@@ -197,34 +206,27 @@ class _PaymentWebViewState extends State<PaymentWebView> {
         //   ),
         // ),
       ]),
-    ));
+    );
   }
 
-  getStatus() async
-  {
+  getStatus() async {
     await ApiService().getStatusPayment(User().phoneNumber, (res) async {
-      if(res)
-        {
-          if(widget.index==2)
-            {
-              Navigator.pop(context);
-            }
-          else{
+      if (res) {
+        if (widget.index == 2) {
+          Navigator.pop(context);
+        } else {
           MySharedPreferences().setLastUsage();
           MySharedPreferences().setUserId(User().userId);
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
                   builder: (context) => const SucssesRegistrationForm()),
-                  (route) => false);
+              (route) => false);
         }
-        }
-     else
-       {
-         await Future.delayed(const Duration(seconds: 3));
-         getStatus();
-       }
-
+      } else {
+        await Future.delayed(const Duration(seconds: 3));
+        getStatus();
+      }
     });
   }
 }

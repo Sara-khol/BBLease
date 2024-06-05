@@ -306,6 +306,9 @@ print('getCarsList');
                         dialogShown=true;
                         //departurePoint(context, formattedAddress?.formattedAddress, 0,latitude1: lat,longitude1: long);
                         //var formattedAddress;
+                        // formattedAddress ??= 'ירושלים, ישראל';
+                        //  lat= 32.07936727420028;
+                        // long= 34.83657572475018;
                         if(formattedAddress!=null)
                         departurePoint(context, formattedAddress, 0,latitude1: lat,longitude1: long);
                       },

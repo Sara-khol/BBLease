@@ -59,7 +59,11 @@ Future sideMenu(context) {
                         ],
                       ),
                     ),
-                    onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalProfile(),)),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalProfile(),));
+                    },
+                    // onPressed: openScreen(context,const PersonalProfile())
                   ),
                 ),
                 SizedBox(
@@ -76,9 +80,12 @@ Future sideMenu(context) {
                         ],
                       ),
                     ),
-                    onPressed: () => Navigator.push(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => OrdersHistory(index: 1,),)),
+                        MaterialPageRoute(builder: (context) => OrdersHistory(index: 1,),));
+                    },
                   ),
                 ),
                 SizedBox(
@@ -97,9 +104,12 @@ Future sideMenu(context) {
                         ],
                       ),
                     ),
-                    onPressed: () => Navigator.push(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => OrdersHistory(index: 2,),)),
+                        MaterialPageRoute(builder: (context) => OrdersHistory(index: 2,),));
+                    },
                   ),
                 ),
                 SizedBox(
@@ -118,6 +128,7 @@ Future sideMenu(context) {
                     ),
                     onPressed: () {
                       ApiService().getPaymentUrl(User().userId, (res) {
+                        Navigator.pop(context);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -145,7 +156,10 @@ Future sideMenu(context) {
                         ],
                       ),
                     ),
-                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => UseInstructions(),)),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => UseInstructions(),));
+                    },
                   ),
                 ),
                 SizedBox(
@@ -162,7 +176,10 @@ Future sideMenu(context) {
                         ],
                       ),
                     ),
-                    onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => Terms(index: 1,))),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Terms(index: 1,)));
+                    },
                   ),
                 ),
                 SizedBox(
@@ -179,7 +196,10 @@ Future sideMenu(context) {
                         ],
                       ),
                     ),
-                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PriceList())),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => PriceList()));
+                    },
                   ),
                 ),
                 SizedBox(
@@ -196,7 +216,10 @@ Future sideMenu(context) {
                         ],
                       ),
                     ),
-                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => BenefitsAndPromotions())),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => BenefitsAndPromotions()));
+                    },
                   ),
                 ),
                 SizedBox(
@@ -213,7 +236,10 @@ Future sideMenu(context) {
                         ],
                       ),
                     ),
-                    onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUs(),),),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUs(),),);
+                    },
                   ),
                 ),
                 SizedBox(
@@ -245,8 +271,8 @@ Future sideMenu(context) {
                   ),
                 ),
                  //Spacer(),
-                getBottomButtons(context),
-                SizedBox(height: 30.h,),
+               getBottomButtons(context),
+               SizedBox(height: 30.h,),
               ],
             ),
           ),
@@ -306,12 +332,13 @@ getBottomButtons(context) {
      //SizedBox(height: 33.h,),
      SizedBox(
        height: 60.h,
-       width: 200.w,
+    //   width: 200.w,
        child: Center(
          child: ElevatedButton(
            clipBehavior: Clip.antiAlias,
              style: ElevatedButton.styleFrom(
                backgroundColor: Color(0xFFFF0000),
+               padding: EdgeInsets.only(right: 10.w,left: 10.w),
                shape: RoundedRectangleBorder(
                  borderRadius: BorderRadius.circular(80),
                ),

@@ -35,11 +35,8 @@ class _BenefitsAndPromotionsState extends State<BenefitsAndPromotions> {
     ApiService().getPromotions((res) {
       promotions = res;
       initData=true;
-setState(() {
-
-});
-    },
-    );
+      setState(() {});
+    });
   }
 
   @override
@@ -118,8 +115,8 @@ setState(() {
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
                                               ImageIcon(const AssetImage('assets/icons/gift.png'),color: turquoiseColorApp,),
-                                              SizedBox(width: 13.w,),
-                                              VerticalDivider(width: 2,color: turquoiseColorApp, endIndent: 16.h,),
+                                              //SizedBox(width: 13.w,),
+                                              VerticalDivider(thickness: 2,width: 13,color: turquoiseColorApp, endIndent: 16.h,),
                                               Text(
                                                 promotions[index]['name-promo']!,
                                                 style: TextStyle(

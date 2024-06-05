@@ -309,6 +309,7 @@ getBottomButtons(context) {
        width: 200.w,
        child: Center(
          child: ElevatedButton(
+           clipBehavior: Clip.antiAlias,
              style: ElevatedButton.styleFrom(
                backgroundColor: Color(0xFFFF0000),
                shape: RoundedRectangleBorder(

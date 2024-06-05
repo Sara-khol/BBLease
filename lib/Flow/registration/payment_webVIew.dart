@@ -39,11 +39,11 @@ class _PaymentWebViewState extends State<PaymentWebView> {
   Widget build(BuildContext context) {
     return OrientationBuilder(builder: (context, orientation) {
       return Scaffold(
-          body: orientation == Orientation.landscape
+          body:/* orientation == Orientation.landscape
               ? LandSpaceWidget(
                   mainWidget: buildContent(orientation),
                   imageProperties: ImageProperties('l_register1.png', 618.w))
-              : buildContent(orientation));
+              : */buildContent(orientation));
     });
   }
 
@@ -91,66 +91,72 @@ class _PaymentWebViewState extends State<PaymentWebView> {
         Expanded(
           child: Column(
             children: [
-              Container(
-                //width:o==Orientation.portrait? 370.w:550.w,
-                height:o==Orientation.portrait? 455.h:650.h,
-                margin: const EdgeInsets.all(10.0),
-                //decoration: BoxDecoration(border: Border.all(color: turquoiseColorApp)),
-                child: InAppWebView(
-                  initialUrlRequest: URLRequest(url: WebUri(widget.url)),
-                  // initialUrl: "https://flutter.dev/",
-                  // initialOptions: InAppWebViewGroupOptions(
-                  //     crossPlatform: InAppWebViewOptions(
-                  //       debuggingEnabled: true,
-                  //     )
-                  // ),
-                  onWebViewCreated: (InAppWebViewController controller) {
-                    _webViewController = controller;
-                  },
-                  // onLoadStart: (InAppWebViewController controller,WebUri?  url) {
-                  //   setState(() {
-                  //     this.url = url.data!.charset;
-                  //   });
-                  // },
-                  // onLoadStop: (InAppWebViewController controller,  url) async {
-                  //   setState(() {
-                  //     this.url = url;
-                  //   });
-                  // },
-                  onReceivedServerTrustAuthRequest:
-                      (InAppWebViewController controller,
-                          URLAuthenticationChallenge challenge) async {
-                    return ServerTrustAuthResponse(
-                        action: ServerTrustAuthResponseAction.PROCEED);
-                  },
-                  onProgressChanged:
-                      (InAppWebViewController controller, int progress) async {
-                    {
-                      this.progress = progress / 100;
-                      if (this.progress == 1 && !startCheckStatus) {
-                        startCheckStatus = true;
-                        await Future.delayed(const Duration(seconds: 3));
-                        getStatus();
-                        // Timer(const Duration(seconds: 3), () {getStatus();});
+              Expanded(
+                child: Container(
+                  //width:o==Orientation.portrait? 370.w:550.w,
+                  // height:o==Orientation.portrait? 455.h:650.h,
+                //  height: 455.h,
+                  margin: const EdgeInsets.all(10.0),
+                  //decoration: BoxDecoration(border: Border.all(color: turquoiseColorApp)),
+                  child: InAppWebView(
+                    initialUrlRequest: URLRequest(url: WebUri(widget.url)),
+                    // initialUrl: "https://flutter.dev/",
+                    // initialOptions: InAppWebViewGroupOptions(
+                    //     crossPlatform: InAppWebViewOptions(
+                    //       debuggingEnabled: true,
+                    //     )
+                    // ),
+                    onWebViewCreated: (InAppWebViewController controller) {
+                      _webViewController = controller;
+                    },
+                    // onLoadStart: (InAppWebViewController controller,WebUri?  url) {
+                    //   setState(() {
+                    //     this.url = url.data!.charset;
+                    //   });
+                    // },
+                    // onLoadStop: (InAppWebViewController controller,  url) async {
+                    //   setState(() {
+                    //     this.url = url;
+                    //   });
+                    // },
+                    onReceivedServerTrustAuthRequest:
+                        (InAppWebViewController controller,
+                            URLAuthenticationChallenge challenge) async {
+                      return ServerTrustAuthResponse(
+                          action: ServerTrustAuthResponseAction.PROCEED);
+                    },
+                    onProgressChanged:
+                        (InAppWebViewController controller, int progress) async {
+                      {
+                        this.progress = progress / 100;
+                        if (this.progress == 1 && !startCheckStatus) {
+                          startCheckStatus = true;
+                          await Future.delayed(const Duration(seconds: 3));
+                          getStatus();
+                          // Timer(const Duration(seconds: 3), () {getStatus();});
+                        }
+                        if (mounted) {
+                          setState(() {});
+                        }
                       }
-                      if (mounted) {
-                        setState(() {});
-                      }
-                    }
-                  },
+                    },
+                  ),
                 ),
               ),
               SizedBox(
                 height: 65.h,
               ),
               Text(
-                'נא להכניס אשראי על שמך בלבד!',
+                '!נא להכניס אשראי על שמך בלבד',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
                 ),
-              )
+              ),
+              SizedBox(
+                height: 65.h,
+              ),
             ],
           ),
         ),

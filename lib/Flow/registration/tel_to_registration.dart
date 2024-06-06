@@ -270,7 +270,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                         isDense: true,
                         labelText: "מס' נייד",
                         labelStyle: TextStyle(
-                          fontSize: 22.sp,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.normal,
                           color: blackColorApp,
                         ),
@@ -351,7 +351,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                         isDense: true,
                         labelText: "הזן סיסמא שהתקבלה",
                         labelStyle: TextStyle(
-                          fontSize: 22.sp,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.normal,
                           color: blackColorApp,
                           height: 1,
@@ -399,7 +399,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                         prefixIconColor: pinkColorApp,
                       ),
                       style: TextStyle(
-                          fontSize: 22.sp,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.normal,
                           color: blackColorApp),
                       validator: (value) {

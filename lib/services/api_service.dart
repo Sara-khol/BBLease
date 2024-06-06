@@ -104,7 +104,7 @@ class ApiService {
     // Prints the raw data returned by the server
   }
 
-  Future getUserAllOrders(int userId, Function(dynamic orderJson) onSuccess) async {
+  /*Future getUserAllOrders(int userId, Function(dynamic orderJson) onSuccess) async {
     print('${_baseUrl}wp/v2/get_history_orders_or_future_orders_by_customer/$userId');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_history_orders_or_future_orders_by_customer/$userId');
     if(response.statusCode == 200) {
@@ -113,7 +113,7 @@ class ApiService {
       onSuccess(result);
     }
     // Prints the raw data returned by the server
-  }
+  }*/
 
   Future getURLToPDF(int orderId, Function(dynamic orderJson) onSuccess) async {
     print('${_baseUrl}orders/get_customer_orders/$orderId');

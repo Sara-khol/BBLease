@@ -186,7 +186,8 @@ class _SearchCarState extends State<SearchCar> {
                                           */ /*Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => CarDetails(car,startDate: widget.startDate,endDate: widget.endDate,))
-                        ),*/ /*
+                        ),*/
+                                      /*
                                           await ApiService().getAdditions(
                                               car.id,
                                               widget.startDate,
@@ -648,10 +649,7 @@ class _SearchCarState extends State<SearchCar> {
     );
   }
 
-  filterCarType(
-    context,
-    _controller,
-  ) {
+  filterCarType(context, _controller,) {
     return showModalBottomSheet(
       //isScrollControlled: true,
       context: context,
@@ -728,7 +726,8 @@ class _SearchCarState extends State<SearchCar> {
                                     ),
                                   ),
                                 ),
-                               */ /* Padding(
+                               */
+              /* Padding(
                                   padding: EdgeInsets.only(left:25.w,bottom: 5.h),
                                   child: Container(
                                     height: 195.h,
@@ -1049,18 +1048,10 @@ class _SearchCarState extends State<SearchCar> {
                                 trackHeight: 8.0,
                                 overlayColor: Color(0xFFF6F6F6),
                                 // Custom Thumb overlay Color
-                                thumbShape: RoundSliderThumbShape(
-                                    enabledThumbRadius: 10.0),
-                                overlayShape:
-                                    RoundSliderOverlayShape(overlayRadius: 10),
-                                valueIndicatorTextStyle: TextStyle(
-                                  color: Color(0xFF0F1511),
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.normal,
-                                  fontFamily: 'PLONI',
-                                ),
-                                valueIndicatorShape:
-                                    PaddleSliderValueIndicatorShape(),
+                                thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10.0),
+                                overlayShape: RoundSliderOverlayShape(overlayRadius: 10),
+                                valueIndicatorTextStyle: TextStyle(color: blackColorApp, fontSize: 18, fontWeight: FontWeight.normal,),
+                                valueIndicatorShape: PaddleSliderValueIndicatorShape(),
                                 // thumbShape: CustomSliderThumbCircle(thumbRadius: 20, min: 0, max: 100),
                               ),
                               child: Slider(
@@ -1069,9 +1060,9 @@ class _SearchCarState extends State<SearchCar> {
                                 //divisions: 10,
                                 label: _currentSliderValue.round().toString(),
                                 onChanged: (double value) {
-                                  setState(() {
-                                    _currentSliderValue = value;
-                                  });
+                                  _currentSliderValue = value;
+                                  setState(() {});
+                                  setState(() {});
                                 },
                               ),
                             );
@@ -1106,8 +1097,6 @@ class _SearchCarState extends State<SearchCar> {
                                 ),
                               ),
                               onPressed: () {
-                                //TODO: call API
-                                print('call API');
                                 getCarsList();
                                 Navigator.pop(context);
                               },

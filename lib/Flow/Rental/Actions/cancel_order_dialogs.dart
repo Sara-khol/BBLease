@@ -107,24 +107,26 @@ Future cancelOrderDialog(context,rent){
   );
 }
 
-Future signCancelOrderDialog(context,String headline,String text){
+signCancelOrderDialog(context,String headline,String text){
 
-  final SignatureController _controller = SignatureController(
+  final SignatureController controller = SignatureController(
     penStrokeWidth: 2,
     penColor: Colors.black,
     exportBackgroundColor: Colors.transparent,
   );
+  print('open dialog');
 
-  return showModalBottomSheet<dynamic>(
+  return showModalBottomSheet(
       isScrollControlled: true,
-      isDismissible: true,
+      isDismissible: false,
       barrierColor: Colors.black12.withOpacity(0.1),
       elevation: 2,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-      ),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
       context: context,
       builder: (context) {
+        print('builder');
+        print(headline);
+        print(text);
         return Directionality(
             textDirection: TextDirection.rtl,
             child: Wrap(
@@ -168,7 +170,7 @@ Future signCancelOrderDialog(context,String headline,String text){
                             width: 200,
                             child: Signature(
                               backgroundColor: Colors.transparent,
-                              controller: _controller,
+                              controller: controller,
 
                             )
                         ),
@@ -177,7 +179,7 @@ Future signCancelOrderDialog(context,String headline,String text){
                           children: [
                             TextButton(
                                 onPressed: () {
-                                  _controller.clear();
+                                  controller.clear();
                                 },
                                 child: Text('ניקוי חתימה',
                                   style: TextStyle(
@@ -201,9 +203,10 @@ Future signCancelOrderDialog(context,String headline,String text){
                               ),
                               onPressed: () async{
                                 print('onPressed');
-                                if(_controller.isNotEmpty){
+                                print(headline);
+                                if(controller.isNotEmpty){
                                   //final signature= await exportSignature(_controller);
-                                  final signature = await _controller.toPngBytes();
+                                  final signature = await controller.toPngBytes();
                                   headline=="טופס אישור תנאים"?
                                   {
                                     User().signature = signature!,
@@ -211,7 +214,7 @@ Future signCancelOrderDialog(context,String headline,String text){
                                   }
                                       :ApiService().signatureUpload(signature, () {
                                     print('onSuccess');
-                                    _controller.dispose();
+                                    controller.dispose();
                                     Navigator.push(context, MaterialPageRoute(
                                       builder: (context) =>
                                           CancelationComplete(),));

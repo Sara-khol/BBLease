@@ -763,7 +763,7 @@ checkPickedRange(context,DateTime start,DateTime end,Duration diff){
   print(start);
   print(end);
   if(start.difference(end)>diff){
-    displayQuestion1(context, message: 'בחרת טווח השכרה קצר יותר ממה שציינת קודם', header: 'שים לב!',
+    displayQuestion1(context, message: 'בחרת טווח השכרה ארוך יותר ממה שציינת קודם', header: 'שים לב!',
         onYes: () => Navigator.push(context, MaterialPageRoute(builder: (context) =>
             SearchCar(
                 location: location,
@@ -776,7 +776,7 @@ checkPickedRange(context,DateTime start,DateTime end,Duration diff){
 
   }
   if(start.difference(end)<diff){
-    displayQuestion1(context, message: 'בחרת טווח השכרה ארוך יותר ממה שציינת קודם', header: 'שים לב!',
+    displayQuestion1(context, message: 'בחרת טווח השכרה קצר יותר ממה שציינת קודם', header: 'שים לב!',
       onYes: () => Navigator.push(context, MaterialPageRoute(builder: (context) =>
           SearchCar(
             location: location,

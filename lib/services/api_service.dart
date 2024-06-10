@@ -37,7 +37,8 @@ class ApiService {
     //   }
     // else{
       //_baseUrl = 'https://bibilease.co.il/?rest_route=/';
-      _baseUrl = 'https://bibilease.quicksolutions.co.il/?rest_route=/';
+      //_baseUrl = 'https://bibilease.quicksolutions.co.il/?rest_route=/';
+      _baseUrl = 'https://app.bibilease.co.il/?rest_route=/';
   // }
   } // Private constructor for singleton
 

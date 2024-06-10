@@ -103,20 +103,16 @@ class MyApp extends StatelessWidget {
                     supportedLocales: [
                       const Locale('he'),
                       const Locale('en'),
-
                     ],
-                    title: 'Flutter Demo',
+                    title: 'ביביליס',
                     theme: ThemeData(
                         fontFamily: 'PLONI',
                         scaffoldBackgroundColor: Colors.white,
-                        textTheme: TextTheme(
-                            bodyMedium: TextStyle(color: blackColorApp)),
+                        textTheme: TextTheme(bodyMedium: TextStyle(color: blackColorApp)),
                         timePickerTheme: TimePickerThemeData(
                           backgroundColor: Colors.white,
-                          cancelButtonStyle: ButtonStyle(
-                              foregroundColor: _customColor()),
-                          confirmButtonStyle: ButtonStyle(
-                              foregroundColor: _customColor()),
+                          cancelButtonStyle: ButtonStyle(foregroundColor: _customColor()),
+                          confirmButtonStyle: ButtonStyle(foregroundColor: _customColor()),
                           dayPeriodColor: blackColorApp,
                           dialBackgroundColor: Colors.cyan[100],
                           hourMinuteColor: Colors.cyan[100],

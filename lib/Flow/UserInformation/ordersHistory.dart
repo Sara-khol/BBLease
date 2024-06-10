@@ -454,6 +454,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w,),
                   elevation: 0.0,
                 ),
                 onPressed: initData && User().currentRent != null

@@ -104,7 +104,7 @@ class _SearchCarState extends State<SearchCar> {
         body: orientation == Orientation.landscape
             ? LandSpaceWidget(
                 mainWidget: buildContent(orientation),
-                imageProperties: ImageProperties('l_search_car.png', 618.w),
+                imageProperties: ImageProperties('l_search_car.jpg', 618.w),
         showAppBar:true)
             : buildContent(orientation),
       );

@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:sms_autofill/sms_autofill.dart'hide Orientation;
 
+import '../../models/class_rent.dart';
 import '../../models/class_user.dart';
 import '../../services/api_service.dart';
 import '../Dialogs/buttom_dialogs.dart';
@@ -125,9 +126,9 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                 debugPrint('user name  ${User().firstName}');
 
                 //todo: go to active rent
-                /*if(response["active_order"]!=-1||response["active_order"].isNotEmpty) {
+                if(response["active_order"].isNotEmpty) {
               User().currentRent=Rental.fromJson(response["active_order"]);
-            }*/
+            }
                 print('after if');
                 MySharedPreferences().setLastUsage();
                 MySharedPreferences().setUserId(User().userId);

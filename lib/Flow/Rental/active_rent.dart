@@ -10,6 +10,7 @@ import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:bblease/services/api_service.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -33,7 +34,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
   Rental rent = User().currentRent!;
   //final ScrollController _controller = ScrollController();
 
-  Duration duration = Duration(minutes: 1); // Set the initial countdown time
+   late Duration duration = Duration(minutes: 1); // Set the initial countdown time
   Timer? timer,reminder;
 
 
@@ -44,13 +45,34 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
 
 
   getTime(){
-    ApiService().getTimeRemain(rent.orderNum!, (res) => setState(()=>_time=res));
+    ApiService().getTimeRemain(rent.orderNum!, (res) {
+      _time = res;
+      List<String> parts = _time.split(':');
+      int days = int.parse(parts[0]);
+      int hours = int.parse(parts[1]);
+      int minutes = int.parse(parts[2]);
+      int seconds = int.parse(parts[3]);
+
+      duration = Duration(days: days,hours: hours, minutes: minutes, seconds: seconds);
+      setState(() {});
+      startTimer();
+    });
+
   }
 
   void startTimer() {
-    timer = Timer.periodic(Duration(seconds: 1), (_) => setCountDown());
+    timer = Timer.periodic(Duration(seconds: 1), (_)  {
+      //const reduceSecondsBy = 1;
+      if (duration.inSeconds == 0) {
+        timer?.cancel();
+      } else {
+        setState(() {
+          duration -= Duration(seconds: 1);
+          //print('${duration.inDays}:${duration.inHours}:${duration.inMinutes}:${duration.inSeconds}');
+        });
+      }
+    });
   }
-
   getFuel(){
     ApiService().getFuelLevel(rent.car.carNumber, (res) {
       if(res!=-1){
@@ -61,17 +83,13 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
     });
   }
 
-  void setCountDown() {
-    final reduceSecondsBy = 1;
-    setState(() {
-      final seconds = duration.inSeconds - reduceSecondsBy;
-      if (seconds < 0) {
-        timer!.cancel();
-        // You can also trigger an event when the timer is up.
-      } else {
-        duration = Duration(seconds: seconds);
-      }
-    });
+
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    reminder?.cancel();
+    super.dispose();
   }
 
   @override
@@ -90,6 +108,12 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
 
   @override
   Widget build(BuildContext context) {
+
+    String formatTimeComponent(int n) => n.toString().padLeft(2, '0');
+    final days = duration.inDays.toString(); // No padding needed for days
+    final hours = formatTimeComponent(duration.inHours.remainder(24));
+    final minutes = formatTimeComponent(duration.inMinutes.remainder(60));
+    final seconds = formatTimeComponent(duration.inSeconds.remainder(60));
 
     return Scaffold(
       body: Directionality(
@@ -351,32 +375,37 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                   ),
                 ),
                 SizedBox(height: 22.h,),
-                Padding(
-                  padding: EdgeInsets.only(left: 30.w, right: 30.w),
-                  child: Text(_time,
-                      style: TextStyle(
-                          fontSize: 36.sp,
-                          fontWeight: FontWeight.bold,
-                          color: const Color.fromRGBO(15, 21, 17, 1),
-                         )),
-                ),
+                kIsWeb?
+                Text(duration.inDays > 0 ?'$seconds:$minutes:$hours:$days':'$seconds:$minutes:$hours',
+                    style: TextStyle(
+                        fontSize: 36.sp,
+                        fontWeight: FontWeight.bold,
+                        color: const Color.fromRGBO(15, 21, 17, 1),
+                       )):
+                Text(duration.inDays > 0 ?'$days:$hours:$minutes:$seconds':'$hours:$minutes:$seconds',
+                    style: TextStyle(
+                      fontSize: 36.sp,
+                      fontWeight: FontWeight.bold,
+                      color: const Color.fromRGBO(15, 21, 17, 1),
+                    )),
                 SizedBox(height: 24.h,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(intl.DateFormat('HH:mm:ss').format(rent.endDate),
+                    Text(kIsWeb?intl.DateFormat('ss:mm:HH').format(rent.endDate):intl.DateFormat('HH:mm:ss').format(rent.endDate),
                         style: TextStyle(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.normal,
                             color: const Color.fromRGBO(15, 21, 17, 1),
-                            )),
+                            ),
+                    ),
                     Text(' | ',
                         style: TextStyle(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.normal,
                             color: const Color.fromRGBO(15, 21, 17, 1),
                             )),
-                    Text(intl.DateFormat('dd/MM/yyyy').format(rent.endDate),
+                    Text(kIsWeb?intl.DateFormat('yyyy/MM/dd').format(rent.endDate):intl.DateFormat('dd/MM/yyyy').format(rent.endDate),
                         style: TextStyle(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.normal,
@@ -388,6 +417,8 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                 Padding(
                   padding: EdgeInsets.only(left: 30.w, right: 30.w),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
                         height: 42.h,
@@ -413,7 +444,8 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                             //sendOpeningCode();*/
                             },
                             child: Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 TextButton(
                                   onPressed: () {},
@@ -470,7 +502,8 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                               });
                             },
                             child: Row(
-                              // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
                                   '   סיום השכרה   ',

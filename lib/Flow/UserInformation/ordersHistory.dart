@@ -1,14 +1,13 @@
 import 'package:bblease/Flow/Rental/active_rent.dart';
 import 'package:bblease/Flow/UserInformation/orderDetails.dart';
 import 'package:bblease/Flow/home_page.dart';
-import 'package:bblease/Flow/welcome.dart';
 import 'package:bblease/landspace_widget.dart';
 import 'package:bblease/utils/my_colors.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../customWidgets/appBarB.dart';
+import 'package:universal_html/html.dart' as html;
 import '../../models/class_rent.dart';
 import 'package:intl/intl.dart' as intl;
 
@@ -81,6 +80,15 @@ class _OrdersHistoryState extends State<OrdersHistory> {
     });
 
   }*/
+
+  void downloadFileWeb(String url) {
+    String fileName = 'bibilease.pdf';
+    if (kIsWeb) {
+      final anchor = html.AnchorElement(href: url)
+        ..setAttribute("download", fileName)
+        ..click();
+    }
+  }
 
   filterByDate() {
     TextEditingController start = TextEditingController();
@@ -542,6 +550,17 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                     IconButton(
                                         onPressed: () {
                                           print(rent.url);
+                                          if (kIsWeb) {
+                                            downloadFileWeb(rent.url!);
+                                            // Optionally, update UI immediately since web doesn't track download progress
+                                            setState(() {
+                                              downloadIcon = Icon(
+                                                Icons.check_circle_outline,
+                                                color: Colors.white,
+                                              );
+                                            });
+                                          }
+                                          else{
 
                                           FileDownloader.downloadFile(
                                             url: rent.url!,
@@ -553,7 +572,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                                     color: pinkColorApp,
                                                   );
                                                 }),
-                                          );
+                                          );}
                                         },
                                         icon: downloadIcon),
 

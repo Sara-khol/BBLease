@@ -319,10 +319,9 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
           : suffixText.isNotEmpty
               ? Text(suffixText,
                   style: TextStyle(
-                    fontSize: 20.sp,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.normal,
                     color: turquoiseColorApp,
-                    fontFamily: 'PLONI',
                     height: 1,
                   ))
               : null,

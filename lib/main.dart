@@ -102,7 +102,7 @@ class MyApp extends StatelessWidget {
               const Locale('he'),
               const Locale('en'),
             ],
-            title: 'Flutter Demo',
+            title: 'ביביליס',
             theme: ThemeData(
                 fontFamily: 'PLONI',
                 scaffoldBackgroundColor: Colors.white,

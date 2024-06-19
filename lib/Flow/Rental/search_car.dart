@@ -180,13 +180,14 @@ class _SearchCarState extends State<SearchCar> {
                                     itemCount: filteredCarsMap[type]!.length,
                                     itemBuilder: (context, index) {
                                       Car car = filteredCarsMap[type]![index];
-                                      return searchCarItem(
-                                              car,orientation) /*GestureDetector(
+                                      return searchCarItem(car,orientation)
+                                      /*GestureDetector(
                                         onTap: () async {
                                           */ /*Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => CarDetails(car,startDate: widget.startDate,endDate: widget.endDate,))
-                        ),*/ /*
+                        ),*/
+                                      /*
                                           await ApiService().getAdditions(
                                               car.id,
                                               widget.startDate,
@@ -448,7 +449,7 @@ class _SearchCarState extends State<SearchCar> {
       },
       child: Container(
         // width:orientation==Orientation.portrait? 347.w:100.w,
-        height: 152.h,
+        //height: 152.h,
         margin: orientation == Orientation.portrait
             ? EdgeInsets.only(
                 right: 23.w,
@@ -459,15 +460,12 @@ class _SearchCarState extends State<SearchCar> {
         child: Stack(
           children: [
             Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
               shadowColor: Colors.transparent,
               margin: EdgeInsets.only(left: 20.w),
-              color: /*isHovered?Colors.yellow:Color(0xffEFFFFE):*/
-                  Color(0xffF7F7F7),
+              color: /*isHovered?Colors.yellow:Color(0xffEFFFFE):*/Color(0xffF7F7F7),
               child: Padding(
-                padding: EdgeInsets.only(
-                    bottom: 10.h, top: 10.h, right: 14.w, left: 11.w),
+                padding: EdgeInsets.only(bottom: 10.h, top: 10.h, right: 14.w, left: 11.w),
                 child: IntrinsicHeight(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -501,7 +499,7 @@ class _SearchCarState extends State<SearchCar> {
                               height: 1.15,
                             ),
                           ),
-                          Expanded(child: SizedBox(height: 29.h)),
+                          SizedBox(height: 29.h),
                           Text(
                             '${car.pricePerDay} ₪  |  ליום',
                             style: TextStyle(
@@ -539,16 +537,18 @@ class _SearchCarState extends State<SearchCar> {
             ),
             if (car.carImages.isNotEmpty)
               Positioned.fill(
-                  child: Align(
-                alignment: Alignment.bottomLeft,
-                child: Container(
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Container(
                     margin: EdgeInsets.only(bottom: 10.h),
                     child: Image.network(
                       car.carImages.first,
                       width: 175.w,
-                      height: 75.h,
-                    )),
-              )),
+                      //height: 75.h,
+                    )
+                  ),
+                )
+              ),
           ],
         ),
       ),
@@ -648,10 +648,7 @@ class _SearchCarState extends State<SearchCar> {
     );
   }
 
-  filterCarType(
-    context,
-    _controller,
-  ) {
+  filterCarType(context, _controller,) {
     return showModalBottomSheet(
       //isScrollControlled: true,
       context: context,
@@ -728,7 +725,8 @@ class _SearchCarState extends State<SearchCar> {
                                     ),
                                   ),
                                 ),
-                               */ /* Padding(
+                               */
+              /* Padding(
                                   padding: EdgeInsets.only(left:25.w,bottom: 5.h),
                                   child: Container(
                                     height: 195.h,
@@ -832,9 +830,7 @@ class _SearchCarState extends State<SearchCar> {
     );
   }
 
-  carSearchItem(
-    String name,
-  ) {
+  carSearchItem(String name,) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -1049,18 +1045,10 @@ class _SearchCarState extends State<SearchCar> {
                                 trackHeight: 8.0,
                                 overlayColor: Color(0xFFF6F6F6),
                                 // Custom Thumb overlay Color
-                                thumbShape: RoundSliderThumbShape(
-                                    enabledThumbRadius: 10.0),
-                                overlayShape:
-                                    RoundSliderOverlayShape(overlayRadius: 10),
-                                valueIndicatorTextStyle: TextStyle(
-                                  color: Color(0xFF0F1511),
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.normal,
-                                  fontFamily: 'PLONI',
-                                ),
-                                valueIndicatorShape:
-                                    PaddleSliderValueIndicatorShape(),
+                                thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10.0),
+                                overlayShape: RoundSliderOverlayShape(overlayRadius: 10),
+                                valueIndicatorTextStyle: TextStyle(color: blackColorApp, fontSize: 18, fontWeight: FontWeight.normal,),
+                                valueIndicatorShape: PaddleSliderValueIndicatorShape(),
                                 // thumbShape: CustomSliderThumbCircle(thumbRadius: 20, min: 0, max: 100),
                               ),
                               child: Slider(
@@ -1069,9 +1057,9 @@ class _SearchCarState extends State<SearchCar> {
                                 //divisions: 10,
                                 label: _currentSliderValue.round().toString(),
                                 onChanged: (double value) {
-                                  setState(() {
-                                    _currentSliderValue = value;
-                                  });
+                                  _currentSliderValue = value;
+                                  setState(() {});
+                                  setState(() {});
                                 },
                               ),
                             );
@@ -1106,8 +1094,6 @@ class _SearchCarState extends State<SearchCar> {
                                 ),
                               ),
                               onPressed: () {
-                                //TODO: call API
-                                print('call API');
                                 getCarsList();
                                 Navigator.pop(context);
                               },

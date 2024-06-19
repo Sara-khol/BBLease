@@ -1,4 +1,5 @@
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
+import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/UserInformation/price_list.dart';
 import 'package:bblease/Flow/UserInformation/profile.dart';
 import 'package:bblease/Flow/UserInformation/use_instructions.dart';
@@ -150,15 +151,16 @@ Future sideMenu(context) {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ImageIcon(AssetImage("assets/icons/video.png"),color: blackColorApp,),
+                          //ImageIcon(AssetImage("assets/icons/.png"),color: blackColorApp,),
+                          Icon(Icons.drive_eta_outlined,size: 28.sp,color: blackColorApp,),
                           SizedBox(width: 10.w,),
-                          Flexible(child: Text('סרטוני הדרכה', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
+                          Flexible(child: Text('ביצוע הזמנה', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
                         ],
                       ),
                     ),
                     onPressed: () {
                       Navigator.pop(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => UseInstructions(),));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => RentalWidget(),));
                     },
                   ),
                 ),

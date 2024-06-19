@@ -28,9 +28,14 @@ Future departurePoint(context, address, nav,{double longitude1=0,double latitude
   TextEditingController controller = TextEditingController(text: address);
   DetailsResult? searchedPlace;
 
+  Map<String, String>? header = {
+    "Access-Control-Allow-Origin": '*', // Required for CORS support to work
+    "Access-Control-Allow-Credentials": "true", // Required for cookies, authorization headers with HTTPS
+    "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+    "Access-Control-Allow-Methods": "GET,POST, OPTIONS"
+  };
 
-  late GooglePlace googlePlace =
-      GooglePlace('AIzaSyDrD1omOKsD-QCghL7Oaq1LmU6mgxvqaLs');
+  GooglePlace googlePlace = GooglePlace('AIzaSyDrD1omOKsD-QCghL7Oaq1LmU6mgxvqaLs',headers: header);
 
   bool done = false;
 
@@ -604,14 +609,16 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                   //final hour = starttime.hour.toString().padLeft(2,'0');
                                   //final minute = starttime.minute.toString().padLeft(2,'0');
                                   //startDate!.add(Duration(hours: starttime.hour, minutes: starttime.minute));
-                                  if (startDate != null) {
-                                  endDate = DateTime(endDate!.year, endDate!.month, endDate!.day, endtime.hour, endtime.minute);
-                                  final duration=findDuration(diff);
-                                  checkPickedRange(context,startDate!,endDate!,duration);
-                                  }
+
                                   kIsWeb
                                       ?  endh.text = '${endDate!.minute.toString().padLeft(2,'0')}:${endDate!.hour.toString().padLeft(2,'0')}'
                                       :  endh.text = '${endDate!.hour.toString().padLeft(2,'0')}:${endDate!.minute.toString().padLeft(2,'0')}';
+
+                                  if (startDate != null) {
+                                    endDate = DateTime(endDate!.year, endDate!.month, endDate!.day, endtime.hour, endtime.minute);
+                                    final duration=findDuration(diff);
+                                    checkPickedRange(context,startDate!,endDate!,duration);
+                                  }
                                   //endh.text = '${endDate!.hour.toString().padLeft(2,'0')}:${endDate!.minute.toString().padLeft(2,'0')}';
                                   print('end: $endDate');
                                   print('end: ${endh.text}');
@@ -762,21 +769,17 @@ checkPickedRange(context,DateTime start,DateTime end,Duration diff){
   print('checkPickedRange');
   print(start);
   print(end);
-  if(start.difference(end)>diff){
-    displayQuestion1(context, message: 'בחרת טווח השכרה קצר יותר ממה שציינת קודם', header: 'שים לב!',
-        onYes: () => Navigator.push(context, MaterialPageRoute(builder: (context) =>
-            SearchCar(
-                location: location,
-                latitude: latitude,
-                longitude: longitude,
-              startDate: start,
-              endDate: end,
-            ),)),
+  if(start.difference(end)!=diff){
+    displayQuestion1(context, message: 'בחרת טווח השכרה שונה ממה שציינת קודם', header: 'שים לב!',
+        onYes: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SearchCar(location: location, latitude: latitude, longitude: longitude, startDate: start, endDate: end,),
+            )
+        ),
     );
-
   }
-  if(start.difference(end)<diff){
-    displayQuestion1(context, message: 'בחרת טווח השכרה ארוך יותר ממה שציינת קודם', header: 'שים לב!',
+ /* if(start.difference(end)<diff){
+    displayQuestion1(context, message: 'בחרת טווח השכרה קצר יותר ממה שציינת קודם', header: 'שים לב!',
       onYes: () => Navigator.push(context, MaterialPageRoute(builder: (context) =>
           SearchCar(
             location: location,
@@ -787,7 +790,7 @@ checkPickedRange(context,DateTime start,DateTime end,Duration diff){
           ),)),
     );
 
-  }
+  }*/
 
 
 }

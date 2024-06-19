@@ -170,7 +170,9 @@ class _PriceListState extends State<PriceList> {
                                         Image.asset(iconPath, width: 24.w,),
                                         SizedBox(width: 9.w,),
                                         Text(str, style: TextStyle(fontSize: 20.sp)),
+                                        Spacer(),
                                         Text('  | ', style: TextStyle(color: Color(0xFF03AEB9), fontSize: 24.sp, fontWeight: FontWeight.w300)),
+
                                         Text(currentItem.values.elementAt(index), style: TextStyle(fontSize: 20.sp), textDirection: TextDirection.rtl),
                                       ],
                                     ),

@@ -75,13 +75,10 @@ class _TermsState extends State<Terms> {
                 heroTag: "btn2",
                 backgroundColor: colors.turquoiseColorApp,
                 onPressed: () {
-                  widget.index==1?
-                  Navigator.pop(context):
-                  {
-                        signCancelOrderDialog(context, 'טופס אישור תנאים',
-                            'קראתי ואני מאשר/ת את התנאים'),
-                    Navigator.pop(context)
-                      };
+                  print('widget.index ${widget.index}');
+                 if( widget.index==2)
+                   signCancelOrderDialog(context, 'טופס אישור תנאים', 'קראתי ואני מאשר/ת את התנאים');
+
                 },
               ),
             ),

@@ -20,15 +20,16 @@ class _AppBarBibileaseState extends State<AppBarBibilease> {
     return Container(
       //color: Colors.white,
       child: Padding(
-        padding: EdgeInsets.only(left: 24.w,right: 24.w,top:32.h,bottom: 20.h),
+        padding: EdgeInsets.only(right: 24.w),
         child: Row( children:[
-           Text("Bibilease",
+          Image.asset('assets/images/logo_bibilease_new_no_background.png', height: 100.w),
+           /*Text("Bibilease",
            style: TextStyle(
              fontSize: 24.sp,
              fontWeight: FontWeight.bold,
              color: Color(0xFF0F1511),
              fontFamily: 'PlusJakartaSans',)
-            ,),
+            ,),*/
             Spacer(),
             SizedBox(
               height: 30,

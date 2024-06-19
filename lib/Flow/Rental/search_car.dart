@@ -180,8 +180,8 @@ class _SearchCarState extends State<SearchCar> {
                                     itemCount: filteredCarsMap[type]!.length,
                                     itemBuilder: (context, index) {
                                       Car car = filteredCarsMap[type]![index];
-                                      return searchCarItem(
-                                              car,orientation) /*GestureDetector(
+                                      return searchCarItem(car,orientation)
+                                      /*GestureDetector(
                                         onTap: () async {
                                           */ /*Navigator.push(
                             context,
@@ -449,7 +449,7 @@ class _SearchCarState extends State<SearchCar> {
       },
       child: Container(
         // width:orientation==Orientation.portrait? 347.w:100.w,
-        height: 152.h,
+        //height: 152.h,
         margin: orientation == Orientation.portrait
             ? EdgeInsets.only(
                 right: 23.w,
@@ -460,15 +460,12 @@ class _SearchCarState extends State<SearchCar> {
         child: Stack(
           children: [
             Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
               shadowColor: Colors.transparent,
               margin: EdgeInsets.only(left: 20.w),
-              color: /*isHovered?Colors.yellow:Color(0xffEFFFFE):*/
-                  Color(0xffF7F7F7),
+              color: /*isHovered?Colors.yellow:Color(0xffEFFFFE):*/Color(0xffF7F7F7),
               child: Padding(
-                padding: EdgeInsets.only(
-                    bottom: 10.h, top: 10.h, right: 14.w, left: 11.w),
+                padding: EdgeInsets.only(bottom: 10.h, top: 10.h, right: 14.w, left: 11.w),
                 child: IntrinsicHeight(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -502,7 +499,7 @@ class _SearchCarState extends State<SearchCar> {
                               height: 1.15,
                             ),
                           ),
-                          Expanded(child: SizedBox(height: 29.h)),
+                          SizedBox(height: 29.h),
                           Text(
                             '${car.pricePerDay} ₪  |  ליום',
                             style: TextStyle(
@@ -540,16 +537,18 @@ class _SearchCarState extends State<SearchCar> {
             ),
             if (car.carImages.isNotEmpty)
               Positioned.fill(
-                  child: Align(
-                alignment: Alignment.bottomLeft,
-                child: Container(
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Container(
                     margin: EdgeInsets.only(bottom: 10.h),
                     child: Image.network(
                       car.carImages.first,
                       width: 175.w,
-                      height: 75.h,
-                    )),
-              )),
+                      //height: 75.h,
+                    )
+                  ),
+                )
+              ),
           ],
         ),
       ),
@@ -831,9 +830,7 @@ class _SearchCarState extends State<SearchCar> {
     );
   }
 
-  carSearchItem(
-    String name,
-  ) {
+  carSearchItem(String name,) {
     return GestureDetector(
       onTap: () {
         setState(() {

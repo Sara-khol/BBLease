@@ -116,10 +116,10 @@ signCancelOrderDialog(context,String headline,String text){
   );
   print('open dialog');
 
-  return showModalBottomSheet(
+   showModalBottomSheet(
       isScrollControlled: true,
       isDismissible: false,
-      barrierColor: Colors.black12.withOpacity(0.1),
+      //barrierColor: Colors.black12.withOpacity(0.1),
       elevation: 2,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
       context: context,

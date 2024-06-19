@@ -382,7 +382,6 @@ Future displayQuestion1(BuildContext context,{
         child: Column(children: [
           SizedBox(height: 35.h),
           Text(header,style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.bold,fontSize: 28.sp)),
-          // const Spacer(),
           Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,
@@ -436,12 +435,7 @@ Future displayQuestion1(BuildContext context,{
                           borderRadius: BorderRadius.circular(100),
                         ),
                       ),
-                      onPressed: () {
-                        onYes();
-                        Navigator.pop(context);
-
-                      },
-                      
+                      onPressed: () => onYes(),
                       child: Text(
                         'אישור',
                         style: TextStyle(

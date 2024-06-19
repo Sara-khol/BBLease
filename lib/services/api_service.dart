@@ -95,7 +95,7 @@ class ApiService {
   }
 
   Future getUserOrders(int userId, Function(dynamic orderJson) onSuccess) async {
-    print('${_baseUrl}wp/v2/get_history_orders_or_future_orders_by_customer/$userId');
+    print('${_baseUrl}wp/v2/get_history_orderer/$userId');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_history_orders_or_future_orders_by_customer/$userId');
     if(response.statusCode == 200) {
       var result = response.data;
@@ -163,10 +163,11 @@ class ApiService {
     });
     print('${_baseUrl}wp/v2/registration_customer_detailes');
     print('data: ${User().toString()}');
+    print('data: ${User().signature}');
     Response response = await _dio.post('${_baseUrl}wp/v2/registration_customer_detailes',
         data: formData);
    // debugPrint('response $response');
-    debugPrint('data: ${response.data}');
+    debugPrint('getdata: ${response.data}');
     if(response.statusCode==200) {
       onSuccess(response.data);
     }

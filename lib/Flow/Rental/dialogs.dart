@@ -232,7 +232,7 @@ Future departurePoint(context, address, nav,{double longitude1=0,double latitude
                                   ),
                                   child: TextButton(
                                     child: Text(
-                                      'אישור',
+                                      'לבחירת תאריך',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 22.sp,
@@ -352,6 +352,8 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
               activeColor: blackColorApp ,
               value: v,
               dense: true,
+              autofocus: true,
+              contentPadding: EdgeInsets.zero,
               title: Text(title, style: TextStyle(fontSize: 20.sp)),
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               visualDensity: const VisualDensity(
@@ -389,8 +391,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                 )
               ],
             ),
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
+            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Directionality(
               textDirection: TextDirection.rtl,
               child: Wrap(
@@ -410,13 +411,15 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
                               'בחר טווח השכרה',
                               style: TextStyle(
                                   fontSize: 26.sp,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.black),
+                                  color: Colors.black,
+                              ),
                             ),
                             SizedBox(
                               width: 9.w,
@@ -426,9 +429,10 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                           ],
                         ),
                         SizedBox(height: 15.h,),
-                        ConstrainedBox(
-                          constraints: BoxConstraints(maxHeight: 190.h),
-                          child: ListView(
+                       // ConstrainedBox(
+                       //   constraints: BoxConstraints(maxHeight: 190.h),
+                       //   child:
+                          ListView(
                             shrinkWrap: true,
                             children: <Widget>[
                               _buildRadioTile('6 שעות', 1),
@@ -437,7 +441,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                               _buildRadioTile('חודש', 4),
                             ],
                           ),
-                        ),
+                        //),
                         SizedBox(height: 20.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -672,7 +676,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                   }
                               },
                               child: const Text(
-                                'המשך',
+                                'מצא לי רכב זמין',
                                 style: TextStyle(
                                     fontSize: 22,
                                     fontWeight: FontWeight.normal,
@@ -694,8 +698,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
       barrierColor: Colors.black12.withOpacity(0.1),
       //isDismissible: false,
       elevation: 2,
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(25))));
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25))));
 }
 
 Duration findDuration(double? diff) {

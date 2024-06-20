@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:bblease/Flow/Rental/Actions/cancelation_complete.dart';
+import 'package:bblease/Flow/registration/license_details.dart';
 import 'package:bblease/services/api_service.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/src/form_data.dart';
@@ -210,6 +211,7 @@ signCancelOrderDialog(context,String headline,String text){
                                   headline=="טופס אישור תנאים"?
                                   {
                                     User().signature = signature!,
+                                    Navigator.pop(context),
                                     Navigator.pop(context),
                                   }
                                       :ApiService().signatureUpload(signature, () {

@@ -132,10 +132,9 @@ class _PaymentWebViewState extends State<PaymentWebView> {
                       return ServerTrustAuthResponse(
                           action: ServerTrustAuthResponseAction.PROCEED);
                     },
-                    onProgressChanged:
-                        (InAppWebViewController controller, int progress) async {
-                      {
+                    onProgressChanged: (InAppWebViewController controller, int progress) async {
                         this.progress = progress / 100;
+                        print(this.progress);
                         if (this.progress == 1 && !startCheckStatus) {
                           startCheckStatus = true;
                           await Future.delayed(const Duration(seconds: 3));
@@ -145,7 +144,6 @@ class _PaymentWebViewState extends State<PaymentWebView> {
                         if (mounted) {
                           setState(() {});
                         }
-                      }
                     },
                   ),
                 ),
@@ -224,10 +222,13 @@ class _PaymentWebViewState extends State<PaymentWebView> {
 
   getStatus() async {
     await ApiService().getStatusPayment(User().phoneNumber, (res) async {
+      print('get status payment');
+      print(res);
       if (res) {
         if (widget.index == 2) {
           Navigator.pop(context);
-        } else {
+        }
+        else {
           MySharedPreferences().setLastUsage();
           MySharedPreferences().setUserId(User().userId);
           Navigator.pushAndRemoveUntil(

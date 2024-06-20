@@ -2,6 +2,7 @@ import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/UserInformation/ordersHistory.dart';
 import 'package:bblease/landspace_widget.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bblease/utils/my_colors.dart';
@@ -345,6 +346,8 @@ class _CarDetailsState extends State<CarDetails> {
                                               width: 9.w,
                                             ),
                                             Text(
+                                              kIsWeb?
+                                              '${intl.DateFormat('mm:HH yyyy.MM.dd').format(widget.rent.startDate!)} - ${intl.DateFormat('mm:HH yyyy.MM.dd').format(widget.rent.endDate!)}':
                                               '${intl.DateFormat('dd.MM.yyyy HH:mm').format(widget.rent.startDate!)} - ${intl.DateFormat('dd.MM.yyyy HH:mm').format(widget.rent.endDate!)}',
                                               style: TextStyle(
                                                 color: blackColorApp,

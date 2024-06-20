@@ -398,8 +398,14 @@ class _SearchCarState extends State<SearchCar> {
             Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  height: 100,
-                  color: Colors.white.withOpacity(0.6),
+                  height: 124.h,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment(-1.00, -0.00),
+                      end: Alignment(1, 0),
+                      colors: [Colors.white, Colors.white.withOpacity(0)],
+                    ),
+                  ),
                 ))
           ],
         ));
@@ -562,14 +568,11 @@ class _SearchCarState extends State<SearchCar> {
       width: 393.w,
       height: 40.h,
       child: */
-        Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        //  SizedBox(width:25.w,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
         TextButton(
-          onPressed: () => {
-            filterCarType(context, _scrollController),
-          },
+          onPressed: () => filterCarType(context, _scrollController),
           child: Row(
             children: [
               Text(
@@ -587,11 +590,8 @@ class _SearchCarState extends State<SearchCar> {
             ],
           ),
         ),
-        //Spacer(),
-        //SizedBox(width:33.w,),
         TextButton(
-          onPressed: () =>
-              {rentalTerm(context, widget.startDate, widget.endDate)},
+          onPressed: () => rentalTerm(context, widget.startDate, widget.endDate),
           child: Row(
             children: [
               Text(
@@ -602,27 +602,15 @@ class _SearchCarState extends State<SearchCar> {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              SizedBox(
-                  width: 20.w,
-                  height: 20.h,
-                  child: Icon(
-                    Icons.edit_calendar_outlined,
-                    color: pinkColorApp,
-                    size: 20.sp,
-                  )),
+              ImageIcon(
+                AssetImage("assets/icons/Calendar.png"),
+                color: pinkColorApp,
+              ),
             ],
           ),
         ),
-        //Spacer(),
-        // SizedBox(width:30.w,),
         TextButton(
-          onPressed: () => {
-            expansionSearch(
-              context,
-              _scrollController,
-              _currentSliderValue,
-            ),
-          },
+          onPressed: () => expansionSearch(context, _scrollController, _currentSliderValue,),
           child: Row(
             children: [
               Text(
@@ -633,17 +621,13 @@ class _SearchCarState extends State<SearchCar> {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              SizedBox(
-                  width: 20.w,
-                  height: 20.h,
-                  child: ImageIcon(
-                    AssetImage("assets/icons/expansion.png"),
-                    color: pinkColorApp,
-                  )),
+              ImageIcon(
+                AssetImage("assets/icons/expansion.png"),
+                color: pinkColorApp,
+              ),
             ],
           ),
         ),
-        //  Expanded(child: SizedBox(width:48.w,)),
       ],
     );
   }
@@ -746,7 +730,8 @@ class _SearchCarState extends State<SearchCar> {
                                       SizedBox(height:78.5.h,),
                                       carSearchItem("VIP"),
                                       carSearchItem("משפחתי+"),
-                                    ],),),*/ /*
+                                    ],),),*/
+              /*
                               ],
                             ),
                           ),
@@ -761,6 +746,7 @@ class _SearchCarState extends State<SearchCar> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
                         width: 98.w,
@@ -774,12 +760,8 @@ class _SearchCarState extends State<SearchCar> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(
-                        width: 8.w,
-                      ),
-                      ImageIcon(
-                        AssetImage("assets/icons/Filter.png"),
-                      ),
+                      SizedBox(width: 8.w,),
+                      ImageIcon(AssetImage("assets/icons/Filter.png"),color: pinkColorApp,),
                       Spacer(),
                       TextButton(
                         style: TextButton.styleFrom(
@@ -796,18 +778,15 @@ class _SearchCarState extends State<SearchCar> {
                             fontSize: 18.sp,
                             fontWeight: FontWeight.normal,
                             decoration: TextDecoration.underline,
+                            decorationColor: pinkColorApp,
                             height: 1,
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 34.w,
-                      ),
+                      SizedBox(width: 34.w,),
                     ],
                   ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
+                  SizedBox(height: 20.h,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -839,44 +818,28 @@ class _SearchCarState extends State<SearchCar> {
         });
       },
       child: Container(
-        margin: EdgeInsets.only(
-          bottom: 5.h,
-        ),
+        margin: EdgeInsets.only(bottom: 5.h,),
         width: 130.w,
         height: 95.h,
-        //color: Colors.blue,
         child: Padding(
           padding: EdgeInsets.only(top: 8.h, bottom: 6.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // SizedBox(height: 10.h,),
-              Padding(
-                // padding: EdgeInsets.only(left: 9.w,),
-                padding: EdgeInsets.only(left: 0),
-                child: Text(
-                  name,
-                  style: TextStyle(
-                    color: blackColorApp,
-                    // fontSize: 16.sp,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
+              Text(
+                name,
+                style: TextStyle(
+                  color: blackColorApp,
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.normal,
                 ),
               ),
               //  SizedBox(height: 13.h,),
               Padding(
-                padding: EdgeInsets.only(
-                  left: 4.w,
-                ),
-                child: Image.asset(
-                  'assets/images/car-only.png',
-                  width: 115.w,
-                  height: 50.h,
-                ),
+                padding: EdgeInsets.only(left: 4.w,),
+                child: Image.asset('assets/images/car-only.png', width: 115.w, height: 50.h,),
               ),
-              //  SizedBox(height: 6.h,),
             ],
           ),
         ),
@@ -886,8 +849,6 @@ class _SearchCarState extends State<SearchCar> {
 
   expansionSearch(context, _controller, sliderValue) {
     return showModalBottomSheet(
-      //isScrollControlled: true,
-
       context: context,
       builder: (context) => Directionality(
         textDirection: TextDirection.rtl,
@@ -909,7 +870,7 @@ class _SearchCarState extends State<SearchCar> {
               )
             ],
           ),
-          height: 365.h,
+          //height: 365.h,
           child: Stack(
             children: [
               Align(
@@ -927,13 +888,11 @@ class _SearchCarState extends State<SearchCar> {
                 ),
               ),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 30.h,
-                  ),
+                  SizedBox(height: 30.h,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         'הגדל טווח חיפוש',
@@ -954,56 +913,42 @@ class _SearchCarState extends State<SearchCar> {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 23.h,
-                  ),
+                  SizedBox(height: 23),
                   Padding(
                     padding: EdgeInsets.only(right: 31.w, left: 30.w),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          //color: Colors.red,
-                          height: 20.h,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'אזור חיפוש נוכחי: ',
+                        Row(
+                          children: [
+                            Text(
+                              'אזור חיפוש נוכחי: ',
+                              style: TextStyle(
+                                color: Color(0xFF0F1511),
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.normal,
+                                height: 1,
+                              ),
+                            ),
+                            Spacer(),
+                            TextButton(
+                              style: TextButton.styleFrom(minimumSize: Size(80, 20), padding: EdgeInsets.all(0)),
+                              onPressed: () => departurePoint(context, widget.location, 1, sdate: widget.startDate, edate: widget.endDate),
+                              child: Text(
+                                'שנה כתובת ',
                                 style: TextStyle(
-                                  color: Color(0xFF0F1511),
+                                  color: pinkColorApp,
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.normal,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: pinkColorApp,
                                   height: 1,
                                 ),
                               ),
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                    minimumSize: Size(80, 20),
-                                    padding: EdgeInsets.all(0)),
-                                onPressed: () => {
-                                  departurePoint(context, widget.location, 1,
-                                      sdate: widget.startDate,
-                                      edate: widget.endDate),
-                                },
-                                child: Text(
-                                  'שנה כתובת ',
-                                  style: TextStyle(
-                                    color: pinkColorApp,
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.normal,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: pinkColorApp,
-                                    height: 1,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          height: 8.h,
-                        ),
+                        SizedBox(height: 15,),
                         Text(
                           widget.location,
                           textAlign: TextAlign.right,
@@ -1015,7 +960,7 @@ class _SearchCarState extends State<SearchCar> {
                           ),
                         ),
                         SizedBox(
-                          height: 21.h,
+                          height: 28,
                         ),
                         Text(
                           'הזז את הסמן למרחק הרצוי',
@@ -1027,9 +972,7 @@ class _SearchCarState extends State<SearchCar> {
                             height: 1,
                           ),
                         ),
-                        SizedBox(
-                          height: 30.h,
-                        ),
+                        SizedBox(height: 34,),
                         Directionality(
                           textDirection: TextDirection.ltr,
                           child: StatefulBuilder(builder: (context, state) {
@@ -1065,9 +1008,7 @@ class _SearchCarState extends State<SearchCar> {
                             );
                           }),
                         ),
-                        SizedBox(
-                          height: 19.h,
-                        ),
+                        SizedBox(height: 19,),
                         Align(
                           alignment: Alignment.center,
                           child: Text(
@@ -1080,9 +1021,7 @@ class _SearchCarState extends State<SearchCar> {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 21.h,
-                        ),
+                        SizedBox(height: 21,),
                         Container(
                           height: 48.h,
                           width: 332.w,
@@ -1109,7 +1048,7 @@ class _SearchCarState extends State<SearchCar> {
                     ),
                   ),
 
-                  //  SizedBox(height: 30.h,),
+                  SizedBox(height: 25.h,),
                 ],
               ),
             ],

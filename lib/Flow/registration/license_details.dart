@@ -285,12 +285,15 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       ),
                     ),
                     onPressed: () async {
+
                       if (User().signature.isEmpty&&widget.index==1) {
+                        print('signature is empty');
                         displayError(context,
                             message: 'יש לחתום על תנאי השכרה',
                             closeButton: true);
                       }
                       else if (_formKey.currentState!.validate()) {
+                        print('signature is not empty');
                         if(widget.index==1){
                           User().licenseId = _licenseId.text;
                           User().licenseDegree = _degree.text;
@@ -403,6 +406,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
       }
     });
   }
+
   Future addDriverSucceed() {
     return showModalBottomSheet(
       context: context,

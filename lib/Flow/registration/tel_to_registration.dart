@@ -127,14 +127,16 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
 
                 //todo: go to active rent
                 if(response["active_order"].isNotEmpty) {
-              User().currentRent=Rental.fromJson(response["active_order"]);
-            }
+                  print('active order is not empty');
+                  User().currentRent=Rental.fromJson(response["active_order"]);
+                }
                 print('after if');
                 MySharedPreferences().setLastUsage();
                 MySharedPreferences().setUserId(User().userId);
                 if (User().tranzilaStatus) {
                   print('in');
                   if(User().currentRent!=null){
+                    print('current rent is not null');
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
@@ -142,12 +144,14 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                             const ActiveRentDetails() ),
                             (route) => false);
                   }
-                  Navigator.pushAndRemoveUntil(
+                  else {
+                    Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
                           const RentalWidget() /*RentalWidget()*/),
                           (route) => false);
+                  }
                 }
                 else
                 {

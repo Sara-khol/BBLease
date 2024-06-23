@@ -79,6 +79,7 @@ class _TermsState extends State<Terms> {
                  if( widget.index==2)
                    signCancelOrderDialog(context, 'טופס אישור תנאים', 'קראתי ואני מאשר/ת את התנאים');
 
+                // Navigator.pop(context);
                 },
               ),
             ),

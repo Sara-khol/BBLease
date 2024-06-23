@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bblease/Flow/registration/sucsses_registration.dart';
-import 'package:bblease/landspace_widget.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,10 +29,18 @@ class _PaymentWebViewState extends State<PaymentWebView> {
   String url = "";
   double progress = 0;
   bool startCheckStatus = false;
+  late bool _isMounted ;
 
   @override
   void initState() {
     super.initState();
+    _isMounted=true;
+    if(kIsWeb)
+      {
+         setStatusForWeb();
+
+      }
+
   }
 
   @override
@@ -45,6 +53,13 @@ class _PaymentWebViewState extends State<PaymentWebView> {
                   imageProperties: ImageProperties('l_register1.png', 618.w))
               : */buildContent(orientation));
     });
+  }
+
+  setStatusForWeb() async
+  {
+
+      await Future.delayed(const Duration(seconds: 7));
+      getStatus();
   }
 
   buildContent(Orientation o) {
@@ -116,16 +131,6 @@ class _PaymentWebViewState extends State<PaymentWebView> {
                     onWebViewCreated: (InAppWebViewController controller) {
                       _webViewController = controller;
                     },
-                    // onLoadStart: (InAppWebViewController controller,WebUri?  url) {
-                    //   setState(() {
-                    //     this.url = url.data!.charset;
-                    //   });
-                    // },
-                    // onLoadStop: (InAppWebViewController controller,  url) async {
-                    //   setState(() {
-                    //     this.url = url;
-                    //   });
-                    // },
                     onReceivedServerTrustAuthRequest:
                         (InAppWebViewController controller,
                             URLAuthenticationChallenge challenge) async {
@@ -134,13 +139,11 @@ class _PaymentWebViewState extends State<PaymentWebView> {
                     },
                     onProgressChanged: (InAppWebViewController controller, int progress) async {
                         this.progress = progress / 100;
-                        print(this.progress);
                         if (this.progress == 1 && !startCheckStatus) {
                           startCheckStatus = true;
                           await Future.delayed(const Duration(seconds: 3));
                           getStatus();
-                          // Timer(const Duration(seconds: 3), () {getStatus();});
-                        }
+                      }
                         if (mounted) {
                           setState(() {});
                         }
@@ -238,9 +241,17 @@ class _PaymentWebViewState extends State<PaymentWebView> {
               (route) => false);
         }
       } else {
-        await Future.delayed(const Duration(seconds: 3));
-        getStatus();
+        if (_isMounted) {
+          await Future.delayed(const Duration(seconds: 3));
+          getStatus();
+        }
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _isMounted=false;
+    super.dispose();
   }
 }

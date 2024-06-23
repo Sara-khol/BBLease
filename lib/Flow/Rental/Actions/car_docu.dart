@@ -35,41 +35,77 @@ class _CarDocuState extends State<CarDocu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Padding(
-        padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,/*left: 30.w,right: 30.w*/),
-            child: Column(
-                children: [
-                  SizedBox(height: 35.h,),
-                  Align(alignment: Alignment.centerRight,
-                      child: IconButton(onPressed: () =>Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
-                  SizedBox(height: 62.h,),
-                  Text('תיעוד רכב',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-                  SizedBox(height: 36.h,),
-                  Text('\nמומלץ תמיד לתעד את הרכב\nבתחילת הנסיעה!!\n', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),),
-                  Text('אם ישנם נזקים , נדע לא לחייב אתכם עליהם', style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.normal,),),
-                  Text(' \n\nנסיעה בטוחה :)', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold,),),
-                  SizedBox(height: 57.h,),
-                  ImageIcon(AssetImage("assets/icons/heart.png"),color: turquoiseColorApp,),
-                  SizedBox(height: 8.h,),
-                  Text('צלמו תמונה חדה וברורה!',
-                    style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.normal),textAlign: TextAlign.center,),
-                  SizedBox(height: 25.h,),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal:70.w),
-                    child: Table(
-                      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                      children: [
-                        TableRow(
-                            children: [
-                              Padding(
-                                padding:  const EdgeInsets.all(12),
-                                child: Container(
-                                  height: 95.h,
-                                  width: 100.w,
-                                  decoration: BoxDecoration(
+      body: SingleChildScrollView(
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Padding(
+          padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,/*left: 30.w,right: 30.w*/),
+              child: Column(
+                  children: [
+                    SizedBox(height: 35.h,),
+                    Align(alignment: Alignment.centerRight, child: IconButton(onPressed: () =>Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
+                    SizedBox(height: 52.h,),
+                    Text('תיעוד רכב',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+                    SizedBox(height: 30.h,),
+                    Text('\nמומלץ תמיד לתעד את הרכב\nבתחילת הנסיעה!!\n', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),textDirection:TextDirection.rtl,textAlign: TextAlign.center,),
+                    Text('אם ישנם נזקים , נדע לא לחייב אתכם עליהם', style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.normal,),),
+                    Text(' \nנסיעה בטוחה :)', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold,),),
+                    SizedBox(height: 10.h,),
+                    ImageIcon(AssetImage("assets/icons/heart.png"),color: turquoiseColorApp,),
+                    SizedBox(height: 40.h,),
+                    Text('צלמו תמונה חדה וברורה!', style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.normal),textAlign: TextAlign.center,),
+                    SizedBox(height: 25.h,),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal:70.w),
+                      child: Table(
+                        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                        children: [
+                          TableRow(
+                              children: [
+                                Padding(
+                                  padding:  EdgeInsets.symmetric(vertical: 12.h,horizontal: 12.w),
+                                  child: Container(
+                                    height: 95.h,
+                                    width: 100.w,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: const Color(0xFFF7F7F7),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.2),
+                                            spreadRadius: 10,
+                                            blurRadius: 15,
+                                            offset: Offset(0, 3),
+                                          ),
+                                        ],
+                                    ),
+                                    child: Center(
+                                      child: InkWell(
+                                        child: SizedBox(
+                                          width: 50.w,
+                                          child: Column(
+                                            children: [
+                                              SizedBox(height: 20.h,),
+                                              images[0]==null
+                                                  ? Icon(Icons.camera_alt_outlined,size: 24.sp,)
+                                                  :ImageIcon(AssetImage("assets/icons/done.png"),size: 24.w,color: turquoiseColorApp,),
+                                              SizedBox(height: 10.h,),
+                                              Text('צד קדמי', style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.normal,height: 1),textAlign: TextAlign.center,)
+                                            ],
+                                          ),
+                                        ),
+                                        onTap: ()=>images[0]==null?pickImage(0):editImage('צד קדמי', 0),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:  const EdgeInsets.all(12),
+                                  child: Container(
+                                    height: 95.h,
+                                    width: 100.w,
+                                    decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8),
                                       color: const Color(0xFFF7F7F7),
                                       boxShadow: [
@@ -80,188 +116,153 @@ class _CarDocuState extends State<CarDocu> {
                                           offset: Offset(0, 3),
                                         ),
                                       ],
-                                  ),
-                                  child: Center(
-                                    child: InkWell(
-                                      child: SizedBox(
-                                        width: 50.w,
-                                        child: Column(
-                                          children: [
-                                            SizedBox(height: 20.h,),
-                                            images[0]==null
-                                                ? Icon(Icons.camera_alt_outlined,size: 24.sp,)
-                                                :ImageIcon(AssetImage("assets/icons/done.png"),size: 24.w,color: turquoiseColorApp,),
-                                            SizedBox(height: 10.h,),
-                                            Text('צד קדמי', style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.normal,height: 1),textAlign: TextAlign.center,)
-                                          ],
+                                    ),
+                                    child: Center(
+                                      child: InkWell(
+                                        child: SizedBox(
+                                          width: 50.w,
+                                          child: Column(
+                                            children: [
+                                              SizedBox(height: 20.h,),
+                                              images[1]==null
+                                                  ? Icon(Icons.camera_alt_outlined,size: 24.sp,)
+                                                  :ImageIcon(AssetImage("assets/icons/done.png"),size: 24.w,color: turquoiseColorApp,),
+                                              SizedBox(height: 10.h,),
+                                              Text('צד ימין', style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.normal,height: 1),textAlign: TextAlign.center,)
+                                            ],
+                                          ),
                                         ),
+                                        onTap: ()=>images[1]==null?pickImage(1):editImage('צד ימין', 1),
                                       ),
-                                      onTap: ()=>images[0]==null?pickImage(0):editImage('צד קדמי', 0),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding:  const EdgeInsets.all(12),
-                                child: Container(
-                                  height: 95.h,
-                                  width: 100.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: const Color(0xFFF7F7F7),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 10,
-                                        blurRadius: 15,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Center(
-                                    child: InkWell(
-                                      child: SizedBox(
-                                        width: 50.w,
-                                        child: Column(
-                                          children: [
-                                            SizedBox(height: 20.h,),
-                                            images[1]==null
-                                                ? Icon(Icons.camera_alt_outlined,size: 24.sp,)
-                                                :ImageIcon(AssetImage("assets/icons/done.png"),size: 24.w,color: turquoiseColorApp,),
-                                            SizedBox(height: 10.h,),
-                                            Text('צד ימין', style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.normal,height: 1),textAlign: TextAlign.center,)
-                                          ],
-                                        ),
-                                      ),
-                                      onTap: ()=>images[1]==null?pickImage(1):editImage('צד ימין', 1),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ]
-                        ),
-                        TableRow(
-                            children: [
-                              Padding(
-                                padding:  const EdgeInsets.all(12),
-                                child: Container(
-                                  height: 95.h,
-                                  width: 100.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: const Color(0xFFF7F7F7),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 10,
-                                        blurRadius: 15,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Center(
-                                    child: InkWell(
-                                      child: SizedBox(
-                                        width: 60.w,
-                                        child: Column(
-                                          children: [
-                                            SizedBox(height: 20.h,),
-                                            images[2]==null
-                                                ? Icon(Icons.camera_alt_outlined,size: 24.sp,)
-                                                :ImageIcon(AssetImage("assets/icons/done.png"),size: 24.w,color: turquoiseColorApp,),
-                                            SizedBox(height: 10.h,),
-                                            Text('צד אחורי', style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.normal,height: 1),textAlign: TextAlign.center,)
-                                          ],
-                                        ),
-                                      ),
-                                      onTap: ()=>images[2]==null?pickImage(2):editImage('צד אחורי', 2),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding:  const EdgeInsets.all(12),
-                                child: Container(
-                                  height: 95.h,
-                                  width: 100.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: const Color(0xFFF7F7F7),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 10,
-                                        blurRadius: 15,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Center(
-                                    child: InkWell(
-                                      child: SizedBox(
-                                        width: 60.w,
-                                        child: Column(
-                                          children: [
-                                            SizedBox(height: 20.h,),
-                                            images[3]==null
-                                                ? Icon(Icons.camera_alt_outlined,size: 24.sp,)
-                                                :ImageIcon(AssetImage("assets/icons/done.png"),size: 24.w,color: turquoiseColorApp,),
-                                            SizedBox(height: 10.h,),
-                                            Text('צד שמאל', style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.normal,height: 1),textAlign: TextAlign.center,)
-                                          ],
-                                        ),
-                                      ),
-                                      onTap: ()=>images[3]==null?pickImage(3):editImage('צד שמאל', 3),
-                                    ),
-                                  ),
-                                ),
-                              ),
-
-                            ]
-                        )
-                      ],
-
-                    ),
-                  ),
-                  Spacer(),
-                  Container(
-                    height: 48.h,
-                    width: 332.w,
-                    margin: EdgeInsets.only(bottom: 35.h,),
-                    //padding: EdgeInsets.symmetric(horizontal: 30),
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(backgroundColor: allLoaded?turquoiseColorApp:Color(0xFFD9D9D9),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100),
+                              ]
                           ),
-                          elevation: 0.0,
-                        ),
-                        onPressed: (){
-                          int i;
-                          for(i=0; i<images.length;i++){
-                            if(images[i]==null)
-                              break;
-                          }
-                          if (i==4) {
-                            setState(() {
-                              allLoaded = true;
-                            });
-                            sendImages();
-                          }
-                          if(!allLoaded) missingImage();
-                        },
-                        child:  Text('שלח תמונות',
-                          style: TextStyle(fontSize: 22.sp,
-                              fontWeight: FontWeight.normal,
-                              color:Colors.white, height: 2.3),)),
-                  ),
+                          TableRow(
+                              children: [
+                                Padding(
+                                  padding:  const EdgeInsets.all(12),
+                                  child: Container(
+                                    height: 95.h,
+                                    width: 100.w,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: const Color(0xFFF7F7F7),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 10,
+                                          blurRadius: 15,
+                                          offset: Offset(0, 3),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child: InkWell(
+                                        child: SizedBox(
+                                          width: 60.w,
+                                          child: Column(
+                                            children: [
+                                              SizedBox(height: 20.h,),
+                                              images[2]==null
+                                                  ? Icon(Icons.camera_alt_outlined,size: 24.sp,)
+                                                  :ImageIcon(AssetImage("assets/icons/done.png"),size: 24.w,color: turquoiseColorApp,),
+                                              SizedBox(height: 10.h,),
+                                              Text('צד אחורי', style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.normal,height: 1),textAlign: TextAlign.center,)
+                                            ],
+                                          ),
+                                        ),
+                                        onTap: ()=>images[2]==null?pickImage(2):editImage('צד אחורי', 2),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:  const EdgeInsets.all(12),
+                                  child: Container(
+                                    height: 95.h,
+                                    width: 100.w,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: const Color(0xFFF7F7F7),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 10,
+                                          blurRadius: 15,
+                                          offset: Offset(0, 3),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child: InkWell(
+                                        child: SizedBox(
+                                          width: 60.w,
+                                          child: Column(
+                                            children: [
+                                              SizedBox(height: 20.h,),
+                                              images[3]==null
+                                                  ? Icon(Icons.camera_alt_outlined,size: 24.sp,)
+                                                  :ImageIcon(AssetImage("assets/icons/done.png"),size: 24.w,color: turquoiseColorApp,),
+                                              SizedBox(height: 10.h,),
+                                              Text('צד שמאל', style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.normal,height: 1),textAlign: TextAlign.center,)
+                                            ],
+                                          ),
+                                        ),
+                                        onTap: ()=>images[3]==null?pickImage(3):editImage('צד שמאל', 3),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+                              ]
+                          )
+                        ],
+
+                      ),
+                    ),
+                    Spacer(),
+                    Container(
+                      height: 48.h,
+                      width: 332.w,
+                      margin: EdgeInsets.only(bottom: 35.h,),
+                      //padding: EdgeInsets.symmetric(horizontal: 30),
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(backgroundColor: allLoaded?turquoiseColorApp:Color(0xFFD9D9D9),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            elevation: 0.0,
+                          ),
+                          onPressed: (){
+                            int i;
+                            for(i=0; i<images.length;i++){
+                              if(images[i]==null)
+                                break;
+                            }
+                            if (i==4) {
+                              setState(() {
+                                allLoaded = true;
+                              });
+                              sendImages();
+                            }
+                            if(!allLoaded) missingImage();
+                          },
+                          child:  Text('שלח תמונות',
+                            style: TextStyle(fontSize: 22.sp,
+                                fontWeight: FontWeight.normal,
+                                color:Colors.white, height: 2.3),)),
+                    ),
+                    SizedBox(height: 20.h,)
 
 
-                ]
+                  ]
 
-            )
+              )
+        )
+            ),
       )
-    )
     );
   }
 

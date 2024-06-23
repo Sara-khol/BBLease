@@ -101,6 +101,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
    sendOpeningCode(){
      showLoading(context);
     ApiService().getOpeningCode(rent.orderNum!, (res) {
+      Navigator.pop(context);
       print(res);
       openingCodeDialog(context, res);
     });
@@ -627,6 +628,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                               onTap: () {
                                 showLoading(context);
                                 ApiService().getParkPosition(rent.car.carNumber, (res) {
+                                  Navigator.pop(context);
                                   print(res);
                                   findPark(res);
                                 });
@@ -884,6 +886,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                             if(isLocked) {
                               showLoading(context);
                               ApiService().openDoors(rent.car.carNumber, (res) {
+                                Navigator.pop(context);
                                   print(res);
                                  setState(() {
                                    isLocked=false;
@@ -893,8 +896,8 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                             }
                             else {
                               showLoading(context);
-                              ApiService().lockDoors(rent.car.carNumber,
-                                    (res) {
+                              ApiService().lockDoors(rent.car.carNumber, (res) {
+                                Navigator.pop(context);
                                   print(res);
                                   setState(() {
                                     isLocked=true;
@@ -994,7 +997,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                           icon: ImageIcon(AssetImage("assets/icons/waze.png"),color: turquoiseColorApp,)),
                       SizedBox(width: 23.w,),
                       IconButton(
-                        onPressed: () => openGoogleMaps(0, 0),
+                        onPressed: () => openMaps(),
                         icon: ImageIcon(AssetImage("assets/icons/maps.png"),color: turquoiseColorApp,)),
                     ],
                   )
@@ -1088,12 +1091,16 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
     );
   }
 
+
+
   // Function to open a location in Waze
   Future<void> openWaze(double latitude, double longitude) async {
     var url = 'https://waze.com/ul?ll=$latitude,$longitude&navigate=yes';
     if (await canLaunchUrl(Uri(path: url))) {
+      print('can launch url to waze');
       await launchUrl(Uri(path: url));
     } else {
+      print('can not launch url to waze');
       throw 'Could not launch $url';
     }
   }
@@ -1102,12 +1109,22 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
   Future<void> openGoogleMaps(double latitude, double longitude) async {
     var url = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
     if (await canLaunchUrl(Uri(path: url))) {
+      print('can launch url to maps');
+      await launchUrl(Uri(path: url));
+    } else {
+      print('can not launch url to maps');
+      throw 'Could not launch $url';
+    }
+  }
+
+  void openMaps() async {
+    const url = 'https://www.google.com/maps';
+    if (await canLaunchUrl(Uri(path: url))) {
       await launchUrl(Uri(path: url));
     } else {
       throw 'Could not launch $url';
     }
   }
-
 
   Future endRental() {
 

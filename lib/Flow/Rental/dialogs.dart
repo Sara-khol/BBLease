@@ -774,11 +774,19 @@ checkPickedRange(context,DateTime start,DateTime end,Duration diff){
   print(end);
   if(start.difference(end)!=diff){
     displayQuestion1(context, message: 'בחרת טווח השכרה שונה ממה שציינת קודם', header: 'שים לב!',
-        onYes: () => Navigator.push(
+      onYes: () {
+        Navigator.pop(context);
+        Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SearchCar(location: location, latitude: latitude, longitude: longitude, startDate: start, endDate: end,),
-            )
-        ),
+            MaterialPageRoute(builder: (context)=>SearchCar(location: location,
+              latitude: latitude,
+              longitude: longitude,
+              startDate: start,
+              endDate: end,),
+        )
+
+      );
+    }
     );
   }
  /* if(start.difference(end)<diff){

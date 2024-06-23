@@ -34,13 +34,15 @@ class _TermsState extends State<Terms> {
               child: Padding(
                 padding: EdgeInsets.only(left: 24.w,right: 24.w,top:32.h,bottom: 20.h),
                 child: Row( children:[
-                  Text("Bibilease",
+                 /* Text("Bibilease",
                     style: TextStyle(
                       fontSize: 24.sp,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF0F1511),
                       fontFamily: 'PlusJakartaSans',)
-                    ,),
+                    ,),*/
+                  Image.asset('assets/images/logo_bibilease_new_no_background.png', height: 100.w),
+
                   Spacer(),
                   GestureDetector(
                     child: Icon(Icons.arrow_back_ios,color:Color(0xFF0F1511),size: 24.w,),

@@ -515,7 +515,8 @@ class _SearchCarState extends State<SearchCar> {
                             ),
                           ),
                           Text(
-                            '${car.pricePerDay * widget.endDate!.difference(widget.startDate!).inDays} ₪  |  סה"כ',
+                              widget.endDate!.difference(widget.startDate!).inDays>=1?
+                            '${car.pricePerDay * widget.endDate!.difference(widget.startDate!).inDays} ₪  |  סה"כ':'',
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.normal,

@@ -67,8 +67,7 @@ class _CarDetailsState extends State<CarDetails> {
   }));
   }
 
-  buildContent(Orientation o)
-  {
+  buildContent(Orientation o) {
     return  Directionality(
         textDirection: TextDirection.rtl,
         child:
@@ -764,7 +763,7 @@ class _CarDetailsState extends State<CarDetails> {
                                         SizedBox(height: 40.h),
                                         Text(
                                           // 'סך הכל לתשלום       ${widget.rent.car.pricePerDay * (dayDiff == 0 ? 1 : dayDiff)} ₪',
-                                            'סך הכל לתשלום       ${((rentPrice + additionsPrice) * 0.17 + (rentPrice + additionsPrice)).round()} ₪',
+                                            'סך הכל לתשלום       ${rentPrice + additionsPrice} ₪',
                                             // ' ${((rentPrice+price)*1.17).round()} ₪'
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -818,12 +817,11 @@ class _CarDetailsState extends State<CarDetails> {
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Text('${dayDiff == 0 ? 1 : dayDiff} ימים * ${widget.rent.car.pricePerDay} ליום', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal)),
+                                                        Text('${dayDiff == 0 ? 1 : dayDiff} ימים ללא מע"מ ', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal)),
                                                         SizedBox(height: 17.h),
                                                         Text('תוספות', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal)),
                                                         SizedBox(height: 17.h),
-                                                        Text('תוספת 17%', style: TextStyle(fontSize: 16.sp, fontWeight:
-                                                        FontWeight.normal)),
+                                                        Text('תוספת מע"מ 17%', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal)),
                                                         SizedBox(height: 17.h),
                                                         Text('תשלום כולל מע”מ', overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal, color: pinkColorApp)),
                                                       ],

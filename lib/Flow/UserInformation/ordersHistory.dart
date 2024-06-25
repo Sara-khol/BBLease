@@ -47,10 +47,9 @@ class _OrdersHistoryState extends State<OrdersHistory> {
         var futureJson = data['futurity'];
         print(historyJson);
         print(futureJson);
-        ordersHistory = historyJson.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
-        futureOrders = futureJson.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
+        if(historyJson!=null)ordersHistory = historyJson.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
+        if(futureJson!=null)futureOrders = futureJson.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
         print(ordersHistory.length);
-        print(futureJson.length);
 
         for (var item in ordersHistory) {
           print(item.status);
@@ -498,12 +497,12 @@ class _OrdersHistoryState extends State<OrdersHistory> {
             height: 20.h,
           ),
           initData
-              ? ordersHistory.isNotEmpty
-              ? MediaQuery.removePadding(
-              removeTop: true,
-              context: context,
-              child: selected == 1
-                  ? Expanded(
+            ? ordersHistory.isNotEmpty
+            ? MediaQuery.removePadding(
+            removeTop: true,
+            context: context,
+            child: selected == 1
+              ? Expanded(
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: ordersHistory.length,

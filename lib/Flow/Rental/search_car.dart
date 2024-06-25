@@ -414,18 +414,11 @@ class _SearchCarState extends State<SearchCar> {
   searchCarItem(Car car,Orientation orientation) {
     return GestureDetector(
       onTap: () async {
-        /*  Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => CarDetails(car,startDate: widget.startDate,endDate: widget.endDate, rent: null,))
-                          );*/
         showLoading(context);
-        await ApiService().getAdditions(
-            car.id, widget.startDate, widget.endDate, (orderJson) {
+        await ApiService().getAdditions(car.id, widget.startDate, widget.endDate, (orderJson) {
           Navigator.pop(context);
           List<Addition> additions = [];
-          additions = orderJson
-              .map<Addition>((entry) => (Addition.fromJson(entry)))
-              .toList();
+          additions = orderJson.map<Addition>((entry) => (Addition.fromJson(entry))).toList();
           for (Addition item in additions) {
             if (item.name == 'new_driver' || item.name == 'young_driver') {
               item.isEnabled = false;
@@ -443,14 +436,10 @@ class _SearchCarState extends State<SearchCar> {
             backgroundColor: Colors.white,
             //isDismissible: false,
             elevation: 2,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-            ),
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
             context: context,
-            builder: (_) =>
-                AdditionsDialog(rent: rent, car: car, additionsList: additions),
+            builder: (_) => AdditionsDialog(rent: rent, car: car, additionsList: additions),
           );
-          //extras(context,car,widget.startDate,widget.endDate,additions);
         });
       },
       child: Container(

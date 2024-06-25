@@ -40,7 +40,8 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
 
   bool isLocked=true;
 
-  double  percent= -1;
+  double p=-1;
+  int  percent= -1;
   int km= -1;
 
 
@@ -76,9 +77,10 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
   getFuel(){
     ApiService().getFuelLevel(rent.car.carNumber, (res) {
       if(res!=-1){
-      percent=res['fuel_percentage'];
-      km=res['fuel_per_km'];
-      setState(() { });
+        p=res['fuel_percentage'];
+        km=res['fuel_per_km'];
+        percent=p.toInt();
+        setState(() { });
       }
     });
   }

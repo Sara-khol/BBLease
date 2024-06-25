@@ -95,7 +95,7 @@ class ApiService {
   }
 
   Future getUserOrders(int userId, Function(dynamic orderJson) onSuccess) async {
-    print('${_baseUrl}wp/v2/get_history_orderer/$userId');
+    print('${_baseUrl}wp/v2/get_history_orders_or_future_orders_by_customer/$userId');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_history_orders_or_future_orders_by_customer/$userId');
     if(response.statusCode == 200) {
       var result = response.data;

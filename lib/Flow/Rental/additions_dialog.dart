@@ -22,7 +22,6 @@ class AdditionsDialog extends StatefulWidget {
 class _AdditionsDialogState extends State<AdditionsDialog> {
 
   createCheckBox(int index){
-
     return CheckboxListTile(
       title: Text(widget.additionsList[index].title),
       value: widget.additionsList[index].isChecked,
@@ -35,12 +34,11 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
         return null;
       }),
       checkColor: turquoiseColorApp,
+
       onChanged: (value) {
 
         widget.additionsList[index].isChecked=value!;
-        setState(() {
-
-        });
+        setState(() { });
         //rent.waze=value!;
       },
     );
@@ -125,6 +123,8 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
     );
   }
 
+  ScrollController _controller=ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return  Padding(
@@ -132,12 +132,11 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Container(
-          constraints: BoxConstraints(maxHeight: 600.h),
+          //constraints: BoxConstraints(maxHeight: 600.h),/
+          height: 450.h,
           decoration: ShapeDecoration(
             color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                  25),),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
           ),
           child: Column(
             children: [
@@ -156,28 +155,33 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text('התאם תנאי השכרה', style: TextStyle(
+                        Text('תוספות מומלצות', style: TextStyle(
                             fontSize: 26.sp,
                             fontWeight: FontWeight.bold,
                             color: Colors.black),),
-                        SizedBox(width: 9.w,),
-                        Icon(
-                          Icons.extension_outlined, color: pinkColorApp, size: 24.sp,),
+                        SizedBox(width: 11.w,),
+                        Icon(Icons.extension_outlined, color: pinkColorApp, size: 24.sp,),
                       ],
                     ),
                     SizedBox(height: 15.h,),
+
                     ListView.builder(
+                      controller: _controller,
                       itemCount: widget.additionsList.length,
-                      shrinkWrap: true,
+                       shrinkWrap: true,
+                      physics: AlwaysScrollableScrollPhysics(),
                       padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {
-                        return createCheckBox(index);
+                        return SizedBox(
+                          height: 30.h,
+                          child: createCheckBox(index),
+                        );
+
                       },
                     ),
-
                     SizedBox(height: 20.h,),
-
                     SizedBox(
                       height: 48.h,
                       width: 332.w,
@@ -203,6 +207,7 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                               fontSize: 22.sp,
                               fontWeight: FontWeight.normal,color: Colors.white),)),
                     ),
+                    SizedBox(height: 20.h,),
                   ],
                 ),
               ),

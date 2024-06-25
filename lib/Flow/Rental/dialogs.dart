@@ -299,11 +299,20 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
   DateTime? endDate;
   double? diff;
   if (s != null && e != null) {
-    startd.text = intl.DateFormat('dd.MM.yyyy').format(s);
-    endd.text = intl.DateFormat('dd.MM.yyyy').format(e);
+    if(kIsWeb){
+      startd.text = intl.DateFormat('yyyy.MM.dd').format(s);
+      endd.text = intl.DateFormat('yyyy.MM.dd').format(e);
 
-    starth.text = intl.DateFormat('HH:mm').format(s);
-    endh.text = intl.DateFormat('HH:mm').format(e);
+      starth.text = intl.DateFormat('mm:HH').format(s);
+      endh.text = intl.DateFormat('mm:HH').format(e);
+    }
+    else {
+      startd.text = intl.DateFormat('dd.MM.yyyy').format(s);
+      endd.text = intl.DateFormat('dd.MM.yyyy').format(e);
+
+      starth.text = intl.DateFormat('HH:mm').format(s);
+      endh.text = intl.DateFormat('HH:mm').format(e);
+    }
     startDate = s;
     endDate = e;
   }

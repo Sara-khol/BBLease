@@ -277,7 +277,7 @@ class _CarDetailsState extends State<CarDetails> {
                                   decoration: ShapeDecoration(
                                     color: Colors.white,
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
-                                    shadows: [
+                                    shadows: const [
                                       BoxShadow(
                                         color: Color(0x33A7A7A7),
                                         blurRadius: 40,
@@ -358,62 +358,7 @@ class _CarDetailsState extends State<CarDetails> {
                                           ],
                                         ),
                                         SizedBox(height: 18.h),
-                                        /*    Column(
-                                                crossAxisAlignment: CrossAxisAlignment
-                                                    .start,
-                                                children: [
-                                                  Text('כולל', style: TextStyle(
-                                                    color: blackColorApp,
-                                                    fontSize: 20.sp,
-                                                    fontWeight: FontWeight.bold,
-                                                    height: 1.15,),),
-                                                  Row(
-                                                    children: [
-                                                      Icon(Icons.check,
-                                                        color: colors
-                                                            .turquoiseColorApp,),
-                                                      SizedBox(width: 9.w,),
-                                                      Text('ביטוח',
-                                                        style: TextStyle(
-                                                          color: colors
-                                                              .blackColorApp,
-                                                          fontSize: 20.sp,
-                                                          fontWeight: FontWeight
-                                                              .w400,),),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Icon(Icons.check,
-                                                        color: colors
-                                                            .turquoiseColorApp,),
-                                                      SizedBox(width: 9.w,),
-                                                      Text('ללא הגבלת קילומטרים',
-                                                        style: TextStyle(
-                                                          color: colors
-                                                              .blackColorApp,
-                                                          fontSize: 20.sp,
-                                                          fontWeight: FontWeight
-                                                              .w400,),),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Icon(Icons.check,
-                                                        color: colors
-                                                            .turquoiseColorApp,),
-                                                      SizedBox(width: 9.w,),
-                                                      Text('השתתפות עצמית בנזקים',
-                                                        style: TextStyle(
-                                                          color: colors
-                                                              .blackColorApp,
-                                                          fontSize: 20.sp,
-                                                          fontWeight: FontWeight
-                                                              .w400,),)
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),*/
+
                                         SizedBox(height: 20.h,)
                                       ],
                                     ),
@@ -535,215 +480,7 @@ class _CarDetailsState extends State<CarDetails> {
                           SizedBox(height: 33.h),
                           Stack(
                             children: [
-                              /*  Container(
-                                      width: 355.w,
-                                      //height: 265.h,
-                                      margin: EdgeInsets.only(top: 13.h),
-                                      decoration: ShapeDecoration(
-                                        color: Color(0xFFF6F6F6),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                              25),
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 20.w, vertical: 10.h),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment
-                                              .start,
-                                          children: [
-                                            SizedBox(height: 40.h),
-                                            Text(
-                                              'סך הכל לתשלום       ${(rentPrice +
-                                                  price) * 0.17} ₪',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 22.sp),),
-                                            SizedBox(height: 7.h),
-                                            Text('פירוט התשלום',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: 18.sp),),
-                                            SizedBox(height: 10.h),
-                                            Container(
-                                              //height: 68.h,
-                                              decoration: BoxDecoration(
-                                                  color: Color(0xFFEFFFFE),
-                                                  borderRadius: BorderRadius
-                                                      .circular(8)),
-                                              child: Padding(
-                                                padding: EdgeInsets.only(
-                                                    left: 30.w, right: 30.w),
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment
-                                                      .center,
-                                                  children: [
-                                                    SizedBox(height: 30.h,),
-                                                    Row(
-                                                      children: [
-                                                        Column(
-                                                          children: [
-                                                            Text('השכרה',
-                                                                style: TextStyle(
-                                                                    fontSize: 20
-                                                                        .sp,
-                                                                    fontWeight: FontWeight
-                                                                        .w400,
-                                                                    color: Colors
-                                                                        .black)),
-                                                            SizedBox(height: 17
-                                                                .h),
-                                                            Text('תוספות',
-                                                                style: TextStyle(
-                                                                    fontSize: 20
-                                                                        .sp,
-                                                                    fontWeight: FontWeight
-                                                                        .w400,
-                                                                    color: Colors
-                                                                        .black)),
-                                                            SizedBox(height: 17
-                                                                .h),
-                                                            Text('מע”מ',
-                                                                style: TextStyle(
-                                                                    fontSize: 20
-                                                                        .sp,
-                                                                    fontWeight: FontWeight
-                                                                        .w400,
-                                                                    color: Colors
-                                                                        .black)),
-                                                            SizedBox(height: 17
-                                                                .h),
-                                                            Text('סך הכל',
-                                                                style: TextStyle(
-                                                                    fontSize: 20
-                                                                        .sp,
-                                                                    fontWeight: FontWeight
-                                                                        .w400,
-                                                                    color: Colors
-                                                                        .black)),
-                                                          ],
-                                                        ),
-                                                        SizedBox(width: 50.h),
-                                                        Column(
-                                                          children: [
-                                                            Text('₪ $rentPrice',
-                                                                style: TextStyle(
-                                                                    fontSize: 20
-                                                                        .sp,
-                                                                    fontWeight: FontWeight
-                                                                        .w700,
-                                                                    color: Colors
-                                                                        .black)),
-                                                            SizedBox(height: 17
-                                                                .h),
-                                                            Text('₪ $price',
-                                                                style: TextStyle(
-                                                                    fontSize: 20
-                                                                        .sp,
-                                                                    fontWeight: FontWeight
-                                                                        .w700,
-                                                                    color: Colors
-                                                                        .black)),
-                                                            SizedBox(height: 17
-                                                                .h),
-                                                            Text(
-                                                                '₪ ${(rentPrice +
-                                                                    price) *
-                                                                    0.17}',
-                                                                style: TextStyle(
-                                                                    fontSize: 20
-                                                                        .sp,
-                                                                    fontWeight: FontWeight
-                                                                        .w700,
-                                                                    color: Colors
-                                                                        .black)),
-                                                            SizedBox(height: 17
-                                                                .h),
-                                                            Text(
-                                                                '₪ ${(rentPrice +
-                                                                    price) *
-                                                                    0.17}',
-                                                                style: TextStyle(
-                                                                    fontSize: 20
-                                                                        .sp,
-                                                                    fontWeight: FontWeight
-                                                                        .w700,
-                                                                    color: Colors
-                                                                        .black)),
-                                                          ],
-                                                        ),
-                                                        SizedBox(width: 50.h),
-                                                        Column(
-                                                          children: [
-                                                            Text('${widget.rent
-                                                                .startDate!
-                                                                .difference(
-                                                                widget.rent
-                                                                    .endDate!)
-                                                                .inDays} ימים * ${widget
-                                                                .rent.car
-                                                                .pricePerDay} ליום',
-                                                                style: TextStyle(
-                                                                    fontSize: 20
-                                                                        .sp,
-                                                                    fontWeight: FontWeight
-                                                                        .w500,
-                                                                    color: Colors
-                                                                        .black)),
-                                                            SizedBox(height: 17
-                                                                .h),
-                                                            Text('מחיר כולל',
-                                                                style: TextStyle(
-                                                                    fontSize: 20
-                                                                        .sp,
-                                                                    fontWeight: FontWeight
-                                                                        .w500,
-                                                                    color: Colors
-                                                                        .black)),
-                                                            SizedBox(height: 17
-                                                                .h),
-                                                            Text('תוספת 17%',
-                                                                style: TextStyle(
-                                                                    fontSize: 20
-                                                                        .sp,
-                                                                    fontWeight: FontWeight
-                                                                        .w500,
-                                                                    color: Colors
-                                                                        .black)),
-                                                            SizedBox(height: 17
-                                                                .h),
-                                                            Text(
-                                                                'תשלום כולל מע”מ',
-                                                                style: TextStyle(
-                                                                    fontSize: 20
-                                                                        .sp,
-                                                                    fontWeight: FontWeight
-                                                                        .w500,
-                                                                    color: Colors
-                                                                        .black)),
-                                                          ],
-                                                        )
 
-                                                      ],
-                                                    ),
-                                                    SizedBox(height: 15.h,),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(height: 12.h),
-                                            Text(
-                                              'התשלום יגבה אוטמטית באמצעות מערכת הסליקה ממספר אשראי שמופיע במערכת על שמך',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: 18.sp),),
-                                            SizedBox(height: 20.h),
-
-                                          ],
-                                        ),
-                                      ),
-                                    ),*/
                               Center(
                                 child: Container(
                                   width: 355.w,
@@ -916,16 +653,12 @@ class _CarDetailsState extends State<CarDetails> {
                                     'extra': additionsMap,
                                     'start-hour':intl.DateFormat('HH:mm').format(widget.rent.startDate),
                                     'end-hour':intl.DateFormat('HH:mm').format(widget.rent.endDate),
-                                    //'whole_day':widget.rent.startDate.compareTo(widget.rent.endDate)!=0,
-                                    //'half_day':widget.rent.startDate.compareTo(widget.rent.endDate)==0,
-                                    //'morning':widget.rent.startDate.compareTo(widget.rent.endDate)==0?widget.rent.dayPart==1:false,
-                                    //'evening':widget.rent.startDate.compareTo(widget.rent.endDate)==0?widget.rent.dayPart==2:false,
                                   };
                                   print(map);
                                   showLoading(context);
                                   ApiService().newOrder(map, (res) {
-                                    widget.rent.orderNum=res;
-                                    User().currentRent=widget.rent;
+                                    //widget.rent.orderNum=res;
+                                    //User().currentRent=widget.rent;
                                     Navigator.pop(context);
                                     displayMessage(context,
                                         message: 'ההזמנה התקבלה בהצלחה',

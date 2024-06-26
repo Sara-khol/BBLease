@@ -63,9 +63,8 @@ Future departurePoint(context, address, nav,{double longitude1=0,double latitude
       context: context,
       builder: (context) {
         return StatefulBuilder(builder: (context, StateSetter setState) {
-            return Padding(
-              padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
+          return Padding(
+            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Directionality(
               textDirection: TextDirection.rtl,
               child: Container(
@@ -88,10 +87,19 @@ Future departurePoint(context, address, nav,{double longitude1=0,double latitude
                 ),
                 constraints: BoxConstraints(maxHeight: 500.h),
                 child: Padding(
-                  padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 20.h),
+                  padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 10.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      Container(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

@@ -17,6 +17,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../../models/class_rent.dart';
 import '../../models/class_user.dart';
 import 'car_dialog.dart';
@@ -942,7 +943,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
     );
   }
 
-  Future findPark(String address) {
+  Future findPark(address) {
 
     return showModalBottomSheet(
       isDismissible: false,
@@ -975,7 +976,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     ],
                   ),
                   SizedBox(height: 40.h),
-                  Text(address,
+                  Text(address["address"],
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: blackColorApp,
@@ -995,11 +996,11 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                           )
                       ),
                       IconButton(
-                          onPressed: () => openWaze(0, 0),
+                          onPressed: () => openWaze(address['latitude'],address['34.95075']),
                           icon: ImageIcon(AssetImage("assets/icons/waze.png"),color: turquoiseColorApp,)),
                       SizedBox(width: 23.w,),
                       IconButton(
-                        onPressed: () => openMaps(),
+                        onPressed: () => openGoogleMaps(address['address']),
                         icon: ImageIcon(AssetImage("assets/icons/maps.png"),color: turquoiseColorApp,)),
                     ],
                   )
@@ -1097,10 +1098,11 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
 
   // Function to open a location in Waze
   Future<void> openWaze(double latitude, double longitude) async {
-    var url = 'https://waze.com/ul?ll=$latitude,$longitude&navigate=yes';
-    if (await canLaunchUrl(Uri(path: url))) {
+    //String query = Uri.encodeComponent(address);
+    var url = 'https://waze.com/ul?q=$latitude,$longitude&navigate=yes';
+    if (await canLaunchUrlString(url)) {
       print('can launch url to waze');
-      await launchUrl(Uri(path: url));
+      await launchUrlString(url);
     } else {
       print('can not launch url to waze');
       throw 'Could not launch $url';
@@ -1108,22 +1110,14 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
   }
 
 // Function to open a location in Google Maps
-  Future<void> openGoogleMaps(double latitude, double longitude) async {
-    var url = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
-    if (await canLaunchUrl(Uri(path: url))) {
+  Future<void> openGoogleMaps(String address/*double latitude, double longitude*/) async {
+    String query = Uri.encodeComponent(address);
+    var url = 'https://www.google.com/maps/search/?api=1&query=$query';
+    if (await canLaunchUrlString(url)) {
       print('can launch url to maps');
-      await launchUrl(Uri(path: url));
+      await launchUrlString(url);
     } else {
       print('can not launch url to maps');
-      throw 'Could not launch $url';
-    }
-  }
-
-  void openMaps() async {
-    const url = 'https://www.google.com/maps';
-    if (await canLaunchUrl(Uri(path: url))) {
-      await launchUrl(Uri(path: url));
-    } else {
       throw 'Could not launch $url';
     }
   }

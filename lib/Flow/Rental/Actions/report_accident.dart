@@ -1,3 +1,4 @@
+import 'package:bblease/Flow/Rental/map.dart';
 import 'package:flutter/material.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -153,7 +154,7 @@ class _ReportAccidentState extends State<ReportAccident> {
                               onClose: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => HomePage(),),
+                                  MaterialPageRoute(builder: (context) => RentalWidget(),),
                                 );
                               });
                         });

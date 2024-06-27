@@ -715,6 +715,7 @@ class _CarDetailsState extends State<CarDetails> {
                       widget.rent.additions![index].isChecked = false;
                       calculateAdditionsPrice();
                       setState(() {});
+                      Navigator.pop(context);
                     });
                   },
                   icon: Icon(Icons.close, color: pinkColorApp)),

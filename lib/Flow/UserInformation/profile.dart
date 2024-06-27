@@ -1,3 +1,4 @@
+import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/UserInformation/editContactInformation.dart';
 import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:bblease/landspace_widget.dart';
@@ -438,7 +439,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
     ).whenComplete(() => Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => const HomePage())),
+            builder: (context) => const RentalWidget())),
     );
   }
 

@@ -1,4 +1,5 @@
 import 'package:bblease/Flow/Rental/active_rent.dart';
+import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/UserInformation/orderDetails.dart';
 import 'package:bblease/Flow/home_page.dart';
 import 'package:bblease/landspace_widget.dart';
@@ -99,12 +100,11 @@ class _OrdersHistoryState extends State<OrdersHistory> {
         builder: (context) {
           return StatefulBuilder(builder: (context, StateSetter setState) {
             return Padding(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
               child: Directionality(
                 textDirection: TextDirection.rtl,
                 child: ConstrainedBox(
-                  constraints: BoxConstraints(maxHeight: 600.h),
+                  constraints: BoxConstraints(maxHeight: 450.h),
                   child: Column(
                     children: [
                       Container(
@@ -137,9 +137,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                 ),
                               ],
                             ),
-                            SizedBox(
-                              height: 26.h,
-                            ),
+                            SizedBox(height: 26.h,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -161,26 +159,15 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                   color: const Color.fromRGBO(15, 17, 21, 1),
                                   fontFamily: 'PLONI',
                                 ),
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.auto,
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    10.0,
-                                  ),
-                                  borderSide: const BorderSide(
-                                    color: Color.fromRGBO(15, 17, 21, 1),
-                                  ),
+                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,),
+                                  borderSide: const BorderSide(color: Color.fromRGBO(15, 17, 21, 1),),
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    10.0,
-                                  ),
-                                  borderSide: const BorderSide(
-                                    color: Color.fromRGBO(15, 17, 21, 1),
-                                  ),
+                                  borderRadius: BorderRadius.circular(10.0,),
+                                  borderSide: const BorderSide(color: Color.fromRGBO(15, 17, 21, 1),),
                                 ),
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: 12.w, horizontal: 20.h),
+                                contentPadding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
                                 suffixIcon: ImageIcon(
                                   AssetImage("assets/icons/Calendar.png"),
                                   size: 20.w,
@@ -189,8 +176,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                               ),
                               //style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
                               controller: start,
-                              style: TextStyle(
-                                  fontSize: 22.sp, fontWeight: FontWeight.w300),
+                              style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w300),
                               onTap: () async {
                                 DateTime? date = await showDatePicker(
                                     locale: const Locale("he", "HE"),
@@ -200,16 +186,13 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                     firstDate: DateTime(2000),
                                     lastDate: DateTime.now());
                                 if (date != null) {
-                                  start.text = intl.DateFormat('dd.MM.yyyy')
-                                      .format(date);
+                                  start.text = intl.DateFormat('dd.MM.yyyy').format(date);
                                   print('start: ${start.text}');
                                   s = date;
                                 }
                               },
                             ),
-                            SizedBox(
-                              height: 20.h,
-                            ),
+                            SizedBox(height: 20.h,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -231,65 +214,58 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                     color: const Color.fromRGBO(15, 17, 21, 1),
                                     fontFamily: 'PLONI',
                                   ),
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.auto,
+                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
                                   enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      10.0,
-                                    ),
-                                    borderSide: const BorderSide(
-                                      color: Color.fromRGBO(15, 17, 21, 1),
-                                    ),
+                                    borderRadius: BorderRadius.circular(10.0,),
+                                    borderSide: const BorderSide(color: Color.fromRGBO(15, 17, 21, 1),),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      10.0,
-                                    ),
-                                    borderSide: const BorderSide(
-                                      color: Color.fromRGBO(15, 17, 21, 1),
-                                    ),
+                                    borderRadius: BorderRadius.circular(10.0,),
+                                    borderSide: const BorderSide(color: Color.fromRGBO(15, 17, 21, 1),),
                                   ),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 12.w, horizontal: 20.h),
+                                  contentPadding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
                                   suffixIcon: ImageIcon(
                                     AssetImage("assets/icons/Calendar.png"),
                                     size: 20.w,
+                                    color: pinkColorApp,
                                   )),
                               style: TextStyle(fontSize: 22.sp),
                               controller: end,
                               onTap: () async {
                                 DateTime? date = await showDatePicker(
                                     locale: const Locale("he", "HE"),
+                                    textDirection: TextDirection.rtl,
                                     context: context,
                                     initialDate: DateTime.now(),
-                                    firstDate: DateTime.now(),
-                                    lastDate: DateTime(2100));
+                                    firstDate: DateTime(2000),
+                                    lastDate: DateTime.now());
                                 if (date != null) {
-                                  end.text = intl.DateFormat('dd.MM.yyyy')
-                                      .format(date);
+                                  end.text = intl.DateFormat('dd.MM.yyyy').format(date);
                                   e = date;
                                 }
                               },
                             ),
-                            SizedBox(
-                              height: 30.h,
-                            ),
+                            SizedBox(height: 30.h,),
                             SizedBox(
                               height: 48.h,
                               width: 332.w,
                               child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: turquoiseColorApp,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(100),
-                                    ),
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
                                   ),
-                                  onPressed: () => setState(() {}),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    setState(() {});
+
+                                  },
                                   child: const Text(
                                     'הצג',
                                     style: TextStyle(
                                         fontSize: 22,
-                                        fontWeight: FontWeight.normal),
+                                        fontWeight: FontWeight.normal,
+                                      color: Colors.white
+                                    ),
                                   )),
                             ),
                           ],
@@ -313,12 +289,10 @@ class _OrdersHistoryState extends State<OrdersHistory> {
   @override
   Widget build(BuildContext context) {
 
-
     return Scaffold(
       body:OrientationBuilder(builder: (c,o){
         return o==Orientation.landscape?
-            LandSpaceWidget(mainWidget: buildContent(), imageProperties: ImageProperties('l_register1.png', 618.w))
-            :buildContent();
+            LandSpaceWidget(mainWidget: buildContent(), imageProperties: ImageProperties('l_register1.png', 618.w)) :buildContent();
       },) ,
     );
   }
@@ -348,9 +322,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(
-            height: 18.h,
-          ),
+          SizedBox(height: 18.h,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 38.w),
             child: Row(
@@ -424,67 +396,46 @@ class _OrdersHistoryState extends State<OrdersHistory> {
               ],
             ),
           ),
-          SizedBox(
-            height: 15.h,
-          ),
+          SizedBox(height: 15.h,),
           TextButton(
-              onPressed: () {},
+              onPressed: () {
+                filterByDate();
+                setState(() {                });
+              },
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    'סנן לפי תאריך ',
-                    style: TextStyle(fontSize: 14.sp, color: blackColorApp),
-                  ),
-                  ImageIcon(
-                    AssetImage("assets/icons/Filter.png"),
-                    size: 20.w,
-                    color: pinkColorApp,
-                  ),
-                  SizedBox(
-                    width: 40.w,
-                  )
+                  Text('סנן לפי תאריך ', style: TextStyle(fontSize: 14.sp, color: blackColorApp),),
+                  ImageIcon(AssetImage("assets/icons/Filter.png"), size: 20.w, color: pinkColorApp,),
+                  SizedBox(width: 40.w,)
                 ],
               )),
-          SizedBox(
-            height: 30.h,
-          ),
+          SizedBox(height: 30.h,),
           SizedBox(
             height: 48.h,
             width: 332.w,
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: initData && User().currentRent != null
-                      ? turquoiseColorApp
-                      : turquoiseColorApp.withOpacity(0.5),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+                  backgroundColor: initData && User().currentRent != null ? turquoiseColorApp : turquoiseColorApp.withOpacity(0.5),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8),),
                   padding: EdgeInsets.symmetric(horizontal: 10.w,),
                   elevation: 0.0,
                 ),
-                onPressed: initData && User().currentRent != null
-                    ? () {
-
+                onPressed: initData && User().currentRent != null ? () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ActiveRentDetails(
-                        ),
+                        builder: (context) => ActiveRentDetails(),
                       ));
-
-                }
-                    : null,
+                } : null,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-
                   children: [
                     ImageIcon(AssetImage("assets/icons/car1.png"), color: Colors.white,),
                     SizedBox(width:52.w),
-                    Text(
-                      'פתח הזמנה פעילה',
+                    Text('פתח הזמנה פעילה',
                       style: TextStyle(
                           fontSize: 22.sp,
                           fontWeight: FontWeight.normal,
@@ -493,9 +444,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                   ],
                 )),
           ),
-          SizedBox(
-            height: 20.h,
-          ),
+          SizedBox(height: 20.h,),
           initData
             ? ordersHistory.isNotEmpty
             ? MediaQuery.removePadding(
@@ -684,7 +633,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                 onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => HomePage(),
+                      builder: (context) => RentalWidget(),
                     )),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,

@@ -5,6 +5,7 @@ import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/Rental/Actions/add_driver.dart';
 import 'package:bblease/Flow/Rental/Actions/car_docu.dart';
 import 'package:bblease/Flow/Rental/dialogs.dart';
+import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/home_page.dart';
 import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:bblease/services/api_service.dart';
@@ -98,7 +99,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
     super.initState();
     getTime();
     getFuel();
-    reminder=Timer(Duration(minutes: 10), () =>addDriveReminder());
+    //reminder=Timer(Duration(minutes: 10), () =>addDriveReminder());
   }
 
    sendOpeningCode(){
@@ -492,16 +493,18 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   displayQuestion1(context, header:' שים לב',
                                     message: 'בסיום השכרה נוכחית\nתחיוב בעלות ההשכרה כולה בהתאם לתקנון', onYes: () =>endRental(),);
                                 }
-                                showLoading(context);
-                                ApiService().returnCar(rent.orderNum!,
-                                    (orderJson) {
-                                  Navigator.pop(context);
-                                  /*displayMessage(context,
-                                      message: 'סיום ההשכרה נקלט בהצלחה',
-                                      onClose: () {});*/
-                                  endRental();
-                                  print('return car');
-                                });
+                                else{
+                                  showLoading(context);
+                                  ApiService().returnCar(rent.orderNum!,
+                                      (orderJson) {
+                                    Navigator.pop(context);
+                                    /*displayMessage(context,
+                                        message: 'סיום ההשכרה נקלט בהצלחה',
+                                        onClose: () {});*/
+                                    endRental();
+                                    print('return car');
+                                  });
+                                }
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -1153,7 +1156,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     child: Container()),
                 Visibility(
                     visible: !ended,
-                    child: Text('בלחיצת אישור ינעלו דלתות הרכב\nוקוד הפתיחה ישתנה',style: TextStyle(color: pinkColorApp),)),
+                    child: Text('בלחיצת אישור ינעלו דלתות הרכב\nוקוד הפתיחה ישתנה',style: TextStyle(color: pinkColorApp),textAlign: TextAlign.center,)),
                 Visibility(
                   visible: ended,
                   child: Text('השכרה מספר בדקות הקרובות תופיע קבלה באזור האישי או במייל',
@@ -1189,7 +1192,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                   onPressed: () {
 
                     ended
-                        ? Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()))
+                        ? Navigator.push(context, MaterialPageRoute(builder: (context)=>RentalWidget()))
                         : setState(() {ended=true;});
                     },
                   child: Text(

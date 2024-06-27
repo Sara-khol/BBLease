@@ -34,8 +34,7 @@ class _OrderDetailsState extends State<OrderDetails> {
 
   @override
   void initState() {
-    dayDiff =
-        widget.rent.endDate!.difference(widget.rent.startDate!).inDays /*+ 1*/;
+    dayDiff = widget.rent.endDate!.difference(widget.rent.startDate!).inDays /*+ 1*/;
     rentPrice = (widget.rent.car.pricePerDay) * (dayDiff == 0 ? 1 : dayDiff);
     if (widget.rent.additions != null && widget.rent.additions!.isNotEmpty) {
       calculateAdditionsPrice();
@@ -141,17 +140,14 @@ class _OrderDetailsState extends State<OrderDetails> {
                                         ),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsets.only(
-                                            right: 33.w, left: 50.w),
+                                        padding: EdgeInsets.only(right: 33.w, left: 50.w),
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment
-                                              .start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             SizedBox(height: 40.h),
                                             Row(
                                               children: [
-                                                Text('מספר הזמנה: ${widget.rent
-                                                    .orderNum} ',
+                                                Text('מספר הזמנה: ${widget.rent.orderNum} ',
                                                   style: TextStyle(
                                                     color: Color(0xFF0F1511),
                                                     fontSize: 20.sp,
@@ -224,14 +220,11 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   Align(
                                     alignment: Alignment.topCenter,
                                     child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 20.w, vertical: 6.h),
+                                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
                                       clipBehavior: Clip.antiAlias,
                                       decoration: ShapeDecoration(
                                         color: Colors.white,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                              25),),
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
                                         shadows: const [
                                           BoxShadow(
                                             color: Color(0x33A7A7A7),
@@ -243,10 +236,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .center,
-                                        crossAxisAlignment: CrossAxisAlignment
-                                            .center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
                                           Text('פרטי הזמנה', style: TextStyle(
                                             color: Color(0xFF0F1511),
@@ -267,34 +258,25 @@ class _OrderDetailsState extends State<OrderDetails> {
                                       margin: EdgeInsets.only(top: 17.h),
                                       decoration: ShapeDecoration(
                                         color: Color(0xFFF6F6F6),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                              25),),
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsets.only(
-                                            right: 30.w, left: 20.w),
+                                        padding: EdgeInsets.only(right: 30.w, left: 20.w),
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment
-                                              .start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             SizedBox(height: 35.h),
                                             Row(
                                               children: [
-                                                Icon(Icons.fmd_good_outlined,
-                                                    color: Color(0xFF0F1511),
-                                                    size: 20.w),
+                                                Icon(Icons.fmd_good_outlined, color: Color(0xFF0F1511), size: 20.w),
                                                 SizedBox(width: 9.w,),
                                                 Expanded(
-                                                  child: Text(
-                                                    widget.rent.car.address,
+                                                  child: Text(widget.rent.car.address,
                                                     style: TextStyle(
-                                                      overflow: TextOverflow
-                                                          .ellipsis,
+                                                      overflow: TextOverflow.ellipsis,
                                                       color: Color(0xFF0F1511),
                                                       fontSize: 20.sp,
-                                                      fontWeight: FontWeight
-                                                          .normal,),
+                                                      fontWeight: FontWeight.normal,),
                                                   ),
                                                 ),
                                                 // SizedBox(
@@ -336,15 +318,13 @@ class _OrderDetailsState extends State<OrderDetails> {
                                             SizedBox(height: 15.h,),
                                             Row(
                                               children: [
-                                                Icon(
-                                                    Icons.calendar_today_outlined,
-                                                    size: 20.w),
+                                                Icon(Icons.calendar_today_outlined, size: 20.w),
                                                 SizedBox(width: 16.w,),
                                                 Column(
                                                   children: [
-                                                    Text(" מ- ${intl.DateFormat(
-                                                        'dd.MM.yyyy').format(
-                                                        widget.rent.startDate)}",
+                                                    Text(kIsWeb ?
+                                                    " מ- ${intl.DateFormat('mm:HH yyyy.MM.dd').format(widget.rent.startDate)}":
+                                                    " מ- ${intl.DateFormat('dd.MM.yyyy HH:mm').format(widget.rent.startDate)}",
                                                       style: TextStyle(
                                                         color: Color(0xFF0F1511),
                                                         fontSize: 18.sp,
@@ -352,9 +332,9 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                         FontWeight.normal,
                                                       ),
                                                     ),
-                                                    Text(" עד- ${intl.DateFormat(
-                                                        'dd.MM.yyyy').format(
-                                                        widget.rent.endDate)}",
+                                                    Text(kIsWeb ?
+                                                    " עד- ${intl.DateFormat('mm:HH yyyy.MM.dd').format(widget.rent.endDate)}":
+                                                    " עד- ${intl.DateFormat('dd.MM.yyyy HH:mm').format(widget.rent.endDate)}",
                                                       style: TextStyle(
                                                         color: Color(0xFF0F1511),
                                                         fontSize: 18.sp,
@@ -456,14 +436,11 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   Align(
                                       alignment: Alignment.topCenter,
                                       child: Container(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 20.w, vertical: 6.h),
+                                        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
                                         clipBehavior: Clip.antiAlias,
                                         decoration: ShapeDecoration(
                                           color: Colors.white,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                                25),),
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
                                           shadows: const [
                                             BoxShadow(
                                               color: Color(0x33A7A7A7),
@@ -475,10 +452,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                                         ),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .center,
-                                          crossAxisAlignment: CrossAxisAlignment
-                                              .center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             Text('פרטי השכרה',
                                               textAlign: TextAlign.center,
@@ -499,20 +474,15 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   Center(
                                     child: Container(
                                       width: 355.w,
-                                      //height: 265.h,
                                       margin: EdgeInsets.only(top: 13.h),
                                       decoration: ShapeDecoration(
                                         color: Color(0xFFF6F6F6),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                              25),),
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 20.w, vertical: 10.h),
+                                        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment
-                                              .start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             SizedBox(height: 40.h),
                                             Row(
@@ -525,11 +495,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                 Text(
                                                   //todo ?? does not match
                                                   // '${widget.rent.price} ₪',
-                                                  '₪ ${(rentPrice +
-                                                      additionsPrice) +
-                                                      ((rentPrice +
-                                                          additionsPrice) * 0.17)
-                                                          .round()}',
+                                                  '₪ ${rentPrice + additionsPrice}',
                                                   style: TextStyle(
                                                       fontWeight: FontWeight.bold,
                                                       fontSize: 24.sp),
@@ -537,11 +503,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                                               ],
                                             ),
                                             TextButton(
-                                                onPressed: () =>
-                                                    paymentDetails(context),
-                                                child: Text('  פירוט התשלום >  ',
-                                                  style: TextStyle(
-                                                      fontSize: 18.sp),))
+                                                onPressed: () => paymentDetails(context),
+                                                child: Text('  פירוט התשלום >  ', style: TextStyle(fontSize: 18.sp),))
                                           ],
                                         ),
                                       ),
@@ -550,14 +513,11 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   Align(
                                       alignment: Alignment.topCenter,
                                       child: Container(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 20.w, vertical: 6.h),
+                                        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
                                         clipBehavior: Clip.antiAlias,
                                         decoration: ShapeDecoration(
                                           color: Colors.white,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                                25),),
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
                                           shadows: const [
                                             BoxShadow(
                                               color: Color(0x33A7A7A7),
@@ -569,10 +529,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                                         ),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .center,
-                                          crossAxisAlignment: CrossAxisAlignment
-                                              .center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             Text('תשלום',
                                               textAlign: TextAlign.center,
@@ -703,7 +661,9 @@ class _OrderDetailsState extends State<OrderDetails> {
                   ),
                 ),
               ),
-            ]));
+            ]
+        )
+    );
   }
 
   paymentDetails(context) {
@@ -713,9 +673,7 @@ class _OrderDetailsState extends State<OrderDetails> {
       context: context,
       barrierColor: Colors.black12.withOpacity(0.1),
       elevation: 2,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-      ),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
       builder: (context) =>
           Directionality(
             textDirection: TextDirection.rtl,
@@ -757,131 +715,56 @@ class _OrderDetailsState extends State<OrderDetails> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              'פירוט תשלום',
-                              style: TextStyle(
-                                  fontSize: 22.sp,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              width: 9.w,
-                            ),
-                            Icon(
-                              Icons.credit_card,
-                              color: Color(0xFFFB2576),
-                              size: 24.sp,
-                            ),
+                            Text('פירוט תשלום', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold),),
+                            SizedBox(width: 9.w,),
+                            Icon(Icons.credit_card, color: Color(0xFFFB2576), size: 24.sp,),
                           ],
                         ),
-                        SizedBox(
-                          height: 30.h,
-                        ),
+                        SizedBox(height: 30.h,),
                         Row(
-                          mainAxisSize:
-                          MainAxisSize.max,
-                          mainAxisAlignment:
-                          MainAxisAlignment
-                              .spaceAround,
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment
-                                  .start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('השכרה',
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.normal)),
+                                Text('השכרה ללא מע"מ',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal)),
                                 SizedBox(height: 17.h),
-                                Text('תוספות',
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.normal)),
+                                Text('תוספות',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal)),
                                 SizedBox(height: 17.h),
-                                Text('מע”מ',
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.normal)),
+                                Text('מע”מ',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal)),
                                 SizedBox(height: 17.h),
-                                Text('סך הכל',
-                                    overflow:
-                                    TextOverflow
-                                        .ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.normal,
-                                        color: pinkColorApp)),
+                                Text('סך הכל', overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal, color: pinkColorApp)),
                               ],
                             ),
                             // SizedBox(width: 50.h),
                             Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment
-                                  .start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  // '₪ ${widget.rent.car.pricePerDay * widget.rent.startDate.difference(widget.rent.endDate).inDays}',
-                                    '₪ ${rentPrice}',
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.bold)),
+                                Text('₪ ${(rentPrice * 0.83).round()}',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
                                 SizedBox(height: 17.h),
-                                Text('₪ $additionsPrice',
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.bold)),
+                                Text('₪ $additionsPrice',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
                                 SizedBox(height: 17.h),
-                                Text('₪ ${((rentPrice + additionsPrice) * 0.17)
-                                    .round()}',
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.bold)),
+                                Text('₪ ${(rentPrice * 0.17).round()}', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
                                 SizedBox(height: 17.h),
-                                Text('₪ ${(rentPrice + additionsPrice) +
-                                    ((rentPrice + additionsPrice) * 0.17)
-                                        .round()}',
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.bold)),
+                                Text('₪ ${rentPrice + additionsPrice}', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
                               ],
                             ),
                             // SizedBox(width: 50.h),
                             Column(
                               children: [
-                                Text(
-                                    '${dayDiff == 0
-                                        ? 1
-                                        : dayDiff} ימים * ${widget.rent.car
-                                        .pricePerDay} ליום ',
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.normal)),
+                                Text('${dayDiff == 0 ? 1 : dayDiff} ימים * ${widget.rent.car.pricePerDay} ליום ', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal)),
                                 SizedBox(height: 17.h),
-                                Text('תוספות',
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.normal)),
+                                Text('תוספות', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal)),
                                 SizedBox(height: 17.h),
-                                Text('תוספת 17%',
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.normal)),
+                                Text('תוספת 17%',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal)),
                                 SizedBox(height: 17.h),
-                                Text('תשלום כולל מע”מ',
-                                    overflow:
-                                    TextOverflow
-                                        .ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.normal,
-                                        color: pinkColorApp)),
+                                Text('תשלום כולל מע”מ', overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal, color: pinkColorApp)),
                               ],
                             )
                           ],
                         ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
+                        SizedBox(height: 20.h,),
                       ],
                     ),
                   ),

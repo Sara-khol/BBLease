@@ -1,3 +1,4 @@
+import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -153,7 +154,7 @@ class _ContactUsState extends State<ContactUs> {
                                   onClose: () {
                                     Navigator.push(
                                         context,
-                                        MaterialPageRoute(builder: (context) => HomePage(),),
+                                        MaterialPageRoute(builder: (context) => RentalWidget(),),
                                     );
                                   });
                             });

@@ -1,3 +1,4 @@
+import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -63,7 +64,7 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>  HomePage()));
+                                      builder: (context) =>  RentalWidget()));
                             },
                             child: Text('לעבור לביצוע הזמנה',
                                 style: TextStyle(

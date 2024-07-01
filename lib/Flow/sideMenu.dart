@@ -4,7 +4,7 @@ import 'package:bblease/Flow/UserInformation/price_list.dart';
 import 'package:bblease/Flow/UserInformation/profile.dart';
 import 'package:bblease/Flow/UserInformation/use_instructions.dart';
 import 'package:bblease/Flow/my_shared_preferences.dart';
-import 'package:bblease/Flow/registration/payment_webVIew.dart';
+import 'package:bblease/Flow/registration/payment_webView.dart';
 import 'package:bblease/Flow/welcome.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:bblease/Flow/UserInformation/ordersHistory.dart';

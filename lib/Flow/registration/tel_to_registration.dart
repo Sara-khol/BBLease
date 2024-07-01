@@ -1,7 +1,7 @@
 import 'package:bblease/Flow/Rental/active_rent.dart';
 import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/home_page.dart';
-import 'package:bblease/Flow/registration/payment_webVIew.dart';
+import 'package:bblease/Flow/registration/payment_webView.dart';
 import 'package:bblease/Flow/registration/start_registration.dart';
 import 'package:bblease/Flow/UserInformation/terms_and_conditions.dart';
 import 'package:bblease/landspace_widget.dart';

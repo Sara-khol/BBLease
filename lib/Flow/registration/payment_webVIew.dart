@@ -152,19 +152,20 @@ class _PaymentWebViewState extends State<PaymentWebView> {
                 ),
               ),
               SizedBox(
-                height: 65.h,
-              ),
-              Text(
-                '!נא להכניס אשראי על שמך בלבד',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
+                height: 100.h,
+                child: Center(
+                  child: Text(
+                    '!נא להכניס אשראי על שמך בלבד',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
-              SizedBox(
-                height: 65.h,
-              ),
+
+
             ],
           ),
         ),

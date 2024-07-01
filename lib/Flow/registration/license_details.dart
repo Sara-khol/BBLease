@@ -1,5 +1,5 @@
 
-import 'package:bblease/Flow/registration/payment_webVIew.dart';
+import 'package:bblease/Flow/registration/payment_webView.dart';
 import 'package:bblease/landspace_widget.dart';
 import 'package:bblease/models/additional_driver.dart';
 import 'package:bblease/models/class_user.dart';

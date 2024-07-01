@@ -424,7 +424,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
+                        /*Container(
                           height: 42.h,
                           width: 162.w,
                           child: ElevatedButton(
@@ -441,11 +441,11 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                 ),
                               ),
                               onPressed: () {
-                                /*ApiService().openDoors(rent.car.carNumber, (res) {
+                                *//*ApiService().openDoors(rent.car.carNumber, (res) {
                                 print(res);
                                 openingCodeDialog(context, res);
                               });
-                              //sendOpeningCode();*/
+                              //sendOpeningCode();*//*
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -472,22 +472,20 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                 ],
                               )),
                         ),
-                        SizedBox(width: 8.w,),
+                        SizedBox(width: 8.w,),*/
                         SizedBox(
-                          height: 42.h,
+                          height: 46.h,
                           width: 162.w,
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: pinkColorApp,
                                 minimumSize: Size.zero, // Set this
-                                padding: EdgeInsets.only(
+                                /*padding: EdgeInsets.only(
                                     right: 9.w,
                                     left: 13.w,
                                     top: 8.h,
-                                    bottom: 10.h),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
+                                    bottom: 10.h),*/
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
                               ),
                               onPressed: () {
                                 if(DateTime.now().isBefore(rent.endDate)){
@@ -499,9 +497,6 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   ApiService().returnCar(rent.orderNum!,
                                       (orderJson) {
                                     Navigator.pop(context);
-                                    /*displayMessage(context,
-                                        message: 'סיום ההשכרה נקלט בהצלחה',
-                                        onClose: () {});*/
                                     endRental();
                                     print('return car');
                                   });
@@ -778,41 +773,6 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                             ),
                           ),
                         ),
-                        /* Padding(
-                                   padding:  const EdgeInsets.all(7.5),
-                                   child: Container(
-                                     height: 96.h,
-                                     width: 96.w,
-                                     decoration: BoxDecoration(
-                                         borderRadius: BorderRadius.circular(8),
-                                       color: const Color(0xFFFFF),
-                                     ),
-                                     child: Center(
-                                       child: InkWell(
-                                         child: SizedBox(
-                                           width: 60.w,
-                                           child: Column(
-                                             children: [
-                                               SizedBox(height: 15.h,),
-                                               Icon(Icons.access_time,size: 24.sp,),
-                                               SizedBox(height: 8.h,),
-                                               Text('סיום השכרה', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.normal,height: 1),textAlign: TextAlign.center,)
-                                             ],
-                                           ),
-                                         ),
-                                         onTap: (){
-                                           showLoading(context);
-                                           ApiService().returnCar(rent.orderNum!,
-                                                   (orderJson)  {
-                                                 Navigator.pop(context);
-                                                 displayMessage(context,message:'סיום ההשכרה נקלט בהצלחה',onClose: (){});
-                                                 print('return car');
-                                               });
-                                         },
-                                       ),
-                                     ),
-                                   ),
-                                ),*/
                       ],
                     ),
                   ),

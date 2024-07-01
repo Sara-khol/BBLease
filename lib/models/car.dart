@@ -31,6 +31,8 @@ class Car{
 
   @JsonKey(name: 'price_per_day')
   late int pricePerDay;
+  @JsonKey(name: 'price_total_rent')
+  late double totalPrice;
   @JsonKey(name: 'price_per_hour')
   late int pricePerHour;
   @JsonKey(name: 'car_type')

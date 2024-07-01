@@ -21,6 +21,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../models/class_rent.dart';
 import '../../models/class_user.dart';
+import 'Actions/report_accident.dart';
 import 'car_dialog.dart';
 
 class ActiveRentDetails extends StatefulWidget {
@@ -582,7 +583,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   ],
                                 ),
                               ),
-                              onTap: () => reportAccident(context),
+                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ReportAccident(),)),
                             ),
                           ),
                         ),
@@ -724,7 +725,14 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   ),
                                 ),
                                 onTap: () => displayQuestion1(context,header: 'צעד חכם!',message: 'ודא שהתמונות מצולמות באיכות טובה',
-                                    onYes: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CarDocu(carNum: rent.car.carNumber,),))),
+                                    onYes: () {
+                                  Navigator.pop(context);
+                                      Navigator.push(context, MaterialPageRoute(
+                                        builder: (context) =>
+                                            CarDocu(
+                                              carNum: rent.car.carNumber,),));
+                                    }
+                              ),
                               ),
                             ),
                           ),
@@ -1159,7 +1167,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     child: Text('בלחיצת אישור ינעלו דלתות הרכב\nוקוד הפתיחה ישתנה',style: TextStyle(color: pinkColorApp),textAlign: TextAlign.center,)),
                 Visibility(
                   visible: ended,
-                  child: Text('השכרה מספר בדקות הקרובות תופיע קבלה באזור האישי או במייל',
+                  child: Text('בדקות הקרובות תופיע קבלה באזור האישי או במייל',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: blackColorApp,

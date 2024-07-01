@@ -72,9 +72,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
           padding: EdgeInsets.only(right: 30.w, left: 31.w),
           child: ListView(
             children: [
-              SizedBox(
-                height: 53.h,
-              ),
+              SizedBox(height: 53.h,),
               Visibility(
                 visible: widget.index==1,
                 child: Icon(
@@ -84,9 +82,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   weight: 100,
                 ),
               ),
-              SizedBox(
-                height: widget.index==1?8.h:53.h,
-              ),
+              SizedBox(height: widget.index==1?8.h:53.h,),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -102,9 +98,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 34.h,
-              ),
+              SizedBox(height: 34.h,),
               TextFormField(
                 keyboardType: TextInputType.number,
                 cursorColor: blackColorApp,
@@ -116,9 +110,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   return null;
                 },
               ),
-              SizedBox(
-                height: 12.h,
-              ),
+              SizedBox(height: 12),
               TextFormField(
                 readOnly: true,
                 cursorColor: blackColorApp,
@@ -158,9 +150,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   }
                 },
               ),
-              SizedBox(
-                height: 12.h,
-              ),
+              SizedBox(height: 12,),
               TextFormField(
                 readOnly: true,
                 cursorColor: blackColorApp,
@@ -192,9 +182,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   }
                 },
               ),
-              SizedBox(
-                height: 12.h,
-              ),
+              SizedBox(height: 12,),
               TextFormField(
                 cursorColor: blackColorApp,
                 decoration: getInputDecoration('דרגת רשיון'),
@@ -206,9 +194,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   return null;
                 },
               ),
-              SizedBox(
-                height: 27.h,
-              ),
+              SizedBox(height: 27,),
               ListTileTheme(
                 horizontalTitleGap: 1.0,
                 child: CheckboxListTile(
@@ -286,7 +272,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                     ),
                     onPressed: () async {
 
-                      if (User().signature.isEmpty&&widget.index==1) {
+                      if (User().signature==null&&widget.index==1) {
                         print('signature is empty');
                         displayError(context,
                             message: 'יש לחתום על תנאי השכרה',

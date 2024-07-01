@@ -39,8 +39,8 @@ class _CarDocuState extends State<CarDocu> {
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: Padding(
-          padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,/*left: 30.w,right: 30.w*/),
+            padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,/*left: 30.w,right: 30.w*/),
               child: Column(
                   children: [
                     SizedBox(height: 35.h,),
@@ -215,14 +215,14 @@ class _CarDocuState extends State<CarDocu> {
                                     ),
                                   ),
                                 ),
-
+        
                               ]
                           )
                         ],
-
+        
                       ),
                     ),
-                    Spacer(),
+                    SizedBox(height: 25.h,),
                     Container(
                       height: 48.h,
                       width: 332.w,
@@ -255,10 +255,10 @@ class _CarDocuState extends State<CarDocu> {
                                 color:Colors.white, height: 2.3),)),
                     ),
                     SizedBox(height: 20.h,)
-
-
+        
+        
                   ]
-
+        
               )
         )
             ),

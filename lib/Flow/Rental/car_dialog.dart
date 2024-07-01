@@ -146,14 +146,7 @@ Future openingCodeDialog(context,String code){
                       SizedBox(height: 47.h),
                       Text(' הקוד לפתיחה הינו ',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold,),),
                       SizedBox(height: 40.w,),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.copy, color: turquoiseColorApp,),
-                          Text('  $code  ',style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold,),),
-                        ],
-                      ),
+                      Text('  $code  ',style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold,),),
                       SizedBox(height: 30.h),
                     ]
                 ),

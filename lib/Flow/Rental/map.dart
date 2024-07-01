@@ -288,13 +288,13 @@ print('getCarsList');
           ),*/
           AppBarBibilease(),
           Align(
-            alignment: Alignment.bottomCenter,
+            alignment: Alignment.bottomLeft,
             child:
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: SizedBox(
                   height: 48.h,
-                  width: 150.w,
+                  width: 183.w,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: turquoiseColorApp,
@@ -304,22 +304,24 @@ print('getCarsList');
                       ),
                       onPressed: () {
                         dialogShown=true;
-                        //departurePoint(context, formattedAddress?.formattedAddress, 0,latitude1: lat,longitude1: long);
-                        //var formattedAddress;
-                        // formattedAddress ??= 'ירושלים, ישראל';
-                        //  lat= 32.07936727420028;
-                        // long= 34.83657572475018;
                         if(formattedAddress!=null)
                         departurePoint(context, formattedAddress, 0,latitude1: lat,longitude1: long);
                       },
-                      child: Text(
-                        '  לביצוע הזמנה  ',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          height: 1,
-                            color: Colors.white,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.normal),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            ' לביצוע הזמנה  ',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              height: 1,
+                                color: Colors.white,
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.normal),
+                          ),
+                          ImageIcon(AssetImage("assets/icons/ADD.png"), color: Colors.white,),
+                        ],
                       )),
                 ),
               ),

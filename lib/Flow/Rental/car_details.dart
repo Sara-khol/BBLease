@@ -68,6 +68,7 @@ class _CarDetailsState extends State<CarDetails> {
   }
 
   buildContent(Orientation o) {
+    //print(' additions length ${widget.rent.additions!.length}');
     return  Directionality(
         textDirection: TextDirection.rtl,
         child:
@@ -111,12 +112,7 @@ class _CarDetailsState extends State<CarDetails> {
                   )
               ),
             ),
-          Stack(
-            children: [
-              Image.asset('assets/images/Ellipse.png',
-                  width: 232.w, height: 35.5.h),
-            ],
-          ),
+          Image.asset('assets/images/Ellipse.png', width: 232.w, height: 35.5.h),
           SizedBox(height: 40.h),
           Expanded(
             child: Directionality(
@@ -132,10 +128,7 @@ class _CarDetailsState extends State<CarDetails> {
                     child: Directionality(
                       textDirection: TextDirection.rtl,
                       child: ListView(
-                        padding: EdgeInsets.only(
-                          left: 17.w,
-                          right: 11.w,
-                        ),
+                        padding: EdgeInsets.only(left: 17.w, right: 11.w,),
                         shrinkWrap: true,
                         children: [
                           Stack(
@@ -404,78 +397,82 @@ class _CarDetailsState extends State<CarDetails> {
                                   )),
                             ],
                           ),
-                          SizedBox(height: 20.h),
-                          Stack(
-                            children: [
-                              Center(
-                                child: Container(
-                                  width: 355.w,
-                                  //height: 265.h,
-                                  margin: EdgeInsets.only(top: 13.h),
-                                  decoration: ShapeDecoration(
-                                    color: Color(0xFFF6F6F6),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25),
+                          Visibility(visible: additionsPrice>0, child: SizedBox(height: 20.h)),
+                          Visibility(
+                            visible: additionsPrice>0,
+                            child: Stack(
+                              children: [
+                                Center(
+                                  child: Container(
+                                    width: 355.w,
+                                    //height: 265.h,
+                                    margin: EdgeInsets.only(top: 13.h),
+                                    decoration: ShapeDecoration(
+                                      color: Color(0xFFF6F6F6),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
                                     ),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        right: 20.w,
-                                        left: 20.w,
-                                        bottom: 10.h,
-                                        top: 20.h),
-                                    child: ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: widget.rent.additions!.length,
-                                      itemBuilder: (context, index) {
-                                        if (widget.rent.additions![index].isChecked) {
-                                          return createExtra(index, widget.rent.additions![index].name != 'new_driver' &&widget.rent.additions![index].name != 'young_driver');
-                                        }
-                                        return SizedBox();
-                                      },
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                          right: 20.w,
+                                          left: 20.w,
+                                          bottom: 10.h,
+                                          top: 20.h),
+                                      child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: widget.rent.additions!.length,
+                                        itemBuilder: (context, index) {
+                                          if (widget.rent.additions![index].isChecked) {
+                                            return createExtra(index, widget.rent.additions![index].name != 'new_driver' &&widget.rent.additions![index].name != 'young_driver');
+                                          }
+                                          return SizedBox();
+                                        },
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 20.w, vertical: 6.h),
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: ShapeDecoration(
-                                      color: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(25),
-                                      ),
-                                      shadows: const [
-                                        BoxShadow(
-                                          color: Color(0x33A7A7A7),
-                                          blurRadius: 40,
-                                          offset: Offset(0, 4),
-                                          spreadRadius: 0,
-                                        )
-                                      ],
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'תוספות',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: blackColorApp,
-                                            fontSize: 18.sp,
-                                            fontWeight: FontWeight.normal,
-                                          ),
+                                Align(
+                                    alignment: Alignment.topCenter,
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 20.w, vertical: 6.h),
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: ShapeDecoration(
+                                        color: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(25),
                                         ),
-                                      ],
-                                    ),
-                                  )),
-                            ],
+                                        shadows: const [
+                                          BoxShadow(
+                                            color: Color(0x33A7A7A7),
+                                            blurRadius: 40,
+                                            offset: Offset(0, 4),
+                                            spreadRadius: 0,
+                                          )
+                                        ],
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'תוספות',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: blackColorApp,
+                                              fontSize: 18.sp,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(height: 33.h),
                           Stack(

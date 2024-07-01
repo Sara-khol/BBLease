@@ -157,7 +157,7 @@ class ApiService {
   }
 
   Future registerCustomerDetails(Function(dynamic res) onSuccess) async {
-    var signature=MultipartFile.fromBytes(User().signature, filename: 'signature.jpg');
+    var signature=MultipartFile.fromBytes(User().signature!, filename: 'signature.jpg');
     FormData formData = FormData.fromMap({
       "file": signature,//MultipartFile.fromBytes(User().signature, filename: 'signature.jpg'), // Adjust filename and content type
       "text": User().toString(),

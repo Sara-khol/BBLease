@@ -279,40 +279,6 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                       fontWeight: FontWeight.normal,),
                                                   ),
                                                 ),
-                                                // SizedBox(
-                                                //   width: 30.w,
-                                                // ),
-                                                // Icon(
-                                                //     Icons
-                                                //         .calendar_today_outlined,
-                                                //     size: 20.w),
-                                                // SizedBox(
-                                                //   width: 16.w,
-                                                // ),
-                                                // Column(
-                                                //   children: [
-                                                //     Text(
-                                                //       " מ- ${intl.DateFormat('dd.MM.yyyy').format(widget.rent.startDate)}",
-                                                //       style: TextStyle(
-                                                //         color:
-                                                //             Color(0xFF0F1511),
-                                                //         fontSize: 18.sp,
-                                                //         fontWeight:
-                                                //             FontWeight.normal,
-                                                //       ),
-                                                //     ),
-                                                //     Text(
-                                                //       " עד- ${intl.DateFormat('dd.MM.yyyy').format(widget.rent.endDate)}",
-                                                //       style: TextStyle(
-                                                //         color:
-                                                //             Color(0xFF0F1511),
-                                                //         fontSize: 18.sp,
-                                                //         fontWeight:
-                                                //             FontWeight.normal,
-                                                //       ),
-                                                //     ),
-                                                //   ],
-                                                // )
                                               ],
                                             ),
                                             SizedBox(height: 15.h,),
@@ -345,88 +311,6 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                   ],
                                                 )
                                               ],),
-                                            /*  Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      'כולל',
-                                                      style: TextStyle(
-                                                        color: Color(0xFF0F1511),
-                                                        fontSize: 20.sp,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        height: 1.15,
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Icon(
-                                                          Icons.check,
-                                                          color:
-                                                              Color(0xFF00DEDE),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 9.w,
-                                                        ),
-                                                        Text(
-                                                          'ביטוח',
-                                                          style: TextStyle(
-                                                            color:
-                                                                Color(0xFF0F1511),
-                                                            fontSize: 20.sp,
-                                                            fontWeight:
-                                                                FontWeight.normal,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Icon(
-                                                          Icons.check,
-                                                          color:
-                                                              Color(0xFF00DEDE),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 9.w,
-                                                        ),
-                                                        Text(
-                                                          'ללא הגבלת קילומטרים',
-                                                          style: TextStyle(
-                                                            color:
-                                                                Color(0xFF0F1511),
-                                                            fontSize: 20.sp,
-                                                            fontWeight:
-                                                                FontWeight.normal,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Icon(
-                                                          Icons.check,
-                                                          color:
-                                                              Color(0xFF00DEDE),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 9.w,
-                                                        ),
-                                                        Text(
-                                                          'השתתפות עצמית בנזקים',
-                                                          style: TextStyle(
-                                                            color:
-                                                                Color(0xFF0F1511),
-                                                            fontSize: 20.sp,
-                                                            fontWeight:
-                                                                FontWeight.normal,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),*/
                                             SizedBox(height: 20.h,)
                                           ],
                                         ),
@@ -493,8 +377,6 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                       fontSize: 24.sp),),
                                                 SizedBox(width: 40.w,),
                                                 Text(
-                                                  //todo ?? does not match
-                                                  // '${widget.rent.price} ₪',
                                                   '₪ ${rentPrice + additionsPrice}',
                                                   style: TextStyle(
                                                       fontWeight: FontWeight.bold,

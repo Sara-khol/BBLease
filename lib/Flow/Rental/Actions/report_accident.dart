@@ -113,7 +113,7 @@ class _ReportAccidentState extends State<ReportAccident> {
         
                       onPressed: () =>imageSource(context),
                       child: Text(
-                        image==null?'צרף תמונה':image!.name,
+                        image==null?'צרף תמונה':image!.name.length>=15?'${image!.name.substring(0,15)}...':image!.name,
                         style: TextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.normal,
@@ -224,9 +224,7 @@ class _ReportAccidentState extends State<ReportAccident> {
         isDismissible: true,
         barrierColor: Colors.black12.withOpacity(0.1),
         elevation: 2,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-        ),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
         context: context,
         builder: (context) {
           return Directionality(
@@ -268,8 +266,11 @@ class _ReportAccidentState extends State<ReportAccident> {
                                         borderRadius: BorderRadius.circular(100),
                                       ),
                                     ),
-                                    onPressed: () => pickImage(ImageSource.camera),
-                                    child: Text('פתח מצלמה',
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      pickImage(ImageSource.camera);
+                                    },
+                                    child: Text('מצלמה',
                                         style: TextStyle(
                                             fontSize: 20.sp,
                                             color: Colors.white,
@@ -288,8 +289,11 @@ class _ReportAccidentState extends State<ReportAccident> {
                                         borderRadius: BorderRadius.circular(100),
                                       ),
                                     ),
-                                    onPressed: () => pickImage(ImageSource.gallery),
-                                    child: Text('העלאה מהמכשיר',
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      pickImage(ImageSource.gallery);
+                                    },
+                                    child: Text('גלריה',
                                         style: TextStyle(
                                             fontSize: 18.sp,
                                             color: Colors.white,

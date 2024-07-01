@@ -34,9 +34,9 @@ class _AppBarBibileaseState extends State<AppBarBibilease> {
             SizedBox(
               height: 30,
               width: 40,
-              child: GestureDetector(
-                child:  Icon(Icons.menu,color:Color(0xFF0F1511),size: 24.w,),
-                onTap: () => sideMenu(context),
+              child: IconButton(
+                icon:  Icon(Icons.menu,color:Color(0xFF0F1511),size: 24.w,),
+                onPressed: () => sideMenu(context),
                 ),
             ),
 

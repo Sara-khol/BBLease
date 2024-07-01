@@ -397,13 +397,16 @@ class _SearchCarState extends State<SearchCar> {
             ]),
             Align(
                 alignment: Alignment.bottomCenter,
-                child: Container(
-                  height: 124.h,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment(-1.00, -0.00),
-                      end: Alignment(1, 0),
-                      colors: [Colors.white, Colors.white.withOpacity(0)],
+                child: RotatedBox(
+                  quarterTurns: 1,
+                  child: Container(
+                    width: 124.h,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment(-1.00, -0.00),
+                        end: Alignment(1, 0),
+                        colors: [Colors.white, Colors.white.withOpacity(0)],
+                      ),
                     ),
                   ),
                 ))

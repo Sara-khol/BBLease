@@ -60,7 +60,7 @@ class User{
   late String tranzilaCardExpDate = '';
 
  @JsonKey(name: 'signature',includeFromJson: false,includeToJson: false)
- late Uint8List signature ;
+ Uint8List? signature ;
 
   @JsonKey(includeFromJson: false,includeToJson: false,)
    Rental? currentRent;

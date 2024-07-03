@@ -271,6 +271,9 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       ),
                     ),
                     onPressed: () async {
+                      print('submit pressed');
+                      print('signature ${User().signature!=null}');
+                      print(widget.index);
 
                       if (User().signature==null&&widget.index==1) {
                         print('signature is empty');
@@ -278,7 +281,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                             message: 'יש לחתום על תנאי השכרה',
                             closeButton: true);
                       }
-                      else if (_formKey.currentState!.validate()) {
+                      else /*if (_formKey.currentState!.validate())*/ {
                         print('signature is not empty');
                         if(widget.index==1){
                           User().licenseId = _licenseId.text;
@@ -288,7 +291,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                           User().licenseExpDate = exp;
                           await registerUser();
                         }
-                        else{
+                        if(widget.index==2){
                           User().additionalDriver.licenseId = _licenseId.text;
                           User().additionalDriver.licenseDegree = _degree.text;
                           //User().additionalDriver.licenseDegree ='';

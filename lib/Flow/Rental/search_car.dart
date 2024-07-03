@@ -47,7 +47,7 @@ class _SearchCarState extends State<SearchCar> {
   Rental rent = Rental();
   bool isTapped = false;
 
-  double _currentSliderValue = 3;
+  double currentSliderValue = 3;
   String type = 'all';
 
   @override
@@ -75,7 +75,7 @@ class _SearchCarState extends State<SearchCar> {
         end,
         widget.latitude!,
         widget.longitude!,
-        _currentSliderValue.toInt() * 10,
+        currentSliderValue.toInt()*10,
         timef,
         timet, (car) {
       cars = car.map<Car>((entry) => (Car.fromJson(entry))).toList();
@@ -602,7 +602,7 @@ class _SearchCarState extends State<SearchCar> {
           ),
         ),
         TextButton(
-          onPressed: () => expansionSearch(context, _scrollController, _currentSliderValue,),
+          onPressed: () => expansionSearch(),
           child: Row(
             children: [
               Text(
@@ -839,7 +839,7 @@ class _SearchCarState extends State<SearchCar> {
     );
   }
 
-  expansionSearch(context, _controller, sliderValue) {
+  expansionSearch() {
     return showModalBottomSheet(
       context: context,
       builder: (context) => Directionality(
@@ -972,14 +972,11 @@ class _SearchCarState extends State<SearchCar> {
                               data: SliderTheme.of(context).copyWith(
                                 showValueIndicator: ShowValueIndicator.always,
                                 valueIndicatorColor: turquoiseColorApp,
-                                // This is what you are asking for
                                 inactiveTrackColor: Color(0xFFF6F6F6),
-                                // Custom Gray Color
                                 activeTrackColor: turquoiseColorApp,
                                 thumbColor: turquoiseColorApp,
                                 trackHeight: 8.0,
                                 overlayColor: Color(0xFFF6F6F6),
-                                // Custom Thumb overlay Color
                                 thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10.0),
                                 overlayShape: RoundSliderOverlayShape(overlayRadius: 10),
                                 valueIndicatorTextStyle: TextStyle(color: blackColorApp, fontSize: 18, fontWeight: FontWeight.normal,),
@@ -987,13 +984,12 @@ class _SearchCarState extends State<SearchCar> {
                                 // thumbShape: CustomSliderThumbCircle(thumbRadius: 20, min: 0, max: 100),
                               ),
                               child: Slider(
-                                value: _currentSliderValue,
+                                value: currentSliderValue,
                                 max: 16,
                                 //divisions: 10,
-                                label: _currentSliderValue.round().toString(),
+                                label: currentSliderValue.round().toString(),
                                 onChanged: (double value) {
-                                  _currentSliderValue = value;
-                                  setState(() {});
+                                  currentSliderValue = value;
                                   setState(() {});
                                 },
                               ),
@@ -1004,7 +1000,7 @@ class _SearchCarState extends State<SearchCar> {
                         Align(
                           alignment: Alignment.center,
                           child: Text(
-                            'הוסף ${_currentSliderValue.toInt()}  ק”מ לטווח החיפוש הנוכחי',
+                            'הוסף ${currentSliderValue.toInt()}  ק”מ לטווח החיפוש הנוכחי',
                             style: TextStyle(
                               color: Color(0xFF0F1511),
                               fontSize: 20.sp,
@@ -1025,8 +1021,8 @@ class _SearchCarState extends State<SearchCar> {
                                 ),
                               ),
                               onPressed: () {
-                                getCarsList();
                                 Navigator.pop(context);
+                                getCarsList();
                               },
                               child: Text(
                                 'הצג תוצאות נוספות',
@@ -1039,7 +1035,6 @@ class _SearchCarState extends State<SearchCar> {
                       ],
                     ),
                   ),
-
                   SizedBox(height: 25.h,),
                 ],
               ),

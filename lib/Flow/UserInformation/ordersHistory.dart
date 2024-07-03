@@ -536,7 +536,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                   },
                 ),
               )
-                  : Expanded(
+              : Expanded(
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: futureOrders.length,
@@ -548,41 +548,30 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                             rent.endDate.isAfter(s!) == 0)) {
                       return GestureDetector(
                         onTap: () {
-                          /* Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => OrderDetails(
-                                                rent: rent,
-                                              ),
-                                            ));*/
+                           Navigator.push(context,
+                               MaterialPageRoute(
+                                 builder: (context) => OrderDetails(
+                                   rent: rent,
+                                 ),
+                               ));
                         },
                         child: Container(
                           width: 332.w,
                           height: 50.h,
-                          margin: EdgeInsets.only(
-                              bottom: 22.h,
-                              left: 30.w,
-                              right: 30.w),
-                          decoration: BoxDecoration(
-                              color: Color(0xFFD9FFFD),
-                              borderRadius:
-                              BorderRadius.circular(8)),
+                          margin: EdgeInsets.only(bottom: 22.h, left: 30.w, right: 30.w),
+                          decoration: BoxDecoration(color: Color(0xFFD9FFFD), borderRadius: BorderRadius.circular(8)),
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 22.w),
+                            padding: EdgeInsets.symmetric(horizontal: 22.w),
                             child: Row(
                               children: [
                                 Icon(Icons.access_time),
-                                Text(
-                                  'תחל בתאריך: ',
+                                Text('תחל בתאריך: ',
                                   style: TextStyle(
                                       fontSize: 18.sp,
                                       fontWeight:
                                       FontWeight.bold),
                                 ),
-                                Text(
-                                  intl.DateFormat('dd.MM.yyyy')
-                                      .format(rent.startDate),
+                                Text(intl.DateFormat('dd.MM.yyyy').format(rent.startDate),
                                   style: TextStyle(
                                       fontSize: 18.sp,
                                       fontWeight:
@@ -590,12 +579,9 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                 ),
                                 Spacer(),
                                 IconButton(
-                                  onPressed: () =>
-                                      cancelOrderDialog(
-                                          context, rent),
+                                  onPressed: () => cancelOrderDialog(context, rent),
                                   icon: ImageIcon(
-                                    AssetImage(
-                                        "assets/icons/trash.png"),
+                                    AssetImage("assets/icons/trash.png"),
                                     size: 22.w,
                                     color: blackColorApp,
                                   ),
@@ -613,10 +599,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
             'אין הזמנות קיימות',
             style: TextStyle(fontSize: 18.sp),
           )
-              : Center(
-            child: CircularProgressIndicator(
-              color: pinkColorApp,
-            ),
+              : Center(child: CircularProgressIndicator(color: pinkColorApp,),
           ),
           if (ordersHistory.isEmpty)   const Spacer(),
           Container(

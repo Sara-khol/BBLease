@@ -490,14 +490,21 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                               onPressed: () {
                                 if(DateTime.now().isBefore(rent.endDate)){
                                   displayQuestion1(context, header:' שים לב',
-                                    message: 'בסיום השכרה נוכחית\nתחיוב בעלות ההשכרה כולה בהתאם לתקנון', onYes: () =>endRental(),);
+                                    message: 'בסיום השכרה נוכחית\nתחיוב בעלות ההשכרה כולה בהתאם לתקנון', onYes: () {
+                                        Navigator.pop(context);
+                                        showLoading(context);
+                                        ApiService().returnCar(rent.orderNum!, (orderJson) {
+                                          Navigator.pop(context);
+                                          endRental(false);
+                                          print('return car');
+                                        });
+                                      });
                                 }
                                 else{
                                   showLoading(context);
-                                  ApiService().returnCar(rent.orderNum!,
-                                      (orderJson) {
+                                  ApiService().returnCar(rent.orderNum!, (orderJson) {
                                     Navigator.pop(context);
-                                    endRental();
+                                    endRental(false);
                                     print('return car');
                                   });
                                 }
@@ -507,7 +514,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '   סיום השכרה   ',
+                                    '  סיום השכרה    ',
                                     style: TextStyle(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.normal,
@@ -1093,23 +1100,22 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
     }
   }
 
-  Future endRental() {
+  Future endRental(bool ended) {
 
-    bool ended =false;
+    //bool ended =false;
     return showModalBottomSheet(
       isDismissible: false,
       elevation: 2,
       isScrollControlled: false,
       context: context,
       builder: (BuildContext context) => Container(
-          //height: 180.h,
-          decoration: const BoxDecoration(color:Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-          ),
-          child: Column(
-              children: [
+        width: MediaQuery.devicePixelRatioOf(context),
+        //height: 180.h,
+        decoration: const BoxDecoration(color:Colors.white, borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
+        child: Column(
+          children: [
             SizedBox(height: 45.h),
-            // const Spacer(),
+             // Spacer(),
             Text(ended? 'השכרה מספר ${rent.orderNum} הסתיימה':'סיום השכרה',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -1158,10 +1164,12 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     ),
                   ),
                   onPressed: () {
-
                     ended
                         ? Navigator.push(context, MaterialPageRoute(builder: (context)=>RentalWidget()))
-                        : setState(() {ended=true;});
+                        : {
+                      Navigator.pop(context),
+                      endRental(true)
+                    };
                     },
                   child: Text(
                     ended?'צא למסך הראשי':'מאשר',
@@ -1172,7 +1180,9 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                   )),
             ),
             SizedBox(height: 22.h)
-          ])),
+          ]
+        )
+      ),
       barrierColor: Colors.black12.withOpacity(0.1),
       // shape: const RoundedRectangleBorder(
       //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),

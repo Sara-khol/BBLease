@@ -286,7 +286,6 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                         if(widget.index==1){
                           User().licenseId = _licenseId.text;
                           User().licenseDegree = _degree.text;
-                          //User().licenseDegree ='';
                           User().licenseIssDate = iss.toString();
                           User().licenseExpDate = exp;
                           await registerUser();
@@ -294,7 +293,6 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                         if(widget.index==2){
                           User().additionalDriver.licenseId = _licenseId.text;
                           User().additionalDriver.licenseDegree = _degree.text;
-                          //User().additionalDriver.licenseDegree ='';
                           User().additionalDriver.licenseIssDate = iss.toString();
                           User().additionalDriver.licenseExpDate = exp;
                         }

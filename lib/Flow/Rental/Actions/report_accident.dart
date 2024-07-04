@@ -33,8 +33,7 @@ class _ReportAccidentState extends State<ReportAccident> {
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom,left: 30.w,right: 30.w),
+            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom,left: 30.w,right: 30.w),
             child: Column(
               children: [
                 SizedBox(height: 35.h,),
@@ -95,8 +94,7 @@ class _ReportAccidentState extends State<ReportAccident> {
                   maxLines: 4,
                   cursorColor: blackColorApp,
                   decoration: getInputDecoration('ההודעה שלך',332.w),
-                  style:
-                  TextStyle(color: blackColorApp, fontSize: 18.sp),
+                  style: TextStyle(color: blackColorApp, fontSize: 18.sp),
                   controller: _text,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'זהו שדה חובה';

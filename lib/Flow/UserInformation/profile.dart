@@ -107,7 +107,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
               children: [
                 Row(
                     children:[
-                      Image.asset('assets/icons/Phone.png',width: 26.w,),
+                      Image.asset('assets/icons/Phone.png',),
                       Text('  פרטי התקשרות',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
                       Spacer(),
                       IconButton(onPressed: () {

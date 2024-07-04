@@ -75,7 +75,7 @@ Future sideMenu(context) {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ImageIcon(AssetImage("assets/icons/car1.png"),color: blackColorApp,),
+                          Image.asset("assets/icons/car1.png"),
                           SizedBox(width: 10.w,),
                           Flexible(child: Text('היסטורית הזמנות', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
                         ],
@@ -99,7 +99,7 @@ Future sideMenu(context) {
                         children: [
                          // Image.asset('assets/images/mingcute_car-line.png',width: 24.w,),
 
-                          ImageIcon(AssetImage("assets/icons/mingcute_car-line.png"),color: blackColorApp,),
+                          Image.asset("assets/icons/mingcute_car-line.png"),
                           SizedBox(width: 10.w,),
                           Flexible(child: Text('הזמנות עתידיות', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
                         ],
@@ -121,7 +121,7 @@ Future sideMenu(context) {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ImageIcon(AssetImage("assets/icons/Creditcard.png"),color: blackColorApp,),
+                          Image.asset("assets/icons/Creditcard.png"),
                           SizedBox(width: 10.w,),
                           Flexible(child: Text('עידכון כ. אשראי',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, height: 1.5, color: blackColorApp)),)
                         ],
@@ -151,7 +151,6 @@ Future sideMenu(context) {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          //ImageIcon(AssetImage("assets/icons/.png"),color: blackColorApp,),
                           Icon(Icons.drive_eta_outlined,size: 28.sp,color: blackColorApp,),
                           SizedBox(width: 10.w,),
                           Flexible(child: Text('ביצוע הזמנה', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
@@ -192,7 +191,7 @@ Future sideMenu(context) {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ImageIcon(AssetImage("assets/icons/wallet.png"),color: blackColorApp,),
+                          Image.asset("assets/icons/wallet.png"),
                           SizedBox(width: 10.w,),
                           Flexible(child: Text('מחירון', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
                         ],
@@ -212,7 +211,7 @@ Future sideMenu(context) {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ImageIcon(AssetImage("assets/icons/solar_sale-linear.png"),color: blackColorApp,),
+                          Image.asset("assets/icons/solar_sale-linear.png"),
                           SizedBox(width: 10.w,),
                           Flexible(child: Text('הטבות ומבצעים', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
                         ],
@@ -232,7 +231,7 @@ Future sideMenu(context) {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ImageIcon(AssetImage("assets/icons/Phone.png"),color: blackColorApp,),
+                          Image.asset("assets/icons/Phone.png"),
                           SizedBox(width: 10.w,),
                           Flexible(child: Text('צור קשר', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
                         ],

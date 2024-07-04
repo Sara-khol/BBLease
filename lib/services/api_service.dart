@@ -521,6 +521,29 @@ class ApiService {
 
   }
 
+  Future reportAccident(message,email,phone,name,id,Function() onSuccess,[image]) async {
+
+    FormData formData = FormData.fromMap({
+      "image_report_fault" : MultipartFile.fromBytes(image, filename: "signature.png"),
+      "message": User().userId,
+      "customer_email": User().userId,
+      "customer_phon": User().userId,
+      "customer_name": User().userId,
+      "customer_id": User().userId,
+    });
+
+    print('${_baseUrl}wp/v2/report_fault');
+    var response = await _dio.post('${_baseUrl}wp/v2/report_fault', data: formData,);
+    print("response.statusCode ${response.statusCode}");
+    if(response.statusCode == 200) {
+      print("response.data ${response.data.toString()}");
+      onSuccess();
+    }
+    else {
+      print(response.statusCode);
+    }
+  }
+
   Future faceRecognition(String phone ,Function(dynamic res) onSuccess) async {
     List<MultipartFile> imageFiles = [];
     imageFiles.add(

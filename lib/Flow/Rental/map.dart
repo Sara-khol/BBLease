@@ -135,13 +135,11 @@ class _RentalWidgetState extends State<RentalWidget> {
   getCarsList()  async{
 print('getCarsList');
     await ApiService().getCarsAvailableOrNot((data){
-      print('onSuccess');
       var available=data['available_car'];
       var unavailable=data['active_car'];
 
       availableCars = available.map<Car>((entry) => (Car.fromJson(entry))).toList();
       unAvailableCars = unavailable.map<Car>((entry) => (Car.fromJson(entry))).toList();
-      print('bla bla ${availableCars.length+unAvailableCars.length}',);
       setState(() {});
 
       generateMarkers();

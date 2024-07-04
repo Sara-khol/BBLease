@@ -310,11 +310,8 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                         ),
                         prefixIcon: Padding(
                           padding: EdgeInsets.only(right: 20.w, left: 14.w),
-                          child: ImageIcon(
-                            AssetImage("assets/icons/Phone.png"),
-                            size: 24.w,
-                            color: pinkColorApp,
-                          ),
+                          child: Image.asset("assets/icons/Phone.png"),
+
                         ),
                         prefixIconConstraints: const BoxConstraints(
                           maxHeight: 26,
@@ -322,11 +319,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                         suffixIcon: didSendCode
                             ? Padding(
                                 padding: EdgeInsets.only(left: 14.w),
-                                child: ImageIcon(
-                                  AssetImage("assets/icons/edit.png"),
-                                  size: 20.w,
-                                  color: turquoiseColorApp,
-                                ),
+                                child: Image.asset("assets/icons/edit.png"),
                               )
                             : null,
                       ),
@@ -392,15 +385,9 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                         ),
                         prefixIcon: Padding(
                           padding: EdgeInsets.only(right: 20.w, left: 14.w),
-                          child: ImageIcon(
-                            AssetImage("assets/icons/Password.png"),
-                            size: 24.w,
-                            color: pinkColorApp,
-                          ),
+                          child: Image.asset("assets/icons/Password.png"),
                         ),
-                        prefixIconConstraints: const BoxConstraints(
-                          maxHeight: 26,
-                        ),
+                        prefixIconConstraints: const BoxConstraints(maxHeight: 26,),
                         prefixIconColor: pinkColorApp,
                       ),
                       style: TextStyle(
@@ -408,14 +395,13 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                           fontWeight: FontWeight.normal,
                           color: blackColorApp),
                       validator: (value) {
-                        if (value == null /*|| value != code.toString()*/)
-                          // return 'קוד שגוי';
+                        if (value == null)
                           return 'נא הזן קוד';
                         return null;
                       },
                     ),
                   ),
-                  //SizedBox(height: 34.h),
+
                   Visibility(
                     visible: !didSendCode,
                     child: SizedBox(
@@ -454,12 +440,8 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                           activeColor: Colors.transparent,
                           // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           controlAffinity: ListTileControlAffinity.leading,
-                          checkboxShape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4)),
-                          side: BorderSide(
-                            color: blackColorApp,
-                            width: 1.5,
-                          ),
+                          checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                          side: BorderSide(color: blackColorApp, width: 1.5,),
                         ),
                       ),
                     ),
@@ -511,10 +493,8 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                                       fontSize: 18.sp,
                                       decoration: TextDecoration.underline,
                                       color: blackColorApp),
-                                )),
-                            // SizedBox(
-                            //   height: 100.h,
-                            // ),
+                                )
+                            ),
                           ],
                         ),
                       ),
@@ -525,7 +505,6 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                       child: SizedBox(
                         height: 340.h,
                       )),
-
                     Flexible(
                       fit: FlexFit.loose,
                       child: Align(

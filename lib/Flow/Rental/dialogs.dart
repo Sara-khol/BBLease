@@ -542,12 +542,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                   }
                                 }
                                 if (startDate != null &&starttime != null) {
-                                  //final hour = starttime.hour.toString().padLeft(2,'0');
-                                  //final minute = starttime.minute.toString().padLeft(2,'0');
-                                 //startDate!.add(Duration(hours: starttime.hour, minutes: starttime.minute));
-                                  //if (startDate != null) {
                                   startDate = DateTime(startDate!.year, startDate!.month, startDate!.day, starttime!.hour, starttime!.minute);
-                                  //}
                                   kIsWeb
                                       ? starth.text = '${startDate!.minute.toString().padLeft(2,'0')}:${startDate!.hour.toString().padLeft(2,'0')}'
                                       : starth.text = '${startDate!.hour.toString().padLeft(2,'0')}:${startDate!.minute.toString().padLeft(2,'0')}';
@@ -626,39 +621,25 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                 );
 
                                 if (endtime != null) {
-
-                                  //final hour = starttime.hour.toString().padLeft(2,'0');
-                                  //final minute = starttime.minute.toString().padLeft(2,'0');
-                                  //startDate!.add(Duration(hours: starttime.hour, minutes: starttime.minute));
-
                                   kIsWeb
                                       ?  endh.text = '${endDate!.minute.toString().padLeft(2,'0')}:${endDate!.hour.toString().padLeft(2,'0')}'
                                       :  endh.text = '${endDate!.hour.toString().padLeft(2,'0')}:${endDate!.minute.toString().padLeft(2,'0')}';
-
                                   if (startDate != null) {
                                     endDate = DateTime(endDate!.year, endDate!.month, endDate!.day, endtime.hour, endtime.minute);
                                     final duration=findDuration(diff);
                                     checkPickedRange(context,startDate!,endDate!,duration);
                                   }
-                                  //endh.text = '${endDate!.hour.toString().padLeft(2,'0')}:${endDate!.minute.toString().padLeft(2,'0')}';
                                   print('end: $endDate');
                                   print('end: ${endh.text}');
-                                  //setEndDateBasedOnSelection();
                                 }
                               },
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 12.h,
-                        ),
-                        TextButton(
-                            onPressed: () => Navigator.push(context,MaterialPageRoute(builder: (context) => ContactUs(),)),
+                        SizedBox(height: 12.h,),
+                        TextButton(onPressed: () => Navigator.push(context,MaterialPageRoute(builder: (context) => ContactUs(),)),
                             child: Text('השאר פרטים לנציג',style: TextStyle(fontSize: 16.sp),textAlign: TextAlign.center,)),
-
-                        SizedBox(
-                          height: 12.h,
-                        ),
+                        SizedBox(height: 12.h,),
                         SizedBox(
                           height: 48.h,
                           width: 332.w,
@@ -687,10 +668,8 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                               )
                                       ));
                                 }
-                                else
-                                  {
-                                    displayMessage(context,message: 'נא מלא את כל הפרטים');
-                                  }
+                                else displayMessage(context,message: 'נא מלא את כל הפרטים');
+
                               },
                               child: const Text(
                                 'מצא לי רכב זמין',

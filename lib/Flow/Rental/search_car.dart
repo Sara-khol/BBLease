@@ -49,13 +49,15 @@ class _SearchCarState extends State<SearchCar> {
 
   double currentSliderValue = 3;
   String type = 'all';
+  late Future myFuture ;
+
 
   @override
   void initState() {
     mapController.dispose();
     rent.startDate = widget.startDate!;
     rent.endDate = widget.endDate!;
-    getCarsList();
+   myFuture= getCarsList();
     super.initState();
   }
 
@@ -75,7 +77,7 @@ class _SearchCarState extends State<SearchCar> {
         end,
         widget.latitude!,
         widget.longitude!,
-        currentSliderValue.toInt()*10,
+        currentSliderValue.toInt() * 10,
         timef,
         timet, (car) {
       cars = car.map<Car>((entry) => (Car.fromJson(entry))).toList();
@@ -105,7 +107,7 @@ class _SearchCarState extends State<SearchCar> {
             ? LandSpaceWidget(
                 mainWidget: buildContent(orientation),
                 imageProperties: ImageProperties('l_search_car.jpg', 618.w),
-        showAppBar:true)
+                showAppBar: true)
             : buildContent(orientation),
       );
     });
@@ -170,7 +172,7 @@ class _SearchCarState extends State<SearchCar> {
                                                   });
                                                 },
                                                 child:*/
-                                      searchCarItem(car,orientation);
+                                      searchCarItem(car, orientation);
                                 },
                               ),
                             )
@@ -181,14 +183,14 @@ class _SearchCarState extends State<SearchCar> {
                                     itemCount: filteredCarsMap[type]!.length,
                                     itemBuilder: (context, index) {
                                       Car car = filteredCarsMap[type]![index];
-                                      return searchCarItem(car,orientation)
-                                      /*GestureDetector(
+                                      return searchCarItem(car, orientation)
+                                          /*GestureDetector(
                                         onTap: () async {
                                           */ /*Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => CarDetails(car,startDate: widget.startDate,endDate: widget.endDate,))
                         ),*/
-                                      /*
+                                          /*
                                           await ApiService().getAdditions(
                                               car.id,
                                               widget.startDate,
@@ -379,7 +381,7 @@ class _SearchCarState extends State<SearchCar> {
                     )
                   : Center(
                       child: FutureBuilder(
-                        future: Future.delayed(Duration(seconds: 9)),
+                        future: myFuture,
                         builder: (BuildContext context,
                             AsyncSnapshot<dynamic> snapshot) {
                           if (snapshot.connectionState ==
@@ -415,14 +417,17 @@ class _SearchCarState extends State<SearchCar> {
         ));
   }
 
-  searchCarItem(Car car,Orientation orientation) {
+  searchCarItem(Car car, Orientation orientation) {
     return GestureDetector(
       onTap: () async {
         showLoading(context);
-        await ApiService().getAdditions(car.id, widget.startDate, widget.endDate, (orderJson) {
+        await ApiService().getAdditions(
+            car.id, widget.startDate, widget.endDate, (orderJson) {
           Navigator.pop(context);
           List<Addition> additions = [];
-          additions = orderJson.map<Addition>((entry) => (Addition.fromJson(entry))).toList();
+          additions = orderJson
+              .map<Addition>((entry) => (Addition.fromJson(entry)))
+              .toList();
           for (Addition item in additions) {
             if (item.name == 'new_driver' || item.name == 'young_driver') {
               item.isEnabled = false;
@@ -440,9 +445,12 @@ class _SearchCarState extends State<SearchCar> {
             backgroundColor: Colors.white,
             //isDismissible: false,
             elevation: 2,
-            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+            ),
             context: context,
-            builder: (_) => AdditionsDialog(rent: rent, car: car, additionsList: additions),
+            builder: (_) =>
+                AdditionsDialog(rent: rent, car: car, additionsList: additions),
           );
         });
       },
@@ -459,12 +467,15 @@ class _SearchCarState extends State<SearchCar> {
         child: Stack(
           children: [
             Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0)),
               shadowColor: Colors.transparent,
               margin: EdgeInsets.only(left: 20.w),
-              color: /*isHovered?Colors.yellow:Color(0xffEFFFFE):*/Color(0xffF7F7F7),
+              color: /*isHovered?Colors.yellow:Color(0xffEFFFFE):*/
+                  Color(0xffF7F7F7),
               child: Padding(
-                padding: EdgeInsets.only(bottom: 10.h, top: 10.h, right: 14.w, left: 11.w),
+                padding: EdgeInsets.only(
+                    bottom: 10.h, top: 10.h, right: 14.w, left: 11.w),
                 child: IntrinsicHeight(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -536,18 +547,16 @@ class _SearchCarState extends State<SearchCar> {
             ),
             if (car.carImages.isNotEmpty)
               Positioned.fill(
-                child: Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Container(
+                  child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Container(
                     margin: EdgeInsets.only(bottom: 10.h),
                     child: Image.network(
                       car.carImages.first,
                       width: 175.w,
                       //height: 75.h,
-                    )
-                  ),
-                )
-              ),
+                    )),
+              )),
           ],
         ),
       ),
@@ -561,9 +570,9 @@ class _SearchCarState extends State<SearchCar> {
       width: 393.w,
       height: 40.h,
       child: */
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
         TextButton(
           onPressed: () => filterCarType(context, _scrollController),
           child: Row(
@@ -584,7 +593,8 @@ class _SearchCarState extends State<SearchCar> {
           ),
         ),
         TextButton(
-          onPressed: () => rentalTerm(context, widget.startDate, widget.endDate),
+          onPressed: () =>
+              rentalTerm(context, widget.startDate, widget.endDate),
           child: Row(
             children: [
               Text(
@@ -625,7 +635,10 @@ class _SearchCarState extends State<SearchCar> {
     );
   }
 
-  filterCarType(context, _controller,) {
+  filterCarType(
+    context,
+    _controller,
+  ) {
     return showModalBottomSheet(
       //isScrollControlled: true,
       context: context,
@@ -753,8 +766,13 @@ class _SearchCarState extends State<SearchCar> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(width: 8.w,),
-                      ImageIcon(AssetImage("assets/icons/Filter.png"),color: pinkColorApp,),
+                      SizedBox(
+                        width: 8.w,
+                      ),
+                      ImageIcon(
+                        AssetImage("assets/icons/Filter.png"),
+                        color: pinkColorApp,
+                      ),
                       Spacer(),
                       TextButton(
                         style: TextButton.styleFrom(
@@ -776,10 +794,14 @@ class _SearchCarState extends State<SearchCar> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 34.w,),
+                      SizedBox(
+                        width: 34.w,
+                      ),
                     ],
                   ),
-                  SizedBox(height: 20.h,),
+                  SizedBox(
+                    height: 20.h,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -802,7 +824,9 @@ class _SearchCarState extends State<SearchCar> {
     );
   }
 
-  carSearchItem(String name,) {
+  carSearchItem(
+    String name,
+  ) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -811,7 +835,9 @@ class _SearchCarState extends State<SearchCar> {
         });
       },
       child: Container(
-        margin: EdgeInsets.only(bottom: 5.h,),
+        margin: EdgeInsets.only(
+          bottom: 5.h,
+        ),
         width: 130.w,
         height: 95.h,
         child: Padding(
@@ -830,8 +856,14 @@ class _SearchCarState extends State<SearchCar> {
               ),
               //  SizedBox(height: 13.h,),
               Padding(
-                padding: EdgeInsets.only(left: 4.w,),
-                child: Image.asset('assets/images/car-only.png', width: 115.w, height: 50.h,),
+                padding: EdgeInsets.only(
+                  left: 4.w,
+                ),
+                child: Image.asset(
+                  'assets/images/car-only.png',
+                  width: 115.w,
+                  height: 50.h,
+                ),
               ),
             ],
           ),
@@ -843,213 +875,237 @@ class _SearchCarState extends State<SearchCar> {
   expansionSearch() {
     return showModalBottomSheet(
       context: context,
-      builder: (context) => StatefulBuilder(
-        builder: (BuildContext context, setState) {
-          return Directionality(
-            textDirection: TextDirection.rtl,
-            child: Container(
-              decoration: const ShapeDecoration(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25),
+      builder: (context) =>
+          StatefulBuilder(builder: (BuildContext context, setState) {
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: Container(
+            decoration: const ShapeDecoration(
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25),
+                  topRight: Radius.circular(25),
+                ),
+              ),
+              shadows: [
+                BoxShadow(
+                  color: Color(0x3F000000),
+                  blurRadius: 250,
+                  offset: Offset(0, 4),
+                  spreadRadius: 0,
+                )
+              ],
+            ),
+            //height: 365.h,
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    // padding: EdgeInsets.zero,
+                    // constraints: const BoxConstraints(minWidth: 20, maxWidth: 20),
+                    iconSize: 20.w,
+                    icon: const Icon(
+                      Icons.close,
+                    ),
+                    onPressed: () => {
+                      Navigator.pop(context),
+                    },
                   ),
                 ),
-                shadows: [
-                  BoxShadow(
-                    color: Color(0x3F000000),
-                    blurRadius: 250,
-                    offset: Offset(0, 4),
-                    spreadRadius: 0,
-                  )
-                ],
-              ),
-              //height: 365.h,
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                      // padding: EdgeInsets.zero,
-                      // constraints: const BoxConstraints(minWidth: 20, maxWidth: 20),
-                      iconSize: 20.w,
-                      icon: const Icon(
-                        Icons.close,
-                      ),
-                      onPressed: () => {
-                        Navigator.pop(context),
-                      },
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 30.h,
                     ),
-                  ),
-                  Column(
-                    children: [
-                      SizedBox(height: 30.h,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'הגדל טווח חיפוש',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Color(0xFF0F1511),
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.bold,
+                            //height: 1,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 8.w,
+                        ),
+                        ImageIcon(
+                          AssetImage("assets/icons/expansion.png"),
+                          color: pinkColorApp,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 23),
+                    Padding(
+                      padding: EdgeInsets.only(right: 31.w, left: 30.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'הגדל טווח חיפוש',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Color(0xFF0F1511),
-                              fontSize: 22.sp,
-                              fontWeight: FontWeight.bold,
-                              //height: 1,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 8.w,
-                          ),
-                          ImageIcon(
-                            AssetImage("assets/icons/expansion.png"),
-                            color: pinkColorApp,
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 23),
-                      Padding(
-                        padding: EdgeInsets.only(right: 31.w, left: 30.w),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  'אזור חיפוש נוכחי: ',
+                          Row(
+                            children: [
+                              Text(
+                                'אזור חיפוש נוכחי: ',
+                                style: TextStyle(
+                                  color: Color(0xFF0F1511),
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.normal,
+                                  height: 1,
+                                ),
+                              ),
+                              Spacer(),
+                              TextButton(
+                                style: TextButton.styleFrom(
+                                    minimumSize: Size(80, 20),
+                                    padding: EdgeInsets.all(0)),
+                                onPressed: () => departurePoint(
+                                    context, widget.location, 1,
+                                    sdate: widget.startDate,
+                                    edate: widget.endDate,
+                                    latitude1: widget.latitude ?? 0,
+                                    longitude1: widget.longitude ?? 0),
+                                child: Text(
+                                  'שנה כתובת ',
                                   style: TextStyle(
-                                    color: Color(0xFF0F1511),
+                                    color: pinkColorApp,
                                     fontSize: 20.sp,
                                     fontWeight: FontWeight.normal,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: pinkColorApp,
                                     height: 1,
                                   ),
                                 ),
-                                Spacer(),
-                                TextButton(
-                                  style: TextButton.styleFrom(minimumSize: Size(80, 20), padding: EdgeInsets.all(0)),
-                                  onPressed: () => departurePoint(context, widget.location, 1, sdate: widget.startDate, edate: widget.endDate),
-                                  child: Text(
-                                    'שנה כתובת ',
-                                    style: TextStyle(
-                                      color: pinkColorApp,
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.normal,
-                                      decoration: TextDecoration.underline,
-                                      decorationColor: pinkColorApp,
-                                      height: 1,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Text(
+                            widget.location,
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              color: Color(0xFF0F1511),
+                              fontSize: 24.sp,
+                              fontWeight: FontWeight.bold,
+                              height: 1,
                             ),
-                            SizedBox(height: 15,),
-                            Text(
-                              widget.location,
-                              textAlign: TextAlign.right,
+                          ),
+                          SizedBox(
+                            height: 28,
+                          ),
+                          Text(
+                            'הזז את הסמן למרחק הרצוי',
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              color: Color(0xFF0F1511),
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.normal,
+                              height: 1,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 34,
+                          ),
+                          Directionality(
+                            textDirection: TextDirection.ltr,
+                            child: StatefulBuilder(builder: (context, state) {
+                              return SliderTheme(
+                                data: SliderTheme.of(context).copyWith(
+                                  showValueIndicator: ShowValueIndicator.always,
+                                  valueIndicatorColor: turquoiseColorApp,
+                                  inactiveTrackColor: Color(0xFFF6F6F6),
+                                  activeTrackColor: turquoiseColorApp,
+                                  thumbColor: turquoiseColorApp,
+                                  trackHeight: 8.0,
+                                  overlayColor: Color(0xFFF6F6F6),
+                                  thumbShape: RoundSliderThumbShape(
+                                      enabledThumbRadius: 10.0),
+                                  overlayShape: RoundSliderOverlayShape(
+                                      overlayRadius: 10),
+                                  valueIndicatorTextStyle: TextStyle(
+                                    color: blackColorApp,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  valueIndicatorShape:
+                                      PaddleSliderValueIndicatorShape(),
+                                  // thumbShape: CustomSliderThumbCircle(thumbRadius: 20, min: 0, max: 100),
+                                ),
+                                child: Slider(
+                                  value: currentSliderValue,
+                                  max: 16,
+                                  //divisions: 10,
+                                  label: currentSliderValue.round().toString(),
+                                  onChanged: (double value) {
+                                    setState(() {
+                                      debugPrint('onChanged $value');
+                                      currentSliderValue = value;
+                                    });
+                                  },
+                                ),
+                              );
+                            }),
+                          ),
+                          SizedBox(
+                            height: 19,
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              'הוסף ${currentSliderValue.toInt()}  ק”מ לטווח החיפוש הנוכחי',
                               style: TextStyle(
                                 color: Color(0xFF0F1511),
-                                fontSize: 24.sp,
+                                fontSize: 20.sp,
                                 fontWeight: FontWeight.bold,
                                 height: 1,
                               ),
                             ),
-                            SizedBox(
-                              height: 28,
-                            ),
-                            Text(
-                              'הזז את הסמן למרחק הרצוי',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                color: Color(0xFF0F1511),
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.normal,
-                                height: 1,
-                              ),
-                            ),
-                            SizedBox(height: 34,),
-                            Directionality(
-                              textDirection: TextDirection.ltr,
-                              child: StatefulBuilder(builder: (context, state) {
-                                return SliderTheme(
-                                  data: SliderTheme.of(context).copyWith(
-                                    showValueIndicator: ShowValueIndicator.always,
-                                    valueIndicatorColor: turquoiseColorApp,
-                                    inactiveTrackColor: Color(0xFFF6F6F6),
-                                    activeTrackColor: turquoiseColorApp,
-                                    thumbColor: turquoiseColorApp,
-                                    trackHeight: 8.0,
-                                    overlayColor: Color(0xFFF6F6F6),
-                                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10.0),
-                                    overlayShape: RoundSliderOverlayShape(overlayRadius: 10),
-                                    valueIndicatorTextStyle: TextStyle(color: blackColorApp, fontSize: 18, fontWeight: FontWeight.normal,),
-                                    valueIndicatorShape: PaddleSliderValueIndicatorShape(),
-                                    // thumbShape: CustomSliderThumbCircle(thumbRadius: 20, min: 0, max: 100),
+                          ),
+                          SizedBox(
+                            height: 21,
+                          ),
+                          Container(
+                            height: 48.h,
+                            width: 332.w,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: turquoiseColorApp,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(100),
                                   ),
-                                  child: Slider(
-                                    value: currentSliderValue,
-                                    max: 16,
-                                    //divisions: 10,
-                                    label: currentSliderValue.round().toString(),
-                                    onChanged: (double value) {
-
-                                      setState(() {
-                                        debugPrint('onChanged $value');
-                                        currentSliderValue = value;
-                                      });
-                                    },
-                                  ),
-                                );
-                              }),
-                            ),
-                            SizedBox(height: 19,),
-                            Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                'הוסף ${currentSliderValue.toInt()}  ק”מ לטווח החיפוש הנוכחי',
-                                style: TextStyle(
-                                  color: Color(0xFF0F1511),
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.bold,
-                                  height: 1,
                                 ),
-                              ),
-                            ),
-                            SizedBox(height: 21,),
-                            Container(
-                              height: 48.h,
-                              width: 332.w,
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: turquoiseColorApp,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(100),
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    getCarsList();
-                                  },
-                                  child: Text(
-                                    'הצג תוצאות נוספות',
-                                    style: TextStyle(
-                                        fontSize: 22.sp,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.white),
-                                  )),
-                            ),
-                          ],
-                        ),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  getCarsList();
+                                },
+                                child: Text(
+                                  'הצג תוצאות נוספות',
+                                  style: TextStyle(
+                                      fontSize: 22.sp,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.white),
+                                )),
+                          ),
+                        ],
                       ),
-                      SizedBox(height: 25.h,),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                    SizedBox(
+                      height: 25.h,
+                    ),
+                  ],
+                ),
+              ],
             ),
-          );
-        }
-      ),
+          ),
+        );
+      }),
       barrierColor: Colors.white10.withOpacity(0.1),
       isDismissible: true,
       elevation: 5,

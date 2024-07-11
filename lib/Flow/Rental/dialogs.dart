@@ -4,8 +4,8 @@ import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/Rental/search_car.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_place/google_place.dart';
 import 'package:intl/intl.dart' as intl;
 
 import '../../models/class_rent.dart';
@@ -18,7 +18,7 @@ String location = '';
 //late DateTime startDate,endDate;
 Rental rent = Rental();
 
-Future departurePoint(context, address, nav,{double longitude1=0,double latitude1=0,sdate, edate}/*, [sdate, edate]*/) {
+Future departurePoint(context, address, nav, { Function? onClose,double longitude1=0,double latitude1=0,sdate, edate}) {
   print('dialog address: $address');
 
   location=address??'';
@@ -26,30 +26,52 @@ Future departurePoint(context, address, nav,{double longitude1=0,double latitude
   longitude= longitude1;
 
   TextEditingController controller = TextEditingController(text: address);
-  DetailsResult? searchedPlace;
-
-  Map<String, String>? header = {
-    "Access-Control-Allow-Origin": '*', // Required for CORS support to work
-    "Access-Control-Allow-Credentials": "true", // Required for cookies, authorization headers with HTTPS
-    "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-    "Access-Control-Allow-Methods": "GET,POST, OPTIONS"
-  };
-
-  GooglePlace googlePlace = GooglePlace('AIzaSyDrD1omOKsD-QCghL7Oaq1LmU6mgxvqaLs',headers: header);
-
-  bool done = false;
-
-  List<AutocompletePrediction> predictions = [];
-
+  List<AutocompletePrediction>? _predictions;
+  late final FlutterGooglePlacesSdk _places;
+  Place? place;
+  final List<PlaceField> _placeFields = [
+    PlaceField.Address,
+    PlaceField.AddressComponents,
+    PlaceField.BusinessStatus,
+    PlaceField.Id,
+    PlaceField.Location,
+    PlaceField.Name,
+  ];
   Timer? debounce;
+ // DetailsResult? searchedPlace;
 
-  void autoCompleteSearch(String value) async {
-    var result = await googlePlace.autocomplete.get(value,language: 'iw');
-    if (result != null && result.predictions != null) {
-      //setState((){});
-      predictions = result.predictions!;
-      print(predictions);
-    }
+  //GooglePlace googlePlace = GooglePlace('AIzaSyDrD1omOKsD-QCghL7Oaq1LmU6mgxvqaLs',headers: header);
+
+ // List<AutocompletePrediction> predictions = [];
+
+
+  _places = FlutterGooglePlacesSdk('AIzaSyDrD1omOKsD-QCghL7Oaq1LmU6mgxvqaLs',
+      locale:  const Locale('he', 'IL'));
+  _places.isInitialized().then((value) {
+    debugPrint('Places Initialized: $value');
+  });
+
+   autoCompleteSearch(String value) async {
+      final result = await _places.findAutocompletePredictions(
+        controller.text,
+        // countries: _countriesEnabled ? _countries : null,
+        // placeTypesFilter: _placeTypesFilter,
+        // newSessionToken: false,
+        // origin: LatLng(lat: 43.12, lng: 95.20),
+        // locationBias: _locationBiasEnabled ? _locationBias : null,
+        // locationRestriction:
+        // _locationRestrictionEnabled ? _locationRestriction : null,
+      );
+      _predictions = result.predictions;
+      print('Result: $_predictions');
+
+
+    // var result = await googlePlace.autocomplete.get(value,language: 'iw');
+    // if (result != null && result.predictions != null) {
+    //   //setState((){});
+    //   predictions = result.predictions!;
+    //   print(predictions);
+    // }
   }
 
   return showModalBottomSheet<dynamic>(
@@ -162,33 +184,41 @@ Future departurePoint(context, address, nav,{double longitude1=0,double latitude
                             fontSize: 20.sp),
                         controller: controller,
 
-                        onChanged: (value) {
-                          print('change');
+                        onChanged: (value) async {
+                         // done = controller.text.isNotEmpty;
+                          print('change $value');
+
+                          if (debounce?.isActive ?? false) debounce?.cancel();
+                          debounce = Timer(const Duration(milliseconds: 300), () async{
+                            if (value.isNotEmpty && value.length>1) {
+                              await autoCompleteSearch(value);
+                            } else {
+                              debugPrint('emptyyy!');
+                              _predictions = [];
+                              place=null;
+                              location='';
+                            }
+                            setState((){});
+                          });
+
+
+
+
                           //if (debounce?.isActive ?? false) debounce!.cancel();
                           //debounce =
                           // Timer(const Duration(milliseconds: 300), () {
-                          if (value.isNotEmpty) {
-                            autoCompleteSearch(value);
-                          } else
-                            predictions = [];
-                          // });
-                          setState((){});
+
                         },
                         //=> isTyping=true,
                         onEditingComplete: () {
                           debugPrint('onEditingComplete');
-                          if(controller.text.isNotEmpty)
-                          done = true;
-                          else
-                            done=false;
                           //todo setstate??
-
                           FocusScope.of(context).unfocus();
                         },
                       ),
-                      predictions.isNotEmpty
+                      _predictions != null && _predictions!.isNotEmpty
                           ? Expanded(
-                        child: ListView.builder(
+                        child: /*ListView.builder(
                             //reverse: true,
                             shrinkWrap: true,
                             itemCount: predictions.length,
@@ -222,10 +252,52 @@ Future departurePoint(context, address, nav,{double longitude1=0,double latitude
                                   predictions = [];
                                 },
                               );
-                            }),
+                            })*/
+                        ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: _predictions!.length,
+                            itemBuilder: (context, index) {
+                              AutocompletePrediction prediction =
+                              _predictions![index];
+                              return ListTile(
+                                title: Text(
+                                  prediction.fullText.toString(),
+                                  style: TextStyle(fontSize: 20.sp),
+                                ),
+                                onTap: () async {
+                                  debugPrint(
+                                      'selected address: ${prediction.fullText.toString()}');
+                                  // controller.text =
+                                  //     prediction.fullText.toString();
+                                  //done = true;
+                                  final placeId = prediction.placeId;
+                                  debugPrint('placeId $placeId');
+                                  final result = await _places.fetchPlace(placeId,fields: _placeFields);
+                                  setState(() {
+                                    place = result.place;
+                                    //  _fetchingPlace = false;
+                                  });
+                                  if (place != null ) {
+                                    debugPrint('details $place');
+                                    controller.text =
+                                        place!.address.toString();
+                                    location = place!.name
+                                        .toString(); //details.result!.name!;
+                                    latitude =
+                                        place!.latLng?.lat;
+                                    longitude =
+                                        place!.latLng?.lng;
+                                    debugPrint('location $latitude . $longitude');
+                                    debugPrint('selected text: ${controller.text}');
+                                  }
+                                  _predictions = [];
+                                },
+                              );
+                            }
+                        ),
                       )
-                          : Spacer(),
-                      done ? Column(
+                          :  Container(),
+                      location.isNotEmpty ? Column(
                               children: [
                                 SizedBox(
                                   height: 32.h,
@@ -248,7 +320,6 @@ Future departurePoint(context, address, nav,{double longitude1=0,double latitude
                                     ),
                                     onPressed: () {
                                       debugPrint("location $location longitude $longitude latitude $latitude");
-                                      print('address: $address');
                                       if(kIsWeb||controller.text.isNotEmpty && location.isNotEmpty) {
                                         //Navigator.pop(context);
                                         nav == 0
@@ -293,7 +364,13 @@ Future departurePoint(context, address, nav,{double longitude1=0,double latitude
           }
         );}
 
-  );
+  ).then((_) {
+    debugPrint('onClose');
+    debounce?.cancel();
+    if(onClose!=null) {
+      onClose();
+    }
+    });
 }
 
 Future rentalTerm(context, [DateTime? s,DateTime? e]) {

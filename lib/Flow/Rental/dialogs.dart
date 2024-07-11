@@ -326,7 +326,6 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
   }
 
   int? selectedValue;
-  int? selectedPart;
 
   Map<String, double> map = {'6 שעות': 0.25, 'יום': 1, 'שבוע': 7, 'חודש': 30};
 
@@ -355,8 +354,6 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                 endh.text = intl.DateFormat('HH:mm').format(calculatedEndDate);
               }
                 endDate = calculatedEndDate;
-                print('startDate $startDate');
-                print('endDate $endDate');
                 rent.startDate = startDate!;
                 rent.endDate = endDate!;
                 setState((){});
@@ -382,12 +379,17 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                   selectedValue = value;
                   diff = map[title];
                   print('diff $diff');
-                  selectedPart = -1;
                 });
                 if (startDate != null) setEndDateBasedOnSelection();
               },
               groupValue: selectedValue,
             );
+          }
+
+          DateTime roundToNextQuarter(DateTime dateTime) {
+            final nextHour = (dateTime.hour + 6 - dateTime.hour % 6) % 24;
+            final remainderMinutes = dateTime.minute > 0 ? 60 - dateTime.minute : 0;
+            return dateTime.add(Duration(hours: nextHour, minutes: remainderMinutes));
           }
 
           return Container(
@@ -628,6 +630,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                     endDate = DateTime(endDate!.year, endDate!.month, endDate!.day, endtime.hour, endtime.minute);
                                     final duration=findDuration(diff);
                                     checkPickedRange(context,startDate!,endDate!,duration);
+                                    roundToNextQuarter(endDate!);
                                   }
                                   print('end: $endDate');
                                   print('end: ${endh.text}');
@@ -769,10 +772,10 @@ checkPickedRange(context,DateTime start,DateTime end,Duration diff){
   print(start);
   print(end);
   if(start.difference(end)!=diff){
-    displayQuestion1(context, message: 'בחרת טווח השכרה שונה ממה שציינת קודם', header: 'שים לב!',
-      onYes: () {
+    displayMessage(context, message: 'שים לב!\nניתן לבצע השכרה לטווח של 6 שעות עגולות בלבד',
+      onClose: () {
         Navigator.pop(context);
-        Navigator.push(
+        /*Navigator.push(
             context,
             MaterialPageRoute(builder: (context)=>SearchCar(location: location,
               latitude: latitude,
@@ -781,7 +784,7 @@ checkPickedRange(context,DateTime start,DateTime end,Duration diff){
               endDate: end,),
         )
 
-      );
+      );*/
     }
     );
   }

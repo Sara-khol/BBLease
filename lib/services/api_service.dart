@@ -256,13 +256,12 @@ class ApiService {
   }
 
   Future getAdditions(int carId,startDate, endDate ,Function(dynamic orderJson) onSuccess) async {
-     //DateTime nextDay= endDate.add(Duration(days: 1));
+
     String d1=intl.DateFormat('yyyy-MM-dd').format(startDate);
     String d2=intl.DateFormat('yyyy-MM-dd').format(endDate);
     String h1=intl.DateFormat('HH:mm').format(startDate);
     String h2=intl.DateFormat('HH:mm').format(endDate);
     print('${_baseUrl}wp/v2/get_extras_for_rent/$carId/$d1*$d2');
-    // Response response = await _dio.get('${_baseUrl}wp/v2/get_extras_for_rent/7994');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_extras_for_rent/$carId/$d1*$d2/$h1*$h2');
     if(response.statusCode == 200) {
       var result = response.data;

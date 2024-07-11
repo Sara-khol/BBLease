@@ -25,7 +25,7 @@ class LandSpaceWidget extends StatelessWidget {
                   child: Center(
                     child: ConstrainedBox(
                       constraints: BoxConstraints(
-                        maxWidth: 550.w,
+                        maxWidth: 400.w,
                       ),
                       child: mainWidget,
                     ),

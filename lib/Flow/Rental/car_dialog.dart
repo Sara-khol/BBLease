@@ -525,6 +525,7 @@ Future rentalTerm1(context, Car car) {
 */
 
 
+/*
 Future additionsDialog(context, car,startDate,endDate)async {
   List<Addition> additions=[];
   await ApiService().getAdditions(car.id,startDate,endDate, (orderJson) {
@@ -553,4 +554,4 @@ Future additionsDialog(context, car,startDate,endDate)async {
     context: context,
     builder: (_) => AdditionsDialog(rent: rent, car: car, additionsList: additions),
   );
-}
+}*/

@@ -37,6 +37,7 @@ class _RentalWidgetState extends State<RentalWidget> {
   final List<Marker> _markers = <Marker>[];
   bool dialogShown=false;
   double long=0, lat=0;
+  bool _isDialogOpen = false;
   //CustomInfoWindowController _customInfoWindowController = CustomInfoWindowController();
 
   Future<Position> _determinePosition() async{
@@ -122,8 +123,16 @@ class _RentalWidgetState extends State<RentalWidget> {
       if(!dialogShown) {
         print('going to dialog');
         //var formattedAddress;
-        if(formattedAddress!=null)
-        departurePoint(context, formattedAddress, 0,latitude1: lat,longitude1: long);
+        if(formattedAddress!=null) {
+          setState(() {
+            _isDialogOpen=true;
+          });
+          departurePoint(context, formattedAddress, 0,onClose:(){
+            setState(() {
+              _isDialogOpen=false;
+            });
+          },latitude1: lat,longitude1: long);
+        }
       }
 
     } catch (e) {
@@ -270,6 +279,12 @@ print('getCarsList');
             myLocationButtonEnabled: true,
             compassEnabled: true,
 
+            scrollGesturesEnabled: !_isDialogOpen,
+            zoomGesturesEnabled: !_isDialogOpen,
+            rotateGesturesEnabled: !_isDialogOpen,
+            tiltGesturesEnabled: !_isDialogOpen,
+
+
           onMapCreated: (GoogleMapController controller){
             mapController=controller;
             //_customInfoWindowController.googleMapController = controller;
@@ -302,8 +317,16 @@ print('getCarsList');
                       ),
                       onPressed: () {
                         dialogShown=true;
-                        if(formattedAddress!=null)
-                        departurePoint(context, formattedAddress, 0,latitude1: lat,longitude1: long);
+                        if(formattedAddress!=null) {
+                          setState(() {
+                            _isDialogOpen=true;
+                          });
+                          departurePoint(context, formattedAddress, 0,onClose:(){
+                            setState(() {
+                              _isDialogOpen=false;
+                            });
+                          },latitude1: lat,longitude1: long);
+                        }
                       },
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,

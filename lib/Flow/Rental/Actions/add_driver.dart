@@ -79,7 +79,8 @@ class _AddDriverState extends State<AddDriver> {
                             color: Colors.white,
                             fontSize: 20.sp,
                             fontWeight: FontWeight.normal,
-                            height: 2.3))),
+                            //height: 2.3
+                        ))),
               ),
               SizedBox(height: 30.h,)
 
@@ -139,7 +140,8 @@ class _AddDriverState extends State<AddDriver> {
                                     fontSize: 20.sp,
                                     color: Colors.white,
                                     fontWeight: FontWeight.normal,
-                                    height: 2.3))),
+                                    //height: 2.3
+                                ))),
                       ),
                       SizedBox(height: 22.h),
                     ]

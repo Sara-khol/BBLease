@@ -200,16 +200,13 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                   SizedBox(
                     height: 100.h,
                   ),
-                  CustomText(
-                    'התחברות',
+                  CustomText('התחברות',
                     style: TextStyle(
                         fontSize: 23.sp,
                         fontWeight: FontWeight.bold,
                         height: 1),
                   ),
-                  SizedBox(
-                    height: 29.h,
-                  ),
+                  SizedBox(height: 29.h,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -219,35 +216,27 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                               isRegister = true;
                             });
                           },
-                          child: CustomText(
-                            'התחבר',
+                          child: CustomText('התחבר',
                             style: TextStyle(
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.normal,
                                 color: Colors.black,
-                                decoration: isRegister
-                                    ? TextDecoration.underline
-                                    : TextDecoration.none,
+                                decoration: isRegister ? TextDecoration.underline : TextDecoration.none,
                                 height: 1),
                           )),
-                      SizedBox(
-                        width: 150.w,
-                      ),
+                      SizedBox(width: 150.w,),
                       TextButton(
                           onPressed: () {
                             setState(() {
                               isRegister = false;
                             });
                           },
-                          child: CustomText(
-                            'הירשם',
+                          child: CustomText('הירשם',
                             style: TextStyle(
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.normal,
                                 color: Colors.black,
-                                decoration: isRegister
-                                    ? TextDecoration.none
-                                    : TextDecoration.underline,
+                                decoration: isRegister ? TextDecoration.none : TextDecoration.underline,
                                 height: 1),
                           ))
                     ],
@@ -418,7 +407,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                           title: Row(
                             children: [
                               CustomText(
-                                'אני מאשר/ת את ',
+                                ' אני מאשר/ת את ',
                                 style: TextStyle(fontSize: 18.sp),
                               ),
                               GestureDetector(
@@ -517,7 +506,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                             width: 332.w,
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor:_phone.text.length!=10&&!checkboxValue1?Colors.grey:turquoiseColorApp,
+                                  backgroundColor:_phone.text.length<10&&!checkboxValue1?Colors.grey:turquoiseColorApp,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(100),
                                   ),
@@ -553,7 +542,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                                         fontSize: 22.sp,
                                         fontWeight: FontWeight.normal,
                                         color: Colors.white,
-                                        height: 2.3))),
+                                        ))),
                           ),
                         ),
                       ),

@@ -521,23 +521,24 @@ class ApiService {
 
   }
 
-  Future reportAccident(message,email,phone,name,id,Function() onSuccess,[image]) async {
-
+  Future reportAccident(XFile? image, text, email, phone, name, Function(dynamic res) onSuccess) async {
+    print('${_baseUrl}wp/v2/report_fault');
+    //var bytes = image?.readAsBytes();
     FormData formData = FormData.fromMap({
-      "image_report_fault" : MultipartFile.fromBytes(image, filename: "signature.png"),
-      "message": User().userId,
-      "customer_email": User().userId,
-      "customer_phon": User().userId,
-      "customer_name": User().userId,
+      "image_report_fault" : image!=null?MultipartFile.fromBytes(await image.readAsBytes(), filename: "image.png"):null,
+      "message": text,
+      "customer_email":email,
+      "customer_phon": phone,
+      "customer_name": name,
       "customer_id": User().userId,
     });
 
-    print('${_baseUrl}wp/v2/report_fault');
+
     var response = await _dio.post('${_baseUrl}wp/v2/report_fault', data: formData,);
     print("response.statusCode ${response.statusCode}");
     if(response.statusCode == 200) {
       print("response.data ${response.data.toString()}");
-      onSuccess();
+      onSuccess(response.data);
     }
     else {
       print(response.statusCode);

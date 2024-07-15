@@ -15,7 +15,7 @@ Future carDetailsDialog(context,Car car,bool isAvailabe){
   return showModalBottomSheet<dynamic>(
       isScrollControlled: true,
       isDismissible: true,
-      barrierColor: Colors.black12.withOpacity(0.1),
+      //barrierColor: Colors.black12.withOpacity(0.1),
       elevation: 2,
       shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
@@ -103,7 +103,7 @@ Future openingCodeDialog(context,String code){
   return showModalBottomSheet<dynamic>(
       isScrollControlled: true,
       isDismissible: true,
-      barrierColor: Colors.black12.withOpacity(0.1),
+      //barrierColor: Colors.black12.withOpacity(0.1),
       elevation: 2,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(25)),

@@ -85,7 +85,8 @@ class CancelationComplete extends StatelessWidget {
                               fontSize: 20.sp,
                               color: Colors.white,
                               fontWeight: FontWeight.normal,
-                              height: 2.3)
+                              //height: 2.3
+                          )
                       ),
                       SizedBox(width: 136.h,),
                       Icon(Icons.logout,color: Colors.white),

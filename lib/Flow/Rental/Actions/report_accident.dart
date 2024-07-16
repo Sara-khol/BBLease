@@ -1,5 +1,6 @@
 import 'package:bblease/Flow/Rental/map.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -245,25 +246,28 @@ class _ReportAccidentState extends State<ReportAccident> {
                           SizedBox(height: 80.h),
                           Row(
                             children: [
-                              Container(
-                                height: 48.h,
-                                width: 160.w,
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: turquoiseColorApp,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(100),
+                              Visibility(
+                                visible: !kIsWeb,
+                                child: Container(
+                                  height: 48.h,
+                                  width: 160.w,
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: turquoiseColorApp,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(100),
+                                        ),
                                       ),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      pickImage(ImageSource.camera);
-                                    },
-                                    child: Text('מצלמה',
-                                        style: TextStyle(
-                                            fontSize: 20.sp,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.normal))),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        pickImage(ImageSource.camera);
+                                      },
+                                      child: Text('מצלמה',
+                                          style: TextStyle(
+                                              fontSize: 20.sp,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.normal))),
+                                ),
                               ),
                               SizedBox(width: 13.w),
 

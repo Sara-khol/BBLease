@@ -253,7 +253,7 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                                 },
                               );
                             })*/
-                        ListView.builder(
+                            ListView.builder(
                             shrinkWrap: true,
                             itemCount: _predictions!.length,
                             itemBuilder: (context, index) {
@@ -279,14 +279,10 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                                   });
                                   if (place != null ) {
                                     debugPrint('details $place');
-                                    controller.text =
-                                        place!.address.toString();
-                                    location = place!.name
-                                        .toString(); //details.result!.name!;
-                                    latitude =
-                                        place!.latLng?.lat;
-                                    longitude =
-                                        place!.latLng?.lng;
+                                    controller.text = place!.address.toString();
+                                    location = place!.name.toString(); //details.result!.name!;
+                                    latitude = place!.latLng?.lat;
+                                    longitude = place!.latLng?.lng;
                                     debugPrint('location $latitude . $longitude');
                                     debugPrint('selected text: ${controller.text}');
                                   }
@@ -312,7 +308,7 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                                   ),
                                   child: TextButton(
                                     child: Text(
-                                      'לבחירת תאריך',
+                                      nav==0?'לבחירת תאריך':'אישור',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 22.sp,
@@ -325,14 +321,14 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                                         nav == 0
                                             ? rentalTerm(context)
                                             : Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  SearchCar(location: location,
-                                                      latitude: latitude,
-                                                      longitude: longitude,
-                                                      startDate: sdate,
-                                                      endDate: edate),));
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      SearchCar(location: location,
+                                                          latitude: latitude,
+                                                          longitude: longitude,
+                                                          startDate: sdate,
+                                                          endDate: edate),));
                                         // MaterialPageRoute(
                                         //   builder: (context) => SearchCar(
                                         //       location: 'ירושלים',
@@ -442,6 +438,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
             return RadioListTile(
               activeColor: blackColorApp ,
               value: v,
+
               dense: true,
               autofocus: true,
               contentPadding: EdgeInsets.zero,
@@ -528,8 +525,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                        // ConstrainedBox(
                        //   constraints: BoxConstraints(maxHeight: 190.h),
                        //   child:
-                          ListView(
-                            shrinkWrap: true,
+                          Column(
                             children: <Widget>[
                               _buildRadioTile('6 שעות', 1),
                               _buildRadioTile('יום', 2),
@@ -549,6 +545,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                     color: Colors.black)),
                           ],
                         ),
+                        SizedBox(height: 10.h,),
                         Row(
                           children: [
                             TextFormField(
@@ -644,6 +641,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                     color: Colors.black)),
                           ],
                         ),
+                        SizedBox(height: 10.h,),
                         Row(
                           children: [
                             TextFormField(

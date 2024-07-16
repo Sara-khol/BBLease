@@ -175,10 +175,9 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                       padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {
                         return SizedBox(
-                          height: 30.h,
+                          height: 50.h,
                           child: createCheckBox(index),
                         );
-
                       },
                     ),
                     SizedBox(height: 20.h,),

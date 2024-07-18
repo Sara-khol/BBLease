@@ -133,6 +133,7 @@ class _SearchCarState extends State<SearchCar> {
                   height: 1.2,
                 ),
               ),
+              SizedBox(height: 10.h,),
               Text(
                 '${widget.location}  ${intl.DateFormat('dd.MM.yy').format(widget.startDate!)} ',
                 textAlign: TextAlign.center,
@@ -143,9 +144,9 @@ class _SearchCarState extends State<SearchCar> {
                   height: 1.15,
                 ),
               ),
-              SizedBox(height: 16.h), //26
+              SizedBox(height: 26.h), //26
               topButtons(context),
-              SizedBox(height: 13.h), //23
+              SizedBox(height: 23.h), //23
               cars.isNotEmpty
                   ? MediaQuery.removePadding(
                       context: context,
@@ -565,14 +566,10 @@ class _SearchCarState extends State<SearchCar> {
   }
 
   topButtons(context) {
-    return /*Container(
-     // color: Colors.yellow,
-      width: 393.w,
-      height: 40.h,
-      child: */
-        Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
+    return
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
         TextButton(
           onPressed: () => filterCarType(context, _scrollController),
           child: Row(
@@ -627,10 +624,7 @@ class _SearchCarState extends State<SearchCar> {
     );
   }
 
-  filterCarType(
-    context,
-    _controller,
-  ) {
+  filterCarType(context, _controller,) {
     return showModalBottomSheet(
       //isScrollControlled: true,
       context: context,
@@ -816,9 +810,7 @@ class _SearchCarState extends State<SearchCar> {
     );
   }
 
-  carSearchItem(
-    String name,
-  ) {
+  carSearchItem(String name,) {
     return GestureDetector(
       onTap: () {
         setState(() {

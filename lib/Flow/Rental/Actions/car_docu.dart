@@ -1,8 +1,12 @@
+import 'package:bblease/Flow/Rental/dialogs.dart';
 import 'package:bblease/services/api_service.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../Dialogs/buttom_dialogs.dart';
+import '../map.dart';
 
 
 class CarDocu extends StatefulWidget {
@@ -26,8 +30,15 @@ class _CarDocuState extends State<CarDocu> {
   }
 
   sendImages(){
+    showLoading(context);
     ApiService().carDocumentation(widget.carNum,images, (res) {
-
+      Navigator.pop(context);
+      displayMessage(context,
+          message: 'ההודעה התקבלה בהצלחה',
+          onClose: () {
+            Navigator.pop(context);
+            Navigator.pop(context);
+          });
     },);
   }
 
@@ -222,7 +233,7 @@ class _CarDocuState extends State<CarDocu> {
         
                       ),
                     ),
-                    SizedBox(height: 25.h,),
+                    SizedBox(height: 35.h,),
                     Container(
                       height: 48.h,
                       width: 332.w,
@@ -252,7 +263,7 @@ class _CarDocuState extends State<CarDocu> {
                           child:  Text('שלח תמונות',
                             style: TextStyle(fontSize: 22.sp,
                                 fontWeight: FontWeight.normal,
-                                color:Colors.white, height: 2.3),)),
+                                color:Colors.white,),)),
                     ),
                     SizedBox(height: 20.h,)
         
@@ -339,7 +350,7 @@ class _CarDocuState extends State<CarDocu> {
                                         fontSize: 20.sp,
                                         color: Colors.white,
                                         fontWeight: FontWeight.normal,
-                                        height: 2.3))),
+                                       ))),
                           ),
                           SizedBox(height: 22.h),
                         ]
@@ -519,19 +530,6 @@ class _CarDocuState extends State<CarDocu> {
                               ),
                               textAlign: TextAlign.center,
                             ),
-                            /*Text('התמונה נמחקה בהצלחה',
-                              style: TextStyle(fontSize: 20.sp,
-                                fontWeight: FontWeight.bold,
-                                  color: blackColorApp,
-                                decoration: TextDecoration.none
-                              ),
-                              textAlign: TextAlign.center,),
-                            Text(' נסו לצלם תמונה חדשה:)  ',
-                              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal,
-                                  color: blackColorApp,
-                                decoration: TextDecoration.none
-                              ),
-                              textAlign: TextAlign.center,),*/
                             SizedBox(height: 31.h),
                           ]
                       ),

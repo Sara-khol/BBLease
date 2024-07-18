@@ -13,6 +13,7 @@ import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -936,6 +937,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
             textDirection: TextDirection.rtl,
             child: Column(
                 children: [
+                  Align(alignment:Alignment.topRight ,child: CloseButton(color: Colors.black,onPressed: () => Navigator.pop(context),)),
                   SizedBox(height: 45.h),
                   // const Spacer(),
                   Row(
@@ -1108,7 +1110,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
       isScrollControlled: false,
       context: context,
       builder: (BuildContext context) => Container(
-        width: MediaQuery.devicePixelRatioOf(context),
+        //width: MediaQuery.devicePixelRatioOf(context),
         //height: 180.h,
         decoration: const BoxDecoration(color:Colors.white, borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
         child: Column(
@@ -1193,20 +1195,16 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
       context: context,
       builder: (context) {
         return Dialog(
-          shadowColor: Colors.grey.withOpacity(0.3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25),
-          ), //this right here
+          shadowColor: Colors.grey.withOpacity(0.1),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),), //this right here
           child: Container(
-            height: 185.h,
+            width: 256.w,
+            height: 200.h,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Align(
-                  alignment: Alignment.topRight,
-                    child: CloseButton()),
-
+                Align(alignment: Alignment.topRight, child: CloseButton()),
                 ImageIcon(AssetImage("assets/icons/car_open_doors.png"),color: pinkColorApp,),
                 SizedBox(height: 30.h),
 
@@ -1218,7 +1216,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                 Text(
                   'נסיעה בטוחה!',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.center,textDirection: TextDirection.rtl,
                 ),
                 SizedBox(height: 20.h),
 

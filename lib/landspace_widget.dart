@@ -23,10 +23,8 @@ class LandSpaceWidget extends StatelessWidget {
               children: [
                 Expanded(
                   child: Center(
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxWidth: 400.w,
-                      ),
+                    child: FractionallySizedBox(
+                      widthFactor: 0.45,
                       child: mainWidget,
                     ),
                   ),

@@ -1,10 +1,13 @@
 import 'dart:async';
 
+import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/UserInformation/profile.dart';
 import 'package:bblease/Flow/registration/sucsses_registration.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:universal_html/js.dart';
 
 import '../../models/class_user.dart';
 import '../../services/api_service.dart';
@@ -31,16 +34,25 @@ class _EditPaymentWebViewState extends State<EditPaymentWebView> {
 
   @override
   void initState() {
-
     super.initState();
+    if(kIsWeb)
+    {
+      setStatusForWeb();
+    }
+  }
+
+  setStatusForWeb() async
+  {
+    await Future.delayed(const Duration(seconds: 7));
+    getStatus(context);
   }
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      child: Directionality(
+      body: SafeArea(
+        child: Directionality(
         textDirection: TextDirection.rtl,
         child: Column(children: <Widget>[
           SizedBox(height: 24.h,),
@@ -89,7 +101,7 @@ class _EditPaymentWebViewState extends State<EditPaymentWebView> {
           SizedBox(
             height: 33.h,
           ),
-          Container(
+          /*Container(
               padding: EdgeInsets.only(top: 15.h),
               child: progress < 1.0
                   ? LinearProgressIndicator(
@@ -97,7 +109,7 @@ class _EditPaymentWebViewState extends State<EditPaymentWebView> {
                       color: pinkColorApp,
                       backgroundColor: pinkColorApp.withOpacity(0.2),
                     )
-                  : Container()),
+                  : Container()),*/
           Expanded(
             child: Center(
               child: Container(
@@ -140,7 +152,7 @@ class _EditPaymentWebViewState extends State<EditPaymentWebView> {
                         {
                           startCheckStatus=true;
                           await Future.delayed(const Duration(seconds: 3));
-                          getStatus();
+                          getStatus(context);
                         // Timer(const Duration(seconds: 3), () {getStatus();});
                         }
                       if(mounted) {
@@ -209,25 +221,18 @@ class _EditPaymentWebViewState extends State<EditPaymentWebView> {
     ));
   }
 
-  getStatus() async
+  getStatus(context) async
   {
     await ApiService().getStatusPaymentAfterUpdate(User().phoneNumber, (res) async {
       if(res)
         {
-          MySharedPreferences().setLastUsage();
-          MySharedPreferences().setUserId(User().userId);
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const PersonalProfile()),
-                  (route) => false);
+          displayMessage(context,message: 'הפרטים עודכנו בהצלחה',onClose: () =>  Navigator.pop(context),);
         }
      else
        {
          await Future.delayed(const Duration(seconds: 3));
-         getStatus();
+         getStatus(context);
        }
-
     });
   }
 }

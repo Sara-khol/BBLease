@@ -1,20 +1,12 @@
-import 'package:bblease/Flow/UserInformation/editContactInformation.dart';
-import 'package:bblease/customWidgets/appBarB.dart';
-import 'package:bblease/models/class_user.dart';
 import 'package:bblease/services/api_service.dart';
 import 'package:bblease/utils/my_colors.dart';
-import 'package:flutter/cupertino.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:intl/intl.dart';
 import 'dart:ui' as ui;
-
-import '../Dialogs/buttom_dialogs.dart';
-import '../home_page.dart';
-import 'editDrivingLicense.dart';
-import 'editProfile.dart';
 
 class BenefitsAndPromotions extends StatefulWidget {
   const BenefitsAndPromotions({Key? key}) : super(key: key);
@@ -85,12 +77,12 @@ class _BenefitsAndPromotionsState extends State<BenefitsAndPromotions> {
                               children: [
                                 Container(
                                     width: 332.w,
-                                    height: 68.h,
+                                    height: 68,
                                     margin: EdgeInsets.only(left: 14.w,right: 14.w),
                                     decoration: ShapeDecoration(
                                         color: Color(0xFFF6F6F6),
                                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                                      shadows: [
+                                      shadows: const [
                                         BoxShadow(
                                           color: Color(0x993ED4D4),
                                           blurRadius: 10,
@@ -101,14 +93,20 @@ class _BenefitsAndPromotionsState extends State<BenefitsAndPromotions> {
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(horizontal: 22.w),
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
-                                          Text('בתוקף עד: ${promotions[index]['end-promo']}',
-                                            style: TextStyle(
-                                              fontSize: 10.sp,
-                                              fontWeight: FontWeight.normal,
-                                              color: Colors.black
-                                           ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              Text('בתוקף עד: ${promotions[index]['end-promo']}',
+                                                style: TextStyle(
+                                                  fontSize: 10.sp,
+                                                  fontWeight: FontWeight.normal,
+                                                  color: Colors.black
+                                               ),
+                                              ),
+                                            ],
                                           ),
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.start,

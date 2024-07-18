@@ -1,13 +1,13 @@
 import 'package:bblease/Flow/Rental/map.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../../models/class_user.dart';
 import '../../../services/api_service.dart';
 import '../../Dialogs/buttom_dialogs.dart';
-import '../../home_page.dart';
 import '../dialogs.dart';
 
 class ReportAccident extends StatefulWidget {
@@ -108,7 +108,6 @@ class _ReportAccidentState extends State<ReportAccident> {
                   child: FloatingActionButton(
                       backgroundColor: Color(0xFF03AEB9),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8),),
-        
                       onPressed: () =>imageSource(context),
                       child: Text(
                         image==null?'צרף תמונה':image!.name.length>=15?'${image!.name.substring(0,15)}...':image!.name,
@@ -136,26 +135,19 @@ class _ReportAccidentState extends State<ReportAccident> {
                           borderRadius: BorderRadius.circular(100),
                         ),
                       ),
-                      onPressed: () {
-                        Map<String, String> map = {
-                          "name":_name.text,
-                          "tel":_phone.text,
-                          "mail":_email.text,
-                          "msg":_text.text,
-                          "id":User().userId.toString()
-                        };
+                      onPressed: () async {
+
                         showLoading(context);
-                        ApiService().newOrder(map, (res) {
+
+                        ApiService().reportAccident( image, _text.text, _email.text, _phone.text, _name.text,(res) {
                           Navigator.pop(context);
                           displayMessage(context,
-                              message: 'ההזמנה התקבלה בהצלחה',
+                              message: 'ההודעה התקבלה בהצלחה',
                               onClose: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => RentalWidget(),),
-                                );
+                                Navigator.pop(context);
+
                               });
-                        });
+                        },);
                       },
                       child: Text(
                         'צרו איתי קשר',
@@ -220,7 +212,7 @@ class _ReportAccidentState extends State<ReportAccident> {
     return showModalBottomSheet<dynamic>(
         isScrollControlled: true,
         isDismissible: true,
-        barrierColor: Colors.black12.withOpacity(0.1),
+        //barrierColor: Colors.black12.withOpacity(0.1),
         elevation: 2,
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
         context: context,
@@ -254,25 +246,28 @@ class _ReportAccidentState extends State<ReportAccident> {
                           SizedBox(height: 80.h),
                           Row(
                             children: [
-                              Container(
-                                height: 48.h,
-                                width: 160.w,
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: turquoiseColorApp,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(100),
+                              Visibility(
+                                visible: !kIsWeb,
+                                child: Container(
+                                  height: 48.h,
+                                  width: 160.w,
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: turquoiseColorApp,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(100),
+                                        ),
                                       ),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      pickImage(ImageSource.camera);
-                                    },
-                                    child: Text('מצלמה',
-                                        style: TextStyle(
-                                            fontSize: 20.sp,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.normal))),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        pickImage(ImageSource.camera);
+                                      },
+                                      child: Text('מצלמה',
+                                          style: TextStyle(
+                                              fontSize: 20.sp,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.normal))),
+                                ),
                               ),
                               SizedBox(width: 13.w),
 

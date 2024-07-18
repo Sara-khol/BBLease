@@ -40,8 +40,7 @@ class WelcomeForm extends StatelessWidget {
             //   // child: Expanded(child: Image.asset('assets/images/BB.png',width: 392.w, fit: BoxFit.contain))
             // ),
             Expanded(
-                child: Image.asset('assets/images/BB.png',
-                    width: 392.w, fit: BoxFit.contain)),
+                child: Image.asset('assets/images/BB.png', width: 400.w, fit: BoxFit.contain)),
             SizedBox(height: 48.h),
             Container(
               height: 48.h,
@@ -98,7 +97,6 @@ class WelcomeForm extends StatelessWidget {
                           fontSize: 22.sp,
                           fontWeight: FontWeight.normal,
                           color: Colors.white,
-                        height: 2.3
                       ),
                     ),
                   )),

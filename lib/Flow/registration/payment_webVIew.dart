@@ -101,7 +101,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
         SizedBox(
           height: 34.h,
         ),
-        Container(
+        /*Container(
             padding: EdgeInsets.only(top: 15.h),
             child: progress < 1.0
                 ? LinearProgressIndicator(
@@ -109,7 +109,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
                     color: pinkColorApp,
                     backgroundColor: pinkColorApp.withOpacity(0.2),
                   )
-                : Container()),
+                : Container()),*/
         Expanded(
           child: Column(
             children: [

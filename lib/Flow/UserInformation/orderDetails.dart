@@ -78,10 +78,13 @@ class _OrderDetailsState extends State<OrderDetails> {
             children: [
               Align(
                 alignment: Alignment.topRight,
-                child: IconButton(onPressed: () => Navigator.pop(context),
-                    icon: Icon(Icons.arrow_back_ios)),
+                child: Padding(
+                  padding: EdgeInsets.all(25),
+                  child: IconButton(onPressed: () => Navigator.pop(context),
+                      icon: Icon(Icons.arrow_back_ios)),
+                ),
               ),
-              SizedBox(height: 30.h),
+              //SizedBox(height: 30.h),
               Text(
                 ' הסטוריית הזמנות > פירוט הזמנה ',
                 style: TextStyle(

@@ -5,6 +5,7 @@ import 'package:bblease/landspace_widget.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,9 +14,6 @@ import 'package:intl/intl.dart';
 import 'dart:ui' as ui;
 
 import '../../services/api_service.dart';
-import '../Dialogs/buttom_dialogs.dart';
-import '../Rental/dialogs.dart';
-import '../home_page.dart';
 import 'editDrivingLicense.dart';
 import 'editPayment_webVIew.dart';
 import 'editProfile.dart';
@@ -25,15 +23,11 @@ class PersonalProfile extends StatefulWidget {
 
   @override
   State<PersonalProfile> createState() => _PersonalProfileState();
-
-
 }
 
 class _PersonalProfileState extends State<PersonalProfile> {
   @override
   Widget build(BuildContext context,) {
-
-
     return OrientationBuilder(
       builder: (context,o) {
         return Scaffold(
@@ -159,8 +153,8 @@ class _PersonalProfileState extends State<PersonalProfile> {
                       Image.asset('assets/icons/f7_creditcard.png'),
                       Text('  אמצעי תשלום',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,),),
                       Spacer(),
-                      IconButton(onPressed: () /*async*/{
-                        /*await ApiService().getPaymentUrl(User().userId, (res) {
+                      IconButton(onPressed: () async{
+                        await ApiService().getPaymentUrl(User().userId, (res) {
                              //Navigator.pop(context);
                              Navigator.push(
                                  context,
@@ -174,8 +168,10 @@ class _PersonalProfileState extends State<PersonalProfile> {
                     ]
                 ),
 
-                Text('${User().tranzilaCardExpDate} **** **** ****',style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
-                Text('**/**', style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
+                Text('${User().tranzilaCcno} **** **** ****',style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
+                !kIsWeb
+                    ?Text('${User().tranzilaCardExpDate.substring(0,2)}/${User().tranzilaCardExpDate.substring(2)}', style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,))
+                    :Text('${User().tranzilaCardExpDate.substring(2)}/${User().tranzilaCardExpDate.substring(0,2)}', style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
               ],
             ),
           ),

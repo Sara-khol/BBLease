@@ -1,4 +1,5 @@
 import 'package:bblease/Flow/Rental/Actions/report_accident.dart';
+import 'package:bblease/Flow/registration/tel_to_registration.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -150,7 +151,7 @@ Future displayError(BuildContext context,{bool existsData=true,String type='',
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 42.h,
+                  height: 46.h,
                   width: 160.w,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -178,7 +179,7 @@ Future displayError(BuildContext context,{bool existsData=true,String type='',
                 ),
                 SizedBox(width: 13.h),
                 SizedBox(
-                  height: 42.h,
+                  height: 46.h,
                   width: 160.w,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -194,12 +195,13 @@ Future displayError(BuildContext context,{bool existsData=true,String type='',
                             color: Colors.white,
                             fontSize: 18.sp,
                             fontWeight: FontWeight.normal,
-                            height: 2.3),
+                            //height: 2.3
+                          ),
                       )),
                 ),
               ])
             :  SizedBox(
-             height: 42.h,
+             height: 46.h,
              width: 332.w,
              child: ElevatedButton(
                  style: ElevatedButton.styleFrom(
@@ -217,7 +219,8 @@ Future displayError(BuildContext context,{bool existsData=true,String type='',
                        color: Colors.white,
                        fontSize: 18.sp,
                        fontWeight: FontWeight.normal,
-                       height: 2.3),
+                       //height: 2.3
+                     ),
                  )),
            ),
             SizedBox(height: 22.h)
@@ -226,6 +229,117 @@ Future displayError(BuildContext context,{bool existsData=true,String type='',
       // shape: const RoundedRectangleBorder(
       //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
       );
+}
+
+Future displayError1(BuildContext context,{bool existsData=true,String type='',
+  String message='',Function()? onEdit,bool closeButton=false}) {
+  return showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context) => Container(
+        height: 230.h,
+        decoration: const BoxDecoration(color:Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+        ),
+        child: Column(children: [
+          SizedBox(height: 25.h),
+          Text('אופס, אינך רשום במערכת!',
+              style: TextStyle(
+                  color: pinkColorApp,
+                  fontSize: 28.sp,
+                  fontWeight: FontWeight.bold,
+                  height: 1),textDirection: TextDirection.rtl,),
+          // const Spacer(),
+          Expanded(
+            child: Center(
+              child: Text('תרצה לעבור להרשמה?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    height:1,
+                    color: blackColorApp,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.normal,
+                  )),
+            ),
+          ),
+          //SizedBox(height: 20.h),
+          !closeButton? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 46.h,
+                  width: 160.w,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: turquoiseColorApp,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                      onPressed: () {
+                          Navigator.pop(context);
+                      },
+                      child: Text(
+                        'ביטול',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.normal),
+                      )),
+                ),
+                SizedBox(width: 13.h),
+                SizedBox(
+                  height: 46.h,
+                  width: 160.w,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: turquoiseColorApp,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'תעבירו אותי',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.normal,
+                          //height: 2.3
+                        ),
+                      )),
+                ),
+              ])
+              :  SizedBox(
+            height: 46.h,
+            width: 332.w,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: turquoiseColorApp,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'סגור',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.normal,
+                    //height: 2.3
+                  ),
+                )),
+          ),
+          SizedBox(height: 22.h)
+        ])),
+    barrierColor: Colors.black12.withOpacity(0.1),
+    // shape: const RoundedRectangleBorder(
+    //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+  );
 }
 
 Future displayMessage(BuildContext context,{
@@ -254,7 +368,7 @@ Future displayMessage(BuildContext context,{
           ),
           //SizedBox(height: 20.h),
            SizedBox(
-            height: 42.h,
+            height: 46.h,
             width: 160.w,
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -276,7 +390,8 @@ Future displayMessage(BuildContext context,{
                       color: Colors.white,
                       fontSize: 18.sp,
                       fontWeight: FontWeight.normal,
-                      height: 2.3),
+                      //height: 2.3
+                    ),
                 )),
           ),
           SizedBox(height: 22.h)
@@ -316,7 +431,7 @@ Future displayQuestion(BuildContext context,{
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 42.h,
+                  height: 46.h,
                   width: 100.w,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -334,12 +449,13 @@ Future displayQuestion(BuildContext context,{
                             color: Colors.white,
                             fontSize: 18.sp,
                             fontWeight: FontWeight.normal,
-                            height: 2.3),
+                            //height: 2.3
+                          ),
                       )),
                 ),
                 SizedBox(width: 13.h),
                 SizedBox(
-                  height: 42.h,
+                  height: 46.h,
                   width: 100.w,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -357,7 +473,8 @@ Future displayQuestion(BuildContext context,{
                             color: Colors.white,
                             fontSize: 18.sp,
                             fontWeight: FontWeight.normal,
-                            height: 2.3),
+                            //height: 2.3
+                          ),
                       )),
                 ),
 
@@ -381,7 +498,7 @@ Future displayQuestion1(BuildContext context,{
         ),
         child: Column(children: [
           SizedBox(height: 35.h),
-          Text(header,style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.bold,fontSize: 28.sp)),
+          Text(header,style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.bold,fontSize: 28.sp),textDirection: TextDirection.rtl,),
           Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,
@@ -393,7 +510,7 @@ Future displayQuestion1(BuildContext context,{
                       style: TextStyle(
                         height:1,
                         fontSize: 20.sp,
-                      )),
+                      ),textDirection: TextDirection.rtl,),
                 ],
               ),
             ),
@@ -403,7 +520,7 @@ Future displayQuestion1(BuildContext context,{
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 42.h,
+                  height: 46.h,
                   width: 160.w,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -421,12 +538,13 @@ Future displayQuestion1(BuildContext context,{
                             color: Colors.white,
                             fontSize: 18.sp,
                             fontWeight: FontWeight.normal,
-                            height: 2.3),
+                            //height: 2.3
+                        ),
                       )),
                 ),
                 SizedBox(width: 13.h),
                 SizedBox(
-                  height: 42.h,
+                  height: 46.h,
                   width: 160.w,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -442,7 +560,8 @@ Future displayQuestion1(BuildContext context,{
                             color: Colors.white,
                             fontSize: 18.sp,
                             fontWeight: FontWeight.normal,
-                            height: 2.3),
+                            //height: 2.3
+                        ),
                       )),
                 ),
 
@@ -501,7 +620,8 @@ Future reportAccident(context){
                                       fontSize: 20.sp,
                                       color: Colors.white,
                                       fontWeight: FontWeight.normal,
-                                      height: 2.3))),
+                                      //height: 2.3
+                                  ))),
                         ),
                         SizedBox(width: 13.w,),
                         Container(
@@ -520,7 +640,8 @@ Future reportAccident(context){
                                       fontSize: 20.sp,
                                       color: Colors.white,
                                       fontWeight: FontWeight.normal,
-                                      height: 2.3))),
+                                      //height: 2.3
+                                  ))),
                         ),
                       ],
                     ),
@@ -564,7 +685,7 @@ Future displayErrorInValidation(BuildContext context) {
               )),
           SizedBox(height: 34.h),
           SizedBox(
-            height: 42.h,
+            height: 46.h,
             width: 160.w,
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -582,7 +703,8 @@ Future displayErrorInValidation(BuildContext context) {
                       color: Colors.white,
                       fontSize: 18.sp,
                       fontWeight: FontWeight.normal,
-                      height: 2.3),
+                      //height: 2.3
+                  ),
                 )),
           ),
           SizedBox(height: 22.h)

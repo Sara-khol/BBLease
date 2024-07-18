@@ -15,7 +15,7 @@ Future carDetailsDialog(context,Car car,bool isAvailabe){
   return showModalBottomSheet<dynamic>(
       isScrollControlled: true,
       isDismissible: true,
-      barrierColor: Colors.black12.withOpacity(0.1),
+      //barrierColor: Colors.black12.withOpacity(0.1),
       elevation: 2,
       shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
@@ -103,7 +103,7 @@ Future openingCodeDialog(context,String code){
   return showModalBottomSheet<dynamic>(
       isScrollControlled: true,
       isDismissible: true,
-      barrierColor: Colors.black12.withOpacity(0.1),
+      //barrierColor: Colors.black12.withOpacity(0.1),
       elevation: 2,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
@@ -134,7 +134,7 @@ Future openingCodeDialog(context,String code){
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'קוד לפתיחה  ',
+                            'קוד פתיחה  ',
                             style: TextStyle(
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.bold,
@@ -144,8 +144,8 @@ Future openingCodeDialog(context,String code){
                         ],
                       ),
                       SizedBox(height: 47.h),
-                      Text(' הקוד לפתיחה הינו ',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold,),),
-                      SizedBox(height: 40.w,),
+                      Text(' הקוד לפתיחה הינו ',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal,),),
+                      SizedBox(height: 40.h,),
                       Text('  $code  ',style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold,),),
                       SizedBox(height: 30.h),
                     ]

@@ -10,6 +10,7 @@ import 'package:bblease/utils/my_colors.dart';
 import 'package:bblease/Flow/UserInformation/ordersHistory.dart';
 import 'package:bblease/Flow/UserInformation/terms_and_conditions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:side_sheet/side_sheet.dart';
 import 'package:bblease/services/support.dart' as support;
@@ -52,7 +53,7 @@ Future sideMenu(context) {
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(Icons.account_circle_outlined, color: blackColorApp,),
                           SizedBox(width: 10.w,),
@@ -73,9 +74,9 @@ Future sideMenu(context) {
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Image.asset("assets/icons/car1.png"),
+                          Image.asset("assets/icons/car.png"),
                           SizedBox(width: 10.w,),
                           Flexible(child: Text('היסטורית הזמנות', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
                         ],
@@ -95,7 +96,7 @@ Future sideMenu(context) {
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                          // Image.asset('assets/images/mingcute_car-line.png',width: 24.w,),
 
@@ -119,7 +120,7 @@ Future sideMenu(context) {
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset("assets/icons/Creditcard.png"),
                           SizedBox(width: 10.w,),
@@ -149,9 +150,9 @@ Future sideMenu(context) {
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(Icons.drive_eta_outlined,size: 28.sp,color: blackColorApp,),
+                          Icon(Icons.drive_eta_outlined,color: blackColorApp,),
                           SizedBox(width: 10.w,),
                           Flexible(child: Text('ביצוע הזמנה', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
                         ],
@@ -169,9 +170,9 @@ Future sideMenu(context) {
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(Icons.error_outline_outlined, color: blackColorApp,),
+                          Icon(Icons.error_outline_outlined,color: blackColorApp,),
                           SizedBox(width: 10.w,),
                           Flexible(child: Text('תקנון', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
                         ],
@@ -189,7 +190,7 @@ Future sideMenu(context) {
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset("assets/icons/wallet.png"),
                           SizedBox(width: 10.w,),
@@ -209,7 +210,7 @@ Future sideMenu(context) {
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset("assets/icons/solar_sale-linear.png"),
                           SizedBox(width: 10.w,),
@@ -229,9 +230,9 @@ Future sideMenu(context) {
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Image.asset("assets/icons/Phone.png"),
+                          Image.asset("assets/icons/phone_menu.png"),
                           SizedBox(width: 10.w,),
                           Flexible(child: Text('צור קשר', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
                         ],
@@ -249,7 +250,7 @@ Future sideMenu(context) {
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(Icons.logout,color:  blackColorApp,),
                           SizedBox(width: 10.w,),
@@ -331,38 +332,34 @@ getBottomButtons(context) {
        ),
      ),*/
      //SizedBox(height: 33.h,),
-     SizedBox(
-       height: 60.h,
-    //   width: 200.w,
-       child: Center(
-         child: ElevatedButton(
-           clipBehavior: Clip.antiAlias,
-             style: ElevatedButton.styleFrom(
-               backgroundColor: Color(0xFFFF0000),
-               padding: EdgeInsets.only(right: 10.w,left: 10.w),
-               shape: RoundedRectangleBorder(
-                 borderRadius: BorderRadius.circular(80),
-               ),
-             ),
-             onPressed: () {
-               support.call;
-             },
-             child: Row(
-               mainAxisAlignment: MainAxisAlignment.center,
-               crossAxisAlignment: CrossAxisAlignment.center,
-               children: [
-                 Text(
-                   'חיוג במקרה חירום ',
-                   style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: Colors.white),
-                 ),
-                 //SizedBox(width: 18.w),
-                 Icon(
-                   Icons.phone_outlined,
-                   color: Colors.white,
-                   size: 18.sp,
-                 )
-               ],
-             )),
+     GestureDetector(
+       onTap: () {
+         support.call;
+       },
+       child: Container(
+        // height: 60.h,
+       padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 12.h),
+       decoration: BoxDecoration(color:  pinkColorApp,borderRadius: BorderRadius.circular(100) ),
+         child: Center(
+           child:Row(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 crossAxisAlignment: CrossAxisAlignment.center,
+                 children: [
+                   Text(
+                     textAlign:TextAlign.center,
+                     'חיוג במקרה חירום ',
+                     style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: Colors.white,
+                     height: 1),
+                   ),
+                   SizedBox(width: 12.w),
+                   Icon(
+                     Icons.phone_outlined,
+                     color: Colors.white,
+                     size: 18.sp,
+                   )
+                 ],
+               )),
+
        ),
      ),
    ],);

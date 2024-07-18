@@ -157,7 +157,7 @@ class _PriceListState extends State<PriceList> {
                               shrinkWrap: true,
                               itemCount: priceList['price_list']['A'].length,
                               itemBuilder: (context, index) {
-                                iconPath = 'assets/images/ticket.png';
+                                iconPath = 'assets/icons/ticket.png';
                                 var currentItem = priceList['price_list']['A'];
                                 if (currentItem!.values.elementAt(index) != '') {
                                   String str=truncateString(currentItem.keys.elementAt(index));
@@ -167,13 +167,21 @@ class _PriceListState extends State<PriceList> {
                                     //decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Color(0xFF03AEB9),width: 1))),
                                     child: Row(
                                       children: [
-                                        Image.asset(iconPath, width: 24.w,),
+                                        Image.asset(iconPath),
                                         SizedBox(width: 9.w,),
-                                        Text(str, style: TextStyle(fontSize: 20.sp)),
-                                        Spacer(),
-                                        Text('  | ', style: TextStyle(color: Color(0xFF03AEB9), fontSize: 24.sp, fontWeight: FontWeight.w300)),
+                                        Flexible(
+                                          child: ListView(
+                                            shrinkWrap: true,
+                                            scrollDirection: Axis.horizontal,
+                                            children: [
 
-                                        Text(currentItem.values.elementAt(index), style: TextStyle(fontSize: 20.sp), textDirection: TextDirection.rtl),
+                                              Text(str, style: TextStyle(fontSize: 20.sp)),
+                                             // Spacer(),
+                                              Text('  | ', style: TextStyle(color: Color(0xFF03AEB9), fontSize: 24.sp, fontWeight: FontWeight.w300)),
+                                              Text(currentItem.values.elementAt(index), style: TextStyle(fontSize: 20.sp), textDirection: TextDirection.rtl),
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   );
@@ -195,7 +203,7 @@ class _PriceListState extends State<PriceList> {
                                 shrinkWrap: true,
                                 itemCount: priceList['price_list']['B'].length,
                                 itemBuilder: (context, index) {
-                                  iconPath = 'assets/images/ticket.png';
+                                  iconPath = 'assets/icons/ticket.png';
                                   var currentItem = priceList['price_list']['B'];
                                   if (currentItem!.values.elementAt(index) != '') {
                                     String str=truncateString(currentItem.keys.elementAt(index));
@@ -205,7 +213,7 @@ class _PriceListState extends State<PriceList> {
                                       //decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Color(0xFF03AEB9),width: 1))),
                                       child: Row(
                                         children: [
-                                          Image.asset(iconPath, width: 24.w,),
+                                          Image.asset(iconPath),
                                           SizedBox(width: 9.w,),
                                           Text(str, style: TextStyle(fontSize: 20.sp)),
                                           Text('  | ', style: TextStyle(color: Color(0xFF03AEB9), fontSize: 24.sp, fontWeight: FontWeight.w300)),
@@ -230,26 +238,38 @@ class _PriceListState extends State<PriceList> {
                       itemCount: priceList[indexMap[i]]?.length,
                       itemBuilder: (context, index) {
                         if(i==2) {
-                          iconPath='assets/images/bag.png';
+                          iconPath='assets/icons/bag.png';
                         }
                         if(i==3) {
-                          iconPath='assets/images/more.png';
+                          iconPath='assets/icons/more_price.png';
                         }
                         var currentItem=priceList[indexMap[i]];
                         return Container(
+
                           height: 50.h,
                           width: 328.w,
                           decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Color(0xFF03AEB9),width: 1))),
-                          child: Row(
-                            children: [
-                              Image.asset(iconPath,width: 24.w,),
-                              SizedBox(width: 16.w,),
-                              Text(currentItem!.keys.elementAt(index),style: TextStyle(fontSize: 24.sp)),
-                              Spacer(),
-                              Text('|',style:TextStyle(color: Color(0xFF03AEB9),fontSize: 24.sp,fontWeight: FontWeight.w300)),
-                              Text('  ${currentItem!.values.elementAt(index)} ₪', style: TextStyle(fontSize: 24.sp),textDirection: TextDirection.rtl
-                              ),
-                            ],
+                          child: Center(
+                            child: Row(
+
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(iconPath),
+                                SizedBox(width: 16.w,),
+                                Expanded(
+                                  child: ListView(
+                                    scrollDirection: Axis.horizontal,
+                                    shrinkWrap: true,
+                                  children: [
+                                    Text(currentItem!.keys.elementAt(index),style: TextStyle(fontSize: 24.sp)),
+                                  //  Spacer(),
+                                    Text(' | ',style:TextStyle(color: Color(0xFF03AEB9),fontSize: 24.sp,fontWeight: FontWeight.w300)),
+                                    Text('  ${currentItem!.values.elementAt(index)} ₪', style: TextStyle(fontSize: 24.sp),textDirection: TextDirection.rtl
+                                    ),
+                                  ],),
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       },

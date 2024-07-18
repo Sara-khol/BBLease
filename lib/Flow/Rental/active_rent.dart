@@ -617,7 +617,6 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                     ),
                                     ImageIcon(
                                       AssetImage("assets/icons/car_icon.png"),
-                                      size: 24.w,
                                       color: const Color(0xFF0F1511),
                                     ),
                                     SizedBox(
@@ -732,7 +731,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                       Navigator.push(context, MaterialPageRoute(
                                         builder: (context) =>
                                             CarDocu(
-                                              carNum: rent.car.carNumber,),));
+                                              carNum: rent.car.carNumber),));
                                     }
                               ),
                               ),

@@ -116,8 +116,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                 cursorColor: blackColorApp,
                 decoration: getInputDecoration('תוקף',
                     suffixIcon: Image.asset(
-                      'assets/icons/Calendar.png',
-                      width: 24.w,
+                      'assets/icons/CalendarBig.png',
                     )),
                 style:
                 TextStyle(color: blackColorApp, fontSize: 18.sp),
@@ -156,9 +155,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                 cursorColor: blackColorApp,
                 decoration: getInputDecoration('תאריך הנפקה',
                     suffixIcon:   Image.asset(
-                      'assets/icons/Calendar.png',
-                      width: 24.w,
-                    )),
+                      'assets/icons/CalendarBig.png')),
                 style:
                 TextStyle(color: blackColorApp, fontSize: 18.sp),
                 controller: _issDate,

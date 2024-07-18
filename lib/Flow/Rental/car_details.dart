@@ -112,7 +112,7 @@ class _CarDetailsState extends State<CarDetails> {
                   )
               ),
             ),
-          Image.asset('assets/images/Ellipse.png', width: 232.w, height: 35.5.h),
+          Image.asset('assets/images/Ellipse.png'),
           SizedBox(height: 40.h),
           Expanded(
             child: Directionality(

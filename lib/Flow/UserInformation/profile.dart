@@ -163,7 +163,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                                        url: res,
                                      )),
                                      );
-                           });*/
+                           });
                       },icon:  Image.asset('assets/icons/edit_big.png'), )
                     ]
                 ),

@@ -31,7 +31,7 @@ class MyHttpOverrides extends HttpOverrides {
 void main() async {
   HttpOverrides.global = new MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
-//await mySharedPreferences.initializeSharedPreferences(); // Initialize app state
+//await mySharedPreferences.initializeSharedPreferences(); /flutt/ Initialize app state
 
   await SentryFlutter.init(
     (options) {

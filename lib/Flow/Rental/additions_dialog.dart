@@ -162,7 +162,7 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                             fontWeight: FontWeight.bold,
                             color: Colors.black),),
                         SizedBox(width: 11.w,),
-                        Icon(Icons.extension_outlined, color: pinkColorApp, size: 24.sp,),
+                        Image.asset("assets/icons/Additions.png"),
                       ],
                     ),
                     SizedBox(height: 15.h,),

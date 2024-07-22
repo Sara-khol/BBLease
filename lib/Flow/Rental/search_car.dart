@@ -582,10 +582,7 @@ class _SearchCarState extends State<SearchCar> {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              ImageIcon(
-                AssetImage("assets/icons/Filter.png"),
-                color: pinkColorApp,
-              ),
+                Image.asset("assets/icons/Filter.png"),
             ],
           ),
         ),
@@ -602,10 +599,7 @@ class _SearchCarState extends State<SearchCar> {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              ImageIcon(
-                AssetImage("assets/icons/Calendar.png"),
-                color: pinkColorApp,
-              ),
+                Image.asset("assets/icons/Calendar.png"),
             ],
           ),
         ),
@@ -621,10 +615,8 @@ class _SearchCarState extends State<SearchCar> {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              ImageIcon(
-                AssetImage("assets/icons/expansion.png"),
-                color: pinkColorApp,
-              ),
+              Image.asset("assets/icons/Range.png"),
+
             ],
           ),
         ),
@@ -764,7 +756,7 @@ class _SearchCarState extends State<SearchCar> {
                         width: 8.w,
                       ),
                       ImageIcon(
-                        AssetImage("assets/icons/Filter.png"),
+                        const AssetImage("assets/icons/Filter.png"),
                         color: pinkColorApp,
                       ),
                       Spacer(),
@@ -831,7 +823,7 @@ class _SearchCarState extends State<SearchCar> {
           bottom: 5.h,
         ),
         width: 130.w,
-        height: 95.h,
+        //height: 95.h,
         child: Padding(
           padding: EdgeInsets.only(top: 8.h, bottom: 6.h),
           child: Column(
@@ -906,7 +898,8 @@ class _SearchCarState extends State<SearchCar> {
                     },
                   ),
                 ),
-                Column(
+                ListView(
+                  shrinkWrap: true,
                   children: [
                     SizedBox(
                       height: 30.h,
@@ -929,12 +922,12 @@ class _SearchCarState extends State<SearchCar> {
                           width: 8.w,
                         ),
                         ImageIcon(
-                          AssetImage("assets/icons/expansion.png"),
+                          const AssetImage("assets/icons/Range.png"),
                           color: pinkColorApp,
                         ),
                       ],
                     ),
-                    SizedBox(height: 23),
+                    SizedBox(height: 23.h),
                     Padding(
                       padding: EdgeInsets.only(right: 31.w, left: 30.w),
                       child: Column(

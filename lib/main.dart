@@ -178,6 +178,7 @@ class MyApp extends StatelessWidget {
 
   Future<bool> isLogin() async {
     debugPrint('isLogin');
+    debugPrint('ddd ${ScreenUtil().pixelRatio}');
     int userId = await MySharedPreferences().getUserId();
     if (userId == -1) {
       return false;

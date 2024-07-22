@@ -47,9 +47,13 @@ class _PersonalProfileState extends State<PersonalProfile> {
     String formattedDateString = DateFormat("MM/yy").format(dateTime);
     return Directionality(
       textDirection: ui.TextDirection.rtl,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: ListView(
+        shrinkWrap: true,
+        padding: EdgeInsets.only(right: 31.w,left: 56.w ),
+        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          // Directionality(textDirection: ui.TextDirection.ltr, child: AppBarBibilease()),
           SizedBox(height: 24.h,),
           Padding(
             padding:  EdgeInsets.only(right: 23.w),
@@ -66,7 +70,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
             weight: 50,
           ),
           SizedBox(height: 8.h,),
-          Text('פרופיל אישי', style: TextStyle(color: Color(0xFF0F1511), fontSize: 24.sp, fontWeight: FontWeight.bold,),),
+          Center(child: Text('פרופיל אישי', style: TextStyle(color: Color(0xFF0F1511), fontSize: 24.sp, fontWeight: FontWeight.bold,),)),
           SizedBox(height: 40.h,),
           SizedBox(
             width: 300.w,
@@ -83,7 +87,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const EditPersonalDetails()));},
-                        icon:  Image.asset('assets/icons/edit.png',color: pinkColorApp,width: 26.w), )
+                        icon:  Image.asset('assets/icons/edit_big.png') )
                     ]
                 ),
                 Text('${User().firstName} ${User().lastName}',style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
@@ -99,7 +103,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
               children: [
                 Row(
                     children:[
-                      Image.asset('assets/icons/Phone.png',),
+                      Image.asset('assets/icons/Phone.png'),
                       Text('  פרטי התקשרות',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
                       Spacer(),
                       IconButton(onPressed: () {
@@ -107,7 +111,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const EditContactInformationPersonal()));
-                      },icon:  Image.asset('assets/icons/edit.png',color: pinkColorApp,width: 26.w), )
+                      },icon:  Image.asset('assets/icons/edit_big.png'))
                     ]
                 ),
                 Text(User().phoneNumber,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
@@ -123,14 +127,14 @@ class _PersonalProfileState extends State<PersonalProfile> {
               children: [
                 Row(
                     children:[
-                      Image.asset('assets/icons/driver_license.png',width: 26.w,),
+                      Image.asset('assets/icons/driver_license.png'),
                       Text('  רשיון נהיגה',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
                       Spacer(),
                       IconButton(onPressed: () {Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const EditDrivingLicensePersonal()));
-                      },icon:  Image.asset('assets/icons/edit.png',color: pinkColorApp,width: 26.w,), )
+                      },icon:  Image.asset('assets/icons/edit_big.png'), )
                     ]
                 ),
                 Text(User().licenseId,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,),),
@@ -146,7 +150,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
               children: [
                 Row(
                     children:[
-                      Image.asset('assets/icons/f7_creditcard.png',width: 26.w,),
+                      Image.asset('assets/icons/f7_creditcard.png'),
                       Text('  אמצעי תשלום',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,),),
                       Spacer(),
                       IconButton(onPressed: () async{
@@ -160,7 +164,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                                      )),
                                      );
                            });
-                      },icon:  Image.asset('assets/icons/edit.png',color: pinkColorApp,width: 26.w,), )
+                      },icon:  Image.asset('assets/icons/edit_big.png'), )
                     ]
                 ),
 
@@ -186,7 +190,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset('assets/icons/trash.png',width:24.w,color: Colors.white,),
+                  Image.asset('assets/icons/trash.png',color: Colors.white,),
                   SizedBox(width: 30.w,),
                   Text('מחיקת חשבון',style: TextStyle(
                     fontSize: 18.sp,
@@ -197,7 +201,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                 ],
               ),
               onPressed: () {
-                displayQuestionDelete(context,message: 'בטוח ברצונך למחוק חשבון זה?',header: 'מחיקת חשבון',
+                displayQuestionDelete(context,message: '?בטוח ברצונך למחוק חשבון זה',header: 'מחיקת חשבון',
                   onYes: () => {
 
                   },/*Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(),))*/);
@@ -217,7 +221,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                            color: Colors.white,),
                          /*textAlign: TextAlign.start*/),
 
-                       Image.asset('assets/icons/trash.png',width:24.w,color: Colors.white,)
+                       Image.asset('assets/icons/trash.png',color: Colors.white,)
 
                      ],
                    ),
@@ -364,7 +368,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                         //mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           SizedBox(height: 17.h,),
-                          Image.asset('assets/icons/trash.png',width:24.w,color: pinkColorApp,),
+                          Image.asset('assets/icons/trash.png',color: pinkColorApp,),
                           SizedBox(height: 16.h,),
                           Text("החשבון נמחק בהצלחה!",
                               textAlign: TextAlign.center,

@@ -27,12 +27,12 @@ class _TermsState extends State<Terms> {
   Widget build(BuildContext context) {
     return Scaffold(
       body:
-        Column(
-          children: [
-            Container(
-              color: Colors.white,
-              child: Padding(
-                padding: EdgeInsets.only(left: 24.w,right: 24.w,top:32.h,bottom: 20.h),
+        Padding(
+          padding: EdgeInsets.only(left: 24.w,right: 24.w,top:32.h,bottom: 20.h),
+          child: Column(
+            children: [
+              Container(
+                color: Colors.white,
                 child: Row( children:[
                  /* Text("Bibilease",
                     style: TextStyle(
@@ -51,41 +51,47 @@ class _TermsState extends State<Terms> {
                 ],
                 ),
               ),
-            ),
-            SizedBox(height: 40.h,),
-            Text(
-              'תקנון',
-              style: TextStyle(
-                color: Color(0xFF0F1511),
-                fontSize: 26.sp,
-                fontWeight: FontWeight.bold,
+              SizedBox(height: 40.h,),
+              Text(
+                'תקנון ותנאי שימוש',
+                style: TextStyle(
+                  color: Color(0xFF0F1511),
+                  fontSize: 22.sp,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
-            ),
-            SizedBox(height: 20.h,),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Text(lorem*3)
-              )
-            ),
-            SizedBox(
-              width: 332.w,
-              height: 48.h,
-              child: FloatingActionButton.extended(
-                label: Text(widget.index==1?'חזרה':'חתימה', style: TextStyle(letterSpacing: 0.1,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.normal),),
-                heroTag: "btn2",
-                backgroundColor: colors.turquoiseColorApp,
-                onPressed: () {
-                  print('widget.index ${widget.index}');
-                 if( widget.index==2)
-                   signCancelOrderDialog(context, 'טופס אישור תנאים', 'קראתי ואני מאשר/ת את התנאים');
+              SizedBox(height: 20.h,),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(lorem*3),
+                  )
+                )
+              ),
+              Visibility(
+                visible:  widget.index==2,
+                child: SizedBox(
+                  width: 332.w,
+                  height: 48.h,
+                  child: FloatingActionButton.extended(
+                    label: Text(widget.index==1?'חזרה':'חתימה', style: TextStyle(letterSpacing: 0.1,
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.normal),),
+                    heroTag: "btn2",
+                    backgroundColor: colors.turquoiseColorApp,
+                    onPressed: () {
+                      print('widget.index ${widget.index}');
+                     if( widget.index==2)
+                       signCancelOrderDialog(context, 'טופס אישור תנאים', 'קראתי ואני מאשר/ת את התנאים');
 
-                // Navigator.pop(context);
-                },
+                    // Navigator.pop(context);
+                    },
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
 
     );

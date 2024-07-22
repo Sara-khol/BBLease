@@ -307,7 +307,7 @@ print('getCarsList');
                 padding: const EdgeInsets.all(20),
                 child: SizedBox(
                   height: 48.h,
-                  width: 183.w,
+                  //width: 183.w,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: turquoiseColorApp,
@@ -331,6 +331,7 @@ print('getCarsList');
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
                             ' לביצוע הזמנה  ',

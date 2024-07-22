@@ -112,7 +112,7 @@ class _BenefitsAndPromotionsState extends State<BenefitsAndPromotions> {
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
-                                              ImageIcon(const AssetImage('assets/icons/gift.png'),color: turquoiseColorApp,),
+                                              ImageIcon(const AssetImage('assets/icons/gift.png')),
                                               //SizedBox(width: 13.w,),
                                               VerticalDivider(thickness: 2,width: 13,color: turquoiseColorApp, endIndent: 16.h,),
                                               Text(

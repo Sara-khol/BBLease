@@ -104,14 +104,14 @@ class _OrderDetailsState extends State<OrderDetails> {
                 ),
               ),
               SizedBox(height: 7.h),
-              Container(
+              widget.rent.car.carImages.isNotEmpty?   Container(
                 height: 130.h,
                 width: 292.w,
                 child: Image.network(
                     widget.rent.car.carImages.first, width: 290.w,
                     height: 126.h,
                     fit: BoxFit.fitWidth),
-              ),
+              ):Container(),
               SizedBox(height: 20.h),
               Expanded(
                 child: Directionality(

@@ -554,7 +554,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                               decoration: getInputDecoration(
                                   '',
                                   192,
-                                  suffixIcon: ImageIcon(AssetImage("assets/icons/Calendar.png"),color: pinkColorApp,),
+                                  suffixIcon: ImageIcon(AssetImage("assets/icons/CalendarBig.png"),color: pinkColorApp,),
                             ),
                               controller: startd,
                               style: TextStyle(fontSize: 22.sp),
@@ -647,7 +647,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                             TextFormField(
                               readOnly: true,
                               cursorColor: const Color.fromRGBO(15, 17, 21, 1),
-                              decoration: getInputDecoration('', 192, suffixIcon: ImageIcon(AssetImage("assets/icons/Calendar.png"),color: pinkColorApp,),),
+                              decoration: getInputDecoration('', 192, suffixIcon: ImageIcon(AssetImage("assets/icons/CalendarBig.png"),color: pinkColorApp,),),
                               style: TextStyle(fontSize: 22.sp),
                               controller: endd,
                               validator: (value) {

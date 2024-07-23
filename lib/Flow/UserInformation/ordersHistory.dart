@@ -96,6 +96,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
     return showModalBottomSheet<dynamic>(
         isScrollControlled: true,
         isDismissible: false,
+        backgroundColor: Colors.white,
         context: context,
         builder: (context) {
           return StatefulBuilder(builder: (context, StateSetter setState) {
@@ -131,8 +132,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                       color: Colors.black),
                                 ),
                                 ImageIcon(
-                                  AssetImage("assets/icons/Calendar.png"),
-                                  size: 20.w,
+                                  const AssetImage("assets/icons/CalendarBig.png"),
                                   color: pinkColorApp,
                                 ),
                               ],
@@ -169,8 +169,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                 ),
                                 contentPadding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
                                 suffixIcon: ImageIcon(
-                                  AssetImage("assets/icons/Calendar.png"),
-                                  size: 20.w,
+                                  const AssetImage("assets/icons/CalendarBig.png"),
                                   color: pinkColorApp,
                                 ),
                               ),
@@ -226,7 +225,6 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                   contentPadding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
                                   suffixIcon: ImageIcon(
                                     AssetImage("assets/icons/Calendar.png"),
-                                    size: 20.w,
                                     color: pinkColorApp,
                                   )),
                               style: TextStyle(fontSize: 22.sp),
@@ -298,7 +296,8 @@ class _OrdersHistoryState extends State<OrdersHistory> {
 
   buildContent()
   {
-    Icon downloadIcon = Icon(Icons.file_download, color: pinkColorApp);
+    // Widget downloadIcon = Icon(Icons.file_download, color: pinkColorApp);
+    Widget downloadIcon =  Image.asset("assets/icons/Download.png");
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -337,27 +336,29 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                     borderRadius: BorderRadius.circular(100),
                     color: selected == 1 ? blackColorApp : Colors.transparent,
                   ),
-                  child: TextButton(
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        //minimumSize: Size(50, 30),
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          selected = 1;
-                        });
-                      },
-                      child: Text(
-                        'היסטורית הזמנות',
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            height: 2.15,
-                            fontWeight: selected == 1
-                                ? FontWeight.bold
-                                : FontWeight.normal,
-                            color: selected == 1 ? Colors.white : blackColorApp),
-                      )),
+                  child: Center(
+                    child: TextButton(
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          //minimumSize: Size(50, 30),
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            selected = 1;
+                          });
+                        },
+                        child: Text(
+                          'היסטורית הזמנות',
+                          style: TextStyle(
+                              fontSize: 18.sp,
+
+                              fontWeight: selected == 1
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              color: selected == 1 ? Colors.white : blackColorApp),
+                        )),
+                  ),
                 ),
                 Spacer(),
                 Container(
@@ -369,28 +370,31 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                     borderRadius: BorderRadius.circular(100),
                     color: selected == 2 ? blackColorApp : Colors.transparent,
                   ),
-                  child: TextButton(
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        //minimumSize: Size(50, 30),
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          selected = 2;
-                        });
-                      },
-                      child: Text(
-                        'הזמנות עתידיות',
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            height: 2.15,
-                            fontWeight: selected == 2
-                                ? FontWeight.bold
-                                : FontWeight.normal,
-                            color:
-                            selected == 2 ? Colors.white : blackColorApp),
-                      )),
+                  child: Center(
+                    child: TextButton(
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          //minimumSize: Size(50, 30),
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            selected = 2;
+                          });
+                        },
+                        child: Center(
+                          child: Text(
+                            'הזמנות עתידיות',
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: selected == 2
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                color:
+                                selected == 2 ? Colors.white : blackColorApp),
+                          ),
+                        )),
+                  ),
                 ),
               ],
             ),
@@ -406,7 +410,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text('סנן לפי תאריך ', style: TextStyle(fontSize: 14.sp, color: blackColorApp),),
-                  ImageIcon(AssetImage("assets/icons/Filter.png"), size: 20.w, color: pinkColorApp,),
+                  ImageIcon(AssetImage("assets/icons/Filter.png"), color: pinkColorApp,),
                   SizedBox(width: 40.w,)
                 ],
               )),
@@ -432,7 +436,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ImageIcon(AssetImage("assets/icons/car1.png"), color: Colors.white,),
+                    ImageIcon(AssetImage("assets/icons/car.png"), color: Colors.white,),
                     SizedBox(width:52.w),
                     Text('פתח הזמנה פעילה',
                       style: TextStyle(
@@ -501,14 +505,13 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                             downloadFileWeb(rent.url!);
                                             // Optionally, update UI immediately since web doesn't track download progress
                                             setState(() {
-                                              downloadIcon = Icon(
+                                              downloadIcon = const Icon(
                                                 Icons.check_circle_outline,
                                                 color: Colors.white,
                                               );
                                             });
                                           }
                                           else{
-
                                           FileDownloader.downloadFile(
                                             url: rent.url!,
                                             onDownloadCompleted: (path) =>
@@ -522,7 +525,6 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                           );}
                                         },
                                         icon: downloadIcon),
-
                                   ],
                                 ),
                               ),
@@ -580,8 +582,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                 IconButton(
                                   onPressed: () => cancelOrderDialog(context, rent),
                                   icon: ImageIcon(
-                                    AssetImage("assets/icons/trash.png"),
-                                    size: 22.w,
+                                    const AssetImage("assets/icons/trash.png"),
                                     color: blackColorApp,
                                   ),
                                 ),

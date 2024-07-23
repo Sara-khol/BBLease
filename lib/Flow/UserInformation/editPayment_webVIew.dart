@@ -94,7 +94,7 @@ class _EditPaymentWebViewState extends State<EditPaymentWebView> {
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children:[
-                Image.asset('assets/icons/f7_creditcard.png',width: 26.w,),
+                Image.asset('assets/icons/f7_creditcard.png'),
                 Text('  אמצעי תשלום',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
               ]
           ),

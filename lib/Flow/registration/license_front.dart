@@ -175,7 +175,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                       backgroundColor: turquoiseColorApp,
                       onPressed: ()=>support.call,
                       icon: ImageIcon(
-                        AssetImage("assets/icons/Phone.png"),
+                        const AssetImage("assets/icons/Phone.png"),
                         size: 22.w,
                         color:Colors.white,
                       ),

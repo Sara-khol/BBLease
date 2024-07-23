@@ -488,7 +488,7 @@ Future displayQuestion(BuildContext context,{
 }
 
 Future displayQuestion1(BuildContext context,{
-  required String header,required String message, required Function() onYes}) {
+  required String header,required String message, required Function() onYes,String yesText='',String noText=''}) {
   return showModalBottomSheet(
     context: context,
     builder: (BuildContext context) => Container(
@@ -498,7 +498,7 @@ Future displayQuestion1(BuildContext context,{
         ),
         child: Column(children: [
           SizedBox(height: 35.h),
-          Text(header,style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.bold,fontSize: 28.sp),textDirection: TextDirection.rtl,),
+          Text(header,style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.bold,fontSize: 22.sp),textDirection: TextDirection.rtl,),
           Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,
@@ -509,18 +509,18 @@ Future displayQuestion1(BuildContext context,{
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         height:1,
-                        fontSize: 20.sp,
+                        fontSize: 16.sp,
                       ),textDirection: TextDirection.rtl,),
                 ],
               ),
             ),
           ),
-         SizedBox(height: 20.h),
+         SizedBox(height: 57.h),
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 46.h,
+                  height: 50.h,
                   width: 160.w,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -532,19 +532,21 @@ Future displayQuestion1(BuildContext context,{
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text(
-                        'ביטול',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.normal,
-                            //height: 2.3
+                      child: Center(
+                        child: Text(
+                         noText.isEmpty? 'ביטול':noText,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w600,
+                            height: 1,
+                          ),
                         ),
                       )),
                 ),
                 SizedBox(width: 13.h),
                 SizedBox(
-                  height: 46.h,
+                  height: 50.h,
                   width: 160.w,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -555,12 +557,15 @@ Future displayQuestion1(BuildContext context,{
                       ),
                       onPressed: () => onYes(),
                       child: Text(
-                        'אישור',
+                       yesText.isEmpty? 'אישור':yesText,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
-                            fontWeight: FontWeight.normal,
-                            //height: 2.3
+                            fontWeight: FontWeight.w600,
+                          height: 1,
+
+                          //height: 2.3
                         ),
                       )),
                 ),

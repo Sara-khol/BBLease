@@ -31,7 +31,7 @@ class MyHttpOverrides extends HttpOverrides {
 void main() async {
   HttpOverrides.global = new MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
-//await mySharedPreferences.initializeSharedPreferences(); // Initialize app state
+//await mySharedPreferences.initializeSharedPreferences(); /flutt/ Initialize app state
 
   await SentryFlutter.init(
     (options) {
@@ -178,6 +178,7 @@ class MyApp extends StatelessWidget {
 
   Future<bool> isLogin() async {
     debugPrint('isLogin');
+    debugPrint('ddd ${ScreenUtil().pixelRatio}');
     int userId = await MySharedPreferences().getUserId();
     if (userId == -1) {
       return false;

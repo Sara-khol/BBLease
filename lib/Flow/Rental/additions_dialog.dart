@@ -133,12 +133,12 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
         textDirection: TextDirection.rtl,
         child: Container(
           //constraints: BoxConstraints(maxHeight: 600.h),/
-          height: 450.h,
+         // height: 450.h,
           decoration: ShapeDecoration(
             color: Colors.white,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
           ),
-          child: Column(
+          child: Wrap(
             children: [
               Container(
                 alignment: Alignment.topRight,
@@ -162,7 +162,7 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                             fontWeight: FontWeight.bold,
                             color: Colors.black),),
                         SizedBox(width: 11.w,),
-                        Icon(Icons.extension_outlined, color: pinkColorApp, size: 24.sp,),
+                        Image.asset("assets/icons/Additions.png"),
                       ],
                     ),
                     SizedBox(height: 15.h,),

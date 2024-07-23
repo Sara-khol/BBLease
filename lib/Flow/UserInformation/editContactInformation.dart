@@ -67,7 +67,7 @@ class _EditContactInformationPersonalState extends State<EditContactInformationP
                  Row(
                    mainAxisAlignment: MainAxisAlignment.center,
                      children:[
-                       Image.asset('assets/icons/Phone.png',width: 26.w,),
+                       Image.asset('assets/icons/Phone.png'),
                        SizedBox(width: 6.w),
                        Text('פרטי התקשרות',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
                      ]
@@ -235,8 +235,7 @@ getInputDecoration(String text, {bool isDate = false, String suffixText = ''}) {
     ) ,
     suffixIcon: isDate
         ?ImageIcon(
-      AssetImage("assets/icons/Calendar.png"),
-      size: 24.w,
+      AssetImage("assets/icons/CalendarBig.png"),
       color:pinkColorApp,
     )
         : suffixText.isNotEmpty

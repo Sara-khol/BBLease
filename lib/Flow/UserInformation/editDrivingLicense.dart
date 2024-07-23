@@ -62,7 +62,7 @@ class _EditDrivingLicensePersonalState extends State<EditDrivingLicensePersonal>
                Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                    children:[
-                     Image.asset('assets/icons/car_icon.png',width: 26.w,),
+                     Image.asset('assets/icons/car_icon_big.png'),
                      SizedBox(width: 6.w),
                      Text('רישיון נהיגה',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
                    ]
@@ -93,8 +93,7 @@ class _EditDrivingLicensePersonalState extends State<EditDrivingLicensePersonal>
                        cursorColor: blackColorApp,
                        decoration: getInputDecoration('תוקף',
                            suffixIcon: Image.asset(
-                             'assets/icons/Calendar.png',
-                             width: 24.w,
+                             'assets/icons/CalendarBig.png',
                              color: pinkColorApp,
                            )),
                        style:
@@ -127,9 +126,7 @@ class _EditDrivingLicensePersonalState extends State<EditDrivingLicensePersonal>
                        cursorColor: blackColorApp,
                        decoration: getInputDecoration('תאריך הנפקה',
                            suffixIcon:   Image.asset(
-                             'assets/icons/Calendar.png',
-                             width: 24.w,
-                           )),
+                             'assets/icons/CalendarBig.png')),
                        style:
                        TextStyle(color: blackColorApp, fontSize: 18.sp),
                        controller: _licenseIssDate,

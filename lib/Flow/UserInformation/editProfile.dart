@@ -232,8 +232,7 @@ getInputDecoration(String text, {bool isDate = false, String suffixText = ''}) {
     ) ,
     suffixIcon: isDate
         ?ImageIcon(
-      AssetImage("assets/icons/Calendar.png"),
-      size: 24.w,
+      AssetImage("assets/icons/CalendarBig.png"),
       color:pinkColorApp,
     )
         : suffixText.isNotEmpty

@@ -85,7 +85,7 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                                     borderRadius: BorderRadius.circular(100),
                                   ),
                                 ),
-                                onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => AddDriver(),)),
+                                onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => AddDriver(index: 2,),)),
                                 child: Text('עכשיו',
                                     style: TextStyle(
                                         fontSize: 20.sp,

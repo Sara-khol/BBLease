@@ -16,8 +16,9 @@ import '../../utils/my_colors.dart';
 
 
 class LicenseBack extends StatefulWidget {
-  const LicenseBack({Key? key, required this.index}) : super(key: key);
+  const LicenseBack({Key? key, required this.index, this.orderId}) : super(key: key);
   final int index;
+  final int? orderId;
 
   @override
   State<LicenseBack> createState() => _LicenseBackState();
@@ -262,7 +263,7 @@ class _LicenseBackState extends State<LicenseBack> {
 
                       widget.index==1
                           ?uploadSucceed(context,LicenseBack(index: widget.index),PersonalDetailsForm()/*FaceScanning()*/)
-                          :uploadSucceed(context,LicenseBack(index: widget.index),LicenseDetails(index: widget.index));
+                          :uploadSucceed(context,LicenseBack(index: widget.index,orderId: widget.orderId,),LicenseDetails(index: widget.index,orderId: widget.orderId,));
                       setState(() {
                         _imageBack= xfile;
                         _cameraController.pausePreview();

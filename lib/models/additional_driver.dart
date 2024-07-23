@@ -10,14 +10,17 @@ class AdditionalDriver{
   @JsonKey(name: 'name')
   late String name;
 
-  @JsonKey(name: 'mz')
-  late String tz;
+  @JsonKey(name: 'customer_id')
+  late int clientId;
+
+  @JsonKey(name: 'id')
+  late String id;
 
   @JsonKey(name: 'license_number')
   late String licenseId;
-  @JsonKey(name: 'validity')
+  @JsonKey(name: 'license_exp')
   late String licenseExpDate;
-  @JsonKey(name: 'date_of_issue')
+  @JsonKey(name: 'license_date')
   late String licenseIssDate;
   @JsonKey(name: 'license_level')
   late String licenseDegree;

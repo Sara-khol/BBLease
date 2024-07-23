@@ -380,20 +380,20 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
   DateTime? endDate;
   double? diff;
   if (s != null && e != null) {
-    if(kIsWeb){
+    /*if(kIsWeb){
       startd.text = intl.DateFormat('yyyy.MM.dd').format(s);
       endd.text = intl.DateFormat('yyyy.MM.dd').format(e);
 
       starth.text = intl.DateFormat('mm:HH').format(s);
       endh.text = intl.DateFormat('mm:HH').format(e);
     }
-    else {
+    else {*/
       startd.text = intl.DateFormat('dd.MM.yyyy').format(s);
       endd.text = intl.DateFormat('dd.MM.yyyy').format(e);
 
       starth.text = intl.DateFormat('HH:mm').format(s);
       endh.text = intl.DateFormat('HH:mm').format(e);
-    }
+    //}
     startDate = s;
     endDate = e;
   }
@@ -418,14 +418,14 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                   ? calculatedEndDate = startDate!.add(Duration(hours: 6))
                   : calculatedEndDate = startDate!.add(Duration(days: diff!.toInt()));
                 //calculatedEndDate = calculatedEndDate.add(Duration(days: 1));
-              if(kIsWeb){
+              /*if(kIsWeb){
                 endd.text = intl.DateFormat('yyyy.MM.dd').format(calculatedEndDate);
                 endh.text = intl.DateFormat('mm:HH').format(calculatedEndDate);
               }
-              else{
+              else{*/
                 endd.text = intl.DateFormat('dd.MM.yyyy').format(calculatedEndDate);
                 endh.text = intl.DateFormat('HH:mm').format(calculatedEndDate);
-              }
+              //}
                 endDate = calculatedEndDate;
                 rent.startDate = startDate!;
                 rent.endDate = endDate!;
@@ -572,10 +572,10 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                     firstDate: DateTime.now(),
                                     lastDate: DateTime.now().add(const Duration(days: 14)));
                                 if (date != null) {
-                                  if(kIsWeb){
+                                  /*if(kIsWeb){
                                     startd.text = intl.DateFormat('yyyy.MM.dd').format(date);
                                   }
-                                  else startd.text = intl.DateFormat('dd.MM.yyyy').format(date);
+                                  else*/ startd.text = intl.DateFormat('dd.MM.yyyy').format(date);
                                   print('start: ${startd.text}');
                                   startDate = date;
                                   //setEndDateBasedOnSelection();
@@ -619,9 +619,9 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                 }
                                 if (startDate != null &&starttime != null) {
                                   startDate = DateTime(startDate!.year, startDate!.month, startDate!.day, starttime!.hour, starttime!.minute);
-                                  kIsWeb
+                                  /*kIsWeb
                                       ? starth.text = '${startDate!.minute.toString().padLeft(2,'0')}:${startDate!.hour.toString().padLeft(2,'0')}'
-                                      : starth.text = '${startDate!.hour.toString().padLeft(2,'0')}:${startDate!.minute.toString().padLeft(2,'0')}';
+                                      :*/ starth.text = '${startDate!.hour.toString().padLeft(2,'0')}:${startDate!.minute.toString().padLeft(2,'0')}';
                                   print('start: $startDate');
                                   print('start: ${starth.text}');
                                   setEndDateBasedOnSelection();
@@ -664,8 +664,7 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                     firstDate: DateTime.now(),
                                     lastDate: DateTime(2100));
                                 if (date != null) {
-                                  endd.text = intl.DateFormat('dd.MM.yyyy')
-                                      .format(date);
+                                  endd.text = /*kIsWeb?intl.DateFormat('yyyy.MM.dd').format(date):*/intl.DateFormat('dd.MM.yyyy').format(date);
                                 }
                                 endDate = date;
                               },
@@ -698,9 +697,9 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                 );
 
                                 if (endtime != null) {
-                                  kIsWeb
-                                      ?  endh.text = '${endDate!.minute.toString().padLeft(2,'0')}:${endDate!.hour.toString().padLeft(2,'0')}'
-                                      :  endh.text = '${endDate!.hour.toString().padLeft(2,'0')}:${endDate!.minute.toString().padLeft(2,'0')}';
+                                  // kIsWeb
+                                  //     ?  endh.text = '${endDate!.minute.toString().padLeft(2,'0')}:${endDate!.hour.toString().padLeft(2,'0')}'
+                                  //     :  endh.text = '${endDate!.hour.toString().padLeft(2,'0')}:${endDate!.minute.toString().padLeft(2,'0')}';
                                   if (startDate != null) {
                                     endDate = DateTime(endDate!.year, endDate!.month, endDate!.day, endtime.hour, endtime.minute);
                                     final duration=findDuration(diff);

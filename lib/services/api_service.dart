@@ -38,7 +38,7 @@ class ApiService {
     // else{
       //_baseUrl = 'https://bibilease.co.il/?rest_route=/';
       //_baseUrl = 'https://bibilease.quicksolutions.co.il/?rest_route=/';
-      _baseUrl = 'https://app.bibilease.co.il/?rest_route=/';
+       _baseUrl = 'https://app.bibilease.co.il/?rest_route=/';
   // }
   } // Private constructor for singleton
 
@@ -261,7 +261,7 @@ class ApiService {
     String d2=intl.DateFormat('yyyy-MM-dd').format(endDate);
     String h1=intl.DateFormat('HH:mm').format(startDate);
     String h2=intl.DateFormat('HH:mm').format(endDate);
-    print('${_baseUrl}wp/v2/get_extras_for_rent/$carId/$d1*$d2');
+    print('${_baseUrl}wp/v2/get_extras_for_rent/$carId/$d1*$d2/$h1*$h2');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_extras_for_rent/$carId/$d1*$d2/$h1*$h2');
     if(response.statusCode == 200) {
       var result = response.data;
@@ -438,14 +438,38 @@ class ApiService {
   }
 
   Future getAdditionalDriver(String id,Function(dynamic res) onSuccess) async {
-    print('${_baseUrl}wp/v2/get_additional_driver_details/$id');
-    Response response = await _dio.get('${_baseUrl}wp/v2/get_additional_driver_details/$id');
+    print('${_baseUrl}wp/v2/get_additional_driver_details/${User().userId}/$id');
+    Response response = await _dio.get('${_baseUrl}wp/v2/get_additional_driver_details/${User().userId}/$id');
     if(response.statusCode == 200) {
       var result = response.data;
       print('result: $result');
       onSuccess(result);
     }
     
+  }
+
+  Future addDriverToActiveRent( Map<String, dynamic> jsonMap,Function(dynamic res) onSuccess) async {
+    debugPrint('${_baseUrl}wp/v2/update_additional_driver_on_rent');
+    debugPrint('data : ${json.encode(jsonMap)}');
+    ///{
+    ///  "order_id": 123456789,
+    ///"id": "111",
+    ///"license_number": "12345",
+    ///"license_level": "A",
+    ///"license_date": "2022-03-01",
+    ///"license_exp": "2023-03-01",
+    ///"young_driver": false,
+    ///"new_driver": true
+   /// }
+
+    Response response = await _dio.post('${_baseUrl}wp/v2/update_additional_driver_on_rent',
+        data: json.encode(jsonMap));
+    // debugPrint('response $response');
+    debugPrint('data: ${response.data}');
+    if(response.statusCode==200) {
+      onSuccess(response.data);
+    }
+
   }
 
   Future getPriceList(Function(dynamic res) onSuccess) async {

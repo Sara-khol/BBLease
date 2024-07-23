@@ -165,9 +165,9 @@ class _PersonalProfileState extends State<PersonalProfile> {
                 ),
 
                 Text('${User().tranzilaCcno} **** **** ****',style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
-                !kIsWeb
-                    ?Text('${User().tranzilaCardExpDate.substring(0,2)}/${User().tranzilaCardExpDate.substring(2)}', style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,))
-                    :Text('${User().tranzilaCardExpDate.substring(2)}/${User().tranzilaCardExpDate.substring(0,2)}', style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
+                //!kIsWeb?
+                    Text('${User().tranzilaCardExpDate.substring(0,2)}/${User().tranzilaCardExpDate.substring(2)}', style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
+                    //:Text('${User().tranzilaCardExpDate.substring(2)}/${User().tranzilaCardExpDate.substring(0,2)}', style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
               ],
             ),
           ),

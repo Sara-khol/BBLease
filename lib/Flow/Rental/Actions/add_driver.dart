@@ -1,5 +1,6 @@
 import 'package:bblease/Flow/registration/license_front.dart';
 import 'package:bblease/models/additional_driver.dart';
+import 'package:bblease/models/class_user.dart';
 import 'package:bblease/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +10,9 @@ import '../../../utils/my_colors.dart';
 import '../dialogs.dart';
 
 class AddDriver extends StatefulWidget {
-  const AddDriver({Key? key}) : super(key: key);
+  const AddDriver({Key? key, required this.index, this.orderId}) : super(key: key);
+  final int index;
+  final int? orderId;
 
   @override
   State<AddDriver> createState() => _AddDriverState();
@@ -46,7 +49,7 @@ class _AddDriverState extends State<AddDriver> {
               TextField(
                 readOnly: true,
                 cursorColor: blackColorApp,
-                decoration: getInputDecoration('תוקף',332,
+                decoration: getInputDecoration('תעודת זהות',332,
                     suffixIcon: Icon(Icons.check_circle_outline,color: pinkColorApp,)/*Image.asset(
                       'assets/icons/с.png',
                       width: 18.w,
@@ -69,7 +72,7 @@ class _AddDriverState extends State<AddDriver> {
                     ),
                     onPressed: ()  {
                       ApiService().getAdditionalDriver(_controller.text, (res) {
-                        res==-1?
+                        res==[]?
                         addDriver(true)
                         :addDriver(false,res);
                       });
@@ -132,16 +135,22 @@ class _AddDriverState extends State<AddDriver> {
                                 borderRadius: BorderRadius.circular(100),
                               ),
                             ),
-                            onPressed: () =>isNew?Navigator.push(context, MaterialPageRoute(builder:(context) => LicenseFront(index: 2))):(){
-                              rent.additionalDriver=AdditionalDriver.fromJson(json);
-                            },
+                            onPressed: () {
+                              User().additionalDriver.id=_controller.text;
+                              isNew
+                                ? Navigator.push(context, MaterialPageRoute(builder: (context) => LicenseFront(index: widget.index)))
+                                : User().additionalDriver=AdditionalDriver.fromJson(json);
+                              },
                             child: Text('הוספת נהג',
                                 style: TextStyle(
                                     fontSize: 20.sp,
                                     color: Colors.white,
                                     fontWeight: FontWeight.normal,
                                     //height: 2.3
-                                ))),
+                                )
+                            )
+
+                        ),
                       ),
                       SizedBox(height: 22.h),
                     ]

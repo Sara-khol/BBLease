@@ -380,13 +380,13 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     ),
                   ),
                   SizedBox(height: 22.h,),
-                  kIsWeb?
+                  /*kIsWeb?
                   Text(duration.inDays > 0 ?'$seconds:$minutes:$hours:$days':'$seconds:$minutes:$hours',
                       style: TextStyle(
                           fontSize: 36.sp,
                           fontWeight: FontWeight.bold,
                           color: const Color.fromRGBO(15, 21, 17, 1),
-                         )):
+                         )):*/
                   Text(duration.inDays > 0 ?'$days:$hours:$minutes:$seconds':'$hours:$minutes:$seconds',
                       style: TextStyle(
                         fontSize: 36.sp,
@@ -397,7 +397,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(kIsWeb?intl.DateFormat('ss:mm:HH').format(rent.endDate):intl.DateFormat('HH:mm:ss').format(rent.endDate),
+                      Text(/*kIsWeb?intl.DateFormat('ss:mm:HH').format(rent.endDate):*/intl.DateFormat('HH:mm:ss').format(rent.endDate),
                           style: TextStyle(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.normal,
@@ -410,7 +410,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                               fontWeight: FontWeight.normal,
                               color: const Color.fromRGBO(15, 21, 17, 1),
                               )),
-                      Text(kIsWeb?intl.DateFormat('yyyy/MM/dd').format(rent.endDate):intl.DateFormat('dd/MM/yyyy').format(rent.endDate),
+                      Text(/*kIsWeb?intl.DateFormat('yyyy/MM/dd').format(rent.endDate):*/intl.DateFormat('dd/MM/yyyy').format(rent.endDate),
                           style: TextStyle(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.normal,
@@ -685,7 +685,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   ),
                                 ),
                                 onTap: () => displayQuestion1(context,message: 'ודא כי יש ברשותך את פרטי הרשיון\nשל הנהג הנוסף',header: 'ברצונך להוסיף נהג חדש?',
-                                    onYes: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AddDriver(),))),
+                                    onYes: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AddDriver(index: 3,orderId: rent.orderNum,),))),
                               ),
                             ),
                           ),
@@ -994,7 +994,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
     );
   }
 
-  Future addDriveReminder(){
+  Future addDriverReminder(){
     return showModalBottomSheet<dynamic>(
         isScrollControlled: true,
         isDismissible: true,
@@ -1035,7 +1035,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                     borderRadius: BorderRadius.circular(100),
                                   ),
                                 ),
-                                onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => AddDriver(),)),
+                                onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => AddDriver(index: 3,orderId: rent.orderNum,),)),
                                 child: Text('למלא עכשיו',
                                     style: TextStyle(
                                         fontSize: 20.sp,
@@ -1054,7 +1054,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  reminder=Timer(const Duration(minutes: 10), () =>addDriveReminder());
+                                  reminder=Timer(const Duration(minutes: 10), () =>addDriverReminder());
                                   Navigator.pop(context);
                                 },
                                 child: Text('בהמשך',

@@ -401,10 +401,11 @@ class _SearchCarState extends State<SearchCar> {
             ]),
             Align(
                 alignment: Alignment.bottomCenter,
-                child: RotatedBox(
-                  quarterTurns: 1,
+                child: Transform(
+                  transform: Matrix4.identity()..translate(0.0, 0.0)..rotateZ(1.57),
                   child: Container(
-                    width: 124.h,
+                    width: 124,
+                    height: 397,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment(-1.00, -0.00),

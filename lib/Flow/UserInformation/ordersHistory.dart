@@ -257,7 +257,6 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                   onPressed: () {
                                     Navigator.pop(context);
                                     setState(() {});
-
                                   },
                                   child: const Text(
                                     'הצג',
@@ -398,9 +397,9 @@ class _OrdersHistoryState extends State<OrdersHistory> {
           ),
           SizedBox(height: 15.h,),
           TextButton(
-              onPressed: () {
-                filterByDate();
-                setState(() {                });
+              onPressed: ()async {
+                await filterByDate();
+                setState(() {});
               },
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.end,

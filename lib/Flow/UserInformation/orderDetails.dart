@@ -291,9 +291,9 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                 SizedBox(width: 16.w,),
                                                 Column(
                                                   children: [
-                                                    Text(kIsWeb ?
+                                                    Text(/*kIsWeb ?
                                                     " מ- ${intl.DateFormat('mm:HH yyyy.MM.dd').format(widget.rent.startDate)}":
-                                                    " מ- ${intl.DateFormat('dd.MM.yyyy HH:mm').format(widget.rent.startDate)}",
+                                                    */" מ- ${intl.DateFormat('dd.MM.yyyy HH:mm').format(widget.rent.startDate)}",
                                                       style: TextStyle(
                                                         color: Color(0xFF0F1511),
                                                         fontSize: 18.sp,
@@ -301,9 +301,9 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                         FontWeight.normal,
                                                       ),
                                                     ),
-                                                    Text(kIsWeb ?
+                                                    Text(/*kIsWeb ?
                                                     " עד- ${intl.DateFormat('mm:HH yyyy.MM.dd').format(widget.rent.endDate)}":
-                                                    " עד- ${intl.DateFormat('dd.MM.yyyy HH:mm').format(widget.rent.endDate)}",
+                                                    */" עד- ${intl.DateFormat('dd.MM.yyyy HH:mm').format(widget.rent.endDate)}",
                                                       style: TextStyle(
                                                         color: Color(0xFF0F1511),
                                                         fontSize: 18.sp,

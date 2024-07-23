@@ -17,9 +17,11 @@ import 'package:bblease/utils/my_colors.dart';
 import '../UserInformation/terms_and_conditions.dart';
 
 class LicenseDetails extends StatefulWidget {
-  const LicenseDetails({Key? key, required this.index}) : super(key: key);
+  const LicenseDetails({Key? key, required this.index, this.orderId}) : super(key: key);
 
   final int index;
+
+  final int? orderId;
 
   @override
   State<LicenseDetails> createState() => _LicenseDetailsState();
@@ -290,11 +292,12 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                           User().licenseExpDate = exp;
                           await registerUser();
                         }
-                        if(widget.index==2){
+                        if(widget.index==2||widget.index==3){
                           User().additionalDriver.licenseId = _licenseId.text;
                           User().additionalDriver.licenseDegree = _degree.text;
                           User().additionalDriver.licenseIssDate = iss.toString();
                           User().additionalDriver.licenseExpDate = exp;
+
                         }
                       }
                     },
@@ -429,6 +432,30 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   onPressed: () {
                     rent.additionalDriver=User().additionalDriver;
                     User().additionalDriver=AdditionalDriver();
+                    ///{
+                    ///  "order_id": 123456789,
+                    ///"id": "111",
+                    ///"license_number": "12345",
+                    ///"license_level": "A",
+                    ///"license_date": "2022-03-01",
+                    ///"license_exp": "2023-03-01",
+                    ///"young_driver": false,
+                    ///"new_driver": true
+                    /// }
+                    Map<String, dynamic> map = {
+                      "order_id": widget.orderId.toString(),
+                      "id": User().additionalDriver.id,
+                      "license_number": "12345",
+                      "license_level": "A",
+                      "license_date": "2022-03-01",
+                      "license_exp": "2023-03-01",
+                      "young_driver": false,
+                      "new_driver": true
+                    };
+                    ApiService().addDriverToActiveRent(map, (res) {
+
+                    },);
+
                   },
                   child: Text(
                     'שמור והמשך בנסיעה',

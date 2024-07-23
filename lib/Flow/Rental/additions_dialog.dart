@@ -188,14 +188,15 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: turquoiseColorApp,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),),
-                          onPressed: () {
+                          onPressed: () async {
                             widget.rent.additions=widget.additionsList;
                             widget.rent.car=widget.car;
-                            bool containsAdditionalDriver = widget.additionsList.any((addition) => addition.name == 'additional_driver');
+                            bool containsAdditionalDriver = widget.rent.additions!.any((addition) => addition.name == 'additional_driver');
                             if(containsAdditionalDriver){
-                              addDriverDialog();
+                             await addDriverDialog();
 
                             }
+
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(

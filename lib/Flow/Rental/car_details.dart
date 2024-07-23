@@ -711,7 +711,7 @@ class _CarDetailsState extends State<CarDetails> {
                 Row(
                   children: [
                     Text('${widget.rent.additions![index].price} ₪ ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),),
-                    Text('ליום', style: TextStyle(fontSize: 16.sp),),
+                    if(widget.rent.additions![index].title.contains("50")) Text('ליום', style: TextStyle(fontSize: 16.sp),),
                   ],
                 )
               ],

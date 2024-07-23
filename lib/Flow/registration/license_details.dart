@@ -1,4 +1,5 @@
 
+import 'package:bblease/Flow/Rental/active_rent.dart';
 import 'package:bblease/Flow/registration/payment_webView.dart';
 import 'package:bblease/landspace_widget.dart';
 import 'package:bblease/models/additional_driver.dart';
@@ -208,7 +209,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   value: widget.index==1?User().isNewDriver:false,
                   onChanged: (bool? value) {
                     setState(() {
-                      widget.index==1?User().isNewDriver = value!:null;
+                      widget.index==1?User().isNewDriver = value!:User().additionalDriver.isNewDriver = value!;
                     });
                   },
                   checkColor: blackColorApp,
@@ -294,6 +295,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                           User().additionalDriver.licenseDegree = _degree.text;
                           User().additionalDriver.licenseIssDate = iss.toString();
                           User().additionalDriver.licenseExpDate = exp;
+                          await registerAdditionalDriver();
 
                         }
                       }
@@ -394,8 +396,34 @@ class _LicenseDetailsState extends State<LicenseDetails> {
     });
   }
 
-  Future addDriverSucceed() {
-    return showModalBottomSheet(
+  Future registerAdditionalDriver() async{
+    showLoading(context);
+    if(widget.index==3) {
+        ApiService().addDriverToActiveRent(widget.orderId!, (res) {
+          Navigator.pop(context);
+          displayMessage(context,
+              message: 'הנתון התקבל בהצלחה',
+              onClose: () {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ActiveRentDetails(),));
+              });
+      },);
+    }
+
+    if(widget.index==2) {
+      ApiService().addDriverToUser((res) {
+        Navigator.pop(context);
+        displayMessage(context,
+            message: 'הנתון התקבל בהצלחה',
+            onClose: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
+              Navigator.pop(context);
+              Navigator.pop(context);
+              Navigator.pop(context);
+            });
+      },);
+    }
+    /*return showModalBottomSheet(
       context: context,
       builder: (BuildContext context) => Container(
           height: 180.h,
@@ -449,6 +477,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       "young_driver": false,
                       "new_driver": true
                     };
+                    if
                     ApiService().addDriverToActiveRent(map, (res) {
 
                     },);
@@ -467,6 +496,6 @@ class _LicenseDetailsState extends State<LicenseDetails> {
       barrierColor: Colors.black12.withOpacity(0.1),
       // shape: const RoundedRectangleBorder(
       //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-    );
+    );*/
   }
 }

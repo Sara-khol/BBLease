@@ -19,7 +19,6 @@ import '../services/api_service.dart';
 import 'UserInformation/benefits_and_promotions.dart';
 import 'UserInformation/contact_us.dart';
 
-
 Future sideMenu(context) {
   return SideSheet.right(
       body: Padding(
@@ -29,21 +28,43 @@ Future sideMenu(context) {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 18.h,),
+                SizedBox(
+                  height: 18.h,
+                ),
                 Align(
-                  alignment: Alignment.topRight,
-                    child: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: Icon(Icons.arrow_back_ios))),
                 //SizedBox(height: 10.h,),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text('האיזור האישי שלי', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),),
-                    SizedBox(height: 12.h,),
-                    Icon(Icons.account_circle_outlined, size: 38.sp, color: blackColorApp,),
-                    SizedBox(height: 6.h,),
+                    Text(
+                      'האיזור האישי שלי',
+                      style: TextStyle(
+                          fontSize: 20.sp, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 12.h,
+                    ),
+                    Icon(
+                      Icons.account_circle_outlined,
+                      size: 38.sp,
+                      color: blackColorApp,
+                    ),
+                    SizedBox(
+                      height: 6.h,
+                    ),
                     User().firstName.isNotEmpty && User().lastName.isNotEmpty
-                        ? Text('${User().firstName} ${User().lastName}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),)
-                        : Text('שם משתמש', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold))
+                        ? Text(
+                            '${User().firstName} ${User().lastName}',
+                            style: TextStyle(
+                                fontSize: 16.sp, fontWeight: FontWeight.bold),
+                          )
+                        : Text('שם משתמש',
+                            style: TextStyle(
+                                fontSize: 16.sp, fontWeight: FontWeight.bold))
                   ],
                 ),
                 SizedBox(height: 34.h),
@@ -55,15 +76,32 @@ Future sideMenu(context) {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(Icons.account_circle_outlined, color: blackColorApp,),
-                          SizedBox(width: 10.w,),
-                          Flexible(child: Text('פרופיל אישי', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
+                          Icon(
+                            Icons.account_circle_outlined,
+                            color: blackColorApp,
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Flexible(
+                              child: Text(
+                            'פרופיל אישי',
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.normal,
+                                color: blackColorApp,
+                                height: 1.5),
+                          ))
                         ],
                       ),
                     ),
                     onPressed: () {
                       Navigator.pop(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalProfile(),));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PersonalProfile(),
+                          ));
                     },
                     // onPressed: openScreen(context,const PersonalProfile())
                   ),
@@ -77,16 +115,30 @@ Future sideMenu(context) {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset("assets/icons/car.png"),
-                          SizedBox(width: 10.w,),
-                          Flexible(child: Text('היסטורית הזמנות', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Flexible(
+                              child: Text(
+                            'היסטורית הזמנות',
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.normal,
+                                color: blackColorApp,
+                                height: 1.5),
+                          ))
                         ],
                       ),
                     ),
                     onPressed: () {
                       Navigator.pop(context);
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => OrdersHistory(index: 1,),));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OrdersHistory(
+                              index: 1,
+                            ),
+                          ));
                     },
                   ),
                 ),
@@ -98,51 +150,72 @@ Future sideMenu(context) {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                         // Image.asset('assets/images/mingcute_car-line.png',width: 24.w,),
+                          // Image.asset('assets/images/mingcute_car-line.png',width: 24.w,),
 
                           Image.asset("assets/icons/mingcute_car-line.png"),
-                          SizedBox(width: 10.w,),
-                          Flexible(child: Text('הזמנות עתידיות', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Flexible(
+                              child: Text(
+                            'הזמנות עתידיות',
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.normal,
+                                color: blackColorApp,
+                                height: 1.5),
+                          ))
                         ],
                       ),
                     ),
                     onPressed: () {
                       Navigator.pop(context);
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => OrdersHistory(index: 2,),));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OrdersHistory(
+                              index: 2,
+                            ),
+                          ));
                     },
                   ),
                 ),
                 SizedBox(
                   height: 55.h,
                   child: TextButton(
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset("assets/icons/Creditcard.png"),
-                          SizedBox(width: 10.w,),
-                          Flexible(child: Text('עידכון כ. אשראי',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, height: 1.5, color: blackColorApp)),)
-                        ],
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset("assets/icons/Creditcard.png"),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Flexible(
+                              child: Text('עידכון כ. אשראי',
+                                  style: TextStyle(
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.normal,
+                                      height: 1.5,
+                                      color: blackColorApp)),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    onPressed: () {
-                      ApiService().getPaymentUrl(User().userId, (res) {
-                        Navigator.pop(context);
-                        Navigator.push(
+                      onPressed: () {
+                        ApiService().getPaymentUrl(User().userId, (res) {
+                          Navigator.pop(context);
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => PaymentWebView(
-                                  url: res,
-                                  index: 2,
-                                )),
-                               );
-                      });
-                    }
-
-                  ),
+                                      url: res,
+                                      index: 2,
+                                    )),
+                          );
+                        });
+                      }),
                 ),
                 SizedBox(
                   height: 55.h,
@@ -152,15 +225,32 @@ Future sideMenu(context) {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(Icons.drive_eta_outlined,color: blackColorApp,),
-                          SizedBox(width: 10.w,),
-                          Flexible(child: Text('ביצוע הזמנה', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
+                          Icon(
+                            Icons.drive_eta_outlined,
+                            color: blackColorApp,
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Flexible(
+                              child: Text(
+                            'ביצוע הזמנה',
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.normal,
+                                color: blackColorApp,
+                                height: 1.5),
+                          ))
                         ],
                       ),
                     ),
                     onPressed: () {
                       Navigator.pop(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => RentalWidget(),));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RentalWidget(),
+                          ));
                     },
                   ),
                 ),
@@ -172,15 +262,33 @@ Future sideMenu(context) {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(Icons.error_outline_outlined,color: blackColorApp,),
-                          SizedBox(width: 10.w,),
-                          Flexible(child: Text('תקנון', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
+                          Icon(
+                            Icons.error_outline_outlined,
+                            color: blackColorApp,
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Flexible(
+                              child: Text(
+                            'תקנון',
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.normal,
+                                color: blackColorApp,
+                                height: 1.5),
+                          ))
                         ],
                       ),
                     ),
                     onPressed: () {
                       Navigator.pop(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Terms(index: 1,)));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Terms(
+                                    index: 1,
+                                  )));
                     },
                   ),
                 ),
@@ -193,14 +301,25 @@ Future sideMenu(context) {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset("assets/icons/wallet.png"),
-                          SizedBox(width: 10.w,),
-                          Flexible(child: Text('מחירון', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Flexible(
+                              child: Text(
+                            'מחירון',
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.normal,
+                                color: blackColorApp,
+                                height: 1.5),
+                          ))
                         ],
                       ),
                     ),
                     onPressed: () {
                       Navigator.pop(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => PriceList()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => PriceList()));
                     },
                   ),
                 ),
@@ -213,14 +332,27 @@ Future sideMenu(context) {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset("assets/icons/solar_sale-linear.png"),
-                          SizedBox(width: 10.w,),
-                          Flexible(child: Text('הטבות ומבצעים', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Flexible(
+                              child: Text(
+                            'הטבות ומבצעים',
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.normal,
+                                color: blackColorApp,
+                                height: 1.5),
+                          ))
                         ],
                       ),
                     ),
                     onPressed: () {
                       Navigator.pop(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => BenefitsAndPromotions()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BenefitsAndPromotions()));
                     },
                   ),
                 ),
@@ -233,48 +365,79 @@ Future sideMenu(context) {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset("assets/icons/phone_menu.png"),
-                          SizedBox(width: 10.w,),
-                          Flexible(child: Text('צור קשר', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Flexible(
+                              child: Text(
+                            'צור קשר',
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.normal,
+                                color: blackColorApp,
+                                height: 1.5),
+                          ))
                         ],
                       ),
                     ),
                     onPressed: () {
                       Navigator.pop(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUs(),),);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ContactUs(),
+                        ),
+                      );
                     },
                   ),
                 ),
                 SizedBox(
                   height: 55.h,
                   child: TextButton(
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(Icons.logout,color:  blackColorApp,),
-                          SizedBox(width: 10.w,),
-                          Flexible(child: Text('התנתק', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal, color: blackColorApp,height: 1.5),))
-                        ],
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.logout,
+                              color: blackColorApp,
+                            ),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Flexible(
+                                child: Text(
+                              'התנתק',
+                              style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.normal,
+                                  color: blackColorApp,
+                                  height: 1.5),
+                            ))
+                          ],
+                        ),
                       ),
-                    ),
-                    onPressed: (){
-                      displayQuestion(context,message:'?האם אתה בטוח שברצונך להתנתק',onYes: ()
-                      {
-                        MySharedPreferences().clearAllSharedPreference();
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const WelcomeForm(
-                                )),
-                                (route) => false);
-                      });
-                    }
-                  ),
+                      onPressed: () {
+                        displayQuestion1(context,
+                            header: 'להתנתק?',
+                            message: 'האם ברצונך להתנתק מהאפליקציה?',
+                            yesText: 'צא מהאפליקציה',
+                            noText: 'הישאר', onYes: () {
+                          MySharedPreferences().clearAllSharedPreference();
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const WelcomeForm()),
+                              (route) => false);
+                        });
+                      }),
                 ),
-                 //Spacer(),
-               getBottomButtons(context),
-               SizedBox(height: 30.h,),
+                //Spacer(),
+                getBottomButtons(context),
+                SizedBox(
+                  height: 30.h,
+                ),
               ],
             ),
           ),
@@ -285,10 +448,11 @@ Future sideMenu(context) {
 }
 
 getBottomButtons(context) {
-   return Column(mainAxisSize: MainAxisSize.min,
-     mainAxisAlignment: MainAxisAlignment.center,
-     children: [
-     /* SizedBox(
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      /* SizedBox(
        height: 60.h,
        width: 200.w,
        child: Center(
@@ -331,36 +495,40 @@ getBottomButtons(context) {
              )),
        ),
      ),*/
-     //SizedBox(height: 33.h,),
-     GestureDetector(
-       onTap: () {
-         support.call;
-       },
-       child: Container(
-        // height: 60.h,
-       padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 12.h),
-       decoration: BoxDecoration(color:  pinkColorApp,borderRadius: BorderRadius.circular(100) ),
-         child: Center(
-           child:Row(
-                 mainAxisAlignment: MainAxisAlignment.center,
-                 crossAxisAlignment: CrossAxisAlignment.center,
-                 children: [
-                   Text(
-                     textAlign:TextAlign.center,
-                     'חיוג במקרה חירום ',
-                     style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: Colors.white,
-                     height: 1),
-                   ),
-                   SizedBox(width: 12.w),
-                   Icon(
-                     Icons.phone_outlined,
-                     color: Colors.white,
-                     size: 18.sp,
-                   )
-                 ],
-               )),
-
-       ),
-     ),
-   ],);
+      //SizedBox(height: 33.h,),
+      GestureDetector(
+        onTap: () {
+          support.call;
+        },
+        child: Container(
+          // height: 60.h,
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.h),
+          decoration: BoxDecoration(
+              color: pinkColorApp, borderRadius: BorderRadius.circular(100)),
+          child: Center(
+              child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                textAlign: TextAlign.center,
+                'חיוג במקרה חירום ',
+                style: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                    height: 1),
+              ),
+              SizedBox(width: 12.w),
+              Icon(
+                Icons.phone_outlined,
+                color: Colors.white,
+                size: 18.sp,
+              )
+            ],
+          )),
+        ),
+      ),
+    ],
+  );
 }

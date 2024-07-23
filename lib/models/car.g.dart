@@ -22,7 +22,7 @@ Car _$CarFromJson(Map<String, dynamic> json) => Car(
       address: json['adress'] as String,
     )
       ..carImages =
-          (json['car_images'] as List<dynamic>).map((e) => e as String).toList()
+      json['car_images']!=null?  (json['car_images'] as List<dynamic>).map((e) => e as String).toList():[]
       ..parkPosition = (json['park_position'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(k, (e as num).toDouble()),
       )

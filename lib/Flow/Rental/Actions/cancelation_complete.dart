@@ -25,7 +25,7 @@ class CancelationComplete extends StatelessWidget {
           Text('מידע נוסף מחכה לך באזור האישי',
             style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.normal),textAlign: TextAlign.center,),
           SizedBox(height: 60.h,),
-          Image.asset('assets/images/image1.png',width: 300.w,),
+          Image.asset('assets/images/image1.png'),
           SizedBox(height: 70.h,),
           Text('מקווים לראותך שוב בקרוב!',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.bold),textAlign: TextAlign.center,textDirection: TextDirection.rtl,),
           SizedBox(height: 138.h,),

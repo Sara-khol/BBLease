@@ -150,8 +150,8 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       decoration: const BoxDecoration(color: Color(0xFFF7F7F7), borderRadius: BorderRadius.all(Radius.circular(100))),
                       child: Row(
                         children: [
-                          SizedBox(width: 29.w,),
-                          ImageIcon(AssetImage("assets/icons/car_icon.png"), color: pinkColorApp,),
+                          SizedBox(width: 29.w),
+                          Image.asset("assets/icons/car_icon_black.png",color: pinkColorApp,),
                           Text('  מספר רכב: ', style: TextStyle(fontSize: 18.sp),),
                           const Spacer(),
                           Padding(
@@ -476,16 +476,16 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                         SizedBox(width: 8.w,),*/
                         SizedBox(
                           height: 46.h,
-                          width: 162.w,
+                          //width: 162.w,
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: pinkColorApp,
                                 minimumSize: Size.zero, // Set this
-                                /*padding: EdgeInsets.only(
+                                padding: EdgeInsets.only(
                                     right: 9.w,
                                     left: 13.w,
                                     top: 8.h,
-                                    bottom: 10.h),*/
+                                    bottom: 10.h),
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
                               ),
                               onPressed: () {
@@ -518,7 +518,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                     '  סיום השכרה    ',
                                     style: TextStyle(
                                         fontSize: 16.sp,
-                                        fontWeight: FontWeight.normal,
+                                        fontWeight: FontWeight.w600,
                                         color: Colors.white),
                                   ),
                                   Icon(
@@ -534,7 +534,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                   ),
                   SizedBox(height: 33.h,),
                   Container(
-                    height: 95.h,
+                    height: 100.h,
                     // width: 393.w,
                     margin: EdgeInsets.zero,
                     child: ListView(
@@ -546,7 +546,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                         Padding(
                           padding: EdgeInsets.only(right: 10.w),
                           child: Container(
-                            height: 95.h,
+                            height: 100.h,
                             width: 100.w,
                             clipBehavior: Clip.antiAlias,
                             decoration: ShapeDecoration(
@@ -562,20 +562,18 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                 )
                               ],
                             ),
-                            child: InkWell(
-                              child: SizedBox(
-                                width: 60.w,
+                            child: Center(
+                              child: InkWell(
                                 child: Column(
                                   children: [
                                     SizedBox(height: 20.h,),
-                                    ImageIcon(
+                                    const ImageIcon(
                                       AssetImage("assets/icons/Broken.png"),
-                                      size: 24.w,
-                                      color: const Color(0xFF0F1511),
+                                      color: Color(0xFF0F1511),
                                     ),
                                     SizedBox(height: 10.h,),
                                     Text(
-                                      'דיווח\n על תקלה',
+                                      'דיווח\nעל תקלה',
                                       style: TextStyle(
                                         fontSize: 14.sp,
                                         fontWeight: FontWeight.normal,
@@ -585,15 +583,15 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                     ),
                                   ],
                                 ),
+                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ReportAccident(),)),
                               ),
-                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ReportAccident(),)),
                             ),
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.only(right: 10.w),
                           child: Container(
-                            height: 95.h,
+                            height: 100.h,
                             width: 100.w,
                             decoration: ShapeDecoration(
                               shape: RoundedRectangleBorder(
@@ -616,10 +614,9 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                     SizedBox(
                                       height: 20.h,
                                     ),
-                                    ImageIcon(
-                                      AssetImage("assets/icons/car_icon.png"),
-                                      color: const Color(0xFF0F1511),
-                                    ),
+                                    Image.asset("assets/icons/car_icon_black.png"),
+                                      // Image.asset("assets/icons/car_icon.png", color:  Color(0xFF0F1511),
+                                      //     colorBlendMode: BlendMode.multiply),
                                     SizedBox(
                                       height: 10.h,
                                     ),
@@ -648,7 +645,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                         Padding(
                           padding: EdgeInsets.only(right: 10.w),
                           child: Container(
-                            height: 95.h,
+                            height: 100.h,
                             width: 100.w,
                             decoration: ShapeDecoration(
                               shape: RoundedRectangleBorder(
@@ -692,7 +689,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                         Padding(
                           padding: EdgeInsets.only(right: 10.w),
                           child: Container(
-                            height: 95.h,
+                            height: 100.h,
                             width: 100.w,
                             decoration: ShapeDecoration(
                               shape: RoundedRectangleBorder(
@@ -718,7 +715,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                       SizedBox(height: 10.h,),
                                       Text('תיעוד רכב',
                                         style: TextStyle(
-                                            fontSize: 14.sp,
+                                            fontSize: 18.sp,
                                             fontWeight: FontWeight.normal,
                                             height: 1),
                                         textAlign: TextAlign.center,
@@ -742,7 +739,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                         Padding(
                           padding: EdgeInsets.only(left: 10.w, right: 10.w),
                           child: Container(
-                            height: 95.h,
+                            height: 100.h,
                             width: 100.w,
                             decoration: ShapeDecoration(
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -763,7 +760,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   child: Column(
                                     children: [
                                       SizedBox(height: 20.h,),
-                                      Image.asset('assets/icons/Frame.png', width: 24.w, height: 24.h, fit: BoxFit.fitHeight),
+                                      Image.asset('assets/icons/Frame.png'),
                                       SizedBox(height: 10.h,),
                                       Text('שלח קוד\nלפתיחת דלת',
                                         style: TextStyle(
@@ -783,13 +780,13 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 28.h,),
+                  SizedBox(height: 32.h,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                         width: 170.w,
-                        height: 114.h,
+                      //  height: 114.h,
                         decoration: ShapeDecoration(
                           color: Color(0xFFF6F6F6),
                           shape: RoundedRectangleBorder(
@@ -798,57 +795,47 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                         child: Column(
                           children: [
                             SizedBox(height: 12.h,),
-                            Visibility(
-                              visible: percent!=-1,
-                              child: Text(
-                                '$percent%',
-                                style: TextStyle(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.bold,
-                                    height: 1),
-                              ),
-                            ),
+                             if (percent!=-1) Text(
+                               '$percent%',
+                               style: TextStyle(
+                                   fontSize: 14.sp,
+                                   fontWeight: FontWeight.bold,
+                                   height: 1),
+                             ) else SizedBox(height: 21.h,),
                             SizedBox(height: 8.h),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset('assets/icons/KM.png',
-                                    width: 30.w,
-                                    height: 15.h,
-                                    fit: BoxFit.fitHeight),
+                                Image.asset('assets/icons/KM.png'),
                                 SizedBox(width: 19.w),
                                 Text(
                                   '|',
                                   style: TextStyle(
                                       fontSize: 14.sp,
+                                      color: const Color(0xffD9D9D9),
                                       fontWeight: FontWeight.bold,
                                       height: 1),
                                 ),
                                 SizedBox(width: 19.w),
-                                Image.asset('assets/icons/Gas.png',
-                                    width: 30.w,
-                                    height: 30.h,
-                                    fit: BoxFit.fitHeight),
+                                Image.asset('assets/icons/Gas.png'),
                               ],
                             ),
-                            SizedBox(height: 12.h),
-                            Visibility(
-                              visible: km!=-1,
-                              child: Text(
-                                '$km ק"מ',
-                                style: TextStyle(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.bold,
-                                    height: 1),
-                              ),
-                            ),
+                            SizedBox(height: 19.h),
+                            if (km!=-1) Text(
+                              '$km ק"מ',
+                              style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                  height: 1),
+                            ) else SizedBox(height: 21.h),
+                            SizedBox(height: 10.h)
                           ],
                         ),
                       ),
                       SizedBox(width: 16.w,),
                       Container(
                         width: 108.w,
-                        height: 114.h,
+                      //  height: 114.h,
                         clipBehavior: Clip.antiAlias,
                         decoration: ShapeDecoration(
                           color: Colors.white,
@@ -891,20 +878,17 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                               SizedBox(height: 11.h),
                               ImageIcon(
                                 isLocked?AssetImage("assets/icons/unlock.png"):AssetImage("assets/icons/lock.png"),
-                                size: 24.w,
                                 color: isLocked?turquoiseColorApp:pinkColorApp,
                               ),
                               SizedBox(height: 7.h),
-                              Image.asset('assets/icons/Frame-30.png',
-                                  width: 25.67.w,
-                                  height: 33.42.h,
-                                  fit: BoxFit.fitHeight),
+                              Image.asset('assets/icons/Frame-30.png'),
                               SizedBox(height: 4.58.h),
                               ImageIcon(
                                 isLocked?AssetImage("assets/icons/lock.png"):AssetImage("assets/icons/unlock.png"),
-                                size: 24.w,
                                 color: isLocked?pinkColorApp.withOpacity(0.5):turquoiseColorApp.withOpacity(0.5),
                               ),
+                              SizedBox(height: 10.h),
+
                               //SizedBox(height:10.h),
                             ],
                           ),
@@ -912,6 +896,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       ),
                     ],
                   ),
+                  SizedBox(height: 44.h,)
                 ],
               ),
             ],
@@ -951,7 +936,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                             fontWeight: FontWeight.bold,
                           )
                       ),
-                      ImageIcon(AssetImage("assets/icons/car_icon.png"),color: pinkColorApp,),
+                      ImageIcon(AssetImage("assets/icons/car_icon_black.png"),color: pinkColorApp,),
                     ],
                   ),
                   SizedBox(height: 40.h),
@@ -1195,19 +1180,22 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
       context: context,
       builder: (context) {
         return Dialog(
+          backgroundColor:  Colors.white,
           shadowColor: Colors.grey.withOpacity(0.1),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),), //this right here
           child: Container(
             width: 256.w,
-            height: 200.h,
+           // height: 200.h,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Align(alignment: Alignment.topRight, child: CloseButton()),
+              SizedBox(height: 18.h,),
+                const Align(alignment: Alignment.topRight, child: CloseButton()),
+                SizedBox(height: 9.h,),
                 ImageIcon(AssetImage("assets/icons/car_open_doors.png"),color: pinkColorApp,),
                 SizedBox(height: 30.h),
-
                 Text(
                   'הדלתות פתוחות',
                   style: TextStyle(fontWeight: FontWeight.normal, fontSize: 20.sp),
@@ -1215,11 +1203,10 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                 ),
                 Text(
                   'נסיעה בטוחה!',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
+                  style: TextStyle( fontSize: 20.sp),
                   textAlign: TextAlign.center,textDirection: TextDirection.rtl,
                 ),
                 SizedBox(height: 20.h),
-
               ],
             ),
           ),

@@ -133,12 +133,12 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
         textDirection: TextDirection.rtl,
         child: Container(
           //constraints: BoxConstraints(maxHeight: 600.h),/
-          height: 450.h,
+         // height: 450.h,
           decoration: ShapeDecoration(
             color: Colors.white,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
           ),
-          child: Column(
+          child: Wrap(
             children: [
               Container(
                 alignment: Alignment.topRight,

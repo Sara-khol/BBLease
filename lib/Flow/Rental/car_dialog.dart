@@ -1,4 +1,3 @@
-
 import 'package:bblease/Flow/Rental/dialogs.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
@@ -11,95 +10,7 @@ import '../../models/class_user.dart';
 import '../../services/api_service.dart';
 import 'additions_dialog.dart';
 
-Future carDetailsDialog(context,Car car,bool isAvailabe){
-  return showModalBottomSheet<dynamic>(
-      isScrollControlled: true,
-      isDismissible: true,
-      //barrierColor: Colors.black12.withOpacity(0.1),
-      elevation: 2,
-      shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-      ),
-      context: context,
-      builder: (context) {
-            return Directionality(
-              textDirection: TextDirection.rtl,
-              child: Wrap(
-                children: [
-                  Container(
-                    height: 28.h,
-
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                      icon: const Icon(Icons.close),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 30.w, right: 30.w, ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                         Text(
-                           'פרטי רכב',
-                           style: TextStyle(
-                               fontSize: 18.sp,
-                               fontWeight: FontWeight.bold,
-                               color: Colors.black),
-                         ),
-                        SizedBox(height: 25.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(Icons.drive_eta_outlined, color: pinkColorApp,),
-                            Text('  ${car.postTitle}  ',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),),
-                            SizedBox(width: 50.w,),
-                            ImageIcon(AssetImage("assets/icons/Filter.png"),color: pinkColorApp,),
-                            Text('  ${car.type}  ',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),),
-                          ],
-                        ),
-                        SizedBox(height: 13.h),
-                        Row(
-                          children: [
-                            Icon(Icons.fmd_good_outlined, color: pinkColorApp,),
-                            Text('  ${car.address}  ',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),),
-                          ],
-                        ),
-                        SizedBox(height: 16.h),
-
-                        Container(
-                          height: 48.h,
-                          width: 332.w,
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: turquoiseColorApp,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
-                              ),
-                              onPressed: () {
-                                //rentalTerm(context);
-                              },
-                              child: Text('אני רוצה להשכיר את הרכב הזה',
-                                  style: TextStyle(
-                                      fontSize: 20.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.normal))),
-                        ),
-                        SizedBox(height: 20.h),
-                      ]
-                    ),
-                  ),
-                ],
-              )
-            );
-      }
-  );
-}
-
-Future openingCodeDialog(context,String code){
+Future carDetailsDialog(context, Car car, bool isAvailabe) {
   return showModalBottomSheet<dynamic>(
       isScrollControlled: true,
       isDismissible: true,
@@ -124,11 +35,128 @@ Future openingCodeDialog(context,String code){
                     },
                   ),
                 ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 30.w,
+                    right: 30.w,
+                  ),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'פרטי רכב',
+                          style: TextStyle(
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                        SizedBox(height: 25.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.drive_eta_outlined,
+                              color: pinkColorApp,
+                            ),
+                            Text(
+                              '  ${car.postTitle}  ',
+                              style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 50.w,
+                            ),
+                            ImageIcon(
+                              AssetImage("assets/icons/Filter.png"),
+                              color: pinkColorApp,
+                            ),
+                            Text(
+                              '  ${car.type}  ',
+                              style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 13.h),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.fmd_good_outlined,
+                              color: pinkColorApp,
+                            ),
+                            Text(
+                              '  ${car.address}  ',
+                              style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 16.h),
+                        Container(
+                          height: 48.h,
+                          width: 332.w,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: turquoiseColorApp,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                              ),
+                              onPressed: () {
+                                //rentalTerm(context);
+                              },
+                              child: Text('אני רוצה להשכיר את הרכב הזה',
+                                  style: TextStyle(
+                                      fontSize: 20.sp,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.normal))),
+                        ),
+                        SizedBox(height: 20.h),
+                      ]),
+                ),
+              ],
+            ));
+      });
+}
+
+Future openingCodeDialog(context, String code) {
+  return showModalBottomSheet<dynamic>(
+      isScrollControlled: true,
+      isDismissible: true,
+      //barrierColor: Colors.black12.withOpacity(0.1),
+      elevation: 2,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+      ),
+      context: context,
+      builder: (context) {
+        return Directionality(
+            textDirection: TextDirection.rtl,
+            child: Wrap(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    height: 28.h,
+                    padding: EdgeInsets.only(right: 20.w, top: 18.h),
+                    alignment: Alignment.topRight,
+                    child: const Icon(Icons.close),
+                  ),
+                ),
                 Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: 20.h),
+                      SizedBox(height: 31.h),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -140,23 +168,33 @@ Future openingCodeDialog(context,String code){
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
                           ),
-                          Icon(Icons.password, color: pinkColorApp,),
+                          Image.asset('assets/icons/Password.png'),
                         ],
                       ),
                       SizedBox(height: 47.h),
-                      Text(' הקוד לפתיחה הינו ',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal,),),
-                      SizedBox(height: 40.h,),
-                      Text('  $code  ',style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold,),),
+                      Text(
+                        ' הקוד לפתיחה הינו ',
+                        style: TextStyle(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 40.h,
+                      ),
+                      Text(
+                        '  $code  ',
+                        style: TextStyle(
+                          fontSize: 30.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       SizedBox(height: 30.h),
-                    ]
-                ),
+                    ]),
               ],
-            )
-        );
-      }
-  );
+            ));
+      });
 }
-
 
 /*
 Future rentalTerm1(context, Car car) {
@@ -173,7 +211,7 @@ Future rentalTerm1(context, Car car) {
 
     startDate = s;
     endDate = e;
-  }*//*
+  }*/ /*
 
 
   int? selectedValue;
@@ -523,7 +561,6 @@ Future rentalTerm1(context, Car car) {
           borderRadius: BorderRadius.vertical(top: Radius.circular(25))));
 }
 */
-
 
 /*
 Future additionsDialog(context, car,startDate,endDate)async {

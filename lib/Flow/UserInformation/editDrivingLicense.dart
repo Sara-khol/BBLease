@@ -126,9 +126,7 @@ class _EditDrivingLicensePersonalState extends State<EditDrivingLicensePersonal>
                        cursorColor: blackColorApp,
                        decoration: getInputDecoration('תאריך הנפקה',
                            suffixIcon:   Image.asset(
-                             'assets/icons/CalendarBig.png',
-                             width: 24.w,
-                           )),
+                             'assets/icons/CalendarBig.png')),
                        style:
                        TextStyle(color: blackColorApp, fontSize: 18.sp),
                        controller: _licenseIssDate,

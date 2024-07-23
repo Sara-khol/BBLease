@@ -36,6 +36,7 @@ class _ContactUsState extends State<ContactUs> {
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom,left: 30.w,right: 30.w),
             child: Column(
+
               children: [
                 SizedBox(height: 35.h,),
                 Align(alignment: Alignment.topRight,child: IconButton(onPressed: () =>Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
@@ -101,6 +102,7 @@ class _ContactUsState extends State<ContactUs> {
                 SizedBox(height: 29.h,),
           
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
@@ -110,6 +112,7 @@ class _ContactUsState extends State<ContactUs> {
                           style: TextStyle(fontSize: 18.sp),)
                       ],
                     ),
+                    SizedBox(height: 20.h),
                     Row(
                       children: [
                         Icon(Icons.phone_outlined),
@@ -118,6 +121,7 @@ class _ContactUsState extends State<ContactUs> {
                           style: TextStyle(fontSize: 18.sp),)
                       ],
                     ),
+                    SizedBox(height: 15.h),
                     Row(
                       children: [
                         Icon(Icons.email_outlined),
@@ -127,7 +131,11 @@ class _ContactUsState extends State<ContactUs> {
                       ],
                     ),
                     SizedBox(height: 39.h,),
-                    Text('במקרה חירום בהזמנה פעילה בלבד! \nנא לחייג ל 0000* שלוחה 0 באפשרותך לפנות אלינו במייל ותיענה בתוך 72 שעות.\n\n ', style: TextStyle(fontSize: 13.sp),),
+                    Text('באפשרותך לפנות אלינו במייל ותיענה בתוך 72 שעות.', style: TextStyle(fontSize: 13.sp),),
+                    SizedBox(height: 20.h,),
+                    Text('במקרה חירום בהזמנה פעילה בלבד! \nנא לחייג ל 0000* שלוחה 0 ',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(fontSize: 13.sp),),
                     SizedBox(height: 15.h,),
                     SizedBox(
                       height: 48.h,

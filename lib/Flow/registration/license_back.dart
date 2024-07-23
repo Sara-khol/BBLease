@@ -297,8 +297,13 @@ class _LicenseBackState extends State<LicenseBack> {
         _imageBack= result;
         //_cameraController.pausePreview();
         if (_imageBack != null) {
-          widget.index==1?User().regImages[1]=_imageBack:User().additionalDriver.images[1]=_imageBack;
-          widget.index==1?TextRecognition(1):null;
+          widget.index==1
+              ? {
+                  User().regImages[1] = _imageBack,
+                  TextRecognition(1)
+                }
+              :User().additionalDriver.images[1]=_imageBack;
+
         }
       });
     }

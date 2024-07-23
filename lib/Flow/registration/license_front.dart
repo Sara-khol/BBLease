@@ -277,8 +277,12 @@ class _LicenseFrontState extends State<LicenseFront> {
                        _imageFront= xfile;
                        _cameraController.pausePreview();
                        if (_imageFront != null) {
-                         widget.index==1?User().regImages[0]=_imageFront:User().additionalDriver.images[0]=_imageFront;
-                         widget.index==1?TextRecognition(0):null;
+                         widget.index==1
+                             ?{
+                                User().regImages[0] = _imageFront,
+                                TextRecognition(0)
+                              }
+                             :User().additionalDriver.images[0]=_imageFront;
                        }
                      });
 

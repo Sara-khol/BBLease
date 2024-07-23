@@ -448,28 +448,84 @@ class ApiService {
     
   }
 
-  Future addDriverToActiveRent( Map<String, dynamic> jsonMap,Function(dynamic res) onSuccess) async {
+  Future addDriverToActiveRent( int orderId, Function(dynamic res) onSuccess) async {
     debugPrint('${_baseUrl}wp/v2/update_additional_driver_on_rent');
-    debugPrint('data : ${json.encode(jsonMap)}');
-    ///{
-    ///  "order_id": 123456789,
-    ///"id": "111",
-    ///"license_number": "12345",
-    ///"license_level": "A",
-    ///"license_date": "2022-03-01",
-    ///"license_exp": "2023-03-01",
-    ///"young_driver": false,
-    ///"new_driver": true
-   /// }
 
-    Response response = await _dio.post('${_baseUrl}wp/v2/update_additional_driver_on_rent',
-        data: json.encode(jsonMap));
+    List<MultipartFile> imageFiles = [];
+
+    for (var item in User().additionalDriver.images) {
+      if (item != null) {
+        imageFiles.add(
+          await MultipartFile.fromFile(
+            item.path,
+            filename: item.path.split('/').last,
+          ),
+        );
+      }
+    }
+
+
+    FormData formData = FormData.fromMap({
+
+      "order_id": orderId,
+      "id": User().additionalDriver.id,
+      "license_number": User().additionalDriver.licenseId,
+      "license_level": User().additionalDriver.licenseDegree,
+      "license_date": User().additionalDriver.licenseIssDate,
+      "license_exp": User().additionalDriver.licenseExpDate,
+      "young_driver": false,
+      "new_driver": User().additionalDriver.isNewDriver,
+      "license_front": imageFiles[0],
+      "license_back": imageFiles[1],
+    });
+
+       Response response = await _dio.post('${_baseUrl}wp/v2/update_additional_driver_on_rent',
+        data: formData);
     // debugPrint('response $response');
     debugPrint('data: ${response.data}');
     if(response.statusCode==200) {
       onSuccess(response.data);
     }
 
+  }
+
+  Future addDriverToUser(Function(dynamic res) onSuccess) async {
+    debugPrint('${_baseUrl}wp/v2/update_additional_driver');
+    List<MultipartFile> imageFiles = [];
+
+    for (var item in User().additionalDriver.images) {
+      if (item != null) {
+        imageFiles.add(
+          await MultipartFile.fromFile(
+            item.path,
+            filename: item.path.split('/').last,
+          ),
+        );
+      }
+    }
+
+
+    FormData formData = FormData.fromMap({
+
+      "customer_id": User().tz,
+      "id": User().additionalDriver.id,
+      "license_number": User().additionalDriver.licenseId,
+      "license_level": User().additionalDriver.licenseDegree,
+      "license_date": User().additionalDriver.licenseIssDate,
+      "license_exp": User().additionalDriver.licenseExpDate,
+      "young_driver": false,
+      "new_driver": User().additionalDriver.isNewDriver,
+      "license_front": imageFiles[0],
+      "license_back": imageFiles[1],
+    });
+
+    Response response = await _dio.post('${_baseUrl}wp/v2/update_additional_driver',
+        data: formData);
+    // debugPrint('response $response');
+    debugPrint('data: ${response.data}');
+    if(response.statusCode==200) {
+      onSuccess(response.data);
+    }
   }
 
   Future getPriceList(Function(dynamic res) onSuccess) async {

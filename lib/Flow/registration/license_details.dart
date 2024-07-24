@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:bblease/Flow/Rental/active_rent.dart';
 import 'package:bblease/Flow/registration/payment_webView.dart';
 import 'package:bblease/landspace_widget.dart';
@@ -282,8 +284,9 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                             closeButton: true);
                       }
                       else /*if (_formKey.currentState!.validate())*/ {
-                        print('signature is not empty');
+
                         if(widget.index==1){
+                          print('signature is not empty');
                           User().licenseId = _licenseId.text;
                           User().licenseDegree = _degree.text;
                           User().licenseIssDate = iss.toString();
@@ -293,7 +296,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                         if(widget.index==2||widget.index==3){
                           User().additionalDriver.licenseId = _licenseId.text;
                           User().additionalDriver.licenseDegree = _degree.text;
-                          User().additionalDriver.licenseIssDate = iss.toString();
+                          User().additionalDriver.licenseIssDate = iss;
                           User().additionalDriver.licenseExpDate = exp;
                           await registerAdditionalDriver();
 
@@ -397,6 +400,9 @@ class _LicenseDetailsState extends State<LicenseDetails> {
   }
 
   Future registerAdditionalDriver() async{
+
+    print(User().additionalDriver.toString());
+
     showLoading(context);
     if(widget.index==3) {
         ApiService().addDriverToActiveRent(widget.orderId!, (res) {
@@ -413,7 +419,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
       ApiService().addDriverToUser((res) {
         Navigator.pop(context);
         displayMessage(context,
-            message: 'הנתון התקבל בהצלחה',
+            message: 'הנתון התקבל בהצלחה\nכעת ניתן להמשיך בביצוע הזמנה',
             onClose: () {
               Navigator.pop(context);
               Navigator.pop(context);

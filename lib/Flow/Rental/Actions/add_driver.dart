@@ -47,18 +47,12 @@ class _AddDriverState extends State<AddDriver> {
               ),
               SizedBox(height: 20.h,),
               TextField(
-                readOnly: true,
                 cursorColor: blackColorApp,
-                decoration: getInputDecoration('תעודת זהות',332,
-                    suffixIcon: Icon(Icons.check_circle_outline,color: pinkColorApp,)/*Image.asset(
-                      'assets/icons/с.png',
-                      width: 18.w,
-                    )*/),
-                style:
-                TextStyle(color: blackColorApp, fontSize: 20.sp),
+                decoration: getInputDecoration('תעודת זהות',332),
+                style: TextStyle(color: blackColorApp, fontSize: 20.sp),
                 controller: _controller,
+        ),
 
-              ),
               Spacer(),
               Container(
                 height: 48.h,
@@ -72,7 +66,7 @@ class _AddDriverState extends State<AddDriver> {
                     ),
                     onPressed: ()  {
                       ApiService().getAdditionalDriver(_controller.text, (res) {
-                        res==[]?
+                        res==-1?
                         addDriver(true)
                         :addDriver(false,res);
                       });
@@ -94,6 +88,8 @@ class _AddDriverState extends State<AddDriver> {
   }
 
   Future addDriver(bool isNew,[json]){
+
+    print(isNew);
     return showModalBottomSheet<dynamic>(
         isScrollControlled: true,
         isDismissible: true,
@@ -138,7 +134,7 @@ class _AddDriverState extends State<AddDriver> {
                             onPressed: () {
                               User().additionalDriver.id=_controller.text;
                               isNew
-                                ? Navigator.push(context, MaterialPageRoute(builder: (context) => LicenseFront(index: widget.index)))
+                                ? Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LicenseFront(index: widget.index)))
                                 : User().additionalDriver=AdditionalDriver.fromJson(json);
                               },
                             child: Text('הוספת נהג',

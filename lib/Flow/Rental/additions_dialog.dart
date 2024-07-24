@@ -55,69 +55,74 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
         ),
         context: context,
         builder: (context) {
-          return Directionality(
-              textDirection: TextDirection.rtl,
-              child: Padding(
-                padding: EdgeInsets.only(left: 30.w, right: 30.w, ),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 35.h),
-                      Text(
-                        'הי,שים לב!',
-                        style: TextStyle(
-                            fontSize: 22.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
-                      SizedBox(height: 51.h),
-                      Text('בחרת בהוספת נהג נוסף,\nתרצה למלא את הפרטים?',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal,),),
-                      SizedBox(height: 26.h),
-                      Row(
-                        children: [
-                          Container(
-                            height: 48.h,
-                            width: 160.w,
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: turquoiseColorApp,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(100),
+          return SizedBox(
+            height: 400.h,
+            child: Directionality(
+                textDirection: TextDirection.rtl,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 30.w, right: 30.w, ),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 35.h),
+                        Text(
+                          'הי,שים לב!',
+                          style: TextStyle(
+                              fontSize: 22.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                        SizedBox(height: 51.h),
+                        Text('בחרת בהוספת נהג נוסף,\nתרצה למלא את הפרטים?',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal,),),
+                        SizedBox(height: 26.h),
+                        Row(
+                          children: [
+                            Container(
+                              height: 48.h,
+                              width: 160.w,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: turquoiseColorApp,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(100),
+                                    ),
                                   ),
-                                ),
-                                onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => AddDriver(index: 2,),)),
-                                child: Text('עכשיו',
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.normal))),
-                          ),
-                          SizedBox(width: 13.h),
-                          Container(
-                            height: 48.h,
-                            width: 160.w,
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: turquoiseColorApp,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(100),
+                                  onPressed: ()  {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => AddDriver(index: 2, ), ));
+                                  },
+                                  child: Text('עכשיו',
+                                      style: TextStyle(
+                                          fontSize: 20.sp,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.normal))),
+                            ),
+                            SizedBox(width: 13.h),
+                            Container(
+                              height: 48.h,
+                              width: 160.w,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: turquoiseColorApp,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(100),
+                                    ),
                                   ),
-                                ),
-                                onPressed: () {
-
-                                },
-                                child: Text('בתחילת הנסיעה',
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.normal))),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 20.h),
-                    ]
-                ),
-              )
+                                  onPressed: () {
+            Navigator.pop(context);
+                                  },
+                                  child: Text('בתחילת הנסיעה',
+                                      style: TextStyle(
+                                          fontSize: 20.sp,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.normal))),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20.h),
+                      ]
+                  ),
+                )
+            ),
           );
         }
     );

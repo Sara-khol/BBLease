@@ -438,8 +438,8 @@ class ApiService {
   }
 
   Future getAdditionalDriver(String id,Function(dynamic res) onSuccess) async {
-    print('${_baseUrl}wp/v2/get_additional_driver_details/${User().userId}/$id');
-    Response response = await _dio.get('${_baseUrl}wp/v2/get_additional_driver_details/${User().userId}/$id');
+    print('${_baseUrl}wp/v2/get_additional_driver/${User().tz}/$id');
+    Response response = await _dio.get('${_baseUrl}wp/v2/get_additional_driver/${User().tz}/$id');
     if(response.statusCode == 200) {
       var result = response.data;
       print('result: $result');
@@ -451,32 +451,19 @@ class ApiService {
   Future addDriverToActiveRent( int orderId, Function(dynamic res) onSuccess) async {
     debugPrint('${_baseUrl}wp/v2/update_additional_driver_on_rent');
 
-    List<MultipartFile> imageFiles = [];
-
-    for (var item in User().additionalDriver.images) {
-      if (item != null) {
-        imageFiles.add(
-          await MultipartFile.fromFile(
-            item.path,
-            filename: item.path.split('/').last,
-          ),
-        );
-      }
-    }
-
+    var img1=User().additionalDriver.images[0];
+    var img2=User().additionalDriver.images[1];
 
     FormData formData = FormData.fromMap({
-
       "order_id": orderId,
       "id": User().additionalDriver.id,
       "license_number": User().additionalDriver.licenseId,
       "license_level": User().additionalDriver.licenseDegree,
       "license_date": User().additionalDriver.licenseIssDate,
       "license_exp": User().additionalDriver.licenseExpDate,
-      "young_driver": false,
       "new_driver": User().additionalDriver.isNewDriver,
-      "license_front": imageFiles[0],
-      "license_back": imageFiles[1],
+      "license_front": img1!=null?MultipartFile.fromBytes(await img1.readAsBytes(), filename: "front.png"):null,
+      "license_back": img2!=null?MultipartFile.fromBytes(await img2.readAsBytes(), filename: "back.png"):null,
     });
 
        Response response = await _dio.post('${_baseUrl}wp/v2/update_additional_driver_on_rent',
@@ -493,32 +480,46 @@ class ApiService {
     debugPrint('${_baseUrl}wp/v2/update_additional_driver');
     List<MultipartFile> imageFiles = [];
 
-    for (var item in User().additionalDriver.images) {
-      if (item != null) {
-        imageFiles.add(
-          await MultipartFile.fromFile(
-            item.path,
-            filename: item.path.split('/').last,
-          ),
-        );
-      }
-    }
+    print(User().additionalDriver.images.length); //2
+    print(User().additionalDriver.images[0]!=null); //true
+    print(User().additionalDriver.images[1]!=null); //true
+    print('======');
+  /*  imageFiles.add(
+      await MultipartFile.fromFile(
+        User().additionalDriver.images[0]!.path,
+        filename: 'front.png',
+      ),
+    );
+    print('======');
 
+    imageFiles.add(
+      await MultipartFile.fromFile(
+        User().additionalDriver.images[1]!.path,
+        filename: 'back.png',
+      ),
+    );
+    print('======');
+
+    print(imageFiles.length);*/
+    //String d1=intl.DateFormat('yyyy-MM-dd').format(User().additionalDriver.licenseIssDate);
+    //String d2=intl.DateFormat('yyyy-MM-dd').format(User().additionalDriver.licenseExpDate);
+
+    var img1=User().additionalDriver.images[0];
+    var img2=User().additionalDriver.images[1];
 
     FormData formData = FormData.fromMap({
-
       "customer_id": User().tz,
       "id": User().additionalDriver.id,
       "license_number": User().additionalDriver.licenseId,
       "license_level": User().additionalDriver.licenseDegree,
       "license_date": User().additionalDriver.licenseIssDate,
       "license_exp": User().additionalDriver.licenseExpDate,
-      "young_driver": false,
       "new_driver": User().additionalDriver.isNewDriver,
-      "license_front": imageFiles[0],
-      "license_back": imageFiles[1],
+      "license_front": img1!=null?MultipartFile.fromBytes(await img1.readAsBytes(), filename: "front.png"):null,
+      "license_back": img2!=null?MultipartFile.fromBytes(await img2.readAsBytes(), filename: "back.png"):null,
     });
 
+    print(formData.fields);
     Response response = await _dio.post('${_baseUrl}wp/v2/update_additional_driver',
         data: formData);
     // debugPrint('response $response');

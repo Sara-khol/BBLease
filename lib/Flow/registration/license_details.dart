@@ -412,7 +412,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
               onClose: () {
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ActiveRentDetails(),));
               });
-      },);
+      });
     }
 
     if(widget.index==2) {

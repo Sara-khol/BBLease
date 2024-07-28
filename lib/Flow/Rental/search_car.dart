@@ -25,9 +25,10 @@ class SearchCar extends StatefulWidget {
       required this.latitude,
       required this.longitude,
       this.startDate,
-      this.endDate});
+      this.endDate, required this.index});
 
   final String location;
+  final int index;
   final double? latitude;
   final double? longitude;
   DateTime? startDate;
@@ -52,9 +53,10 @@ class _SearchCarState extends State<SearchCar> {
   late Future myFuture ;
 
 
+
   @override
   void initState() {
-    mapController.dispose();
+    if(widget.index==0)mapController.dispose();
     rent.startDate = widget.startDate!;
     rent.endDate = widget.endDate!;
    myFuture= getCarsList();
@@ -589,7 +591,7 @@ class _SearchCarState extends State<SearchCar> {
         ),
         TextButton(
           onPressed: () =>
-              rentalTerm(context, widget.startDate, widget.endDate),
+              rentalTerm(context,1, widget.startDate, widget.endDate),
           child: Row(
             children: [
               Text(

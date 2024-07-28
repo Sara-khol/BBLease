@@ -499,6 +499,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                           endRental(false);
                                           print('return car');
                                         });
+
                                       });
                                 }
                                 else{
@@ -906,6 +907,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
     );
   }
 
+
   Future findPark(address) {
 
     return showModalBottomSheet(
@@ -914,61 +916,101 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
       isScrollControlled: false,
       context: context,
       builder: (BuildContext context) => Container(
-        height: 250.h,
+        // height: 250.h,
           decoration: const BoxDecoration(color:Colors.white,
             borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
           ),
           child: Directionality(
             textDirection: TextDirection.rtl,
-            child: Column(
-                children: [
-                  Align(alignment:Alignment.topRight ,child: CloseButton(color: Colors.black,onPressed: () => Navigator.pop(context),)),
-                  SizedBox(height: 45.h),
-                  // const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('כתובת חנית הרכב  ',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: blackColorApp,
-                            fontSize: 22.sp,
-                            fontWeight: FontWeight.bold,
-                          )
+            child: Wrap(
+              children: [
+                Stack(
+                  children: [
+                    Align(
+                      alignment:  Alignment.topCenter,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            /*   Container(
+                              padding: EdgeInsets.only(right: 20.w,top: 18.h),
+                              // height: 28.h,
+                              alignment: Alignment.topRight,
+                              child: IconButton(
+                                icon: const Icon(Icons.close),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ),*/
+                            SizedBox(height: 30.h),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('כתובת חנית הרכב  ',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: blackColorApp,
+                                        fontSize: 18.sp,
+                                        fontWeight: FontWeight.w700,
+                                        height: 1
+                                    )
+                                ),
+                                ImageIcon(AssetImage("assets/icons/car_icon_black.png"),color: pinkColorApp,),
+                              ],
+                            ),
+                            SizedBox(
+                                height: 40.h),
+                            Center(
+                              child: Text(address["address"],
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: blackColorApp,
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.normal,
+                                  )
+                              ),
+                            ),
+                            SizedBox(height: 35.h),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('פתח ניווט באמצעות      ',
+                                    style: TextStyle(
+                                      color: blackColorApp,
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.normal,
+                                    )
+                                ),
+                                IconButton(
+                                    onPressed: () => openWaze(address['latitude'],address['longitude']),
+                                    icon: ImageIcon(AssetImage("assets/icons/waze.png"),color: turquoiseColorApp,)),
+                                SizedBox(width: 23.w,),
+                                IconButton(
+                                    onPressed: () => openGoogleMaps(address['address']),
+                                    icon: ImageIcon(AssetImage("assets/icons/maps.png"),color: turquoiseColorApp,)),
+                              ],
+                            ),
+                            SizedBox(height: 39.h),
+                          ]
                       ),
-                      ImageIcon(AssetImage("assets/icons/car_icon_black.png"),color: pinkColorApp,),
-                    ],
-                  ),
-                  SizedBox(height: 40.h),
-                  Text(address["address"],
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: blackColorApp,
-                        fontSize: 22.sp,
-                        fontWeight: FontWeight.normal,
-                      )
-                  ),
-                  SizedBox(height: 25.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('פתח ניווט באמצעות      ',
-                          style: TextStyle(
-                            color: blackColorApp,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.normal,
-                          )
+                    ),
+                    Align(
+                      alignment:  Alignment.topRight,
+                      child: Container(
+                        padding: EdgeInsets.only(right: 20.w,top: 10.h),
+                        // height: 28.h,
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
                       ),
-                      IconButton(
-                          onPressed: () => openWaze(address['latitude'],address['34.95075']),
-                          icon: ImageIcon(AssetImage("assets/icons/waze.png"),color: turquoiseColorApp,)),
-                      SizedBox(width: 23.w,),
-                      IconButton(
-                        onPressed: () => openGoogleMaps(address['address']),
-                        icon: ImageIcon(AssetImage("assets/icons/maps.png"),color: turquoiseColorApp,)),
-                    ],
-                  )
-                ]
+                    ),
+                  ],
+                ),
+              ],
             ),
           )
       ),
@@ -1058,8 +1100,6 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
     );
   }
 
-
-
   // Function to open a location in Waze
   Future<void> openWaze(double latitude, double longitude) async {
     //String query = Uri.encodeComponent(address);
@@ -1087,38 +1127,50 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
   }
 
   Future endRental(bool ended) {
-
     //bool ended =false;
     return showModalBottomSheet(
       isDismissible: false,
       elevation: 2,
       isScrollControlled: false,
+      backgroundColor: Colors.white,
       context: context,
       builder: (BuildContext context) => Container(
         //width: MediaQuery.devicePixelRatioOf(context),
         //height: 180.h,
-        decoration: const BoxDecoration(color:Colors.white, borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
-        child: Column(
-          children: [
-            SizedBox(height: 45.h),
-             // Spacer(),
-            Text(ended? 'השכרה מספר ${rent.orderNum} הסתיימה':'סיום השכרה',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: pinkColorApp,
-                  fontSize: 22.sp,
-                  fontWeight: FontWeight.bold,
-                )
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+          ),
+          child: Wrap( crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+            Container(height: 45.h),
+            // Spacer(),
+            Center(
+              child: Text(ended ? 'השכרה מספר ${rent.orderNum} הסתיימה' : 'סיום השכרה',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: pinkColorApp,
+                    fontSize: 22.sp,
+                    fontWeight: FontWeight.w700,
+                  )),
             ),
-                SizedBox(height: 24.h),
-                Visibility(
-                  visible: !ended,
-                    child: Container()),
-                Visibility(
-                    visible: !ended,
-                    child: Text('בלחיצת אישור ינעלו דלתות הרכב\nוקוד הפתיחה ישתנה',style: TextStyle(color: pinkColorApp),textAlign: TextAlign.center,)),
-                Visibility(
-                  visible: ended,
+            Container(height: 24.h),
+            Visibility(visible: !ended, child: Container()),
+            Visibility(
+                visible: !ended,
+                child: Center(
+                  child: Text(
+                    'בלחיצת אישור ינעלו דלתות הרכב\nוקוד הפתיחה ישתנה',
+                    style: TextStyle(color: pinkColorApp,fontSize: 16.sp,fontWeight: FontWeight.w600),
+                    textAlign: TextAlign.center,
+
+                  ),
+                )),
+            Visibility(
+              visible: ended,
+              child: Center(
+                child: Padding(
+                  padding:  EdgeInsets.only(bottom: 11.h),
                   child: Text('בדקות הקרובות תופיע קבלה באזור האישי או במייל',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -1127,48 +1179,65 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                         fontWeight: FontWeight.normal,
                       )),
                 ),
-                Visibility(
-                  visible: ended,
-                  child: Text('מודים שבחרת בביביליס\nמחכים לראותך שוב :)',
-                      textAlign: TextAlign.center,
-                      textDirection: TextDirection.rtl,
-                      style: TextStyle(
-                        color: blackColorApp,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w200,
-                      )),
-                ),
-            SizedBox(height: 11.h),
-            SizedBox(
-              height: 42.h,
-              width: 332.w,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: turquoiseColorApp,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                  ),
-                  onPressed: () {
-                    ended
-                        ? Navigator.push(context, MaterialPageRoute(builder: (context)=>RentalWidget()))
-                        : {
-                      Navigator.pop(context),
-                      endRental(true)
-                    };
-                    },
-                  child: Text(
-                    ended?'צא למסך הראשי':'מאשר',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.normal),
-                  )),
+              ),
             ),
-            SizedBox(height: 22.h)
-          ]
-        )
-      ),
+            Visibility(
+              visible: ended,
+              child: Center(
+                child: Text('מודים שבחרת בביביליס',
+                    textAlign: TextAlign.center,
+                    textDirection: TextDirection.rtl,
+                    style: TextStyle(
+                      color: blackColorApp,
+                      fontSize: 16.sp,
+                   //   fontWeight: FontWeight.w200,
+                    )),
+              ),
+            ),
+            Visibility(
+                  visible: ended,
+                  child: Center(
+                    child: Text('מחכים לראותך שוב :)',
+                        textAlign: TextAlign.center,
+                        textDirection: TextDirection.rtl,
+                        style: TextStyle(
+                          color: blackColorApp,
+                          fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                        )),
+                  ),
+                ),
+           Container(height: 11.h),
+            Center(
+              child: SizedBox(
+                height: 42.h,
+                width: 332.w,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: turquoiseColorApp,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                    ),
+                    onPressed: () {
+                      ended
+                          ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RentalWidget()))
+                          : {Navigator.pop(context), endRental(true)};
+                    },
+                    child: Text(
+                      ended ? 'צא למסך הראשי' : 'מאשר',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.normal),
+                    )),
+              ),
+            ),
+                Container(height: 22.h)
+          ])),
       barrierColor: Colors.black12.withOpacity(0.1),
       // shape: const RoundedRectangleBorder(
       //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),

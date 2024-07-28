@@ -88,11 +88,11 @@ class _AddDriverState extends State<AddDriver> {
   }
 
   Future addDriver(bool isNew,[json]){
-
     print(isNew);
     return showModalBottomSheet<dynamic>(
         isScrollControlled: true,
         isDismissible: true,
+        backgroundColor: Colors.white,
         barrierColor: Colors.black12.withOpacity(0.1),
         elevation: 2,
         shape: const RoundedRectangleBorder(
@@ -104,10 +104,11 @@ class _AddDriverState extends State<AddDriver> {
               textDirection: TextDirection.rtl,
               child: Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, ),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                child: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    alignment: WrapAlignment.center,
                     children: [
-                      SizedBox(height: 45.h),
+                      Container(height: 45.h),
                       Text(
                         'הוספת נהג',
                         style: TextStyle(
@@ -115,12 +116,13 @@ class _AddDriverState extends State<AddDriver> {
                             fontWeight: FontWeight.bold,
                             color: pinkColorApp),
                       ),
-                      SizedBox(height: 36.h),
+                      Container(height: 36.h),
                       Text(isNew?'נהג זה אינו מוכר במערכת\nעליך לסרוק את רישיון הנהיגה שלו: על שמו ובתוקף'
                           :'נהג זה מופיע כמשתמש מוכר במערכת\nניתן לצרפו בקלות ובמהירות בלחיצת כפתור',
-                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal,)
+                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal,),
+                        textAlign: TextAlign.center
                         ,textDirection: TextDirection.rtl,),
-                      SizedBox(height: 20.h),
+                      Container(height: 30.h),
                       Container(
                         height: 48.h,
                         width: 332.w,
@@ -137,18 +139,18 @@ class _AddDriverState extends State<AddDriver> {
                                 ? Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LicenseFront(index: widget.index)))
                                 : User().additionalDriver=AdditionalDriver.fromJson(json);
                               },
-                            child: Text('הוספת נהג',
+                            child: Text(isNew?'סרוק רישיון נהיגה':'הוספת נהג',
                                 style: TextStyle(
                                     fontSize: 20.sp,
                                     color: Colors.white,
-                                    fontWeight: FontWeight.normal,
+                                    //fontWeight: FontWeight.w600,
                                     //height: 2.3
                                 )
                             )
 
                         ),
                       ),
-                      SizedBox(height: 22.h),
+                      Container(height: 22.h),
                     ]
                 ),
               )

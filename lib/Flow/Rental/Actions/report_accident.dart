@@ -40,7 +40,7 @@ class _ReportAccidentState extends State<ReportAccident> {
                 Align(
                   alignment: Alignment.centerRight,
                     child: IconButton(onPressed: () =>Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
-                SizedBox(height: 62.h,),
+                SizedBox(height: 41.h,),
                 Text('דווח על תקלה',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                 SizedBox(height: 36.h,),
                 Text('נתקלת בבעיה בהפעלת הרכב?\nבעיה באפליקציה?\nלכל שאלה אנחנו כאן :)',
@@ -102,28 +102,40 @@ class _ReportAccidentState extends State<ReportAccident> {
                   },
                 ),
                 SizedBox(height: 14.h,),
-                SizedBox(
+                Container(
                   height: 48.h,
                   width: 332.w,
                   child: FloatingActionButton(
                       backgroundColor: Color(0xFF03AEB9),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8),),
                       onPressed: () =>imageSource(context),
-                      child: Text(
-                        image==null?'צרף תמונה':image!.name.length>=15?'${image!.name.substring(0,15)}...':image!.name,
-                        style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.white),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12.w),
+                        child: Row(
+                          children: [
+                            Icon(Icons.image,size: 24.h,color: Colors.white),
+                            Expanded(
+                              child: Center(
+                                child: Text(
+                                  image==null?'צרף תמונה':image!.name.length>=15?'${image!.name.substring(0,15)}...':image!.name,
+                                  style: TextStyle(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.white)
+                                ),
+                              ),
+                            ),
+                         if( image!=null)   Image.asset('assets/icons/done.png',color: Colors.white,),
+                          ],
+                        ),
                       )
                   ),
                 ),
                 SizedBox(height: 30.h,),
                 SizedBox(
                   width: 242.w,
-        
                   child: Text('נציגנו יקבלו את פנייתך ויענו לך בתוך 72 שעות מזמן הפניה.\n\nבמקרה חירום בהזמנה פעילה בלבד! נא לחייג ל 0000* שלוחה 0 ',
-                      style: TextStyle(fontSize: 13.sp,),),
+                      style: TextStyle(fontSize: 13.sp),textAlign: TextAlign.center),
                 ),
                 SizedBox(height: 15.h,),
                 SizedBox(
@@ -141,8 +153,10 @@ class _ReportAccidentState extends State<ReportAccident> {
 
                         ApiService().reportAccident( image, _text.text, _email.text, _phone.text, _name.text,(res) {
                           Navigator.pop(context);
-                          displayMessage(context,
-                              message: 'ההודעה התקבלה בהצלחה',
+                          displayMessageWithTitle(context,
+                              title: '!תודה על פנייתך',
+                              message: 'נציגנו יחזרו אליך בתוך 72 שעת מזמן הפניה',
+                              textButton: 'חזור למסך הראשי',
                               onClose: () {
                                 Navigator.pop(context);
 
@@ -212,6 +226,7 @@ class _ReportAccidentState extends State<ReportAccident> {
     return showModalBottomSheet<dynamic>(
         isScrollControlled: true,
         isDismissible: true,
+        backgroundColor: Colors.white,
         //barrierColor: Colors.black12.withOpacity(0.1),
         elevation: 2,
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
@@ -224,6 +239,7 @@ class _ReportAccidentState extends State<ReportAccident> {
                   Container(
                     height: 28.h,
                     alignment: Alignment.topRight,
+                    padding: EdgeInsets.only(right: 15.w,top: 12.h),
                     child: IconButton(
                       icon: const Icon(Icons.close),
                       onPressed: () {
@@ -240,11 +256,12 @@ class _ReportAccidentState extends State<ReportAccident> {
                             'צירוף תמונה',
                             style: TextStyle(
                                 fontSize: 23.sp,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w700,
                                 color: pinkColorApp),
                           ),
                           SizedBox(height: 80.h),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Visibility(
                                 visible: !kIsWeb,
@@ -264,13 +281,12 @@ class _ReportAccidentState extends State<ReportAccident> {
                                       },
                                       child: Text('מצלמה',
                                           style: TextStyle(
-                                              fontSize: 20.sp,
+                                              fontSize: 18.sp,
                                               color: Colors.white,
                                               fontWeight: FontWeight.normal))),
                                 ),
                               ),
-                              SizedBox(width: 13.w),
-
+                           if(!kIsWeb)   SizedBox(width: 13.w),
                               Container(
                                 height: 48.h,
                                 width: 160.w,

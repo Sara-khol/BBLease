@@ -141,15 +141,15 @@ Future openingCodeDialog(context, String code) {
             textDirection: TextDirection.rtl,
             child: Wrap(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    height: 28.h,
-                    padding: EdgeInsets.only(right: 20.w, top: 18.h),
-                    alignment: Alignment.topRight,
-                    child: const Icon(Icons.close),
+                Container(
+                  padding: EdgeInsets.only(right: 20.w,top: 18.h),
+                  // height: 28.h,
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
                 ),
                 Column(
@@ -182,12 +182,19 @@ Future openingCodeDialog(context, String code) {
                       SizedBox(
                         height: 40.h,
                       ),
-                      Text(
-                        '  $code  ',
-                        style: TextStyle(
-                          fontSize: 30.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Image.asset('assets/icons/Component.png'),
+                          SizedBox(width: 20.w),
+                          Text(
+                            '  $code  ',
+                            style: TextStyle(
+                              fontSize: 30.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(height: 30.h),
                     ]),

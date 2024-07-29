@@ -19,6 +19,7 @@ Future cancelOrderDialog(context,rent){
       isDismissible: true,
       barrierColor: Colors.black12.withOpacity(0.1),
       elevation: 2,
+      backgroundColor: Colors.white,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
       ),
@@ -43,16 +44,17 @@ Future cancelOrderDialog(context,rent){
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        Container(height: 7.h,),
                         Text(
                           'ביטול הזמנה',
                           style: TextStyle(
-                              fontSize: 23.sp,
-                              fontWeight: FontWeight.bold,
+                              fontSize: 22.sp,
+                              fontWeight: FontWeight.w700,
                               color: pinkColorApp),
                         ),
-                        SizedBox(height: 51.h),
-                        Text('האם הינך בטוח שברצונך לבטל הזמנה זו? ',style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),textDirection: TextDirection.rtl,),
-                        SizedBox(height: 20.h),
+                        Container(height: 45.h),
+                        Text('האם הינך בטוח שברצונך לבטל הזמנה זו? ',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal,),textDirection: TextDirection.rtl,),
+                        Container(height: 32.h),
                         Row(
                           children: [
                             Container(
@@ -61,6 +63,7 @@ Future cancelOrderDialog(context,rent){
                               child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: turquoiseColorApp,
+                                    padding: EdgeInsets.symmetric(horizontal: 18.w ),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(100),
                                     ),
@@ -70,7 +73,7 @@ Future cancelOrderDialog(context,rent){
                                   },
                                   child: Text('לא, חזור להזמנות',
                                       style: TextStyle(
-                                          fontSize: 20.sp,
+                                          fontSize: 18.sp,
                                           color: Colors.white,
                                           fontWeight: FontWeight.normal,
                                         //height: 2.3
@@ -91,7 +94,7 @@ Future cancelOrderDialog(context,rent){
                                   onPressed: () =>Navigator.push(context, MaterialPageRoute(builder:(context) => CancelOrder(rent: rent),)),
                                   child: Text('כן, המשך',
                                       style: TextStyle(
-                                          fontSize: 20.sp,
+                                          fontSize: 18.sp,
                                           color: Colors.white,
                                           fontWeight: FontWeight.normal,
                                         //height: 2.3
@@ -99,7 +102,7 @@ Future cancelOrderDialog(context,rent){
                             ),
                           ],
                         ),
-                        SizedBox(height: 22.h),
+                        Container(height: 22.h),
                       ]
                   ),
                 ),
@@ -110,7 +113,7 @@ Future cancelOrderDialog(context,rent){
   );
 }
 
-signCancelOrderDialog(context,String headline,String text){
+signCancelOrderDialog(context,String headline,String text) {
 
   final SignatureController controller = SignatureController(
     penStrokeWidth: 2,
@@ -122,7 +125,8 @@ signCancelOrderDialog(context,String headline,String text){
    showModalBottomSheet(
       isScrollControlled: true,
       isDismissible: false,
-      //barrierColor: Colors.black12.withOpacity(0.1),
+       backgroundColor: Colors.white,
+       //barrierColor: Colors.black12.withOpacity(0.1),
       elevation: 2,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
       context: context,

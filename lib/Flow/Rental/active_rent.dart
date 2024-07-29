@@ -761,7 +761,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   child: Column(
                                     children: [
                                       SizedBox(height: 20.h,),
-                                      Image.asset('assets/icons/Frame.png'),
+                                      Image.asset('assets/icons/key.png'),
                                       SizedBox(height: 10.h,),
                                       Text('שלח קוד\nלפתיחת דלת',
                                         style: TextStyle(

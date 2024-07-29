@@ -846,8 +846,8 @@ class _SearchCarState extends State<SearchCar> {
                 ),
                 child: Image.asset(
                   'assets/images/car-only.png',
-                  width: 115.w,
-                  height: 50.h,
+                 /* width: 115.w,
+                  height: 50.h,*/
                 ),
               ),
             ],

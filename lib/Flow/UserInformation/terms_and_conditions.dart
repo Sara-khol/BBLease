@@ -71,12 +71,14 @@ class _TermsState extends State<Terms> {
               ),
               Visibility(
                 visible:  widget.index==2,
-                child: SizedBox(
+                child: Container(
+                  margin: EdgeInsets.only(top: 10.h),
                   width: 332.w,
                   height: 48.h,
                   child: FloatingActionButton.extended(
                     label: Text(widget.index==1?'חזרה':'חתימה', style: TextStyle(letterSpacing: 0.1,
                         fontSize: 20.sp,
+                        color: Colors.white,
                         fontWeight: FontWeight.normal),),
                     heroTag: "btn2",
                     backgroundColor: colors.turquoiseColorApp,

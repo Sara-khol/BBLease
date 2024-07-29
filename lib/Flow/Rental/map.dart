@@ -55,8 +55,6 @@ class _RentalWidgetState extends State<RentalWidget> {
       permission= await Geolocator.requestPermission();
 
       if(permission==LocationPermission.denied){
-
-
         return Future.error('Location permission denied');
       }
     }
@@ -283,7 +281,7 @@ print('getCarsList');
             mapType: MapType.normal,
             zoomControlsEnabled: true,
             //myLocationEnabled: true,
-            myLocationButtonEnabled: true,
+            //myLocationButtonEnabled: true,
             compassEnabled: true,
 
             scrollGesturesEnabled: !_isDialogOpen,

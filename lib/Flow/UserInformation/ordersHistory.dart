@@ -91,6 +91,8 @@ class _OrdersHistoryState extends State<OrdersHistory> {
   }
 
   filterByDate() {
+    s=null;
+    e=null;
     TextEditingController start = TextEditingController();
     TextEditingController end = TextEditingController();
     return showModalBottomSheet<dynamic>(
@@ -186,8 +188,9 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                     lastDate: DateTime.now());
                                 if (date != null) {
                                   start.text = intl.DateFormat('dd.MM.yyyy').format(date);
-                                  print('start: ${start.text}');
                                   s = date;
+                                  print('start: $s');
+
                                 }
                               },
                             ),
@@ -240,6 +243,8 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                 if (date != null) {
                                   end.text = intl.DateFormat('dd.MM.yyyy').format(date);
                                   e = date;
+                                  print('end: $e');
+
                                 }
                               },
                             ),
@@ -253,8 +258,9 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
                                   ),
                                   onPressed: () {
-                                    Navigator.pop(context);
                                     setState(() {});
+                                    Navigator.pop(context);
+
                                   },
                                   child: const Text(
                                     'הצג',
@@ -294,10 +300,20 @@ class _OrdersHistoryState extends State<OrdersHistory> {
     );
   }
 
+  List<Rental> getFilteredRentals(List<Rental> ordersHistory, DateTime? s, DateTime? e) {
+    return ordersHistory.where((rent) {
+      return !(rent.startDate.isAfter(e!) || rent.endDate.isBefore(s!));
+    }).toList();
+  }
+
   buildContent()
   {
     // Widget downloadIcon = Icon(Icons.file_download, color: pinkColorApp);
     Widget downloadIcon =  Image.asset("assets/icons/Download.png");
+    late List<Rental> filteredOrdersHistory;
+    if(s!=null&&e!=null){
+      filteredOrdersHistory = getFilteredRentals(ordersHistory, s, e);
+    }
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -457,14 +473,19 @@ class _OrdersHistoryState extends State<OrdersHistory> {
               ? Expanded(
                 child: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: ordersHistory.length,
+                  itemCount: s!=null&&e!=null?filteredOrdersHistory.length:ordersHistory.length,
                   //padding: EdgeInsets.only(bottom: 8.h),
                   itemBuilder: (context, index) {
-                    Rental rent = ordersHistory[index];
-                    if ((s == null || e == null) ||
-                        (rent.startDate.isBefore(e!) ||
-                            rent.startDate.compareTo(e!) == 0 ||
-                            rent.endDate.isAfter(s!))) {
+                    Rental rent = s!=null&&e!=null?filteredOrdersHistory[index]:ordersHistory[index];
+                    print("date filter: s $s e $e");
+                    bool shouldDisplay = (s == null && e == null) ||
+                        (s != null && e != null &&
+                            !(rent.startDate.isAfter(e!) || rent.endDate.isBefore(s!)));
+
+                    print(rent.startDate);
+                    print(rent.endDate);
+                    print(shouldDisplay);
+                    if (shouldDisplay) {
                       return Column(
                         children: [
                           TextButton(
@@ -534,6 +555,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                         ],
                       );
                     }
+                    else return null;
                   },
                 ),
               )

@@ -96,8 +96,8 @@ Future sideMenu(context) {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.push(
+
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => PersonalProfile(),

@@ -331,12 +331,13 @@ class _DeparturePointState extends State<DeparturePoint> {
                                           location.isNotEmpty) {
                                     //Navigator.pop(context);
                                     nav == 0
-                                        ? rentalTerm(context)
+                                        ? rentalTerm(context,0)
                                         : Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               SearchCar(
+                                                index: 1,
                                                   location: location,
                                                   latitude: latitude,
                                                   longitude: longitude,

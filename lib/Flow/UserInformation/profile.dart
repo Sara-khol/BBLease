@@ -19,7 +19,7 @@ import 'editPayment_webVIew.dart';
 import 'editProfile.dart';
 
 class PersonalProfile extends StatefulWidget {
-  const PersonalProfile({Key? key}) : super(key: key);
+  const PersonalProfile({super.key});
 
   @override
   State<PersonalProfile> createState() => _PersonalProfileState();
@@ -47,194 +47,197 @@ class _PersonalProfileState extends State<PersonalProfile> {
     String formattedDateString = DateFormat("MM/yy").format(dateTime);
     return Directionality(
       textDirection: ui.TextDirection.rtl,
-      child: ListView(
-        shrinkWrap: true,
+      child: Padding(
         padding: EdgeInsets.only(right: 31.w,left: 56.w ),
-        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // Directionality(textDirection: ui.TextDirection.ltr, child: AppBarBibilease()),
-          SizedBox(height: 24.h,),
-          Padding(
-            padding:  EdgeInsets.only(right: 23.w),
-            child: Align(
-                alignment: Alignment.topRight,
-                child: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
-          ),
+        child: Column(
+          //shrinkWrap: true,
+          //
+          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Directionality(textDirection: ui.TextDirection.ltr, child: AppBarBibilease()),
+            SizedBox(height: 24.h,),
+            Padding(
+              padding:  EdgeInsets.only(right: 23.w),
+              child: Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
+            ),
 
-          SizedBox(height: 5.h,),
-          Icon(
-            Icons.account_circle_outlined,
-            color: turquoiseColorApp,
-            size: 55.sp,
-            weight: 50,
-          ),
-          SizedBox(height: 8.h,),
-          Center(child: Text('פרופיל אישי', style: TextStyle(color: Color(0xFF0F1511), fontSize: 24.sp, fontWeight: FontWeight.bold,),)),
-          SizedBox(height: 40.h,),
-          SizedBox(
-            width: 300.w,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                    children:[
-                      Icon(Icons.account_circle_outlined,color: pinkColorApp,size: 26.sp,),
-                      Text('  פרטים אישיים',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
-                      Spacer(),
-                      IconButton(onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const EditPersonalDetails()));},
-                        icon:  Image.asset('assets/icons/edit_big.png') )
-                    ]
-                ),
-                Text('${User().firstName} ${User().lastName}',style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
-                Text(User().tz,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
-              ],
+            SizedBox(height: 5.h,),
+            Icon(
+              Icons.account_circle_outlined,
+              color: turquoiseColorApp,
+              size: 55.sp,
+              weight: 50,
             ),
-          ),
-          SizedBox(height: 38.h,),
-          SizedBox(
-            width: 300.w,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                    children:[
-                      Image.asset('assets/icons/Phone.png'),
-                      Text('  פרטי התקשרות',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
-                      Spacer(),
-                      IconButton(onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const EditContactInformationPersonal()));
-                      },icon:  Image.asset('assets/icons/edit_big.png'))
-                    ]
-                ),
-                Text(User().phoneNumber,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
-                Text(User().email,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
-              ],
-            ),
-          ),
-          SizedBox(height: 38.h,),
-          SizedBox(
-            width: 300.w,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                    children:[
-                      Image.asset('assets/icons/driver_license.png'),
-                      Text('  רשיון נהיגה',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
-                      Spacer(),
-                      IconButton(onPressed: () {Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const EditDrivingLicensePersonal()));
-                      },icon:  Image.asset('assets/icons/edit_big.png'), )
-                    ]
-                ),
-                Text(User().licenseId,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,),),
-                Text(formattedDateString,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
-              ],
-            ),
-          ),
-          SizedBox(height: 38.h,),
-          SizedBox(
-            width: 300.w,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                    children:[
-                      Image.asset('assets/icons/f7_creditcard.png'),
-                      Text('  אמצעי תשלום',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,),),
-                      Spacer(),
-                      IconButton(onPressed: () async{
-                        await ApiService().getPaymentUrl(User().userId, (res) {
-                             //Navigator.pop(context);
-                             Navigator.push(
-                                 context,
-                                 MaterialPageRoute(
-                                     builder: (context) => EditPaymentWebView(
-                                       url: res,
-                                     )),
-                                     );
-                           });
-                      },icon:  Image.asset('assets/icons/edit_big.png'), )
-                    ]
-                ),
-
-                Text('${User().tranzilaCcno} **** **** ****',style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
-                //!kIsWeb?
-                    Text('${User().tranzilaCardExpDate.substring(0,2)}/${User().tranzilaCardExpDate.substring(2)}', style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
-                    //:Text('${User().tranzilaCardExpDate.substring(2)}/${User().tranzilaCardExpDate.substring(0,2)}', style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
-              ],
-            ),
-          ),
-          //SizedBox(height: 74.h,),
-          Spacer(),
-          SizedBox(
-            width: 332.w,
-            height: 44.h,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor:turquoiseColorApp,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100),
-                ),),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+            SizedBox(height: 8.h,),
+            Center(child: Text('פרופיל אישי', style: TextStyle(color: Color(0xFF0F1511), fontSize: 24.sp, fontWeight: FontWeight.bold,),)),
+            SizedBox(height: 40.h,),
+            SizedBox(
+              width: 300.w,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset('assets/icons/trash.png',color: Colors.white,),
-                  SizedBox(width: 30.w,),
-                  Text('מחיקת חשבון',style: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.normal,
-                    height: 1,
-                    color: Colors.white,), ),
-
+                  Row(
+                      children:[
+                        Icon(Icons.account_circle_outlined,color: pinkColorApp,size: 26.sp,),
+                        Text('  פרטים אישיים',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
+                        Spacer(),
+                        IconButton(onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const EditPersonalDetails()));},
+                          icon:  Image.asset('assets/icons/edit_big.png') )
+                      ]
+                  ),
+                  Text('${User().firstName} ${User().lastName}',style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
+                  Text(User().tz,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
                 ],
               ),
-              onPressed: () {
-                displayQuestionDelete(context,message: '?בטוח ברצונך למחוק חשבון זה',header: 'מחיקת חשבון',
-                  onYes: () => {
+            ),
+            SizedBox(height: 38.h,),
+            SizedBox(
+              width: 300.w,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                      children:[
+                        Image.asset('assets/icons/Phone.png'),
+                        Text('  פרטי התקשרות',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
+                        Spacer(),
+                        IconButton(onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const EditContactInformationPersonal()));
+                        },icon:  Image.asset('assets/icons/edit_big.png'))
+                      ]
+                  ),
+                  Text(User().phoneNumber,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
+                  Text(User().email,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
+                ],
+              ),
+            ),
+            SizedBox(height: 38.h,),
+            SizedBox(
+              width: 300.w,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                      children:[
+                        Image.asset('assets/icons/driver_license.png'),
+                        Text('  רשיון נהיגה',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
+                        Spacer(),
+                        IconButton(onPressed: () {Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const EditDrivingLicensePersonal()));
+                        },icon:  Image.asset('assets/icons/edit_big.png'), )
+                      ]
+                  ),
+                  Text(User().licenseId,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,),),
+                  Text(formattedDateString,style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
+                ],
+              ),
+            ),
+            SizedBox(height: 38.h,),
+            SizedBox(
+              width: 300.w,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                      children:[
+                        Image.asset('assets/icons/f7_creditcard.png'),
+                        Text('  אמצעי תשלום',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,),),
+                        Spacer(),
+                        IconButton(onPressed: () async{
+                          await ApiService().getPaymentUrl(User().userId, (res) {
+                               //Navigator.pop(context);
+                               Navigator.push(
+                                   context,
+                                   MaterialPageRoute(
+                                       builder: (context) => EditPaymentWebView(
+                                         url: res,
+                                       )),
+                                       );
+                             });
+                        },icon:  Image.asset('assets/icons/edit_big.png'), )
+                      ]
+                  ),
 
-                  },/*Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(),))*/);
-              },),
-          ),
-          SizedBox(height: 20.h,),
-          /*  Container(
-               width: 332.w,
-               height: 42.h,
-               child: FloatingActionButton.extended(
-                   label: Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                     children: [
-                       Text('מחיקת חשבון',style: TextStyle(
-                           fontSize: 18.sp,
-                           fontWeight: FontWeight.normal,
-                           color: Colors.white,),
-                         /*textAlign: TextAlign.start*/),
+                  Text('${User().tranzilaCcno} **** **** ****',style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
+                  //!kIsWeb?
+                      Text('${User().tranzilaCardExpDate.substring(0,2)}/${User().tranzilaCardExpDate.substring(2)}', style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
+                      //:Text('${User().tranzilaCardExpDate.substring(2)}/${User().tranzilaCardExpDate.substring(0,2)}', style: TextStyle(color: blackColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
+                ],
+              ),
+            ),
+            //SizedBox(height: 74.h,),
+            Spacer(),
+            SizedBox(
+              width: 332.w,
+              height: 44.h,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:turquoiseColorApp,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                  ),),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset('assets/icons/trash.png',color: Colors.white,),
+                    SizedBox(width: 30.w,),
+                    Text('מחיקת חשבון',style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.normal,
+                      height: 1,
+                      color: Colors.white,), ),
 
-                       Image.asset('assets/icons/trash.png',color: Colors.white,)
+                  ],
+                ),
+                onPressed: () {
+                  displayQuestionDelete(context,message: '?בטוח ברצונך למחוק חשבון זה',header: 'מחיקת חשבון',
+                    onYes: () => {
 
-                     ],
-                   ),
+                    },/*Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(),))*/);
+                },),
+            ),
+            SizedBox(height: 20.h,),
+            /*  Container(
+                 width: 332.w,
+                 height: 42.h,
+                 child: FloatingActionButton.extended(
+                     label: Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                       children: [
+                         Text('מחיקת חשבון',style: TextStyle(
+                             fontSize: 18.sp,
+                             fontWeight: FontWeight.normal,
+                             color: Colors.white,),
+                           /*textAlign: TextAlign.start*/),
 
-                   elevation: 2,
-                   backgroundColor: turquoiseColorApp,
-                   onPressed: (){},
-                   icon:  null,
+                         Image.asset('assets/icons/trash.png',color: Colors.white,)
+
+                       ],
+                     ),
+
+                     elevation: 2,
+                     backgroundColor: turquoiseColorApp,
+                     onPressed: (){},
+                     icon:  null,
+                 ),
                ),
-             ),
-       */
-          //SizedBox(height: 40.h,),
-        ],
+         */
+            //SizedBox(height: 40.h,),
+          ],
+        ),
       ),
     );
   }
@@ -245,7 +248,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
 
     return showModalBottomSheet(
       context: context,
-
+      backgroundColor: Colors.white,
       builder: (BuildContext context) => StatefulBuilder(
         builder: (context,state) {
          if(!didYes) {
@@ -284,7 +287,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text("בטוח ברצונך למחוק חשבון זה?",
+                          Text("?בטוח ברצונך למחוק חשבון זה",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 height:1,
@@ -396,6 +399,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
     );
 
   }
+
   Future reloadMainPage(BuildContext context,) {
     bool didYes = true;
 
@@ -422,7 +426,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
 
                 child: Column(children: [
                   SizedBox(height: 38.h),
-                  Image.asset('assets/images/loading.png',width:24.w,color: Colors.white,),
+                  Image.asset('assets/images/loading.png',color: Colors.white,),
                   SizedBox(height: 14.h),
                   Text('רק דקה :) \nטוען מסך ראשי...',style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.bold,fontSize: 20.sp,),textDirection: ui.TextDirection.rtl,),
                   // const Spacer(),

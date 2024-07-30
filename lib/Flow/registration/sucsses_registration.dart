@@ -68,7 +68,7 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
                             },
                             child: Text('לעבור לביצוע הזמנה',
                                 style: TextStyle(
-                                    fontSize: 22.sp,
+                                    fontSize: 18.sp,
                                     color: Colors.white,
                                     fontWeight: FontWeight.normal))),
                       ),
@@ -100,7 +100,7 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
                                 ),
                                 Text('   צא מהאפליקציה',
                                     style: TextStyle(
-                                        fontSize: 22.sp,
+                                        fontSize: 18.sp,
                                         color: Colors.white,
                                         fontWeight: FontWeight.normal)),
                               ],

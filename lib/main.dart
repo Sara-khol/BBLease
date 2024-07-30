@@ -92,6 +92,7 @@ class MyApp extends StatelessWidget {
             : Size(1440, 1024),
         minTextAdapt: true,
         builder: (BuildContext context, Widget? child) {
+      //    debugPrint('orientation main ${(ScreenUtil()).pixelRatio} ');
           return MaterialApp(
             localizationsDelegates: [
               //AppLocalizations.delegate,

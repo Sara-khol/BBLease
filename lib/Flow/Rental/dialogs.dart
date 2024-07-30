@@ -14,7 +14,7 @@ import '../UserInformation/contact_us.dart';
 
 double? latitude;
 double? longitude;
-String location = '';
+late String location;
 //late DateTime startDate,endDate;
 Rental rent = Rental();
 
@@ -257,8 +257,7 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                             shrinkWrap: true,
                             itemCount: _predictions!.length,
                             itemBuilder: (context, index) {
-                              AutocompletePrediction prediction =
-                              _predictions![index];
+                              AutocompletePrediction prediction = _predictions![index];
                               return ListTile(
                                 title: Text(
                                   prediction.fullText.toString(),
@@ -293,7 +292,8 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                         ),
                       )
                           :  Container(),
-                      location.isNotEmpty ? Column(
+                      location.isNotEmpty
+                          ? Column(
                               children: [
                                 SizedBox(
                                   height: 32.h,
@@ -302,8 +302,7 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                                   width: 332.w,
                                   height: 48.h,
                                   decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(25)),
+                                    borderRadius: BorderRadius.all(Radius.circular(25)),
                                     color: turquoiseColorApp,
                                   ),
                                   child: TextButton(
@@ -316,15 +315,17 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                                     ),
                                     onPressed: () {
                                       debugPrint("location $location longitude $longitude latitude $latitude");
-                                      if(kIsWeb||controller.text.isNotEmpty && location.isNotEmpty) {
+                                      if(/*kIsWeb||*/controller.text.isNotEmpty && location.isNotEmpty) {
                                         //Navigator.pop(context);
                                         nav == 0
-                                            ? rentalTerm(context)
+                                            ? rentalTerm(context,0)
                                             : Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      SearchCar(location: location,
+                                                      SearchCar(
+                                                        index: 1,
+                                                          location: location,
                                                           latitude: latitude,
                                                           longitude: longitude,
                                                           startDate: sdate,
@@ -369,7 +370,7 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
     });
 }
 
-Future rentalTerm(context, [DateTime? s,DateTime? e]) {
+Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
   TextEditingController startd = TextEditingController();
   TextEditingController endd = TextEditingController();
 
@@ -731,13 +732,16 @@ Future rentalTerm(context, [DateTime? s,DateTime? e]) {
                                 print('data: ');
                                 print(startDate);
                                 print(endDate);
+                                print(" location $location");
                                 if(startd.text.isNotEmpty && selectedValue!=null) {
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                           maintainState: false,
                                           builder: (context) =>
-                                              SearchCar(location: location,
+                                              SearchCar(
+                                                 index: 1,
+                                                location: location,
                                                 latitude: latitude,
                                                 longitude: longitude,
                                                 startDate: rent.startDate,

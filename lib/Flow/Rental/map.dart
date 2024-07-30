@@ -102,41 +102,46 @@ class _RentalWidgetState extends State<RentalWidget> {
       lat=position.latitude;
 
       //print('address: ${formattedAddress?.formattedAddress}');
-      print('address: $formattedAddress');
-      CameraPosition updatedPosition = CameraPosition(
-        target: LatLng(position.latitude, position.longitude),
-        zoom: 17,
-      );
 
-      mapController.animateCamera(CameraUpdate.newCameraPosition(updatedPosition));
 
-      /*Marker userLocationMarker = Marker(
+    } catch (e) {
+      print("There was an issue fetching the location: $e");
+      formattedAddress='יפו 1, ירושלים';
+      lat=31.781937670130752;
+      long=35.21984481790195;
+    }
+
+    print('address: $formattedAddress');
+    CameraPosition updatedPosition = CameraPosition(
+      target: LatLng(lat, long),
+      zoom: 17,
+    );
+
+    mapController.animateCamera(CameraUpdate.newCameraPosition(updatedPosition));
+
+    /*Marker userLocationMarker = Marker(
         markerId: MarkerId('userLocation'),
         position: LatLng(position.latitude, position.longitude),
         infoWindow: InfoWindow(title: 'You are here'),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
       );*/
-      setState(() {
-        _kGoogle = updatedPosition;
-      });
+    setState(() {
+      _kGoogle = updatedPosition;
+    });
 
-      if(!dialogShown) {
-        print('going to dialog');
-        //var formattedAddress;
-        if(formattedAddress!=null) {
+    if(!dialogShown) {
+      print('going to dialog');
+      //var formattedAddress;
+      if(formattedAddress!=null) {
+        setState(() {
+          _isDialogOpen=true;
+        });
+        departurePoint(context, formattedAddress, 0,onClose:(){
           setState(() {
-            _isDialogOpen=true;
+            _isDialogOpen=false;
           });
-          departurePoint(context, formattedAddress, 0,onClose:(){
-            setState(() {
-              _isDialogOpen=false;
-            });
-          },latitude1: lat,longitude1: long);
-        }
+        },latitude1: lat,longitude1: long);
       }
-
-    } catch (e) {
-      print("There was an issue fetching the location: $e");
     }
   }
 
@@ -275,8 +280,8 @@ print('getCarsList');
             markers: _markers.toSet(),//Set<Marker>.of(_markers),
             mapType: MapType.normal,
             zoomControlsEnabled: true,
-            myLocationEnabled: true,
-            myLocationButtonEnabled: true,
+            //myLocationEnabled: true,
+            //myLocationButtonEnabled: true,
             compassEnabled: true,
 
             scrollGesturesEnabled: !_isDialogOpen,

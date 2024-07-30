@@ -124,13 +124,15 @@ class _LicenseFrontState extends State<LicenseFront> {
                       ],
                     ),
                     backgroundColor: Color.fromRGBO(247, 247, 247, 1),
-                    center: Padding(
-                      padding: EdgeInsets.only(
-                        right: 140.w,
-                      ),
-                      child: Text(
-                        '1/3',
-                        style: TextStyle(color: Colors.white, fontSize: 12.sp,height: 0.11),
+                    center: Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          right: 140.w,
+                        ),
+                        child: Text(
+                          '1/3',
+                          style: TextStyle(color: Colors.white, fontSize: 9.sp),
+                        ),
                       ),
                     ),
                   ),

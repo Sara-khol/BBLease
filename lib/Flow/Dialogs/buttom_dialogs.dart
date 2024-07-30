@@ -402,6 +402,74 @@ Future displayMessage(BuildContext context,{
   );
 }
 
+Future displayMessageWithTitle(BuildContext context,{
+  String title='',
+  String message='',
+  String textButton='',
+  Function()? onClose}) {
+  return showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context) => Container(
+        decoration: const BoxDecoration(color:Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+        ),
+        child: Wrap(children: [
+          Container(height: 45.h),
+          Center(
+            child: Text(title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  height:1,
+                  color: pinkColorApp,
+                  fontSize: 22.sp,
+                  fontWeight: FontWeight.w700,
+                )),
+          ),
+          Container(height: 43.h,),
+          Center(
+            child: Text(message,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  height:1,
+                  fontSize: 16.sp,
+                )),
+          ),
+          Container(height: 40.h),
+          Container(
+            height: 46.h,
+            width: double.infinity,
+            margin: EdgeInsets.symmetric(horizontal: 30.w),
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: turquoiseColorApp,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                  if(onClose!=null)
+                  {
+                    onClose();
+                  }
+                },
+                child: Text(
+                    textButton,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                      //height: 2.3
+                    ))),
+          ),
+          Container(height: 22.h)
+        ])),
+    barrierColor: Colors.black12.withOpacity(0.1),
+    // shape: const RoundedRectangleBorder(
+    //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+  );
+}
+
 Future displayQuestion(BuildContext context,{
   String message='', required Function() onYes}) {
   return showModalBottomSheet(
@@ -492,30 +560,22 @@ Future displayQuestion1(BuildContext context,{
   return showModalBottomSheet(
     context: context,
     builder: (BuildContext context) => Container(
-       height: 250.h,
+       //height: 250.h,
         decoration: const BoxDecoration(color:Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
         ),
-        child: Column(children: [
-          SizedBox(height: 35.h),
-          Text(header,style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.bold,fontSize: 22.sp),textDirection: TextDirection.rtl,),
-          Expanded(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(message,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        height:1,
-                        fontSize: 16.sp,
-                      ),textDirection: TextDirection.rtl,),
-                ],
-              ),
-            ),
-          ),
-         SizedBox(height: 57.h),
+        child: Wrap(alignment: WrapAlignment.center,
+            children: [
+          Container(height: 35.h),
+          Text(header,style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.w700,fontSize: 22.sp),textDirection: TextDirection.rtl,),
+              Container(height: 41.h),
+              Text(message,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  height:1,
+                  fontSize: 16.sp,
+                ),textDirection: TextDirection.rtl,),
+              Container(height: 36.h),
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -538,7 +598,7 @@ Future displayQuestion1(BuildContext context,{
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 18.sp,
-                              fontWeight: FontWeight.w600,
+                            //  fontWeight: FontWeight.w600,
                             height: 1,
                           ),
                         ),
@@ -556,22 +616,24 @@ Future displayQuestion1(BuildContext context,{
                         ),
                       ),
                       onPressed: () => onYes(),
-                      child: Text(
-                       yesText.isEmpty? 'אישור':yesText,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w600,
-                          height: 1,
+                      child: Center(
+                        child: Text(
+                         yesText.isEmpty? 'אישור':yesText,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.sp,
+                             // fontWeight: FontWeight.w600,
+                            height: 1,
 
-                          //height: 2.3
+                            //height: 2.3
+                          ),
                         ),
                       )),
                 ),
 
               ]),
-          SizedBox(height: 22.h)
+          Container(height: 22.h)
         ])),
     barrierColor: Colors.black12.withOpacity(0.1),
     // shape: const RoundedRectangleBorder(

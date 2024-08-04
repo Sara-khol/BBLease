@@ -262,7 +262,7 @@ class _LicenseBackState extends State<LicenseBack> {
                       XFile xfile=await _cameraController.takePicture();
 
                       widget.index==1
-                          ?uploadSucceed(context,LicenseBack(index: widget.index),PersonalDetailsForm()/*FaceScanning()*/)
+                          ?uploadSucceed(context,LicenseBack(index: widget.index),/*PersonalDetailsForm()*/FaceScanning())
                           :uploadSucceed(context,LicenseBack(index: widget.index,orderId: widget.orderId,),LicenseDetails(index: widget.index,orderId: widget.orderId,));
                       setState(() {
                         _imageBack= xfile;
@@ -292,7 +292,7 @@ class _LicenseBackState extends State<LicenseBack> {
     }
     XFile? result = await ImagePicker().pickImage(source: ImageSource.gallery);
     if(result != null) {
-      uploadSucceed(context,LicenseBack(index: 1),PersonalDetailsForm()/*FaceScanning()*/);
+      uploadSucceed(context,LicenseBack(index: 1),/*PersonalDetailsForm()*/FaceScanning());
       setState(() {
         _imageBack= result;
         //_cameraController.pausePreview();

@@ -730,7 +730,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                       Navigator.push(context, MaterialPageRoute(
                                         builder: (context) =>
                                             CarDocu(
-                                              carNum: rent.car.carNumber),));
+                                              rentNum: rent.orderNum!),));
                                     }
                               ),
                               ),

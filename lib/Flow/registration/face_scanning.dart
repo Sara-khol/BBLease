@@ -1,4 +1,3 @@
-
 import 'dart:ui';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/foundation.dart';
@@ -10,7 +9,7 @@ import 'face_detector.dart';
 
 
 class FaceScanning extends StatefulWidget {
-  const FaceScanning({Key? key}) : super(key: key);
+  const FaceScanning({super.key});
 
   @override
   State<FaceScanning> createState() => _FaceScanningState();
@@ -216,8 +215,8 @@ print('faces.length: ${faces.length}');
             SizedBox(height: 35.h,),
             Expanded(
               child: Stack(
-                  children:[
-    /*Center(child: CameraFaceDetection()),*/
+                children:[
+                  Center(child: CameraFaceDetection()),
                     /*FutureBuilder(
                         future: _initializeCamera(),
                         builder:(context,snapshot){

@@ -10,9 +10,9 @@ import '../map.dart';
 
 
 class CarDocu extends StatefulWidget {
-  const CarDocu({Key? key, required this.carNum}) : super(key: key);
+  const CarDocu({Key? key, required this.rentNum}) : super(key: key);
 
-  final int carNum;
+  final int rentNum;
 
   @override
   State<CarDocu> createState() => _CarDocuState();
@@ -31,7 +31,7 @@ class _CarDocuState extends State<CarDocu> {
 
   sendImages(){
     showLoading(context);
-    ApiService().carDocumentation(widget.carNum,images, (res) {
+    ApiService().carDocumentation(widget.rentNum,images, (res) {
       Navigator.pop(context);
       displayMessage(context,
           message: 'ההודעה התקבלה בהצלחה',

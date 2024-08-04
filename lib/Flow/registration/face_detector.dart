@@ -12,6 +12,8 @@ import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 class CameraFaceDetection extends StatefulWidget {
+  const CameraFaceDetection({super.key});
+
   @override
   _CameraFaceDetectionState createState() => _CameraFaceDetectionState();
 }
@@ -94,7 +96,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
 
   Future<bool> _initializeCamera() async {
     print('_initializeCamera');
-    _initializeFaceDetector();
+    await _initializeFaceDetector();
     print('_initializeCamera');
     cameras = await availableCameras();
      //selfiCamera= cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.front);
@@ -103,16 +105,15 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
     _cameraController = CameraController(
       cameras.first,
       ResolutionPreset.high,
-      enableAudio: false,
+      //enableAudio: false,
       /*ResolutionPreset.medium,*/
       imageFormatGroup: Platform.isAndroid
           ? ImageFormatGroup.yuv420 // for Android
-          : ImageFormatGroup.bgra8888,
+          : kIsWeb?ImageFormatGroup.jpeg:ImageFormatGroup.bgra8888,
     );
 
-   await _cameraController.initialize();
+   //await _cameraController.initialize();
     await _cameraController.initialize().then((_) async {
-
       print('camera controller has been initialized');
        if (!mounted) {
          return;
@@ -132,7 +133,7 @@ return true;
 
   }
 
-  void _initializeFaceDetector() {
+  _initializeFaceDetector() {
     print('_initializeFaceDetector');
 
     //

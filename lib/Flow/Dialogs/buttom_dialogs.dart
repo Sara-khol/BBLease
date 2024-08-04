@@ -598,7 +598,7 @@ Future displayQuestion1(BuildContext context,{
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 18.sp,
-                              fontWeight: FontWeight.w600,
+                            //  fontWeight: FontWeight.w600,
                             height: 1,
                           ),
                         ),
@@ -616,16 +616,18 @@ Future displayQuestion1(BuildContext context,{
                         ),
                       ),
                       onPressed: () => onYes(),
-                      child: Text(
-                       yesText.isEmpty? 'אישור':yesText,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w600,
-                          height: 1,
+                      child: Center(
+                        child: Text(
+                         yesText.isEmpty? 'אישור':yesText,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.sp,
+                             // fontWeight: FontWeight.w600,
+                            height: 1,
 
-                          //height: 2.3
+                            //height: 2.3
+                          ),
                         ),
                       )),
                 ),

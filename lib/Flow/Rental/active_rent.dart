@@ -6,7 +6,6 @@ import 'package:bblease/Flow/Rental/Actions/add_driver.dart';
 import 'package:bblease/Flow/Rental/Actions/car_docu.dart';
 import 'package:bblease/Flow/Rental/dialogs.dart';
 import 'package:bblease/Flow/Rental/map.dart';
-import 'package:bblease/Flow/home_page.dart';
 import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:bblease/services/api_service.dart';
 import 'package:bblease/utils/my_colors.dart';
@@ -18,7 +17,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../models/class_rent.dart';
 import '../../models/class_user.dart';
@@ -567,20 +565,22 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                               child: InkWell(
                                 child: Column(
                                   children: [
-                                    SizedBox(height: 20.h,),
+                                    SizedBox(height: 15.h,),
                                     const ImageIcon(
                                       AssetImage("assets/icons/Broken.png"),
                                       color: Color(0xFF0F1511),
                                     ),
                                     SizedBox(height: 10.h,),
-                                    Text(
-                                      'דיווח\nעל תקלה',
-                                      style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.normal,
-                                        height: 1,
+                                    Expanded(
+                                      child: Text(
+                                        'דיווח\nעל תקלה',
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.normal,
+                                          height: 1,
+                                        ),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      textAlign: TextAlign.center,
                                     ),
                                   ],
                                 ),
@@ -592,7 +592,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                         Padding(
                           padding: EdgeInsets.only(right: 10.w),
                           child: Container(
-                            height: 100.h,
+                            height: 95.h,
                             width: 100.w,
                             decoration: ShapeDecoration(
                               shape: RoundedRectangleBorder(
@@ -613,7 +613,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                 child: Column(
                                   children: [
                                     SizedBox(
-                                      height: 20.h,
+                                      height: 15.h,
                                     ),
                                     Image.asset("assets/icons/car_icon_black.png"),
                                       // Image.asset("assets/icons/car_icon.png", color:  Color(0xFF0F1511),
@@ -621,13 +621,15 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                     SizedBox(
                                       height: 10.h,
                                     ),
-                                    Text(
-                                      'איפה חניתי',
-                                      style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.normal,
+                                    Expanded(
+                                      child: Text(
+                                        'איפה חניתי',
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      textAlign: TextAlign.center,
                                     )
                                   ],
                                 ),
@@ -646,7 +648,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                         Padding(
                           padding: EdgeInsets.only(right: 10.w),
                           child: Container(
-                            height: 100.h,
+                            height: 95.h,
                             width: 100.w,
                             decoration: ShapeDecoration(
                               shape: RoundedRectangleBorder(
@@ -667,16 +669,18 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   //  width: 60.w,
                                   child: Column(
                                     children: [
-                                      SizedBox(height: 20.h,),
+                                      SizedBox(height: 15.h,),
                                       Icon(Icons.account_circle_outlined, size: 24.sp,),
                                       SizedBox(height: 10.h,),
-                                      Text(
-                                        'הוספת\nנהג נוסף',
-                                        style: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.normal,
-                                            height: 1),
-                                        textAlign: TextAlign.center,
+                                      Expanded(
+                                        child: Text(
+                                          'הוספת\nנהג נוסף',
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.normal,
+                                              height: 1),
+                                          textAlign: TextAlign.center,
+                                        ),
                                       )
                                     ],
                                   ),
@@ -690,7 +694,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                         Padding(
                           padding: EdgeInsets.only(right: 10.w),
                           child: Container(
-                            height: 100.h,
+                            height: 95.h,
                             width: 100.w,
                             decoration: ShapeDecoration(
                               shape: RoundedRectangleBorder(
@@ -711,15 +715,17 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   // width: 60.w,
                                   child: Column(
                                     children: [
-                                      SizedBox(height: 20.h,),
+                                      SizedBox(height: 15.h,),
                                       Icon(Icons.camera_alt_outlined, size: 24.sp,),
                                       SizedBox(height: 10.h,),
-                                      Text('תיעוד רכב',
-                                        style: TextStyle(
-                                            fontSize: 18.sp,
-                                            fontWeight: FontWeight.normal,
-                                            height: 1),
-                                        textAlign: TextAlign.center,
+                                      Expanded(
+                                        child: Text('תיעוד רכב',
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.normal,
+                                              height: 1),
+                                          textAlign: TextAlign.center,
+                                        ),
                                       )
                                     ],
                                   ),
@@ -740,7 +746,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                         Padding(
                           padding: EdgeInsets.only(left: 10.w, right: 10.w),
                           child: Container(
-                            height: 100.h,
+                            height: 95.h,
                             width: 100.w,
                             decoration: ShapeDecoration(
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -760,15 +766,17 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   //width: 60.w,
                                   child: Column(
                                     children: [
-                                      SizedBox(height: 20.h,),
-                                      Image.asset('assets/icons/Frame.png'),
+                                      SizedBox(height: 15.h,),
+                                      Image.asset('assets/icons/key.png'),
                                       SizedBox(height: 10.h,),
-                                      Text('שלח קוד\nלפתיחת דלת',
-                                        style: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.normal,
-                                            height: 1),
-                                        textAlign: TextAlign.center,
+                                      Expanded(
+                                        child: Text('שלח קוד\nלפתיחת דלת',
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.normal,
+                                              height: 1),
+                                          textAlign: TextAlign.center,
+                                        ),
                                       )
                                     ],
                                   ),

@@ -119,9 +119,11 @@ class _LicenseBackState extends State<LicenseBack> {
                     barRadius: const Radius.circular(16),
                     linearGradient: LinearGradient(colors: [ Color.fromRGBO(254, 193, 216, 1), Color.fromRGBO(251, 39, 119, 1)], ),
                     backgroundColor: Color.fromRGBO(247, 247, 247, 1),
-                    center: Padding(
-                      padding: EdgeInsets.only(left: 65.w,),
-                      child: Text('2/3',style: TextStyle(color: Colors.white, fontSize: 12.sp ,height: 0.11),),
+                    center: Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 65.w,),
+                        child: Text('2/3',style: TextStyle(color: Colors.white, fontSize: 9.sp ),),
+                      ),
                     ),
                   ),
                 ],

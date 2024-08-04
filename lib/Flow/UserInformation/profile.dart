@@ -248,7 +248,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
 
     return showModalBottomSheet(
       context: context,
-
+      backgroundColor: Colors.white,
       builder: (BuildContext context) => StatefulBuilder(
         builder: (context,state) {
          if(!didYes) {
@@ -287,7 +287,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text("בטוח ברצונך למחוק חשבון זה?",
+                          Text("?בטוח ברצונך למחוק חשבון זה",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 height:1,
@@ -426,7 +426,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
 
                 child: Column(children: [
                   SizedBox(height: 38.h),
-                  Image.asset('assets/images/loading.png',width:24.w,color: Colors.white,),
+                  Image.asset('assets/images/loading.png',color: Colors.white,),
                   SizedBox(height: 14.h),
                   Text('רק דקה :) \nטוען מסך ראשי...',style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.bold,fontSize: 20.sp,),textDirection: ui.TextDirection.rtl,),
                   // const Spacer(),

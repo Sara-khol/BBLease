@@ -1,4 +1,5 @@
 
+import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/Rental/Actions/add_driver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -198,7 +199,11 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                             widget.rent.car=widget.car;
                             bool containsAdditionalDriver = widget.rent.additions!.any((addition) => addition.name == 'additional_driver');
                             if(containsAdditionalDriver){
-                             await addDriverDialog();
+                             await displayQuestion1(context,header:'הי,שים לב!',
+                               message: 'בחרת בהוספת נהג נוסף,\nתרצה למלא את הפרטים?',
+                               noText: 'בתחילת הנסיעה',yesText: 'עכשיו',onYes: (){
+                                 Navigator.push(context, MaterialPageRoute(builder: (context) => AddDriver(index: 2, ), ));
+                               } );
 
                             }
 

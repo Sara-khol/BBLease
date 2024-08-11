@@ -1,31 +1,27 @@
+
 import 'dart:async';
 import 'dart:io';
-//import 'dart:nativewrappers/_internal/vm/lib/core_patch.dart';
 import 'dart:typed_data';
 import 'package:bblease/Flow/registration/verification.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:camera/camera.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 
 class CameraFaceDetection extends StatefulWidget {
-  const CameraFaceDetection({super.key});
-
   @override
   _CameraFaceDetectionState createState() => _CameraFaceDetectionState();
 }
 
 class _CameraFaceDetectionState extends State<CameraFaceDetection> {
-  late CameraController _cameraController;
+  CameraController? _cameraController;
   late FaceDetector _faceDetector;
   late bool _isDetecting;
   bool isCapture = false;
   late List<CameraDescription> cameras;
   late CameraDescription selfiCamera;
-
 
   final _orientations = {
     DeviceOrientation.portraitUp: 0,
@@ -38,11 +34,103 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
   void initState() {
     super.initState();
     _isDetecting = false;
-    //_initializeCamera();
+    _initializeCamera();
     //_initializeFaceDetector();
   }
 
-  InputImage? _inputImageFromCameraImage(CameraImage image) {
+  Future<void> _initializeCamera() async {
+    print('_initializeCamera');
+    _initializeFaceDetector();
+
+    cameras = await availableCameras();
+    //selfiCamera= cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.front);
+    selfiCamera = cameras[0];
+    _cameraController = CameraController(
+      selfiCamera,
+      ResolutionPreset.max,
+      enableAudio: false,
+      /*ResolutionPreset.medium,*/
+      imageFormatGroup: Platform.isAndroid
+          ? ImageFormatGroup.nv21 // for Android
+          : ImageFormatGroup.bgra8888,
+    );
+
+    await _cameraController!.initialize();
+    // _cameraController!.initialize().then((_) {
+    //   if (!mounted) {
+    //     return;
+    //   }
+    //   setState(() {});
+    //   _startDetecting();
+    // });
+
+    if (mounted && _cameraController != null) {
+      setState(() {});
+      _startDetecting();
+    } else {
+      debugPrint('_cameraController is null or widget is not mounted');
+      Sentry.addBreadcrumb(Breadcrumb(
+          message: '_cameraController is null or widget is not mounted'));
+      await Sentry.captureMessage('???? ');
+    }
+  }
+
+  void _initializeFaceDetector() {
+    print('_initializeFaceDetector');
+
+    //
+     _faceDetector = FaceDetector(
+      options: FaceDetectorOptions(
+        enableContours: true,
+        enableLandmarks: true,
+        performanceMode: FaceDetectorMode.accurate,
+        minFaceSize: 0.1),
+    );
+
+    // _faceDetector = GoogleMlKit.vision.faceDetector(
+    //   FaceDetectorOptions(
+    //    // enableContours: true,
+    //    // enableLandmarks: true,
+    //    // performanceMode: FaceDetectorMode.accurate,
+    //    // minFaceSize: 0.1,
+    //
+    //       performanceMode: FaceDetectorMode.fast, enableLandmarks: true// Experiment with different values
+    //   ),
+    // );
+  }
+
+  void _startDetecting() {
+    print('_startDetecting _isDetecting $_isDetecting');
+
+    _cameraController!.startImageStream((CameraImage image) {
+      if (!_isDetecting) {
+        _isDetecting = true;
+
+       final inputImage = _inputImageFromCameraImage(image);
+
+
+        if (inputImage != null) {
+          _faceDetector.processImage(inputImage).then((List<Face> faces) {
+            print('faces.length ${faces.length}');
+
+            if (faces.isNotEmpty) {
+              print('faces.isNotEmpty');
+              Sentry.addBreadcrumb(Breadcrumb(message: 'faces.isNotEmpty'));
+              if (_isDetecting) {
+                _capturePicture();
+              }
+            }
+            _isDetecting = false;
+          });
+        } else {
+          debugPrint('inputImage null');
+        //  _isDetecting = false;
+        }
+      }
+    });
+  }
+
+  /*  InputImage? _inputImageFromCameraImage(CameraImage image) {
     // get image rotation
     // it is used in android to convert the InputImage from Dart to Java
     // `rotation` is not used in iOS to convert the InputImage from Dart to Obj-C
@@ -54,7 +142,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
       rotation = InputImageRotationValue.fromRawValue(sensorOrientation);
     } else if (Platform.isAndroid) {
       var rotationCompensation =
-          _orientations[_cameraController.value.deviceOrientation];
+      _orientations[_cameraController!.value.deviceOrientation];
       if (rotationCompensation == null) return null;
       if (camera.lensDirection == CameraLensDirection.front) {
         // front-facing
@@ -92,97 +180,132 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
         bytesPerRow: plane.bytesPerRow, // used only in iOS
       ),
     );
-  }
+  }*/
 
-  Future<bool> _initializeCamera() async {
-    print('_initializeCamera');
-    await _initializeFaceDetector();
-    print('_initializeCamera');
-    cameras = await availableCameras();
-     //selfiCamera= cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.front);
-    //selfiCamera = cameras[0];
-    print(cameras.length);
-    _cameraController = CameraController(
-      cameras.first,
-      ResolutionPreset.high,
-      //enableAudio: false,
-      /*ResolutionPreset.medium,*/
-      imageFormatGroup: Platform.isAndroid
-          ? ImageFormatGroup.yuv420 // for Android
-          : kIsWeb?ImageFormatGroup.jpeg:ImageFormatGroup.bgra8888,
-    );
+  InputImage? _inputImageFromCameraImage(CameraImage image) {
+    // get image rotation
+    // it is used in android to convert the InputImage from Dart to Java
+    // `rotation` is not used in iOS to convert the InputImage from Dart to Obj-C
+    // in both platforms `rotation` and `camera.lensDirection` can be used to compensate `x` and `y` coordinates on a canvas
+    final camera =selfiCamera;
+    final sensorOrientation = camera.sensorOrientation;
+    InputImageRotation? rotation;
+    if (Platform.isIOS) {
+      rotation = InputImageRotationValue.fromRawValue(sensorOrientation);
+    } else if (Platform.isAndroid) {
+      var rotationCompensation =
+      _orientations[_cameraController!.value.deviceOrientation];
+      if (rotationCompensation == null) return null;
+      if (camera.lensDirection == CameraLensDirection.front) {
+        // front-facing
+        rotationCompensation = (sensorOrientation + rotationCompensation) % 360;
+      } else {
+        // back-facing
+        rotationCompensation =
+            (sensorOrientation - rotationCompensation + 360) % 360;
+      }
+      rotation = InputImageRotationValue.fromRawValue(rotationCompensation);
+    }
+    if (rotation == null) return null;
 
-   //await _cameraController.initialize();
-    await _cameraController.initialize().then((_) async {
-      print('camera controller has been initialized');
-       if (!mounted) {
-         return;
-       }
-       if (mounted && _cameraController != null) {
-         setState(() {});
-         _startDetecting();
-       }
-       else {
-         debugPrint('_cameraController is null or widget is not mounted');
-         Sentry.addBreadcrumb(Breadcrumb(
-             message: '_cameraController is null or widget is not mounted'));
-         await Sentry.captureMessage('???? ');
-       }
-     });
-return true;
+    // get image format
+    final format = InputImageFormatValue.fromRawValue(image.format.raw);
+    debugPrint('format $format');
+    // validate format depending on platform
+    // only supported formats:
+    // * nv21 for Android
+    // * bgra8888 for iOS
+    if (format == null ||
+        (Platform.isAndroid && format != InputImageFormat.nv21) ||
+        (Platform.isIOS && format != InputImageFormat.bgra8888))
+      {
+        if(Platform.isAndroid)
+          {
+            const format = InputImageFormat.nv21;
 
-  }
+            Uint8List nv21Bytes = getNv21Uint8List(image);
+            debugPrint('nv21Bytes ${nv21Bytes.length}');
+            // Create an InputImage from the converted NV21 bytes
+            return   InputImage.fromBytes(
+              bytes: nv21Bytes,
+              metadata: InputImageMetadata(
+                size: Size(image.width.toDouble(), image.height.toDouble()),
+                rotation: rotation, // Consider setting the correct rotation value
+                format: format,
+                bytesPerRow: image.planes[0].bytesPerRow,
+              ),
+            );
+          }
+        else
+          {
+            return null;
+          }
 
-  _initializeFaceDetector() {
-    print('_initializeFaceDetector');
+      }
 
-    //
-    //  _faceDetector = FaceDetector(
-    //   options: FaceDetectorOptions(
-    //     enableContours: true,
-    //     enableLandmarks: true,
-    //     performanceMode: FaceDetectorMode.accurate,
-    //     minFaceSize: 0.1, // Experiment with different values
-    //   ),
-    // );
+    // since format is constraint to nv21 or bgra8888, both only have one plane
+    if (image.planes.length != 1) return null;
+    final plane = image.planes.first;
 
-    _faceDetector = GoogleMlKit.vision.faceDetector(
-      FaceDetectorOptions(
-        enableContours: true,
-        enableLandmarks: true,
-        performanceMode: FaceDetectorMode.accurate,
-        minFaceSize: 0.1, // Experiment with different values
+    // compose InputImage using bytes
+    return InputImage.fromBytes(
+      bytes: plane.bytes,
+      metadata: InputImageMetadata(
+        size: Size(image.width.toDouble(), image.height.toDouble()),
+        rotation: rotation, // used only in Android
+        format: format, // used only in iOS
+        bytesPerRow: plane.bytesPerRow, // used only in iOS
       ),
     );
   }
 
-  void _startDetecting() {
-    print('_startDetecting');
+  Uint8List getNv21Uint8List(CameraImage image) {
+    final width = image.width;
+    final height = image.height;
 
-    _cameraController.startImageStream((CameraImage image) {
-      if (!_isDetecting) {
-        _isDetecting = true;
+    final yPlane = image.planes[0];
+    final uPlane = image.planes[1];
+    final vPlane = image.planes[2];
 
-        final inputImage = _inputImageFromCameraImage(image);
+    final yBuffer = yPlane.bytes;
+    final uBuffer = uPlane.bytes;
+    final vBuffer = vPlane.bytes;
 
-        if (inputImage != null) {
-          _faceDetector.processImage(inputImage).then((List<Face> faces) {
-            print('faces.length ${faces.length}');
+    final numPixels = (width * height * 1.5).toInt();
+    final nv21 = List<int>.filled(numPixels, 0);
 
-            if (faces.isNotEmpty) {
-              print('faces.isNotEmpty');
-              Sentry.addBreadcrumb(Breadcrumb(message: 'faces.isNotEmpty'));
-              if (_isDetecting) {
-                _capturePicture();
-              }
-            }
-            _isDetecting = false;
-          });
-        } else {
-          debugPrint('inputImage null');
+    // Full size Y channel and quarter size U+V channels.
+    int idY = 0;
+    int idUV = width * height;
+    final uvWidth = width ~/ 2;
+    final uvHeight = height ~/ 2;
+    // Copy Y & UV channel.
+    // NV21 format is expected to have YYYYVU packaging.
+    // The U/V planes are guaranteed to have the same row stride and pixel stride.
+    // getRowStride analogue??
+    final uvRowStride = uPlane.bytesPerRow;
+    // getPixelStride analogue
+    final uvPixelStride = uPlane.bytesPerPixel ?? 0;
+    final yRowStride = yPlane.bytesPerRow;
+    final yPixelStride = yPlane.bytesPerPixel ?? 0;
+
+    for (int y = 0; y < height; ++y) {
+      final uvOffset = y * uvRowStride;
+      final yOffset = y * yRowStride;
+
+      for (int x = 0; x < width; ++x) {
+        nv21[idY++] = yBuffer[yOffset + x * yPixelStride];
+
+        if (y < uvHeight && x < uvWidth) {
+          final bufferIndex = uvOffset + (x * uvPixelStride);
+          //V channel
+          nv21[idUV++] = vBuffer[bufferIndex];
+          //V channel
+          nv21[idUV++] = uBuffer[bufferIndex];
         }
       }
-    });
+    }
+    return Uint8List.fromList(nv21);
   }
 
   Uint8List _concatenatePlanes(List<Plane> planes) {
@@ -204,15 +327,15 @@ return true;
       print('_capturePicture');
 
       if (_cameraController != null &&
-          _cameraController.value.isStreamingImages) {
+          _cameraController!.value.isStreamingImages) {
         try {
-          await _cameraController.stopImageStream();
-          await _cameraController.pausePreview();
+          await _cameraController!.stopImageStream();
+          await _cameraController!.pausePreview();
           Sentry.addBreadcrumb(Breadcrumb(message: 'ok'));
           debugPrint('okkkkk');
           isCapture = true;
 
-          XFile file = await _cameraController.takePicture();
+          XFile file = await _cameraController!.takePicture();
           print("Picture captured: ${file.path}");
           // if (file != null) {
 
@@ -244,31 +367,24 @@ return true;
 
   @override
   void dispose() {
-    _cameraController.dispose();
+    _cameraController!.dispose();
     _faceDetector.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _initializeCamera(),
-      builder: (context,snapshot) {
-        print('snapshot: $snapshot');
-        if(snapshot.hasData) {
-          return Column(
-          children: [
-            //Expanded(child: CameraPreview(_cameraController)),
-            ElevatedButton.icon(
-                icon: Icon(Icons.camera),
-                onPressed: _capturePicture,
-                label: Text('צלם'))
-          ],
-        );
-        }
-        else
-          return Container();
-      }
+    if (_cameraController == null) {
+      return Container();
+    }
+    return Column(
+      children: [
+        Expanded(child: CameraPreview(_cameraController!)),
+        ElevatedButton.icon(
+            icon: Icon(Icons.camera),
+            onPressed: _capturePicture,
+            label: Text('צלם'))
+      ],
     );
     /*SizedBox(
       height: 500,
@@ -289,3 +405,4 @@ return true;
 //  await _cameraController?.stopImageStream();
 // }
 }
+

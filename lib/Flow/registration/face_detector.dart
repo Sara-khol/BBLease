@@ -258,7 +258,7 @@ return true;
         if(snapshot.hasData) {
           return Column(
           children: [
-            //Expanded(child: CameraPreview(_cameraController)),
+            Expanded(child: CameraPreview(_cameraController)),
             ElevatedButton.icon(
                 icon: Icon(Icons.camera),
                 onPressed: _capturePicture,

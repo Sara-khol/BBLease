@@ -15,6 +15,7 @@ import '../../services/api_service.dart';
 import '../../utils/my_colors.dart';
 import 'car_dialog.dart';
 import 'dialogs.dart';
+import 'package:pointer_interceptor/pointer_interceptor.dart';
 
 
 late GoogleMapController mapController;
@@ -37,10 +38,9 @@ class _RentalWidgetState extends State<RentalWidget> {
   final List<Marker> _markers = <Marker>[];
   bool dialogShown=false;
   double long=0, lat=0;
-  bool _isDialogOpen = false;
   //CustomInfoWindowController _customInfoWindowController = CustomInfoWindowController();
 
-  Future<Position> _determinePosition() async{
+  Future<Position> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -133,13 +133,8 @@ class _RentalWidgetState extends State<RentalWidget> {
       print('going to dialog');
       //var formattedAddress;
       if(formattedAddress!=null) {
-        setState(() {
-          _isDialogOpen=true;
-        });
+
         departurePoint(context, formattedAddress, 0,onClose:(){
-          setState(() {
-            _isDialogOpen=false;
-          });
         },latitude1: lat,longitude1: long);
       }
     }
@@ -280,22 +275,16 @@ print('getCarsList');
             markers: _markers.toSet(),//Set<Marker>.of(_markers),
             mapType: MapType.normal,
             zoomControlsEnabled: true,
-            //myLocationEnabled: true,
-            //myLocationButtonEnabled: true,
+            myLocationEnabled: true,
+            myLocationButtonEnabled: true,
             compassEnabled: true,
-
-            scrollGesturesEnabled: !_isDialogOpen,
-            zoomGesturesEnabled: !_isDialogOpen,
-            rotateGesturesEnabled: !_isDialogOpen,
-            tiltGesturesEnabled: !_isDialogOpen,
-
 
           onMapCreated: (GoogleMapController controller){
             mapController=controller;
             //_customInfoWindowController.googleMapController = controller;
             _setCurrentLocation();
             },
-            
+
           ),
          /* CustomInfoWindow(
             controller: _customInfoWindowController,
@@ -313,43 +302,39 @@ print('getCarsList');
                 child: SizedBox(
                   height: 48.h,
                   //width: 183.w,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: turquoiseColorApp,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                      ),
-                      onPressed: () {
-                        dialogShown=true;
-                        if(formattedAddress!=null) {
-                          setState(() {
-                            _isDialogOpen=true;
-                          });
-                          departurePoint(context, formattedAddress, 0,onClose:(){
-                            setState(() {
-                              _isDialogOpen=false;
-                            });
-                          },latitude1: lat,longitude1: long);
-                        }
-                      },
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            ' לביצוע הזמנה  ',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              height: 1,
-                                color: Colors.white,
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.normal),
+                  child: PointerInterceptor(
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: turquoiseColorApp,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
                           ),
-                          ImageIcon(AssetImage("assets/icons/ADD.png"), color: Colors.white,),
-                        ],
-                      )),
+                        ),
+                        onPressed: () {
+                          dialogShown=true;
+                          if(formattedAddress!=null) {
+
+                            departurePoint(context, formattedAddress, 0,latitude1: lat,longitude1: long);
+                          }
+                        },
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              ' לביצוע הזמנה  ',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                height: 1,
+                                  color: Colors.white,
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.normal),
+                            ),
+                            ImageIcon(AssetImage("assets/icons/ADD.png"), color: Colors.white,),
+                          ],
+                        )),
+                  ),
                 ),
               ),
             ),

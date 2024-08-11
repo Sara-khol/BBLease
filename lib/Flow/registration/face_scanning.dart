@@ -279,7 +279,7 @@ print('faces.length: ${faces.length}');
                   backgroundColor: Color.fromRGBO(247, 247, 247, 1),
                   center: Padding(
                     padding: EdgeInsets.only(left: 270.w,),
-                    child: Text('3/3',style: TextStyle(color: Colors.white, fontSize: 12.sp ,height: 0.11),),
+                    child: Text('3/3',style: TextStyle(color: Colors.white, fontSize: 9.sp )),
                   ),
                 ),
               ],

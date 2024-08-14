@@ -10,7 +10,7 @@ import '../../customWidgets/appBarB.dart';
 import '../../models/additions.dart';
 import '../../models/class_rent.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:carousel_slider/carousel_slider.dart';
+//import 'package:carousel_slider/carousel_slider.dart';
 import '../../models/class_user.dart';
 import '../../services/api_service.dart';
 import 'dialogs.dart';
@@ -98,19 +98,19 @@ class _CarDetailsState extends State<CarDetails> {
             Container(
               height: 130.h,
               width: 292.w,
-              child: /*Image.network(widget.rent.car.carImages.first)*/
-              CarouselSlider(
-                  items: widget.rent.car.carImages.map((i) {
-                    return Image.network(i, width: 290.w);
-                  }).toList(),
-                  options: CarouselOptions(
-                    enlargeCenterPage: true,
-                    autoPlay: false,
-                    enableInfiniteScroll: false,
-                    reverse: true,
-                    padEnds: true,
-                  )
-              ),
+              child: Image.network(widget.rent.car.carImages.first)
+              // CarouselSlider(
+              //     items: widget.rent.car.carImages.map((i) {
+              //       return Image.network(i, width: 290.w);
+              //     }).toList(),
+              //     options: CarouselOptions(
+              //       enlargeCenterPage: true,
+              //       autoPlay: false,
+              //       enableInfiniteScroll: false,
+              //       reverse: true,
+              //       padEnds: true,
+              //     )
+              // ),
             ),
           Image.asset('assets/images/Ellipse.png'),
           SizedBox(height: 40.h),

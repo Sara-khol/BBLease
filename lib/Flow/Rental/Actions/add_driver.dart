@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../customWidgets/appBarB.dart';
+import '../../../landspace_widget.dart';
 import '../../../utils/my_colors.dart';
 import '../dialogs.dart';
 
@@ -26,64 +27,78 @@ class _AddDriverState extends State<AddDriver> {
   Widget build(BuildContext context) {
     return Scaffold(
      resizeToAvoidBottomInset: true,
-        body: Directionality(
-        textDirection: TextDirection.rtl,
-          child: Column(
-            children: [
-              Directionality(textDirection: TextDirection.ltr,child: AppBarBibilease()),
-              SizedBox(height: 54.h,),
-              Text('הוספת נהג',
-                style: TextStyle(
-                    fontSize: 22.sp,
-                    fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 38.h,),
-              Text('הכנס ת.ז של הנהג שברצונך להוסיף',
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-              SizedBox(height: 20.h,),
-              TextField(
-                cursorColor: blackColorApp,
-                decoration: getInputDecoration('תעודת זהות',332),
-                style: TextStyle(color: blackColorApp, fontSize: 20.sp),
-                controller: _controller,
-        ),
+        body: OrientationBuilder(builder: (context, orientation) {
+          if (orientation == Orientation.landscape) {
+            return LandSpaceWidget(
+                mainWidget: buildContent(orientation),
+                imageProperties:ImageProperties('l_image.png', 580.w),
+                showAppBar:true
+            );
+          }
+          return buildContent(orientation);
+        }),
+    );
+  }
 
-              Spacer(),
-              Container(
-                height: 48.h,
-                width: 250.w,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: turquoiseColorApp,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                    ),
-                    onPressed: ()  {
-                      ApiService().getAdditionalDriver(_controller.text, (res) {
-                        res==-1?
-                        addDriver(true)
-                        :addDriver(false,res);
-                      });
-                    },
-                    child: Text('הוסף',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.normal,
-                            //height: 2.3
-                        ))),
-              ),
-              SizedBox(height: 30.h,)
-
-            ],
+  buildContent(Orientation o) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Column(
+        children: [
+          if(o==Orientation.portrait)
+            Directionality(textDirection: TextDirection.ltr, child: AppBarBibilease()),
+          SizedBox(height: 54.h,),
+          Text('הוספת נהג',
+            style: TextStyle(
+              fontSize: 22.sp,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        )
+          SizedBox(height: 38.h,),
+          Text('הכנס ת.ז של הנהג שברצונך להוסיף',
+            style: TextStyle(
+              fontSize: 18.sp,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+          SizedBox(height: 20.h,),
+          TextField(
+            cursorColor: blackColorApp,
+            decoration: getInputDecoration('תעודת זהות', 332),
+            style: TextStyle(color: blackColorApp, fontSize: 20.sp),
+            controller: _controller,
+          ),
+
+          Spacer(),
+          Container(
+            height: 48.h,
+            width: 250.w,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: turquoiseColorApp,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                ),
+                onPressed: () {
+                  ApiService().getAdditionalDriver(_controller.text, (res) {
+                    res == -1 ?
+                    addDriver(true)
+                        : addDriver(false, res);
+                  });
+                },
+                child: Text('הוסף',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.normal,
+                      //height: 2.3
+                    ))),
+          ),
+          SizedBox(height: 30.h,)
+
+        ],
+      ),
     );
   }
 

@@ -574,8 +574,6 @@ class _SearchCarState extends State<SearchCar> {
     );
   }
 
-
-
   topButtons(context) {
     return
       Row(

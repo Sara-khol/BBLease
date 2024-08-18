@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:signature/signature.dart';
 
+import '../../../landspace_widget.dart';
 import '../../../models/class_rent.dart';
 import '../../../utils/my_colors.dart';
 
@@ -16,87 +17,103 @@ class CancelationComplete extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          AppBarBibilease(),
-          SizedBox(height: 40.h,),
-          Text('ההזמנה בוטלה',style: TextStyle(fontSize: 24.sp,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-          SizedBox(height: 33.h,),
-          Text('מידע נוסף מחכה לך באזור האישי',
-            style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.normal),textAlign: TextAlign.center,),
-          SizedBox(height: 60.h,),
-          Image.asset('assets/images/image1.png'),
-          SizedBox(height: 70.h,),
-          Text('מקווים לראותך שוב בקרוב!',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.bold),textAlign: TextAlign.center,textDirection: TextDirection.rtl,),
-          SizedBox(height: 138.h,),
-          Container(
-            height: 48.h,
-            width: 332.w,
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: turquoiseColorApp,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100),
-                  ),
+      body: OrientationBuilder(builder: (context, orientation) {
+        if (orientation == Orientation.landscape)
+          return LandSpaceWidget(mainWidget: buildContent(context,orientation),
+              imageProperties:ImageProperties('l_image.png', 580.w),
+              showAppBar:true);
+        return buildContent(context,orientation);
+      }),
+    );
+  }
+
+  buildContent(context, Orientation o) {
+    return Column(
+      children: [
+        if(o==Orientation.portrait) AppBarBibilease(),
+        SizedBox(height: 40.h,),
+        Text('ההזמנה בוטלה',
+          style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,),
+        SizedBox(height: 33.h,),
+        Text('מידע נוסף מחכה לך באזור האישי',
+          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal),
+          textAlign: TextAlign.center,),
+        SizedBox(height: 60.h,),
+        Image.asset('assets/images/image1.png'),
+        SizedBox(height: 70.h,),
+        Text('מקווים לראותך שוב בקרוב!',
+          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+          textDirection: TextDirection.rtl,),
+        SizedBox(height: 138.h,),
+        Container(
+          height: 48.h,
+          width: 332.w,
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: turquoiseColorApp,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100),
                 ),
-                onPressed: () {
-                  sideMenu(context);
-                },
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text('לאזור האישי',
-                          style: TextStyle(
+              ),
+              onPressed: () {
+                sideMenu(context);
+              },
+              child: Directionality(
+                textDirection: TextDirection.rtl,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text('לאזור האישי',
+                        style: TextStyle(
+                            fontSize: 20.sp,
+                            color: Colors.white,
+                            fontWeight: FontWeight.normal)
+                    ),
+                    SizedBox(width: 166.h,),
+                    Icon(Icons.account_circle_outlined, color: Colors.white,)
+
+                  ],
+                ),
+              )
+          ),
+        ),
+        SizedBox(height: 12.h,),
+        Container(
+          height: 48.h,
+          width: 332.w,
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: turquoiseColorApp,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100),
+                ),
+              ),
+              onPressed: () {},
+              child: Directionality(
+                textDirection: TextDirection.rtl,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text('צא מהאפליקציה',
+                        style: TextStyle(
                           fontSize: 20.sp,
                           color: Colors.white,
-                          fontWeight: FontWeight.normal)
-                      ),
-                      SizedBox(width: 166.h,),
-                      Icon(Icons.account_circle_outlined,color: Colors.white,)
-
-                    ],
-                  ),
-                )
-            ),
-          ),
-          SizedBox(height: 12.h,),
-          Container(
-            height: 48.h,
-            width: 332.w,
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: turquoiseColorApp,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100),
-                  ),
+                          fontWeight: FontWeight.normal,
+                          //height: 2.3
+                        )
+                    ),
+                    SizedBox(width: 136.h,),
+                    Icon(Icons.logout, color: Colors.white),
+                  ],
                 ),
-                onPressed: () {  },
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text('צא מהאפליקציה',
-                          style: TextStyle(
-                              fontSize: 20.sp,
-                              color: Colors.white,
-                              fontWeight: FontWeight.normal,
-                              //height: 2.3
-                          )
-                      ),
-                      SizedBox(width: 136.h,),
-                      Icon(Icons.logout,color: Colors.white),
-                    ],
-                  ),
-                )
-            ),
+              )
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

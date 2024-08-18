@@ -553,6 +553,8 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                           ),
                           SizedBox(height: 10.h,),
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               TextFormField(
                                 readOnly: true,
@@ -649,6 +651,8 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                           ),
                           SizedBox(height: 10.h,),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               TextFormField(
                                 readOnly: true,
@@ -796,7 +800,7 @@ Duration findDuration(double? diff) {
 
 getInputDecoration(String text,double width, {Widget? suffixIcon}) {
   return InputDecoration(
-    constraints: BoxConstraints(maxWidth: width),
+    constraints: BoxConstraints(maxWidth: width.w),
     isDense: true,
     labelText: text,
     labelStyle: TextStyle(

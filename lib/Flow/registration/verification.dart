@@ -36,7 +36,7 @@ class _VerificationState extends State<Verification> {
 
   @override
   void initState() {
-
+faceDetection();
     super.initState();
   }
 

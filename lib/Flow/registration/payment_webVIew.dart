@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../landspace_widget.dart';
 import '../../models/class_user.dart';
 import '../../services/api_service.dart';
 import '../../utils/my_colors.dart';
@@ -47,17 +48,16 @@ class _PaymentWebViewState extends State<PaymentWebView> {
   Widget build(BuildContext context) {
     return OrientationBuilder(builder: (context, orientation) {
       return Scaffold(
-          body:/* orientation == Orientation.landscape
+          body: orientation == Orientation.landscape
               ? LandSpaceWidget(
                   mainWidget: buildContent(orientation),
                   imageProperties: ImageProperties('l_register1.png', 618.w))
-              : */buildContent(orientation));
+              : buildContent(orientation));
     });
   }
 
   setStatusForWeb() async
   {
-
       await Future.delayed(const Duration(seconds: 7));
       getStatus();
   }

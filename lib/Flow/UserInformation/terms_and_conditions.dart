@@ -4,6 +4,7 @@ import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../customWidgets/appBarB.dart';
 
+import '../../landspace_widget.dart';
 import '../../models/class_user.dart';
 import '../Rental/Actions/cancel_order_dialogs.dart';
 
@@ -26,76 +27,89 @@ class _TermsState extends State<Terms> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-        Padding(
-          padding: EdgeInsets.only(left: 24.w,right: 24.w,top:32.h,bottom: 20.h),
-          child: Column(
-            children: [
-              Container(
-                color: Colors.white,
-                child: Row( children:[
-                 /* Text("Bibilease",
+      body: OrientationBuilder(builder: (context, orientation) {
+        if (orientation == Orientation.landscape)
+          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_image.png', 580.w));
+        return buildContent();
+      }),
+
+
+    );
+  }
+
+  buildContent() {
+    return Padding(
+      padding: EdgeInsets.only(
+          left: 24.w, right: 24.w, top: 32.h, bottom: 20.h),
+      child: Column(
+        children: [
+          Container(
+            color: Colors.white,
+            child: Row(children: [
+              /* Text("Bibilease",
                     style: TextStyle(
                       fontSize: 24.sp,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF0F1511),
                       fontFamily: 'PlusJakartaSans',)
                     ,),*/
-                  Image.asset('assets/images/logo_bibilease_new_no_background.png', height: 100.w),
+              Image.asset('assets/images/logo_bibilease_new_no_background.png',
+                  height: 100.w),
 
-                  Spacer(),
-                  GestureDetector(
-                    child: Icon(Icons.arrow_back_ios,color:Color(0xFF0F1511),size: 24.w,),
-                    onTap: () => Navigator.pop(context),
-                  ),
-                ],
-                ),
-              ),
-              SizedBox(height: 40.h,),
-              Text(
-                'תקנון ותנאי שימוש',
-                style: TextStyle(
-                  color: Color(0xFF0F1511),
-                  fontSize: 22.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              SizedBox(height: 20.h,),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(lorem*3),
-                  )
-                )
-              ),
-              Visibility(
-                visible:  widget.index==2,
-                child: Container(
-                  margin: EdgeInsets.only(top: 10.h),
-                  width: 332.w,
-                  height: 48.h,
-                  child: FloatingActionButton.extended(
-                    label: Text(widget.index==1?'חזרה':'חתימה', style: TextStyle(letterSpacing: 0.1,
-                        fontSize: 20.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.normal),),
-                    heroTag: "btn2",
-                    backgroundColor: colors.turquoiseColorApp,
-                    onPressed: () {
-                      print('widget.index ${widget.index}');
-                     if( widget.index==2)
-                       signCancelOrderDialog(context, 'טופס אישור תנאים', 'קראתי ואני מאשר/ת את התנאים');
-
-                    // Navigator.pop(context);
-                    },
-                  ),
-                ),
+              Spacer(),
+              GestureDetector(
+                child: Icon(
+                  Icons.arrow_back_ios, color: Color(0xFF0F1511), size: 24.w,),
+                onTap: () => Navigator.pop(context),
               ),
             ],
+            ),
           ),
-        ),
+          SizedBox(height: 40.h,),
+          Text(
+            'תקנון ותנאי שימוש',
+            style: TextStyle(
+              color: Color(0xFF0F1511),
+              fontSize: 22.sp,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          SizedBox(height: 20.h,),
+          Expanded(
+              child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(lorem * 3),
+                  )
+              )
+          ),
+          Visibility(
+            visible: widget.index == 2,
+            child: Container(
+              margin: EdgeInsets.only(top: 10.h),
+              width: 332.w,
+              height: 48.h,
+              child: FloatingActionButton.extended(
+                label: Text(widget.index == 1 ? 'חזרה' : 'חתימה',
+                  style: TextStyle(letterSpacing: 0.1,
+                      fontSize: 20.sp,
+                      color: Colors.white,
+                      fontWeight: FontWeight.normal),),
+                heroTag: "btn2",
+                backgroundColor: colors.turquoiseColorApp,
+                onPressed: () {
+                  print('widget.index ${widget.index}');
+                  if (widget.index == 2)
+                    signCancelOrderDialog(context, 'טופס אישור תנאים',
+                        'קראתי ואני מאשר/ת את התנאים');
 
+                  // Navigator.pop(context);
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

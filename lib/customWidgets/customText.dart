@@ -29,7 +29,7 @@ class CustomText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var orientation = MediaQuery.of(context).orientation;
-    double scaleFactor = orientation == Orientation.landscape ? 1.6 : 1.0;
+    double scaleFactor = orientation == Orientation.landscape ? 1.0 : 1.0;
 
     TextStyle? scaledStyle = style != null
         ? style!.copyWith(fontSize: style!.fontSize != null ? style!.fontSize! * scaleFactor : null)

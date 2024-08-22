@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../landspace_widget.dart';
 import '../../../models/class_user.dart';
 import '../../../services/api_service.dart';
 import '../../Dialogs/buttom_dialogs.dart';
@@ -29,152 +30,160 @@ class _ReportAccidentState extends State<ReportAccident> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom,left: 30.w,right: 30.w),
-            child: Column(
-              children: [
-                SizedBox(height: 35.h,),
-                Align(
+      body: OrientationBuilder(builder: (context, orientation) {
+        if (orientation == Orientation.landscape)
+          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_image.png', 580.w));
+        return buildContent();
+      }),
+    );
+  }
+
+  buildContent() {
+    return SingleChildScrollView(
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Padding(
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom,left: 30.w,right: 30.w),
+          child: Column(
+            children: [
+              SizedBox(height: 35.h,),
+              Align(
                   alignment: Alignment.centerRight,
-                    child: IconButton(onPressed: () =>Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
-                SizedBox(height: 41.h,),
-                Text('דווח על תקלה',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-                SizedBox(height: 36.h,),
-                Text('נתקלת בבעיה בהפעלת הרכב?\nבעיה באפליקציה?\nלכל שאלה אנחנו כאן :)',
-                  style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.normal),textAlign: TextAlign.center,),
-                SizedBox(height: 39.h,),
-                TextFormField(
-                  keyboardType: TextInputType.name,
-                  cursorColor: blackColorApp,
-                  decoration: getInputDecoration('שם מלא',332.w,suffixIcon:Icon(Icons.account_circle_outlined)),
-                  style:
-                  TextStyle(color: blackColorApp, fontSize: 18 .sp),
-                  controller: _name,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) return 'זהו שדה חובה';
-                    return null;
-                  },
-                ),
-                SizedBox(height: 13.h,),
-                Row(
-                  children: [
-                    TextFormField(
-                      keyboardType: TextInputType.phone,
-                      cursorColor: blackColorApp,
-                      decoration: getInputDecoration('טלפון',159.w,suffixIcon:Icon(Icons.phone_outlined)),
-                      style:
-                      TextStyle(color: blackColorApp, fontSize: 18.sp),
-                      controller: _phone,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) return 'זהו שדה חובה';
-                        return null;
-                      },
-                    ),
-                    SizedBox(width: 13.w,),
-                    TextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      cursorColor: blackColorApp,
-                      decoration: getInputDecoration('אימייל',160.w,suffixIcon:Icon(Icons.email_outlined)),
-                      style:
-                      TextStyle(color: blackColorApp, fontSize: 18.sp),
-                      controller: _email,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) return 'זהו שדה חובה';
-                        return null;
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(height: 13.h,),
-                TextFormField(
-                  keyboardType: TextInputType.multiline,
-                  maxLines: 4,
-                  cursorColor: blackColorApp,
-                  decoration: getInputDecoration('ההודעה שלך',332.w),
-                  style: TextStyle(color: blackColorApp, fontSize: 18.sp),
-                  controller: _text,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) return 'זהו שדה חובה';
-                    return null;
-                  },
-                ),
-                SizedBox(height: 14.h,),
-                Container(
-                  height: 48.h,
-                  width: 332.w,
-                  child: FloatingActionButton(
-                      backgroundColor: Color(0xFF03AEB9),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8),),
-                      onPressed: () =>imageSource(context),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 12.w),
-                        child: Row(
-                          children: [
-                            Icon(Icons.image,size: 24.h,color: Colors.white),
-                            Expanded(
-                              child: Center(
-                                child: Text(
+                  child: IconButton(onPressed: () =>Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
+              SizedBox(height: 41.h,),
+              Text('דווח על תקלה',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+              SizedBox(height: 36.h,),
+              Text('נתקלת בבעיה בהפעלת הרכב?\nבעיה באפליקציה?\nלכל שאלה אנחנו כאן :)',
+                style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.normal),textAlign: TextAlign.center,),
+              SizedBox(height: 39.h,),
+              TextFormField(
+                keyboardType: TextInputType.name,
+                cursorColor: blackColorApp,
+                decoration: getInputDecoration('שם מלא',332.w,suffixIcon:Icon(Icons.account_circle_outlined)),
+                style:
+                TextStyle(color: blackColorApp, fontSize: 18 .sp),
+                controller: _name,
+                validator: (value) {
+                  if (value == null || value.isEmpty) return 'זהו שדה חובה';
+                  return null;
+                },
+              ),
+              SizedBox(height: 13.h,),
+              Row(
+                children: [
+                  TextFormField(
+                    keyboardType: TextInputType.phone,
+                    cursorColor: blackColorApp,
+                    decoration: getInputDecoration('טלפון',159.w,suffixIcon:Icon(Icons.phone_outlined)),
+                    style:
+                    TextStyle(color: blackColorApp, fontSize: 18.sp),
+                    controller: _phone,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) return 'זהו שדה חובה';
+                      return null;
+                    },
+                  ),
+                  SizedBox(width: 13.w,),
+                  TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    cursorColor: blackColorApp,
+                    decoration: getInputDecoration('אימייל',160.w,suffixIcon:Icon(Icons.email_outlined)),
+                    style:
+                    TextStyle(color: blackColorApp, fontSize: 18.sp),
+                    controller: _email,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) return 'זהו שדה חובה';
+                      return null;
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(height: 13.h,),
+              TextFormField(
+                keyboardType: TextInputType.multiline,
+                maxLines: 4,
+                cursorColor: blackColorApp,
+                decoration: getInputDecoration('ההודעה שלך',332.w),
+                style: TextStyle(color: blackColorApp, fontSize: 18.sp),
+                controller: _text,
+                validator: (value) {
+                  if (value == null || value.isEmpty) return 'זהו שדה חובה';
+                  return null;
+                },
+              ),
+              SizedBox(height: 14.h,),
+              Container(
+                height: 48.h,
+                width: 332.w,
+                child: FloatingActionButton(
+                    backgroundColor: Color(0xFF03AEB9),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8),),
+                    onPressed: () =>imageSource(context),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12.w),
+                      child: Row(
+                        children: [
+                          Icon(Icons.image,size: 24.h,color: Colors.white),
+                          Expanded(
+                            child: Center(
+                              child: Text(
                                   image==null?'צרף תמונה':image!.name.length>=15?'${image!.name.substring(0,15)}...':image!.name,
                                   style: TextStyle(
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.white)
-                                ),
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.white)
                               ),
                             ),
-                         if( image!=null)   Image.asset('assets/icons/done.png',color: Colors.white,),
-                          ],
-                        ),
-                      )
-                  ),
-                ),
-                SizedBox(height: 30.h,),
-                SizedBox(
-                  width: 242.w,
-                  child: Text('נציגנו יקבלו את פנייתך ויענו לך בתוך 72 שעות מזמן הפניה.\n\nבמקרה חירום בהזמנה פעילה בלבד! נא לחייג ל 0000* שלוחה 0 ',
-                      style: TextStyle(fontSize: 13.sp),textAlign: TextAlign.center),
-                ),
-                SizedBox(height: 15.h,),
-                SizedBox(
-                  height: 48.h,
-                  width: 332.w,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: turquoiseColorApp,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
-                        ),
+                          ),
+                          if( image!=null)   Image.asset('assets/icons/done.png',color: Colors.white,),
+                        ],
                       ),
-                      onPressed: () async {
-
-                        showLoading(context);
-
-                        ApiService().reportAccident( image, _text.text, _email.text, _phone.text, _name.text,(res) {
-                          Navigator.pop(context);
-                          displayMessageWithTitle(context,
-                              title: '!תודה על פנייתך',
-                              message: 'נציגנו יחזרו אליך בתוך 72 שעת מזמן הפניה',
-                              textButton: 'חזור למסך הראשי',
-                              onClose: () {
-                                Navigator.pop(context);
-
-                              });
-                        },);
-                      },
-                      child: Text(
-                        'צרו איתי קשר',
-                        style: TextStyle(
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.white),
-                      )
-                  ),
+                    )
                 ),
-                SizedBox(height: 20.h,),
-              ],
-            ),
+              ),
+              SizedBox(height: 30.h,),
+              SizedBox(
+                width: 242.w,
+                child: Text('נציגנו יקבלו את פנייתך ויענו לך בתוך 72 שעות מזמן הפניה.\n\nבמקרה חירום בהזמנה פעילה בלבד! נא לחייג ל 0000* שלוחה 0 ',
+                    style: TextStyle(fontSize: 13.sp),textAlign: TextAlign.center),
+              ),
+              SizedBox(height: 15.h,),
+              SizedBox(
+                height: 48.h,
+                width: 332.w,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: turquoiseColorApp,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                    ),
+                    onPressed: () async {
+
+                      showLoading(context);
+
+                      ApiService().reportAccident( image, _text.text, _email.text, _phone.text, _name.text,(res) {
+                        Navigator.pop(context);
+                        displayMessageWithTitle(context,
+                            title: '!תודה על פנייתך',
+                            message: 'נציגנו יחזרו אליך בתוך 72 שעת מזמן הפניה',
+                            textButton: 'חזור למסך הראשי',
+                            onClose: () {
+                              Navigator.pop(context);
+
+                            });
+                      },);
+                    },
+                    child: Text(
+                      'צרו איתי קשר',
+                      style: TextStyle(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.white),
+                    )
+                ),
+              ),
+              SizedBox(height: 20.h,),
+            ],
           ),
         ),
       ),

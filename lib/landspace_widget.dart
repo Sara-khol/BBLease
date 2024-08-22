@@ -13,33 +13,65 @@ class LandSpaceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child: Column(
+      child: Stack(
+        clipBehavior: Clip.antiAlias,
         children: [
-          if (showAppBar)
-            const Directionality(
-                textDirection: TextDirection.ltr, child: AppBarBibilease()),
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Center(
-                    child: FractionallySizedBox(
-                      widthFactor: 0.45,
-                      child: mainWidget,
-                    ),
-                  ),
+          Padding(
+            padding:EdgeInsets.only(bottom: 50.h),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                'Bibilease',
+                style: TextStyle(
+                  color: Color(0xFFEFFFFE),
+                  fontSize: 300.sp,
+                  fontWeight: FontWeight.w800,
+                  height: 0,
                 ),
-                Expanded(
-                  child: Center(
-                    child: Image.asset(
-                      'assets/images/${imageProperties.imagePath}',
-                      width: imageProperties.imageWidth,
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            //crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              if (showAppBar)
+                const Directionality(
+                    textDirection: TextDirection.ltr, child: AppBarBibilease()),
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(width: 150.w,),
+                    Expanded(
+                      child: Center(
+                        child: Container(
+                          alignment: Alignment.centerRight,
+                          //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
+                          width: 393.w,
+                            height: MediaQuery.of(context).size.height*0.9.h,
+                            child: mainWidget),
+                      ),
+                    ),
+                    /*Container( width: 3,
+                      height: 800.h,
+                      color: Colors.green,),*/
+                    Expanded(
+                      child: Center(
+                        child: Image.asset(
+                          'assets/images/${imageProperties.imagePath}',
+                          width: imageProperties.imageWidth,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 100.w,),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
         ],
       ),
     );
@@ -48,8 +80,8 @@ class LandSpaceWidget extends StatelessWidget {
 
 class ImageProperties {
   late String imagePath;
-
+  late double imageWidth;
   ImageProperties(this.imagePath, this.imageWidth);
 
-  late double imageWidth;
+
 }

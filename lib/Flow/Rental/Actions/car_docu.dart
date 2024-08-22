@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../landspace_widget.dart';
 import '../../Dialogs/buttom_dialogs.dart';
 import '../map.dart';
 
@@ -46,12 +47,21 @@ class _CarDocuState extends State<CarDocu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Directionality(
+      body: OrientationBuilder(builder: (context, orientation) {
+        if (orientation == Orientation.landscape)
+          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_image.png', 580.w));
+        return buildContent();
+      }),
+    );
+  }
+
+  buildContent() {
+    return  SingleChildScrollView(
+      child: Directionality(
           textDirection: TextDirection.rtl,
           child: Padding(
-            padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,/*left: 30.w,right: 30.w*/),
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,/*left: 30.w,right: 30.w*/),
               child: Column(
                   children: [
                     SizedBox(height: 35.h,),
@@ -80,16 +90,16 @@ class _CarDocuState extends State<CarDocu> {
                                     height: 95.h,
                                     width: 100.w,
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        color: const Color(0xFFF7F7F7),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.2),
-                                            spreadRadius: 10,
-                                            blurRadius: 15,
-                                            offset: Offset(0, 3),
-                                          ),
-                                        ],
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: const Color(0xFFF7F7F7),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 10,
+                                          blurRadius: 15,
+                                          offset: Offset(0, 3),
+                                        ),
+                                      ],
                                     ),
                                     child: Center(
                                       child: InkWell(
@@ -226,11 +236,11 @@ class _CarDocuState extends State<CarDocu> {
                                     ),
                                   ),
                                 ),
-        
+
                               ]
                           )
                         ],
-        
+
                       ),
                     ),
                     SizedBox(height: 35.h,),
@@ -262,18 +272,17 @@ class _CarDocuState extends State<CarDocu> {
                           },
                           child:  Text('שלח תמונות',
                             style: TextStyle(fontSize: 22.sp,
-                                fontWeight: FontWeight.normal,
-                                color:Colors.white,),)),
+                              fontWeight: FontWeight.normal,
+                              color:Colors.white,),)),
                     ),
                     SizedBox(height: 20.h,)
-        
-        
+
+
                   ]
-        
+
               )
-        )
-            ),
-      )
+          )
+      ),
     );
   }
 

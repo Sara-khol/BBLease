@@ -260,7 +260,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                       keyboardType: TextInputType.number,
                       cursorColor: blackColorApp,
                       decoration: InputDecoration(
-                        //constraints: BoxConstraints(maxHeight: 48.h),
+                        constraints: BoxConstraints(maxHeight: 48.h),
                         isDense: true,
                         labelText: "מס' נייד",
                         labelStyle: TextStyle(

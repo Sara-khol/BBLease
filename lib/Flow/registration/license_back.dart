@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:bblease/utils/my_colors.dart';
 
+import '../../landspace_widget.dart';
 import '../../utils/my_colors.dart';
 
 
@@ -51,135 +52,144 @@ class _LicenseBackState extends State<LicenseBack> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(height: 110.h,),
-            Text(
-              'סרוק רישיון',
-              style: TextStyle(
-                fontSize: 24.sp,
-                fontWeight: FontWeight.bold,
-                color: blackColorApp,
-                fontFamily: 'PLONI',
-                height: 1,
-              ),
+      body: OrientationBuilder(builder: (context, orientation) {
+        if (orientation == Orientation.landscape)
+          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_image.png', 580.w));
+        return buildContent();
+      }),
+    );
+  }
+
+  buildContent() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(height: 110.h,),
+          Text(
+            'סרוק רישיון',
+            style: TextStyle(
+              fontSize: 24.sp,
+              fontWeight: FontWeight.bold,
+              color: blackColorApp,
+              fontFamily: 'PLONI',
+              height: 1,
             ),
-            SizedBox(height: 30.h),
-            Text(
-              'לצורך הסריקה נשתמש בטכנולוגית SC\n במידה וניתקלתם בבעיה פנו לנציג החברה',
-              style: TextStyle(
-                fontSize: 20.sp,
-                fontWeight: FontWeight.normal,
-                color: blackColorApp,
-                fontFamily: 'PLONI',
-                height: 1,
-              ),
-              textAlign: TextAlign.center,
-              textDirection: TextDirection.rtl,
+          ),
+          SizedBox(height: 30.h),
+          Text(
+            'לצורך הסריקה נשתמש בטכנולוגית SC\n במידה וניתקלתם בבעיה פנו לנציג החברה',
+            style: TextStyle(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.normal,
+              color: blackColorApp,
+              fontFamily: 'PLONI',
+              height: 1,
             ),
-            SizedBox(height: 63.h),
-            SizedBox(
-              height: 254.h,
-              child: Stack(
-                children: [
-                  Center(child: Image.asset('assets/images/rect.png',)),
-                  Center(child: Text('פתח מצלמה',style: TextStyle(color: Color(0xFFD9D9D9),fontSize: 24.sp))),
-                  InkWell(
-                    onTap: _onCameraButtonPressed,
-                  ),
-                ],
-              ),
+            textAlign: TextAlign.center,
+            textDirection: TextDirection.rtl,
+          ),
+          SizedBox(height: 63.h),
+          SizedBox(
+            height: 254.h,
+            child: Stack(
+              children: [
+                Center(child: Image.asset('assets/images/rect.png',)),
+                Center(child: Text('פתח מצלמה',style: TextStyle(color: Color(0xFFD9D9D9),fontSize: 24.sp))),
+                InkWell(
+                  onTap: _onCameraButtonPressed,
+                ),
+              ],
             ),
-            SizedBox(height: 63.h,),
-            Text(
-              'רשיון נהיגה צד אחורי',
-              style: TextStyle(
-                fontSize: 24.sp,
-                fontWeight: FontWeight.normal,
-                color: blackColorApp,
-                fontFamily: 'PLONI',
-                height: 1,
-              ),
-              textAlign: TextAlign.center,
-              textDirection: TextDirection.rtl,
+          ),
+          SizedBox(height: 63.h,),
+          Text(
+            'רשיון נהיגה צד אחורי',
+            style: TextStyle(
+              fontSize: 24.sp,
+              fontWeight: FontWeight.normal,
+              color: blackColorApp,
+              fontFamily: 'PLONI',
+              height: 1,
             ),
-            SizedBox(height: 60.h),
-            Visibility(
-              visible: widget.index==1,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  LinearPercentIndicator(
-                    width: 332.w,
-                    lineHeight: 17.h,
-                    percent: 0.67,
-                    animation: true,
-                    barRadius: const Radius.circular(16),
-                    linearGradient: LinearGradient(colors: [ Color.fromRGBO(254, 193, 216, 1), Color.fromRGBO(251, 39, 119, 1)], ),
-                    backgroundColor: Color.fromRGBO(247, 247, 247, 1),
-                    center: Center(
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 65.w,),
-                        child: Text('2/3',style: TextStyle(color: Colors.white, fontSize: 9.sp ),),
-                      ),
+            textAlign: TextAlign.center,
+            textDirection: TextDirection.rtl,
+          ),
+          SizedBox(height: 60.h),
+          Visibility(
+            visible: widget.index==1,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                LinearPercentIndicator(
+                  width: 332.w,
+                  lineHeight: 17.h,
+                  percent: 0.67,
+                  animation: true,
+                  barRadius: const Radius.circular(16),
+                  linearGradient: LinearGradient(colors: [ Color.fromRGBO(254, 193, 216, 1), Color.fromRGBO(251, 39, 119, 1)], ),
+                  backgroundColor: Color.fromRGBO(247, 247, 247, 1),
+                  center: Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 65.w,),
+                      child: Text('2/3',style: TextStyle(color: Colors.white, fontSize: 9.sp ),),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            // Container(
-            //   height: 36.h,
-            //   width: 332.w,
-            //   child: ElevatedButton(
-            //       style: ElevatedButton.styleFrom(
-            //         backgroundColor: Color.fromRGBO(251, 37, 118, 1),
-            //         shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(100),
-            //         ),
-            //       ),
-            //       onPressed: () {
-            //         Navigator.push(
-            //             context,
-            //             MaterialPageRoute(
-            //                 builder: (context) =>  FaceScanning()));
-            //       },
-            //       child:  Text(
-            //         'הבא (רק לצורך הדגמה)',
-            //         style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.normal,color:Colors.white),
-            //       )),
-            // ),
-            SizedBox(height: 60.h),
-            Visibility(
-              visible: widget.index==1,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 129.w,
-                    height: 48.h,
-                    child: FloatingActionButton.extended(
-                      label: Text('תמיכה',style: TextStyle(
-                          fontSize: 22.sp,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.white)),
-                      heroTag: "btn2",
-                      elevation: 2,
-                      backgroundColor: turquoiseColorApp,
-                      onPressed: ()=>support.call,
-                        icon: ImageIcon(
-                          AssetImage("assets/icons/Phone.png"),
-                          size: 22.sp,
-                            color: Colors.white,
-                        ),),
-                  ),
-                  SizedBox(width: 20.w),
+          ),
+          // Container(
+          //   height: 36.h,
+          //   width: 332.w,
+          //   child: ElevatedButton(
+          //       style: ElevatedButton.styleFrom(
+          //         backgroundColor: Color.fromRGBO(251, 37, 118, 1),
+          //         shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(100),
+          //         ),
+          //       ),
+          //       onPressed: () {
+          //         Navigator.push(
+          //             context,
+          //             MaterialPageRoute(
+          //                 builder: (context) =>  FaceScanning()));
+          //       },
+          //       child:  Text(
+          //         'הבא (רק לצורך הדגמה)',
+          //         style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.normal,color:Colors.white),
+          //       )),
+          // ),
+          SizedBox(height: 60.h),
+          Visibility(
+            visible: widget.index==1,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 129.w,
+                  height: 48.h,
+                  child: FloatingActionButton.extended(
+                    label: Text('תמיכה',style: TextStyle(
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.white)),
+                    heroTag: "btn2",
+                    elevation: 2,
+                    backgroundColor: turquoiseColorApp,
+                    onPressed: ()=>support.call,
+                    icon: ImageIcon(
+                      AssetImage("assets/icons/Phone.png"),
+                      size: 22.sp,
+                      color: Colors.white,
+                    ),),
+                ),
+                SizedBox(width: 20.w),
 
-                  SizedBox(
-                    width: 183.w,
-                    height: 48.h,
-                    child: FloatingActionButton.extended(
+                SizedBox(
+                  width: 183.w,
+                  height: 48.h,
+                  child: FloatingActionButton.extended(
                       label: Text('העלאת תמונה',style: TextStyle(
                           fontSize: 22.sp,
                           fontWeight: FontWeight.normal,
@@ -189,17 +199,15 @@ class _LicenseBackState extends State<LicenseBack> {
                       backgroundColor: turquoiseColorApp,
                       onPressed: _onUploadButtonPressed,
                       icon:  Icon(Icons.file_upload_outlined,size: 22.sp,color: Colors.white,)
-                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-           // SizedBox(height: 40),
-          ],
-        ),
+          ),
+          // SizedBox(height: 40),
+        ],
       ),
-    );
-  }
+    );}
 
   void _onCameraButtonPressed() async {
     final cameras = await availableCameras(); // Get a list of available cameras
@@ -275,7 +283,6 @@ class _LicenseBackState extends State<LicenseBack> {
                         }
                       });
                     },
-
                     child: Text('צלם',style: (TextStyle(color: Colors.white)),),
                   ),
                 ),)

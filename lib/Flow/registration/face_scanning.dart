@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:bblease/services/support.dart' as support;
+import '../../landspace_widget.dart';
 import 'face_detector.dart';
 
 
@@ -204,20 +205,29 @@ print('faces.length: ${faces.length}');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('סרוק פנים',style: TextStyle(color: Colors.black,fontSize: 28.sp,fontWeight: FontWeight.bold),),
-            SizedBox(height: 5.h,),
-            Text('עמוד מול המצלמה',style: TextStyle(color: Colors.black,fontSize: 20.sp,fontWeight: FontWeight.normal)),
-            SizedBox(height: 35.h,),
-            Expanded(
-              child: Stack(
+      body: OrientationBuilder(builder: (context, orientation) {
+        if (orientation == Orientation.landscape)
+          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_image.png', 580.w));
+        return buildContent();
+      }),
+    );
+  }
+
+  buildContent() {
+    return SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('סרוק פנים',style: TextStyle(color: Colors.black,fontSize: 28.sp,fontWeight: FontWeight.bold),),
+          SizedBox(height: 5.h,),
+          Text('עמוד מול המצלמה',style: TextStyle(color: Colors.black,fontSize: 20.sp,fontWeight: FontWeight.normal)),
+          SizedBox(height: 35.h,),
+          Expanded(
+            child: Stack(
                 children:[
                   Center(child: CameraFaceDetection()),
-                    /*FutureBuilder(
+                  /*FutureBuilder(
                         future: _initializeCamera(),
                         builder:(context,snapshot){
                           if(snapshot.hasData) {
@@ -235,82 +245,80 @@ print('faces.length: ${faces.length}');
                           }
                         }
                     ),*/
-                    Center(
-                      child:/* SizedBox(
+                  Center(
+                    child:/* SizedBox(
                         height: 332.h,
                         child:*/ Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 48.h,
-                              width: 117.w,
-                              decoration: BoxDecoration(
-                                  color: Color(0xFFD9D9D9).withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(100)
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  //Image.asset('assets/images/rec.png'),
-                                  SizedBox(width: 15.w,),
-                                  Text('...סורק',style: TextStyle(color: Colors.black,fontSize: 22.sp),),
-                                  //User().regImages[2] !=null?Text('צולם בהצלחה',style: TextStyle(color: Colors.white),):Text(''),
-                                ],
-                              ),
-                            ),
-                          ],
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 48.h,
+                          width: 117.w,
+                          decoration: BoxDecoration(
+                              color: Color(0xFFD9D9D9).withOpacity(0.3),
+                              borderRadius: BorderRadius.circular(100)
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              //Image.asset('assets/images/rec.png'),
+                              SizedBox(width: 15.w,),
+                              Text('...סורק',style: TextStyle(color: Colors.black,fontSize: 22.sp),),
+                              //User().regImages[2] !=null?Text('צולם בהצלחה',style: TextStyle(color: Colors.white),):Text(''),
+                            ],
+                          ),
                         ),
-                     // ),
+                      ],
                     ),
-                  ]),
-            ),
-            SizedBox(height: 60.h,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                LinearPercentIndicator(
-                  width: 332.w,
-                  lineHeight: 17.h,
-                  percent: 0.99,
-                  animation: true,
-                  barRadius: const Radius.circular(16),
-                  linearGradient: LinearGradient(colors: [ Color.fromRGBO(254, 193, 216, 1), Color.fromRGBO(251, 39, 119, 1)]),
-                  backgroundColor: Color.fromRGBO(247, 247, 247, 1),
-                  center: Padding(
-                    padding: EdgeInsets.only(left: 270.w,),
-                    child: Text('3/3',style: TextStyle(color: Colors.white, fontSize: 9.sp )),
+                    // ),
                   ),
+                ]),
+          ),
+          SizedBox(height: 60.h,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              LinearPercentIndicator(
+                width: 332.w,
+                lineHeight: 17.h,
+                percent: 0.99,
+                animation: true,
+                barRadius: const Radius.circular(16),
+                linearGradient: LinearGradient(colors: [ Color.fromRGBO(254, 193, 216, 1), Color.fromRGBO(251, 39, 119, 1)]),
+                backgroundColor: Color.fromRGBO(247, 247, 247, 1),
+                center: Padding(
+                  padding: EdgeInsets.only(left: 270.w,),
+                  child: Text('3/3',style: TextStyle(color: Colors.white, fontSize: 9.sp )),
                 ),
-              ],
-            ),
-            SizedBox(height: 60.h,),
-            Container(
-              width: 332.w,
-              height: 44.h,
-              margin:EdgeInsets.only(bottom:40.sp ),
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(25)),
-                color: turquoiseColorApp,
               ),
-              child: TextButton(
-                child: Text('תמיכה',
-                    textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22.sp,
-                      fontWeight: FontWeight.normal,height: 1),),
-                onPressed: () {
-                  support.call;
-                  //TODO: call for help
-                },
-              ),
+            ],
+          ),
+          SizedBox(height: 60.h,),
+          Container(
+            width: 332.w,
+            height: 44.h,
+            margin:EdgeInsets.only(bottom:40.sp ),
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(25)),
+              color: turquoiseColorApp,
             ),
-          ],
-        ),
+            child: TextButton(
+              child: Text('תמיכה',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22.sp,
+                    fontWeight: FontWeight.normal,height: 1),),
+              onPressed: () {
+                support.call;
+                //TODO: call for help
+              },
+            ),
+          ),
+        ],
       ),
-    );
-  }
+    );}
 
 /*  _controller.startImageStream((image) {
   print('startImageStream');

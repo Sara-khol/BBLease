@@ -22,6 +22,8 @@ class AdditionsDialog extends StatefulWidget {
 
 class _AdditionsDialogState extends State<AdditionsDialog> {
 
+  List<Addition> selectedAdditionsList=[];
+
   createCheckBox(int index){
     return CheckboxListTile(
       title: Text(widget.additionsList[index].title),
@@ -195,9 +197,17 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                             backgroundColor: turquoiseColorApp,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),),
                           onPressed: () async {
-                            widget.rent.additions=widget.additionsList;
+                            for(Addition addition in widget.additionsList) {
+                                if(addition.isChecked) {
+                                  print(addition.title);
+                                  selectedAdditionsList.add(addition);
+                                }
+                            }
+                            print(selectedAdditionsList.length);
+
+                            widget.rent.additions=selectedAdditionsList;
                             widget.rent.car=widget.car;
-                            bool containsAdditionalDriver = widget.rent.additions!.any((addition) => addition.name == 'additional_driver');
+                            bool containsAdditionalDriver = selectedAdditionsList.any((addition) => addition.name == 'additional_driver');
                             if(containsAdditionalDriver){
                              await displayQuestion1(context,header:'הי,שים לב!',
                                message: 'בחרת בהוספת נהג נוסף,\nתרצה למלא את הפרטים?',

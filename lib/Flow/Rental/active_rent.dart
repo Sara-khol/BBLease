@@ -18,6 +18,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:url_launcher/url_launcher_string.dart';
+import '../../landspace_widget.dart';
 import '../../models/class_rent.dart';
 import '../../models/class_user.dart';
 import 'Actions/report_accident.dart';
@@ -113,77 +114,87 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      body: OrientationBuilder(builder: (context, orientation) {
+        if (orientation == Orientation.landscape)
+          return LandSpaceWidget(mainWidget: buildContent(orientation),
+              imageProperties:ImageProperties('l_image.png', 580.w),
+              showAppBar:true);
+        return buildContent(orientation);
+      }),
+    );
+  }
 
+  buildContent(Orientation o) {
     String formatTimeComponent(int n) => n.toString().padLeft(2, '0');
     final days = duration.inDays.toString(); // No padding needed for days
     final hours = formatTimeComponent(duration.inHours.remainder(24));
     final minutes = formatTimeComponent(duration.inMinutes.remainder(60));
     final seconds = formatTimeComponent(duration.inSeconds.remainder(60));
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: Column(
-            children: [
-              const Directionality(textDirection: TextDirection.ltr, child: AppBarBibilease()),
-              Column(
-                children: [
-                  SizedBox(height: 30.h,),
-                  Padding(
-                    padding: EdgeInsets.only(left: 30.w, right: 30.w),
-                    child: Text('פרטי הזמנה פעילה',
-                        style: TextStyle(
-                            fontSize: 26.sp,
-                            fontWeight: FontWeight.bold,
-                            color: const Color.fromRGBO(15, 21, 17, 1),
-                            height: 1)),
-                  ),
-                  SizedBox(height: 40.h,),
-                  Padding(
-                    padding: EdgeInsets.only(left: 30.w, right: 30.w),
-                    child: Container(
-                      height: 42.h,
-                      width: 332.w,
-                      decoration: const BoxDecoration(color: Color(0xFFF7F7F7), borderRadius: BorderRadius.all(Radius.circular(100))),
-                      child: Row(
-                        children: [
-                          SizedBox(width: 29.w),
-                          Image.asset("assets/icons/car_icon_black.png",color: pinkColorApp,),
-                          Text('  מספר רכב: ', style: TextStyle(fontSize: 18.sp),),
-                          const Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 17),
-                            child: Text('  ${rent.car.carNumber} ', style: TextStyle(fontSize: 18.sp),),
-                          ),
-                        ],
-                      ),
+    return SingleChildScrollView(
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Column(
+          children: [
+            if(o==Orientation.portrait) const Directionality(textDirection: TextDirection.ltr, child: AppBarBibilease()),
+            Column(
+              children: [
+                SizedBox(height: 30.h,),
+                Padding(
+                  padding: EdgeInsets.only(left: 30.w, right: 30.w),
+                  child: Text('פרטי הזמנה פעילה',
+                      style: TextStyle(
+                          fontSize: 26.sp,
+                          fontWeight: FontWeight.bold,
+                          color: const Color.fromRGBO(15, 21, 17, 1),
+                          height: 1)),
+                ),
+                SizedBox(height: 40.h,),
+                Padding(
+                  padding: EdgeInsets.only(left: 30.w, right: 30.w),
+                  child: Container(
+                    height: 42.h,
+                    width: 332.w,
+                    decoration: const BoxDecoration(color: Color(0xFFF7F7F7), borderRadius: BorderRadius.all(Radius.circular(100))),
+                    child: Row(
+                      children: [
+                        SizedBox(width: 29.w),
+                        Image.asset("assets/icons/car_icon_black.png",color: pinkColorApp,),
+                        Text('  מספר רכב: ', style: TextStyle(fontSize: 18.sp),),
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 17),
+                          child: Text('  ${rent.car.carNumber} ', style: TextStyle(fontSize: 18.sp),),
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(height: 8.h,),
-                  Padding(
-                    padding: EdgeInsets.only(left: 30.w, right: 30.w),
-                    child: Container(
-                      height: 42.h,
-                      width: 332.w,
-                      decoration: const BoxDecoration(
-                          color: Color(0xFFF7F7F7),
-                          borderRadius: BorderRadius.all(Radius.circular(100))),
-                      child: Row(
-                        children: [
-                          SizedBox(width: 29.w,),
-                          Icon(Icons.fmd_good_outlined, color: pinkColorApp, size: 24.sp,),
-                          Text('  מיקום: ', style: TextStyle(fontSize: 18.sp,),),
-                          const Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: Text('   ${rent.car.address}  ', style: TextStyle(fontSize: 18.sp),),),
-                        ],
-                      ),
+                ),
+                SizedBox(height: 8.h,),
+                Padding(
+                  padding: EdgeInsets.only(left: 30.w, right: 30.w),
+                  child: Container(
+                    height: 42.h,
+                    width: 332.w,
+                    decoration: const BoxDecoration(
+                        color: Color(0xFFF7F7F7),
+                        borderRadius: BorderRadius.all(Radius.circular(100))),
+                    child: Row(
+                      children: [
+                        SizedBox(width: 29.w,),
+                        Icon(Icons.fmd_good_outlined, color: pinkColorApp, size: 24.sp,),
+                        Text('  מיקום: ', style: TextStyle(fontSize: 18.sp,),),
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Text('   ${rent.car.address}  ', style: TextStyle(fontSize: 18.sp),),),
+                      ],
                     ),
                   ),
-                  /*  SizedBox(height: 8.h,),*/
-                  /* SizedBox(
+                ),
+                /*  SizedBox(height: 8.h,),*/
+                /* SizedBox(
                     width: 332.w,
                     child: Stack(
                       children: [
@@ -365,65 +376,65 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       ],
                     ),
                   ),*/
-                  SizedBox(height: 53.h,),
-                  Padding(
-                    padding: EdgeInsets.only(left: 30.w, right: 30.w),
-                    child: Text(
-                      'סיום ההשכרה בעוד',
-                      style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.bold,
-                          color: const Color.fromRGBO(15, 21, 17, 1),
-                          height: 1),
-                    ),
+                SizedBox(height: 53.h,),
+                Padding(
+                  padding: EdgeInsets.only(left: 30.w, right: 30.w),
+                  child: Text(
+                    'סיום ההשכרה בעוד',
+                    style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                        color: const Color.fromRGBO(15, 21, 17, 1),
+                        height: 1),
                   ),
-                  SizedBox(height: 22.h,),
-                  /*kIsWeb?
+                ),
+                SizedBox(height: 22.h,),
+                /*kIsWeb?
                   Text(duration.inDays > 0 ?'$seconds:$minutes:$hours:$days':'$seconds:$minutes:$hours',
                       style: TextStyle(
                           fontSize: 36.sp,
                           fontWeight: FontWeight.bold,
                           color: const Color.fromRGBO(15, 21, 17, 1),
                          )):*/
-                  Text(duration.inDays > 0 ?'$days:$hours:$minutes:$seconds':'$hours:$minutes:$seconds',
+                Text(duration.inDays > 0 ?'$days:$hours:$minutes:$seconds':'$hours:$minutes:$seconds',
+                    style: TextStyle(
+                      fontSize: 36.sp,
+                      fontWeight: FontWeight.bold,
+                      color: const Color.fromRGBO(15, 21, 17, 1),
+                    )),
+                SizedBox(height: 24.h,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(/*kIsWeb?intl.DateFormat('ss:mm:HH').format(rent.endDate):*/intl.DateFormat('HH:mm:ss').format(rent.endDate),
                       style: TextStyle(
-                        fontSize: 36.sp,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.normal,
                         color: const Color.fromRGBO(15, 21, 17, 1),
-                      )),
-                  SizedBox(height: 24.h,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(/*kIsWeb?intl.DateFormat('ss:mm:HH').format(rent.endDate):*/intl.DateFormat('HH:mm:ss').format(rent.endDate),
-                          style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.normal,
-                              color: const Color.fromRGBO(15, 21, 17, 1),
-                              ),
                       ),
-                      Text(' | ',
-                          style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.normal,
-                              color: const Color.fromRGBO(15, 21, 17, 1),
-                              )),
-                      Text(/*kIsWeb?intl.DateFormat('yyyy/MM/dd').format(rent.endDate):*/intl.DateFormat('dd/MM/yyyy').format(rent.endDate),
-                          style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.normal,
-                              color: const Color.fromRGBO(15, 21, 17, 1),
-                              height: 1)),
-                    ],
-                  ),
-                  SizedBox(height: 33.h,),
-                  Padding(
-                    padding: EdgeInsets.only(left: 30.w, right: 30.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        /*Container(
+                    ),
+                    Text(' | ',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.normal,
+                          color: const Color.fromRGBO(15, 21, 17, 1),
+                        )),
+                    Text(/*kIsWeb?intl.DateFormat('yyyy/MM/dd').format(rent.endDate):*/intl.DateFormat('dd/MM/yyyy').format(rent.endDate),
+                        style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.normal,
+                            color: const Color.fromRGBO(15, 21, 17, 1),
+                            height: 1)),
+                  ],
+                ),
+                SizedBox(height: 33.h,),
+                Padding(
+                  padding: EdgeInsets.only(left: 30.w, right: 30.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      /*Container(
                           height: 42.h,
                           width: 162.w,
                           child: ElevatedButton(
@@ -472,444 +483,443 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                               )),
                         ),
                         SizedBox(width: 8.w,),*/
-                        SizedBox(
-                          height: 46.h,
-                          //width: 162.w,
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: pinkColorApp,
-                                minimumSize: Size.zero, // Set this
-                                padding: EdgeInsets.only(
-                                    right: 9.w,
-                                    left: 13.w,
-                                    top: 8.h,
-                                    bottom: 10.h),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
-                              ),
-                              onPressed: () {
-                                if(DateTime.now().isBefore(rent.endDate)){
-                                  displayQuestion1(context, header:' שים לב',
+                      SizedBox(
+                        height: 46.h,
+                        //width: 162.w,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: pinkColorApp,
+                              minimumSize: Size.zero, // Set this
+                              padding: EdgeInsets.only(
+                                  right: 9.w,
+                                  left: 13.w,
+                                  top: 8.h,
+                                  bottom: 10.h),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
+                            ),
+                            onPressed: () {
+                              if(DateTime.now().isBefore(rent.endDate)){
+                                displayQuestion1(context, header:' שים לב',
                                     message: 'בסיום השכרה נוכחית\nתחיוב בעלות ההשכרה כולה בהתאם לתקנון', onYes: () {
+                                      Navigator.pop(context);
+                                      showLoading(context);
+                                      ApiService().returnCar(rent.orderNum!, (orderJson) {
                                         Navigator.pop(context);
-                                        showLoading(context);
-                                        ApiService().returnCar(rent.orderNum!, (orderJson) {
-                                          Navigator.pop(context);
-                                          endRental(false);
-                                          print('return car');
-                                        });
-
+                                        endRental(false);
+                                        print('return car');
                                       });
-                                }
-                                else{
-                                  showLoading(context);
-                                  ApiService().returnCar(rent.orderNum!, (orderJson) {
-                                    Navigator.pop(context);
-                                    endRental(false);
-                                    print('return car');
-                                  });
-                                }
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '  סיום השכרה    ',
-                                    style: TextStyle(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white),
-                                  ),
-                                  Icon(
-                                    Icons.stop_circle_outlined,
-                                    color: Colors.white,
-                                    size: 24.sp,
-                                  )
-                                ],
-                              )),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 33.h,),
-                  Container(
-                    height: 100.h,
-                    // width: 393.w,
-                    margin: EdgeInsets.zero,
-                    child: ListView(
-                      shrinkWrap: true,
-                      padding: EdgeInsets.zero,
-                      //controller: _controller,
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(right: 10.w),
-                          child: Container(
-                            height: 100.h,
-                            width: 100.w,
-                            clipBehavior: Clip.antiAlias,
-                            decoration: ShapeDecoration(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8)),
-                              color: Colors.white,
-                              shadows: const [
-                                BoxShadow(
-                                  color: Color(0x0C000000),
-                                  blurRadius: 40,
-                                  offset: Offset(0, 4),
-                                  spreadRadius: 0,
+
+                                    });
+                              }
+                              else{
+                                showLoading(context);
+                                ApiService().returnCar(rent.orderNum!, (orderJson) {
+                                  Navigator.pop(context);
+                                  endRental(false);
+                                  print('return car');
+                                });
+                              }
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '  סיום השכרה    ',
+                                  style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white),
+                                ),
+                                Icon(
+                                  Icons.stop_circle_outlined,
+                                  color: Colors.white,
+                                  size: 24.sp,
                                 )
                               ],
-                            ),
-                            child: Center(
-                              child: InkWell(
-                                child: Column(
-                                  children: [
-                                    SizedBox(height: 15.h,),
-                                    const ImageIcon(
-                                      AssetImage("assets/icons/Broken.png"),
-                                      color: Color(0xFF0F1511),
-                                    ),
-                                    SizedBox(height: 10.h,),
-                                    Expanded(
-                                      child: Text(
-                                        'דיווח\nעל תקלה',
-                                        style: TextStyle(
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.normal,
-                                          height: 1,
-                                        ),
-                                        textAlign: TextAlign.center,
+                            )),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 33.h,),
+                Container(
+                  height: 100.h,
+                  // width: 393.w,
+                  margin: EdgeInsets.zero,
+                  child: ListView(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.zero,
+                    //controller: _controller,
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: 10.w),
+                        child: Container(
+                          height: 100.h,
+                          width: 100.w,
+                          clipBehavior: Clip.antiAlias,
+                          decoration: ShapeDecoration(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                            color: Colors.white,
+                            shadows: const [
+                              BoxShadow(
+                                color: Color(0x0C000000),
+                                blurRadius: 40,
+                                offset: Offset(0, 4),
+                                spreadRadius: 0,
+                              )
+                            ],
+                          ),
+                          child: Center(
+                            child: InkWell(
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 15.h,),
+                                  const ImageIcon(
+                                    AssetImage("assets/icons/Broken.png"),
+                                    color: Color(0xFF0F1511),
+                                  ),
+                                  SizedBox(height: 10.h,),
+                                  Expanded(
+                                    child: Text(
+                                      'דיווח\nעל תקלה',
+                                      style: TextStyle(
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.normal,
+                                        height: 1,
                                       ),
+                                      textAlign: TextAlign.center,
                                     ),
-                                  ],
-                                ),
-                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ReportAccident(),)),
+                                  ),
+                                ],
                               ),
+                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ReportAccident(),)),
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(right: 10.w),
-                          child: Container(
-                            height: 95.h,
-                            width: 100.w,
-                            decoration: ShapeDecoration(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8)),
-                              color: Colors.white,
-                              shadows: const [
-                                BoxShadow(
-                                  color: Color(0x0C000000),
-                                  blurRadius: 40,
-                                  offset: Offset(0, 4),
-                                  spreadRadius: 0,
-                                )
-                              ],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(right: 10.w),
+                        child: Container(
+                          height: 95.h,
+                          width: 100.w,
+                          decoration: ShapeDecoration(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                            color: Colors.white,
+                            shadows: const [
+                              BoxShadow(
+                                color: Color(0x0C000000),
+                                blurRadius: 40,
+                                offset: Offset(0, 4),
+                                spreadRadius: 0,
+                              )
+                            ],
+                          ),
+                          child: InkWell(
+                            child: SizedBox(
+                              //  width: 60.w,
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 15.h,
+                                  ),
+                                  Image.asset("assets/icons/car_icon_black.png"),
+                                  // Image.asset("assets/icons/car_icon.png", color:  Color(0xFF0F1511),
+                                  //     colorBlendMode: BlendMode.multiply),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      'איפה חניתי',
+                                      style: TextStyle(
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
+                            onTap: () {
+                              showLoading(context);
+                              ApiService().getParkPosition(rent.car.carNumber, (res) {
+                                Navigator.pop(context);
+                                print(res);
+                                findPark(res);
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(right: 10.w),
+                        child: Container(
+                          height: 95.h,
+                          width: 100.w,
+                          decoration: ShapeDecoration(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                            color: Colors.white,
+                            shadows: const [
+                              BoxShadow(
+                                color: Color(0x0C000000),
+                                blurRadius: 40,
+                                offset: Offset(0, 4),
+                                spreadRadius: 0,
+                              )
+                            ],
+                          ),
+                          child: Center(
                             child: InkWell(
                               child: SizedBox(
                                 //  width: 60.w,
                                 child: Column(
                                   children: [
-                                    SizedBox(
-                                      height: 15.h,
-                                    ),
-                                    Image.asset("assets/icons/car_icon_black.png"),
-                                      // Image.asset("assets/icons/car_icon.png", color:  Color(0xFF0F1511),
-                                      //     colorBlendMode: BlendMode.multiply),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
+                                    SizedBox(height: 15.h,),
+                                    Icon(Icons.account_circle_outlined, size: 24.sp,),
+                                    SizedBox(height: 10.h,),
                                     Expanded(
                                       child: Text(
-                                        'איפה חניתי',
+                                        'הוספת\nנהג נוסף',
                                         style: TextStyle(
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.normal,
-                                        ),
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.normal,
+                                            height: 1),
                                         textAlign: TextAlign.center,
                                       ),
                                     )
                                   ],
                                 ),
                               ),
-                              onTap: () {
-                                showLoading(context);
-                                ApiService().getParkPosition(rent.car.carNumber, (res) {
-                                  Navigator.pop(context);
-                                  print(res);
-                                  findPark(res);
-                                });
-                              },
+                              onTap: () => displayQuestion1(context,message: 'ודא כי יש ברשותך את פרטי הרשיון\nשל הנהג הנוסף',header: 'ברצונך להוסיף נהג חדש?',
+                                  onYes: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AddDriver(index: 3,orderId: rent.orderNum,),))),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(right: 10.w),
-                          child: Container(
-                            height: 95.h,
-                            width: 100.w,
-                            decoration: ShapeDecoration(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8)),
-                              color: Colors.white,
-                              shadows: const [
-                                BoxShadow(
-                                  color: Color(0x0C000000),
-                                  blurRadius: 40,
-                                  offset: Offset(0, 4),
-                                  spreadRadius: 0,
-                                )
-                              ],
-                            ),
-                            child: Center(
-                              child: InkWell(
-                                child: SizedBox(
-                                  //  width: 60.w,
-                                  child: Column(
-                                    children: [
-                                      SizedBox(height: 15.h,),
-                                      Icon(Icons.account_circle_outlined, size: 24.sp,),
-                                      SizedBox(height: 10.h,),
-                                      Expanded(
-                                        child: Text(
-                                          'הוספת\nנהג נוסף',
-                                          style: TextStyle(
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.normal,
-                                              height: 1),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                onTap: () => displayQuestion1(context,message: 'ודא כי יש ברשותך את פרטי הרשיון\nשל הנהג הנוסף',header: 'ברצונך להוסיף נהג חדש?',
-                                    onYes: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AddDriver(index: 3,orderId: rent.orderNum,),))),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(right: 10.w),
-                          child: Container(
-                            height: 95.h,
-                            width: 100.w,
-                            decoration: ShapeDecoration(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8)),
-                              color: Colors.white,
-                              shadows: const [
-                                BoxShadow(
-                                  color: Color(0x0C000000),
-                                  blurRadius: 40,
-                                  offset: Offset(0, 4),
-                                  spreadRadius: 0,
-                                )
-                              ],
-                            ),
-                            child: Center(
-                              child: InkWell(
-                                child: SizedBox(
-                                  // width: 60.w,
-                                  child: Column(
-                                    children: [
-                                      SizedBox(height: 15.h,),
-                                      Icon(Icons.camera_alt_outlined, size: 24.sp,),
-                                      SizedBox(height: 10.h,),
-                                      Expanded(
-                                        child: Text('תיעוד רכב',
-                                          style: TextStyle(
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.normal,
-                                              height: 1),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                onTap: () => displayQuestion1(context,header: 'צעד חכם!',message: 'ודא שהתמונות מצולמות באיכות טובה',
-                                    onYes: () {
-                                  Navigator.pop(context);
-                                      Navigator.push(context, MaterialPageRoute(
-                                        builder: (context) =>
-                                            CarDocu(
-                                              rentNum: rent.orderNum!),));
-                                    }
-                              ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                          child: Container(
-                            height: 95.h,
-                            width: 100.w,
-                            decoration: ShapeDecoration(
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                              color: Colors.white,
-                              shadows: const [
-                                BoxShadow(
-                                  color: Color(0x0C000000),
-                                  blurRadius: 40,
-                                  offset: Offset(0, 4),
-                                  spreadRadius: 0,
-                                )
-                              ],
-                            ),
-                            child: Center(
-                              child: InkWell(
-                                child: SizedBox(
-                                  //width: 60.w,
-                                  child: Column(
-                                    children: [
-                                      SizedBox(height: 15.h,),
-                                      Image.asset('assets/icons/key.png'),
-                                      SizedBox(height: 10.h,),
-                                      Expanded(
-                                        child: Text('שלח קוד\nלפתיחת דלת',
-                                          style: TextStyle(
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.normal,
-                                              height: 1),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                onTap: ()=>sendOpeningCode(),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 32.h,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 170.w,
-                      //  height: 114.h,
-                        decoration: ShapeDecoration(
-                          color: Color(0xFFF6F6F6),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
-                        child: Column(
-                          children: [
-                            SizedBox(height: 12.h,),
-                             if (percent!=-1) Text(
-                               '$percent%',
-                               style: TextStyle(
-                                   fontSize: 14.sp,
-                                   fontWeight: FontWeight.bold,
-                                   height: 1),
-                             ) else SizedBox(height: 21.h,),
-                            SizedBox(height: 8.h),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset('assets/icons/KM.png'),
-                                SizedBox(width: 19.w),
-                                Text(
-                                  '|',
-                                  style: TextStyle(
-                                      fontSize: 14.sp,
-                                      color: const Color(0xffD9D9D9),
-                                      fontWeight: FontWeight.bold,
-                                      height: 1),
-                                ),
-                                SizedBox(width: 19.w),
-                                Image.asset('assets/icons/Gas.png'),
-                              ],
-                            ),
-                            SizedBox(height: 19.h),
-                            if (km!=-1) Text(
-                              '$km ק"מ',
-                              style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.bold,
-                                  height: 1),
-                            ) else SizedBox(height: 21.h),
-                            SizedBox(height: 10.h)
-                          ],
                         ),
                       ),
-                      SizedBox(width: 16.w,),
-                      Container(
-                        width: 108.w,
-                      //  height: 114.h,
-                        clipBehavior: Clip.antiAlias,
-                        decoration: ShapeDecoration(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          shadows: const [
-                            BoxShadow(
-                              color: Color(0x0C000000),
-                              blurRadius: 40,
-                              offset: Offset(0, 4),
-                              spreadRadius: 0,
-                            )
-                          ],
-                        ),
-                        child: GestureDetector(
-                          onVerticalDragEnd: (details) {
-                            if(isLocked) {
-                              showLoading(context);
-                              ApiService().openDoors(rent.car.carNumber, (res) {
-                                Navigator.pop(context);
-                                  print(res);
-                                 setState(() {
-                                   isLocked=false;
-                                 });
-                                 _showFloatingDialog();
-                                });
-                            }
-                            else {
-                              showLoading(context);
-                              ApiService().lockDoors(rent.car.carNumber, (res) {
-                                Navigator.pop(context);
-                                  print(res);
-                                  setState(() {
-                                    isLocked=true;
-                                  });
-                                });
-                            }
-                          },
-                          child: Column(
-                            children: [
-                              SizedBox(height: 11.h),
-                              ImageIcon(
-                                isLocked?AssetImage("assets/icons/unlock.png"):AssetImage("assets/icons/lock.png"),
-                                color: isLocked?turquoiseColorApp:pinkColorApp,
-                              ),
-                              SizedBox(height: 7.h),
-                              Image.asset('assets/icons/Frame-30.png'),
-                              SizedBox(height: 4.58.h),
-                              ImageIcon(
-                                isLocked?AssetImage("assets/icons/lock.png"):AssetImage("assets/icons/unlock.png"),
-                                color: isLocked?pinkColorApp.withOpacity(0.5):turquoiseColorApp.withOpacity(0.5),
-                              ),
-                              SizedBox(height: 10.h),
-
-                              //SizedBox(height:10.h),
+                      Padding(
+                        padding: EdgeInsets.only(right: 10.w),
+                        child: Container(
+                          height: 95.h,
+                          width: 100.w,
+                          decoration: ShapeDecoration(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                            color: Colors.white,
+                            shadows: const [
+                              BoxShadow(
+                                color: Color(0x0C000000),
+                                blurRadius: 40,
+                                offset: Offset(0, 4),
+                                spreadRadius: 0,
+                              )
                             ],
+                          ),
+                          child: Center(
+                            child: InkWell(
+                              child: SizedBox(
+                                // width: 60.w,
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 15.h,),
+                                    Icon(Icons.camera_alt_outlined, size: 24.sp,),
+                                    SizedBox(height: 10.h,),
+                                    Expanded(
+                                      child: Text('תיעוד רכב',
+                                        style: TextStyle(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.normal,
+                                            height: 1),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              onTap: () => displayQuestion1(context,header: 'צעד חכם!',message: 'ודא שהתמונות מצולמות באיכות טובה',
+                                  onYes: () {
+                                    Navigator.pop(context);
+                                    Navigator.push(context, MaterialPageRoute(
+                                      builder: (context) =>
+                                          CarDocu(
+                                              rentNum: rent.orderNum!),));
+                                  }
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                        child: Container(
+                          height: 95.h,
+                          width: 100.w,
+                          decoration: ShapeDecoration(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            color: Colors.white,
+                            shadows: const [
+                              BoxShadow(
+                                color: Color(0x0C000000),
+                                blurRadius: 40,
+                                offset: Offset(0, 4),
+                                spreadRadius: 0,
+                              )
+                            ],
+                          ),
+                          child: Center(
+                            child: InkWell(
+                              child: SizedBox(
+                                //width: 60.w,
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 15.h,),
+                                    Image.asset('assets/icons/key.png'),
+                                    SizedBox(height: 10.h,),
+                                    Expanded(
+                                      child: Text('שלח קוד\nלפתיחת דלת',
+                                        style: TextStyle(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.normal,
+                                            height: 1),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              onTap: ()=>sendOpeningCode(),
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 44.h,)
-                ],
-              ),
-            ],
-          ),
+                ),
+                SizedBox(height: 32.h,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 170.w,
+                      //  height: 114.h,
+                      decoration: ShapeDecoration(
+                        color: Color(0xFFF6F6F6),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                      ),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 12.h,),
+                          if (percent!=-1) Text(
+                            '$percent%',
+                            style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.bold,
+                                height: 1),
+                          ) else SizedBox(height: 21.h,),
+                          SizedBox(height: 8.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset('assets/icons/KM.png'),
+                              SizedBox(width: 19.w),
+                              Text(
+                                '|',
+                                style: TextStyle(
+                                    fontSize: 14.sp,
+                                    color: const Color(0xffD9D9D9),
+                                    fontWeight: FontWeight.bold,
+                                    height: 1),
+                              ),
+                              SizedBox(width: 19.w),
+                              Image.asset('assets/icons/Gas.png'),
+                            ],
+                          ),
+                          SizedBox(height: 19.h),
+                          if (km!=-1) Text(
+                            '$km ק"מ',
+                            style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.bold,
+                                height: 1),
+                          ) else SizedBox(height: 21.h),
+                          SizedBox(height: 10.h)
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 16.w,),
+                    Container(
+                      width: 108.w,
+                      //  height: 114.h,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: ShapeDecoration(
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                        shadows: const [
+                          BoxShadow(
+                            color: Color(0x0C000000),
+                            blurRadius: 40,
+                            offset: Offset(0, 4),
+                            spreadRadius: 0,
+                          )
+                        ],
+                      ),
+                      child: GestureDetector(
+                        onVerticalDragEnd: (details) {
+                          if(isLocked) {
+                            showLoading(context);
+                            ApiService().openDoors(rent.car.carNumber, (res) {
+                              Navigator.pop(context);
+                              print(res);
+                              setState(() {
+                                isLocked=false;
+                              });
+                              _showFloatingDialog();
+                            });
+                          }
+                          else {
+                            showLoading(context);
+                            ApiService().lockDoors(rent.car.carNumber, (res) {
+                              Navigator.pop(context);
+                              print(res);
+                              setState(() {
+                                isLocked=true;
+                              });
+                            });
+                          }
+                        },
+                        child: Column(
+                          children: [
+                            SizedBox(height: 11.h),
+                            ImageIcon(
+                              isLocked?AssetImage("assets/icons/unlock.png"):AssetImage("assets/icons/lock.png"),
+                              color: isLocked?turquoiseColorApp:pinkColorApp,
+                            ),
+                            SizedBox(height: 7.h),
+                            Image.asset('assets/icons/Frame-30.png'),
+                            SizedBox(height: 4.58.h),
+                            ImageIcon(
+                              isLocked?AssetImage("assets/icons/lock.png"):AssetImage("assets/icons/unlock.png"),
+                              color: isLocked?pinkColorApp.withOpacity(0.5):turquoiseColorApp.withOpacity(0.5),
+                            ),
+                            SizedBox(height: 10.h),
+
+                            //SizedBox(height:10.h),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 44.h,)
+              ],
+            ),
+          ],
         ),
       ),
     );

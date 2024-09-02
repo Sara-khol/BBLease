@@ -177,7 +177,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
         if (orientation == Orientation.landscape)
-          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_image.png', 580.w));
+          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_image.png', 580.w,'תמונת כניסה'),showAppBar: false,);
         return buildContent();
       }),
     );
@@ -304,13 +304,19 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                         ),
                         prefixIconConstraints: const BoxConstraints(
                           maxHeight: 26,
+                          minHeight: 26
                         ),
+                        prefixIconColor: pinkColorApp,
                         suffixIcon: didSendCode
                             ? Padding(
                                 padding: EdgeInsets.only(left: 14.w),
                                 child: Image.asset("assets/icons/edit.png"),
                               )
                             : null,
+                        suffixIconConstraints: const BoxConstraints(
+                            maxHeight: 26,
+                            minHeight: 26
+                        ),
                       ),
                       style: TextStyle(
                           fontSize: 18.sp,
@@ -328,66 +334,69 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                   ),
                   Visibility(
                     visible: didSendCode && checkboxValue1,
-                    child: TextFormField(
-                      keyboardType: TextInputType.number,
-                      controller: _code,
-                      focusNode: textSecondFocusNode,
-                      cursorColor: blackColorApp,
-                      decoration: InputDecoration(
-                        constraints: BoxConstraints(maxHeight: 48.h),
-                        isDense: true,
-                        labelText: "הזן סיסמא שהתקבלה",
-                        labelStyle: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.normal,
-                          color: blackColorApp,
-                          height: 1,
-                        ),
-                        floatingLabelBehavior: FloatingLabelBehavior.auto,
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide(
+                    child: SizedBox(
+                      height: 71.h,
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        controller: _code,
+                        focusNode: textSecondFocusNode,
+                        cursorColor: blackColorApp,
+                        decoration: InputDecoration(
+                          constraints: BoxConstraints(maxHeight: 48.h),
+                          isDense: true,
+                          labelText: "הזן סיסמא שהתקבלה",
+                          labelStyle: TextStyle(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.normal,
                             color: blackColorApp,
+                            height: 1,
                           ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide(
-                            color: blackColorApp,
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(
+                              color: blackColorApp,
+                            ),
                           ),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(
-                            color: Colors.red,
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(
+                              color: blackColorApp,
+                            ),
                           ),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(
-                            color: Colors.red,
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: Colors.red,
+                            ),
                           ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: Colors.red,
+                            ),
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: 10.h,
+                            horizontal: 20.w,
+                          ),
+                          prefixIcon: Padding(
+                            padding: EdgeInsets.only(right: 20.w, left: 14.w),
+                            child: Image.asset("assets/icons/Password.png"),
+                          ),
+                          prefixIconConstraints: const BoxConstraints(maxHeight: 26,minHeight: 26),
+                          prefixIconColor: pinkColorApp,
                         ),
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: 10.h,
-                          horizontal: 20.w,
-                        ),
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.only(right: 20.w, left: 14.w),
-                          child: Image.asset("assets/icons/Password.png"),
-                        ),
-                        prefixIconConstraints: const BoxConstraints(maxHeight: 26,),
-                        prefixIconColor: pinkColorApp,
+                        style: TextStyle(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.normal,
+                            color: blackColorApp),
+                        validator: (value) {
+                          if (value == null)
+                            return 'נא הזן קוד';
+                          return null;
+                        },
                       ),
-                      style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.normal,
-                          color: blackColorApp),
-                      validator: (value) {
-                        if (value == null)
-                          return 'נא הזן קוד';
-                        return null;
-                      },
                     ),
                   ),
 

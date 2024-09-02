@@ -46,7 +46,7 @@ class _LicenseFrontState extends State<LicenseFront> {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
         if (orientation == Orientation.landscape)
-          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_image.png', 580.w));
+          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_register1.png', 618.w,'תמונת הרשמה שלב 1'),showAppBar: false,);
         return buildContent();
       }),
     );
@@ -87,7 +87,7 @@ class _LicenseFrontState extends State<LicenseFront> {
               children: [
                 Center(
                     child: Image.asset(
-                      'assets/images/rect.png',
+                      'assets/images/rect.png', semanticLabel: 'frame',
                     )),
                 Center(
                     child: Text('פתח מצלמה',

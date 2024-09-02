@@ -45,7 +45,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
       body: OrientationBuilder(
         builder: (context,orientation) {
           if (orientation == Orientation.landscape) {
-            return LandSpaceWidget(mainWidget:buildContent(),imageProperties:ImageProperties('l_register1.png', 618.w));
+            return LandSpaceWidget(mainWidget:buildContent(),imageProperties:ImageProperties('l_register1.png', 618.w,'תמונת הרשמה שלב 1'),showAppBar: false,);
           }
           return buildContent();
         }

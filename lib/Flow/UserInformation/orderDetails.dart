@@ -65,7 +65,7 @@ class _OrderDetailsState extends State<OrderDetails> {
         body: OrientationBuilder(builder: (c, o) {
           return o == Orientation.landscape ? LandSpaceWidget(
               mainWidget: buildContent(),
-              imageProperties: ImageProperties('l_register1.png', 618.w)):
+              imageProperties: ImageProperties('image3.png', 1000.w,'תמונת מידע נוסף')):
               buildContent();
         },));
   }

@@ -29,7 +29,7 @@ class _TermsState extends State<Terms> {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
         if (orientation == Orientation.landscape)
-          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_image.png', 580.w));
+          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('image5.png', 1000.w,'תמונת תקנון'));
         return buildContent();
       }),
 
@@ -43,29 +43,8 @@ class _TermsState extends State<Terms> {
           left: 24.w, right: 24.w, top: 32.h, bottom: 20.h),
       child: Column(
         children: [
-          Container(
-            color: Colors.white,
-            child: Row(children: [
-              /* Text("Bibilease",
-                    style: TextStyle(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF0F1511),
-                      fontFamily: 'PlusJakartaSans',)
-                    ,),*/
-              Image.asset('assets/images/logo_bibilease_new_no_background.png',
-                  height: 100.w),
 
-              Spacer(),
-              GestureDetector(
-                child: Icon(
-                  Icons.arrow_back_ios, color: Color(0xFF0F1511), size: 24.w,),
-                onTap: () => Navigator.pop(context),
-              ),
-            ],
-            ),
-          ),
-          SizedBox(height: 40.h,),
+          SizedBox(height: 80.h,),
           Text(
             'תקנון ותנאי שימוש',
             style: TextStyle(
@@ -79,7 +58,7 @@ class _TermsState extends State<Terms> {
               child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(lorem * 3),
+                    child: Text(lorem * 3,textDirection: TextDirection.rtl,),
                   )
               )
           ),

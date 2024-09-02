@@ -5,10 +5,12 @@ import 'package:bblease/Flow/UserInformation/profile.dart';
 import 'package:bblease/Flow/UserInformation/use_instructions.dart';
 import 'package:bblease/Flow/my_shared_preferences.dart';
 import 'package:bblease/Flow/registration/payment_webView.dart';
+import 'package:bblease/Flow/registration/tel_to_registration.dart';
 import 'package:bblease/Flow/welcome.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:bblease/Flow/UserInformation/ordersHistory.dart';
 import 'package:bblease/Flow/UserInformation/terms_and_conditions.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -422,13 +424,13 @@ Future sideMenu(context) {
                         displayQuestion1(context,
                             header: 'להתנתק?',
                             message: 'האם ברצונך להתנתק מהאפליקציה?',
-                            yesText: 'צא מהאפליקציה',
+                            yesText: 'לצאת',
                             noText: 'הישאר', onYes: () {
                           MySharedPreferences().clearAllSharedPreference();
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const WelcomeForm()),
+                                  builder: (context) => const TelToRegistrationForm()),
                               (route) => false);
                         });
                       }),
@@ -496,37 +498,40 @@ getBottomButtons(context) {
        ),
      ),*/
       //SizedBox(height: 33.h,),
-      GestureDetector(
-        onTap: () {
-          support.call;
-        },
-        child: Container(
-          // height: 60.h,
-          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.h),
-          decoration: BoxDecoration(
-              color: pinkColorApp, borderRadius: BorderRadius.circular(100)),
-          child: Center(
-              child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                textAlign: TextAlign.center,
-                'חיוג במקרה חירום ',
-                style: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                    height: 1),
-              ),
-              SizedBox(width: 12.w),
-              Icon(
-                Icons.phone_outlined,
-                color: Colors.white,
-                size: 18.sp,
-              )
-            ],
-          )),
+      Visibility(
+        visible: !kIsWeb,
+        child: GestureDetector(
+          onTap: () {
+            support.call;
+          },
+          child: Container(
+            // height: 60.h,
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.h),
+            decoration: BoxDecoration(
+                color: pinkColorApp, borderRadius: BorderRadius.circular(100)),
+            child: Center(
+                child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  textAlign: TextAlign.center,
+                  'חיוג במקרה חירום ',
+                  style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      height: 1),
+                ),
+                SizedBox(width: 12.w),
+                Icon(
+                  Icons.phone_outlined,
+                  color: Colors.white,
+                  size: 18.sp,
+                )
+              ],
+            )),
+          ),
         ),
       ),
     ],

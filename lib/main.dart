@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:ui';
 import 'package:bblease/Flow/Rental/active_rent.dart';
 import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/home_page.dart';
 import 'package:bblease/Flow/my_shared_preferences.dart';
+import 'package:bblease/Flow/registration/tel_to_registration.dart';
 import 'package:bblease/services/api_service.dart';
 import 'package:bblease/utils/common_funcs.dart';
 import 'package:bblease/utils/my_colors.dart';
@@ -94,15 +96,18 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, Widget? child) {
       //    debugPrint('orientation main ${(ScreenUtil()).pixelRatio} ');
           return MaterialApp(
-            localizationsDelegates: [
+            localizationsDelegates: const [
               //AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               //GlobalWidgetsLocalizations.delegate,
             ],
-            supportedLocales: [
-              const Locale('he'),
-              const Locale('en'),
+            supportedLocales: const [
+              Locale('he'),
+              Locale('en'),
             ],
+            scrollBehavior: MaterialScrollBehavior().copyWith(
+              dragDevices: {PointerDeviceKind.mouse, PointerDeviceKind.touch},
+            ),
             title: 'ביביליס',
             theme: ThemeData(
                 fontFamily: 'PLONI',
@@ -153,10 +158,10 @@ class MyApp extends StatelessWidget {
                           }
                           return const RentalWidget();
                         } else {
-                          return const WelcomeForm();
+                          return const TelToRegistrationForm();
                         }
                       }
-                      return const WelcomeForm();
+                      return const TelToRegistrationForm();
                     }
                     if (snapshot.hasError) {
                       debugPrint('error: ${snapshot.error}');

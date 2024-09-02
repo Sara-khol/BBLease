@@ -444,7 +444,7 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
               return RadioListTile(
                 activeColor: blackColorApp ,
                 value: v,
-
+                mouseCursor: MouseCursor.uncontrolled,
                 dense: true,
                 autofocus: true,
                 contentPadding: EdgeInsets.zero,

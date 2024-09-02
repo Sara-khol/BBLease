@@ -20,7 +20,7 @@ import 'package:bblease/utils/my_colors.dart';
 import '../UserInformation/terms_and_conditions.dart';
 
 class LicenseDetails extends StatefulWidget {
-  const LicenseDetails({Key? key, required this.index, this.orderId}) : super(key: key);
+  const LicenseDetails({super.key, required this.index, this.orderId});
 
   final int index;
 
@@ -59,7 +59,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
       body: OrientationBuilder(
         builder: (context,orientation) {
           return  orientation==Orientation.landscape?
-            LandSpaceWidget( mainWidget: buildContent(),imageProperties: ImageProperties('l_register1.png', 618.w)):
+            LandSpaceWidget( mainWidget: buildContent(),imageProperties: ImageProperties('l_register2.png', 618.w,'תמונת הרשמה שלב 2'),showAppBar: false,):
                 buildContent();
 
         }

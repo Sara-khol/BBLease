@@ -117,9 +117,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
         if (orientation == Orientation.landscape)
-          return LandSpaceWidget(mainWidget: buildContent(orientation),
-              imageProperties:ImageProperties('l_image.png', 580.w),
-              showAppBar:true);
+          return LandSpaceWidget(mainWidget: buildContent(orientation), imageProperties:ImageProperties('image2.png', 1000.w,'הזמנה פעילה עם טיימר'),);
         return buildContent(orientation);
       }),
     );

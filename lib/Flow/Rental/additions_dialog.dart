@@ -11,7 +11,7 @@ import '../../utils/my_colors.dart';
 import 'car_details.dart';
 
 class AdditionsDialog extends StatefulWidget {
-  const AdditionsDialog({Key? key, required this.rent, required this.car, required this.additionsList}) : super(key: key);
+  const AdditionsDialog({super.key, required this.rent, required this.car, required this.additionsList});
   final Rental rent;
   final Car car;
   final List<Addition> additionsList;
@@ -26,7 +26,7 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
 
   createCheckBox(int index){
     return CheckboxListTile(
-      title: Text(widget.additionsList[index].title),
+      title: Text('${widget.additionsList[index].title} - ${widget.additionsList[index].price}₪'),
       value: widget.additionsList[index].isChecked,
       enabled: widget.additionsList[index].isEnabled,
       checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),

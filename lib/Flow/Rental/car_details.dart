@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/UserInformation/ordersHistory.dart';
 import 'package:bblease/landspace_widget.dart';
@@ -61,14 +63,17 @@ class _CarDetailsState extends State<CarDetails> {
           return orientation==Orientation.landscape?
           LandSpaceWidget(
               mainWidget: buildContent(orientation),
-              imageProperties: ImageProperties('l_register1.png', 618.w),
-              showAppBar:true):
+              imageProperties: ImageProperties('image6.png', 1000.w,'תמונה בהצלחה'),
+              ):
           buildContent(orientation);
   }));
   }
 
   buildContent(Orientation o) {
     //print(' additions length ${widget.rent.additions!.length}');
+
+    final controller = ScrollController();
+
     return  Directionality(
         textDirection: TextDirection.rtl,
         child:
@@ -85,14 +90,7 @@ class _CarDetailsState extends State<CarDetails> {
               height: null,
             ),
           ),
-          Text(
-            'רכב זה זמין רק בחיבור לאפליקציה',
-            style: TextStyle(
-              color: blackColorApp,
-              fontSize: 16.sp,
-              fontWeight: FontWeight.normal,
-            ),
-          ),
+
           SizedBox(height: 30.h),
           if (widget.rent.car.carImages.isNotEmpty)
             Container(
@@ -101,6 +99,7 @@ class _CarDetailsState extends State<CarDetails> {
               child: /*Image.network(widget.rent.car.carImages.first)*/
               CarouselSlider(
                   items: widget.rent.car.carImages.map((i) {
+                     print(i);
                     return Image.network(i, width: 290.w);
                   }).toList(),
                   options: CarouselOptions(
@@ -112,7 +111,7 @@ class _CarDetailsState extends State<CarDetails> {
                   )
               ),
             ),
-          Image.asset('assets/images/Ellipse.png'),
+          Image.asset('assets/images/Ellipse.png',semanticLabel: 'אליפסה קוקוים',),
           SizedBox(height: 40.h),
           Expanded(
                 child: Directionality(
@@ -120,14 +119,18 @@ class _CarDetailsState extends State<CarDetails> {
                   child: Padding(
                     padding: EdgeInsets.only(right: 10.w),
                     child: RawScrollbar(
-                      thumbVisibility: true,
                       thumbColor: turquoiseColorApp,
-                      thickness: 3,
-                      child: Scrollbar(
-                        thumbVisibility: true,
+                      controller: controller,
+                      trackVisibility: true,
+                      thickness: 4,
+                      thumbVisibility: true,
+                      child: ScrollConfiguration(
+                        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false,dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse,}),
                         child: Directionality(
                           textDirection: TextDirection.rtl,
                           child: ListView(
+                            //primary: true,
+                            controller: controller,
                             padding: EdgeInsets.only(left: 17.w, right: 11.w,),
                             shrinkWrap: true,
                             children: [

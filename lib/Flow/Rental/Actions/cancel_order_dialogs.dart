@@ -56,6 +56,8 @@ Future cancelOrderDialog(context,rent){
                         Text('האם הינך בטוח שברצונך לבטל הזמנה זו? ',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal,),textDirection: TextDirection.rtl,),
                         Container(height: 32.h),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
                               height: 48.h,
@@ -113,7 +115,7 @@ Future cancelOrderDialog(context,rent){
   );
 }
 
-signCancelOrderDialog(context,String headline,String text) {
+signCancelOrderDialog(context,String headline,String text,[orderId]) {
 
   final SignatureController controller = SignatureController(
     penStrokeWidth: 2,
@@ -220,7 +222,7 @@ signCancelOrderDialog(context,String headline,String text) {
                                     Navigator.pop(context),
                                     Navigator.pop(context),
                                   }
-                                      :ApiService().signatureUpload(signature, () {
+                                      :ApiService().signatureUpload(signature,orderId ,() {
                                     print('onSuccess');
                                     controller.dispose();
                                     Navigator.push(context, MaterialPageRoute(

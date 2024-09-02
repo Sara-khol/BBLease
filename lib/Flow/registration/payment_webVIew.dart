@@ -51,7 +51,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
           body: orientation == Orientation.landscape
               ? LandSpaceWidget(
                   mainWidget: buildContent(orientation),
-                  imageProperties: ImageProperties('l_register1.png', 618.w))
+                  imageProperties: ImageProperties('l_register3.png', 618.w,'תמונת הרשמה שלב 3'),showAppBar: false,)
               : buildContent(orientation));
     });
   }

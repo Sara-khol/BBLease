@@ -32,7 +32,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
       builder: (context,o) {
         return Scaffold(
            body: o==Orientation.landscape?
-               LandSpaceWidget(mainWidget: buildContent(), imageProperties: ImageProperties('l_register1.png', 618.w))
+               LandSpaceWidget(mainWidget: buildContent(), imageProperties: ImageProperties('image6.png', 1000.w,'תמונת מידע אישי'))
                :buildContent()
         );
       }
@@ -426,7 +426,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
 
                 child: Column(children: [
                   SizedBox(height: 38.h),
-                  Image.asset('assets/images/loading.png',color: Colors.white,),
+                  Image.asset('assets/images/loading.png',color: Colors.white,semanticLabel: 'טעינה',),
                   SizedBox(height: 14.h),
                   Text('רק דקה :) \nטוען מסך ראשי...',style: TextStyle(color: pinkColorApp,fontWeight: FontWeight.bold,fontSize: 20.sp,),textDirection: ui.TextDirection.rtl,),
                   // const Spacer(),

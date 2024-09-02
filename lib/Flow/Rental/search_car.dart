@@ -110,8 +110,8 @@ class _SearchCarState extends State<SearchCar> {
         body: orientation == Orientation.landscape
             ? LandSpaceWidget(
                 mainWidget: buildContent(orientation),
-                imageProperties: ImageProperties('l_search_car.jpg', 618.w),
-                showAppBar: true)
+                imageProperties: ImageProperties('image1.png', 580.w,'תוצאות חיפוש'),
+               )
             : buildContent(orientation),
       );
     });
@@ -191,7 +191,8 @@ class _SearchCarState extends State<SearchCar> {
                                       return searchCarItem(car, orientation)
                                           /*GestureDetector(
                                         onTap: () async {
-                                          */ /*Navigator.push(
+                                          */
+                                      /*Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => CarDetails(car,startDate: widget.startDate,endDate: widget.endDate,))
                         ),*/
@@ -434,9 +435,7 @@ class _SearchCarState extends State<SearchCar> {
                 car.id, widget.startDate, widget.endDate, (orderJson) {
               Navigator.pop(context);
               List<Addition> additions = [];
-              additions = orderJson
-                  .map<Addition>((entry) => (Addition.fromJson(entry)))
-                  .toList();
+              additions = orderJson.map<Addition>((entry) => (Addition.fromJson(entry))).toList();
               for (Addition item in additions) {
                 if (item.name == 'new_driver' || item.name == 'young_driver') {
                   item.isEnabled = false;
@@ -476,14 +475,12 @@ class _SearchCarState extends State<SearchCar> {
             child: Stack(
               children: [
                 Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                   shadowColor: Colors.transparent,
                   margin: EdgeInsets.only(left: 20.w),
                   color:  Color(0xffF7F7F7),
                   child: Padding(
-                    padding: EdgeInsets.only(
-                        bottom: 10.h, top: 10.h, right: 14.w, left: 11.w),
+                    padding: EdgeInsets.only(bottom: 10.h, top: 10.h, right: 14.w, left: 11.w),
                     child: IntrinsicHeight(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -554,10 +551,9 @@ class _SearchCarState extends State<SearchCar> {
                   ),
                 ),
                 if (car.carImages.isNotEmpty)
-                  Positioned.fill(
-                      child: Align(
+                  Positioned.fill(child: Align(
                     alignment: Alignment.bottomLeft,
-                    child: Container(
+                      child: Container(
                         margin: EdgeInsets.only(bottom: 10.h),
                         child: Image.network(
                           car.carImages.first,
@@ -853,7 +849,7 @@ class _SearchCarState extends State<SearchCar> {
                   left: 4.w,
                 ),
                 child: Image.asset(
-                  'assets/images/car-only.png',
+                  'assets/images/car-only.png',semanticLabel: 'car',
                  /* width: 115.w,
                   height: 50.h,*/
                 ),
@@ -868,17 +864,15 @@ class _SearchCarState extends State<SearchCar> {
   expansionSearch() {
     return showModalBottomSheet(
       context: context,
-      builder: (context) =>
-          StatefulBuilder(builder: (BuildContext context, setState) {
+      builder: (context) => StatefulBuilder(builder: (BuildContext context, setState) {
         return Directionality(
           textDirection: TextDirection.rtl,
           child: Container(
             decoration: const ShapeDecoration(
               color: Colors.white,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(25),
-                  topRight: Radius.circular(25),
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(25),
                 ),
               ),
               shadows: [
@@ -896,22 +890,15 @@ class _SearchCarState extends State<SearchCar> {
                 Align(
                   alignment: Alignment.topRight,
                   child: IconButton(
-                    // padding: EdgeInsets.zero,
-                    // constraints: const BoxConstraints(minWidth: 20, maxWidth: 20),
                     iconSize: 20.w,
-                    icon: const Icon(
-                      Icons.close,
-                    ),
-                    onPressed: () => {
-                      Navigator.pop(context),
-                    },
+                    icon: const Icon(Icons.close,),
+                    onPressed: () => Navigator.pop(context),
                   ),
                 ),
-                ListView(
-                  shrinkWrap: true,
+                Column(
                   children: [
                     SizedBox(
-                      height: 30.h,
+                      height: 50.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -1065,27 +1052,33 @@ class _SearchCarState extends State<SearchCar> {
                           SizedBox(
                             height: 21,
                           ),
-                          Container(
-                            height: 48.h,
-                            width: 332.w,
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: turquoiseColorApp,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(100),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  getCarsList();
-                                },
-                                child: Text(
-                                  'הצג תוצאות נוספות',
-                                  style: TextStyle(
-                                      fontSize: 22.sp,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.white),
-                                )),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 48.h,
+                                width: 332.w,
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: turquoiseColorApp,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(100),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      getCarsList();
+                                    },
+                                    child: Text(
+                                      'הצג תוצאות נוספות',
+                                      style: TextStyle(
+                                          fontSize: 22.sp,
+                                          fontWeight: FontWeight.normal,
+                                          color: Colors.white),
+                                    )),
+                              ),
+                            ],
                           ),
                         ],
                       ),

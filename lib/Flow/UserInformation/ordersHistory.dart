@@ -67,18 +67,6 @@ class _OrdersHistoryState extends State<OrdersHistory> {
       debugPrint('error ${e} $s');
     }
   }
-  /*getActiveRent() async {
-    await ApiService().getActiveRent(User().userId, (rent) {
-      print(rent);
-        currentRent = rent.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
-        initData = true;
-        print('rent: ${currentRent?.orderNum}');
-
-        setState(() {        });
-
-    });
-
-  }*/
 
   void downloadFileWeb(String url) {
     String fileName = 'bibilease.pdf';
@@ -290,11 +278,10 @@ class _OrdersHistoryState extends State<OrdersHistory> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body:OrientationBuilder(builder: (c,o){
         return o==Orientation.landscape?
-            LandSpaceWidget(mainWidget: buildContent(), imageProperties: ImageProperties('l_register1.png', 618.w)) :buildContent();
+            LandSpaceWidget(mainWidget: buildContent(), imageProperties: ImageProperties('image4.png', 1000.w,'תמונת פרטי רכב')) :buildContent();
       },) ,
     );
   }
@@ -339,7 +326,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 38.w),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
@@ -356,7 +343,8 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,
                           //minimumSize: Size(50, 30),
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          //tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+
                         ),
                         onPressed: () {
                           setState(() {
@@ -364,13 +352,10 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                           });
                         },
                         child: Text(
-                          'היסטורית הזמנות',
+                          '  היסטורית הזמנות  ',
                           style: TextStyle(
                               fontSize: 18.sp,
-
-                              fontWeight: selected == 1
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
+                              fontWeight: selected == 1 ? FontWeight.bold : FontWeight.normal,
                               color: selected == 1 ? Colors.white : blackColorApp),
                         )),
                   ),
@@ -390,7 +375,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,
                           //minimumSize: Size(50, 30),
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          //tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
                         onPressed: () {
                           setState(() {
@@ -402,11 +387,8 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                             'הזמנות עתידיות',
                             style: TextStyle(
                                 fontSize: 18.sp,
-                                fontWeight: selected == 2
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                                color:
-                                selected == 2 ? Colors.white : blackColorApp),
+                                fontWeight: selected == 2 ? FontWeight.bold : FontWeight.normal,
+                                color: selected == 2 ? Colors.white : blackColorApp),
                           ),
                         )),
                   ),

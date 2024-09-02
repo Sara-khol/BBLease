@@ -40,7 +40,7 @@ class WelcomeForm extends StatelessWidget {
             //   // child: Expanded(child: Image.asset('assets/images/BB.png',width: 392.w, fit: BoxFit.contain))
             // ),
             Expanded(
-                child: Image.asset('assets/images/BB.png', width: 400.w, fit: BoxFit.contain)),
+                child: Image.asset('assets/images/BB.png', semanticLabel: 'כותרת עמוד ראשי ביביליס', width: 400.w, fit: BoxFit.contain)),
             SizedBox(height: 48.h),
             Container(
               height: 48.h,

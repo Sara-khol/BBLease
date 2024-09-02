@@ -1,5 +1,6 @@
 import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/home_page.dart';
+import 'package:bblease/Flow/registration/tel_to_registration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../landspace_widget.dart';
@@ -20,7 +21,7 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
         if (orientation == Orientation.landscape)
-          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_image.png', 580.w));
+          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('image6.png', 1000.w,'עבר בהצלחה'));
         return buildContent();
       }),
     );
@@ -36,7 +37,7 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 160.h),
-              Image.asset('assets/images/aaa.png'),
+              Image.asset('assets/images/aaa.png',semanticLabel: 'תמונה רישום עבר בהצלחה',),
               SizedBox(height: 38.h),
               Text("היי ${User().firstName}!",
                   style: TextStyle(
@@ -97,7 +98,7 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>  WelcomeForm()));
+                                    builder: (context) =>  TelToRegistrationForm()));
                           },
 
                           child: Row(

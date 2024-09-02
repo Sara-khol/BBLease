@@ -22,7 +22,7 @@ class _AppBarBibileaseState extends State<AppBarBibilease> {
       child: Padding(
         padding: EdgeInsets.only(right: 24.w),
         child: Row( children:[
-          Image.asset('assets/images/logo_bibilease_new_no_background.png', height: 100.w),
+          Image.asset('assets/images/logo_bibilease_new_no_background.png', height: 100.w, semanticLabel: 'לוגו ביביליס',),
            /*Text("Bibilease",
            style: TextStyle(
              fontSize: 24.sp,

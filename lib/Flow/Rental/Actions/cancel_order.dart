@@ -8,7 +8,7 @@ import '../../../utils/my_colors.dart';
 import 'cancel_order_dialogs.dart';
 
 class CancelOrder extends StatefulWidget {
-  const CancelOrder({Key? key, required this.rent}) : super(key: key);
+  const CancelOrder({super.key, required this.rent});
   final Rental rent;
 
 
@@ -31,8 +31,8 @@ class _CancelOrderState extends State<CancelOrder> {
       body: OrientationBuilder(builder: (context, orientation) {
         if (orientation == Orientation.landscape)
           return LandSpaceWidget(mainWidget: buildContent(orientation),
-              imageProperties:ImageProperties('l_image.png', 580.w),
-              showAppBar:true);
+              imageProperties:ImageProperties('image5.png', 1000.w,'תמונת פעולות'),
+             );
         return buildContent(orientation);
       }),
     );
@@ -70,7 +70,7 @@ class _CancelOrderState extends State<CancelOrder> {
               ),
               onPressed: () {
                 signCancelOrderDialog(
-                    context, 'טופס ביטול הזמנה', 'אישור וחתימה לביטול הזמנה');
+                    context, 'טופס ביטול הזמנה', 'אישור וחתימה לביטול הזמנה',widget.rent.orderNum);
               },
               child: Text('לחתימה',
                   style: TextStyle(

@@ -54,7 +54,7 @@ class _LicenseBackState extends State<LicenseBack> {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
         if (orientation == Orientation.landscape)
-          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_image.png', 580.w));
+          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_register2.png', 618.w,'תמונת הרשמה שלב 2'),showAppBar: false,);
         return buildContent();
       }),
     );
@@ -94,7 +94,7 @@ class _LicenseBackState extends State<LicenseBack> {
             height: 254.h,
             child: Stack(
               children: [
-                Center(child: Image.asset('assets/images/rect.png',)),
+                Center(child: Image.asset('assets/images/rect.png', semanticLabel: 'frame',)),
                 Center(child: Text('פתח מצלמה',style: TextStyle(color: Color(0xFFD9D9D9),fontSize: 24.sp))),
                 InkWell(
                   onTap: _onCameraButtonPressed,

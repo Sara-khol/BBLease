@@ -20,8 +20,7 @@ class CancelationComplete extends StatelessWidget {
       body: OrientationBuilder(builder: (context, orientation) {
         if (orientation == Orientation.landscape)
           return LandSpaceWidget(mainWidget: buildContent(context,orientation),
-              imageProperties:ImageProperties('l_image.png', 580.w),
-              showAppBar:true);
+              imageProperties:ImageProperties('image5.png', 1000.w,'תמונת פעולות'),);
         return buildContent(context,orientation);
       }),
     );
@@ -40,7 +39,7 @@ class CancelationComplete extends StatelessWidget {
           style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal),
           textAlign: TextAlign.center,),
         SizedBox(height: 60.h,),
-        Image.asset('assets/images/image1.png'),
+        Image.asset('assets/images/image1.png',semanticLabel: 'תמונה תוצאות חיפוש',),
         SizedBox(height: 70.h,),
         Text('מקווים לראותך שוב בקרוב!',
           style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),

@@ -32,13 +32,13 @@ class _ReportAccidentState extends State<ReportAccident> {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
         if (orientation == Orientation.landscape)
-          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_image.png', 580.w));
-        return buildContent();
+          return LandSpaceWidget(mainWidget: buildContent(orientation),imageProperties:ImageProperties('image5.png', 1000.w,'תמונת פעולות'));
+        return buildContent(orientation);
       }),
     );
   }
 
-  buildContent() {
+  buildContent(o) {
     return SingleChildScrollView(
       child: Directionality(
         textDirection: TextDirection.rtl,
@@ -47,7 +47,7 @@ class _ReportAccidentState extends State<ReportAccident> {
           child: Column(
             children: [
               SizedBox(height: 35.h,),
-              Align(
+              if(o==Orientation.portrait)Align(
                   alignment: Alignment.centerRight,
                   child: IconButton(onPressed: () =>Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
               SizedBox(height: 41.h,),

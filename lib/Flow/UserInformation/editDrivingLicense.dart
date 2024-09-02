@@ -10,6 +10,7 @@ import 'package:intl/intl.dart' as intl;
 
 import 'dart:ui' as ui;
 
+import '../../landspace_widget.dart';
 import '../../services/api_service.dart';
 import '../Dialogs/buttom_dialogs.dart';
 import '../Rental/dialogs.dart';
@@ -33,148 +34,156 @@ class _EditDrivingLicensePersonalState extends State<EditDrivingLicensePersonal>
   @override
   Widget build(BuildContext context,) {
 
+    return OrientationBuilder(builder: (c,o){
+      return o==Orientation.landscape?
+      LandSpaceWidget(mainWidget: buildContent(), imageProperties: ImageProperties('image4.png', 1000.w,'תמונת פרטי רכב')) :buildContent();
+    },);
+  }
+
+
+  buildContent(){
     return Scaffold(
       resizeToAvoidBottomInset: false,
-       body: SingleChildScrollView(
-         reverse: true,
-         child: Directionality(
-           textDirection: ui.TextDirection.rtl,
-           child: Column(
-             children: [
+      body: SingleChildScrollView(
+        reverse: true,
+        child: Directionality(
+          textDirection: ui.TextDirection.rtl,
+          child: Column(
+            children: [
               // Directionality(textDirection: ui.TextDirection.ltr, child: AppBarBibilease()),
-                SizedBox(height: 24.h,),
-                Padding(
-                  padding:  EdgeInsets.only(right: 23.w),
-                  child: Align(
-                      alignment: Alignment.topRight,
-                      child: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
-                ),
-               SizedBox(height: 5.h,),
-               Icon(
-                 Icons.account_circle_outlined,
-                 color: turquoiseColorApp,
-                 size: 60.w,
-                 weight: 100,
-               ),
-               SizedBox(height: 8.h,),
-               Text('פרופיל אישי', style: TextStyle(color: Color(0xFF0F1511), fontSize: 24.sp, fontWeight: FontWeight.bold,),),
-               SizedBox(height: 35.h,),
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.center,
-                   children:[
-                     Image.asset('assets/icons/car_icon_big.png'),
-                     SizedBox(width: 6.w),
-                     Text('רישיון נהיגה',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
-                   ]
-               ),
-               SizedBox(
-                 width: 332.w,
+              SizedBox(height: 24.h,),
+              Padding(
+                padding:  EdgeInsets.only(right: 23.w),
+                child: Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
+              ),
+              SizedBox(height: 5.h,),
+              Icon(
+                Icons.account_circle_outlined,
+                color: turquoiseColorApp,
+                size: 60.w,
+                weight: 100,
+              ),
+              SizedBox(height: 8.h,),
+              Text('פרופיל אישי', style: TextStyle(color: Color(0xFF0F1511), fontSize: 24.sp, fontWeight: FontWeight.bold,),),
+              SizedBox(height: 35.h,),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children:[
+                    Image.asset('assets/icons/car_icon_big.png'),
+                    SizedBox(width: 6.w),
+                    Text('רישיון נהיגה',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
+                  ]
+              ),
+              SizedBox(
+                width: 332.w,
                 // height: 42.h,
-                 child: Column(
-                   crossAxisAlignment: CrossAxisAlignment.center,
-                   children: [
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
 
-                     SizedBox(height: 33.h,),
-                     TextFormField(
-                       textInputAction: TextInputAction.next,
-                       cursorColor: blackColorApp,
-                       decoration: getInputDecoration('מספ רשיון נהיגה'),
-                       style: TextStyle(color: blackColorApp,fontWeight: FontWeight.w300,fontSize: 18.sp,),
-                       controller: _licenseId,
-                       // validator: (value) {
-                       //   if (value == null || value.isEmpty)
-                       //     return 'זהו שדה חובה';
-                       //   return null;
-                       // },
-                     ),
-                     SizedBox(height: 12.h,),
-                     TextFormField(
-                       readOnly: true,
-                       cursorColor: blackColorApp,
-                       decoration: getInputDecoration('תוקף',
-                           suffixIcon: Image.asset(
-                             'assets/icons/CalendarBig.png',
-                             color: pinkColorApp,
-                           )),
-                       style:
-                       TextStyle(color: blackColorApp, fontSize: 18.sp),
-                       controller: _licenseExpDate,
-                       // validator: (value) {
-                       //   if (value == null || value.isEmpty) return 'זהו שדה חובה';
-                       //   return null;
-                       // },
-                       onTap: () async {
-                         DateTime? date = await showDatePicker(
-                             locale: const Locale("he", "HE"),
-                             context: context,
-                             initialDate: DateTime.now(),
-                             firstDate: DateTime.now(),
-                             lastDate: DateTime(2100));
-                         if (date != null) {
-                           setState(() {
-                             _licenseExpDate.text =
-                                 intl.DateFormat('yyyy-MM-dd').format(date);
-                             // exp=date;
-                             // exp= intl.DateFormat('dd/MM/yyyy').format(date);
-                           });
-                         }
-                       },
-                     ),
-                     SizedBox(height: 12.h,),
-                     TextFormField(
-                       readOnly: true,
-                       cursorColor: blackColorApp,
-                       decoration: getInputDecoration('תאריך הנפקה',
-                           suffixIcon:   Image.asset(
-                             'assets/icons/CalendarBig.png')),
-                       style:
-                       TextStyle(color: blackColorApp, fontSize: 18.sp),
-                       controller: _licenseIssDate,
-                       // validator: (value) {
-                       //   if (value == null || value.isEmpty) return 'זהו שדה חובה';
-                       //   return null;
-                       // },
-                       onTap: () async {
-                         DateTime? date = await showDatePicker(
-                             locale: const Locale("he", "HE"),
-                             context: context,
-                             initialDate: DateTime.now(),
-                             firstDate: DateTime(1950),
-                             lastDate: DateTime.now());
-                         if (date != null) {
-                           setState(() {
-                             // iss =
-                             //     intl.DateFormat('dd/MM/yyyy').format(date);
-                              _licenseIssDate.text = intl.DateFormat('yyyy-MM-dd').format(date);
-                           });
-                         }
-                       },
-                     ),
-                     SizedBox(height: 12.h,),
-                     TextFormField(
-                       textInputAction: TextInputAction.next,
-                       cursorColor: blackColorApp,
-                       decoration: getInputDecoration('דרגת רישיון'),
-                       style: TextStyle(color: blackColorApp,fontSize: 18.sp,fontWeight: FontWeight.w300,),
-                       // validator: (value) {
-                       //   if (value == null || value.isEmpty)
-                       //     return 'זהו שדה חובה';
-                       //   return null;
-                       // },
-                       controller: _licenseDegree,
-                     ),
-                      ],
-                 ),
-               ),
-               //Spacer(),
-               SizedBox(height: 12.h,),
-               Padding( // this is new
-                   padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)
-               ),
-             ],
-           ),
-         ),
-       ),
+                    SizedBox(height: 33.h,),
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
+                      cursorColor: blackColorApp,
+                      decoration: getInputDecoration('מספ רשיון נהיגה'),
+                      style: TextStyle(color: blackColorApp,fontWeight: FontWeight.w300,fontSize: 18.sp,),
+                      controller: _licenseId,
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty)
+                      //     return 'זהו שדה חובה';
+                      //   return null;
+                      // },
+                    ),
+                    SizedBox(height: 12.h,),
+                    TextFormField(
+                      readOnly: true,
+                      cursorColor: blackColorApp,
+                      decoration: getInputDecoration('תוקף',
+                          suffixIcon: Image.asset(
+                            'assets/icons/CalendarBig.png',
+                            color: pinkColorApp,
+                          )),
+                      style:
+                      TextStyle(color: blackColorApp, fontSize: 18.sp),
+                      controller: _licenseExpDate,
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) return 'זהו שדה חובה';
+                      //   return null;
+                      // },
+                      onTap: () async {
+                        DateTime? date = await showDatePicker(
+                            locale: const Locale("he", "HE"),
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(2100));
+                        if (date != null) {
+                          setState(() {
+                            _licenseExpDate.text =
+                                intl.DateFormat('yyyy-MM-dd').format(date);
+                            // exp=date;
+                            // exp= intl.DateFormat('dd/MM/yyyy').format(date);
+                          });
+                        }
+                      },
+                    ),
+                    SizedBox(height: 12.h,),
+                    TextFormField(
+                      readOnly: true,
+                      cursorColor: blackColorApp,
+                      decoration: getInputDecoration('תאריך הנפקה',
+                          suffixIcon:   Image.asset(
+                              'assets/icons/CalendarBig.png')),
+                      style:
+                      TextStyle(color: blackColorApp, fontSize: 18.sp),
+                      controller: _licenseIssDate,
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) return 'זהו שדה חובה';
+                      //   return null;
+                      // },
+                      onTap: () async {
+                        DateTime? date = await showDatePicker(
+                            locale: const Locale("he", "HE"),
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1950),
+                            lastDate: DateTime.now());
+                        if (date != null) {
+                          setState(() {
+                            // iss =
+                            //     intl.DateFormat('dd/MM/yyyy').format(date);
+                            _licenseIssDate.text = intl.DateFormat('yyyy-MM-dd').format(date);
+                          });
+                        }
+                      },
+                    ),
+                    SizedBox(height: 12.h,),
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
+                      cursorColor: blackColorApp,
+                      decoration: getInputDecoration('דרגת רישיון'),
+                      style: TextStyle(color: blackColorApp,fontSize: 18.sp,fontWeight: FontWeight.w300,),
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty)
+                      //     return 'זהו שדה חובה';
+                      //   return null;
+                      // },
+                      controller: _licenseDegree,
+                    ),
+                  ],
+                ),
+              ),
+              //Spacer(),
+              SizedBox(height: 12.h,),
+              Padding( // this is new
+                  padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)
+              ),
+            ],
+          ),
+        ),
+      ),
       floatingActionButton: Padding(
         padding:  EdgeInsets.only(bottom: 40.h),
         child: Container(

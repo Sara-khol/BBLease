@@ -11,7 +11,7 @@ import '../map.dart';
 
 
 class CarDocu extends StatefulWidget {
-  const CarDocu({Key? key, required this.rentNum}) : super(key: key);
+  const CarDocu({super.key, required this.rentNum});
 
   final int rentNum;
 
@@ -49,13 +49,13 @@ class _CarDocuState extends State<CarDocu> {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
         if (orientation == Orientation.landscape)
-          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_image.png', 580.w));
-        return buildContent();
+          return LandSpaceWidget(mainWidget: buildContent(orientation),imageProperties:ImageProperties('image5.png', 1000.w,'תמונת פעולות'));
+        return buildContent(orientation);
       }),
     );
   }
 
-  buildContent() {
+  buildContent(o) {
     return  SingleChildScrollView(
       child: Directionality(
           textDirection: TextDirection.rtl,
@@ -65,7 +65,7 @@ class _CarDocuState extends State<CarDocu> {
               child: Column(
                   children: [
                     SizedBox(height: 35.h,),
-                    Align(alignment: Alignment.centerRight, child: IconButton(onPressed: () =>Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
+                    if(o==Orientation.portrait) Align(alignment: Alignment.centerRight, child: IconButton(onPressed: () =>Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
                     SizedBox(height: 52.h,),
                     Text('תיעוד רכב',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                     SizedBox(height: 30.h,),

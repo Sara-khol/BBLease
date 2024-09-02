@@ -31,8 +31,7 @@ class _AddDriverState extends State<AddDriver> {
           if (orientation == Orientation.landscape) {
             return LandSpaceWidget(
                 mainWidget: buildContent(orientation),
-                imageProperties:ImageProperties('l_image.png', 580.w),
-                showAppBar:true
+                imageProperties:ImageProperties('image5.png', 1000.w,'תמונת פעולות'),
             );
           }
           return buildContent(orientation);

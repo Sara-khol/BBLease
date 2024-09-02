@@ -43,7 +43,7 @@ class _BenefitsAndPromotionsState extends State<BenefitsAndPromotions> {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
         if (orientation == Orientation.landscape)
-          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_image.png', 580.w));
+          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('image6.png', 1000.w,'תמונת פעולות'));
         return buildContent();
       }),
     );

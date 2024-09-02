@@ -346,15 +346,15 @@ class ApiService {
   }
 
 
-    Future signatureUpload(signature,Function() onSuccess) async {
+    Future signatureUpload(signature,orderId,Function() onSuccess) async {
 
       FormData formData = FormData.fromMap({
         "file" : MultipartFile.fromBytes(signature, filename: "signature.png"),
-        "post_id": User().userId
       });
 
-      print('${_baseUrl}wp/v2/save_signature');
-      var response = await _dio.post('${_baseUrl}wp/v2/save_signature', data: formData,);
+      print('${_baseUrl}rental/v1/cancel_rental/$orderId');
+      print(orderId);
+      var response = await _dio.post('${_baseUrl}rental/v1/cancel_rental/$orderId  ', data: formData,);
       print("response.statusCode ${response.statusCode}");
       if(response.statusCode == 200) {
         print("response.data ${response.data.toString()}");

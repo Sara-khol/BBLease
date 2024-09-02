@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:bblease/Flow/registration/verification.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -207,7 +208,7 @@ print('faces.length: ${faces.length}');
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
         if (orientation == Orientation.landscape)
-          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_image.png', 580.w));
+          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_register3.png', 618.w,'תמונת הרשמה שלב 3'),showAppBar: false,);
         return buildContent();
       }),
     );
@@ -219,6 +220,7 @@ print('faces.length: ${faces.length}');
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SizedBox(height: 40.h,),
           Text('סרוק פנים',style: TextStyle(color: Colors.black,fontSize: 28.sp,fontWeight: FontWeight.bold),),
           SizedBox(height: 5.h,),
           Text('עמוד מול המצלמה',style: TextStyle(color: Colors.black,fontSize: 20.sp,fontWeight: FontWeight.normal)),
@@ -248,7 +250,8 @@ print('faces.length: ${faces.length}');
                   Center(
                     child:/* SizedBox(
                         height: 332.h,
-                        child:*/ Column(
+                        child:*/
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -311,7 +314,8 @@ print('faces.length: ${faces.length}');
                     fontSize: 22.sp,
                     fontWeight: FontWeight.normal,height: 1),),
               onPressed: () {
-                support.call;
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Verification(),));
+                //support.call;
                 //TODO: call for help
               },
             ),

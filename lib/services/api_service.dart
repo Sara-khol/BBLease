@@ -225,7 +225,7 @@ class ApiService {
     FormData formData = FormData.fromMap({
       "license_front": imageFiles[0],
       "license_back": imageFiles[1],
-      "face": imageFiles[2],
+      "face": User().regImages[2]!=null?imageFiles[2]:-1,
       // "user_phone":'0533117933',
       "user_phone":User().phoneNumber,
     });
@@ -354,7 +354,7 @@ class ApiService {
 
       print('${_baseUrl}rental/v1/cancel_rental/$orderId');
       print(orderId);
-      var response = await _dio.post('${_baseUrl}rental/v1/cancel_rental/$orderId  ', data: formData,);
+      var response = await _dio.post('${_baseUrl}rental/v1/cancel_rental/$orderId', data: formData,);
       print("response.statusCode ${response.statusCode}");
       if(response.statusCode == 200) {
         print("response.data ${response.data.toString()}");
@@ -634,23 +634,28 @@ class ApiService {
       filename: User().regImages[0]!.path.split('/').last,
       ),
     );
-    imageFiles.add(
+    print(User().regImages[2]!=null?'true':'false');
+    if(User().regImages[2]!=null) {
+      imageFiles.add(
       await MultipartFile.fromFile(
         User().regImages[2]!.path,
         filename: User().regImages[2]!.path.split('/').last,
       ),
     );
+    }
+
 
     print('uploadList.toString() ${imageFiles.toString()}');
     FormData formData = FormData.fromMap({
       "license_front": imageFiles[0],
-      "face": imageFiles[2],
+      "face": User().regImages[2]!=null?imageFiles[1]:null,
     });
+    int hasFace=User().regImages[2]==null?1:0;
 
-    debugPrint('${_baseUrl}wp/v2/is_same_person/$phone');
-    debugPrint('data : ${json.encode(formData)}');
-    Response response = await _dio.post('${_baseUrl}wp/v2/is_same_person/$phone',
-        data: json.encode(formData));
+    debugPrint('${_baseUrl}wp/v2/is_same_person/$phone/$hasFace');
+    //debugPrint('data : ${json.encode(formData)}');
+    Response response = await _dio.post('${_baseUrl}wp/v2/is_same_person/$phone/$hasFace',
+        data: formData);
     debugPrint('data: ${response.data}');
     if(response.statusCode==200) {
       onSuccess(response.data);

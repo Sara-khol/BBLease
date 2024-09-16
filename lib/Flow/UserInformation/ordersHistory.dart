@@ -281,7 +281,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
     return Scaffold(
       body:OrientationBuilder(builder: (c,o){
         return o==Orientation.landscape?
-            LandSpaceWidget(mainWidget: buildContent(), imageProperties: ImageProperties('image4.png', 1000.w,'תמונת פרטי רכב')) :buildContent();
+            LandSpaceWidget(mainWidget: buildContent(o), imageProperties: ImageProperties('image4.png', 1000.w,'תמונת פרטי רכב')) :buildContent(o);
       },) ,
     );
   }
@@ -292,7 +292,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
     }).toList();
   }
 
-  buildContent()
+  buildContent(Orientation o)
   {
     // Widget downloadIcon = Icon(Icons.file_download, color: pinkColorApp);
     Widget downloadIcon =  Image.asset("assets/icons/Download.png");
@@ -306,14 +306,14 @@ class _OrdersHistoryState extends State<OrdersHistory> {
       child: Column(
         children: [
           // Directionality(textDirection: TextDirection.ltr, child: AppBarBibilease()),
-          SizedBox(height: 24.h,),
+          if(o==Orientation.portrait)SizedBox(height: 24.h,),
           Padding(
             padding:  EdgeInsets.only(right: 23.w),
             child: Align(
                 alignment: Alignment.topRight,
                 child: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
           ),
-          SizedBox(height: 42.h),
+          if(o==Orientation.portrait)SizedBox(height: 42.h),
           Text(
             'ההזמנות שלי',
             style: TextStyle(

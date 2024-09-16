@@ -2,6 +2,7 @@ import 'package:bblease/Flow/Rental/Actions/report_accident.dart';
 import 'package:bblease/Flow/registration/tel_to_registration.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bblease/services/support.dart' as support;
@@ -178,7 +179,7 @@ Future displayError(BuildContext context,{bool existsData=true,String type='',
                       )),
                 ),
                 SizedBox(width: 13.h),
-                SizedBox(
+                if(!kIsWeb)SizedBox(
                   height: 46.h,
                   width: 160.w,
                   child: ElevatedButton(
@@ -188,7 +189,7 @@ Future displayError(BuildContext context,{bool existsData=true,String type='',
                           borderRadius: BorderRadius.circular(100),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () =>support.call,
                       child: Text(
                         'פניה לנציג',
                         style: TextStyle(
@@ -671,7 +672,7 @@ Future reportAccident(context){
 
                     Row(
                       children: [
-                        Container(
+                        if(!kIsWeb)Container(
                           height: 48.h,
                           width: 160.w,
                           child: ElevatedButton(
@@ -722,6 +723,8 @@ Future reportAccident(context){
 }
 
 Future displayErrorInValidation(BuildContext context) {
+
+  print('display error in validation');
   return showModalBottomSheet(
     context: context,
     builder: (BuildContext context) => Container(

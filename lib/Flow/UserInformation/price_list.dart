@@ -65,16 +65,37 @@ class _PriceListState extends State<PriceList> {
 
 
    String truncateString(String str) {
-     if (str.length > 25) {
+     if (str.length > 24) {
        //int partLength = (25 - 3) ~/ 2;
        String firstPart = str.substring(0, 7);
        String secondPart = str.substring(13, str.length);
        return firstPart + '.' + secondPart;
-       //return str.substring(0, 21) + '...';
+       //return '${str.substring(0, 22)}...';
      } else {
        return str;
      }
    }
+
+   /*String addNewline(String input) {
+     if (input.length > 24) {
+       List<String> words = input.split(' ');
+       if (words.length > 1) {
+         String lastWord = words.removeLast();
+         print('${words.join(' ')}\n$lastWord');
+         return '${words.join(' ')}\n$lastWord';
+       }
+     }
+     // If the string is 24 characters or shorter, return the original string
+     return input;
+   }*/
+
+   /*String padStringToLengthFive(String input) {
+     if (input.length < 5) {
+       return input.padLeft(5,'_');
+     } else {
+       return input;
+     }
+   }*/
 
   int i=1;
 
@@ -83,13 +104,13 @@ class _PriceListState extends State<PriceList> {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
         if (orientation == Orientation.landscape)
-          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('image3.png', 1000.w,'תמונת מידע נוסף'));
-        return buildContent();
+          return LandSpaceWidget(mainWidget: buildContent(orientation),imageProperties:ImageProperties('image3.png', 1000.w,'תמונת מידע נוסף'));
+        return buildContent(orientation);
       }),
     );
   }
 
-   buildContent() {
+   buildContent(Orientation o) {
      return Directionality(
        textDirection: TextDirection.rtl,
        child: Padding(
@@ -97,13 +118,13 @@ class _PriceListState extends State<PriceList> {
          child: SingleChildScrollView(
            child: Column(
              children: [
-               SizedBox(height: 5.h,),
+               if(o==Orientation.portrait)SizedBox(height: 5.h,),
                Align(
                    alignment: Alignment.centerRight,
                    child: IconButton(onPressed: () => Navigator.pop(context),
                        icon: Icon(Icons.arrow_back_ios))
                ),
-               SizedBox(height: 30.h,),
+               if(o==Orientation.portrait)SizedBox(height: 30.h,),
                Text('מחירון', textAlign: TextAlign.center,
                    style: TextStyle(
                      fontSize: 22.sp, fontWeight: FontWeight.bold,)),
@@ -185,8 +206,7 @@ class _PriceListState extends State<PriceList> {
                              iconPath = 'assets/icons/ticket.png';
                              var currentItem = priceList['price_list']['A'];
                              if (currentItem!.values.elementAt(index) != '') {
-                               String str = truncateString(
-                                   currentItem.keys.elementAt(index));
+                               String str = truncateString(currentItem.keys.elementAt(index));
                                return SizedBox(
                                  height: 40.h,
                                  width: 328.w,
@@ -195,27 +215,25 @@ class _PriceListState extends State<PriceList> {
                                    children: [
                                      Image.asset(iconPath),
                                      SizedBox(width: 9.w,),
-                                     Flexible(
-                                       child: ListView(
-                                         shrinkWrap: true,
-                                         scrollDirection: Axis.horizontal,
-                                         children: [
+                                     Text(str, style: TextStyle(fontSize: 20.sp)),
+                                     Spacer(),
+                                     Row(
+                                       mainAxisAlignment: MainAxisAlignment.end,
+                                       children: [
+                                         Text(' |', style: TextStyle(
+                                             color: Color(0xFF03AEB9),
+                                             fontSize: 24.sp,
+                                             fontWeight: FontWeight.w300)),
+                                         SizedBox(
+                                           width: 50.w,
+                                           child: Text(currentItem.values.elementAt(index),
+                                             style: TextStyle(fontSize: 20.sp),
+                                             textDirection: TextDirection.rtl,textAlign: TextAlign.end,),
 
-                                           Text(str, style: TextStyle(
-                                               fontSize: 20.sp)),
-                                           // Spacer(),
-                                           Text('  | ', style: TextStyle(
-                                               color: Color(0xFF03AEB9),
-                                               fontSize: 24.sp,
-                                               fontWeight: FontWeight.w300)),
-                                           Text(currentItem.values.elementAt(
-                                               index), style: TextStyle(
-                                               fontSize: 20.sp),
-                                               textDirection: TextDirection
-                                                   .rtl),
-                                         ],
-                                       ),
+                                         ),
+                                       ],
                                      ),
+
                                    ],
                                  ),
                                );
@@ -226,9 +244,7 @@ class _PriceListState extends State<PriceList> {
                        ),
                      ),
                      SizedBox(height: 20.h,),
-                     Image.network(
-                       'https://bibilease.quicksolutions.co.il/wp-content/uploads/2023/12/Opel-Combo.png',
-                       height: 95.h,),
+                     Image.network('https://bibilease.quicksolutions.co.il/wp-content/uploads/2023/12/Opel-Combo.png', height: 95.h,),
                      SizedBox(height: 10.h,),
                      Text(' משפחתי | 5 מקומות ', textAlign: TextAlign.right,),
                      Divider(height: 10.h, color: Color(0xFF04AEB9),),
@@ -242,8 +258,10 @@ class _PriceListState extends State<PriceList> {
                              iconPath = 'assets/icons/ticket.png';
                              var currentItem = priceList['price_list']['B'];
                              if (currentItem!.values.elementAt(index) != '') {
-                               String str = truncateString(
-                                   currentItem.keys.elementAt(index));
+                               String str = truncateString(currentItem.keys.elementAt(index));
+                               //String str = addNewline(currentItem.keys.elementAt(index));
+                               //String str1 = padStringToLengthFive(currentItem.values.elementAt(index));
+                               //print('$str1 ${str1.length}');
                                return SizedBox(
                                  height: 40.h,
                                  width: 328.w,
@@ -252,15 +270,24 @@ class _PriceListState extends State<PriceList> {
                                    children: [
                                      Image.asset(iconPath),
                                      SizedBox(width: 9.w,),
-                                     Text(str,
-                                         style: TextStyle(fontSize: 20.sp)),
-                                     Text('  | ', style: TextStyle(
-                                         color: Color(0xFF03AEB9),
-                                         fontSize: 24.sp,
-                                         fontWeight: FontWeight.w300)),
-                                     Text(currentItem.values.elementAt(index),
-                                         style: TextStyle(fontSize: 20.sp),
-                                         textDirection: TextDirection.rtl),
+                                     Text(str, style: TextStyle(fontSize: 20.sp)),
+                                     Spacer(),
+                                     Row(
+                                       mainAxisAlignment: MainAxisAlignment.end,
+                                       children: [
+                                         Text(' |', style: TextStyle(
+                                             color: Color(0xFF03AEB9),
+                                             fontSize: 24.sp,
+                                             fontWeight: FontWeight.w300)),
+                                         SizedBox(
+                                           width: 50.w,
+                                           child: Text(currentItem.values.elementAt(index),
+                                               style: TextStyle(fontSize: 20.sp),
+                                               textDirection: TextDirection.rtl,textAlign: TextAlign.end,),
+
+                                         ),
+                                       ],
+                                     ),
                                    ],
                                  ),
                                );

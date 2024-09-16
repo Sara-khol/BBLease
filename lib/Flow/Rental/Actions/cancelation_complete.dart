@@ -1,4 +1,5 @@
 
+import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/sideMenu.dart';
 import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:flutter/material.dart';
@@ -90,14 +91,14 @@ class CancelationComplete extends StatelessWidget {
                   borderRadius: BorderRadius.circular(100),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () =>Navigator.push(context,MaterialPageRoute(builder: (context) => RentalWidget(),)),
               child: Directionality(
                 textDirection: TextDirection.rtl,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('צא מהאפליקציה',
+                    Text('למסך ראשי',
                         style: TextStyle(
                           fontSize: 20.sp,
                           color: Colors.white,

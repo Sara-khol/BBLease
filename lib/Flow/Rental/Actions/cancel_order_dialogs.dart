@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:bblease/Flow/Rental/Actions/cancelation_complete.dart';
+import 'package:bblease/Flow/Rental/dialogs.dart';
 import 'package:bblease/Flow/registration/license_details.dart';
 import 'package:bblease/services/api_service.dart';
 import 'package:dio/dio.dart';
@@ -122,7 +123,6 @@ signCancelOrderDialog(context,String headline,String text,[orderId]) {
     penColor: Colors.black,
     exportBackgroundColor: Colors.transparent,
   );
-  print('open dialog');
 
    showModalBottomSheet(
       isScrollControlled: true,
@@ -133,9 +133,6 @@ signCancelOrderDialog(context,String headline,String text,[orderId]) {
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
       context: context,
       builder: (context) {
-        print('builder');
-        print(headline);
-        print(text);
         return Directionality(
             textDirection: TextDirection.rtl,
             child: Wrap(
@@ -222,14 +219,17 @@ signCancelOrderDialog(context,String headline,String text,[orderId]) {
                                     Navigator.pop(context),
                                     Navigator.pop(context),
                                   }
-                                      :ApiService().signatureUpload(signature,orderId ,() {
-                                    print('onSuccess');
-                                    controller.dispose();
-                                    Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) =>
-                                          CancelationComplete(),));
+                                      :{
+                                    showLoading(context),
+                                    ApiService().signatureUpload(signature,orderId ,() {
+                                      Navigator.pop(context);
+                                      print('onSuccess');
+                                      controller.dispose();
+                                      Navigator.push(context, MaterialPageRoute(
+                                        builder: (context) =>
+                                            CancelationComplete(),));
                                   }
-                                );
+                                )};
                                 }
                                 //rentalTerm(context);
                               },

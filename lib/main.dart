@@ -89,6 +89,8 @@ class MyApp extends StatelessWidget {
     return OKToast(child: OrientationBuilder(builder: (context, orientation) {
       debugPrint('orientation main ${orientation.name} ');
       return ScreenUtilInit(
+        useInheritedMediaQuery: true,
+        //useInheritedMediaQuery: true,
         designSize: orientation == Orientation.portrait
             ? Size(393, 852)
             : Size(1440, 1024),

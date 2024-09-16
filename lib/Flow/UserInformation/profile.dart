@@ -32,14 +32,14 @@ class _PersonalProfileState extends State<PersonalProfile> {
       builder: (context,o) {
         return Scaffold(
            body: o==Orientation.landscape?
-               LandSpaceWidget(mainWidget: buildContent(), imageProperties: ImageProperties('image6.png', 1000.w,'תמונת מידע אישי'))
-               :buildContent()
+               LandSpaceWidget(mainWidget: buildContent(o), imageProperties: ImageProperties('image6.png', 1000.w,'תמונת מידע אישי'))
+               :buildContent(o)
         );
       }
     );
   }
 
-  buildContent()
+  buildContent(Orientation o)
   {
     String originalDateString =(User().licenseExpDate==null? User().licenseExpDate: "2024-12-03"); // התאריך המקורי בפורמט YYYY-MM-DD
     DateTime dateTime = DateTime.parse(originalDateString); // המרה לאובייקט DateTime
@@ -56,7 +56,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
           //crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Directionality(textDirection: ui.TextDirection.ltr, child: AppBarBibilease()),
-            SizedBox(height: 24.h,),
+            if(o==Orientation.portrait)SizedBox(height: 24.h,),
             Padding(
               padding:  EdgeInsets.only(right: 23.w),
               child: Align(

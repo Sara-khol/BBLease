@@ -29,8 +29,7 @@ class _StartRegistrationState extends State<StartRegistration> {
   buildContent(Orientation o) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(height: 120.h),
           CustomText("תהליך הרשמה",style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold,fontSize: 23.sp,),),
@@ -39,7 +38,7 @@ class _StartRegistrationState extends State<StartRegistration> {
               style: TextStyle(fontWeight: FontWeight.normal,fontSize: 20.sp,)
               ,textDirection: TextDirection.rtl,textAlign: TextAlign.center),
           SizedBox(height: 28.h),
-          if(o == Orientation.portrait)Image.asset('assets/images/image4.png' ,semanticLabel: 'תמונה לפתוח רכב',/*,width: 300.w, fit: BoxFit.cover,*/),
+          if(o == Orientation.portrait)Image.asset('assets/images/image4.png' ,semanticLabel: 'תמונה לפתוח רכב',width: 300.w,/*, fit: BoxFit.cover,*/),
           Spacer(),
           Container(
             height: 48.h,

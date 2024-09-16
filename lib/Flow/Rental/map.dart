@@ -286,13 +286,6 @@ print('getCarsList');
             },
 
           ),
-         /* CustomInfoWindow(
-            controller: _customInfoWindowController,
-            height: 48.h,
-            width: 114.w,
-            offset: 100,
-
-          ),*/
           AppBarBibilease(),
           Align(
             alignment: Alignment.bottomLeft,
@@ -313,7 +306,6 @@ print('getCarsList');
                         onPressed: () {
                           dialogShown=true;
                           if(formattedAddress!=null) {
-
                             departurePoint(context, formattedAddress, 0,latitude1: lat,longitude1: long);
                           }
                         },

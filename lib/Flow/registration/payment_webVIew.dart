@@ -70,7 +70,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
           padding:  EdgeInsets.only(right: 23.w),
           child: Align(
               alignment: Alignment.topRight,
-              child: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
+              child: IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back_ios))),
         ),
         SizedBox(
           height: 25.h,

@@ -9,10 +9,8 @@ import 'package:bblease/models/class_rent.dart';
 import 'package:bblease/services/api_service.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:bblease/Flow/Rental/car_details.dart';
 
 import '../../models/additions.dart';
 import '../../models/class_user.dart';
@@ -125,7 +123,7 @@ class _SearchCarState extends State<SearchCar> {
           children: [
             Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
               if (orientation == Orientation.portrait)
-                Directionality(
+                const Directionality(
                     textDirection: TextDirection.ltr, child: AppBarBibilease()),
               SizedBox(height: 40.h),
               Text(
@@ -192,7 +190,7 @@ class _SearchCarState extends State<SearchCar> {
                                     },
                                   ),
                                 )
-                              : Text('לא נמצאו תוצאות עבור: ${type}'),
+                              : Text('לא נמצאו תוצאות עבור: $type'),
                     )
                   : Center(
                       child: FutureBuilder(
@@ -207,7 +205,7 @@ class _SearchCarState extends State<SearchCar> {
                             );
                           } else {
                             // If the Future is complete, update the UI accordingly
-                            return Text('לא נמצאו רכבים באזורך');
+                            return const Text('לא נמצאו רכבים באזורך');
                           }
                         },
                       ),
@@ -290,7 +288,7 @@ class _SearchCarState extends State<SearchCar> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                   shadowColor: Colors.transparent,
                   margin: EdgeInsets.only(left: 20.w),
-                  color:  Color(0xffF7F7F7),
+                  color:  const Color(0xffF7F7F7),
                   child: Padding(
                     padding: EdgeInsets.only(bottom: 10.h, top: 10.h, right: 14.w, left: 11.w),
                     child: IntrinsicHeight(
@@ -303,7 +301,7 @@ class _SearchCarState extends State<SearchCar> {
                               Text(
                                 car.postName.length > 12
                                     ? '${car.postName.substring(0, 12)}...'
-                                    : '${car.postName}',
+                                    : car.postName,
                                 style: TextStyle(
                                   fontSize: 34.sp,
                                   fontWeight: FontWeight.bold,
@@ -394,7 +392,7 @@ class _SearchCarState extends State<SearchCar> {
               Text(
                 'סנן ',
                 style: TextStyle(
-                  color: Color(0xFF0F1511),
+                  color: const Color(0xFF0F1511),
                   fontSize: 18.sp,
                   fontWeight: FontWeight.normal,
                 ),
@@ -441,7 +439,7 @@ class _SearchCarState extends State<SearchCar> {
     );
   }
 
-  filterCarType(context, _controller,) {
+  filterCarType(context, controller,) {
     return showModalBottomSheet(
       //isScrollControlled: true,
       context: context,
@@ -564,7 +562,7 @@ class _SearchCarState extends State<SearchCar> {
                         'סנן לפי סוג הרכב',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Color(0xFF0F1511),
+                          color: const Color(0xFF0F1511),
                           fontSize: 22.sp,
                           fontWeight: FontWeight.bold,
                         ),
@@ -576,11 +574,11 @@ class _SearchCarState extends State<SearchCar> {
                         const AssetImage("assets/icons/Filter.png"),
                         color: pinkColorApp,
                       ),
-                      Spacer(),
+                      const Spacer(),
                       TextButton(
                         style: TextButton.styleFrom(
-                            minimumSize: Size(80, 20),
-                            padding: EdgeInsets.all(0)),
+                            minimumSize: const Size(80, 20),
+                            padding: const EdgeInsets.all(0)),
                         onPressed: () => {
                           setState(() => type = 'all'),
                           Navigator.pop(context),
@@ -720,7 +718,7 @@ class _SearchCarState extends State<SearchCar> {
                           'הגדל טווח חיפוש',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Color(0xFF0F1511),
+                            color: const Color(0xFF0F1511),
                             fontSize: 22.sp,
                             fontWeight: FontWeight.bold,
                             //height: 1,
@@ -746,17 +744,17 @@ class _SearchCarState extends State<SearchCar> {
                               Text(
                                 'אזור חיפוש נוכחי: ',
                                 style: TextStyle(
-                                  color: Color(0xFF0F1511),
+                                  color: const Color(0xFF0F1511),
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.normal,
                                   height: 1,
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               TextButton(
                                 style: TextButton.styleFrom(
-                                    minimumSize: Size(80, 20),
-                                    padding: EdgeInsets.all(0)),
+                                    minimumSize: const Size(80, 20),
+                                    padding: const EdgeInsets.all(0)),
                                 onPressed: () => departurePoint(
                                     context, widget.location, 1,
                                     sdate: widget.startDate,
@@ -777,33 +775,33 @@ class _SearchCarState extends State<SearchCar> {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           Text(
                             widget.location,
                             textAlign: TextAlign.right,
                             style: TextStyle(
-                              color: Color(0xFF0F1511),
+                              color: const Color(0xFF0F1511),
                               fontSize: 24.sp,
                               fontWeight: FontWeight.bold,
                               height: 1,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 28,
                           ),
                           Text(
                             'הזז את הסמן למרחק הרצוי',
                             textAlign: TextAlign.right,
                             style: TextStyle(
-                              color: Color(0xFF0F1511),
+                              color: const Color(0xFF0F1511),
                               fontSize: 20.sp,
                               fontWeight: FontWeight.normal,
                               height: 1,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 34,
                           ),
                           Directionality(
@@ -813,14 +811,14 @@ class _SearchCarState extends State<SearchCar> {
                                 data: SliderTheme.of(context).copyWith(
                                   showValueIndicator: ShowValueIndicator.always,
                                   valueIndicatorColor: turquoiseColorApp,
-                                  inactiveTrackColor: Color(0xFFF6F6F6),
+                                  inactiveTrackColor: const Color(0xFFF6F6F6),
                                   activeTrackColor: turquoiseColorApp,
                                   thumbColor: turquoiseColorApp,
                                   trackHeight: 8.0,
-                                  overlayColor: Color(0xFFF6F6F6),
-                                  thumbShape: RoundSliderThumbShape(
+                                  overlayColor: const Color(0xFFF6F6F6),
+                                  thumbShape: const RoundSliderThumbShape(
                                       enabledThumbRadius: 10.0),
-                                  overlayShape: RoundSliderOverlayShape(
+                                  overlayShape: const RoundSliderOverlayShape(
                                       overlayRadius: 10),
                                   valueIndicatorTextStyle: TextStyle(
                                     color: blackColorApp,
@@ -828,7 +826,7 @@ class _SearchCarState extends State<SearchCar> {
                                     fontWeight: FontWeight.normal,
                                   ),
                                   valueIndicatorShape:
-                                      PaddleSliderValueIndicatorShape(),
+                                      const PaddleSliderValueIndicatorShape(),
                                   // thumbShape: CustomSliderThumbCircle(thumbRadius: 20, min: 0, max: 100),
                                 ),
                                 child: Slider(
@@ -846,7 +844,7 @@ class _SearchCarState extends State<SearchCar> {
                               );
                             }),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 19,
                           ),
                           Align(
@@ -854,21 +852,21 @@ class _SearchCarState extends State<SearchCar> {
                             child: Text(
                               'הוסף ${currentSliderValue.toInt()}  ק”מ לטווח החיפוש הנוכחי',
                               style: TextStyle(
-                                color: Color(0xFF0F1511),
+                                color: const Color(0xFF0F1511),
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.bold,
                                 height: 1,
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 21,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Container(
+                              SizedBox(
                                 height: 48.h,
                                 width: 332.w,
                                 child: ElevatedButton(

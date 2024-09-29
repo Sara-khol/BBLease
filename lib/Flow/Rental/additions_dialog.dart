@@ -30,8 +30,8 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
       value: widget.additionsList[index].isChecked,
       enabled: widget.additionsList[index].isEnabled,
       checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      fillColor: MaterialStateProperty.resolveWith((states) {
-        if (states.contains(MaterialState.selected)) {
+      fillColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
           return Colors.transparent;
         }
         return null;
@@ -80,7 +80,7 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                         SizedBox(height: 26.h),
                         Row(
                           children: [
-                            Container(
+                            SizedBox(
                               height: 48.h,
                               width: 160.w,
                               child: ElevatedButton(
@@ -91,7 +91,7 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                                     ),
                                   ),
                                   onPressed: ()  {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => AddDriver(index: 2, ), ));
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => const AddDriver(index: 2, ), ));
                                   },
                                   child: Text('עכשיו',
                                       style: TextStyle(
@@ -100,7 +100,7 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                                           fontWeight: FontWeight.normal))),
                             ),
                             SizedBox(width: 13.h),
-                            Container(
+                            SizedBox(
                               height: 48.h,
                               width: 160.w,
                               child: ElevatedButton(
@@ -131,7 +131,7 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
     );
   }
 
-  ScrollController _controller=ScrollController();
+  final ScrollController _controller=ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +179,7 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                       controller: _controller,
                       itemCount: widget.additionsList.length,
                        shrinkWrap: true,
-                      physics: AlwaysScrollableScrollPhysics(),
+                      physics: const AlwaysScrollableScrollPhysics(),
                       padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {
                         return SizedBox(
@@ -212,7 +212,7 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
                              await displayQuestion1(context,header:'הי,שים לב!',
                                message: 'בחרת בהוספת נהג נוסף,\nתרצה למלא את הפרטים?',
                                noText: 'בתחילת הנסיעה',yesText: 'עכשיו',onYes: (){
-                                 Navigator.push(context, MaterialPageRoute(builder: (context) => AddDriver(index: 2, ), ));
+                                 Navigator.push(context, MaterialPageRoute(builder: (context) => const AddDriver(index: 2, ), ));
                                } );
 
                             }

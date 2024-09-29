@@ -1,11 +1,9 @@
 import 'package:bblease/Flow/Rental/active_rent.dart';
 import 'package:bblease/Flow/Rental/map.dart';
-import 'package:bblease/Flow/home_page.dart';
 import 'package:bblease/Flow/registration/payment_webView.dart';
 import 'package:bblease/Flow/registration/start_registration.dart';
 import 'package:bblease/Flow/UserInformation/terms_and_conditions.dart';
 import 'package:bblease/landspace_widget.dart';
-import 'package:flutter/cupertino.dart' hide Orientation;
 import 'package:flutter/material.dart'  ;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bblease/utils/my_colors.dart';
@@ -18,12 +16,10 @@ import '../Dialogs/buttom_dialogs.dart';
 import '../Rental/dialogs.dart';
 import '../my_shared_preferences.dart';
 import 'package:bblease/customWidgets/customText.dart';
-import 'package:bblease/customWidgets/customTextFormField.dart' ;
 
 class TelToRegistrationForm extends StatefulWidget {
 
-  const TelToRegistrationForm({Key? key})
-      : super(key: key);
+  const TelToRegistrationForm({super.key});
 
   @override
   State<TelToRegistrationForm> createState() => _TelToRegistrationFormState();
@@ -33,7 +29,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
   bool checkboxValue1 = false;
   final TextEditingController _phone = TextEditingController();
   final TextEditingController _code = TextEditingController();
-  FocusNode textSecondFocusNode = new FocusNode();
+  FocusNode textSecondFocusNode = FocusNode();
   bool isRegister=true;
 
   bool didSendCode = false;
@@ -46,7 +42,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
   }
 
   void _listenForSmsCode() async {
-    await SmsAutoFill().listenForCode;
+    SmsAutoFill().listenForCode;
   }
 
   // late int status;
@@ -177,8 +173,9 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape)
+        if (orientation == Orientation.landscape) {
           return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_image.png', 580.w,'תמונת כניסה'),showAppBar: false,);
+        }
         return buildContent();
       }),
     );
@@ -326,8 +323,9 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                                   fontWeight: FontWeight.normal,
                                   color: blackColorApp),
                               validator: (value) {
-                                if (value == null || value.length < 10)
+                                if (value == null || value.length != 10) {
                                   return 'מספר הטלפון חייב להיות בן 10 ספרות';
+                                }
                                 return null;
                               },
                             ),
@@ -395,8 +393,9 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                                     fontWeight: FontWeight.normal,
                                     color: blackColorApp),
                                 validator: (value) {
-                                  if (value == null)
+                                  if (value == null) {
                                     return 'נא הזן קוד';
+                                  }
                                   return null;
                                 },
                               ),

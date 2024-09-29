@@ -8,7 +8,7 @@ import '../../landspace_widget.dart';
 
 
 class StartRegistration extends StatefulWidget {
-  const StartRegistration({Key? key}) : super(key: key);
+  const StartRegistration({super.key});
 
   @override
   State<StartRegistration> createState() => _StartRegistrationState();
@@ -19,8 +19,9 @@ class _StartRegistrationState extends State<StartRegistration> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
-      if (orientation == Orientation.landscape)
+      if (orientation == Orientation.landscape) {
         return LandSpaceWidget(mainWidget: buildContent(orientation),imageProperties:ImageProperties('l_image.png', 580.w,'תמונת פתיחת נעילה'),showAppBar: false,);
+      }
       return buildContent(orientation);
     }),
     );
@@ -39,8 +40,8 @@ class _StartRegistrationState extends State<StartRegistration> {
               ,textDirection: TextDirection.rtl,textAlign: TextAlign.center),
           SizedBox(height: 28.h),
           if(o == Orientation.portrait)Image.asset('assets/images/image4.png' ,semanticLabel: 'תמונה לפתוח רכב',width: 300.w,/*, fit: BoxFit.cover,*/),
-          Spacer(),
-          Container(
+          const Spacer(),
+          SizedBox(
             height: 48.h,
             width: 332.w,
             child: ElevatedButton(

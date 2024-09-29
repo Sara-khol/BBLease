@@ -18,14 +18,14 @@ class LandSpaceWidget extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.bottomCenter,
-            child: Container(height: 380.h,
+            child: SizedBox(height: 380.h,
               //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
                     'Bibilease',
                     style: TextStyle(
-                      color: Color(0xFFEFFFFE),
+                      color: const Color(0xFFEFFFFE),
                       fontSize: 300.sp,
                       fontWeight: FontWeight.w800,
                       height: 1.1.h,

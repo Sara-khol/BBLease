@@ -6,7 +6,7 @@ import '../Flow/sideMenu.dart';
 
 
 class AppBarBibilease extends StatefulWidget implements PreferredSizeWidget   {
-  const AppBarBibilease({Key? key}) : super(key: key);
+  const AppBarBibilease({super.key});
   @override
   State<AppBarBibilease> createState() => _AppBarBibileaseState();
 
@@ -30,14 +30,19 @@ class _AppBarBibileaseState extends State<AppBarBibilease> {
              color: Color(0xFF0F1511),
              fontFamily: 'PlusJakartaSans',)
             ,),*/
-            Spacer(),
+            const Spacer(),
             SizedBox(
-              height: 30,
+              height: 70,
               width: 40,
-              child: IconButton(
-                icon:  Icon(Icons.menu,color:Color(0xFF0F1511),size: 24.w,),
-                onPressed: () => sideMenu(context),
-                ),
+              child: Center(
+                child: IconButton(
+                  constraints: const BoxConstraints(
+                    minHeight: 30,
+                  ),
+                  icon:  Icon(Icons.menu,color:const Color(0xFF0F1511),size: 24.w,),
+                  onPressed: () => sideMenu(context),
+                  ),
+              ),
             ),
 
           ],

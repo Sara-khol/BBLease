@@ -8,7 +8,7 @@ import '../../services/api_service.dart';
 import '../Dialogs/buttom_dialogs.dart';
 
 class Verification extends StatefulWidget {
-  const Verification({Key? key}) : super(key: key);
+  const Verification({super.key});
 
   @override
   State<Verification> createState() => _VerificationState();
@@ -22,12 +22,13 @@ class _VerificationState extends State<Verification> {
       print('files successfully uploaded');
 
       Navigator.push(context,
-            MaterialPageRoute(builder: (context) => PersonalDetailsForm(),));
+            MaterialPageRoute(builder: (context) => const PersonalDetailsForm(),));
         }
     );
   }
 
   faceDetection(){
+    print('going to face recognition API');
     ApiService().faceRecognition(User().phoneNumber, (res) async {
       print('face recognition result: $res');
       if(res==false) {

@@ -1,16 +1,18 @@
 
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:bblease/Flow/registration/verification.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
+//import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 
 class CameraFaceDetection extends StatefulWidget {
+  const CameraFaceDetection({super.key});
+
   @override
   _CameraFaceDetectionState createState() => _CameraFaceDetectionState();
 }
@@ -50,7 +52,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
       ResolutionPreset.max,
       enableAudio: false,
       /*ResolutionPreset.medium,*/
-      imageFormatGroup: Platform.isAndroid
+      imageFormatGroup: kIsWeb?ImageFormatGroup.jpeg:Platform.isAndroid
           ? ImageFormatGroup.nv21 // for Android
           : ImageFormatGroup.bgra8888,
     );
@@ -66,12 +68,11 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
 
     if (mounted && _cameraController != null) {
       setState(() {});
-      _startDetecting();
+      if(!kIsWeb)_startDetecting();
     } else {
-      debugPrint('_cameraController is null or widget is not mounted');
-      Sentry.addBreadcrumb(Breadcrumb(
-          message: '_cameraController is null or widget is not mounted'));
-      await Sentry.captureMessage('???? ');
+      print('_cameraController is null or widget is not mounted');
+      //Sentry.addBreadcrumb(Breadcrumb(message: '_cameraController is null or widget is not mounted'));
+      //await Sentry.captureMessage('???? ');
     }
   }
 
@@ -108,14 +109,13 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
 
        final inputImage = _inputImageFromCameraImage(image);
 
-
         if (inputImage != null) {
           _faceDetector.processImage(inputImage).then((List<Face> faces) {
             print('faces.length ${faces.length}');
 
             if (faces.isNotEmpty) {
               print('faces.isNotEmpty');
-              Sentry.addBreadcrumb(Breadcrumb(message: 'faces.isNotEmpty'));
+             // Sentry.addBreadcrumb(Breadcrumb(message: 'faces.isNotEmpty'));
               if (_isDetecting) {
                 _capturePicture();
               }
@@ -182,7 +182,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
     );
   }*/
 
-  InputImage? _inputImageFromCameraImage(CameraImage image) {
+  /*InputImage? _inputImageFromCameraImage(CameraImage image) {
     // get image rotation
     // it is used in android to convert the InputImage from Dart to Java
     // `rotation` is not used in iOS to convert the InputImage from Dart to Obj-C
@@ -192,7 +192,8 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
     InputImageRotation? rotation;
     if (Platform.isIOS) {
       rotation = InputImageRotationValue.fromRawValue(sensorOrientation);
-    } else if (Platform.isAndroid) {
+    }
+    if (Platform.isAndroid) {
       var rotationCompensation =
       _orientations[_cameraController!.value.deviceOrientation];
       if (rotationCompensation == null) return null;
@@ -217,7 +218,9 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
     // * bgra8888 for iOS
     if (format == null ||
         (Platform.isAndroid && format != InputImageFormat.nv21) ||
-        (Platform.isIOS && format != InputImageFormat.bgra8888))
+        (Platform.isIOS && format != InputImageFormat.bgra8888)||
+        (kIsWeb&&format!=InputImageFormat.yuv420)
+    )
       {
         if(Platform.isAndroid)
           {
@@ -257,6 +260,81 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
         bytesPerRow: plane.bytesPerRow, // used only in iOS
       ),
     );
+  }*/
+
+  InputImage? _inputImageFromCameraImage(CameraImage image) {
+    // get image rotation for mobile platforms (iOS/Android)
+    final camera = selfiCamera;
+    final sensorOrientation = camera.sensorOrientation;
+    InputImageRotation? rotation;
+
+    if (kIsWeb) {
+      // Flutter Web cannot use CameraImage, handle web input differently
+      // You would use another approach like ImagePicker for the web.
+      return null; // Placeholder for web handling; update based on your web image logic
+    } else {
+      // For mobile platforms only
+      if (Platform.isIOS) {
+        rotation = InputImageRotationValue.fromRawValue(sensorOrientation);
+      } else if (Platform.isAndroid) {
+        var rotationCompensation =
+        _orientations[_cameraController!.value.deviceOrientation];
+        if (rotationCompensation == null) return null;
+        if (camera.lensDirection == CameraLensDirection.front) {
+          // front-facing
+          rotationCompensation = (sensorOrientation + rotationCompensation) % 360;
+        } else {
+          // back-facing
+          rotationCompensation =
+              (sensorOrientation - rotationCompensation + 360) % 360;
+        }
+        rotation = InputImageRotationValue.fromRawValue(rotationCompensation);
+      }
+
+      if (rotation == null) return null;
+
+      // get image format
+      final format = InputImageFormatValue.fromRawValue(image.format.raw);
+      debugPrint('format $format');
+
+      if (format == null ||
+          (Platform.isAndroid && format != InputImageFormat.nv21) ||
+          (Platform.isIOS && format != InputImageFormat.bgra8888)) {
+        if (Platform.isAndroid) {
+          const format = InputImageFormat.nv21;
+
+          // Handle Android nv21 format
+          Uint8List nv21Bytes = getNv21Uint8List(image);
+          debugPrint('nv21Bytes ${nv21Bytes.length}');
+
+          return InputImage.fromBytes(
+            bytes: nv21Bytes,
+            metadata: InputImageMetadata(
+              size: Size(image.width.toDouble(), image.height.toDouble()),
+              rotation: rotation,
+              format: format,
+              bytesPerRow: image.planes[0].bytesPerRow,
+            ),
+          );
+        } else {
+          return null;
+        }
+      }
+
+      // since format is constrained to nv21 or bgra8888, both only have one plane
+      if (image.planes.length != 1) return null;
+      final plane = image.planes.first;
+
+      return InputImage.fromBytes(
+        bytes: plane.bytes,
+        metadata: InputImageMetadata(
+          size: Size(image.width.toDouble(), image.height.toDouble()),
+          rotation: rotation, // used in Android
+          format: format, // used in iOS
+          bytesPerRow: plane.bytesPerRow, // used in iOS
+        ),
+      );
+    }
   }
 
   Uint8List getNv21Uint8List(CameraImage image) {
@@ -315,28 +393,32 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
         .map((plane) => plane.bytes.length)
         .reduce((value, element) => value + element));
     int offset = 0;
-    planes.forEach((plane) {
+    for (var plane in planes) {
       buffer.setUint8(offset, plane.bytesPerRow);
       offset += plane.bytes.length;
-    });
+    }
     return buffer.buffer.asUint8List();
   }
 
-  void _capturePicture() async {
+  /*void _capturePicture() async {
     if (!isCapture) {
       print('_capturePicture');
 
-      if (_cameraController != null &&
-          _cameraController!.value.isStreamingImages) {
+      if (_cameraController != null && _cameraController!.value.isStreamingImages) {
         try {
+          print('trying capture image');
+
           await _cameraController!.stopImageStream();
+          print('stop image stream');
           await _cameraController!.pausePreview();
-          Sentry.addBreadcrumb(Breadcrumb(message: 'ok'));
+          print('pause preview');
+         // Sentry.addBreadcrumb(Breadcrumb(message: 'ok'));
           debugPrint('okkkkk');
           isCapture = true;
 
           XFile file = await _cameraController!.takePicture();
           print("Picture captured: ${file.path}");
+
           // if (file != null) {
 
           User().regImages[2] = file;
@@ -349,20 +431,62 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
         catch (e) {
           // Handle any exceptions that might occur during capture
           debugPrint("Error during capture: $e");
-          Sentry.addBreadcrumb(Breadcrumb(message:"Error during capture: $e"));
+          //Sentry.addBreadcrumb(Breadcrumb(message:"Error during capture: $e"));
           // Reset capturing flag even if there's an error
           isCapture = false;
         }
       }
       else {
-        Sentry.addBreadcrumb(Breadcrumb(message: 'error??'));
+        _cameraController==null?print('camera controller is null'):print('streaming error');
+        //Sentry.addBreadcrumb(Breadcrumb(message: 'error??'));
       }
-      await Sentry.captureMessage('_capturePicture ');
+      //await Sentry.captureMessage('_capturePicture ');
     }
     //  } // You can save the file or perform other actions here
     // // if(file!=null)
     //    Navigator.push(context, MaterialPageRoute(builder: (context) => SucssesRegistrationForm(),));
     //  // You can save the file or perform other actions here
+  }*/
+
+  void _capturePicture() async {
+    if (_cameraController != null) {
+      try {
+        print('trying capture image');
+
+        // Check if we're on the web
+        if (!kIsWeb && _cameraController!.value.isStreamingImages) {
+          // This block will only execute on mobile platforms (iOS/Android)
+          await _cameraController!.stopImageStream();
+          print('stop image stream');
+        }
+
+        // Pausing preview works on both web and mobile
+        await _cameraController!.pausePreview();
+        print('pause preview');
+        debugPrint('okkkkk');
+        isCapture = true;
+
+        // Take a picture works on both web and mobile
+        XFile file = await _cameraController!.takePicture();
+        print("Picture captured: ${file.path}");
+
+        // Store the captured image
+        User().regImages[2] = file;
+
+        // Navigate to the Verification screen
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Verification(),
+            ));
+      } catch (e) {
+        // Handle any exceptions that might occur during capture
+        debugPrint("Error during capture: $e");
+        isCapture = false;
+      }
+    } else {
+      print('camera controller is null');
+    }
   }
 
   @override
@@ -381,9 +505,9 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
       children: [
         Expanded(child: CameraPreview(_cameraController!)),
         ElevatedButton.icon(
-            icon: Icon(Icons.camera),
+            icon: const Icon(Icons.camera),
             onPressed: _capturePicture,
-            label: Text('צלם'))
+            label: const Text('צלם'))
       ],
     );
     /*SizedBox(

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/Rental/Actions/add_driver.dart';
@@ -9,12 +8,7 @@ import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:bblease/services/api_service.dart';
 import 'package:bblease/utils/my_colors.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:url_launcher/url_launcher_string.dart';
@@ -25,7 +19,7 @@ import 'Actions/report_accident.dart';
 import 'car_dialog.dart';
 
 class ActiveRentDetails extends StatefulWidget {
-  const ActiveRentDetails({Key? key}) : super(key: key);
+  const ActiveRentDetails({super.key});
 
   @override
   State<ActiveRentDetails> createState() => _ActiveRentDetailsState();
@@ -37,7 +31,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
   Rental rent = User().currentRent!;
   //final ScrollController _controller = ScrollController();
 
-   late Duration duration = Duration(minutes: 1); // Set the initial countdown time
+   late Duration duration = const Duration(minutes: 1); // Set the initial countdown time
   Timer? timer,reminder;
 
 
@@ -65,13 +59,13 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
   }
 
   void startTimer() {
-    timer = Timer.periodic(Duration(seconds: 1), (_)  {
+    timer = Timer.periodic(const Duration(seconds: 1), (_)  {
       //const reduceSecondsBy = 1;
       if (duration.inSeconds == 0) {
         timer?.cancel();
       } else {
         setState(() {
-          duration -= Duration(seconds: 1);
+          duration -= const Duration(seconds: 1);
           //print('${duration.inDays}:${duration.inHours}:${duration.inMinutes}:${duration.inSeconds}');
         });
       }
@@ -116,8 +110,9 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape)
+        if (orientation == Orientation.landscape) {
           return LandSpaceWidget(mainWidget: buildContent(orientation), imageProperties:ImageProperties('image2.png', 1000.w,'הזמנה פעילה עם טיימר'),);
+        }
         return buildContent(orientation);
       }),
     );
@@ -593,7 +588,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   ),
                                 ],
                               ),
-                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ReportAccident(),)),
+                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ReportAccident(),)),
                             ),
                           ),
                         ),
@@ -806,7 +801,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       width: 170.w,
                       //  height: 114.h,
                       decoration: ShapeDecoration(
-                        color: Color(0xFFF6F6F6),
+                        color: const Color(0xFFF6F6F6),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8)),
                       ),
@@ -895,14 +890,14 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                           children: [
                             SizedBox(height: 11.h),
                             ImageIcon(
-                              isLocked?AssetImage("assets/icons/unlock.png"):AssetImage("assets/icons/lock.png"),
+                              isLocked?const AssetImage("assets/icons/unlock.png"):const AssetImage("assets/icons/lock.png"),
                               color: isLocked?turquoiseColorApp:pinkColorApp,
                             ),
                             SizedBox(height: 7.h),
                             Image.asset('assets/icons/Frame-30.png'),
                             SizedBox(height: 4.58.h),
                             ImageIcon(
-                              isLocked?AssetImage("assets/icons/lock.png"):AssetImage("assets/icons/unlock.png"),
+                              isLocked?const AssetImage("assets/icons/lock.png"):const AssetImage("assets/icons/unlock.png"),
                               color: isLocked?pinkColorApp.withOpacity(0.5):turquoiseColorApp.withOpacity(0.5),
                             ),
                             SizedBox(height: 10.h),
@@ -971,7 +966,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                         height: 1
                                     )
                                 ),
-                                ImageIcon(AssetImage("assets/icons/car_icon_black.png"),color: pinkColorApp,),
+                                ImageIcon(const AssetImage("assets/icons/car_icon_black.png"),color: pinkColorApp,),
                               ],
                             ),
                             SizedBox(
@@ -999,11 +994,11 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                 ),
                                 IconButton(
                                     onPressed: () => openWaze(address['latitude'],address['longitude']),
-                                    icon: ImageIcon(AssetImage("assets/icons/waze.png"),color: turquoiseColorApp,)),
+                                    icon: ImageIcon(const AssetImage("assets/icons/waze.png"),color: turquoiseColorApp,)),
                                 SizedBox(width: 23.w,),
                                 IconButton(
                                     onPressed: () => openGoogleMaps(address['address']),
-                                    icon: ImageIcon(AssetImage("assets/icons/maps.png"),color: turquoiseColorApp,)),
+                                    icon: ImageIcon(const AssetImage("assets/icons/maps.png"),color: turquoiseColorApp,)),
                               ],
                             ),
                             SizedBox(height: 39.h),
@@ -1067,7 +1062,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       SizedBox(height: 26.h),
                       Row(
                         children: [
-                          Container(
+                          SizedBox(
                             height: 48.h,
                             width: 160.w,
                             child: ElevatedButton(
@@ -1085,7 +1080,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                         fontWeight: FontWeight.normal))),
                           ),
                           SizedBox(width: 13.h),
-                          Container(
+                          SizedBox(
                             height: 48.h,
                             width: 160.w,
                             child: ElevatedButton(
@@ -1240,7 +1235,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                           ? Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => RentalWidget()))
+                              builder: (context) => const RentalWidget()))
                           : {Navigator.pop(context), endRental(true)};
                     },
                     child: Text(
@@ -1268,7 +1263,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
           backgroundColor:  Colors.white,
           shadowColor: Colors.grey.withOpacity(0.1),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),), //this right here
-          child: Container(
+          child: SizedBox(
             width: 256.w,
            // height: 200.h,
             child: Column(
@@ -1279,7 +1274,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
               SizedBox(height: 18.h,),
                 const Align(alignment: Alignment.topRight, child: CloseButton()),
                 SizedBox(height: 9.h,),
-                ImageIcon(AssetImage("assets/icons/car_open_doors.png"),color: pinkColorApp,),
+                ImageIcon(const AssetImage("assets/icons/car_open_doors.png"),color: pinkColorApp,),
                 SizedBox(height: 30.h),
                 Text(
                   'הדלתות פתוחות',

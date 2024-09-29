@@ -1,6 +1,5 @@
 import 'package:bblease/landspace_widget.dart';
 import 'package:bblease/models/class_user.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as intl;
@@ -8,7 +7,7 @@ import 'license_details.dart';
 import 'package:bblease/utils/my_colors.dart' ;
 
 class PersonalDetailsForm extends StatefulWidget {
-  const PersonalDetailsForm({Key? key}) : super(key: key);
+  const PersonalDetailsForm({super.key});
 
   @override
   State<PersonalDetailsForm> createState() => _PersonalDetailsFormState();
@@ -98,8 +97,9 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                     style: TextStyle(color: blackColorApp,fontWeight: FontWeight.w300,fontSize: 18.sp,),
                     controller: _firstName,
                     validator: (value) {
-                      if (value == null || value.isEmpty)
+                      if (value == null || value.isEmpty) {
                         return 'זהו שדה חובה';
+                      }
                       return null;
                     },
                   ),
@@ -110,8 +110,9 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                     decoration: getInputDecoration('שם משפחה'),
                     style: TextStyle(color: blackColorApp,fontSize: 18.sp,fontWeight: FontWeight.w300,),
                     validator: (value) {
-                      if (value == null || value.isEmpty)
+                      if (value == null || value.isEmpty) {
                         return 'זהו שדה חובה';
+                      }
                       return null;
                     },
                     controller: _lastName,
@@ -133,8 +134,9 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                     style: TextStyle(color: blackColorApp,fontSize: 18.sp,fontWeight: FontWeight.w300,),
                     controller: _tz,
                     validator: (value) {
-                      if (value == null || value.isEmpty || value.length != 9)
+                      if (value == null || value.isEmpty || value.length != 9) {
                         return 'מספר זהות לא תקין';
+                      }
                       return null;
                     },
                   ),
@@ -152,9 +154,9 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                           locale: const Locale("he", "HE"),
                           context: context,
                           // initialDate: DateTime.now(),
-                          initialDate:  DateTime.now().subtract(Duration(days: 21 * 365)),
+                          initialDate:  DateTime.now().subtract(const Duration(days: 21 * 365)),
                           firstDate: DateTime(1950),
-                          lastDate: DateTime.now().subtract(Duration(days: 21 * 365)));
+                          lastDate: DateTime.now().subtract(const Duration(days: 21 * 365)));
                       if (date != null) {
                         setState(() {
                           _date.text = intl.DateFormat('dd/MM/yyyy').format(date);
@@ -196,8 +198,9 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                     style: TextStyle(color: blackColorApp,fontSize: 18.sp,fontWeight: FontWeight.w300,),
                     controller: _phone,
                     validator: (value) {
-                      if (value == null || value.length < 10)
+                      if (value == null || value.length < 10) {
                         return 'מספר לא תקין';
+                      }
                       return null;
                     },
                   ),
@@ -312,7 +315,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
       ) ,
       suffixIcon: isDate
           ?ImageIcon(
-        AssetImage("assets/icons/CalendarBig.png"),
+        const AssetImage("assets/icons/CalendarBig.png"),
         color:pinkColorApp,
       )
           : suffixText.isNotEmpty
@@ -324,7 +327,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                     height: 1,
                   ))
               : null,
-      suffixIconConstraints: !isDate ? BoxConstraints(maxHeight: 26) : null,
+      suffixIconConstraints: !isDate ? const BoxConstraints(maxHeight: 26) : null,
       contentPadding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
     );
   }

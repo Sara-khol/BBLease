@@ -1,14 +1,8 @@
-import 'package:bblease/Flow/Rental/dialogs.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart' as intl;
 
-import '../../models/additions.dart';
 import '../../models/car.dart';
-import '../../models/class_user.dart';
-import '../../services/api_service.dart';
-import 'additions_dialog.dart';
 
 Future carDetailsDialog(context, Car car, bool isAvailabe) {
   return showModalBottomSheet<dynamic>(
@@ -69,7 +63,7 @@ Future carDetailsDialog(context, Car car, bool isAvailabe) {
                               width: 50.w,
                             ),
                             ImageIcon(
-                              AssetImage("assets/icons/Filter.png"),
+                              const AssetImage("assets/icons/Filter.png"),
                               color: pinkColorApp,
                             ),
                             Text(
@@ -98,7 +92,7 @@ Future carDetailsDialog(context, Car car, bool isAvailabe) {
                           ],
                         ),
                         SizedBox(height: 16.h),
-                        Container(
+                        /*Container(
                           height: 48.h,
                           width: 332.w,
                           child: ElevatedButton(
@@ -116,7 +110,7 @@ Future carDetailsDialog(context, Car car, bool isAvailabe) {
                                       fontSize: 20.sp,
                                       color: Colors.white,
                                       fontWeight: FontWeight.normal))),
-                        ),
+                        ),*/
                         SizedBox(height: 20.h),
                       ]),
                 ),

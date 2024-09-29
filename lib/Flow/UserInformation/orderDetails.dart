@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:universal_html/html.dart' as html;
 import '../../models/class_rent.dart';
 import 'package:intl/intl.dart' as intl;
@@ -14,7 +13,7 @@ import 'package:intl/intl.dart' as intl;
 //import 'dart:io' if (dart.library.html) 'dart:html' as html;
 
 class OrderDetails extends StatefulWidget {
-  const OrderDetails({Key? key, required this.rent}) : super(key: key);
+  const OrderDetails({super.key, required this.rent});
 
   final Rental rent;
 
@@ -29,12 +28,12 @@ class _OrderDetailsState extends State<OrderDetails> {
   double additionsPrice = 0;
 
   int isDownloaded = 0;
-  Widget downloadIcon = Icon(Icons.download, color: Colors.white,);
+  Widget downloadIcon = const Icon(Icons.download, color: Colors.white,);
 
 
   @override
   void initState() {
-    dayDiff = widget.rent.endDate!.difference(widget.rent.startDate!).inDays /*+ 1*/;
+    dayDiff = widget.rent.endDate.difference(widget.rent.startDate).inDays /*+ 1*/;
     rentPrice = (widget.rent.car.pricePerDay) * (dayDiff == 0 ? 1 : dayDiff);
     if (widget.rent.additions != null && widget.rent.additions!.isNotEmpty) {
       calculateAdditionsPrice();
@@ -79,16 +78,16 @@ class _OrderDetailsState extends State<OrderDetails> {
               Align(
                 alignment: Alignment.topRight,
                 child: Padding(
-                  padding: EdgeInsets.all(25),
+                  padding: const EdgeInsets.all(25),
                   child: IconButton(onPressed: () => Navigator.pop(context),
-                      icon: Icon(Icons.arrow_back_ios)),
+                      icon: const Icon(Icons.arrow_back_ios)),
                 ),
               ),
               //SizedBox(height: 30.h),
               Text(
                 ' הסטוריית הזמנות > פירוט הזמנה ',
                 style: TextStyle(
-                  color: Color(0xFF0F1511),
+                  color: const Color(0xFF0F1511),
                   fontSize: 20.sp,
                   fontWeight: FontWeight.normal,
                 ),
@@ -97,14 +96,14 @@ class _OrderDetailsState extends State<OrderDetails> {
                 widget.rent.car.model,
                 textAlign: TextAlign.right,
                 style: TextStyle(
-                  color: Color(0xFF0F1511),
+                  color: const Color(0xFF0F1511),
                   fontSize: 34.sp,
                   fontWeight: FontWeight.bold,
                   height: null,
                 ),
               ),
               SizedBox(height: 7.h),
-              widget.rent.car.carImages.isNotEmpty?   Container(
+              widget.rent.car.carImages.isNotEmpty?   SizedBox(
                 height: 130.h,
                 width: 292.w,
                 child: Image.network(
@@ -120,7 +119,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                     padding: EdgeInsets.only(right: 10.w),
                     child: RawScrollbar(
                       thumbVisibility: true,
-                      thumbColor: Color(0xFF00DEDE),
+                      thumbColor: const Color(0xFF00DEDE),
                       thickness: 3,
                       child: Scrollbar(
                         thumbVisibility: true,
@@ -137,7 +136,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                       width: 355.w,
                                       margin: EdgeInsets.only(top: 13.h),
                                       decoration: ShapeDecoration(
-                                        color: Color(0xFFF6F6F6),
+                                        color: const Color(0xFFF6F6F6),
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(25),
                                         ),
@@ -152,18 +151,18 @@ class _OrderDetailsState extends State<OrderDetails> {
                                               children: [
                                                 Text('מספר הזמנה: ${widget.rent.orderNum} ',
                                                   style: TextStyle(
-                                                    color: Color(0xFF0F1511),
+                                                    color: const Color(0xFF0F1511),
                                                     fontSize: 20.sp,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
-                                                Spacer(),
+                                                const Spacer(),
                                                 Text(
                                                   intl.DateFormat('dd.MM.yyyy')
                                                       .format(
                                                       widget.rent.startDate),
                                                   style: TextStyle(
-                                                    color: Color(0xFF0F1511),
+                                                    color: const Color(0xFF0F1511),
                                                     fontSize: 20.sp,
                                                     fontWeight: FontWeight.bold,),
                                                 ),
@@ -172,7 +171,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                             SizedBox(height: 20.h,),
                                             Text(widget.rent.car.model,
                                               style: TextStyle(
-                                                color: Color(0xFF0F1511),
+                                                color: const Color(0xFF0F1511),
                                                 fontSize: 32.sp,
                                                 fontWeight: FontWeight.bold,),),
                                             Row(
@@ -181,14 +180,14 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                   children: [
                                                     Text('מספר רכב',
                                                       style: TextStyle(
-                                                        color: Color(0xFF0F1511),
+                                                        color: const Color(0xFF0F1511),
                                                         fontSize: 18.sp,
                                                         fontWeight: FontWeight
                                                             .normal,),),
                                                     Text(widget.rent.car.carNumber
                                                         .toString(),
                                                       style: TextStyle(
-                                                        color: Color(0xFF0F1511),
+                                                        color: const Color(0xFF0F1511),
                                                         fontSize: 20.sp,
                                                         fontWeight: FontWeight
                                                             .bold,),
@@ -200,13 +199,13 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                   children: [
                                                     Text('קטגוריית רכב',
                                                       style: TextStyle(
-                                                        color: Color(0xFF0F1511),
+                                                        color: const Color(0xFF0F1511),
                                                         fontSize: 18.sp,
                                                         fontWeight: FontWeight
                                                             .normal,),),
                                                     Text(widget.rent.car.type,
                                                       style: TextStyle(
-                                                        color: Color(0xFF0F1511),
+                                                        color: const Color(0xFF0F1511),
                                                         fontSize: 20.sp,
                                                         fontWeight: FontWeight
                                                             .bold,),),
@@ -243,7 +242,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
                                           Text('פרטי הזמנה', style: TextStyle(
-                                            color: Color(0xFF0F1511),
+                                            color: const Color(0xFF0F1511),
                                             fontSize: 22.sp,
                                             fontWeight: FontWeight.normal,),),
                                         ],
@@ -260,7 +259,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                       width: 355.w,
                                       margin: EdgeInsets.only(top: 17.h),
                                       decoration: ShapeDecoration(
-                                        color: Color(0xFFF6F6F6),
+                                        color: const Color(0xFFF6F6F6),
                                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
                                       ),
                                       child: Padding(
@@ -271,13 +270,13 @@ class _OrderDetailsState extends State<OrderDetails> {
                                             SizedBox(height: 35.h),
                                             Row(
                                               children: [
-                                                Icon(Icons.fmd_good_outlined, color: Color(0xFF0F1511), size: 20.w),
+                                                Icon(Icons.fmd_good_outlined, color: const Color(0xFF0F1511), size: 20.w),
                                                 SizedBox(width: 9.w,),
                                                 Expanded(
                                                   child: Text(widget.rent.car.address,
                                                     style: TextStyle(
                                                       overflow: TextOverflow.ellipsis,
-                                                      color: Color(0xFF0F1511),
+                                                      color: const Color(0xFF0F1511),
                                                       fontSize: 20.sp,
                                                       fontWeight: FontWeight.normal,),
                                                   ),
@@ -295,7 +294,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                     " מ- ${intl.DateFormat('mm:HH yyyy.MM.dd').format(widget.rent.startDate)}":
                                                     */" מ- ${intl.DateFormat('dd.MM.yyyy HH:mm').format(widget.rent.startDate)}",
                                                       style: TextStyle(
-                                                        color: Color(0xFF0F1511),
+                                                        color: const Color(0xFF0F1511),
                                                         fontSize: 18.sp,
                                                         fontWeight:
                                                         FontWeight.normal,
@@ -305,7 +304,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                     " עד- ${intl.DateFormat('mm:HH yyyy.MM.dd').format(widget.rent.endDate)}":
                                                     */" עד- ${intl.DateFormat('dd.MM.yyyy HH:mm').format(widget.rent.endDate)}",
                                                       style: TextStyle(
-                                                        color: Color(0xFF0F1511),
+                                                        color: const Color(0xFF0F1511),
                                                         fontSize: 18.sp,
                                                         fontWeight:
                                                         FontWeight.normal,
@@ -345,7 +344,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                             Text('פרטי השכרה',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
-                                                color: Color(0xFF0F1511),
+                                                color: const Color(0xFF0F1511),
                                                 fontSize: 22.sp,
                                                 fontWeight: FontWeight.normal,
                                               ),
@@ -363,7 +362,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                       width: 355.w,
                                       margin: EdgeInsets.only(top: 13.h),
                                       decoration: ShapeDecoration(
-                                        color: Color(0xFFF6F6F6),
+                                        color: const Color(0xFFF6F6F6),
                                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
                                       ),
                                       child: Padding(
@@ -420,7 +419,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                             Text('תשלום',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
-                                                color: Color(0xFF0F1511),
+                                                color: const Color(0xFF0F1511),
                                                 fontSize: 22.sp,
                                                 fontWeight: FontWeight.normal,
                                               ),
@@ -431,12 +430,12 @@ class _OrderDetailsState extends State<OrderDetails> {
                                 ],
                               ),
                               SizedBox(height: 25.h),
-                              Container(
+                              SizedBox(
                                 height: 48.h,
                                 width: 332.w,
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Color.fromRGBO(
+                                      backgroundColor: const Color.fromRGBO(
                                           0, 222, 222, 1),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(
@@ -450,7 +449,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                         // Optionally, update UI immediately since web doesn't track download progress
                                         setState(() {
                                           isDownloaded = 2;
-                                          downloadIcon = Icon(
+                                          downloadIcon = const Icon(
                                             Icons.check_circle_outline,
                                             color: Colors.white,
                                           );
@@ -465,13 +464,13 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                 downloadIcon = SizedBox(
                                                     height: 20.h,
                                                     width: 20.w,
-                                                    child: CircularProgressIndicator(
+                                                    child: const CircularProgressIndicator(
                                                       color: Colors.white,));
                                               }),
                                           onDownloadCompleted: (path) =>
                                               setState(() {
                                                 isDownloaded = 2;
-                                                downloadIcon = Icon(
+                                                downloadIcon = const Icon(
                                                   Icons.check_circle_outline,
                                                   color: Colors.white,
                                                 );
@@ -499,19 +498,19 @@ class _OrderDetailsState extends State<OrderDetails> {
                                               style: TextStyle(fontSize: 22.sp,
                                                   fontWeight: FontWeight.normal,
                                                   color: Colors.white),),
-                                          Spacer(),
+                                          const Spacer(),
                                           downloadIcon
                                         ],
                                       ),
                                     )),
                               ),
                               SizedBox(height: 12.h),
-                              Container(
+                              SizedBox(
                                 height: 48.h,
                                 width: 332.w,
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Color.fromRGBO(
+                                      backgroundColor: const Color.fromRGBO(
                                           0, 222, 222, 1),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(
@@ -528,8 +527,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                                             style: TextStyle(fontSize: 22.sp,
                                                 fontWeight: FontWeight.normal,
                                                 color: Colors.white),),
-                                          Spacer(),
-                                          Icon(
+                                          const Spacer(),
+                                          const Icon(
                                             Icons.account_circle_outlined,
                                             color: Colors.white,
                                           )
@@ -602,7 +601,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                           children: [
                             Text('פירוט תשלום', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold),),
                             SizedBox(width: 9.w,),
-                            Icon(Icons.credit_card, color: Color(0xFFFB2576), size: 24.sp,),
+                            Icon(Icons.credit_card, color: const Color(0xFFFB2576), size: 24.sp,),
                           ],
                         ),
                         SizedBox(height: 30.h,),

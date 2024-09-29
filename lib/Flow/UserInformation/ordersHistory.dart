@@ -16,8 +16,9 @@ import '../../services/api_service.dart';
 import '../Rental/Actions/cancel_order_dialogs.dart';
 
 class OrdersHistory extends StatefulWidget {
-  const OrdersHistory({Key? key, required this.index}) : super(key: key);
+  const OrdersHistory({super.key, required this.index, required this.goBack});
   final int index;
+  final bool goBack;
 
   @override
   State<OrdersHistory> createState() => _OrdersHistoryState();
@@ -27,10 +28,11 @@ class _OrdersHistoryState extends State<OrdersHistory> {
   List<Rental> ordersHistory = [];
   List<Rental> futureOrders = [];
   late Rental currentRent;
-  late int selected=widget.index;//history=1, future=2
+  late int selected;
 
   @override
   void initState() {
+    selected=widget.index;//history=1, future=2
     getOrders();
     super.initState();
   }
@@ -64,7 +66,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
         setState(() {});
       });
     } catch (e, s) {
-      debugPrint('error ${e} $s');
+      debugPrint('error $e $s');
     }
   }
 
@@ -214,7 +216,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                   ),
                                   contentPadding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
                                   suffixIcon: ImageIcon(
-                                    AssetImage("assets/icons/Calendar.png"),
+                                    const AssetImage("assets/icons/Calendar.png"),
                                     color: pinkColorApp,
                                   )),
                               style: TextStyle(fontSize: 22.sp),
@@ -292,32 +294,30 @@ class _OrdersHistoryState extends State<OrdersHistory> {
     }).toList();
   }
 
-  buildContent(Orientation o)
-  {
+  buildContent(Orientation o) {
     // Widget downloadIcon = Icon(Icons.file_download, color: pinkColorApp);
     Widget downloadIcon =  Image.asset("assets/icons/Download.png");
     late List<Rental> filteredOrdersHistory;
     if(s!=null&&e!=null){
       filteredOrdersHistory = getFilteredRentals(ordersHistory, s, e);
     }
-
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Column(
         children: [
           // Directionality(textDirection: TextDirection.ltr, child: AppBarBibilease()),
           if(o==Orientation.portrait)SizedBox(height: 24.h,),
-          Padding(
+          if(widget.goBack)Padding(
             padding:  EdgeInsets.only(right: 23.w),
             child: Align(
                 alignment: Alignment.topRight,
-                child: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
+                child: IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back_ios))),
           ),
           if(o==Orientation.portrait)SizedBox(height: 42.h),
           Text(
             'ההזמנות שלי',
             style: TextStyle(
-              color: Color(0xFF0F1511),
+              color: const Color(0xFF0F1511),
               fontSize: 26.sp,
               fontWeight: FontWeight.bold,
             ),
@@ -360,7 +360,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                         )),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Container(
                   height: 34.h,
                   width: 152.w,
@@ -407,7 +407,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text('סנן לפי תאריך ', style: TextStyle(fontSize: 14.sp, color: blackColorApp),),
-                  ImageIcon(AssetImage("assets/icons/Filter.png"), color: pinkColorApp,),
+                  ImageIcon(const AssetImage("assets/icons/Filter.png"), color: pinkColorApp,),
                   SizedBox(width: 40.w,)
                 ],
               )),
@@ -426,14 +426,14 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ActiveRentDetails(),
+                        builder: (context) => const ActiveRentDetails(),
                       ));
                 } : null,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ImageIcon(AssetImage("assets/icons/car.png"), color: Colors.white,),
+                    const ImageIcon(AssetImage("assets/icons/car.png"), color: Colors.white,),
                     SizedBox(width:52.w),
                     Text('פתח הזמנה פעילה',
                       style: TextStyle(
@@ -446,7 +446,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
           ),
           SizedBox(height: 20.h,),
           initData
-            ? ordersHistory.isNotEmpty
+            ? ordersHistory.isNotEmpty || futureOrders.isNotEmpty
             ? MediaQuery.removePadding(
             removeTop: true,
             context: context,
@@ -484,7 +484,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                               width: 332.w,
                               height: 50.h,
                               margin: EdgeInsets.only(left: 20.w,right: 20.w),
-                              decoration: BoxDecoration(color: Color(0xFFF7F7F7),
+                              decoration: BoxDecoration(color: const Color(0xFFF7F7F7),
                                   borderRadius: BorderRadius.circular(8)),
                               child: Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 22.w),
@@ -499,7 +499,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                           color: Colors.black
                                       ),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     IconButton(
                                         onPressed: () {
                                           print(rent.url);
@@ -536,7 +536,9 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                         ],
                       );
                     }
-                    else return null;
+                    else {
+                      return null;
+                    }
                   },
                 ),
               )
@@ -563,12 +565,12 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                           width: 332.w,
                           height: 50.h,
                           margin: EdgeInsets.only(bottom: 22.h, left: 30.w, right: 30.w),
-                          decoration: BoxDecoration(color: Color(0xFFD9FFFD), borderRadius: BorderRadius.circular(8)),
+                          decoration: BoxDecoration(color: const Color(0xFFD9FFFD), borderRadius: BorderRadius.circular(8)),
                           child: Padding(
                             padding: EdgeInsets.symmetric(horizontal: 22.w),
                             child: Row(
                               children: [
-                                Icon(Icons.access_time),
+                                const Icon(Icons.access_time),
                                 Text('תחל בתאריך: ',
                                   style: TextStyle(
                                       fontSize: 18.sp,
@@ -581,7 +583,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                                       fontWeight:
                                       FontWeight.w300),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 IconButton(
                                   onPressed: () => cancelOrderDialog(context, rent),
                                   icon: ImageIcon(
@@ -595,6 +597,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                         ),
                       );
                     }
+                    return null;
                   },
                 ),
               ))
@@ -605,7 +608,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
               : Center(child: CircularProgressIndicator(color: pinkColorApp,),
           ),
           if (ordersHistory.isEmpty)   const Spacer(),
-          Container(
+          SizedBox(
             height: 48.h,
             width: 332.w,
             child: ElevatedButton(
@@ -619,7 +622,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                 onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => RentalWidget(),
+                      builder: (context) => const RentalWidget(),
                     )),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -632,7 +635,7 @@ class _OrdersHistoryState extends State<OrdersHistory> {
                           fontWeight: FontWeight.normal,
                           color: Colors.white),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.home_outlined,
                       color: Colors.white,
                     )

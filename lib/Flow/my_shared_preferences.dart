@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -9,9 +8,7 @@ class  MySharedPreferences{
 
   late SharedPreferences _prefs;
 
-  MySharedPreferences._privateConstructor() {
-
-  } // Private constructor for singleton
+  MySharedPreferences._privateConstructor(); // Private constructor for singleton
 
   static final MySharedPreferences _instance = MySharedPreferences._privateConstructor();
 

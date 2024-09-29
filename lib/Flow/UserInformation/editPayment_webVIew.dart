@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
-import 'package:bblease/Flow/UserInformation/profile.dart';
-import 'package:bblease/Flow/registration/sucsses_registration.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -13,7 +11,6 @@ import '../../landspace_widget.dart';
 import '../../models/class_user.dart';
 import '../../services/api_service.dart';
 import '../../utils/my_colors.dart';
-import '../my_shared_preferences.dart';
 // #enddocregion platform_imports
 
 class EditPaymentWebView extends StatefulWidget {
@@ -68,7 +65,7 @@ class _EditPaymentWebViewState extends State<EditPaymentWebView> {
                 padding:  EdgeInsets.only(right: 23.w),
                 child: Align(
                     alignment: Alignment.topRight,
-                    child: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
+                    child: IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back_ios))),
               ),
               SizedBox(
                 height: 5.h,

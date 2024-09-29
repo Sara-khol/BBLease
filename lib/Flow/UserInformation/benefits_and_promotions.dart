@@ -3,16 +3,14 @@ import 'package:bblease/utils/my_colors.dart';
 
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:intl/intl.dart';
 import 'dart:ui' as ui;
 
 import '../../landspace_widget.dart';
 
 class BenefitsAndPromotions extends StatefulWidget {
-  const BenefitsAndPromotions({Key? key}) : super(key: key);
+  const BenefitsAndPromotions({super.key});
 
   @override
   State<BenefitsAndPromotions> createState() => _BenefitsAndPromotionsState();
@@ -42,8 +40,9 @@ class _BenefitsAndPromotionsState extends State<BenefitsAndPromotions> {
   Widget build(BuildContext context,) {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape)
+        if (orientation == Orientation.landscape) {
           return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('image6.png', 1000.w,'תמונת פעולות'));
+        }
         return buildContent();
       }),
     );
@@ -64,7 +63,7 @@ class _BenefitsAndPromotionsState extends State<BenefitsAndPromotions> {
                 alignment: Alignment.topRight,
                 child: IconButton(
                     onPressed: () => Navigator.pop(context),
-                    icon: Icon(Icons.arrow_back_ios))),
+                    icon: const Icon(Icons.arrow_back_ios))),
           ),
           SizedBox(
             height: 42.h,
@@ -77,7 +76,7 @@ class _BenefitsAndPromotionsState extends State<BenefitsAndPromotions> {
               Text(
                 'הטבות ומבצעים',
                 style: TextStyle(
-                  color: Color(0xFF0F1511),
+                  color: const Color(0xFF0F1511),
                   fontSize: 22.sp,
                   fontWeight: FontWeight.bold,
                 ),
@@ -104,7 +103,7 @@ class _BenefitsAndPromotionsState extends State<BenefitsAndPromotions> {
                             margin: EdgeInsets.only(
                                 left: 14.w, right: 14.w),
                             decoration: ShapeDecoration(
-                              color: Color(0xFFF6F6F6),
+                              color: const Color(0xFFF6F6F6),
                               shape: RoundedRectangleBorder(
                                   borderRadius:
                                   BorderRadius.circular(8)),
@@ -191,7 +190,7 @@ class _BenefitsAndPromotionsState extends State<BenefitsAndPromotions> {
                     'אופס...\nכרגע אין הטבות\nומבצעים פעילים',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Color(0xFFAAABAA),
+                      color: const Color(0xFFAAABAA),
                       fontSize: 20.sp,
                       fontWeight: FontWeight.normal,
                     ),

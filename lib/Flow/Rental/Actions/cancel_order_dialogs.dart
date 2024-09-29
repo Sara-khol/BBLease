@@ -1,11 +1,7 @@
 import 'dart:typed_data';
-import 'dart:ui';
 import 'package:bblease/Flow/Rental/Actions/cancelation_complete.dart';
 import 'package:bblease/Flow/Rental/dialogs.dart';
-import 'package:bblease/Flow/registration/license_details.dart';
 import 'package:bblease/services/api_service.dart';
-import 'package:dio/dio.dart';
-import 'package:dio/src/form_data.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -60,7 +56,7 @@ Future cancelOrderDialog(context,rent){
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Container(
+                            SizedBox(
                               height: 48.h,
                               width: 160.w,
                               child: ElevatedButton(
@@ -84,7 +80,7 @@ Future cancelOrderDialog(context,rent){
                             ),
                             SizedBox(width: 13.w),
 
-                            Container(
+                            SizedBox(
                               height: 48.h,
                               width: 160.w,
                               child: ElevatedButton(
@@ -168,7 +164,7 @@ signCancelOrderDialog(context,String headline,String text,[orderId]) {
                         SizedBox(height: 41.h),
                         Text(text,style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),textDirection: TextDirection.rtl,),
                         Container(
-                            decoration: BoxDecoration(border: Border(bottom: BorderSide(
+                            decoration: const BoxDecoration(border: Border(bottom: BorderSide(
                                 color: Colors.black,
                                 width: 1
                             ))),
@@ -197,7 +193,7 @@ signCancelOrderDialog(context,String headline,String text,[orderId]) {
                             SizedBox(width: 55.w,)
                           ],
                         ),
-                        Container(
+                        SizedBox(
                           height: 48.h,
                           width: 332.w,
                           child: ElevatedButton(
@@ -227,7 +223,7 @@ signCancelOrderDialog(context,String headline,String text,[orderId]) {
                                       controller.dispose();
                                       Navigator.push(context, MaterialPageRoute(
                                         builder: (context) =>
-                                            CancelationComplete(),));
+                                            const CancelationComplete(),));
                                   }
                                 )};
                                 }

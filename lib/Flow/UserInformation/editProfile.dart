@@ -1,23 +1,17 @@
 import 'package:bblease/Flow/UserInformation/profile.dart';
-import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:bblease/utils/my_colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:intl/intl.dart';
 import 'dart:ui' as ui;
 
 import '../../landspace_widget.dart';
 import '../../services/api_service.dart';
-import '../Dialogs/buttom_dialogs.dart';
 import '../Rental/dialogs.dart';
-import '../home_page.dart';
 
 class EditPersonalDetails extends StatefulWidget {
-  const EditPersonalDetails({Key? key}) : super(key: key);
+  const EditPersonalDetails({super.key});
 
   @override
   State<EditPersonalDetails> createState() => _EditPersonalDetailsState();
@@ -56,7 +50,7 @@ class _EditPersonalDetailsState extends State<EditPersonalDetails> {
                 padding:  EdgeInsets.only(right: 23.w),
                 child: Align(
                     alignment: Alignment.topRight,
-                    child: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
+                    child: IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back_ios))),
               ),
 
               SizedBox(height: 5.h,),
@@ -67,7 +61,7 @@ class _EditPersonalDetailsState extends State<EditPersonalDetails> {
                 weight: 100,
               ),
               SizedBox(height: 8.h,),
-              Text('פרופיל אישי', style: TextStyle(color: Color(0xFF0F1511), fontSize: 24.sp, fontWeight: FontWeight.bold,),),
+              Text('פרופיל אישי', style: TextStyle(color: const Color(0xFF0F1511), fontSize: 24.sp, fontWeight: FontWeight.bold,),),
               SizedBox(height: 35.h,),
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -151,7 +145,7 @@ class _EditPersonalDetailsState extends State<EditPersonalDetails> {
 
       floatingActionButton: Padding(
         padding:  EdgeInsets.only(bottom: 40.h),
-        child: Container(
+        child: SizedBox(
           height: 42.h,
           width: 332.w,
           child: FloatingActionButton.extended(
@@ -241,7 +235,7 @@ getInputDecoration(String text, {bool isDate = false, String suffixText = ''}) {
     ) ,
     suffixIcon: isDate
         ?ImageIcon(
-      AssetImage("assets/icons/CalendarBig.png"),
+      const AssetImage("assets/icons/CalendarBig.png"),
       color:pinkColorApp,
     )
         : suffixText.isNotEmpty
@@ -254,7 +248,7 @@ getInputDecoration(String text, {bool isDate = false, String suffixText = ''}) {
           height: 1,
         ))
         : null,
-    suffixIconConstraints: !isDate ? BoxConstraints(maxHeight: 26) : null,
+    suffixIconConstraints: !isDate ? const BoxConstraints(maxHeight: 26) : null,
     contentPadding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
   );
 }

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/Rental/search_car.dart';
 import 'package:bblease/utils/my_colors.dart';
@@ -28,10 +27,10 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
   longitude= longitude1;
 
   TextEditingController controller = TextEditingController(text: address);
-  List<AutocompletePrediction>? _predictions;
-  late final FlutterGooglePlacesSdk _places;
+  List<AutocompletePrediction>? predictions;
+  late final FlutterGooglePlacesSdk places;
   Place? place;
-  final List<PlaceField> _placeFields = [
+  final List<PlaceField> placeFields = [
     PlaceField.Address,
     PlaceField.AddressComponents,
     PlaceField.BusinessStatus,
@@ -40,21 +39,16 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
     PlaceField.Name,
   ];
   Timer? debounce;
- // DetailsResult? searchedPlace;
-
-  //GooglePlace googlePlace = GooglePlace('AIzaSyDrD1omOKsD-QCghL7Oaq1LmU6mgxvqaLs',headers: header);
-
- // List<AutocompletePrediction> predictions = [];
 
 
-  _places = FlutterGooglePlacesSdk('AIzaSyDrD1omOKsD-QCghL7Oaq1LmU6mgxvqaLs',
+  places = FlutterGooglePlacesSdk('AIzaSyDrD1omOKsD-QCghL7Oaq1LmU6mgxvqaLs',
       locale:  const Locale('he', 'IL'));
-  _places.isInitialized().then((value) {
+  places.isInitialized().then((value) {
     debugPrint('Places Initialized: $value');
   });
 
    autoCompleteSearch(String value) async {
-      final result = await _places.findAutocompletePredictions(
+      final result = await places.findAutocompletePredictions(
         controller.text,
         // countries: _countriesEnabled ? _countries : null,
         // placeTypesFilter: _placeTypesFilter,
@@ -64,8 +58,8 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
         // locationRestriction:
         // _locationRestrictionEnabled ? _locationRestriction : null,
       );
-      _predictions = result.predictions;
-      print('Result: $_predictions');
+      predictions = result.predictions;
+      print('Result: $predictions');
 
 
     // var result = await googlePlace.autocomplete.get(value,language: 'iw');
@@ -87,7 +81,7 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
       context: context,
       builder: (context) {
         return PointerInterceptor(
-          debug: true,
+          //debug: true,
           child: MouseRegion(
             cursor: SystemMouseCursors.basic,
             child: StatefulBuilder(builder: (context, StateSetter setState) {
@@ -181,7 +175,7 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                                   color: turquoiseColorApp,
                                   size: 24.sp,
                                 )),
-                            style: TextStyle(color: Color.fromRGBO(15, 17, 21, 1), fontSize: 20.sp),
+                            style: TextStyle(color: const Color.fromRGBO(15, 17, 21, 1), fontSize: 20.sp),
                             controller: controller,
                             onChanged: (value) async {
                              // done = controller.text.isNotEmpty;
@@ -193,7 +187,7 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                                   await autoCompleteSearch(value);
                                 } else {
                                   debugPrint('emptyyy!');
-                                  _predictions = [];
+                                  predictions = [];
                                   place=null;
                                   location='';
                                 }
@@ -211,7 +205,7 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                               FocusScope.of(context).unfocus();
                             },
                           ),
-                          _predictions != null && _predictions!.isNotEmpty
+                          predictions != null && predictions!.isNotEmpty
                               ? Expanded(
                             child: /*ListView.builder(
                                 //reverse: true,
@@ -250,9 +244,9 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                                 })*/
                                 ListView.builder(
                                 shrinkWrap: true,
-                                itemCount: _predictions!.length,
+                                itemCount: predictions!.length,
                                 itemBuilder: (context, index) {
-                                  AutocompletePrediction prediction = _predictions![index];
+                                  AutocompletePrediction prediction = predictions![index];
                                   return ListTile(
                                     title: Text(
                                       prediction.fullText.toString(),
@@ -266,7 +260,7 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                                       //done = true;
                                       final placeId = prediction.placeId;
                                       debugPrint('placeId $placeId');
-                                      final result = await _places.fetchPlace(placeId,fields: _placeFields);
+                                      final result = await places.fetchPlace(placeId,fields: placeFields);
                                       setState(() {
                                         place = result.place;
                                         //  _fetchingPlace = false;
@@ -280,7 +274,7 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                                         debugPrint('location $latitude . $longitude');
                                         debugPrint('selected text: ${controller.text}');
                                       }
-                                      _predictions = [];
+                                      predictions = [];
                                     },
                                   );
                                 }
@@ -297,7 +291,7 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                                       width: 332.w,
                                       height: 48.h,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                                        borderRadius: const BorderRadius.all(Radius.circular(25)),
                                         color: turquoiseColorApp,
                                       ),
                                       child: TextButton(
@@ -398,17 +392,14 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
       context: context,
       builder: (context) {
         return PointerInterceptor(
-          debug: true,
-
           child: StatefulBuilder(builder: (context, StateSetter setState) {
-
             setEndDateBasedOnSelection() {
               print('setEndDateBasedOnSelection()  $diff', );
 
               if (startDate != null && diff != null) {
                 DateTime calculatedEndDate;
                 diff!<1
-                    ? calculatedEndDate = startDate!.add(Duration(hours: 6))
+                    ? calculatedEndDate = startDate!.add(const Duration(hours: 6))
                     : calculatedEndDate = startDate!.add(Duration(days: diff!.toInt()));
                   //calculatedEndDate = calculatedEndDate.add(Duration(days: 1));
                 /*if(kIsWeb){
@@ -427,7 +418,7 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
               }
             }
 
-            RadioListTile _buildRadioTile(String title, int v) {
+            RadioListTile buildRadioTile(String title, int v) {
               return RadioListTile(
                 activeColor: blackColorApp ,
                 value: v,
@@ -510,7 +501,7 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                               SizedBox(
                                 width: 9.w,
                               ),
-                              ImageIcon(AssetImage("assets/icons/Calendar.png"),color: pinkColorApp,),
+                              ImageIcon(const AssetImage("assets/icons/Calendar.png"),color: pinkColorApp,),
 
                             ],
                           ),
@@ -520,10 +511,10 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                          //   child:
                             Column(
                               children: <Widget>[
-                                _buildRadioTile('6 שעות', 1),
-                                _buildRadioTile('יום', 2),
-                                _buildRadioTile('שבוע', 3),
-                                _buildRadioTile('חודש', 4),
+                                buildRadioTile('6 שעות', 1),
+                                buildRadioTile('יום', 2),
+                                buildRadioTile('שבוע', 3),
+                                buildRadioTile('חודש', 4),
                               ],
                             ),
                           //),
@@ -549,7 +540,7 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                                 decoration: getInputDecoration(
                                     '',
                                     192,
-                                    suffixIcon: ImageIcon(AssetImage("assets/icons/CalendarBig.png"),color: pinkColorApp,),
+                                    suffixIcon: ImageIcon(const AssetImage("assets/icons/CalendarBig.png"),color: pinkColorApp,),
                               ),
                                 controller: startd,
                                 style: TextStyle(fontSize: 22.sp),
@@ -557,6 +548,7 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                                   if (value == null || value.isEmpty) {
                                     return 'זהו שדה חובה';
                                   }
+                                  return null;
                                 },
                                 onTap: () async {
                                   DateTime? date = await showDatePicker(
@@ -587,12 +579,13 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                                   if (value == null || value.isEmpty) {
                                     return 'זהו שדה חובה';
                                   }
+                                  return null;
                                 },
                                 onTap: () async {
                                   final now = DateTime.now();
                                    TimeOfDay? starttime = await showTimePicker(
                                     context: context,
-                                    initialTime: startDate==now?TimeOfDay.now():TimeOfDay(hour: 00, minute: 00),
+                                    initialTime: startDate==now?TimeOfDay.now():const TimeOfDay(hour: 00, minute: 00),
                                     initialEntryMode: TimePickerEntryMode.dial,
                                     builder: (BuildContext context, Widget? child) => MediaQuery(
                                       data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
@@ -644,13 +637,14 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                               TextFormField(
                                 readOnly: true,
                                 cursorColor: const Color.fromRGBO(15, 17, 21, 1),
-                                decoration: getInputDecoration('', 192, suffixIcon: ImageIcon(AssetImage("assets/icons/CalendarBig.png"),color: pinkColorApp,),),
+                                decoration: getInputDecoration('', 192, suffixIcon: ImageIcon(const AssetImage("assets/icons/CalendarBig.png"),color: pinkColorApp,),),
                                 style: TextStyle(fontSize: 22.sp),
                                 controller: endd,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'זהו שדה חובה';
                                   }
+                                  return null;
                                 },
                                 onTap: () async {
                                   DateTime? date = await showDatePicker(
@@ -677,11 +671,12 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                                   if (value == null || value.isEmpty) {
                                     return 'זהו שדה חובה';
                                   }
+                                  return null;
                                 },
                                 onTap: () async {
                                   final TimeOfDay? endtime = await showTimePicker(
                                     context: context,
-                                    initialTime: TimeOfDay(hour: 00, minute: 00),
+                                    initialTime: const TimeOfDay(hour: 00, minute: 00),
                                     initialEntryMode: TimePickerEntryMode.dial,
                                     builder: (BuildContext context, Widget? child) => MediaQuery(
                                       data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
@@ -711,7 +706,7 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                             ],
                           ),
                           SizedBox(height: 12.h,),
-                          TextButton(onPressed: () => Navigator.push(context,MaterialPageRoute(builder: (context) => ContactUs(),)),
+                          TextButton(onPressed: () => Navigator.push(context,MaterialPageRoute(builder: (context) => const ContactUs(),)),
                               child: Text('השאר פרטים לנציג',style: TextStyle(fontSize: 16.sp),textAlign: TextAlign.center,)),
                           SizedBox(height: 12.h,),
                           SizedBox(
@@ -745,7 +740,9 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                                                 )
                                         ));
                                   }
-                                  else displayMessage(context,message: 'נא מלא את כל הפרטים');
+                                  else {
+                                    displayMessage(context,message: 'נא מלא את כל הפרטים');
+                                  }
 
                                 },
                                 child: const Text(
@@ -777,10 +774,13 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
 
 Duration findDuration(double? diff) {
   Duration duration;
-  if(diff==0.25) duration=Duration(hours: 6);
-  if(diff==1) duration=Duration(days: 1);
-  if(diff==7) duration=Duration(days: 7);
-  else duration=Duration(days: 30);
+  if(diff==0.25) duration=const Duration(hours: 6);
+  if(diff==1) duration=const Duration(days: 1);
+  if(diff==7) {
+    duration=const Duration(days: 7);
+  } else {
+    duration=const Duration(days: 30);
+  }
   return duration;
 
 }
@@ -817,7 +817,7 @@ getInputDecoration(String text,double width, {Widget? suffixIcon}) {
     ),
     focusedErrorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
-      borderSide: BorderSide(
+      borderSide: const BorderSide(
         color: Colors.redAccent,
       ),
     ),

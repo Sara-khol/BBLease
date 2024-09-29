@@ -10,7 +10,7 @@ class CustomTextFormField extends StatelessWidget {
   final FocusNode? focusNode;
 
   const CustomTextFormField({
-    Key? key,
+    super.key,
     required this.controller,
     required this.keyboardType,
     required this.cursorColor,
@@ -18,7 +18,7 @@ class CustomTextFormField extends StatelessWidget {
     required this.style,
     this.validator,
     this.focusNode,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -60,12 +60,10 @@ class CustomTextFormField extends StatelessWidget {
     double scaleFactor = orientation == Orientation.landscape ? 1.7 : 1.0;
 
     return decoration.copyWith(
-      labelStyle: decoration.labelStyle != null
-          ? decoration.labelStyle!.copyWith(
+      labelStyle: decoration.labelStyle?.copyWith(
           fontSize: decoration.labelStyle!.fontSize != null
               ? decoration.labelStyle!.fontSize! * scaleFactor
-              : null)
-          : null,
+              : null),
       hintStyle: decoration.hintStyle?.copyWith(
           fontSize: decoration.hintStyle!.fontSize != null
               ? decoration.hintStyle!.fontSize! * scaleFactor

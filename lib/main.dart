@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:bblease/Flow/Rental/active_rent.dart';
 import 'package:bblease/Flow/Rental/map.dart';
-import 'package:bblease/Flow/home_page.dart';
 import 'package:bblease/Flow/my_shared_preferences.dart';
 import 'package:bblease/Flow/registration/tel_to_registration.dart';
 import 'package:bblease/services/api_service.dart';
@@ -13,11 +12,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:accessibility_tools/accessibility_tools.dart';
-import 'Flow/welcome.dart';
 import 'models/class_rent.dart';
 import 'models/class_user.dart';
 
@@ -31,52 +27,53 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 void main() async {
-  HttpOverrides.global = new MyHttpOverrides();
+  HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
 //await mySharedPreferences.initializeSharedPreferences(); /flutt/ Initialize app state
 
-  await SentryFlutter.init(
+  /*await SentryFlutter.init(
     (options) {
       options.dsn = kDebugMode
           ? ''
-          : 'https://69a96f2b12155c0d347296db8a687277@o4506574440759296.ingest.sentry.io/4506574487289856';
+          : 'https://5ed5330eda0a7e51a707dd811520e9d1@o4508007527022592.ingest.de.sentry.io/4508007530823760';
       // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
       // We recommend adjusting this value in production.
       options.tracesSampleRate = 1.0;
       options.debug = false;
     },
-  );
+  );*/
 
   FlutterError.onError = (FlutterErrorDetails errorDetails) {
     if (kDebugMode) {
       FlutterError.presentError(errorDetails);
       //myErrorsHandler.onErrorDetails(errorDetails);
     }
-    Sentry.captureException(
+    /*Sentry.captureException(
       errorDetails.exception,
       stackTrace: errorDetails.stack,
-    );
+    );*/
   };
 
-  runZonedGuarded(() {
+ /* runZonedGuarded(() {
     WidgetsFlutterBinding.ensureInitialized();
 
-    runApp(MyApp());
+
   }, (error, stackTrace) {
     debugPrint('Zone Error Handler: $error');
     debugPrint('$stackTrace');
     // Handle the error as needed, e.g., log it
-  });
+  });*/
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
   late final Future<bool> myFuture = isLogin();
 
-  MaterialStateProperty<Color?> _customColor() {
-    return MaterialStateProperty.resolveWith<Color?>(
-      (Set<MaterialState> states) {
-        if (states.contains(MaterialState.selected)) {
+  WidgetStateProperty<Color?> _customColor() {
+    return WidgetStateProperty.resolveWith<Color?>(
+      (Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
           return turquoiseColorApp; // Return this color when the date is selected
         }
         return turquoiseColorApp; // Otherwise, return this color
@@ -92,11 +89,11 @@ class MyApp extends StatelessWidget {
         useInheritedMediaQuery: true,
         //useInheritedMediaQuery: true,
         designSize: orientation == Orientation.portrait
-            ? Size(393, 852)
-            : Size(1440, 1024),
+            ? const Size(393, 852)
+            : const Size(1440, 1024),
         minTextAdapt: true,
         builder: (BuildContext context, Widget? child) {
-      //    debugPrint('orientation main ${(ScreenUtil()).pixelRatio} ');
+      //debugPrint('orientation main ${(ScreenUtil()).pixelRatio} ');
           return MaterialApp(
             localizationsDelegates: const [
               //AppLocalizations.delegate,
@@ -107,7 +104,7 @@ class MyApp extends StatelessWidget {
               Locale('he'),
               Locale('en'),
             ],
-            scrollBehavior: MaterialScrollBehavior().copyWith(
+            scrollBehavior: const MaterialScrollBehavior().copyWith(
               dragDevices: {PointerDeviceKind.mouse, PointerDeviceKind.touch},
             ),
             title: 'ביביליס',

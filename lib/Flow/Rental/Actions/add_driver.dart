@@ -11,7 +11,7 @@ import '../../../utils/my_colors.dart';
 import '../dialogs.dart';
 
 class AddDriver extends StatefulWidget {
-  const AddDriver({Key? key, required this.index, this.orderId}) : super(key: key);
+  const AddDriver({super.key, required this.index, this.orderId});
   final int index;
   final int? orderId;
 
@@ -45,7 +45,7 @@ class _AddDriverState extends State<AddDriver> {
       child: Column(
         children: [
           if(o==Orientation.portrait)
-            Directionality(textDirection: TextDirection.ltr, child: AppBarBibilease()),
+            const Directionality(textDirection: TextDirection.ltr, child: AppBarBibilease()),
           SizedBox(height: 54.h,),
           Text('הוספת נהג',
             style: TextStyle(
@@ -68,8 +68,8 @@ class _AddDriverState extends State<AddDriver> {
             controller: _controller,
           ),
 
-          Spacer(),
-          Container(
+          const Spacer(),
+          SizedBox(
             height: 48.h,
             width: 250.w,
             child: ElevatedButton(
@@ -137,7 +137,7 @@ class _AddDriverState extends State<AddDriver> {
                         textAlign: TextAlign.center
                         ,textDirection: TextDirection.rtl,),
                       Container(height: 30.h),
-                      Container(
+                      SizedBox(
                         height: 48.h,
                         width: 332.w,
                         child: ElevatedButton(

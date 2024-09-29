@@ -1,15 +1,11 @@
 
-import 'dart:convert';
 
 import 'package:bblease/Flow/Rental/active_rent.dart';
 import 'package:bblease/Flow/registration/payment_webView.dart';
 import 'package:bblease/landspace_widget.dart';
-import 'package:bblease/models/additional_driver.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:bblease/services/api_service.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as intl;
 import '../Dialogs/buttom_dialogs.dart';
@@ -115,7 +111,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   return null;
                 },
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               TextFormField(
                 readOnly: true,
                 cursorColor: blackColorApp,
@@ -127,8 +123,9 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                 TextStyle(color: blackColorApp, fontSize: 18.sp),
                 controller: _expDate,
                 validator: (value) {
-                  if (value == null || value.isEmpty) return 'זהו שדה חובה';
-                  else {
+                  if (value == null || value.isEmpty) {
+                    return 'זהו שדה חובה';
+                  } else {
                     DateTime now = DateTime.now();
                     DateTime inputDate = intl.DateFormat('dd/MM/yyyy').parse(value);
                     if (inputDate.isBefore(DateTime(now.year, now.month, now.day))) {
@@ -154,7 +151,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   }
                 },
               ),
-              SizedBox(height: 12,),
+              const SizedBox(height: 12,),
               TextFormField(
                 readOnly: true,
                 cursorColor: blackColorApp,
@@ -184,7 +181,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   }
                 },
               ),
-              SizedBox(height: 12,),
+              const SizedBox(height: 12,),
               TextFormField(
                 cursorColor: blackColorApp,
                 decoration: getInputDecoration('דרגת רשיון'),
@@ -196,7 +193,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                   return null;
                 },
               ),
-              SizedBox(height: 27,),
+              const SizedBox(height: 27,),
               ListTileTheme(
                 horizontalTitleGap: 1.0,
                 child: CheckboxListTile(
@@ -262,7 +259,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
               ),
               //Spacer(),
               SizedBox(height: 152.h),
-              Container(
+              SizedBox(
                 height: 42.h,
                 width: 332.w,
                 child: ElevatedButton(
@@ -349,7 +346,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           color: Colors.redAccent,
         ),
       ),
@@ -410,7 +407,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
           displayMessage(context,
               message: 'הנתון התקבל בהצלחה',
               onClose: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ActiveRentDetails(),));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ActiveRentDetails(),));
               });
       });
     }

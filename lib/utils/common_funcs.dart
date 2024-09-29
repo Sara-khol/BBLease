@@ -16,7 +16,7 @@ class CommonFuncs
         color:colors.blackColorApp,
         child: Text(
           message,
-          style: TextStyle(color: Colors.white/*, fontSize: 18.sp*/),
+          style: const TextStyle(color: Colors.white/*, fontSize: 18.sp*/),
           textAlign: TextAlign.center,
         ),
       ),

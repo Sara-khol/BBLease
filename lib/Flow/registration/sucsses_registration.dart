@@ -1,15 +1,13 @@
 import 'package:bblease/Flow/Rental/map.dart';
-import 'package:bblease/Flow/home_page.dart';
 import 'package:bblease/Flow/registration/tel_to_registration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../landspace_widget.dart';
 import '../../models/class_user.dart';
-import '../welcome.dart';
 import 'package:bblease/utils/my_colors.dart';
 
 class SucssesRegistrationForm extends StatefulWidget {
-  const SucssesRegistrationForm({Key? key}) : super(key: key);
+  const SucssesRegistrationForm({super.key});
 
   @override
   State<StatefulWidget> createState() => _SucssesRegistrationForm();
@@ -20,8 +18,9 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape)
+        if (orientation == Orientation.landscape) {
           return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('image6.png', 1000.w,'עבר בהצלחה'));
+        }
         return buildContent();
       }),
     );
@@ -61,7 +60,7 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Container(
+                    SizedBox(
                       height: 48.h,
                       width: 332.w,
                       child: ElevatedButton(
@@ -75,7 +74,7 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>  RentalWidget()));
+                                    builder: (context) =>  const RentalWidget()));
                           },
                           child: Text('לעבור לביצוע הזמנה',
                               style: TextStyle(
@@ -84,7 +83,7 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
                                   fontWeight: FontWeight.normal))),
                     ),
                     SizedBox(height: 12.h),
-                    Container(
+                    SizedBox(
                       height: 48.h,
                       width: 332.w,
                       child: ElevatedButton(
@@ -98,13 +97,13 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>  TelToRegistrationForm()));
+                                    builder: (context) =>  const TelToRegistrationForm()));
                           },
 
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.exit_to_app_outlined,
                                 fill: 0,
                                 color: Colors.white,

@@ -1,6 +1,4 @@
 import 'package:bblease/Flow/Rental/map.dart';
-import 'package:bblease/Flow/home_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,7 +10,7 @@ import '../Dialogs/buttom_dialogs.dart';
 import '../Rental/dialogs.dart';
 
 class ContactUs extends StatefulWidget {
-  const ContactUs({Key? key}) : super(key: key);
+  const ContactUs({super.key});
 
   @override
   State<ContactUs> createState() => _ContactUsState();
@@ -20,18 +18,19 @@ class ContactUs extends StatefulWidget {
 
 class _ContactUsState extends State<ContactUs> {
 
-  TextEditingController _name=TextEditingController();
-  TextEditingController _phone=TextEditingController();
-  TextEditingController _email=TextEditingController();
-  TextEditingController _text=TextEditingController();
+  final TextEditingController _name=TextEditingController();
+  final TextEditingController _phone=TextEditingController();
+  final TextEditingController _email=TextEditingController();
+  final TextEditingController _text=TextEditingController();
 
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape)
+        if (orientation == Orientation.landscape) {
           return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('image5.png', 1000.w,'תמונת פעולות'));
+        }
         return buildContent();
       }),
     );
@@ -54,7 +53,7 @@ class _ContactUsState extends State<ContactUs> {
               SizedBox(height: 35.h,),
               Align(alignment: Alignment.topRight,
                   child: IconButton(onPressed: () => Navigator.pop(context),
-                      icon: Icon(Icons.arrow_back_ios))),
+                      icon: const Icon(Icons.arrow_back_ios))),
               SizedBox(height: 62.h,),
               Text('יש שאלה?',
                 style: TextStyle(fontSize: 23.sp, fontWeight: FontWeight.bold),
@@ -67,7 +66,7 @@ class _ContactUsState extends State<ContactUs> {
                 keyboardType: TextInputType.name,
                 cursorColor: blackColorApp,
                 decoration: getInputDecoration('שם מלא', 332.w,
-                    suffixIcon: Icon(Icons.account_circle_outlined)),
+                    suffixIcon: const Icon(Icons.account_circle_outlined)),
                 style:
                 TextStyle(color: blackColorApp, fontSize: 18.sp),
                 controller: _name,
@@ -83,7 +82,7 @@ class _ContactUsState extends State<ContactUs> {
                     keyboardType: TextInputType.phone,
                     cursorColor: blackColorApp,
                     decoration: getInputDecoration(
-                        'טלפון', 159.w, suffixIcon: Icon(Icons.phone_outlined)),
+                        'טלפון', 159.w, suffixIcon: const Icon(Icons.phone_outlined)),
                     style:
                     TextStyle(color: blackColorApp, fontSize: 18.sp),
                     controller: _phone,
@@ -97,7 +96,7 @@ class _ContactUsState extends State<ContactUs> {
                     keyboardType: TextInputType.emailAddress,
                     cursorColor: blackColorApp,
                     decoration: getInputDecoration('אימייל', 160.w,
-                        suffixIcon: Icon(Icons.email_outlined)),
+                        suffixIcon: const Icon(Icons.email_outlined)),
                     style:
                     TextStyle(color: blackColorApp, fontSize: 18.sp),
                     controller: _email,
@@ -128,7 +127,7 @@ class _ContactUsState extends State<ContactUs> {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.fmd_good_outlined),
+                      const Icon(Icons.fmd_good_outlined),
                       SizedBox(width: 11.w),
                       Text(
                         'כפר העברי 1, נווה יעקב, ירושלים\nשלמה המלך 4, בני ברק\nהרב שך 34, ביתר עילית\nמנחם פורוש 1, בית שמש ',
@@ -138,7 +137,7 @@ class _ContactUsState extends State<ContactUs> {
                   SizedBox(height: 20.h),
                   Row(
                     children: [
-                      Icon(Icons.phone_outlined),
+                      const Icon(Icons.phone_outlined),
                       SizedBox(width: 11.w),
                       Text('1700-700-700',
                         style: TextStyle(fontSize: 18.sp),)
@@ -147,7 +146,7 @@ class _ContactUsState extends State<ContactUs> {
                   SizedBox(height: 15.h),
                   Row(
                     children: [
-                      Icon(Icons.email_outlined),
+                      const Icon(Icons.email_outlined),
                       SizedBox(width: 11.w),
                       Text('bibilease@gmail.com',
                         style: TextStyle(fontSize: 18.sp),)
@@ -189,7 +188,7 @@ class _ContactUsState extends State<ContactUs> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => RentalWidget(),),
+                                      builder: (context) => const RentalWidget(),),
                                   );
                                 });
                           });
@@ -245,7 +244,7 @@ class _ContactUsState extends State<ContactUs> {
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           color: Colors.redAccent,
         ),
       ),

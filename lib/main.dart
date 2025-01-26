@@ -13,6 +13,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:provider/provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -69,9 +70,17 @@ void main() async {
   });
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   late final Future<bool> myFuture = isLogin();
+
+
 
   MaterialStateProperty<Color?> _customColor() {
     return MaterialStateProperty.resolveWith<Color?>(
@@ -84,102 +93,112 @@ class MyApp extends StatelessWidget {
     );
   }
 
+
+
   @override
   Widget build(BuildContext context) {
-    return OKToast(child: OrientationBuilder(builder: (context, orientation) {
-      debugPrint('orientation main ${orientation.name} ');
-      return ScreenUtilInit(
-        designSize: orientation == Orientation.portrait
-            ? Size(393, 852)
-            : Size(1440, 1024),
-        minTextAdapt: true,
-        builder: (BuildContext context, Widget? child) {
-      //    debugPrint('orientation main ${(ScreenUtil()).pixelRatio} ');
-          return MaterialApp(
-            localizationsDelegates: const [
-              //AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              //GlobalWidgetsLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('he'),
-              Locale('en'),
-            ],
-            scrollBehavior: MaterialScrollBehavior().copyWith(
-              dragDevices: {PointerDeviceKind.mouse, PointerDeviceKind.touch},
-            ),
-            title: 'ביביליס',
-            theme: ThemeData(
-                fontFamily: 'PLONI',
-                scaffoldBackgroundColor: Colors.white,
-                textTheme:
-                    TextTheme(bodyMedium: TextStyle(color: blackColorApp)),
-                timePickerTheme: TimePickerThemeData(
-                  backgroundColor: Colors.white,
-                  cancelButtonStyle:
-                      ButtonStyle(foregroundColor: _customColor()),
-                  confirmButtonStyle:
-                      ButtonStyle(foregroundColor: _customColor()),
-                  dayPeriodColor: blackColorApp,
-                  dialBackgroundColor: Colors.cyan[100],
-                  hourMinuteColor: Colors.cyan[100],
-                  hourMinuteTextColor: blackColorApp,
-                  dialHandColor: turquoiseColorApp,
-                  elevation: 2,
-                  dialTextColor: blackColorApp,
-                  entryModeIconColor: pinkColorApp,
-                ),
-                datePickerTheme: DatePickerThemeData(
-                  backgroundColor: Colors.white,
-                  elevation: 2,
-                  headerBackgroundColor: Colors.white,
-                  todayBackgroundColor: _customColor(),
-                  headerForegroundColor: blackColorApp,
-                  cancelButtonStyle:
-                      ButtonStyle(foregroundColor: _customColor()),
-                  confirmButtonStyle:
-                      ButtonStyle(foregroundColor: _customColor()),
-                  todayBorder: BorderSide(color: blackColorApp),
-                  rangePickerBackgroundColor: turquoiseColorApp,
-                  rangeSelectionBackgroundColor: Colors.cyan[100],
-                )
-                // primarySwatch: Color.fromARGB(15, 21, 17, 1),
-                ),
-            home: Scaffold(
-              body: FutureBuilder<bool>(
-                  future: myFuture,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      if (snapshot.data is bool && snapshot.data == true) {
-                        if (User().tranzilaStatus) {
-                          MySharedPreferences().setLastUsage();
-                          if (User().currentRent != null) {
-                            return const ActiveRentDetails();
+    return OKToast(child: ChangeNotifierProvider(
+      create: (BuildContext context) {  },
+      child: OrientationBuilder(builder: (context, orientation) {
+        debugPrint('orientation main ${orientation.name} ');
+      
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          context.read<OrientationProvider>().changeOrientation(orientation);
+        });
+      
+        return ScreenUtilInit(
+          designSize: orientation == Orientation.portrait
+              ? Size(393, 852)
+              : Size(1440, 1024),
+          minTextAdapt: true,
+          builder: (BuildContext context, Widget? child) {
+        //    debugPrint('orientation main ${(ScreenUtil()).pixelRatio} ');
+            return MaterialApp(
+              localizationsDelegates: const [
+                //AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                //GlobalWidgetsLocalizations.delegate,
+              ],
+              supportedLocales: const [
+                Locale('he'),
+                Locale('en'),
+              ],
+              scrollBehavior: MaterialScrollBehavior().copyWith(
+                dragDevices: {PointerDeviceKind.mouse, PointerDeviceKind.touch},
+              ),
+              title: 'ביביליס',
+              theme: ThemeData(
+                  fontFamily: 'PLONI',
+                  scaffoldBackgroundColor: Colors.white,
+                  textTheme:
+                      TextTheme(bodyMedium: TextStyle(color: blackColorApp)),
+                  timePickerTheme: TimePickerThemeData(
+                    backgroundColor: Colors.white,
+                    cancelButtonStyle:
+                        ButtonStyle(foregroundColor: _customColor()),
+                    confirmButtonStyle:
+                        ButtonStyle(foregroundColor: _customColor()),
+                    dayPeriodColor: blackColorApp,
+                    dialBackgroundColor: Colors.cyan[100],
+                    hourMinuteColor: Colors.cyan[100],
+                    hourMinuteTextColor: blackColorApp,
+                    dialHandColor: turquoiseColorApp,
+                    elevation: 2,
+                    dialTextColor: blackColorApp,
+                    entryModeIconColor: pinkColorApp,
+                  ),
+                  datePickerTheme: DatePickerThemeData(
+                    backgroundColor: Colors.white,
+                    elevation: 2,
+                    headerBackgroundColor: Colors.white,
+                    todayBackgroundColor: _customColor(),
+                    headerForegroundColor: blackColorApp,
+                    cancelButtonStyle:
+                        ButtonStyle(foregroundColor: _customColor()),
+                    confirmButtonStyle:
+                        ButtonStyle(foregroundColor: _customColor()),
+                    todayBorder: BorderSide(color: blackColorApp),
+                    rangePickerBackgroundColor: turquoiseColorApp,
+                    rangeSelectionBackgroundColor: Colors.cyan[100],
+                  )
+                  // primarySwatch: Color.fromARGB(15, 21, 17, 1),
+                  ),
+              home: Scaffold(
+                body: FutureBuilder<bool>(
+                    future: myFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data is bool && snapshot.data == true) {
+                          if (User().tranzilaStatus) {
+                            MySharedPreferences().setLastUsage();
+                            if (User().currentRent != null) {
+                              return  ActiveRentDetails();
+                            }
+                            return  RentalWidget();
+                          } else {
+                            return  WelcomeForm();
                           }
-                          return const RentalWidget();
-                        } else {
-                          return const TelToRegistrationForm();
                         }
+                        return const WelcomeForm();
                       }
-                      return const TelToRegistrationForm();
-                    }
-                    if (snapshot.hasError) {
-                      debugPrint('error: ${snapshot.error}');
-                      CommonFuncs()
-                          .showMyToast('בעיה בלתי צפויה, נסה להכנס שנית');
-                      return Container();
-                    } else {
-                      return Center(
-                          child: CircularProgressIndicator(
-                        color: pinkColorApp,
-                      ));
-                    }
-                  }),
-            ),
-          );
-        },
-      );
-    }));
+                      if (snapshot.hasError) {
+                        debugPrint('error: ${snapshot.error}');
+                        CommonFuncs()
+                            .showMyToast('בעיה בלתי צפויה, נסה להכנס שנית');
+                        return Container();
+                      } else {
+                        return Center(
+                            child: CircularProgressIndicator(
+                          color: pinkColorApp,
+                        ));
+                      }
+                    }),
+              ),
+            );
+          },
+        );
+      }),
+    ));
   }
 
   Future<bool> isLogin() async {
@@ -208,5 +227,148 @@ class MyApp extends StatelessWidget {
     }
 
     return lastUsage.isAfter(dt);
+  }
+}
+
+class MyScreenUtilWidget extends StatefulWidget {
+
+   MyScreenUtilWidget({super.key});
+
+
+
+  @override
+  MyScreenUtilWidgetState createState() => MyScreenUtilWidgetState();
+}
+
+class MyScreenUtilWidgetState extends State<MyScreenUtilWidget> {
+
+  late final Future<bool> myFuture = isLogin();
+  Orientation _currentOrientation = Orientation.portrait;
+
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    debugPrint('orientation main $_currentOrientation ');
+
+    return OrientationBuilder(
+      builder: (context,orientation) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (orientation != _currentOrientation) {
+            setState(() {
+              _currentOrientation = orientation;
+              if (_currentOrientation == Orientation.portrait) {
+                ScreenUtil.init(context, designSize: Size(393, 852));
+              } else {
+                ScreenUtil.init(context, designSize: Size(1440, 1024));
+              }
+            });
+          }
+        });
+        return ScreenUtilInit(
+          designSize: _currentOrientation == Orientation.portrait
+              ? Size(393, 852)
+              : Size(1440, 1024),
+          minTextAdapt: true,
+          builder: (BuildContext context, Widget? child) =>
+              OKToast(
+                child: Scaffold(
+                  body: FutureBuilder<bool>(
+                      future: myFuture,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          if (snapshot.data is bool && snapshot.data == true) {
+                            if (User().tranzilaStatus) {
+                              MySharedPreferences().setLastUsage();
+                              if (User().currentRent != null) {
+                                return  ActiveRentDetails();
+                              }
+                              return  RentalWidget();
+                            } else {
+                              return  WelcomeForm();
+                            }
+                          }
+                          return  WelcomeForm();
+                        }
+                        if (snapshot.hasError) {
+                          debugPrint('error: ${snapshot.error}');
+                          CommonFuncs()
+                              .showMyToast('בעיה בלתי צפויה, נסה להכנס שנית');
+                          return Container();
+                        } else {
+                          return Center(
+                              child: CircularProgressIndicator(
+                                color: pinkColorApp,
+                              ));
+                        }
+                      }),
+                ),
+              ),
+        );
+      }
+    );
+  }
+
+  // @override
+  // void didUpdateWidget(covariant MyScreenUtilWidget oldWidget) {
+  //   debugPrint('didUpdateWidget main');
+  //   if (oldWidget.orientation != widget.orientation) {
+  //     debugPrint('didUpdateWidget orientation ${widget.orientation}');
+  //     setState(() {
+  //       _designSize = widget.orientation == Orientation.portrait
+  //           ? const Size(393, 852)
+  //           : const Size(1440, 1024);
+  //     });
+  //   }
+  //   super.didUpdateWidget(oldWidget);
+  // }
+
+  Future<bool> isLogin() async {
+    debugPrint('isLogin');
+    debugPrint('ddd ${ScreenUtil().pixelRatio}');
+    int userId = await MySharedPreferences().getUserId();
+    if (userId == -1) {
+      return false;
+    }
+    DateTime lastUsage = await MySharedPreferences().getLastUsage();
+    debugPrint('lastUsage $lastUsage');
+    DateTime dt = DateTime.now().add(const Duration(days: -3));
+    if (lastUsage.isAfter(dt)) //is login
+        {
+      await ApiService().getUserById(userId, (res) {
+        User.fromJson(res['customer']);
+        print('before');
+        if (res["active_order"] != -1 /*||res["active_order"].isNotEmpty*/) {
+          print(res["active_order"]);
+          User().currentRent = Rental.fromJson(res["active_order"]);
+        }
+        debugPrint('user name  ${User().firstName}');
+      });
+    } else {
+      await MySharedPreferences().clearAllSharedPreference();
+    }
+
+    return lastUsage.isAfter(dt);
+  }
+}
+
+
+class OrientationProvider extends ChangeNotifier {
+  Orientation _orientation = Orientation.portrait;
+
+  Orientation get getOrientation {
+    return _orientation;
+  }
+
+  void changeOrientation(Orientation newOrientation) {
+    print("CHANGE ORIENTATION CALLED: old: $_orientation, new: $newOrientation");
+    bool hasChanged = _orientation != newOrientation;
+    _orientation = newOrientation;
+    if(hasChanged) notifyListeners();
   }
 }

@@ -1,28 +1,25 @@
-import 'package:bblease/Flow/Rental/map.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../landspace_widget.dart';
-import '../../../models/class_user.dart';
 import '../../../services/api_service.dart';
 import '../../Dialogs/buttom_dialogs.dart';
 import '../dialogs.dart';
 
 class ReportAccident extends StatefulWidget {
-  const ReportAccident({Key? key}) : super(key: key);
+  const ReportAccident({super.key});
 
   @override
   State<ReportAccident> createState() => _ReportAccidentState();
 }
 
 class _ReportAccidentState extends State<ReportAccident> {
-  TextEditingController _name=TextEditingController();
-  TextEditingController _phone=TextEditingController();
-  TextEditingController _email=TextEditingController();
-  TextEditingController _text=TextEditingController();
+  final TextEditingController _name=TextEditingController();
+  final TextEditingController _phone=TextEditingController();
+  final TextEditingController _email=TextEditingController();
+  final TextEditingController _text=TextEditingController();
 
   XFile? image;
 
@@ -31,8 +28,9 @@ class _ReportAccidentState extends State<ReportAccident> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape)
+        if (orientation == Orientation.landscape) {
           return LandSpaceWidget(mainWidget: buildContent(orientation),imageProperties:ImageProperties('image5.png', 1000.w,'תמונת פעולות'));
+        }
         return buildContent(orientation);
       }),
     );
@@ -49,7 +47,7 @@ class _ReportAccidentState extends State<ReportAccident> {
               SizedBox(height: 35.h,),
               if(o==Orientation.portrait)Align(
                   alignment: Alignment.centerRight,
-                  child: IconButton(onPressed: () =>Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
+                  child: IconButton(onPressed: () =>Navigator.pop(context), icon: const Icon(Icons.arrow_back_ios))),
               SizedBox(height: 41.h,),
               Text('דווח על תקלה',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
               SizedBox(height: 36.h,),
@@ -59,7 +57,7 @@ class _ReportAccidentState extends State<ReportAccident> {
               TextFormField(
                 keyboardType: TextInputType.name,
                 cursorColor: blackColorApp,
-                decoration: getInputDecoration('שם מלא',332.w,suffixIcon:Icon(Icons.account_circle_outlined)),
+                decoration: getInputDecoration('שם מלא',332.w,suffixIcon:const Icon(Icons.account_circle_outlined)),
                 style:
                 TextStyle(color: blackColorApp, fontSize: 18 .sp),
                 controller: _name,
@@ -74,7 +72,7 @@ class _ReportAccidentState extends State<ReportAccident> {
                   TextFormField(
                     keyboardType: TextInputType.phone,
                     cursorColor: blackColorApp,
-                    decoration: getInputDecoration('טלפון',159.w,suffixIcon:Icon(Icons.phone_outlined)),
+                    decoration: getInputDecoration('טלפון',159.w,suffixIcon:const Icon(Icons.phone_outlined)),
                     style:
                     TextStyle(color: blackColorApp, fontSize: 18.sp),
                     controller: _phone,
@@ -87,7 +85,7 @@ class _ReportAccidentState extends State<ReportAccident> {
                   TextFormField(
                     keyboardType: TextInputType.emailAddress,
                     cursorColor: blackColorApp,
-                    decoration: getInputDecoration('אימייל',160.w,suffixIcon:Icon(Icons.email_outlined)),
+                    decoration: getInputDecoration('אימייל',160.w,suffixIcon:const Icon(Icons.email_outlined)),
                     style:
                     TextStyle(color: blackColorApp, fontSize: 18.sp),
                     controller: _email,
@@ -112,11 +110,11 @@ class _ReportAccidentState extends State<ReportAccident> {
                 },
               ),
               SizedBox(height: 14.h,),
-              Container(
+              SizedBox(
                 height: 48.h,
                 width: 332.w,
                 child: FloatingActionButton(
-                    backgroundColor: Color(0xFF03AEB9),
+                    backgroundColor: const Color(0xFF03AEB9),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8),),
                     onPressed: () =>imageSource(context),
                     child: Padding(
@@ -222,7 +220,7 @@ class _ReportAccidentState extends State<ReportAccident> {
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           color: Colors.redAccent,
         ),
       ),
@@ -274,7 +272,7 @@ class _ReportAccidentState extends State<ReportAccident> {
                             children: [
                               Visibility(
                                 visible: !kIsWeb,
-                                child: Container(
+                                child: SizedBox(
                                   height: 48.h,
                                   width: 160.w,
                                   child: ElevatedButton(
@@ -332,9 +330,9 @@ class _ReportAccidentState extends State<ReportAccident> {
   }
 
   Future pickImage(ImageSource imageSource) async{
-    final _image = await ImagePicker().pickImage(source: imageSource);
+    final img = await ImagePicker().pickImage(source: imageSource);
     setState(() {
-      image=_image;
+      image=img;
     });
   }
 }

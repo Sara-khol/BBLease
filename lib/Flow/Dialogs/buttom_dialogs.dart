@@ -1,7 +1,6 @@
 import 'package:bblease/Flow/Rental/Actions/report_accident.dart';
-import 'package:bblease/Flow/registration/tel_to_registration.dart';
 import 'package:bblease/utils/my_colors.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bblease/services/support.dart' as support;
@@ -9,7 +8,7 @@ import 'package:bblease/services/support.dart' as support;
 Future errorNoMatch(BuildContext context, Widget page) {
   return showModalBottomSheet(
       context: context,
-      builder: (BuildContext context) => Container(
+      builder: (BuildContext context) => SizedBox(
             height: 230.h,
             child: Column(
               children: [
@@ -22,7 +21,7 @@ Future errorNoMatch(BuildContext context, Widget page) {
                   width: 332.w,
                   height: 48.h,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                    borderRadius: const BorderRadius.all(Radius.circular(25)),
                     color: turquoiseColorApp,
                   ),
                   child: TextButton(
@@ -40,7 +39,7 @@ Future errorNoMatch(BuildContext context, Widget page) {
       barrierColor: Colors.black12.withOpacity(0.1),
       isDismissible: false,
       elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),));
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),));
 }
 
 Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
@@ -57,7 +56,7 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
                 SizedBox(height: 50.h,),
                 Text('התצלום עלה בהצלחה', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold, color: pinkColorApp,height: 1),),
                 //SizedBox(height: 74.h,),
-                Spacer(),
+                const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,7 +65,7 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
                       width: 160.w,
                       height: 48.h,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                        borderRadius: const BorderRadius.all(Radius.circular(25)),
                         color: turquoiseColorApp,
                       ),
                       child: TextButton(
@@ -86,7 +85,7 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
                       width: 160.w,
                       height: 48.h,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                        borderRadius: const BorderRadius.all(Radius.circular(25)),
                         color:turquoiseColorApp,
                       ),
                       child: TextButton(
@@ -109,7 +108,7 @@ Future uploadSucceed(BuildContext context, Widget prevPage, Widget nextPage) {
       barrierColor: Colors.black12.withOpacity(0.1),
       isDismissible: false,
       elevation: 2,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
       ));
 }
@@ -178,7 +177,7 @@ Future displayError(BuildContext context,{bool existsData=true,String type='',
                       )),
                 ),
                 SizedBox(width: 13.h),
-                SizedBox(
+                if(!kIsWeb)SizedBox(
                   height: 46.h,
                   width: 160.w,
                   child: ElevatedButton(
@@ -188,7 +187,7 @@ Future displayError(BuildContext context,{bool existsData=true,String type='',
                           borderRadius: BorderRadius.circular(100),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () =>support.call,
                       child: Text(
                         'פניה לנציג',
                         style: TextStyle(
@@ -671,7 +670,7 @@ Future reportAccident(context){
 
                     Row(
                       children: [
-                        Container(
+                        if(!kIsWeb)SizedBox(
                           height: 48.h,
                           width: 160.w,
                           child: ElevatedButton(
@@ -691,7 +690,7 @@ Future reportAccident(context){
                                   ))),
                         ),
                         SizedBox(width: 13.w,),
-                        Container(
+                        SizedBox(
                           height: 48.h,
                           width: 160.w,
                           child: ElevatedButton(
@@ -701,7 +700,7 @@ Future reportAccident(context){
                                   borderRadius: BorderRadius.circular(100),
                                 ),
                               ),
-                              onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => ReportAccident(),)),
+                              onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => const ReportAccident(),)),
                               child: Text('השאר הודעה',
                                   style: TextStyle(
                                       fontSize: 20.sp,
@@ -722,6 +721,8 @@ Future reportAccident(context){
 }
 
 Future displayErrorInValidation(BuildContext context) {
+
+  print('display error in validation');
   return showModalBottomSheet(
     context: context,
     builder: (BuildContext context) => Container(

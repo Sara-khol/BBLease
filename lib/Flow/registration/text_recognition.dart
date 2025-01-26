@@ -16,7 +16,7 @@ void TextRecognition(int index) async {
   scannedText = "";
   for (TextBlock block in recognisedText.blocks) {
     for (TextLine line in block.lines) {
-      scannedText = scannedText + line.text + "\n";
+      scannedText = "$scannedText${line.text}\n";
     }
   }
 
@@ -29,7 +29,7 @@ Future<void> extractData(String data) async {
   print('extracting...');
 
   List<String> lines = data.split('\n');
-  print('lines: ${lines}');
+  print('lines: $lines');
 
   List<String> sectionPrefixes = [
     '1',
@@ -50,8 +50,9 @@ Future<void> extractData(String data) async {
         if (line.startsWith('$prefix.')) {
           extractedData[prefix] = line.substring(prefix.length+1,).trim();
         }
-        else
+        else {
           extractedData[prefix] = line.substring(prefix.length).trim();
+        }
       }
 
     }

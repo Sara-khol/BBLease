@@ -1,16 +1,15 @@
 
+import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/sideMenu.dart';
 import 'package:bblease/customWidgets/appBarB.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:signature/signature.dart';
 
 import '../../../landspace_widget.dart';
-import '../../../models/class_rent.dart';
 import '../../../utils/my_colors.dart';
 
 class CancelationComplete extends StatelessWidget {
-  const CancelationComplete({Key? key}) : super(key: key);
+  const CancelationComplete({super.key});
 
 
 
@@ -18,9 +17,10 @@ class CancelationComplete extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape)
+        if (orientation == Orientation.landscape) {
           return LandSpaceWidget(mainWidget: buildContent(context,orientation),
               imageProperties:ImageProperties('image5.png', 1000.w,'תמונת פעולות'),);
+        }
         return buildContent(context,orientation);
       }),
     );
@@ -29,8 +29,8 @@ class CancelationComplete extends StatelessWidget {
   buildContent(context, Orientation o) {
     return Column(
       children: [
-        if(o==Orientation.portrait) AppBarBibilease(),
-        SizedBox(height: 40.h,),
+        if(o==Orientation.portrait) const AppBarBibilease(),
+        if(o==Orientation.portrait)SizedBox(height: 40.h,),
         Text('ההזמנה בוטלה',
           style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,),
@@ -45,8 +45,9 @@ class CancelationComplete extends StatelessWidget {
           style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
           textDirection: TextDirection.rtl,),
-        SizedBox(height: 138.h,),
-        Container(
+        //SizedBox(height: 138.h,),
+        Spacer(),
+        SizedBox(
           height: 48.h,
           width: 332.w,
           child: ElevatedButton(
@@ -72,7 +73,7 @@ class CancelationComplete extends StatelessWidget {
                             fontWeight: FontWeight.normal)
                     ),
                     SizedBox(width: 166.h,),
-                    Icon(Icons.account_circle_outlined, color: Colors.white,)
+                    const Icon(Icons.account_circle_outlined, color: Colors.white,)
 
                   ],
                 ),
@@ -80,7 +81,7 @@ class CancelationComplete extends StatelessWidget {
           ),
         ),
         SizedBox(height: 12.h,),
-        Container(
+        SizedBox(
           height: 48.h,
           width: 332.w,
           child: ElevatedButton(
@@ -90,14 +91,14 @@ class CancelationComplete extends StatelessWidget {
                   borderRadius: BorderRadius.circular(100),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () =>Navigator.push(context,MaterialPageRoute(builder: (context) => const RentalWidget(),)),
               child: Directionality(
                 textDirection: TextDirection.rtl,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('צא מהאפליקציה',
+                    Text('למסך ראשי',
                         style: TextStyle(
                           fontSize: 20.sp,
                           color: Colors.white,
@@ -106,7 +107,7 @@ class CancelationComplete extends StatelessWidget {
                         )
                     ),
                     SizedBox(width: 136.h,),
-                    Icon(Icons.logout, color: Colors.white),
+                    const Icon(Icons.logout, color: Colors.white),
                   ],
                 ),
               )

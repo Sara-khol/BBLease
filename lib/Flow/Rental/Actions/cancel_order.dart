@@ -29,10 +29,11 @@ class _CancelOrderState extends State<CancelOrder> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape)
+        if (orientation == Orientation.landscape) {
           return LandSpaceWidget(mainWidget: buildContent(orientation),
               imageProperties:ImageProperties('image5.png', 1000.w,'תמונת פעולות'),
              );
+        }
         return buildContent(orientation);
       }),
     );
@@ -41,7 +42,7 @@ class _CancelOrderState extends State<CancelOrder> {
   buildContent(Orientation o) {
     return Column(
       children: [
-        if(o==Orientation.portrait) AppBarBibilease(),
+        if(o==Orientation.portrait) const AppBarBibilease(),
         SizedBox(height: 40.h,),
         Text('ביטול הזמנה',
           style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
@@ -57,8 +58,8 @@ class _CancelOrderState extends State<CancelOrder> {
             textAlign: TextAlign.center,),
         ),
         SizedBox(height: 33.h,),
-        Spacer(),
-        Container(
+        const Spacer(),
+        SizedBox(
           height: 48.h,
           width: 332.w,
           child: ElevatedButton(

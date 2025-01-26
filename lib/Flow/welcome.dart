@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WelcomeForm extends StatelessWidget {
-  const WelcomeForm({Key? key}) : super(key: key);
+  const WelcomeForm({super.key});
 
   @override
   Widget build(BuildContext context) {
     var orientation = MediaQuery.of(context).orientation;
-   // debugPrint('orientation ${orientation.name} ');
+    //debugPrint('orientation ${orientation.name} ');
     return Scaffold(
       body: Center(
         child: Column(
@@ -42,7 +42,7 @@ class WelcomeForm extends StatelessWidget {
             Expanded(
                 child: Image.asset('assets/images/BB.png', semanticLabel: 'כותרת עמוד ראשי ביביליס', width: 400.w, fit: BoxFit.contain)),
             SizedBox(height: 48.h),
-            Container(
+            SizedBox(
               height: 48.h,
               width: 332.w,
               child: ElevatedButton(
@@ -88,7 +88,7 @@ class WelcomeForm extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                     TelToRegistrationForm()));
+                    const TelToRegistrationForm()));
                   },
                   child: Center(
                     child: Text(

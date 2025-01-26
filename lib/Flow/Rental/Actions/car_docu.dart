@@ -7,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../landspace_widget.dart';
 import '../../Dialogs/buttom_dialogs.dart';
-import '../map.dart';
 
 
 class CarDocu extends StatefulWidget {
@@ -48,8 +47,9 @@ class _CarDocuState extends State<CarDocu> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape)
+        if (orientation == Orientation.landscape) {
           return LandSpaceWidget(mainWidget: buildContent(orientation),imageProperties:ImageProperties('image5.png', 1000.w,'תמונת פעולות'));
+        }
         return buildContent(orientation);
       }),
     );
@@ -65,7 +65,7 @@ class _CarDocuState extends State<CarDocu> {
               child: Column(
                   children: [
                     SizedBox(height: 35.h,),
-                    if(o==Orientation.portrait) Align(alignment: Alignment.centerRight, child: IconButton(onPressed: () =>Navigator.pop(context), icon: Icon(Icons.arrow_back_ios))),
+                    if(o==Orientation.portrait) Align(alignment: Alignment.centerRight, child: IconButton(onPressed: () =>Navigator.pop(context), icon: const Icon(Icons.arrow_back_ios))),
                     SizedBox(height: 52.h,),
                     Text('תיעוד רכב',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                     SizedBox(height: 30.h,),
@@ -97,7 +97,7 @@ class _CarDocuState extends State<CarDocu> {
                                           color: Colors.grey.withOpacity(0.2),
                                           spreadRadius: 10,
                                           blurRadius: 15,
-                                          offset: Offset(0, 3),
+                                          offset: const Offset(0, 3),
                                         ),
                                       ],
                                     ),
@@ -134,7 +134,7 @@ class _CarDocuState extends State<CarDocu> {
                                           color: Colors.grey.withOpacity(0.2),
                                           spreadRadius: 10,
                                           blurRadius: 15,
-                                          offset: Offset(0, 3),
+                                          offset: const Offset(0, 3),
                                         ),
                                       ],
                                     ),
@@ -175,7 +175,7 @@ class _CarDocuState extends State<CarDocu> {
                                           color: Colors.grey.withOpacity(0.2),
                                           spreadRadius: 10,
                                           blurRadius: 15,
-                                          offset: Offset(0, 3),
+                                          offset: const Offset(0, 3),
                                         ),
                                       ],
                                     ),
@@ -212,7 +212,7 @@ class _CarDocuState extends State<CarDocu> {
                                           color: Colors.grey.withOpacity(0.2),
                                           spreadRadius: 10,
                                           blurRadius: 15,
-                                          offset: Offset(0, 3),
+                                          offset: const Offset(0, 3),
                                         ),
                                       ],
                                     ),
@@ -250,7 +250,7 @@ class _CarDocuState extends State<CarDocu> {
                       margin: EdgeInsets.only(bottom: 35.h,),
                       //padding: EdgeInsets.symmetric(horizontal: 30),
                       child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(backgroundColor: allLoaded?turquoiseColorApp:Color(0xFFD9D9D9),
+                          style: ElevatedButton.styleFrom(backgroundColor: allLoaded?turquoiseColorApp:const Color(0xFFD9D9D9),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(100),
                             ),
@@ -259,8 +259,9 @@ class _CarDocuState extends State<CarDocu> {
                           onPressed: (){
                             int i;
                             for(i=0; i<images.length;i++){
-                              if(images[i]==null)
+                              if(images[i]==null) {
                                 break;
+                              }
                             }
                             if (i==4) {
                               setState(() {
@@ -287,13 +288,14 @@ class _CarDocuState extends State<CarDocu> {
   }
 
   Future pickImage(index) async{
-    final _image = await ImagePicker().pickImage(source: ImageSource.camera);
-    images[index]=_image!;
+    final image = await ImagePicker().pickImage(source: ImageSource.camera);
+    images[index]=image!;
     int i;
     for(i=0; i<images.length;i++){
 
-      if(images[i]==null)
+      if(images[i]==null) {
         break;
+      }
     }
     print(i);
     if (i==4) allLoaded=true;
@@ -319,7 +321,7 @@ class _CarDocuState extends State<CarDocu> {
               textDirection: TextDirection.rtl,
               textAlign: TextAlign.center,),
             SizedBox(height: 27.h),
-            Container(
+            SizedBox(
               height: 48.h,
               width: 332.w,
               child: ElevatedButton(
@@ -366,7 +368,7 @@ class _CarDocuState extends State<CarDocu> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
+                SizedBox(
                   height: 48.h,
                   width: 160.w,
                   child: ElevatedButton(
@@ -388,7 +390,7 @@ class _CarDocuState extends State<CarDocu> {
                             fontWeight: FontWeight.w600,))),
                 ),
                 SizedBox(width: 13.w,),
-                Container(
+                SizedBox(
                   height: 48.h,
                   width: 160.w,
                   child: ElevatedButton(
@@ -443,7 +445,7 @@ class _CarDocuState extends State<CarDocu> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
+                SizedBox(
                   height: 48.h,
                   width: 160.w,
                   child: ElevatedButton(
@@ -464,7 +466,7 @@ class _CarDocuState extends State<CarDocu> {
                             fontWeight: FontWeight.w600,))),
                 ),
                 SizedBox(width: 13.w,),
-                Container(
+                SizedBox(
                   height: 48.h,
                   width: 160.w,
                   child: ElevatedButton(
@@ -538,7 +540,7 @@ class _CarDocuState extends State<CarDocu> {
               decoration: BoxDecoration(
                 color: Colors.white,
                   borderRadius: BorderRadius.circular(25),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Color(0x3F000000),
                       blurRadius: 250,
@@ -568,7 +570,7 @@ class _CarDocuState extends State<CarDocu> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SizedBox(height: 8.h),
-                            ImageIcon(AssetImage("assets/icons/trash.png"),color: pinkColorApp,),
+                            ImageIcon(const AssetImage("assets/icons/trash.png"),color: pinkColorApp,),
                             SizedBox(height: 27.h),
                             Text.rich(
                               TextSpan(
@@ -577,7 +579,7 @@ class _CarDocuState extends State<CarDocu> {
                                     text: ' התמונה נמחקה בהצלחה\n',
                                     style: TextStyle(
                                       fontFamily:'PLONI' ,
-                                      color: Color(0xFF0F1511),
+                                      color: const Color(0xFF0F1511),
                                       fontSize: 20.sp,
                                       decoration: TextDecoration.none,
                                       fontWeight: FontWeight.bold,
@@ -586,7 +588,7 @@ class _CarDocuState extends State<CarDocu> {
                                   TextSpan(
                                     text: ' נסו לצלם תמונה חדשה:)',
                                     style: TextStyle(
-                                      color: Color(0xFF0F1511),
+                                      color: const Color(0xFF0F1511),
                                       fontSize: 20.sp,
                                       fontFamily:'PLONI' ,
                                       decoration: TextDecoration.none,

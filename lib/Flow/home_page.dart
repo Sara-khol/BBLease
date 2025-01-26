@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.white,
         body: Column(children: [
-          AppBarBibilease(),
+          const AppBarBibilease(),
           Expanded(child: Center(child: Text('BIBILEASE',style: TextStyle(color: pinkColorApp, fontSize: 28.sp,fontWeight: FontWeight.w800)))),
           const Spacer(),
           SizedBox(

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/Rental/search_car.dart';
 import 'package:bblease/utils/my_colors.dart';
@@ -28,10 +27,10 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
   longitude= longitude1;
 
   TextEditingController controller = TextEditingController(text: address);
-  List<AutocompletePrediction>? _predictions;
-  late final FlutterGooglePlacesSdk _places;
+  List<AutocompletePrediction>? predictions;
+  late final FlutterGooglePlacesSdk places;
   Place? place;
-  final List<PlaceField> _placeFields = [
+  final List<PlaceField> placeFields = [
     PlaceField.Address,
     PlaceField.AddressComponents,
     PlaceField.BusinessStatus,
@@ -40,21 +39,16 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
     PlaceField.Name,
   ];
   Timer? debounce;
- // DetailsResult? searchedPlace;
-
-  //GooglePlace googlePlace = GooglePlace('AIzaSyDrD1omOKsD-QCghL7Oaq1LmU6mgxvqaLs',headers: header);
-
- // List<AutocompletePrediction> predictions = [];
 
 
-  _places = FlutterGooglePlacesSdk('AIzaSyDrD1omOKsD-QCghL7Oaq1LmU6mgxvqaLs',
+  places = FlutterGooglePlacesSdk('AIzaSyDrD1omOKsD-QCghL7Oaq1LmU6mgxvqaLs',
       locale:  const Locale('he', 'IL'));
-  _places.isInitialized().then((value) {
+  places.isInitialized().then((value) {
     debugPrint('Places Initialized: $value');
   });
 
    autoCompleteSearch(String value) async {
-      final result = await _places.findAutocompletePredictions(
+      final result = await places.findAutocompletePredictions(
         controller.text,
         // countries: _countriesEnabled ? _countries : null,
         // placeTypesFilter: _placeTypesFilter,
@@ -64,8 +58,8 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
         // locationRestriction:
         // _locationRestrictionEnabled ? _locationRestriction : null,
       );
-      _predictions = result.predictions;
-      print('Result: $_predictions');
+      predictions = result.predictions;
+      print('Result: $predictions');
 
 
     // var result = await googlePlace.autocomplete.get(value,language: 'iw');
@@ -87,281 +81,274 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
       context: context,
       builder: (context) {
         return PointerInterceptor(
-          child: StatefulBuilder(builder: (context, StateSetter setState) {
-            return Padding(
-              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Container(
-                  decoration: const ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(25),
-                        topRight: Radius.circular(25),
+          //debug: true,
+          child: MouseRegion(
+            cursor: SystemMouseCursors.basic,
+            child: StatefulBuilder(builder: (context, StateSetter setState) {
+              return Padding(
+                padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Container(
+                    decoration: const ShapeDecoration(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25),
+                          topRight: Radius.circular(25),
+                        ),
                       ),
+                      shadows: [
+                        BoxShadow(
+                          color: Color(0x3F000000),
+                          blurRadius: 250,
+                          offset: Offset(0, 4),
+                          spreadRadius: 0,
+                        )
+                      ],
                     ),
-                    shadows: [
-                      BoxShadow(
-                        color: Color(0x3F000000),
-                        blurRadius: 250,
-                        offset: Offset(0, 4),
-                        spreadRadius: 0,
-                      )
-                    ],
-                  ),
-                  constraints: BoxConstraints(maxHeight: 500.h),
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 10.h),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          alignment: Alignment.topRight,
-                          child: IconButton(
-                            icon: const Icon(Icons.close),
-                            onPressed: () {
-                              Navigator.pop(context);
+                    constraints: BoxConstraints(maxHeight: 500.h),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 10.h),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            alignment: Alignment.topRight,
+                            child: IconButton(
+                              icon: const Icon(Icons.close),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'מאיפה תרצה לצאת?',
+                                style: TextStyle(
+                                    fontSize: 26.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                              ),
+                              SizedBox(width: 9.w,),
+                              Icon(
+                                Icons.fmd_good_outlined,
+                                color: pinkColorApp,
+                                size: 28.sp,
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 45.h,),
+                          TextField(
+                            autofocus: true,
+                            cursorColor: const Color.fromRGBO(15, 17, 21, 1),
+                            decoration: InputDecoration(
+                                isDense: true,
+                                labelText: "",
+                                labelStyle: TextStyle(
+                                  fontSize: 22.sp,
+                                  fontWeight: FontWeight.normal,
+                                  color: const Color.fromRGBO(15, 17, 21, 1),
+                                  fontFamily: 'PLONI',
+                                ),
+                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    10.0,
+                                  ),
+                                  borderSide: const BorderSide(
+                                    color: Color.fromRGBO(15, 17, 21, 1),
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    10.0,
+                                  ),
+                                  borderSide: const BorderSide(
+                                    color: Color.fromRGBO(15, 17, 21, 1),
+                                  ),
+                                ),
+                                suffixIcon: Icon(
+                                  Icons.search,
+                                  color: turquoiseColorApp,
+                                  size: 24.sp,
+                                )),
+                            style: TextStyle(color: const Color.fromRGBO(15, 17, 21, 1), fontSize: 20.sp),
+                            controller: controller,
+                            onChanged: (value) async {
+                             // done = controller.text.isNotEmpty;
+                              print('change $value');
+
+                              if (debounce?.isActive ?? false) debounce?.cancel();
+                              debounce = Timer(const Duration(milliseconds: 300), () async{
+                                if (value.isNotEmpty && value.length>1) {
+                                  await autoCompleteSearch(value);
+                                } else {
+                                  debugPrint('emptyyy!');
+                                  predictions = [];
+                                  place=null;
+                                  location='';
+                                }
+                                setState((){});
+                              });
+                              //if (debounce?.isActive ?? false) debounce!.cancel();
+                              //debounce =
+                              // Timer(const Duration(milliseconds: 300), () {
+
+                            },
+                            //=> isTyping=true,
+                            onEditingComplete: () {
+                              debugPrint('onEditingComplete');
+                              //todo setstate??
+                              FocusScope.of(context).unfocus();
                             },
                           ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'מאיפה תרצה לצאת?',
-                              style: TextStyle(
-                                  fontSize: 26.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                            ),
-                            SizedBox(
-                              width: 9.w,
-                            ),
-                            Icon(
-                              Icons.fmd_good_outlined,
-                              color: pinkColorApp,
-                              size: 28.sp,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 45.h,
-                        ),
-                        TextField(
-                          autofocus: true,
-                          cursorColor: const Color.fromRGBO(15, 17, 21, 1),
-                          decoration: InputDecoration(
-                              isDense: true,
-                              labelText: "",
-                              labelStyle: TextStyle(
-                                fontSize: 22.sp,
-                                fontWeight: FontWeight.normal,
-                                color: const Color.fromRGBO(15, 17, 21, 1),
-                                fontFamily: 'PLONI',
-                              ),
-                              floatingLabelBehavior: FloatingLabelBehavior.auto,
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  10.0,
-                                ),
-                                borderSide: const BorderSide(
-                                  color: Color.fromRGBO(15, 17, 21, 1),
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  10.0,
-                                ),
-                                borderSide: const BorderSide(
-                                  color: Color.fromRGBO(15, 17, 21, 1),
-                                ),
-                              ),
-                              suffixIcon: Icon(
-                                Icons.search,
-                                color: turquoiseColorApp,
-                                size: 24.sp,
-                              )),
-                          style: TextStyle(
-                              color: Color.fromRGBO(15, 17, 21, 1),
-                              fontSize: 20.sp),
-                          controller: controller,
-
-                          onChanged: (value) async {
-                           // done = controller.text.isNotEmpty;
-                            print('change $value');
-
-                            if (debounce?.isActive ?? false) debounce?.cancel();
-                            debounce = Timer(const Duration(milliseconds: 300), () async{
-                              if (value.isNotEmpty && value.length>1) {
-                                await autoCompleteSearch(value);
-                              } else {
-                                debugPrint('emptyyy!');
-                                _predictions = [];
-                                place=null;
-                                location='';
-                              }
-                              setState((){});
-                            });
-
-
-
-
-                            //if (debounce?.isActive ?? false) debounce!.cancel();
-                            //debounce =
-                            // Timer(const Duration(milliseconds: 300), () {
-
-                          },
-                          //=> isTyping=true,
-                          onEditingComplete: () {
-                            debugPrint('onEditingComplete');
-                            //todo setstate??
-                            FocusScope.of(context).unfocus();
-                          },
-                        ),
-                        _predictions != null && _predictions!.isNotEmpty
-                            ? Expanded(
-                          child: /*ListView.builder(
-                              //reverse: true,
-                              shrinkWrap: true,
-                              itemCount: predictions.length,
-                              itemBuilder: (context, index) {
-                                AutocompletePrediction prediction = predictions[index];
-                                return ListTile(
-                                  title: Text(
-                                    prediction.description.toString(),
-                                    style: TextStyle(fontSize: 20.sp),
-                                  ),
-                                  onTap: () async {
-                                    print('selected address: ${prediction.description.toString()}');
-                                    controller.text=prediction.description.toString();
-                                    debugPrint(prediction.description);
-                                    //done = true;
-                                    final placeId = prediction.placeId!;
-                                    debugPrint('placeId $placeId');
-                                    final details = await googlePlace.details.get(placeId);
-                                    if (details != null && details.result != null) {
-                                      debugPrint('details ${details.result}');
-                                      searchedPlace = details.result;
-                                      controller.text = prediction.description.toString();
-                                      location = prediction.description.toString();//details.result!.name!;
-                                      latitude = searchedPlace!.geometry!.location!.lat;
-                                      longitude = searchedPlace!.geometry!.location!.lng;
-                                      print('$latitude . $longitude');
-                                      done = true;
-                                      print('selected text: ${controller.text}');
-
-                                    }
-                                    predictions = [];
-                                  },
-                                );
-                              })*/
-                              ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: _predictions!.length,
-                              itemBuilder: (context, index) {
-                                AutocompletePrediction prediction = _predictions![index];
-                                return ListTile(
-                                  title: Text(
-                                    prediction.fullText.toString(),
-                                    style: TextStyle(fontSize: 20.sp),
-                                  ),
-                                  onTap: () async {
-                                    debugPrint(
-                                        'selected address: ${prediction.fullText.toString()}');
-                                    // controller.text =
-                                    //     prediction.fullText.toString();
-                                    //done = true;
-                                    final placeId = prediction.placeId;
-                                    debugPrint('placeId $placeId');
-                                    final result = await _places.fetchPlace(placeId,fields: _placeFields);
-                                    setState(() {
-                                      place = result.place;
-                                      //  _fetchingPlace = false;
-                                    });
-                                    if (place != null ) {
-                                      debugPrint('details $place');
-                                      controller.text = place!.address.toString();
-                                      location = place!.name.toString(); //details.result!.name!;
-                                      latitude = place!.latLng?.lat;
-                                      longitude = place!.latLng?.lng;
-                                      debugPrint('location $latitude . $longitude');
-                                      debugPrint('selected text: ${controller.text}');
-                                    }
-                                    _predictions = [];
-                                  },
-                                );
-                              }
-                          ),
-                        )
-                            :  Container(),
-                        location.isNotEmpty
-                            ? Column(
-                                children: [
-                                  SizedBox(
-                                    height: 32.h,
-                                  ),
-                                  Container(
-                                    width: 332.w,
-                                    height: 48.h,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(Radius.circular(25)),
-                                      color: turquoiseColorApp,
+                          predictions != null && predictions!.isNotEmpty
+                              ? Expanded(
+                            child: /*ListView.builder(
+                                //reverse: true,
+                                shrinkWrap: true,
+                                itemCount: predictions.length,
+                                itemBuilder: (context, index) {
+                                  AutocompletePrediction prediction = predictions[index];
+                                  return ListTile(
+                                    title: Text(
+                                      prediction.description.toString(),
+                                      style: TextStyle(fontSize: 20.sp),
                                     ),
-                                    child: TextButton(
-                                      child: Text(
-                                        nav==0?'לבחירת תאריך':'אישור',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 22.sp,
-                                            fontWeight: FontWeight.normal),
+                                    onTap: () async {
+                                      print('selected address: ${prediction.description.toString()}');
+                                      controller.text=prediction.description.toString();
+                                      debugPrint(prediction.description);
+                                      //done = true;
+                                      final placeId = prediction.placeId!;
+                                      debugPrint('placeId $placeId');
+                                      final details = await googlePlace.details.get(placeId);
+                                      if (details != null && details.result != null) {
+                                        debugPrint('details ${details.result}');
+                                        searchedPlace = details.result;
+                                        controller.text = prediction.description.toString();
+                                        location = prediction.description.toString();//details.result!.name!;
+                                        latitude = searchedPlace!.geometry!.location!.lat;
+                                        longitude = searchedPlace!.geometry!.location!.lng;
+                                        print('$latitude . $longitude');
+                                        done = true;
+                                        print('selected text: ${controller.text}');
+
+                                      }
+                                      predictions = [];
+                                    },
+                                  );
+                                })*/
+                                ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: predictions!.length,
+                                itemBuilder: (context, index) {
+                                  AutocompletePrediction prediction = predictions![index];
+                                  return ListTile(
+                                    title: Text(
+                                      prediction.fullText.toString(),
+                                      style: TextStyle(fontSize: 20.sp),
+                                    ),
+                                    onTap: () async {
+                                      debugPrint(
+                                          'selected address: ${prediction.fullText.toString()}');
+                                      // controller.text =
+                                      //     prediction.fullText.toString();
+                                      //done = true;
+                                      final placeId = prediction.placeId;
+                                      debugPrint('placeId $placeId');
+                                      final result = await places.fetchPlace(placeId,fields: placeFields);
+                                      setState(() {
+                                        place = result.place;
+                                        //  _fetchingPlace = false;
+                                      });
+                                      if (place != null ) {
+                                        debugPrint('details $place');
+                                        controller.text = place!.address.toString();
+                                        location = place!.name.toString(); //details.result!.name!;
+                                        latitude = place!.latLng?.lat;
+                                        longitude = place!.latLng?.lng;
+                                        debugPrint('location $latitude . $longitude');
+                                        debugPrint('selected text: ${controller.text}');
+                                      }
+                                      predictions = [];
+                                    },
+                                  );
+                                }
+                            ),
+                          )
+                              :  Container(),
+                          location.isNotEmpty
+                              ? Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 32.h,
+                                    ),
+                                    Container(
+                                      width: 332.w,
+                                      height: 48.h,
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(Radius.circular(25)),
+                                        color: turquoiseColorApp,
                                       ),
-                                      onPressed: () {
-                                        debugPrint("location $location longitude $longitude latitude $latitude");
-                                        if(/*kIsWeb||*/controller.text.isNotEmpty && location.isNotEmpty) {
-                                          //Navigator.pop(context);
-                                          nav == 0
-                                              ? rentalTerm(context,0)
-                                              : Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        SearchCar(
-                                                          index: 1,
-                                                            location: location,
-                                                            latitude: latitude,
-                                                            longitude: longitude,
-                                                            startDate: sdate,
-                                                            endDate: edate),));
-                                          // MaterialPageRoute(
-                                          //   builder: (context) => SearchCar(
-                                          //       location: 'ירושלים',
-                                          //       latitude: 31.803110,
-                                          //       longitude: 35.216148,
-                                          //       startDate: sdate,
-                                          //       endDate: edate),
-                                          // ));
-                                        }
-                                        else
-                                          {
-                                            displayMessage(context,message: 'נא הזן כתובת');
+                                      child: TextButton(
+                                        child: Text(
+                                          nav==0?'לבחירת תאריך':'אישור',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 22.sp,
+                                              fontWeight: FontWeight.normal),
+                                        ),
+                                        onPressed: () {
+                                          debugPrint("location $location longitude $longitude latitude $latitude");
+                                          if(/*kIsWeb||*/controller.text.isNotEmpty && location.isNotEmpty) {
+                                            //Navigator.pop(context);
+                                            nav == 0
+                                                ? rentalTerm(context,0)
+                                                : Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          SearchCar(
+                                                            index: 1,
+                                                              location: location,
+                                                              latitude: latitude,
+                                                              longitude: longitude,
+                                                              startDate: sdate,
+                                                              endDate: edate),));
+                                            // MaterialPageRoute(
+                                            //   builder: (context) => SearchCar(
+                                            //       location: 'ירושלים',
+                                            //       latitude: 31.803110,
+                                            //       longitude: 35.216148,
+                                            //       startDate: sdate,
+                                            //       endDate: edate),
+                                            // ));
                                           }
-                                      },
+                                          else
+                                            {
+                                              displayMessage(context,message: 'נא הזן כתובת');
+                                            }
+                                        },
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 25.h,
-                                  )
-                                ],
-                              )
-                            : Container(),
-                      ],
+                                    SizedBox(
+                                      height: 25.h,
+                                    )
+                                  ],
+                                )
+                              : Container(),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-                    );
-            }
+                      );
+              }
+            ),
           ),
         );}
 
@@ -384,21 +371,13 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
   DateTime? startDate;
   DateTime? endDate;
   double? diff;
+
   if (s != null && e != null) {
-    /*if(kIsWeb){
-      startd.text = intl.DateFormat('yyyy.MM.dd').format(s);
-      endd.text = intl.DateFormat('yyyy.MM.dd').format(e);
+    startd.text = intl.DateFormat('dd.MM.yyyy').format(s);
+    endd.text = intl.DateFormat('dd.MM.yyyy').format(e);
 
-      starth.text = intl.DateFormat('mm:HH').format(s);
-      endh.text = intl.DateFormat('mm:HH').format(e);
-    }
-    else {*/
-      startd.text = intl.DateFormat('dd.MM.yyyy').format(s);
-      endd.text = intl.DateFormat('dd.MM.yyyy').format(e);
-
-      starth.text = intl.DateFormat('HH:mm').format(s);
-      endh.text = intl.DateFormat('HH:mm').format(e);
-    //}
+    starth.text = intl.DateFormat('HH:mm').format(s);
+    endh.text = intl.DateFormat('HH:mm').format(e);
     startDate = s;
     endDate = e;
   }
@@ -414,14 +393,13 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
       builder: (context) {
         return PointerInterceptor(
           child: StatefulBuilder(builder: (context, StateSetter setState) {
-
             setEndDateBasedOnSelection() {
               print('setEndDateBasedOnSelection()  $diff', );
 
               if (startDate != null && diff != null) {
                 DateTime calculatedEndDate;
                 diff!<1
-                    ? calculatedEndDate = startDate!.add(Duration(hours: 6))
+                    ? calculatedEndDate = startDate!.add(const Duration(hours: 6))
                     : calculatedEndDate = startDate!.add(Duration(days: diff!.toInt()));
                   //calculatedEndDate = calculatedEndDate.add(Duration(days: 1));
                 /*if(kIsWeb){
@@ -440,11 +418,11 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
               }
             }
 
-            RadioListTile _buildRadioTile(String title, int v) {
+            RadioListTile buildRadioTile(String title, int v) {
               return RadioListTile(
                 activeColor: blackColorApp ,
                 value: v,
-                mouseCursor: MouseCursor.uncontrolled,
+                mouseCursor: WidgetStateMouseCursor.clickable,
                 dense: true,
                 autofocus: true,
                 contentPadding: EdgeInsets.zero,
@@ -523,7 +501,7 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                               SizedBox(
                                 width: 9.w,
                               ),
-                              ImageIcon(AssetImage("assets/icons/Calendar.png"),color: pinkColorApp,),
+                              ImageIcon(const AssetImage("assets/icons/Calendar.png"),color: pinkColorApp,),
 
                             ],
                           ),
@@ -533,10 +511,10 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                          //   child:
                             Column(
                               children: <Widget>[
-                                _buildRadioTile('6 שעות', 1),
-                                _buildRadioTile('יום', 2),
-                                _buildRadioTile('שבוע', 3),
-                                _buildRadioTile('חודש', 4),
+                                buildRadioTile('6 שעות', 1),
+                                buildRadioTile('יום', 2),
+                                buildRadioTile('שבוע', 3),
+                                buildRadioTile('חודש', 4),
                               ],
                             ),
                           //),
@@ -562,7 +540,7 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                                 decoration: getInputDecoration(
                                     '',
                                     192,
-                                    suffixIcon: ImageIcon(AssetImage("assets/icons/CalendarBig.png"),color: pinkColorApp,),
+                                    suffixIcon: ImageIcon(const AssetImage("assets/icons/CalendarBig.png"),color: pinkColorApp,),
                               ),
                                 controller: startd,
                                 style: TextStyle(fontSize: 22.sp),
@@ -570,6 +548,7 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                                   if (value == null || value.isEmpty) {
                                     return 'זהו שדה חובה';
                                   }
+                                  return null;
                                 },
                                 onTap: () async {
                                   DateTime? date = await showDatePicker(
@@ -600,12 +579,13 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                                   if (value == null || value.isEmpty) {
                                     return 'זהו שדה חובה';
                                   }
+                                  return null;
                                 },
                                 onTap: () async {
                                   final now = DateTime.now();
                                    TimeOfDay? starttime = await showTimePicker(
                                     context: context,
-                                    initialTime: startDate==now?TimeOfDay.now():TimeOfDay(hour: 00, minute: 00),
+                                    initialTime: startDate==now?TimeOfDay.now():const TimeOfDay(hour: 00, minute: 00),
                                     initialEntryMode: TimePickerEntryMode.dial,
                                     builder: (BuildContext context, Widget? child) => MediaQuery(
                                       data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
@@ -657,13 +637,14 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                               TextFormField(
                                 readOnly: true,
                                 cursorColor: const Color.fromRGBO(15, 17, 21, 1),
-                                decoration: getInputDecoration('', 192, suffixIcon: ImageIcon(AssetImage("assets/icons/CalendarBig.png"),color: pinkColorApp,),),
+                                decoration: getInputDecoration('', 192, suffixIcon: ImageIcon(const AssetImage("assets/icons/CalendarBig.png"),color: pinkColorApp,),),
                                 style: TextStyle(fontSize: 22.sp),
                                 controller: endd,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'זהו שדה חובה';
                                   }
+                                  return null;
                                 },
                                 onTap: () async {
                                   DateTime? date = await showDatePicker(
@@ -690,11 +671,12 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                                   if (value == null || value.isEmpty) {
                                     return 'זהו שדה חובה';
                                   }
+                                  return null;
                                 },
                                 onTap: () async {
                                   final TimeOfDay? endtime = await showTimePicker(
                                     context: context,
-                                    initialTime: TimeOfDay(hour: 00, minute: 00),
+                                    initialTime: const TimeOfDay(hour: 00, minute: 00),
                                     initialEntryMode: TimePickerEntryMode.dial,
                                     builder: (BuildContext context, Widget? child) => MediaQuery(
                                       data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
@@ -724,7 +706,7 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                             ],
                           ),
                           SizedBox(height: 12.h,),
-                          TextButton(onPressed: () => Navigator.push(context,MaterialPageRoute(builder: (context) => ContactUs(),)),
+                          TextButton(onPressed: () => Navigator.push(context,MaterialPageRoute(builder: (context) => const ContactUs(),)),
                               child: Text('השאר פרטים לנציג',style: TextStyle(fontSize: 16.sp),textAlign: TextAlign.center,)),
                           SizedBox(height: 12.h,),
                           SizedBox(
@@ -758,7 +740,9 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                                                 )
                                         ));
                                   }
-                                  else displayMessage(context,message: 'נא מלא את כל הפרטים');
+                                  else {
+                                    displayMessage(context,message: 'נא מלא את כל הפרטים');
+                                  }
 
                                 },
                                 child: const Text(
@@ -790,10 +774,13 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
 
 Duration findDuration(double? diff) {
   Duration duration;
-  if(diff==0.25) duration=Duration(hours: 6);
-  if(diff==1) duration=Duration(days: 1);
-  if(diff==7) duration=Duration(days: 7);
-  else duration=Duration(days: 30);
+  if(diff==0.25) duration=const Duration(hours: 6);
+  if(diff==1) duration=const Duration(days: 1);
+  if(diff==7) {
+    duration=const Duration(days: 7);
+  } else {
+    duration=const Duration(days: 30);
+  }
   return duration;
 
 }
@@ -830,7 +817,7 @@ getInputDecoration(String text,double width, {Widget? suffixIcon}) {
     ),
     focusedErrorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
-      borderSide: BorderSide(
+      borderSide: const BorderSide(
         color: Colors.redAccent,
       ),
     ),

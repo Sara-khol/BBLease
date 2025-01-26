@@ -14,7 +14,7 @@ class CustomText extends StatelessWidget {
 
   const CustomText(
       this.data, {
-        Key? key,
+        super.key,
         this.style,
         this.textAlign,
         this.textDirection,
@@ -24,16 +24,14 @@ class CustomText extends StatelessWidget {
         this.textScaleFactor,
         this.maxLines,
         this.semanticsLabel,
-      }) : super(key: key);
+      });
 
   @override
   Widget build(BuildContext context) {
     var orientation = MediaQuery.of(context).orientation;
     double scaleFactor = orientation == Orientation.landscape ? 1.0 : 1.0;
 
-    TextStyle? scaledStyle = style != null
-        ? style!.copyWith(fontSize: style!.fontSize != null ? style!.fontSize! * scaleFactor : null)
-        : null;
+    TextStyle? scaledStyle = style?.copyWith(fontSize: style!.fontSize != null ? style!.fontSize! * scaleFactor : null);
 
     return Text(
       data,

@@ -8,7 +8,7 @@ import '../../landspace_widget.dart';
 
 
 class StartRegistration extends StatefulWidget {
-  const StartRegistration({Key? key}) : super(key: key);
+  const StartRegistration({super.key});
 
   @override
   State<StartRegistration> createState() => _StartRegistrationState();
@@ -19,8 +19,9 @@ class _StartRegistrationState extends State<StartRegistration> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
-      if (orientation == Orientation.landscape)
+      if (orientation == Orientation.landscape) {
         return LandSpaceWidget(mainWidget: buildContent(orientation),imageProperties:ImageProperties('l_image.png', 580.w,'תמונת פתיחת נעילה'),showAppBar: false,);
+      }
       return buildContent(orientation);
     }),
     );
@@ -29,8 +30,7 @@ class _StartRegistrationState extends State<StartRegistration> {
   buildContent(Orientation o) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(height: 120.h),
           CustomText("תהליך הרשמה",style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold,fontSize: 23.sp,),),
@@ -39,9 +39,9 @@ class _StartRegistrationState extends State<StartRegistration> {
               style: TextStyle(fontWeight: FontWeight.normal,fontSize: 20.sp,)
               ,textDirection: TextDirection.rtl,textAlign: TextAlign.center),
           SizedBox(height: 28.h),
-          if(o == Orientation.portrait)Image.asset('assets/images/image4.png' ,semanticLabel: 'תמונה לפתוח רכב',/*,width: 300.w, fit: BoxFit.cover,*/),
-          Spacer(),
-          Container(
+          if(o == Orientation.portrait)Image.asset('assets/images/image4.png' ,semanticLabel: 'תמונה לפתוח רכב',width: 300.w,/*, fit: BoxFit.cover,*/),
+          const Spacer(),
+          SizedBox(
             height: 48.h,
             width: 332.w,
             child: ElevatedButton(

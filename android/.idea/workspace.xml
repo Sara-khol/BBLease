@@ -1,66 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d88fa43-e6b1-4d26-a618-d7dc1703b733" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../assets/images/car-available.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../assets/images/car-not-available.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lib/Flow/Rental/car_details_dialog.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lib/customWidgets/info_window.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/BBLease.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/BBLease.iml" afterDir="false" />
+    <list default="true" id="37015cd8-0ab3-4058-8c41-dea68f5bbd1f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.kotlin/errors/errors-1725954298840.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.kotlin/errors/errors-1725954298884.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.kotlin/errors/errors-1725954298909.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.kotlin/errors/errors-1725954299154.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.kotlin/errors/errors-1725974013176.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.kotlin/errors/errors-1725974013200.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.kotlin/errors/errors-1725974013217.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.kotlin/errors/errors-1725974013381.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.kotlin/errors/errors-1725974013417.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/af8f7fa942f593d5a8ecf826c036d081.ico.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/android-icon-144x144.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/android-icon-192x192.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/android-icon-36x36.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/android-icon-48x48.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/android-icon-72x72.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/android-icon-96x96.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/apple-icon-114x114.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/apple-icon-120x120.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/apple-icon-144x144.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/apple-icon-152x152.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/apple-icon-180x180.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/apple-icon-57x57.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/apple-icon-60x60.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/apple-icon-72x72.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/apple-icon-76x76.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/apple-icon-precomposed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/apple-icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/browserconfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/favicon-16x16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/favicon-32x32.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/favicon-96x96.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/ms-icon-144x144.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/ms-icon-150x150.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/ms-icon-310x310.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/icons/ms-icon-70x70.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/libraries/Dart_Packages.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Flutter_Plugins.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/runConfigurations/main_dart.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/migrations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/icons/Vector.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/Calendar.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/icons/Calendar.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/Close.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/icons/Close.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/Door.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/icons/Door.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/Filter.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/icons/Filter.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/Location.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/icons/Location.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/More.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/icons/More.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/Phone.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/icons/Phone.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/PhoneW.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/icons/PhoneW.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/Profil.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/icons/Profil.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/Seat.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/icons/Seat.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/Smile.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/icons/Smile.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/Upload.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/icons/Upload.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/Vector.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/Vector6.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/icons/Vector6.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/WazeIcon.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/icons/WazeIcon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/aaa.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/images/aaa.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/circle.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/icons/circle.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/edit.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/icons/edit.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/expansion.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/icons/expansion.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/Flow/Rental/car_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Flow/Rental/car_details.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/Flow/Dialogs/buttom_dialogs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Flow/Dialogs/buttom_dialogs.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/Flow/Rental/Actions/cancel_order_dialogs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Flow/Rental/Actions/cancel_order_dialogs.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/Flow/Rental/dialogs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Flow/Rental/dialogs.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/Flow/Rental/map.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Flow/Rental/map.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/Flow/Rental/search_car.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Flow/Rental/search_car.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/Flow/UserInformation/ordersHistory.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Flow/UserInformation/ordersHistory.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/customWidgets/appBarB.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/customWidgets/appBarB.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/models/car.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/models/car.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/models/car.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/models/car.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/models/class_rent.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/models/class_rent.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/Flow/UserInformation/price_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Flow/UserInformation/price_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/Flow/UserInformation/profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Flow/UserInformation/profile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/Flow/registration/tel_to_registration.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Flow/registration/tel_to_registration.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/Flow/registration/verification.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Flow/registration/verification.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/landspace_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/landspace_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/services/api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/services/api_service.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/icons/Icon-192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/icons/Icon-512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/icons/Icon-maskable-192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/icons/Icon-maskable-512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../web/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../web/manifest.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="2bzG3BxrDB9SblXeDnM4FCWzCYJ" />
+  <component name="ProjectId" id="2lv8XEwhG7fFdGo9eivjzm092NF" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -73,15 +105,17 @@
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="3d88fa43-e6b1-4d26-a618-d7dc1703b733" name="Changes" comment="" />
-      <created>1707210296111</created>
+      <changelist id="37015cd8-0ab3-4058-8c41-dea68f5bbd1f" name="Changes" comment="" />
+      <created>1726049227362</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1707210296111</updated>
+      <updated>1726049227362</updated>
     </task>
     <servers />
   </component>

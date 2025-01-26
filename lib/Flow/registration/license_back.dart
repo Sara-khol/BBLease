@@ -1,7 +1,6 @@
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/registration/face_scanning.dart';
 import 'package:bblease/Flow/registration/license_details.dart';
-import 'package:bblease/Flow/registration/personal_details_form.dart';
 import 'package:bblease/Flow/registration/text_recognition.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:bblease/services/support.dart' as support;
@@ -13,11 +12,10 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:bblease/utils/my_colors.dart';
 
 import '../../landspace_widget.dart';
-import '../../utils/my_colors.dart';
 
 
 class LicenseBack extends StatefulWidget {
-  const LicenseBack({Key? key, required this.index, this.orderId}) : super(key: key);
+  const LicenseBack({super.key, required this.index, this.orderId});
   final int index;
   final int? orderId;
 
@@ -53,8 +51,9 @@ class _LicenseBackState extends State<LicenseBack> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape)
+        if (orientation == Orientation.landscape) {
           return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_register2.png', 618.w,'תמונת הרשמה שלב 2'),showAppBar: false,);
+        }
         return buildContent();
       }),
     );
@@ -95,7 +94,7 @@ class _LicenseBackState extends State<LicenseBack> {
             child: Stack(
               children: [
                 Center(child: Image.asset('assets/images/rect.png', semanticLabel: 'frame',)),
-                Center(child: Text('פתח מצלמה',style: TextStyle(color: Color(0xFFD9D9D9),fontSize: 24.sp))),
+                Center(child: Text('פתח מצלמה',style: TextStyle(color: const Color(0xFFD9D9D9),fontSize: 24.sp))),
                 InkWell(
                   onTap: _onCameraButtonPressed,
                 ),
@@ -127,8 +126,8 @@ class _LicenseBackState extends State<LicenseBack> {
                   percent: 0.67,
                   animation: true,
                   barRadius: const Radius.circular(16),
-                  linearGradient: LinearGradient(colors: [ Color.fromRGBO(254, 193, 216, 1), Color.fromRGBO(251, 39, 119, 1)], ),
-                  backgroundColor: Color.fromRGBO(247, 247, 247, 1),
+                  linearGradient: const LinearGradient(colors: [ Color.fromRGBO(254, 193, 216, 1), Color.fromRGBO(251, 39, 119, 1)], ),
+                  backgroundColor: const Color.fromRGBO(247, 247, 247, 1),
                   center: Center(
                     child: Padding(
                       padding: EdgeInsets.only(left: 65.w,),
@@ -179,7 +178,7 @@ class _LicenseBackState extends State<LicenseBack> {
                     backgroundColor: turquoiseColorApp,
                     onPressed: ()=>support.call,
                     icon: ImageIcon(
-                      AssetImage("assets/icons/Phone.png"),
+                      const AssetImage("assets/icons/Phone.png"),
                       size: 22.sp,
                       color: Colors.white,
                     ),),
@@ -238,14 +237,14 @@ class _LicenseBackState extends State<LicenseBack> {
           child: Stack(
             children: [
               Center(
-                child: Container(
+                child: SizedBox(
                   width: 380.w,
                   //height: 380,
                   child: OverflowBox(
                     alignment: Alignment.center,  // Change this if you want to crop a different section
                     child: FittedBox(
                       fit: BoxFit.cover,
-                      child: Container(
+                      child: SizedBox(
                         width: 380.w,
                         //height: 380 / _cameraController.value.aspectRatio,
                         /*child: Transform.rotate(
@@ -265,25 +264,23 @@ class _LicenseBackState extends State<LicenseBack> {
                   width: 80.w,
                   decoration: BoxDecoration(
                       color: turquoiseColorApp,
-                      borderRadius: BorderRadius.all(Radius.circular(70))
+                      borderRadius: const BorderRadius.all(Radius.circular(70))
                   ),
                   child: TextButton(
                     onPressed: () async{
                       XFile xfile=await _cameraController.takePicture();
 
                       widget.index==1
-                          ?uploadSucceed(context,LicenseBack(index: widget.index),/*PersonalDetailsForm()*/FaceScanning())
+                          ?uploadSucceed(context,LicenseBack(index: widget.index),/*PersonalDetailsForm()*/const FaceScanning())
                           :uploadSucceed(context,LicenseBack(index: widget.index,orderId: widget.orderId,),LicenseDetails(index: widget.index,orderId: widget.orderId,));
                       setState(() {
                         _imageBack= xfile;
                         _cameraController.pausePreview();
-                        if (_imageBack != null) {
-                          widget.index==1?User().regImages[1]=_imageBack:User().additionalDriver.images[1]=_imageBack;
-                          widget.index==1?TextRecognition(1):null;
-                        }
-                      });
+                        widget.index==1?User().regImages[1]=_imageBack:User().additionalDriver.images[1]=_imageBack;
+                        widget.index==1?TextRecognition(1):null;
+                                            });
                     },
-                    child: Text('צלם',style: (TextStyle(color: Colors.white)),),
+                    child: const Text('צלם',style: (TextStyle(color: Colors.white)),),
                   ),
                 ),)
             ],
@@ -301,36 +298,23 @@ class _LicenseBackState extends State<LicenseBack> {
     }
     XFile? result = await ImagePicker().pickImage(source: ImageSource.gallery);
     if(result != null) {
-      uploadSucceed(context,LicenseBack(index: 1),/*PersonalDetailsForm()*/FaceScanning());
+      uploadSucceed(context,const LicenseBack(index: 1),/*PersonalDetailsForm()*/const FaceScanning());
       setState(() {
         _imageBack= result;
         //_cameraController.pausePreview();
-        if (_imageBack != null) {
-          widget.index==1
-              ? {
-                  User().regImages[1] = _imageBack,
-                  TextRecognition(1)
-                }
-              :User().additionalDriver.images[1]=_imageBack;
+        widget.index==1
+            ? {
+                User().regImages[1] = _imageBack,
+                TextRecognition(1)
+              }
+            :User().additionalDriver.images[1]=_imageBack;
 
-        }
-      });
+            });
     }
     //showImagePreview;
   }
 
   showImagePreview(){
-    if(_imageBack!=null) {
-      print(_imageBack);
+    print(_imageBack);
     }
-    else {
-      const SizedBox(
-        height: 210,
-        width: 375,
-        child: Center(
-          child: Positioned.fill(child: Text('No image selected.')),
-        ),
-      );
-    }
-  }
 }

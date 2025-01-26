@@ -3,8 +3,6 @@ import 'dart:ui';
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/UserInformation/ordersHistory.dart';
 import 'package:bblease/landspace_widget.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bblease/utils/my_colors.dart';
@@ -23,7 +21,7 @@ class CarDetails extends StatefulWidget {
   final DateTime? endDate;*/
   final Rental rent;
 
-  CarDetails({
+  const CarDetails({
     super.key,
     required this.rent,
   });
@@ -48,7 +46,7 @@ class _CarDetailsState extends State<CarDetails> {
   @override
   void initState() {
     debugPrint('widget.rent.car.pricePerDay ${widget.rent.car.pricePerDay}');
-    dayDiff = widget.rent.endDate!.difference(widget.rent.startDate!).inDays/* + 1*/;
+    dayDiff = widget.rent.endDate.difference(widget.rent.startDate).inDays/* + 1*/;
     rentPrice = (widget.rent.car.pricePerDay) * (dayDiff == 0 ? 1 : dayDiff);
     debugPrint('rentPrice $rentPrice');
     calculateAdditionsPrice();
@@ -93,7 +91,7 @@ class _CarDetailsState extends State<CarDetails> {
 
           SizedBox(height: 30.h),
           if (widget.rent.car.carImages.isNotEmpty)
-            Container(
+            SizedBox(
               height: 130.h,
               width: 292.w,
               child: Image.network(widget.rent.car.carImages.first)
@@ -140,7 +138,7 @@ class _CarDetailsState extends State<CarDetails> {
                                       width: 355.w,
                                       margin: EdgeInsets.only(top: 13.h),
                                       decoration: ShapeDecoration(
-                                        color: Color(0xFFF6F6F6),
+                                        color: const Color(0xFFF6F6F6),
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(25),
                                         ),
@@ -150,7 +148,7 @@ class _CarDetailsState extends State<CarDetails> {
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            SizedBox(height: 41),
+                                            const SizedBox(height: 41),
                                             Text(widget.rent.car.postName,
                                                 style: TextStyle(
                                                   color: blackColorApp,
@@ -309,7 +307,7 @@ class _CarDetailsState extends State<CarDetails> {
                                       //height: 260.h,
                                       margin: EdgeInsets.only(top: 13.h),
                                       decoration: ShapeDecoration(
-                                        color: Color(0xFFF6F6F6),
+                                        color: const Color(0xFFF6F6F6),
                                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),
                                       ),
                                       child: Padding(
@@ -317,7 +315,7 @@ class _CarDetailsState extends State<CarDetails> {
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            SizedBox(height: 41),
+                                            const SizedBox(height: 41),
                                             Row(
                                               children: [
                                                 Icon(Icons.fmd_good_outlined, color: blackColorApp, size: 20.w),
@@ -335,21 +333,21 @@ class _CarDetailsState extends State<CarDetails> {
                                             //SizedBox(height: 20.h),
                                             Row(
                                               children: [
-                                                ImageIcon(AssetImage("assets/icons/Calendar.png"),),
+                                                const ImageIcon(AssetImage("assets/icons/Calendar.png"),),
                                                 SizedBox(
                                                   width: 9.w,
                                                 ),
                                                 Text(
                                                   /*kIsWeb?
                                                   '${intl.DateFormat('mm:HH yyyy.MM.dd').format(widget.rent.startDate!)} - ${intl.DateFormat('mm:HH yyyy.MM.dd').format(widget.rent.endDate!)}':
-                                                  */'${intl.DateFormat('dd.MM.yyyy HH:mm').format(widget.rent.startDate!)} - ${intl.DateFormat('dd.MM.yyyy HH:mm').format(widget.rent.endDate!)}',
+                                                  */'${intl.DateFormat('dd.MM.yyyy HH:mm').format(widget.rent.startDate)} - ${intl.DateFormat('dd.MM.yyyy HH:mm').format(widget.rent.endDate)}',
                                                   style: TextStyle(
                                                     color: blackColorApp,
                                                     fontSize: 16.sp,
                                                     fontWeight: FontWeight.normal,
                                                   ),
                                                 ),
-                                                Spacer(),
+                                                const Spacer(),
                                               ],
                                             ),
                                             SizedBox(height: 18.h),
@@ -410,7 +408,7 @@ class _CarDetailsState extends State<CarDetails> {
                                         //height: 265.h,
                                         margin: EdgeInsets.only(top: 13.h),
                                         decoration: ShapeDecoration(
-                                          color: Color(0xFFF6F6F6),
+                                          color: const Color(0xFFF6F6F6),
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(25),
                                           ),
@@ -480,7 +478,7 @@ class _CarDetailsState extends State<CarDetails> {
                                       //height: 265.h,
                                       margin: EdgeInsets.only(top: 13.h),
                                       decoration: ShapeDecoration(
-                                        color: Color(0xFFF6F6F6),
+                                        color: const Color(0xFFF6F6F6),
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(25),
                                         ),
@@ -490,13 +488,13 @@ class _CarDetailsState extends State<CarDetails> {
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            SizedBox(height: 41),
+                                            const SizedBox(height: 41),
                                             Text('סך הכל לתשלום     ${rentPrice + additionsPrice} ₪', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp)),
                                             SizedBox(height: 7.h),
                                             Text('פירוט התשלום', style: TextStyle(fontWeight: FontWeight.normal, fontSize: 16.sp),),
                                             SizedBox(height: 10.h),
                                             Container(
-                                              decoration: BoxDecoration(color: Color(0xFFEFFFFE), borderRadius: BorderRadius.circular(8)),
+                                              decoration: BoxDecoration(color: const Color(0xFFEFFFFE), borderRadius: BorderRadius.circular(8)),
                                               child: Padding(
                                                 padding: EdgeInsets.only(left: 0.w, right: 0.w),
                                                 child: Column(
@@ -648,7 +646,7 @@ class _CarDetailsState extends State<CarDetails> {
                                               Navigator.pushAndRemoveUntil(
                                                   context,
                                                   MaterialPageRoute(
-                                                      builder: (context) => const OrdersHistory(index: 2,)),
+                                                      builder: (context) => const OrdersHistory(index: 2,goBack: false,)),
                                                       (route) => false);
                                             });
                                       });

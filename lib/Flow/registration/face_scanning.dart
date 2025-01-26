@@ -1,11 +1,8 @@
-import 'dart:ui';
 import 'package:bblease/Flow/registration/verification.dart';
 import 'package:bblease/utils/my_colors.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:bblease/services/support.dart' as support;
 import '../../landspace_widget.dart';
 import 'face_detector.dart';
 
@@ -207,8 +204,9 @@ print('faces.length: ${faces.length}');
   Widget build(BuildContext context) {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape)
+        if (orientation == Orientation.landscape) {
           return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_register3.png', 618.w,'תמונת הרשמה שלב 3'),showAppBar: false,);
+        }
         return buildContent();
       }),
     );
@@ -228,7 +226,7 @@ print('faces.length: ${faces.length}');
           Expanded(
             child: Stack(
                 children:[
-                  Center(child: CameraFaceDetection()),
+                  const Center(child: CameraFaceDetection()),
                   /*FutureBuilder(
                         future: _initializeCamera(),
                         builder:(context,snapshot){
@@ -259,7 +257,7 @@ print('faces.length: ${faces.length}');
                           height: 48.h,
                           width: 117.w,
                           decoration: BoxDecoration(
-                              color: Color(0xFFD9D9D9).withOpacity(0.3),
+                              color: const Color(0xFFD9D9D9).withOpacity(0.3),
                               borderRadius: BorderRadius.circular(100)
                           ),
                           child: Row(
@@ -288,8 +286,8 @@ print('faces.length: ${faces.length}');
                 percent: 0.99,
                 animation: true,
                 barRadius: const Radius.circular(16),
-                linearGradient: LinearGradient(colors: [ Color.fromRGBO(254, 193, 216, 1), Color.fromRGBO(251, 39, 119, 1)]),
-                backgroundColor: Color.fromRGBO(247, 247, 247, 1),
+                linearGradient: const LinearGradient(colors: [ Color.fromRGBO(254, 193, 216, 1), Color.fromRGBO(251, 39, 119, 1)]),
+                backgroundColor: const Color.fromRGBO(247, 247, 247, 1),
                 center: Padding(
                   padding: EdgeInsets.only(left: 270.w,),
                   child: Text('3/3',style: TextStyle(color: Colors.white, fontSize: 9.sp )),
@@ -314,7 +312,7 @@ print('faces.length: ${faces.length}');
                     fontSize: 22.sp,
                     fontWeight: FontWeight.normal,height: 1),),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Verification(),));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const Verification(),));
                 //support.call;
                 //TODO: call for help
               },

@@ -2,14 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:bblease/utils/my_colors.dart' as colors;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../customWidgets/appBarB.dart';
 
 import '../../landspace_widget.dart';
-import '../../models/class_user.dart';
 import '../Rental/Actions/cancel_order_dialogs.dart';
 
 class Terms extends StatefulWidget {
-  const Terms({Key? key, required this.index}) : super(key: key);
+  const Terms({super.key, required this.index});
   final int index;
 
   @override
@@ -28,8 +26,9 @@ class _TermsState extends State<Terms> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape)
+        if (orientation == Orientation.landscape) {
           return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('image5.png', 1000.w,'תמונת תקנון'));
+        }
         return buildContent();
       }),
 
@@ -48,7 +47,7 @@ class _TermsState extends State<Terms> {
           Text(
             'תקנון ותנאי שימוש',
             style: TextStyle(
-              color: Color(0xFF0F1511),
+              color: const Color(0xFF0F1511),
               fontSize: 22.sp,
               fontWeight: FontWeight.w700,
             ),
@@ -78,9 +77,10 @@ class _TermsState extends State<Terms> {
                 backgroundColor: colors.turquoiseColorApp,
                 onPressed: () {
                   print('widget.index ${widget.index}');
-                  if (widget.index == 2)
+                  if (widget.index == 2) {
                     signCancelOrderDialog(context, 'טופס אישור תנאים',
                         'קראתי ואני מאשר/ת את התנאים');
+                  }
 
                   // Navigator.pop(context);
                 },

@@ -15,19 +15,22 @@ class LandSpaceWidget extends StatelessWidget {
     return Container(
       color: Colors.white,
       child: Stack(
-        clipBehavior: Clip.antiAlias,
         children: [
           Align(
             alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding:EdgeInsets.only(bottom: 50.h),
-              child: Text(
-                'Bibilease',
-                style: TextStyle(
-                  color: Color(0xFFEFFFFE),
-                  fontSize: 300.sp,
-                  fontWeight: FontWeight.w800,
-                  height: 0,
+            child: SizedBox(height: 380.h,
+              //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                    'Bibilease',
+                    style: TextStyle(
+                      color: const Color(0xFFEFFFFE),
+                      fontSize: 300.sp,
+                      fontWeight: FontWeight.w800,
+                      height: 1.1.h,
+                    ),textAlign: TextAlign.center,
+
                 ),
               ),
             ),
@@ -43,11 +46,11 @@ class LandSpaceWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(width: 150.w,),
+                      SizedBox(width: 130.w,),
                       Expanded(
                         child: Center(
                           child: Container(
-                            alignment: Alignment.centerRight,
+                            alignment: Alignment.topRight,
                             //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
                             width: 393.w,
                               //height: MediaQuery.of(context).size.height*0.9.h,
@@ -61,7 +64,7 @@ class LandSpaceWidget extends StatelessWidget {
                         child: Center(
                           child: Image.asset(
                             'assets/images/${imageProperties.imagePath}',
-                            width: imageProperties.imageWidth,
+                            width: 600.w,//imageProperties.imageWidth,
                             semanticLabel: imageProperties.label,
                           ),
                         ),

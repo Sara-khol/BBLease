@@ -9,10 +9,8 @@ import 'package:bblease/models/class_rent.dart';
 import 'package:bblease/services/api_service.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:bblease/Flow/Rental/car_details.dart';
 
 import '../../models/additions.dart';
 import '../../models/class_user.dart';
@@ -125,7 +123,7 @@ class _SearchCarState extends State<SearchCar> {
           children: [
             Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
               if (orientation == Orientation.portrait)
-                Directionality(
+                const Directionality(
                     textDirection: TextDirection.ltr, child: AppBarBibilease()),
               SizedBox(height: 40.h),
               Text(
@@ -188,202 +186,11 @@ class _SearchCarState extends State<SearchCar> {
                                     itemCount: filteredCarsMap[type]!.length,
                                     itemBuilder: (context, index) {
                                       Car car = filteredCarsMap[type]![index];
-                                      return searchCarItem(car, orientation)
-                                          /*GestureDetector(
-                                        onTap: () async {
-                                          */
-                                      /*Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => CarDetails(car,startDate: widget.startDate,endDate: widget.endDate,))
-                        ),*/
-                                          /*
-                                          await ApiService().getAdditions(
-                                              car.id,
-                                              widget.startDate,
-                                              widget.endDate, (orderJson) {
-                                            List<Addition> additions = [];
-                                            additions = orderJson
-                                                .map<Addition>((entry) =>
-                                                    (Addition.fromJson(entry)))
-                                                .toList();
-                                            for (Addition item in additions) {
-                                              if (item.name == 'new_driver' ||
-                                                  item.name == 'young_driver') {
-                                                item.isEnabled = false;
-                                                if (item.name == 'new_driver' &&
-                                                        User().isNewDriver ||
-                                                    item.name ==
-                                                            'young_driver' &&
-                                                        User().isYoungDriver) {
-                                                  item.isChecked = true;
-                                                }
-                                              }
-                                            }
-                                            setState(() {});
-                                            showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              isDismissible: false,
-                                              backgroundColor: Colors.white,
-                                              barrierColor: Colors.black12
-                                                  .withOpacity(0.1),
-                                              //isDismissible: false,
-                                              elevation: 2,
-                                              shape:
-                                                  const RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.vertical(
-                                                        top: Radius.circular(
-                                                            25)),
-                                              ),
-                                              context: context,
-                                              builder: (_) => AdditionsDialog(
-                                                  rent: rent,
-                                                  car: car,
-                                                  additionsList: additions),
-                                            );
-                                            //extras(context,car,widget.startDate,widget.endDate,additions,rent);
-                                          });
-                                        },
-                                        child: Container(
-                                          width:orientation==Orientation.portrait? 347.w:200.w,
-                                          height: 152.h,
-                                          margin: EdgeInsets.only(
-                                            right: 23.w,
-                                            left: 23.w,
-                                            bottom: 12.h,
-                                          ),
-                                          child: Stack(
-                                            children: [
-                                              Card(
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0)),
-                                                shadowColor: Colors.transparent,
-                                                margin:
-                                                    EdgeInsets.only(left: 20.w),
-                                                color: Color(0xffF7F7F7),
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      bottom: 10.h,
-                                                      top: 10.h,
-                                                      right: 14.w,
-                                                      left: 11.w),
-                                                  child: IntrinsicHeight(
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              car.postName.length >
-                                                                      12
-                                                                  ? '${car.postName.substring(0, 12)}...'
-                                                                  : '${car.postName}',
-                                                              style: TextStyle(
-                                                                fontSize: 34.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                height: 1,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              'או רכב זהה',
-                                                              style: TextStyle(
-                                                                fontSize: 16.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal,
-                                                                height: 1.15,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              car.address,
-                                                              style: TextStyle(
-                                                                fontSize: 18.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                height: 1.15,
-                                                              ),
-                                                            ),
-                                                            Expanded(
-                                                                child: SizedBox(
-                                                                    height:
-                                                                        29.h)),
-                                                            Text(
-                                                              '${car.pricePerDay} ₪  |  ליום',
-                                                              style: TextStyle(
-                                                                fontSize: 20.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                height: 1.15,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              '${car.pricePerDay * widget.endDate!.difference(widget.startDate!).inDays} ₪  |  סה"כ',
-                                                              style: TextStyle(
-                                                                fontSize: 16.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal,
-                                                                height: 1.15,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Expanded(
-                                                          child: Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    top: 2.h),
-                                                            child: Align(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .topLeft,
-                                                                child: Icon(
-                                                                  Icons.circle,
-                                                                  color:
-                                                                      turquoiseColorApp,
-                                                                  size: 8.w,
-                                                                )),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              if (car.carImages.isNotEmpty)
-                                                Positioned.fill(
-                                                    child: Align(
-                                                  alignment:
-                                                      Alignment.bottomLeft,
-                                                  child: Container(
-                                                      margin: EdgeInsets.only(
-                                                          bottom: 10.h),
-                                                      child: Image.network(
-                                                        car.carImages.first,
-                                                        width: 175.w,
-                                                        height: 75.h,
-                                                      )),
-                                                )),
-                                            ],
-                                          ),
-                                        ),
-                                      )*/
-                                          ;
+                                      return searchCarItem(car, orientation);
                                     },
                                   ),
                                 )
-                              : Text('לא נמצאו תוצאות עבור: ${type}'),
+                              : Text('לא נמצאו תוצאות עבור: $type'),
                     )
                   : Center(
                       child: FutureBuilder(
@@ -398,7 +205,7 @@ class _SearchCarState extends State<SearchCar> {
                             );
                           } else {
                             // If the Future is complete, update the UI accordingly
-                            return Text('לא נמצאו רכבים באזורך');
+                            return const Text('לא נמצאו רכבים באזורך');
                           }
                         },
                       ),
@@ -406,20 +213,22 @@ class _SearchCarState extends State<SearchCar> {
             ]),
             Align(
                 alignment: Alignment.bottomCenter,
-                child: Transform(
-                  transform: Matrix4.identity()..translate(0.0, 0.0)..rotateZ(1.57),
-                  child: Container(
-                    width: 124,
-                    height: 397,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment(-1.00, -0.00),
-                        end: Alignment(1, 0),
-                        colors: [Colors.white, Colors.white.withOpacity(0)],
-                      ),
+                child: Container(
+                  width: 400.w, // Set your desired width
+                  height: 124.h, // Set your desired height
+                  decoration: BoxDecoration(
+                    //border: Border.all(color: Colors.red,width: 2),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.white.withOpacity(0.0),
+                        Colors.white,
+                      ],
                     ),
                   ),
-                ))
+                )
+            )
           ],
         ));
   }
@@ -471,14 +280,15 @@ class _SearchCarState extends State<SearchCar> {
                     left: 23.w,
                     bottom: 12.h,
                   )
-                : null,
+                : EdgeInsets.only(bottom: 12.h,
+            ),
             child: Stack(
               children: [
                 Card(
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                   shadowColor: Colors.transparent,
                   margin: EdgeInsets.only(left: 20.w),
-                  color:  Color(0xffF7F7F7),
+                  color:  const Color(0xffF7F7F7),
                   child: Padding(
                     padding: EdgeInsets.only(bottom: 10.h, top: 10.h, right: 14.w, left: 11.w),
                     child: IntrinsicHeight(
@@ -491,7 +301,7 @@ class _SearchCarState extends State<SearchCar> {
                               Text(
                                 car.postName.length > 12
                                     ? '${car.postName.substring(0, 12)}...'
-                                    : '${car.postName}',
+                                    : car.postName,
                                 style: TextStyle(
                                   fontSize: 34.sp,
                                   fontWeight: FontWeight.bold,
@@ -582,7 +392,7 @@ class _SearchCarState extends State<SearchCar> {
               Text(
                 'סנן ',
                 style: TextStyle(
-                  color: Color(0xFF0F1511),
+                  color: const Color(0xFF0F1511),
                   fontSize: 18.sp,
                   fontWeight: FontWeight.normal,
                 ),
@@ -629,7 +439,7 @@ class _SearchCarState extends State<SearchCar> {
     );
   }
 
-  filterCarType(context, _controller,) {
+  filterCarType(context, controller,) {
     return showModalBottomSheet(
       //isScrollControlled: true,
       context: context,
@@ -752,7 +562,7 @@ class _SearchCarState extends State<SearchCar> {
                         'סנן לפי סוג הרכב',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Color(0xFF0F1511),
+                          color: const Color(0xFF0F1511),
                           fontSize: 22.sp,
                           fontWeight: FontWeight.bold,
                         ),
@@ -764,11 +574,11 @@ class _SearchCarState extends State<SearchCar> {
                         const AssetImage("assets/icons/Filter.png"),
                         color: pinkColorApp,
                       ),
-                      Spacer(),
+                      const Spacer(),
                       TextButton(
                         style: TextButton.styleFrom(
-                            minimumSize: Size(80, 20),
-                            padding: EdgeInsets.all(0)),
+                            minimumSize: const Size(80, 20),
+                            padding: const EdgeInsets.all(0)),
                         onPressed: () => {
                           setState(() => type = 'all'),
                           Navigator.pop(context),
@@ -908,7 +718,7 @@ class _SearchCarState extends State<SearchCar> {
                           'הגדל טווח חיפוש',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Color(0xFF0F1511),
+                            color: const Color(0xFF0F1511),
                             fontSize: 22.sp,
                             fontWeight: FontWeight.bold,
                             //height: 1,
@@ -934,17 +744,17 @@ class _SearchCarState extends State<SearchCar> {
                               Text(
                                 'אזור חיפוש נוכחי: ',
                                 style: TextStyle(
-                                  color: Color(0xFF0F1511),
+                                  color: const Color(0xFF0F1511),
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.normal,
                                   height: 1,
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               TextButton(
                                 style: TextButton.styleFrom(
-                                    minimumSize: Size(80, 20),
-                                    padding: EdgeInsets.all(0)),
+                                    minimumSize: const Size(80, 20),
+                                    padding: const EdgeInsets.all(0)),
                                 onPressed: () => departurePoint(
                                     context, widget.location, 1,
                                     sdate: widget.startDate,
@@ -965,33 +775,33 @@ class _SearchCarState extends State<SearchCar> {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           Text(
                             widget.location,
                             textAlign: TextAlign.right,
                             style: TextStyle(
-                              color: Color(0xFF0F1511),
+                              color: const Color(0xFF0F1511),
                               fontSize: 24.sp,
                               fontWeight: FontWeight.bold,
                               height: 1,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 28,
                           ),
                           Text(
                             'הזז את הסמן למרחק הרצוי',
                             textAlign: TextAlign.right,
                             style: TextStyle(
-                              color: Color(0xFF0F1511),
+                              color: const Color(0xFF0F1511),
                               fontSize: 20.sp,
                               fontWeight: FontWeight.normal,
                               height: 1,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 34,
                           ),
                           Directionality(
@@ -1001,14 +811,14 @@ class _SearchCarState extends State<SearchCar> {
                                 data: SliderTheme.of(context).copyWith(
                                   showValueIndicator: ShowValueIndicator.always,
                                   valueIndicatorColor: turquoiseColorApp,
-                                  inactiveTrackColor: Color(0xFFF6F6F6),
+                                  inactiveTrackColor: const Color(0xFFF6F6F6),
                                   activeTrackColor: turquoiseColorApp,
                                   thumbColor: turquoiseColorApp,
                                   trackHeight: 8.0,
-                                  overlayColor: Color(0xFFF6F6F6),
-                                  thumbShape: RoundSliderThumbShape(
+                                  overlayColor: const Color(0xFFF6F6F6),
+                                  thumbShape: const RoundSliderThumbShape(
                                       enabledThumbRadius: 10.0),
-                                  overlayShape: RoundSliderOverlayShape(
+                                  overlayShape: const RoundSliderOverlayShape(
                                       overlayRadius: 10),
                                   valueIndicatorTextStyle: TextStyle(
                                     color: blackColorApp,
@@ -1016,7 +826,7 @@ class _SearchCarState extends State<SearchCar> {
                                     fontWeight: FontWeight.normal,
                                   ),
                                   valueIndicatorShape:
-                                      PaddleSliderValueIndicatorShape(),
+                                      const PaddleSliderValueIndicatorShape(),
                                   // thumbShape: CustomSliderThumbCircle(thumbRadius: 20, min: 0, max: 100),
                                 ),
                                 child: Slider(
@@ -1034,7 +844,7 @@ class _SearchCarState extends State<SearchCar> {
                               );
                             }),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 19,
                           ),
                           Align(
@@ -1042,21 +852,21 @@ class _SearchCarState extends State<SearchCar> {
                             child: Text(
                               'הוסף ${currentSliderValue.toInt()}  ק”מ לטווח החיפוש הנוכחי',
                               style: TextStyle(
-                                color: Color(0xFF0F1511),
+                                color: const Color(0xFF0F1511),
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.bold,
                                 height: 1,
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 21,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Container(
+                              SizedBox(
                                 height: 48.h,
                                 width: 332.w,
                                 child: ElevatedButton(

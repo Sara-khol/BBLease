@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UseInstructions extends StatelessWidget {
-  const UseInstructions({Key? key}) : super(key: key);
+  const UseInstructions({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class UseInstructions extends StatelessWidget {
           Positioned(
             left: 30,
             top: 770,
-            child: Container(
+            child: SizedBox(
               width: 332,
               height: 42,
               child: Stack(
@@ -95,7 +95,7 @@ class UseInstructions extends StatelessWidget {
           Positioned(
             left: 219,
             top: 511,
-            child: Container(
+            child: SizedBox(
               width: 107,
               height: 66,
               child: Stack(
@@ -134,7 +134,7 @@ class UseInstructions extends StatelessWidget {
           Positioned(
             left: 59,
             top: 511,
-            child: Container(
+            child: SizedBox(
               width: 106,
               height: 66,
               child: Stack(
@@ -173,7 +173,7 @@ class UseInstructions extends StatelessWidget {
           Positioned(
             left: 236,
             top: 597,
-            child: Container(
+            child: SizedBox(
               width: 93,
               height: 66,
               child: Stack(
@@ -212,7 +212,7 @@ class UseInstructions extends StatelessWidget {
           Positioned(
             left: 71,
             top: 597,
-            child: Container(
+            child: SizedBox(
               width: 94,
               height: 66,
               child: Stack(
@@ -255,9 +255,9 @@ class UseInstructions extends StatelessWidget {
               width: 331,
               height: 188,
               decoration: ShapeDecoration(
-                color: Color(0xFFF6F6F6),
+                color: const Color(0xFFF6F6F6),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                shadows: [
+                shadows: const [
                   BoxShadow(
                     color: Color(0x05000000),
                     blurRadius: 4,

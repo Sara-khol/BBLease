@@ -132,7 +132,19 @@ class User{
 
   @override
   String toString(){
-    return 'name:$firstName,family_name:$lastName,doc_name:$name,phone_number:$phoneNumber,email:$email,birth_date:$birthDate,id_number:$tz,license_number:$licenseId,license_exp:$licenseExpDate,license_date:$licenseIssDate,license_level:$licenseDegree,is_new_driver: $isNewDriver,is_approve_get_ads:$getNotification';
+    return 'name:$firstName,'
+        'family_name:$lastName,'
+        'doc_name:$name,'
+        'phone_number:$phoneNumber,'
+        'email:$email,'
+        'birth_date:$birthDate,'
+        'id_number:$tz,'
+        'license_number:$licenseId,'
+        'license_exp:$licenseExpDate,'
+        'license_date:$licenseIssDate,'
+        'license_level:$licenseDegree,'
+        'is_new_driver: $isNewDriver,'
+        'is_approve_get_ads:$getNotification';
   }
 
   void clear() {

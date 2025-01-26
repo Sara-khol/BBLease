@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,7 +27,7 @@ class RentalWidget extends StatefulWidget {
 
 class _RentalWidgetState extends State<RentalWidget> {
 
-  CameraPosition _kGoogle = CameraPosition(target: LatLng(31.80012237280773, 35.212884511532316), zoom: 13,);
+  CameraPosition _kGoogle = const CameraPosition(target: LatLng(31.80012237280773, 35.212884511532316), zoom: 13,);
 
    String? formattedAddress;
   late Uint8List  available;
@@ -38,12 +37,11 @@ class _RentalWidgetState extends State<RentalWidget> {
   final List<Marker> _markers = <Marker>[];
   bool dialogShown=false;
   double long=0, lat=0;
-  //CustomInfoWindowController _customInfoWindowController = CustomInfoWindowController();
+
 
   Future<Position> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
-
 
     serviceEnabled= await Geolocator.isLocationServiceEnabled();
     if(!serviceEnabled){
@@ -80,7 +78,6 @@ class _RentalWidgetState extends State<RentalWidget> {
     } catch (e) {
       print('Error retrieving address: $e');
     }
-
     return null;
   }
 
@@ -88,11 +85,6 @@ class _RentalWidgetState extends State<RentalWidget> {
     print('_setCurrentLocation');
     try {
       Position position = await _determinePosition();
-      /*formattedAddress = await FlutterAddressFromLatLng().getStreetAddress(
-        latitude: position.latitude,
-        longitude: position.longitude,
-        googleApiKey: 'AIzaSyBfvApaTLzPlCzL3LakX6DBbj2l7NMBRV4',
-      );*/
       formattedAddress = await getAddressFromLatLng(
         position.latitude,
         position.longitude,
@@ -100,9 +92,6 @@ class _RentalWidgetState extends State<RentalWidget> {
       );
       long=position.longitude;
       lat=position.latitude;
-
-      //print('address: ${formattedAddress?.formattedAddress}');
-
 
     } catch (e) {
       print("There was an issue fetching the location: $e");
@@ -169,34 +158,12 @@ print('getCarsList');
             position: LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),//_latLen[i],
             onTap: () {
               carDetailsDialog(context,car,true);
-             /* _customInfoWindowController.addInfoWindow!(
-                Container(
-                  decoration: BoxDecoration(
-                    color:  turquoiseColorApp,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  width: double.infinity,
-                  height: double.infinity,
-                  child: Center(
-                    child: TextButton(
-                      onPressed: () {
-                        carDetailsDialog(context,car,true);
-                      },
-                      child: Text(car.postTitle,style: TextStyle(color: Colors.white,fontWeight: FontWeight.normal,
-                        fontSize: 18.sp,),),
-                    ),
-                  ),
-                ),
-                LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),
-              );*/
             },
           )
       );
       print('marker: ${_markers.length}');
     }
     for(var car in unAvailableCars){
-      //final Uint8List markIcons = await getImages(images[i], 50);
-      // makers added according to index
       _markers.add(
           Marker(
             markerId: MarkerId('${index++}'),
@@ -205,27 +172,6 @@ print('getCarsList');
             position: LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),
             onTap: () {
               carDetailsDialog(context,car,false);
-              /*_customInfoWindowController.addInfoWindow!(
-                Container(
-                  decoration: BoxDecoration(
-                    color:  pinkColorApp,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  width: double.infinity,
-                  height: double.infinity,
-                  child: Center(
-                    child: TextButton(
-                      onPressed: () {
-                        carDetailsDialog(context,car,false);
-
-                      },
-                      child: Text(car.postTitle,style: TextStyle(color: Colors.white,fontWeight: FontWeight.normal,
-                        fontSize: 18.sp,),),
-                    ),
-                  ),
-                ),
-                LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),
-              );*/
             },
           )
       );
@@ -244,23 +190,18 @@ print('getCarsList');
   generateMarkers()async{
     available=await getBytesFromAsset('assets/images/car-available.png', kIsWeb?50:300);
     unAvailable=await getBytesFromAsset('assets/images/car-not-available.png', kIsWeb?50:300);
-    /*available=await BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(152.w,181.h)), 'assets/icons/car-available.png');
-    unAvailable=await BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(152.w,181.h)), 'assets/icons/car_not_available.png');*/
-    print('generate markers: $available, $unAvailable');
+    //print('generate markers: $available, $unAvailable');
     addMarkers();
   }
 
   @override
   void initState() {
     super.initState();
-   /* _setCurrentLocation();*/
     getCarsList();
-    //generateMarkers();
   }
 
   @override
   void dispose() {
-    //_customInfoWindowController.dispose();
     mapController.dispose();
     super.dispose();
   }
@@ -281,18 +222,10 @@ print('getCarsList');
 
           onMapCreated: (GoogleMapController controller){
             mapController=controller;
-            //_customInfoWindowController.googleMapController = controller;
             _setCurrentLocation();
             },
 
           ),
-         /* CustomInfoWindow(
-            controller: _customInfoWindowController,
-            height: 48.h,
-            width: 114.w,
-            offset: 100,
-
-          ),*/
           const AppBarBibilease(),
           Align(
             alignment: Alignment.bottomLeft,
@@ -313,7 +246,6 @@ print('getCarsList');
                         onPressed: () {
                           dialogShown=true;
                           if(formattedAddress!=null) {
-
                             departurePoint(context, formattedAddress, 0,latitude1: lat,longitude1: long);
                           }
                         },
@@ -331,7 +263,7 @@ print('getCarsList');
                                   fontSize: 18.sp,
                                   fontWeight: FontWeight.normal),
                             ),
-                            ImageIcon(AssetImage("assets/icons/ADD.png"), color: Colors.white,),
+                            const ImageIcon(AssetImage("assets/icons/ADD.png"), color: Colors.white,),
                           ],
                         )),
                   ),

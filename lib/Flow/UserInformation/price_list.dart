@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../landspace_widget.dart';
 
 class PriceList extends StatefulWidget {
-  const PriceList({Key? key}) : super(key: key);
+  const PriceList({super.key});
 
   @override
   State<PriceList> createState() => _PriceListState();
@@ -14,7 +14,7 @@ class PriceList extends StatefulWidget {
 
 class _PriceListState extends State<PriceList> {
 
-   Map<String, dynamic> priceList={/*"": {"": {"": "",},"": {"":"",}},"": {"":"",},"": { "": "",}*/};
+   Map<String, dynamic> priceList={};
 
   Map<int, String> indexMap={
     1:'price_list',
@@ -23,28 +23,6 @@ class _PriceListState extends State<PriceList> {
   };
 
    bool initData = false;
-
-  /*Map<String, Map<String, String>> prices=
-  {
-    'מחירון':{
-      'איחור בהחזרה':100,
-      'איחור':100,
-      'איחור בהח':100,
-      'ר בהחזרה':100,
-    },
-    'תוספות':{
-      'איחור בהחזרה':100,
-      'איחור':100,
-      'איחור בהח':100,
-      'ר בהחזרה':100,
-    },
-    'חיובים נוספים':{
-      'איחור בהחזרה':100,
-      'איחור':100,
-      'איחור בהח':100,
-      'ר בהחזרה':100,
-    },
-  };*/
 
   getData(){
     ApiService().getPriceList((res) {
@@ -59,22 +37,40 @@ class _PriceListState extends State<PriceList> {
   @override
   void initState() {
     getData();
-    //priceList=prices;
     super.initState();
   }
 
-
    String truncateString(String str) {
-     if (str.length > 25) {
-       //int partLength = (25 - 3) ~/ 2;
+     if (str.length > 24) {
        String firstPart = str.substring(0, 7);
        String secondPart = str.substring(13, str.length);
-       return firstPart + '.' + secondPart;
-       //return str.substring(0, 21) + '...';
+       return '$firstPart.$secondPart';
+       //return '${str.substring(0, 22)}...';
      } else {
        return str;
      }
    }
+
+   /*String addNewline(String input) {
+     if (input.length > 24) {
+       List<String> words = input.split(' ');
+       if (words.length > 1) {
+         String lastWord = words.removeLast();
+         print('${words.join(' ')}\n$lastWord');
+         return '${words.join(' ')}\n$lastWord';
+       }
+     }
+     // If the string is 24 characters or shorter, return the original string
+     return input;
+   }*/
+
+   /*String padStringToLengthFive(String input) {
+     if (input.length < 5) {
+       return input.padLeft(5,'_');
+     } else {
+       return input;
+     }
+   }*/
 
   int i=1;
 
@@ -82,14 +78,15 @@ class _PriceListState extends State<PriceList> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape)
-          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('image3.png', 1000.w,'תמונת מידע נוסף'));
-        return buildContent();
+        if (orientation == Orientation.landscape) {
+          return LandSpaceWidget(mainWidget: buildContent(orientation),imageProperties:ImageProperties('image3.png', 1000.w,'תמונת מידע נוסף'));
+        }
+        return buildContent(orientation);
       }),
     );
   }
 
-   buildContent() {
+   buildContent(Orientation o) {
      return Directionality(
        textDirection: TextDirection.rtl,
        child: Padding(
@@ -97,13 +94,13 @@ class _PriceListState extends State<PriceList> {
          child: SingleChildScrollView(
            child: Column(
              children: [
-               SizedBox(height: 5.h,),
+               if(o==Orientation.portrait)SizedBox(height: 5.h,),
                Align(
                    alignment: Alignment.centerRight,
                    child: IconButton(onPressed: () => Navigator.pop(context),
-                       icon: Icon(Icons.arrow_back_ios))
+                       icon: const Icon(Icons.arrow_back_ios))
                ),
-               SizedBox(height: 30.h,),
+               if(o==Orientation.portrait)SizedBox(height: 30.h,),
                Text('מחירון', textAlign: TextAlign.center,
                    style: TextStyle(
                      fontSize: 22.sp, fontWeight: FontWeight.bold,)),
@@ -173,8 +170,8 @@ class _PriceListState extends State<PriceList> {
                        'https://bibilease.quicksolutions.co.il/wp-content/uploads/2023/12/Kia-Picanto.png',
                        height: 95.h,),
                      SizedBox(height: 10.h,),
-                     Text(' קטן | 5 מקומות ', textAlign: TextAlign.right,),
-                     Divider(height: 10.h, color: Color(0xFF04AEB9),),
+                     const Text(' קטן | 5 מקומות ', textAlign: TextAlign.right,),
+                     Divider(height: 10.h, color: const Color(0xFF04AEB9),),
                      MediaQuery.removePadding(
                        removeTop: true,
                        context: context,
@@ -185,8 +182,7 @@ class _PriceListState extends State<PriceList> {
                              iconPath = 'assets/icons/ticket.png';
                              var currentItem = priceList['price_list']['A'];
                              if (currentItem!.values.elementAt(index) != '') {
-                               String str = truncateString(
-                                   currentItem.keys.elementAt(index));
+                               String str = truncateString(currentItem.keys.elementAt(index));
                                return SizedBox(
                                  height: 40.h,
                                  width: 328.w,
@@ -195,43 +191,38 @@ class _PriceListState extends State<PriceList> {
                                    children: [
                                      Image.asset(iconPath),
                                      SizedBox(width: 9.w,),
-                                     Flexible(
-                                       child: ListView(
-                                         shrinkWrap: true,
-                                         scrollDirection: Axis.horizontal,
-                                         children: [
+                                     Expanded(child: Text(currentItem.keys.elementAt(index), style: TextStyle(fontSize: 20.sp))),
+                                     Row(
+                                       mainAxisAlignment: MainAxisAlignment.end,
+                                       children: [
+                                         Text(' |', style: TextStyle(
+                                             color: const Color(0xFF03AEB9),
+                                             fontSize: 24.sp,
+                                             fontWeight: FontWeight.w300)),
+                                         SizedBox(
+                                           width: 50.w,
+                                           child: Text(currentItem.values.elementAt(index),
+                                             style: TextStyle(fontSize: 20.sp),
+                                             textDirection: TextDirection.rtl,textAlign: TextAlign.end,),
 
-                                           Text(str, style: TextStyle(
-                                               fontSize: 20.sp)),
-                                           // Spacer(),
-                                           Text('  | ', style: TextStyle(
-                                               color: Color(0xFF03AEB9),
-                                               fontSize: 24.sp,
-                                               fontWeight: FontWeight.w300)),
-                                           Text(currentItem.values.elementAt(
-                                               index), style: TextStyle(
-                                               fontSize: 20.sp),
-                                               textDirection: TextDirection
-                                                   .rtl),
-                                         ],
-                                       ),
+                                         ),
+                                       ],
                                      ),
                                    ],
                                  ),
                                );
                              }
-                             else
-                               return SizedBox();
+                             else {
+                               return const SizedBox();
+                             }
                            }
                        ),
                      ),
                      SizedBox(height: 20.h,),
-                     Image.network(
-                       'https://bibilease.quicksolutions.co.il/wp-content/uploads/2023/12/Opel-Combo.png',
-                       height: 95.h,),
+                     Image.network('https://bibilease.quicksolutions.co.il/wp-content/uploads/2023/12/Opel-Combo.png', height: 95.h,),
                      SizedBox(height: 10.h,),
-                     Text(' משפחתי | 5 מקומות ', textAlign: TextAlign.right,),
-                     Divider(height: 10.h, color: Color(0xFF04AEB9),),
+                     const Text(' משפחתי | 5 מקומות ', textAlign: TextAlign.right,),
+                     Divider(height: 10.h, color: const Color(0xFF04AEB9),),
                      MediaQuery.removePadding(
                        removeTop: true,
                        context: context,
@@ -242,83 +233,87 @@ class _PriceListState extends State<PriceList> {
                              iconPath = 'assets/icons/ticket.png';
                              var currentItem = priceList['price_list']['B'];
                              if (currentItem!.values.elementAt(index) != '') {
-                               String str = truncateString(
-                                   currentItem.keys.elementAt(index));
+                               String str = truncateString(currentItem.keys.elementAt(index));
+                               //String str = addNewline(currentItem.keys.elementAt(index));
+                               //String str1 = padStringToLengthFive(currentItem.values.elementAt(index));
+                               //print('$str1 ${str1.length}');
                                return SizedBox(
-                                 height: 40.h,
+                                 // height: 40.h,
                                  width: 328.w,
                                  //decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Color(0xFF03AEB9),width: 1))),
                                  child: Row(
                                    children: [
                                      Image.asset(iconPath),
                                      SizedBox(width: 9.w,),
-                                     Text(str,
-                                         style: TextStyle(fontSize: 20.sp)),
-                                     Text('  | ', style: TextStyle(
-                                         color: Color(0xFF03AEB9),
-                                         fontSize: 24.sp,
-                                         fontWeight: FontWeight.w300)),
-                                     Text(currentItem.values.elementAt(index),
-                                         style: TextStyle(fontSize: 20.sp),
-                                         textDirection: TextDirection.rtl),
+                                     Expanded(child: Text(currentItem.keys.elementAt(index), style: TextStyle(fontSize: 20.sp))),
+                                     Row(
+                                       mainAxisAlignment: MainAxisAlignment.end,
+                                       children: [
+                                         Text(' |', style: TextStyle(
+                                             color: const Color(0xFF03AEB9),
+                                             fontSize: 24.sp,
+                                             fontWeight: FontWeight.w300)),
+                                         SizedBox(
+                                           width: 50.w,
+                                           child: Text(currentItem.values.elementAt(index),
+                                               style: TextStyle(fontSize: 20.sp),
+                                               textDirection: TextDirection.rtl,textAlign: TextAlign.end,),
+
+                                         ),
+                                       ],
+                                     ),
                                    ],
                                  ),
                                );
                              }
-                             else
-                               return SizedBox();
+                             else {
+                               return const SizedBox();
+                             }
                            }
                        ),
                      ),
                      SizedBox(height: 20.h,),
                    ]
                )
-                   : MediaQuery.removePadding(
+               : MediaQuery.removePadding(
                  removeTop: true,
                  context: context,
                  child: ListView.builder(
                    shrinkWrap: true,
                    itemCount: priceList[indexMap[i]]?.length,
                    itemBuilder: (context, index) {
-                     if (i == 2) {
-                       iconPath = 'assets/icons/bag.png';
-                     }
-                     if (i == 3) {
-                       iconPath = 'assets/icons/more_price.png';
-                     }
+                     if (i == 2) iconPath = 'assets/icons/bag.png';
+                     if (i == 3) iconPath = 'assets/icons/more_price.png';
                      var currentItem = priceList[indexMap[i]];
                      return Container(
-
-                       height: 50.h,
+                       //height: 50.h,
                        width: 328.w,
-                       decoration: BoxDecoration(border: Border(
-                           bottom: BorderSide(
-                               color: Color(0xFF03AEB9), width: 1))),
+                       decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: Color(0xFF03AEB9), width: 1))),
                        child: Center(
                          child: Row(
-
-                           crossAxisAlignment: CrossAxisAlignment.center,
                            children: [
                              Image.asset(iconPath),
                              SizedBox(width: 16.w,),
                              Expanded(
-                               child: ListView(
-                                 scrollDirection: Axis.horizontal,
-                                 shrinkWrap: true,
-                                 children: [
-                                   Text(currentItem!.keys.elementAt(index),
-                                       style: TextStyle(fontSize: 24.sp)),
-                                   //  Spacer(),
-                                   Text(' | ', style: TextStyle(
-                                       color: Color(0xFF03AEB9),
-                                       fontSize: 24.sp,
-                                       fontWeight: FontWeight.w300)),
-                                   Text('  ${currentItem!.values.elementAt(
-                                       index)} ₪',
-                                       style: TextStyle(fontSize: 24.sp),
+                               child: Text(currentItem!.keys.elementAt(index), style: TextStyle(fontSize: 20.sp)),
+                             ),
+                             //Spacer(),
+                             Row(
+                               mainAxisAlignment: MainAxisAlignment.end,
+                               children: [
+                                 Text('|', style: TextStyle(
+                                     color: const Color(0xFF03AEB9),
+                                     fontSize: 24.sp,
+                                     fontWeight: FontWeight.w300)),
+                                 SizedBox(
+                                   width: 70.w,
+                                   child: Text(' ${currentItem!.values.elementAt(
+                                       index)}₪',
+                                       style: TextStyle(fontSize: 20.sp),
                                        textDirection: TextDirection.rtl
                                    ),
-                                 ],),
+                                 ),
+                               ],
                              ),
                            ],
                          ),

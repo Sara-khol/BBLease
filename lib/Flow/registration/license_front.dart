@@ -22,13 +22,11 @@ class LicenseFront extends StatefulWidget {
 
 class _LicenseFrontState extends State<LicenseFront> {
   late List<CameraDescription> cameras;
-  late CameraController _cameraController;
+   CameraController? _cameraController;
   late XFile _imageFront;
   bool cameraOn = false;
 
-  Future<void> awaitCameras() async {
-    cameras = await availableCameras();
-  }
+
 
   @override
   void initState() {
@@ -37,7 +35,9 @@ class _LicenseFrontState extends State<LicenseFront> {
 
   @override
   void dispose() {
-    _cameraController.dispose();
+    if(_cameraController!=null && _cameraController!.value.isInitialized) {
+      _cameraController!.dispose();
+    }
     super.dispose();
   }
 
@@ -223,7 +223,7 @@ class _LicenseFrontState extends State<LicenseFront> {
       ResolutionPreset.high,
       imageFormatGroup: ImageFormatGroup.yuv420,
     );
-    await _cameraController.initialize().then((_) {
+    await _cameraController!.initialize().then((_) {
       if (!mounted) {
         return;
       }
@@ -239,7 +239,7 @@ class _LicenseFrontState extends State<LicenseFront> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        if (!_cameraController.value.isInitialized) {
+        if (!_cameraController!.value.isInitialized) {
           return Center(child: CircularProgressIndicator(color: pinkColorApp,));
         }
         return Dialog(
@@ -259,7 +259,7 @@ class _LicenseFrontState extends State<LicenseFront> {
                         width: 380.w,
                         /*child: Transform.rotate(
                           angle: -_cameraController.description.sensorOrientation * pi / 180,*/
-                          child: CameraPreview(_cameraController),
+                          child: CameraPreview(_cameraController!),
                         //),
                       ),
                     ),
@@ -280,13 +280,13 @@ class _LicenseFrontState extends State<LicenseFront> {
 
                  child: TextButton(
                      onPressed: () async{
-                     XFile xfile=await _cameraController.takePicture();
+                     XFile xfile=await _cameraController!.takePicture();
                      debugPrint('xfile ${xfile.name}');
                      uploadSucceed(context, LicenseFront(index: widget.index,orderId: widget.orderId,), LicenseBack(index: widget.index,orderId: widget.orderId,));
 
                        setState(() {
                        _imageFront= xfile;
-                       _cameraController.pausePreview();
+                       _cameraController!.pausePreview();
                        widget.index==1
                            ?{
                               User().regImages[0] = _imageFront,
@@ -309,7 +309,7 @@ class _LicenseFrontState extends State<LicenseFront> {
 
   void _onUploadButtonPressed() async {
     if (cameraOn) {
-      _cameraController.pausePreview();
+      _cameraController!.pausePreview();
       cameraOn = false;
     }
     XFile? result = await ImagePicker().pickImage(source: ImageSource.gallery);

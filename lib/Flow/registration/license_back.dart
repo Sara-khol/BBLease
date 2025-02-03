@@ -26,7 +26,7 @@ class LicenseBack extends StatefulWidget {
 class _LicenseBackState extends State<LicenseBack> {
 
   late List<CameraDescription> cameras;
-  late CameraController _cameraController;
+   CameraController? _cameraController;
   late XFile _imageBack;
   bool cameraOn=false;
 
@@ -41,8 +41,8 @@ class _LicenseBackState extends State<LicenseBack> {
 
   @override
   void dispose() {
-    if(_cameraController.value.isInitialized) {
-      _cameraController.dispose();
+    if(_cameraController!=null && _cameraController!.value.isInitialized) {
+      _cameraController!.dispose();
     }
     super.dispose();
   }
@@ -213,7 +213,7 @@ class _LicenseBackState extends State<LicenseBack> {
     final camera = cameras.first; // Use the first camera
     _cameraController = CameraController(camera, ResolutionPreset.high,imageFormatGroup: ImageFormatGroup.yuv420,);
 
-    await _cameraController.initialize().then((_) {
+    await _cameraController!.initialize().then((_) {
       if (!mounted) {
         return;
       }
@@ -228,7 +228,7 @@ class _LicenseBackState extends State<LicenseBack> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        if (!_cameraController.value.isInitialized) {
+        if (!_cameraController!.value.isInitialized) {
           return Center(child: CircularProgressIndicator(color: pinkColorApp,));
         }
         return Dialog(
@@ -249,7 +249,7 @@ class _LicenseBackState extends State<LicenseBack> {
                         //height: 380 / _cameraController.value.aspectRatio,
                         /*child: Transform.rotate(
                           angle: -_cameraController.description.sensorOrientation * pi / 180,*/
-                          child: CameraPreview(_cameraController),
+                          child: CameraPreview(_cameraController!),
                         //),
                       ),
                     ),
@@ -268,14 +268,14 @@ class _LicenseBackState extends State<LicenseBack> {
                   ),
                   child: TextButton(
                     onPressed: () async{
-                      XFile xfile=await _cameraController.takePicture();
+                      XFile xfile=await _cameraController!.takePicture();
 
                       widget.index==1
                           ?uploadSucceed(context,LicenseBack(index: widget.index),/*PersonalDetailsForm()*/const FaceScanning())
                           :uploadSucceed(context,LicenseBack(index: widget.index,orderId: widget.orderId,),LicenseDetails(index: widget.index,orderId: widget.orderId,));
                       setState(() {
                         _imageBack= xfile;
-                        _cameraController.pausePreview();
+                        _cameraController!.pausePreview();
                         widget.index==1?User().regImages[1]=_imageBack:User().additionalDriver.images[1]=_imageBack;
                         widget.index==1?TextRecognition(1):null;
                                             });
@@ -293,7 +293,7 @@ class _LicenseBackState extends State<LicenseBack> {
 
   void _onUploadButtonPressed() async {
     if(cameraOn) {
-      _cameraController.pausePreview();
+      _cameraController!.pausePreview();
       cameraOn=false;
     }
     XFile? result = await ImagePicker().pickImage(source: ImageSource.gallery);

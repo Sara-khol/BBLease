@@ -280,7 +280,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                             message: 'יש לחתום על תנאי השכרה',
                             closeButton: true);
                       }
-                      else /*if (_formKey.currentState!.validate())*/ {
+                      else if (_formKey.currentState!.validate()) {
 
                         if(widget.index==1){
                           print('signature is not empty');

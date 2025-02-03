@@ -1,6 +1,7 @@
 import 'package:bblease/Flow/Rental/dialogs.dart';
 import 'package:bblease/services/api_service.dart';
 import 'package:bblease/utils/my_colors.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,6 +23,8 @@ class _CarDocuState extends State<CarDocu> {
 
   late List<XFile?> images;
   bool allLoaded=false;
+  CameraController? _cameraController;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -36,12 +39,11 @@ class _CarDocuState extends State<CarDocu> {
       displayMessage(context,
           message: 'ההודעה התקבלה בהצלחה',
           onClose: () {
-            Navigator.pop(context);
+           // Navigator.pop(context);
             Navigator.pop(context);
           });
     },);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +118,7 @@ class _CarDocuState extends State<CarDocu> {
                                             ],
                                           ),
                                         ),
-                                        onTap: ()=>images[0]==null?pickImage(0):editImage('צד קדמי', 0),
+                                        onTap: ()=>images[0]==null?showImageDialog(0):editImage('צד קדמי', 0),
                                       ),
                                     ),
                                   ),
@@ -153,7 +155,7 @@ class _CarDocuState extends State<CarDocu> {
                                             ],
                                           ),
                                         ),
-                                        onTap: ()=>images[1]==null?pickImage(1):editImage('צד ימין', 1),
+                                        onTap: ()=>images[1]==null?showImageDialog(1):editImage('צד ימין', 1),
                                       ),
                                     ),
                                   ),
@@ -194,7 +196,7 @@ class _CarDocuState extends State<CarDocu> {
                                             ],
                                           ),
                                         ),
-                                        onTap: ()=>images[2]==null?pickImage(2):editImage('צד אחורי', 2),
+                                        onTap: ()=>images[2]==null?showImageDialog(2):editImage('צד אחורי', 2),
                                       ),
                                     ),
                                   ),
@@ -231,7 +233,7 @@ class _CarDocuState extends State<CarDocu> {
                                             ],
                                           ),
                                         ),
-                                        onTap: ()=>images[3]==null?pickImage(3):editImage('צד שמאל', 3),
+                                        onTap: ()=>images[3]==null?showImageDialog(3):editImage('צד שמאל', 3),
                                       ),
                                     ),
                                   ),
@@ -287,8 +289,78 @@ class _CarDocuState extends State<CarDocu> {
     );
   }
 
-  Future pickImage(index) async{
+  showImageDialog(int index)
+  {
+   showBottomDialog( Center(
+     child: Column(
+       crossAxisAlignment: CrossAxisAlignment.center,
+       children: [
+         ElevatedButton(
+             style: ElevatedButton.styleFrom(
+               backgroundColor: turquoiseColorApp,
+               shape: RoundedRectangleBorder(
+                 borderRadius: BorderRadius.circular(100),
+               ),
+               elevation: 0.0,
+             ),
+             onPressed: () {
+               Navigator.pop(context);
+               pickImage(index);
+             },
+             child: Text(
+               'לפתיחת מצלמה',
+               style: TextStyle(
+                 fontSize: 22.sp,
+                 fontWeight: FontWeight.normal,
+                 color: Colors.white,
+                 //height: 2.3
+               ),
+             )),
+         SizedBox(height: 15.h,),
+         ElevatedButton(
+             style: ElevatedButton.styleFrom(
+               backgroundColor: turquoiseColorApp,
+               shape: RoundedRectangleBorder(
+                 borderRadius: BorderRadius.circular(100),
+               ),
+               elevation: 0.0,
+             ),
+             onPressed: () {
+               Navigator.pop(context);
+               openGallery(index);
+             },
+             child: Text(
+               'לפתיחת גלריה',
+               style: TextStyle(
+                 fontSize: 22.sp,
+                 fontWeight: FontWeight.normal,
+                 color: Colors.white,
+                 //height: 2.3
+               ),
+             )),
+         SizedBox(height: 15.h,),
+       ],
+     ),
+   ));
+  }
+
+/*  Future pickImage(index) async{
     final image = await ImagePicker().pickImage(source: ImageSource.camera);
+    images[index]=image!;
+    int i;
+    for(i=0; i<images.length;i++){
+
+      if(images[i]==null) {
+        break;
+      }
+    }
+    print(i);
+    if (i==4) allLoaded=true;
+    setState(() {});
+  }*/
+
+  Future openGallery(index) async{
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
     images[index]=image!;
     int i;
     for(i=0; i<images.length;i++){
@@ -302,45 +374,136 @@ class _CarDocuState extends State<CarDocu> {
     setState(() {});
   }
 
-  Future missingImage(){
-    Widget widget=    Padding(
-      padding: EdgeInsets.only(left: 30.w, right: 30.w, ),
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'חסרות תמונות',
-              style: TextStyle(
-                  fontSize: 23.sp,
-                  fontWeight: FontWeight.bold,
-                  color: pinkColorApp),
-            ),
-            SizedBox(height: 40.h),
-            Text('כדי לבצע שליחה עליך לצלם\nתמונות ל-4 הכיוונים ',
-              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),
-              textDirection: TextDirection.rtl,
-              textAlign: TextAlign.center,),
-            SizedBox(height: 27.h),
-            SizedBox(
-              height: 48.h,
-              width: 332.w,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: turquoiseColorApp,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100),
+  void pickImage(int index) async {
+    final cameras = await availableCameras(); // Get a list of available cameras
+    final camera = cameras.first; // Use the first camera
+    _cameraController = CameraController(camera, ResolutionPreset.high,imageFormatGroup: ImageFormatGroup.yuv420,);
+
+    await _cameraController!.initialize().then((_) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        //cameraOn=true;
+      });
+    });
+    showCameraPreview(index);
+  }
+
+  void showCameraPreview(int index) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        if (!_cameraController!.value.isInitialized) {
+          return Center(child: CircularProgressIndicator(color: pinkColorApp,));
+        }
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          elevation: 1,
+          child: Stack(
+            children: [
+              Center(
+                child: SizedBox(
+                  width: 380.w,
+                  //height: 380.h,
+                  child: OverflowBox(
+                    alignment: Alignment.center,
+                    child: FittedBox(
+                      fit: BoxFit.cover,
+                      child: SizedBox(
+                        width: 380.w,
+                        /*child: Transform.rotate(
+                          angle: -_cameraController.description.sensorOrientation * pi / 180,*/
+                        child: CameraPreview(_cameraController!),
+                        //),
+                      ),
                     ),
                   ),
-                  onPressed: () =>Navigator.pop(context),
-                  child: Text('חזור לצלם',
-                      style: TextStyle(
-                        fontSize: 20.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.normal,
-                      ))),
-            ),
-            SizedBox(height: 22.h),
-          ]
+                ),
+              ),
+              Positioned(
+                bottom: 230.h,
+                right: 130.w,
+
+                child:  Container(
+                  height: 40.h,
+                  width: 80.w,
+                  decoration: BoxDecoration(
+                      color: turquoiseColorApp,
+                      borderRadius: const BorderRadius.all(Radius.circular(70))
+                  ),
+
+                  child: TextButton(
+                    onPressed: () async{
+                      XFile image=await _cameraController!.takePicture();
+                      debugPrint('imageeeeeee ${image.name}');
+                      Navigator.pop(context);
+                      images[index]=image;
+                      int i;
+                      for(i=0; i<images.length;i++){
+
+                        if(images[i]==null) {
+                          break;
+                        }
+                      }
+                      print(i);
+                      if (i==4) allLoaded=true;
+                      _cameraController!.pausePreview();
+                      setState(() {});
+
+                    },
+                    child: const Text('צלם',style: (TextStyle(color: Colors.white, )),),
+                  ),
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future missingImage(){
+    Widget widget=    Center(
+      child: Padding(
+        padding: EdgeInsets.only(left: 30.w, right: 30.w, ),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'חסרות תמונות',
+                style: TextStyle(
+                    fontSize: 23.sp,
+                    fontWeight: FontWeight.bold,
+                    color: pinkColorApp),
+              ),
+              SizedBox(height: 40.h),
+              Text('כדי לבצע שליחה עליך לצלם\nתמונות ל-4 הכיוונים ',
+                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),
+                textDirection: TextDirection.rtl,
+                textAlign: TextAlign.center,),
+              SizedBox(height: 27.h),
+              SizedBox(
+                height: 48.h,
+                width: 332.w,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: turquoiseColorApp,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                    ),
+                    onPressed: () =>Navigator.pop(context),
+                    child: Text('חזור לצלם',
+                        style: TextStyle(
+                          fontSize: 20.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                        ))),
+              ),
+              SizedBox(height: 22.h),
+            ]
+        ),
       ),
     );
     return showBottomDialog(widget);
@@ -379,15 +542,17 @@ class _CarDocuState extends State<CarDocu> {
                         ),
                       ),
                       onPressed: () {
-                        pickImage(index);
                         Navigator.pop(context);
-
+                        showImageDialog(index);
                       },
-                      child: Text('צלם שוב',
-                          style: TextStyle(
-                            fontSize: 20.sp,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,))),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(/*'צלם שוב'*/'תמונה חדשה',
+                            style: TextStyle(
+                              fontSize: 20.sp,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600)),
+                      )),
                 ),
                 SizedBox(width: 13.w,),
                 SizedBox(
@@ -456,8 +621,8 @@ class _CarDocuState extends State<CarDocu> {
                         ),
                       ),
                       onPressed: () {
-                        pickImage(index);
                         Navigator.pop(context);
+                        showImageDialog(index);
                       },
                       child: Text('צלם שוב',
                           style: TextStyle(
@@ -609,5 +774,13 @@ class _CarDocuState extends State<CarDocu> {
             ),
           );
         },);
+  }
+
+  @override
+  void dispose() {
+    if(_cameraController!=null) {
+      _cameraController!.dispose();
+    }
+    super.dispose();
   }
 }

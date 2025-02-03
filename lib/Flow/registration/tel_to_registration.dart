@@ -51,48 +51,57 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
 
   getVerificationCode(int type) async {
     showLoading(context);
-    await ApiService().getVerificationCode(_phone.text, type, (value) {
-      Navigator.pop(context);
-      int status = value['status'];
-      print('status: $status');
-      if (!isRegister) {
-        if (status == 4 || status == 5) {
-          //  code = value['code'];
-          // debugPrint('status $status code $code');
-          didSendCode = true;
-          textSecondFocusNode.requestFocus();
-        }
-        if (status == 3) {
-          displayError(context,
-              message: 'תעודת הזהות שהכנסת נחסמה בעבר הועבר לבדיקה');
-        }
-        else {
-          if (status == 1)
-          {
-            displayError(context,
-                message: 'מספר הטלפון שהזנת  כבר קיים  במערכת');
-          }
-        }
-      }
-      else {
-        if (status == 1) {
-          // code = value['code'];
-          // debugPrint('status $status code $code');
-          didSendCode = true;
-          textSecondFocusNode.requestFocus();
-        } else {
-          if (status == 4 || status == 5) {
-            displayError(context,
-                message: 'מספר הטלפון שהזנת אינו קיים במערכת');
-          } else {
-            if (status == 3) {
-              displayError(context, message: 'משתמש זה חסום');
+    if(!isRegister)
+      {
+        await ApiService().sendCodeToRegistration(_phone.text, type, (value) {
+          Navigator.pop(context);
+          int status = value['status'];
+          print('status: $status');
+            if (status == 4 || status == 5) {
+              //  code = value['code'];
+              // debugPrint('status $status code $code');
+              didSendCode = true;
+              textSecondFocusNode.requestFocus();
             }
-          }
-        }
+            if (status == 3) {
+              displayError(context,
+                  message: 'תעודת הזהות שהכנסת נחסמה בעבר הועבר לבדיקה');
+            }
+            else {
+              if (status == 1)
+              {
+                displayError(context,
+                    message: 'מספר הטלפון שהזנת  כבר קיים  במערכת');
+              }
+            }
+          setState(() {});
+        });
       }
-      setState(() {});
-    });
+    else
+      {
+        await ApiService().getVerificationCode(_phone.text, type, (value) {
+          Navigator.pop(context);
+          int status = value['status'];
+          print('status: $status');
+            if (status == 1) {
+              // code = value['code'];
+              // debugPrint('status $status code $code');
+              didSendCode = true;
+              textSecondFocusNode.requestFocus();
+            } else {
+              if (status == 4 || status == 5) {
+                displayError(context,
+                    message: 'מספר הטלפון שהזנת אינו קיים במערכת');
+              } else {
+                if (status == 3) {
+                  displayError(context, message: 'משתמש זה חסום');
+                }
+              }
+            }
+          setState(() {});
+        });
+      }
+
   }
 
   verifyCode() async {

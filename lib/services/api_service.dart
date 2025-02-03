@@ -93,6 +93,17 @@ class ApiService {
     // Prints the raw data returned by the server
   }
 
+  Future sendCodeToRegistration(String phone,int type, Function(dynamic carJson) onSuccess) async {
+    print('${_baseUrl}wp/v2/send_code_to_registration/$type/$phone');
+    Response response = await _dio.get('${_baseUrl}wp/v2/send_code_to_registration/$type/$phone');
+
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print(result);
+      onSuccess(result);
+    }
+  }
+
   Future codeVerification(String phone,String code, Function(dynamic carJson) onSuccess) async {
     print('${_baseUrl}wp/v2/verificaion_customer/$code/$phone');
     Response response = await _dio.get('${_baseUrl}wp/v2/verificaion_customer/$code/$phone');
@@ -271,7 +282,7 @@ class ApiService {
   }
 
   Future getFuelLevel(int carNum,Function(dynamic res) onSuccess) async {
-    https://bibilease.quicksolutions.co.il/wp-json/wp/v2/get_car_fuel_level_by_KM_and_by_fuel_percentage/73592802
+   // https://bibilease.quicksolutions.co.il/wp-json/wp/v2/get_car_fuel_level_by_KM_and_by_fuel_percentage/73592802
     print('${_baseUrl}wp/v2/get_car_fuel_level_by_KM_and_by_fuel_percentage/$carNum');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_car_fuel_level_by_KM_and_by_fuel_percentage/$carNum');
     if(response.statusCode == 200) {
@@ -535,14 +546,32 @@ class ApiService {
 
   Future carDocumentation(int carNum ,List<XFile?> images,Function(dynamic res) onSuccess) async {
     List<MultipartFile> imageFiles = [];
-    for (var item in images) {
-      if (item != null) {
-        imageFiles.add(
-          await MultipartFile.fromFile(
-            item.path,
-            filename: item.path.split('/').last,
-          ),
-        );
+
+    if(!kIsWeb) {
+      for (var item in images) {
+        if (item != null) {
+          imageFiles.add(
+            await MultipartFile.fromFile(
+              item.path,
+              filename: item.path
+                  .split('/')
+                  .last,
+            ),
+          );
+        }
+      }
+    }
+    else{
+      for (var item in images) {
+        if (item != null) {
+          final bytes = await item.readAsBytes();
+          imageFiles.add(
+            await MultipartFile.fromBytes(
+              bytes,
+              filename: item.name,
+            ),
+          );
+        }
       }
     }
 
@@ -555,9 +584,10 @@ class ApiService {
     });
 
     debugPrint('${_baseUrl}wp/v2/Vehicle_documentation/$carNum');
-    debugPrint('data : ${json.encode(formData)}');
+    debugPrint('data : $formData');
     Response response = await _dio.post('${_baseUrl}wp/v2/Vehicle_documentation/$carNum',
-        data: json.encode(formData));
+        // data: json.encode(formData));
+        data: formData);
     debugPrint('data: ${response.data}');
     if(response.statusCode==200) {
       onSuccess(response.data);

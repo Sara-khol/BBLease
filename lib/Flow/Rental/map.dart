@@ -16,8 +16,8 @@ import 'car_dialog.dart';
 import 'dialogs.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 
-
 late GoogleMapController mapController;
+
 class RentalWidget extends StatefulWidget {
   const RentalWidget({super.key});
 
@@ -26,45 +26,143 @@ class RentalWidget extends StatefulWidget {
 }
 
 class _RentalWidgetState extends State<RentalWidget> {
+  CameraPosition _kGoogle = const CameraPosition(
+    target: LatLng(31.80012237280773, 35.212884511532316),
+    zoom: 13,
+  );
 
-  CameraPosition _kGoogle = const CameraPosition(target: LatLng(31.80012237280773, 35.212884511532316), zoom: 13,);
-
-   String? formattedAddress;
-  late Uint8List  available;
-  late Uint8List  unAvailable;
+  String? formattedAddress;
+  late Uint8List available;
+  late Uint8List unAvailable;
   List<Car> availableCars = [];
   List<Car> unAvailableCars = [];
   final List<Marker> _markers = <Marker>[];
-  bool dialogShown=false;
-  double long=0, lat=0;
+  bool dialogShown = false;
+  double long = 0, lat = 0;
+  late String _mapStyle;
+  late Future<String> _mapStyleFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _mapStyleFuture = loadMapStyle(); // Load map style once
+
+    getCarsList();
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: FutureBuilder<String>(
+          future: _mapStyleFuture,
+          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else {
+              _mapStyle = snapshot.data!;
+              return Stack(
+                children: [
+                  GoogleMap(
+                    initialCameraPosition: _kGoogle,
+                    markers: _markers.toSet(),
+                    //Set<Marker>.of(_markers),
+                    mapType: MapType.normal,
+                    zoomControlsEnabled: true,
+                    myLocationEnabled: true,
+                    myLocationButtonEnabled: true,
+                    compassEnabled: true,
+                    style: _mapStyle,
+                    onMapCreated: (GoogleMapController controller) {
+                      mapController = controller;
+                      _setCurrentLocation();
+                    },
+                  ),
+                  const AppBarBibilease(),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: SizedBox(
+                        height: 48.h,
+                        //width: 183.w,
+                        child: PointerInterceptor(
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: turquoiseColorApp,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                              ),
+                              onPressed: () {
+                                dialogShown = true;
+                                if (formattedAddress != null) {
+                                  departurePoint(context, formattedAddress, 0,
+                                      latitude1: lat, longitude1: long);
+                                }
+                              },
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    ' לביצוע הזמנה  ',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        height: 1,
+                                        color: Colors.white,
+                                        fontSize: 18.sp,
+                                        fontWeight: FontWeight.normal),
+                                  ),
+                                  const ImageIcon(
+                                    AssetImage("assets/icons/ADD.png"),
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              )),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }
+          }),
+    );
+  }
 
 
   Future<Position> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
-    serviceEnabled= await Geolocator.isLocationServiceEnabled();
-    if(!serviceEnabled){
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
       return Future.error('Please enable location service');
     }
 
-    permission= await Geolocator.checkPermission();
-    if(permission==LocationPermission.denied){
-      permission= await Geolocator.requestPermission();
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
 
-      if(permission==LocationPermission.denied){
+      if (permission == LocationPermission.denied) {
         return Future.error('Location permission denied');
       }
     }
 
-    Position position =await Geolocator.getCurrentPosition();
+    Position position = await Geolocator.getCurrentPosition();
 
     return position;
   }
 
-  Future<String?> getAddressFromLatLng(double latitude, double longitude, String apiKey) async {
+  Future<String?> getAddressFromLatLng(
+      double latitude, double longitude, String apiKey) async {
     print('getAddressFromLatLng');
-    final String url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$apiKey&language=he';
+    final String url =
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$apiKey&language=he';
 
     try {
       final response = await http.get(Uri.parse(url));
@@ -90,14 +188,13 @@ class _RentalWidgetState extends State<RentalWidget> {
         position.longitude,
         'AIzaSyDrD1omOKsD-QCghL7Oaq1LmU6mgxvqaLs',
       );
-      long=position.longitude;
-      lat=position.latitude;
-
+      long = position.longitude;
+      lat = position.latitude;
     } catch (e) {
       print("There was an issue fetching the location: $e");
-      formattedAddress='יפו 1, ירושלים';
-      lat=31.781937670130752;
-      long=35.21984481790195;
+      formattedAddress = 'יפו 1, ירושלים';
+      lat = 31.781937670130752;
+      long = 35.21984481790195;
     }
 
     print('address: $formattedAddress');
@@ -106,7 +203,8 @@ class _RentalWidgetState extends State<RentalWidget> {
       zoom: 17,
     );
 
-    mapController.animateCamera(CameraUpdate.newCameraPosition(updatedPosition));
+    mapController
+        .animateCamera(CameraUpdate.newCameraPosition(updatedPosition));
 
     /*Marker userLocationMarker = Marker(
         markerId: MarkerId('userLocation'),
@@ -118,63 +216,61 @@ class _RentalWidgetState extends State<RentalWidget> {
       _kGoogle = updatedPosition;
     });
 
-    if(!dialogShown) {
+    if (!dialogShown) {
       print('going to dialog');
       //var formattedAddress;
-      if(formattedAddress!=null) {
-
-        departurePoint(context, formattedAddress, 0,onClose:(){
-        },latitude1: lat,longitude1: long);
+      if (formattedAddress != null) {
+        departurePoint(context, formattedAddress, 0,
+            onClose: () {}, latitude1: lat, longitude1: long);
       }
     }
   }
 
+  getCarsList() async {
+    print('getCarsList');
+    await ApiService().getCarsAvailableOrNot((data) {
+      var available = data['available_car'];
+      var unavailable = data['active_car'];
 
-  getCarsList()  async{
-print('getCarsList');
-    await ApiService().getCarsAvailableOrNot((data){
-      var available=data['available_car'];
-      var unavailable=data['active_car'];
-
-      availableCars = available.map<Car>((entry) => (Car.fromJson(entry))).toList();
-      unAvailableCars = unavailable.map<Car>((entry) => (Car.fromJson(entry))).toList();
+      availableCars =
+          available.map<Car>((entry) => (Car.fromJson(entry))).toList();
+      unAvailableCars =
+          unavailable.map<Car>((entry) => (Car.fromJson(entry))).toList();
       setState(() {});
 
       generateMarkers();
     });
-
   }
 
 // created method for displaying custom markers according to index
-  addMarkers() async{
+  addMarkers() async {
     print('loadData');
-    int index=0;
-    for(var car in availableCars){
-      _markers.add(
-          Marker(
-            markerId: MarkerId('${index++}'),
-            icon:   BitmapDescriptor.fromBytes(available) ,
-            visible: true,
-            position: LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),//_latLen[i],
-            onTap: () {
-              carDetailsDialog(context,car,true);
-            },
-          )
-      );
+    int index = 0;
+    for (var car in availableCars) {
+      _markers.add(Marker(
+        markerId: MarkerId('${index++}'),
+        icon: BitmapDescriptor.fromBytes(available),
+        visible: true,
+        position: LatLng(
+            car.parkPosition["latitude"]!, car.parkPosition["longitude"]!),
+        //_latLen[i],
+        onTap: () {
+          carDetailsDialog(context, car, true);
+        },
+      ));
       print('marker: ${_markers.length}');
     }
-    for(var car in unAvailableCars){
-      _markers.add(
-          Marker(
-            markerId: MarkerId('${index++}'),
-            icon: BitmapDescriptor.fromBytes(unAvailable),
-            visible: true,
-            position: LatLng(car.parkPosition["latitude"]!,car.parkPosition["longitude"]!),
-            onTap: () {
-              carDetailsDialog(context,car,false);
-            },
-          )
-      );
+    for (var car in unAvailableCars) {
+      _markers.add(Marker(
+        markerId: MarkerId('${index++}'),
+        icon: BitmapDescriptor.fromBytes(unAvailable),
+        visible: true,
+        position: LatLng(
+            car.parkPosition["latitude"]!, car.parkPosition["longitude"]!),
+        onTap: () {
+          carDetailsDialog(context, car, false);
+        },
+      ));
     }
     print('marker: ${_markers.length}');
     setState(() {});
@@ -182,23 +278,24 @@ print('getCarsList');
 
   Future getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
-    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
     ui.FrameInfo fi = await codec.getNextFrame();
-    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))?.buffer.asUint8List();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))
+        ?.buffer
+        .asUint8List();
   }
 
-  generateMarkers()async{
-    available=await getBytesFromAsset('assets/images/car-available.png', kIsWeb?50:300);
-    unAvailable=await getBytesFromAsset('assets/images/car-not-available.png', kIsWeb?50:300);
+  generateMarkers() async {
+    available = await getBytesFromAsset(
+        'assets/images/car-available.png', kIsWeb ? 50 : 300);
+    unAvailable = await getBytesFromAsset(
+        'assets/images/car-not-available.png', kIsWeb ? 50 : 300);
     //print('generate markers: $available, $unAvailable');
     addMarkers();
   }
 
-  @override
-  void initState() {
-    super.initState();
-    getCarsList();
-  }
+
 
   @override
   void dispose() {
@@ -206,72 +303,9 @@ print('getCarsList');
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          GoogleMap(
-            initialCameraPosition: _kGoogle,
-            markers: _markers.toSet(),//Set<Marker>.of(_markers),
-            mapType: MapType.normal,
-            zoomControlsEnabled: true,
-            myLocationEnabled: true,
-            myLocationButtonEnabled: true,
-            compassEnabled: true,
-
-          onMapCreated: (GoogleMapController controller){
-            mapController=controller;
-            _setCurrentLocation();
-            },
-
-          ),
-          const AppBarBibilease(),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child:
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: SizedBox(
-                  height: 48.h,
-                  //width: 183.w,
-                  child: PointerInterceptor(
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: turquoiseColorApp,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                        ),
-                        onPressed: () {
-                          dialogShown=true;
-                          if(formattedAddress!=null) {
-                            departurePoint(context, formattedAddress, 0,latitude1: lat,longitude1: long);
-                          }
-                        },
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              ' לביצוע הזמנה  ',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                height: 1,
-                                  color: Colors.white,
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.normal),
-                            ),
-                            const ImageIcon(AssetImage("assets/icons/ADD.png"), color: Colors.white,),
-                          ],
-                        )),
-                  ),
-                ),
-              ),
-            ),
-        ],
-      ),
-    );
+  Future<String> loadMapStyle() async {
+   return await rootBundle.loadString('map_style.txt');
+    //return  'map_style.txt';
   }
+
 }

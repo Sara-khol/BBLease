@@ -497,6 +497,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                       Navigator.pop(context);
                                       showLoading(context);
                                       ApiService().returnCar(rent.orderNum!, (orderJson) {
+                                        User().currentRent=null;
                                         Navigator.pop(context);
                                         endRental(false);
                                         print('return car');
@@ -1232,10 +1233,13 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     ),
                     onPressed: () {
                       ended
-                          ? Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RentalWidget()))
+                          ? {
+                      User().currentRent=null,
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const RentalWidget()))
+                      }
                           : {Navigator.pop(context), endRental(true)};
                     },
                     child: Text(

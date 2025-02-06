@@ -17,6 +17,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'models/class_rent.dart';
 import 'models/class_user.dart';
 
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -95,6 +97,7 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, Widget? child) {
       //debugPrint('orientation main ${(ScreenUtil()).pixelRatio} ');
           return MaterialApp(
+            navigatorObservers: [routeObserver],
             localizationsDelegates: const [
               //AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

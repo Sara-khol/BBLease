@@ -304,7 +304,7 @@ class _RentalWidgetState extends State<RentalWidget> {
   }
 
   Future<String> loadMapStyle() async {
-   return await rootBundle.loadString('map_style.txt');
+   return await rootBundle.loadString('assets/map_style.txt');
     //return  'map_style.txt';
   }
 

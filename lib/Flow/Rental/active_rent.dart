@@ -507,6 +507,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                               }
                               else{
                                 showLoading(context);
+                                User().currentRent=null;
                                 ApiService().returnCar(rent.orderNum!, (orderJson) {
                                   Navigator.pop(context);
                                   endRental(false);
@@ -1146,6 +1147,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
       isScrollControlled: false,
       backgroundColor: Colors.white,
       context: context,
+      enableDrag: false,
       builder: (BuildContext context) => Container(
         //width: MediaQuery.devicePixelRatioOf(context),
         //height: 180.h,

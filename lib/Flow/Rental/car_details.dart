@@ -489,7 +489,7 @@ class _CarDetailsState extends State<CarDetails> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             const SizedBox(height: 41),
-                                            Text('סך הכל לתשלום     ${rentPrice + additionsPrice} ₪', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp)),
+                                            Text('סך הכל לתשלום     ${(rentPrice + additionsPrice).round()} ₪', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp)),
                                             SizedBox(height: 7.h),
                                             Text('פירוט התשלום', style: TextStyle(fontWeight: FontWeight.normal, fontSize: 16.sp),),
                                             SizedBox(height: 10.h),
@@ -503,7 +503,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                     SizedBox(height: 30.h,),
                                                     Row(
                                                       mainAxisSize: MainAxisSize.max,
-                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                       children: [
                                                         Column(
                                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -527,7 +527,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                             SizedBox(height: 17.h),
                                                             Text('₪ ${((rentPrice + additionsPrice) * 0.17).round()}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold)),
                                                             SizedBox(height: 17.h),
-                                                            Text('₪ ${(rentPrice + additionsPrice)}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: pinkColorApp)),
+                                                            Text('₪ ${(rentPrice + additionsPrice).round()}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: pinkColorApp)),
                                                           ],
                                                         ),
                                                         // SizedBox(width: 20.h),

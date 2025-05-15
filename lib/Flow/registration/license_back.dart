@@ -1,6 +1,7 @@
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/registration/face_scanning.dart';
 import 'package:bblease/Flow/registration/license_details.dart';
+import 'package:bblease/Flow/registration/personal_details_form.dart';
 import 'package:bblease/Flow/registration/text_recognition.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:bblease/services/support.dart' as support;
@@ -41,8 +42,10 @@ class _LicenseBackState extends State<LicenseBack> {
 
   @override
   void dispose() {
+    debugPrint('dispose 2');
     if(_cameraController!=null && _cameraController!.value.isInitialized) {
       _cameraController!.dispose();
+      debugPrint('dispose camera 2');
     }
     super.dispose();
   }
@@ -271,7 +274,7 @@ class _LicenseBackState extends State<LicenseBack> {
                       XFile xfile=await _cameraController!.takePicture();
 
                       widget.index==1
-                          ?uploadSucceed(context,LicenseBack(index: widget.index),/*PersonalDetailsForm()*/const FaceScanning())
+                          ?uploadSucceed(context,LicenseBack(index: widget.index),const FaceScanning())
                           :uploadSucceed(context,LicenseBack(index: widget.index,orderId: widget.orderId,),LicenseDetails(index: widget.index,orderId: widget.orderId,));
                       setState(() {
                         _imageBack= xfile;

@@ -15,25 +15,33 @@ class PersonalDetailsForm extends StatefulWidget {
 
 class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _firstName = TextEditingController(text: User().firstName.isNotEmpty ? User().firstName : '');
-  final TextEditingController _lastName = TextEditingController(text: User().lastName.isNotEmpty ? User().lastName : '');
-  final TextEditingController _name = TextEditingController(text: User().firstName.isNotEmpty ? '${User().firstName} ${User().lastName}' : '');
-  final TextEditingController _tz = TextEditingController(text: User().tz.isNotEmpty ? User().tz : '');
+  late TextEditingController _firstName ;
+  late TextEditingController _lastName;
+  late TextEditingController _name;
+  late TextEditingController _tz;
 
   // TextEditingController _date = TextEditingController(
   //     text: User().birthDate == null
   //         ? intl.DateFormat('dd-mm-yyyy').format(User().birthDate)
   //         : null);
-  final TextEditingController _date = TextEditingController(text: User().birthDate??'');
+  late TextEditingController _date;
 
-  final TextEditingController _email = TextEditingController(text:User().email.isNotEmpty?User().email:'' );
-  final TextEditingController _phone = TextEditingController(text:User().phoneNumber.isNotEmpty?User().phoneNumber:'' );
+  late TextEditingController _email;
+  late TextEditingController _phone;
 
   String bdate = User().birthDate;
   bool checkboxValue1 = true;
   bool formIsValid = false;
   @override
   void initState() {
+    User user= User();
+    _firstName = TextEditingController(text: user.firstName.isNotEmpty ? user.firstName : '');
+    _lastName = TextEditingController(text: user.lastName.isNotEmpty ? user.lastName : '');
+    _name= TextEditingController(text: user.firstName.isNotEmpty ? '${user.firstName} ${user.lastName}' : '');
+    _tz = TextEditingController(text: user.tz.isNotEmpty ? user.tz : '');
+    _date = TextEditingController(text: user.birthDate??'');
+    _email = TextEditingController(text:user.email.isNotEmpty?user.email:'' );
+    _phone = TextEditingController(text:/*user.phoneNumber.isNotEmpty?user.phoneNumber:''*/'0527698600' );
     super.initState();
   }
 
@@ -61,8 +69,12 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: Form(
-            onChanged: () =>
-                setState(() => formIsValid = _formKey.currentState!.validate()),
+            onChanged: () {
+             //  setState(() => formIsValid = _formKey.currentState!.validate()),
+              final valid = _formKey.currentState!.validate();
+            if (valid != formIsValid) {
+      setState(() => formIsValid = valid);
+      }},
             key: _formKey,
             child: Padding(
               padding: EdgeInsets.only(left: 31.w, right: 30.w),
@@ -118,13 +130,13 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                     controller: _lastName,
                   ),
                   SizedBox(height: 12.h,),
-                  TextFormField(
-                    textInputAction: TextInputAction.next,
+                   TextFormField(
+                     textInputAction: TextInputAction.next,
                     cursorColor: blackColorApp,
                     decoration: getInputDecoration('שם לחשבונית (לא חובה)'),
-                    //floatingLabelBehavior: FloatingLabelBehavior.auto,
+                   //floatingLabelBehavior: FloatingLabelBehavior.auto,
                     style: TextStyle(color: blackColorApp,fontSize: 18.sp,fontWeight: FontWeight.w300,),
-                    controller: _name,
+                  controller: _name,
                   ),
                   SizedBox(height: 12.h,),
                   TextFormField(
@@ -188,12 +200,12 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                     },
                   ),
                   SizedBox(height: 12.h,),
-                  TextFormField(
+                 TextFormField(
                     keyboardType: TextInputType.number,
-                    enabled: false,
+                  //  enabled: false,
                     textInputAction: TextInputAction.done,
                     cursorColor: blackColorApp,
-                    readOnly: true,
+                   readOnly: true,
                     decoration: getInputDecoration("מס' נייד", suffixText: '   הכנס נייד זמין  '),
                     style: TextStyle(color: blackColorApp,fontSize: 18.sp,fontWeight: FontWeight.w300,),
                     controller: _phone,
@@ -204,6 +216,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       return null;
                     },
                   ),
+               //   Container(height: 20,width: double.infinity,color: Colors.tealAccent,),
                   SizedBox(height: 24.h,),
                   ListTileTheme(
                     horizontalTitleGap: 1.0,
@@ -330,6 +343,17 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
       suffixIconConstraints: !isDate ? const BoxConstraints(maxHeight: 26) : null,
       contentPadding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
     );
+  }
+  @override
+  void dispose() {
+    _firstName.dispose();
+    _lastName.dispose();
+    _name.dispose();
+    _tz.dispose();
+    _date.dispose();
+    _email.dispose();
+    _phone.dispose();
+    super.dispose();
   }
 }
 

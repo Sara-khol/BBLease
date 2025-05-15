@@ -42,7 +42,10 @@ class _LicenseDetailsState extends State<LicenseDetails> {
   @override
   void initState() {
     _licenseId = TextEditingController(text: widget.index==1?User().licenseId:'');
-    _expDate   = TextEditingController(text: widget.index==1?User().licenseExpDate:'');
+   // _expDate   = TextEditingController(text: widget.index==1?User().licenseExpDate:'');
+    _expDate   = TextEditingController(text: widget.index == 1  && User().licenseExpDate.isNotEmpty
+        ? intl.DateFormat('dd/MM/yyyy').format(intl.DateFormat('yyyy-MM-dd').parse(User().licenseExpDate))
+        : '',);
     _issDate   = TextEditingController(text: widget.index==1?User().licenseIssDate:'');
     _degree    = TextEditingController(text: widget.index==1?User().licenseDegree:'');
     super.initState();

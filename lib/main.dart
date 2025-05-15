@@ -12,7 +12,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
-//import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'models/class_rent.dart';
 import 'models/class_user.dart';
@@ -33,39 +33,41 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 //await mySharedPreferences.initializeSharedPreferences(); /flutt/ Initialize app state
 
-  /*await SentryFlutter.init(
+  await SentryFlutter.init(
     (options) {
       options.dsn = kDebugMode
           ? ''
-          : 'https://5ed5330eda0a7e51a707dd811520e9d1@o4508007527022592.ingest.de.sentry.io/4508007530823760';
-      // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
-      // We recommend adjusting this value in production.
+          : 'https://69a96f2b12155c0d347296db8a687277@o4506574440759296.ingest.us.sentry.io/4506574487289856';
       options.tracesSampleRate = 1.0;
       options.debug = false;
+
+      options.sendDefaultPii = true;
+      options.enablePrintBreadcrumbs = true;
+      //options.beforeSend = beforeSend;
     },
-  );*/
+  );
 
   FlutterError.onError = (FlutterErrorDetails errorDetails) {
     if (kDebugMode) {
       FlutterError.presentError(errorDetails);
       //myErrorsHandler.onErrorDetails(errorDetails);
     }
-    /*Sentry.captureException(
+    Sentry.captureException(
       errorDetails.exception,
       stackTrace: errorDetails.stack,
-    );*/
+    );
   };
 
- /* runZonedGuarded(() {
+  runZonedGuarded(() {
     WidgetsFlutterBinding.ensureInitialized();
-
+    runApp(MyApp());
 
   }, (error, stackTrace) {
-    debugPrint('Zone Error Handler: $error');
+    debugPrint('Error : $error');
     debugPrint('$stackTrace');
-    // Handle the error as needed, e.g., log it
-  });*/
-  runApp(MyApp());
+    Sentry.captureException(error, stackTrace: stackTrace);
+  });
+  //runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

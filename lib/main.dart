@@ -34,41 +34,46 @@ void main() async {
 //await mySharedPreferences.initializeSharedPreferences(); /flutt/ Initialize app state
 
   await SentryFlutter.init(
-    (options) {
-      options.dsn = kDebugMode
-          ? ''
-          : 'https://69a96f2b12155c0d347296db8a687277@o4506574440759296.ingest.us.sentry.io/4506574487289856';
-      options.tracesSampleRate = 1.0;
-      options.debug = false;
+          (options) {
+            options.dsn = kDebugMode
+                ? ''
+                : 'https://69a96f2b12155c0d347296db8a687277@o4506574440759296.ingest.us.sentry.io/4506574487289856';
+            options.tracesSampleRate = 1.0;
+            options.debug = false;
 
-      options.sendDefaultPii = true;
-      options.enablePrintBreadcrumbs = true;
-      //options.beforeSend = beforeSend;
-    },
-  );
+            options.sendDefaultPii = true;
+            options.enablePrintBreadcrumbs = true;
+          },
+        appRunner:
+            () {
+          // טיפול בשגיאות Flutter Framework
+          FlutterError.onError = (FlutterErrorDetails errorDetails) {
+            if (kDebugMode) {
+              debugPrint('Flutter Framework Error: ${errorDetails.exception}');
+              debugPrint('${errorDetails.stack}');
+            }
 
-  FlutterError.onError = (FlutterErrorDetails errorDetails) {
-    if (kDebugMode) {
-      FlutterError.presentError(errorDetails);
-      //myErrorsHandler.onErrorDetails(errorDetails);
-    }
-    Sentry.captureException(
-      errorDetails.exception,
-      stackTrace: errorDetails.stack,
-    );
-  };
+            // שליחת השגיאה ל-Sentry
+            Sentry.captureException(
+              errorDetails.exception,
+              stackTrace: errorDetails.stack,
+            );
+          };
 
-  runZonedGuarded(() {
-    WidgetsFlutterBinding.ensureInitialized();
-    runApp(MyApp());
+          // טיפול בשגיאות Async שלא נתפסו
+          PlatformDispatcher.instance.onError = (error, stack) {
+            if (kDebugMode) {
+              debugPrint('Uncaught async error: $error');
+              debugPrint('$stack');
+            }
+            Sentry.captureException(error, stackTrace: stack);
+            return true;
+          };
 
-  }, (error, stackTrace) {
-    debugPrint('Error : $error');
-    debugPrint('$stackTrace');
-    Sentry.captureException(error, stackTrace: stackTrace);
-  });
-  //runApp(MyApp());
+          runApp(MyApp());
+        });
 }
+
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});

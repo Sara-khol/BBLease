@@ -41,7 +41,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
     _tz = TextEditingController(text: user.tz.isNotEmpty ? user.tz : '');
     _date = TextEditingController(text: user.birthDate??'');
     _email = TextEditingController(text:user.email.isNotEmpty?user.email:'' );
-    _phone = TextEditingController(text:/*user.phoneNumber.isNotEmpty?user.phoneNumber:''*/'0527698600' );
+    _phone = TextEditingController(text:user.phoneNumber.isNotEmpty?user.phoneNumber:'');
     super.initState();
   }
 

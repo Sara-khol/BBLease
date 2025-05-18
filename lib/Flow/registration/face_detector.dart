@@ -45,8 +45,17 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
     _initializeFaceDetector();
 
     cameras = await availableCameras();
-    selfiCamera= cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.front);
-    //selfiCamera = cameras[0];
+   // selfiCamera= cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.front);
+
+    selfiCamera = cameras.firstWhere(
+          (camera) => camera.lensDirection == CameraLensDirection.front,
+      orElse: () => cameras[0], // ברירת מחדל אם אין מצלמה "קדמית"
+    );
+
+
+
+
+
     _cameraController = CameraController(
       selfiCamera,
       ResolutionPreset.max,

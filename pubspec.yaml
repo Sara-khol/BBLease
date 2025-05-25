@@ -50,7 +50,7 @@ dependencies:
   step_progress_indicator: ^1.0.2
   capped_progress_indicator: ^0.0.2
   percent_indicator: ^4.2.3
-  dio: ^5.1.1
+  dio: ^5.8.0+1
   geolocator: ^10.1.0
   google_maps_flutter: ^2.12.2
   image: ^4.1.3

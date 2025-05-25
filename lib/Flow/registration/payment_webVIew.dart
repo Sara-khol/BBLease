@@ -39,7 +39,6 @@ class _PaymentWebViewState extends State<PaymentWebView> {
     if(kIsWeb)
       {
          setStatusForWeb();
-
       }
 
   }

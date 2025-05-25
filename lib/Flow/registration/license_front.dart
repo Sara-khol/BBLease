@@ -20,7 +20,7 @@ class LicenseFront extends StatefulWidget {
   State<LicenseFront> createState() => _LicenseFrontState();
 }
 
-class _LicenseFrontState extends State<LicenseFront>  with WidgetsBindingObserver {
+class _LicenseFrontState extends State<LicenseFront>  {
   late List<CameraDescription> cameras;
    CameraController? _cameraController;
   late XFile _imageFront;
@@ -31,13 +31,13 @@ class _LicenseFrontState extends State<LicenseFront>  with WidgetsBindingObserve
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+   // WidgetsBinding.instance.addObserver(this);
 
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+   // WidgetsBinding.instance.removeObserver(this);
     debugPrint('dispose 1');
     if(_cameraController!=null && _cameraController!.value.isInitialized) {
       _cameraController!.dispose();
@@ -48,28 +48,6 @@ class _LicenseFrontState extends State<LicenseFront>  with WidgetsBindingObserve
   }
 
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    final CameraController? cameraController = _cameraController;
-    debugPrint('didChangeAppLifecycleState state $state');
-
-    // App state changed before we got the chance to initialize.
-    if (cameraController == null || !cameraController.value.isInitialized) {
-      return;
-    }
-
-    if (state == AppLifecycleState.inactive) {
-      // Free up memory when camera not active
-      debugPrint('dispose inactive');
-
-      cameraController.dispose();
-    } else if (state == AppLifecycleState.resumed) {
-      debugPrint('??? resumed');
-
-      // Reinitialize the camera with same properties
-      //onNewCameraSelected(cameraController.description);
-    }
-  }
 
 
 

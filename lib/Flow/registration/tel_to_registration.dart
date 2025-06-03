@@ -4,6 +4,7 @@ import 'package:bblease/Flow/registration/payment_webView.dart';
 import 'package:bblease/Flow/registration/start_registration.dart';
 import 'package:bblease/Flow/UserInformation/terms_and_conditions.dart';
 import 'package:bblease/landspace_widget.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart'  ;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bblease/utils/my_colors.dart';
@@ -106,75 +107,82 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
 
   verifyCode() async {
     showLoading(context);
-    await ApiService().codeVerification(_phone.text, _code.text,
-            (response) {
-          Navigator.pop(context);
-          int vStatus = response['status'];
-          // in case code is not correct get from service error.
-          // not supposed to get to here because checked before sending
-          if (vStatus == 3) {
-
-            displayError(context, message: 'קוד האימות אינו תואם');
-          } else {
-            if (!isRegister) {
-              if (vStatus == 5) {
-                User().phoneNumber = _phone.text;
-
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const StartRegistration()));
-              }
+    try {
+      await ApiService().codeVerification(_phone.text, _code.text,
+              (response) {
+            Navigator.pop(context);
+            int vStatus = response['status'];
+            // in case code is not correct get from service error.
+            // not supposed to get to here because checked before sending
+            if (vStatus == 3) {
+              displayError(context, message: 'קוד האימות אינו תואם');
             } else {
-              if (vStatus == 1) {
-                User.fromJson(response['customer']);
-                debugPrint('user name  ${User().firstName}');
+              if (!isRegister) {
+                if (vStatus == 5) {
+                  User().phoneNumber = _phone.text;
 
-                //todo: go to active rent
-                if(response["active_order"].isNotEmpty) {
-                  print('active order is not empty');
-                  User().currentRent=Rental.fromJson(response["active_order"]);
-                }
-                print('after if');
-                MySharedPreferences().setLastUsage();
-                MySharedPreferences().setUserId(User().userId);
-                if (User().tranzilaStatus) {
-                  print('in');
-                  if(User().currentRent!=null){
-                    print('current rent is not null');
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                            const ActiveRentDetails() ),
-                            (route) => false);
-                  }
-                  else {
-                    Navigator.pushAndRemoveUntil(
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                          const RentalWidget() /*RentalWidget()*/),
-                          (route) => false);
-                  }
+                          builder: (context) => const StartRegistration()));
                 }
-                else
-                {
-                  ApiService().getPaymentUrl(User().userId, (res) {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PaymentWebView(
-                              url: res,
-                              index: 1,
-                            )),
-                            (route) => false);
-                  });
+              } else {
+                if (vStatus == 1) {
+                  User.fromJson(response['customer']);
+                  debugPrint('user name  ${User().firstName}');
+
+                  //todo: go to active rent
+                  if (response["active_order"].isNotEmpty) {
+                    print('active order is not empty');
+                    User().currentRent =
+                        Rental.fromJson(response["active_order"]);
+                  }
+                  print('after if');
+                  MySharedPreferences().setLastUsage();
+                  MySharedPreferences().setUserId(User().userId);
+                 // if (User().tranzilaStatus) {
+                    print('in');
+                    if (User().currentRent != null) {
+                      print('current rent is not null');
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                              const ActiveRentDetails()),
+                              (route) => false);
+                    }
+                    else {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                              const RentalWidget() /*RentalWidget()*/),
+                              (route) => false);
+                    }
+                //  }
+                //   else {
+                //     ApiService().getPaymentUrl(User().userId, (res) {
+                //       Navigator.pushAndRemoveUntil(
+                //           context,
+                //           MaterialPageRoute(
+                //               builder: (context) =>
+                //                   PaymentWebView(
+                //                     url: res,
+                //                     index: 1,
+                //                   )),
+                //               (route) => false);
+                //     });
+                //   }
                 }
               }
             }
-          }
-        });
+          });
+    }
+   on DioException catch (e) {
+  print('Dio error: ${e.message}');
+  } catch (e) {
+  print('General error: $e');
+  }
   }
 
   @override

@@ -105,20 +105,14 @@ class ApiService {
   }
 
   Future codeVerification(String phone,String code, Function(dynamic carJson) onSuccess) async {
-    debugPrint('${_baseUrl}wp/v2/verificaion_customer/$code/$phone');
-    try {
-      Response response = await _dio.get(
-          '${_baseUrl}wp/v2/verificaion_customer/$code/$phone');
-      if (response.statusCode == 200) {
-        var result = response.data;
-        debugPrint(result);
-        onSuccess(result);
-      }
-  } on DioException catch (e) {
-      debugPrint('Dio error: ${e.message}');
-  } catch (e) {
-      debugPrint('General error: $e');
-  }
+    print('${_baseUrl}wp/v2/verificaion_customer/$code/$phone');
+    Response response = await _dio.get('${_baseUrl}wp/v2/verificaion_customer/$code/$phone');
+    if(response.statusCode == 200) {
+      var result = response.data;
+      print(result);
+      onSuccess(result);
+    }
+    // Prints the raw data returned by the server
   }
 
   Future registerCustomerDetails(Function(dynamic res) onSuccess) async {

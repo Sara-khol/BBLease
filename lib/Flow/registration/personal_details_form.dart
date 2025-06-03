@@ -39,7 +39,11 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
     _lastName = TextEditingController(text: user.lastName.isNotEmpty ? user.lastName : '');
     _name= TextEditingController(text: user.firstName.isNotEmpty ? '${user.firstName} ${user.lastName}' : '');
     _tz = TextEditingController(text: user.tz.isNotEmpty ? user.tz : '');
-    _date = TextEditingController(text: user.birthDate??'');
+   // _date = TextEditingController(text: user.birthDate??'');
+    _date= TextEditingController(
+          text: User().birthDate.isNotEmpty
+              ? intl.DateFormat('dd/MM/yyyy').format(intl.DateFormat('yyyy-MM-dd').parse(User().licenseIssDate))
+              : '');
     _email = TextEditingController(text:user.email.isNotEmpty?user.email:'' );
     _phone = TextEditingController(text:user.phoneNumber.isNotEmpty?user.phoneNumber:'');
     super.initState();

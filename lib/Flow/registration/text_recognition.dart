@@ -1,6 +1,7 @@
 import 'package:bblease/models/class_user.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 
 void TextRecognition(int index) async {
@@ -60,9 +61,30 @@ Future<void> extractData(String data) async {
   User().firstName = extractedData['2'] ?? '';
   User().lastName = extractedData['1'] ?? '';
 
-  User().birthDate=extractedData['3'] ?? '';
-  User().licenseIssDate=extractedData['4a'] ?? '';
-  User().licenseExpDate=extractedData['4b'] ?? '';
+  //User().birthDate=extractedData['3'] ?? '';
+  final rawDateB = extractedData['3'] ?? '';
+  final parsedDateB = parseFlexibleDate(rawDateB);
+
+  User().birthDate = parsedDateB != null
+      ? DateFormat('yyyy-MM-dd').format(parsedDateB) // Store in consistent DB/API format
+      : '';
+
+
+ // User().licenseIssDate=extractedData['4a'] ?? '';
+  final rawDateL = extractedData['4a'] ?? '';
+  final parsedDateL = parseFlexibleDate(rawDateL);
+  User().licenseIssDate = parsedDateL != null
+      ? DateFormat('yyyy-MM-dd').format(parsedDateL) // Store in consistent DB/API format
+      : '';
+
+//User().licenseExpDate=extractedData['4b'] ?? '';
+  final rawDateE = extractedData['4b'] ?? '';
+  final parsedDateE = parseFlexibleDate(rawDateE);
+
+  User().licenseExpDate = parsedDateE != null
+      ? DateFormat('yyyy-MM-dd').format(parsedDateE) // Store in consistent DB/API format
+      : '';
+
 
   User().tz = extractedData['4d']?.replaceFirst('ID ', '').trim() ?? '';
   User().licenseId = extractedData['5'] ?? '';
@@ -76,6 +98,26 @@ print(text);
   if(text.contains('new driver')){
     User().isNewDriver=true;
   }
+}
+
+DateTime? parseFlexibleDate(String input) {
+  final formats = [
+    DateFormat('dd.MM.yyyy'),
+    DateFormat('dd/MM/yyyy'),
+    DateFormat('yyyy-MM-dd'),
+    DateFormat('dd-MM-yyyy'),
+    DateFormat('MM/dd/yyyy'),
+    DateFormat('dd/MM/yy'),
+  ];
+
+  for (final format in formats) {
+    try {
+      return format.parseStrict(input);
+    } catch (_) {
+      continue;
+    }
+  }
+  return null;
 }
 
 /*Future<void> writeStringToFile(String data) async {

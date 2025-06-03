@@ -1,5 +1,4 @@
 
-
 import 'package:bblease/Flow/Rental/active_rent.dart';
 import 'package:bblease/Flow/registration/payment_webView.dart';
 import 'package:bblease/landspace_widget.dart';
@@ -45,8 +44,11 @@ class _LicenseDetailsState extends State<LicenseDetails> {
    // _expDate   = TextEditingController(text: widget.index==1?User().licenseExpDate:'');
     _expDate   = TextEditingController(text: widget.index == 1  && User().licenseExpDate.isNotEmpty
         ? intl.DateFormat('dd/MM/yyyy').format(intl.DateFormat('yyyy-MM-dd').parse(User().licenseExpDate))
-        : '',);
-    _issDate   = TextEditingController(text: widget.index==1?User().licenseIssDate:'');
+        : '');
+   // _issDate   = TextEditingController(text: widget.index==1?User().licenseIssDate:'');
+    _issDate   = TextEditingController(text: widget.index == 1  && User().licenseIssDate.isNotEmpty
+        ? intl.DateFormat('dd/MM/yyyy').format(intl.DateFormat('yyyy-MM-dd').parse(User().licenseIssDate))
+        : '');
     _degree    = TextEditingController(text: widget.index==1?User().licenseDegree:'');
     super.initState();
   }

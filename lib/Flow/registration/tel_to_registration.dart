@@ -140,7 +140,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                   print('after if');
                   MySharedPreferences().setLastUsage();
                   MySharedPreferences().setUserId(User().userId);
-                 // if (User().tranzilaStatus) {
+                  if (User().tranzilaStatus) {
                     print('in');
                     if (User().currentRent != null) {
                       print('current rent is not null');
@@ -159,20 +159,20 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                               const RentalWidget() /*RentalWidget()*/),
                               (route) => false);
                     }
-                //  }
-                //   else {
-                //     ApiService().getPaymentUrl(User().userId, (res) {
-                //       Navigator.pushAndRemoveUntil(
-                //           context,
-                //           MaterialPageRoute(
-                //               builder: (context) =>
-                //                   PaymentWebView(
-                //                     url: res,
-                //                     index: 1,
-                //                   )),
-                //               (route) => false);
-                //     });
-                //   }
+                 }
+                  else {
+                    ApiService().getPaymentUrl(User().userId, (res) {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  PaymentWebView(
+                                    url: res,
+                                    index: 1,
+                                  )),
+                              (route) => false);
+                    });
+                  }
                 }
               }
             }

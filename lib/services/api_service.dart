@@ -561,20 +561,46 @@ class ApiService {
         }
       }
     }
-    else{
+    else {
+      // debugPrint('webbbbbb');
+      // for (var item in images) {
+      //   if (item != null) {
+      //     final bytes = await item.readAsBytes();
+      //     imageFiles.add(
+      //       await MultipartFile.fromBytes(
+      //         bytes,
+      //         filename: item.name,
+      //       ),
+      //     );
+      //   }
+      // }
+
+
       for (var item in images) {
         if (item != null) {
-          final bytes = await item.readAsBytes();
-          imageFiles.add(
-            await MultipartFile.fromBytes(
-              bytes,
-              filename: item.name,
-            ),
-          );
+          debugPrint('item.name ${item.name}');
+          try {
+            final bytes = await item.readAsBytes();
+
+            // Check if name is available; fallback if needed
+            String fileName = item.name.isNotEmpty
+                ? item.name
+                : 'image_${DateTime
+                .now()
+                .millisecondsSinceEpoch}.jpg';
+
+            imageFiles.add(
+              MultipartFile.fromBytes(
+                bytes,
+                filename: fileName,
+              ),
+            );
+          } catch (e) {
+            debugPrint('Error reading image bytes on web: $e');
+          }
         }
       }
     }
-
     FormData formData = FormData.fromMap({
       "image_1": imageFiles[0],
       "image_2": imageFiles[1],

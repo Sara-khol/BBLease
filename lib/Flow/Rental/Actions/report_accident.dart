@@ -69,30 +69,34 @@ class _ReportAccidentState extends State<ReportAccident> {
               SizedBox(height: 13.h,),
               Row(
                 children: [
-                  TextFormField(
-                    keyboardType: TextInputType.phone,
-                    cursorColor: blackColorApp,
-                    decoration: getInputDecoration('טלפון',159.w,suffixIcon:const Icon(Icons.phone_outlined)),
-                    style:
-                    TextStyle(color: blackColorApp, fontSize: 18.sp),
-                    controller: _phone,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) return 'זהו שדה חובה';
-                      return null;
-                    },
+                  Expanded(
+                    child: TextFormField(
+                      keyboardType: TextInputType.phone,
+                      cursorColor: blackColorApp,
+                      decoration: getInputDecoration('טלפון',159.w,suffixIcon:const Icon(Icons.phone_outlined)),
+                      style:
+                      TextStyle(color: blackColorApp, fontSize: 18.sp),
+                      controller: _phone,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) return 'זהו שדה חובה';
+                        return null;
+                      },
+                    ),
                   ),
                   SizedBox(width: 13.w,),
-                  TextFormField(
-                    keyboardType: TextInputType.emailAddress,
-                    cursorColor: blackColorApp,
-                    decoration: getInputDecoration('אימייל',160.w,suffixIcon:const Icon(Icons.email_outlined)),
-                    style:
-                    TextStyle(color: blackColorApp, fontSize: 18.sp),
-                    controller: _email,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) return 'זהו שדה חובה';
-                      return null;
-                    },
+                  Expanded(
+                    child: TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      cursorColor: blackColorApp,
+                      decoration: getInputDecoration('אימייל',160.w,suffixIcon:const Icon(Icons.email_outlined)),
+                      style:
+                      TextStyle(color: blackColorApp, fontSize: 18.sp),
+                      controller: _email,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) return 'זהו שדה חובה';
+                        return null;
+                      },
+                    ),
                   ),
                 ],
               ),

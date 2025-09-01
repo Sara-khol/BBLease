@@ -75,7 +75,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
     ApiService().getFuelLevel(rent.car.carNumber, (res) {
       if(res!=-1){
         p=res['fuel_percentage'].toDouble();
-        km=res['fuel_per_km'];
+        km=res['fuel_per_km']??-1;
         percent=p.toInt();
         setState(() { });
       }

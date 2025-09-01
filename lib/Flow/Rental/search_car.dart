@@ -31,8 +31,8 @@ class SearchCar extends StatefulWidget {
   final int index;
   final double? latitude;
   final double? longitude;
-  DateTime? startDate;
-  DateTime? endDate;
+  final DateTime? startDate;
+  final DateTime? endDate;
 
   @override
   State<SearchCar> createState() => _SearchCarState();

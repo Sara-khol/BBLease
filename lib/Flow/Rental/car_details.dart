@@ -33,7 +33,7 @@ class CarDetails extends StatefulWidget {
 class _CarDetailsState extends State<CarDetails> {
   //late Car carDetails;
   double additionsPrice = 0;
-  late int rentPrice;
+  late double rentPrice;
   late int dayDiff;
 
   void calculateAdditionsPrice() {
@@ -45,9 +45,10 @@ class _CarDetailsState extends State<CarDetails> {
 
   @override
   void initState() {
-    debugPrint('widget.rent.car.pricePerDay ${widget.rent.car.pricePerDay}');
     dayDiff = widget.rent.endDate.difference(widget.rent.startDate).inDays/* + 1*/;
-    rentPrice = (widget.rent.car.pricePerDay) * (dayDiff == 0 ? 1 : dayDiff);
+    debugPrint('pricePerDay ${widget.rent.car.pricePerDay} dayDiff $dayDiff');
+    rentPrice = widget.rent.car.totalPrice;
+
     debugPrint('rentPrice $rentPrice');
     calculateAdditionsPrice();
     super.initState();

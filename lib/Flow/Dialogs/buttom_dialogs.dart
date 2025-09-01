@@ -593,6 +593,7 @@ Future displayQuestion1(BuildContext context,{
                       },
                       child: Center(
                         child: Text(
+                          textAlign: TextAlign.center,
                          noText.isEmpty? 'ביטול':noText,
                           style: TextStyle(
                               color: Colors.white,

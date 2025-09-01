@@ -39,7 +39,7 @@ void main() async {
                 ? ''
                 : 'https://69a96f2b12155c0d347296db8a687277@o4506574440759296.ingest.us.sentry.io/4506574487289856';
             options.tracesSampleRate = 1.0;
-            options.debug = false;
+           // options.debug = false;
 
             options.sendDefaultPii = true;
             options.enablePrintBreadcrumbs = true;
@@ -49,8 +49,10 @@ void main() async {
           // טיפול בשגיאות Flutter Framework
           FlutterError.onError = (FlutterErrorDetails errorDetails) {
             if (kDebugMode) {
-              debugPrint('Flutter Framework Error: ${errorDetails.exception}');
-              debugPrint('${errorDetails.stack}');
+              /*debugPrint('Flutter Framework Error: ${errorDetails.exception}');
+              debugPrint('${errorDetails.stack}');*/
+              FlutterError.presentError(errorDetails);
+
             }
 
             // שליחת השגיאה ל-Sentry

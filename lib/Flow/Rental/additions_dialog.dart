@@ -114,6 +114,7 @@ class _AdditionsDialogState extends State<AdditionsDialog> {
             Navigator.pop(context);
                                   },
                                   child: Text('בתחילת הנסיעה',
+                                      textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontSize: 20.sp,
                                           color: Colors.white,

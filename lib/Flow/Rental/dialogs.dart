@@ -318,7 +318,8 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                                                               latitude: latitude,
                                                               longitude: longitude,
                                                               startDate: sdate,
-                                                              endDate: edate),));
+                                                              endDate: edate,
+                                                          )));
                                             // MaterialPageRoute(
                                             //   builder: (context) => SearchCar(
                                             //       location: 'ירושלים',

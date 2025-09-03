@@ -166,9 +166,9 @@ class _PriceListState extends State<PriceList> {
                i == 1 ?
                Column(
                    children: [
-                     Image.network(
-                       'https://bibilease.quicksolutions.co.il/wp-content/uploads/2023/12/Kia-Picanto.png',
-                       height: 95.h,),
+                     // Image.network(
+                     //   'https://bibilease.co.il/wp-content/uploads/2023/12/Kia-Picanto.png',
+                     //   height: 95.h,),
                      SizedBox(height: 10.h,),
                      const Text(' קטן | 5 מקומות ', textAlign: TextAlign.right,),
                      Divider(height: 10.h, color: const Color(0xFF04AEB9),),
@@ -177,6 +177,7 @@ class _PriceListState extends State<PriceList> {
                        context: context,
                        child: ListView.builder(
                            shrinkWrap: true,
+                           physics: NeverScrollableScrollPhysics(),
                            itemCount: priceList['price_list']['A'].length,
                            itemBuilder: (context, index) {
                              iconPath = 'assets/icons/ticket.png';
@@ -184,7 +185,7 @@ class _PriceListState extends State<PriceList> {
                              if (currentItem!.values.elementAt(index) != '') {
                                String str = truncateString(currentItem.keys.elementAt(index));
                                return SizedBox(
-                                 height: 40.h,
+                                // height: 40.h,
                                  width: 328.w,
                                  //decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Color(0xFF03AEB9),width: 1))),
                                  child: Row(
@@ -201,7 +202,7 @@ class _PriceListState extends State<PriceList> {
                                              fontWeight: FontWeight.w300)),
                                          SizedBox(
                                            width: 50.w,
-                                           child: Text(currentItem.values.elementAt(index),
+                                           child: Text(currentItem.values.elementAt(index) ?? '',
                                              style: TextStyle(fontSize: 20.sp),
                                              textDirection: TextDirection.rtl,textAlign: TextAlign.end,),
 
@@ -219,8 +220,8 @@ class _PriceListState extends State<PriceList> {
                        ),
                      ),
                      SizedBox(height: 20.h,),
-                     Image.network('https://bibilease.quicksolutions.co.il/wp-content/uploads/2023/12/Opel-Combo.png', height: 95.h,),
-                     SizedBox(height: 10.h,),
+                     // Image.network('https://bibilease.co.il/wp-content/uploads/2023/12/Opel-Combo.png', height: 95.h,),
+                     // SizedBox(height: 10.h,),
                      const Text(' משפחתי | 5 מקומות ', textAlign: TextAlign.right,),
                      Divider(height: 10.h, color: const Color(0xFF04AEB9),),
                      MediaQuery.removePadding(
@@ -228,6 +229,7 @@ class _PriceListState extends State<PriceList> {
                        context: context,
                        child: ListView.builder(
                            shrinkWrap: true,
+                           physics: NeverScrollableScrollPhysics(),
                            itemCount: priceList['price_list']['B'].length,
                            itemBuilder: (context, index) {
                              iconPath = 'assets/icons/ticket.png';
@@ -255,7 +257,7 @@ class _PriceListState extends State<PriceList> {
                                              fontWeight: FontWeight.w300)),
                                          SizedBox(
                                            width: 50.w,
-                                           child: Text(currentItem.values.elementAt(index),
+                                           child: Text(currentItem.values.elementAt(index)??'',
                                                style: TextStyle(fontSize: 20.sp),
                                                textDirection: TextDirection.rtl,textAlign: TextAlign.end,),
 
@@ -280,6 +282,7 @@ class _PriceListState extends State<PriceList> {
                  context: context,
                  child: ListView.builder(
                    shrinkWrap: true,
+                   physics: NeverScrollableScrollPhysics(),
                    itemCount: priceList[indexMap[i]]?.length,
                    itemBuilder: (context, index) {
                      if (i == 2) iconPath = 'assets/icons/bag.png';

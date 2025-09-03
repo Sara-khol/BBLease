@@ -432,7 +432,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                                       checkboxValue1 = value!;
                                     });
                                   },
-                                  title: Row(
+                                  title: Wrap(
                                     children: [
                                       CustomText(
                                         ' אני מאשר/ת את ',

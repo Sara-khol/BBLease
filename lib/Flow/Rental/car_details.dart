@@ -535,7 +535,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                         Column(
                                                           crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
-                                                            Text('${dayDiff == 0 ? 1 : dayDiff} ימים ללא מע"מ ', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal)),
+                                                            Text(dayDiff==0?'6 שעות ללא מע"מ':'$dayDiffימים ללא מע"מ ', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal)),
                                                             SizedBox(height: 17.h),
                                                             Text('תוספות', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal)),
                                                             SizedBox(height: 17.h),

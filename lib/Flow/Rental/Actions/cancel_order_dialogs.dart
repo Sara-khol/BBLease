@@ -70,7 +70,8 @@ Future cancelOrderDialog(context,rent){
                                   onPressed: () {
                                     //rentalTerm(context);
                                   },
-                                  child: Text('לא, חזור להזמנות',
+                                  child: Text('חזור להזמנות',
+                                      textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontSize: 18.sp,
                                           color: Colors.white,

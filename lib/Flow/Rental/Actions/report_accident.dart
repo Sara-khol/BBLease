@@ -44,7 +44,7 @@ class _ReportAccidentState extends State<ReportAccident> {
           padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom,left: 30.w,right: 30.w),
           child: Column(
             children: [
-              SizedBox(height: 35.h,),
+              //SizedBox(height: 35.h,),
               if(o==Orientation.portrait)Align(
                   alignment: Alignment.centerRight,
                   child: IconButton(onPressed: () =>Navigator.pop(context), icon: const Icon(Icons.arrow_back_ios))),

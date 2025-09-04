@@ -82,6 +82,7 @@ Future sideMenu(context) {
                               Icon(
                                 Icons.account_circle_outlined,
                                 color: blackColorApp,
+                                size: 26.sp,
                               ),
                               SizedBox(
                                 width: 10.w,
@@ -233,6 +234,7 @@ Future sideMenu(context) {
                               Icon(
                                 Icons.drive_eta_outlined,
                                 color: blackColorApp,
+                                size: 26.sp,
                               ),
                               SizedBox(
                                 width: 10.w,
@@ -270,6 +272,7 @@ Future sideMenu(context) {
                               Icon(
                                 Icons.error_outline_outlined,
                                 color: blackColorApp,
+                                size: 26.sp
                               ),
                               SizedBox(
                                 width: 10.w,
@@ -407,6 +410,7 @@ Future sideMenu(context) {
                                 Icon(
                                   Icons.logout,
                                   color: blackColorApp,
+                                  size: 26.sp
                                 ),
                                 SizedBox(
                                   width: 10.w,

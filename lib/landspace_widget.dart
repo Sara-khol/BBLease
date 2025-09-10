@@ -23,7 +23,8 @@ class LandSpaceWidget extends StatelessWidget {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                    'Bibilease',
+                    // 'Bibilease',
+                    'B click',
                     style: TextStyle(
                       color: const Color(0xFFEFFFFE),
                       fontSize: 300.sp,

@@ -48,68 +48,68 @@ class ApiService {
   }
 
   Future getCarsAround(String start,String end,double lat,double long,int km,stime,etime,Function(dynamic carJson) onSuccess) async {
-    print('${_baseUrl}wp/v2/get_vehicles_around_address1/$start/$end/$lat/$long/$km/$stime/$etime');
+    debugPrint('${_baseUrl}wp/v2/get_vehicles_around_address1/$start/$end/$lat/$long/$km/$stime/$etime');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_vehicles_around_address1/$start/$end/$lat/$long/$km/$stime/$etime');
     if(response.statusCode == 200) {
       var result = response.data;
-      print(result);
+      debugPrint(result.toString());
       onSuccess(result);
     }
   }
 
   Future getUserOrders(int userId, Function(dynamic orderJson) onSuccess) async {
-    print('${_baseUrl}wp/v2/get_history_orders_or_future_orders_by_customer/$userId');
+    debugPrint('${_baseUrl}wp/v2/get_history_orders_or_future_orders_by_customer/$userId');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_history_orders_or_future_orders_by_customer/$userId');
     if(response.statusCode == 200) {
       var result = response.data;
-      print('result: $result');
+      debugPrint('result: $result');
       onSuccess(result);
     }
   }
 
 
   Future getURLToPDF(int orderId, Function(dynamic orderJson) onSuccess) async {
-    print('${_baseUrl}orders/get_customer_orders/$orderId');
+    debugPrint('${_baseUrl}orders/get_customer_orders/$orderId');
     Response response = await _dio.get('${_baseUrl}orders/get_customer_orders/$orderId');
     if(response.statusCode == 200) {
       var result = response.data;
-      print('result: $result');
+      debugPrint('result: $result');
       onSuccess(result);
     }
     // Prints the raw data returned by the server
   }
 
   Future getVerificationCode(String phone,int type, Function(dynamic carJson) onSuccess) async {
-    print('sendType $type');
-    print('${_baseUrl}wp/v2/check_user_connected/$type/$phone');
+    debugPrint('sendType $type');
+    debugPrint('${_baseUrl}wp/v2/check_user_connected/$type/$phone');
     // Response response = await _dio.get('${_baseUrl}wp/v2/check_user_connected/1/$phone');
     Response response = await _dio.get('${_baseUrl}wp/v2/check_user_connected/$type/$phone');
 
     if(response.statusCode == 200) {
       var result = response.data;
-      print(result);
+      debugPrint(result.toString());
       onSuccess(result);
     }
     // Prints the raw data returned by the server
   }
 
   Future sendCodeToRegistration(String phone,int type, Function(dynamic carJson) onSuccess) async {
-    print('${_baseUrl}wp/v2/send_code_to_registration/$type/$phone');
+    debugPrint('${_baseUrl}wp/v2/send_code_to_registration/$type/$phone');
     Response response = await _dio.get('${_baseUrl}wp/v2/send_code_to_registration/$type/$phone');
 
     if(response.statusCode == 200) {
       var result = response.data;
-      print(result);
+      debugPrint(result.toString());
       onSuccess(result);
     }
   }
 
   Future codeVerification(String phone,String code, Function(dynamic carJson) onSuccess) async {
-    print('${_baseUrl}wp/v2/verificaion_customer/$code/$phone');
+    debugPrint('${_baseUrl}wp/v2/verificaion_customer/$code/$phone');
     Response response = await _dio.get('${_baseUrl}wp/v2/verificaion_customer/$code/$phone');
     if(response.statusCode == 200) {
       var result = response.data;
-      print(result);
+      debugPrint(result.toString());
       onSuccess(result);
     }
     // Prints the raw data returned by the server
@@ -121,9 +121,9 @@ class ApiService {
       "file": signature,//MultipartFile.fromBytes(User().signature, filename: 'signature.jpg'), // Adjust filename and content type
       "text": User().toString(),
     });
-    print('${_baseUrl}wp/v2/registration_customer_detailes');
-    print('data: ${User().toString()}');
-    print('data: ${signature.contentType}');
+    debugPrint('${_baseUrl}wp/v2/registration_customer_detailes');
+    debugPrint('data: ${User().toString()}');
+    debugPrint('data: ${signature.contentType}');
     Response response = await _dio.post('${_baseUrl}wp/v2/registration_customer_detailes',
         data: formData);
    // debugPrint('response $response');
@@ -135,31 +135,31 @@ class ApiService {
   }
 
   getPaymentUrl(int id,Function(dynamic res) onSuccess) async {
-    print('${_baseUrl}tranzila/v1/get_tranzila_iframe/$id');
+    debugPrint('${_baseUrl}tranzila/v1/get_tranzila_iframe/$id');
     Response response = await _dio.get('${_baseUrl}tranzila/v1/get_tranzila_iframe/$id');
     if(response.statusCode == 200) {
       var result = response.data;
-      print(result);
+      debugPrint(result.toString());
       onSuccess(result);
     }
   }
 
   getStatusPayment(String phone,Function(dynamic res) onSuccess) async {
-    print('${_baseUrl}tranzila/v1/tranzila_status/$phone');
+    debugPrint('${_baseUrl}tranzila/v1/tranzila_status/$phone');
     Response response = await _dio.get('${_baseUrl}tranzila/v1/tranzila_status/$phone');
     if(response.statusCode == 200) {
       var result = response.data;
-      print(result);
+      debugPrint(result.toString());
       onSuccess(result);
     }
   }
 
   Future getUserById(int id,Function(dynamic res) onSuccess) async {
-    print('${_baseUrl}customers/get_customer/$id');
+    debugPrint('${_baseUrl}customers/get_customer/$id');
     Response response = await _dio.get('${_baseUrl}customers/get_customer/$id');
     if(response.statusCode == 200) {
       var result = response.data;
-      print(result);
+      debugPrint(result.toString());
       onSuccess(result);
     }
     // Prints the raw data returned by the server
@@ -195,7 +195,7 @@ class ApiService {
       }
     }
     //uploadList.add('0533117933');
-    print('uploadList.toString() ${imageFiles.toString()}');
+    debugPrint('uploadList.toString() ${imageFiles.toString()}');
     FormData formData = FormData.fromMap({
       "license_front": imageFiles[0],
       "license_back": imageFiles[1],
@@ -205,13 +205,13 @@ class ApiService {
     });
 
     var response = await _dio.post('${_baseUrl}wp/v2/upload_license', data: formData,);
-    print("response.statusCode ${response.statusCode}");
+    debugPrint("response.statusCode ${response.statusCode}");
     if(response.statusCode == 200) {
-      print("response.data ${response.data.toString()}");
+      debugPrint("response.data ${response.data.toString()}");
       onSuccess();
     }
     else {
-      print(response.statusCode);
+      debugPrint(response.statusCode.toString());
     }
   }
 
@@ -235,11 +235,11 @@ class ApiService {
     String d2=intl.DateFormat('yyyy-MM-dd').format(endDate);
     String h1=intl.DateFormat('HH:mm').format(startDate);
     String h2=intl.DateFormat('HH:mm').format(endDate);
-    print('${_baseUrl}wp/v2/get_extras_for_rent/$carId/$d1*$d2/$h1*$h2');
+    debugPrint('${_baseUrl}wp/v2/get_extras_for_rent/$carId/$d1*$d2/$h1*$h2');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_extras_for_rent/$carId/$d1*$d2/$h1*$h2');
     if(response.statusCode == 200) {
       var result = response.data;
-      print('result: $result');
+      debugPrint('result: $result');
       onSuccess(result);
     }
     // Prints the raw data returned by the server
@@ -247,12 +247,12 @@ class ApiService {
 
   Future returnCar(int orderId ,Function(dynamic orderJson) onSuccess) async {
     //DateTime nextDay= endDate.add(Duration(days: 1));
-    print('${_baseUrl}tranzila/v1/update_return_car/$orderId');
+    debugPrint('${_baseUrl}tranzila/v1/update_return_car/$orderId');
     // Response response = await _dio.get('${_baseUrl}wp/v2/get_extras_for_rent/7994');
     Response response = await _dio.get('${_baseUrl}tranzila/v1/update_return_car/$orderId');
     if(response.statusCode == 200) {
       var result = response.data;
-      print('result: $result');
+      debugPrint('result: $result');
       onSuccess(result);
     }
     // Prints the raw data returned by the server
@@ -260,22 +260,22 @@ class ApiService {
 
 
   Future getCarsAvailableOrNot(Function(dynamic res) onSuccess) async {
-    print('${_baseUrl}wp/v2/get_cars_active_or_available');
+    debugPrint('${_baseUrl}wp/v2/get_cars_active_or_available');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_cars_active_or_available');
     if(response.statusCode == 200) {
       var result = response.data;
-      print('result: $result');
+      debugPrint('result: $result');
       onSuccess(result);
     }
     // Prints the raw data returned by the server
   }
 
   Future getOpeningCode(int orderId,Function(dynamic res) onSuccess) async {
-    print('${_baseUrl}wp/v2/return_code_open_doors/$orderId');
+    debugPrint('${_baseUrl}wp/v2/return_code_open_doors/$orderId');
     Response response = await _dio.get('${_baseUrl}wp/v2/return_code_open_doors/$orderId');
     if(response.statusCode == 200) {
       var result = response.data;
-      print('result: $result');
+      debugPrint('result: $result');
       onSuccess(result);
     }
     // Prints the raw data returned by the server
@@ -283,11 +283,11 @@ class ApiService {
 
   Future getFuelLevel(int carNum,Function(dynamic res) onSuccess) async {
    // https://bibilease.quicksolutions.co.il/wp-json/wp/v2/get_car_fuel_level_by_KM_and_by_fuel_percentage/73592802
-    print('${_baseUrl}wp/v2/get_car_fuel_level_by_KM_and_by_fuel_percentage/$carNum');
+    debugPrint('${_baseUrl}wp/v2/get_car_fuel_level_by_KM_and_by_fuel_percentage/$carNum');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_car_fuel_level_by_KM_and_by_fuel_percentage/$carNum');
     if(response.statusCode == 200) {
       var result = response.data;
-      print('result: $result');
+      debugPrint('result: $result');
       onSuccess(result);
     }
     // Prints the raw data returned by the server
@@ -295,11 +295,11 @@ class ApiService {
 
   Future getTimeRemain(int orderId,Function(dynamic res) onSuccess) async {
 
-    print('${_baseUrl}wp/v2/get_remaining_rental_time/$orderId');
+    debugPrint('${_baseUrl}wp/v2/get_remaining_rental_time/$orderId');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_remaining_rental_time/$orderId');
     if(response.statusCode == 200) {
       var result = response.data;
-      print('result: $result');
+      debugPrint('result: $result');
       onSuccess(result);
     }
     // Prints the raw data returned by the server
@@ -326,36 +326,34 @@ class ApiService {
         "file" : MultipartFile.fromBytes(signature, filename: "signature.png"),
       });
 
-      print('${_baseUrl}rental/v1/cancel_rental/$orderId');
-      print(orderId);
+      debugPrint('${_baseUrl}rental/v1/cancel_rental/$orderId');
+      debugPrint(orderId);
       var response = await _dio.post('${_baseUrl}rental/v1/cancel_rental/$orderId', data: formData,);
-      print("response.statusCode ${response.statusCode}");
+      debugPrint("response.statusCode ${response.statusCode}");
       if(response.statusCode == 200) {
-        print("response.data ${response.data.toString()}");
+        debugPrint("response.data ${response.data.toString()}");
         onSuccess();
       }
-      else {
-        print(response.statusCode);
-      }
+
     }
 
   Future openDoors(int carNum,Function(dynamic res) onSuccess) async {
-    print('${_baseUrl}wp/v2/vehicle_UNlock/$carNum');
+    debugPrint('${_baseUrl}wp/v2/vehicle_UNlock/$carNum');
     Response response = await _dio.get('${_baseUrl}wp/v2/vehicle_UNlock/$carNum');
     if(response.statusCode == 200) {
       var result = response.data;
-      print('result: $result');
+      debugPrint('result: $result');
       onSuccess(result);
     }
     // Prints the raw data returned by the s0erver
   }
 
   Future lockDoors(int carNum,Function(dynamic res) onSuccess) async {
-    print('${_baseUrl}wp/v2/vehicle_lock/$carNum');
+    debugPrint('${_baseUrl}wp/v2/vehicle_lock/$carNum');
     Response response = await _dio.get('${_baseUrl}wp/v2/vehicle_lock/$carNum');
     if(response.statusCode == 200) {
       var result = response.data;
-      print('result: $result');
+      debugPrint('result: $result');
       onSuccess(result);
     }
     // Prints the raw data returned by the server
@@ -402,21 +400,21 @@ class ApiService {
   }
 
   Future deleteAccount(int customerID,Function(dynamic res) onSuccess) async {
-    print('${_baseUrl}customer/update_status_customr/$customerID');
+    debugPrint('${_baseUrl}customer/update_status_customr/$customerID');
     Response response = await _dio.get('${_baseUrl}customer/update_status_customr/$customerID');
     if(response.statusCode == 200) {
       var result = response.data;
-      print('result: $result');
+      debugPrint('result: $result');
       onSuccess(result);
     }
   }
 
   Future getAdditionalDriver(String id,Function(dynamic res) onSuccess) async {
-    print('${_baseUrl}wp/v2/get_additional_driver/${User().tz}/$id');
+    debugPrint('${_baseUrl}wp/v2/get_additional_driver/${User().tz}/$id');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_additional_driver/${User().tz}/$id');
     if(response.statusCode == 200) {
       var result = response.data;
-      print('result: $result');
+      debugPrint('result: $result');
       onSuccess(result);
     }
     
@@ -454,17 +452,15 @@ class ApiService {
     debugPrint('${_baseUrl}wp/v2/update_additional_driver');
     List<MultipartFile> imageFiles = [];
 
-    print(User().additionalDriver.images.length); //2
-    print(User().additionalDriver.images[0]!=null); //true
-    print(User().additionalDriver.images[1]!=null); //true
-    print('======');
+    debugPrint(User().additionalDriver.images.length.toString()); //2
+
   /*  imageFiles.add(
       await MultipartFile.fromFile(
         User().additionalDriver.images[0]!.path,
         filename: 'front.png',
       ),
     );
-    print('======');
+    debugPrint('======');
 
     imageFiles.add(
       await MultipartFile.fromFile(
@@ -472,9 +468,9 @@ class ApiService {
         filename: 'back.png',
       ),
     );
-    print('======');
+    debugPrint('======');
 
-    print(imageFiles.length);*/
+    debugPrint(imageFiles.length);*/
     //String d1=intl.DateFormat('yyyy-MM-dd').format(User().additionalDriver.licenseIssDate);
     //String d2=intl.DateFormat('yyyy-MM-dd').format(User().additionalDriver.licenseExpDate);
 
@@ -493,7 +489,7 @@ class ApiService {
       "license_back": img2!=null?MultipartFile.fromBytes(await img2.readAsBytes(), filename: "back.png"):null,
     });
 
-    print(formData.fields);
+    debugPrint(formData.fields.toString());
     Response response = await _dio.post('${_baseUrl}wp/v2/update_additional_driver',
         data: formData);
     // debugPrint('response $response');
@@ -504,43 +500,43 @@ class ApiService {
   }
 
   Future getPriceList(Function(dynamic res) onSuccess) async {
-    print('${_baseUrl}payment/v2/price_list_api');
+    debugPrint('${_baseUrl}payment/v2/price_list_api');
     Response response = await _dio.get('${_baseUrl}payment/v2/price_list_api');
     if(response.statusCode == 200) {
       var result = response.data;
-      print('result: $result');
+      debugPrint('result: $result');
       onSuccess(result);
     }
   }
 
   Future getPromotions(Function(dynamic res) onSuccess) async {
-    print('${_baseUrl}payment/v2/get_promotions_api');
+    debugPrint('${_baseUrl}payment/v2/get_promotions_api');
     Response response = await _dio.get('${_baseUrl}payment/v2/get_promotions_api');
     if(response.statusCode == 200) {
       var result = response.data;
-      print('result: $result');
+      debugPrint('result: $result');
       onSuccess(result);
     }
   }
 
   Future getParkPosition(int carNum,Function(dynamic res) onSuccess) async {
-    print('${_baseUrl}wp/v2/car_address_location/$carNum');
+    debugPrint('${_baseUrl}wp/v2/car_address_location/$carNum');
     Response response = await _dio.get('${_baseUrl}wp/v2/car_address_location/$carNum');
-    print(response.statusCode);
     if(response.statusCode == 200) {
       var result = response.data;
-      print('result: $result');
+      debugPrint('result: $result');
       onSuccess(result);
     }
   }
     
   Future getStatusPaymentAfterUpdate(String phone,Function(dynamic res) onSuccess) async {
-    print('${_baseUrl}tranzila/v1/tranzila_status_after_update/$phone');
+    debugPrint('${_baseUrl}tranzila/v1/tranzila_status_after_update/$phone');
     Response response = await _dio.get('${_baseUrl}tranzila/v1/tranzila_status_after_update/$phone');
     if(response.statusCode == 200) {
       var result = response.data;
-      print(result);
-      onSuccess(result);
+      debugPrint(result.toString());
+    onSuccess(result);
+
     }
   }
 
@@ -622,7 +618,7 @@ class ApiService {
   }
 
   Future reportAccident(XFile? image, text, email, phone, name, Function(dynamic res) onSuccess) async {
-    print('${_baseUrl}wp/v2/report_fault');
+    debugPrint('${_baseUrl}wp/v2/report_fault');
     //var bytes = image?.readAsBytes();
     FormData formData = FormData.fromMap({
       "image_report_fault" : image!=null?MultipartFile.fromBytes(await image.readAsBytes(), filename: "image.png"):null,
@@ -635,21 +631,17 @@ class ApiService {
 
 
     var response = await _dio.post('${_baseUrl}wp/v2/report_fault', data: formData,);
-    print("response.statusCode ${response.statusCode}");
+    debugPrint("response.statusCode ${response.statusCode}");
     if(response.statusCode == 200) {
-      print("response.data ${response.data.toString()}");
+      debugPrint("response.data ${response.data.toString()}");
       onSuccess(response.data);
     }
-    else {
-      print(response.statusCode);
-    }
+
   }
 
   Future faceRecognition(String phone ,Function(dynamic res) onSuccess) async {
-    print('in API');
     List<MultipartFile> imageFiles = [];
-    print('in API - ${User().regImages[0]!.path}');
-    print(imageFiles.length);
+    debugPrint('in API - ${User().regImages[0]!.path}');
     if(!kIsWeb) {
       imageFiles.add(
         await MultipartFile.fromFile(
@@ -658,8 +650,7 @@ class ApiService {
         ),
       );
 
-      print(imageFiles.length);
-      print(User().regImages[2]!=null?'true':'false');
+      debugPrint(User().regImages[2]!=null?'true':'false');
       if(User().regImages[2]!=null) {
         imageFiles.add(
         await MultipartFile.fromFile(
@@ -678,8 +669,7 @@ class ApiService {
         ),
       );
 
-      print(imageFiles.length);
-      print(User().regImages[2]!=null?'true':'false');
+      debugPrint(User().regImages[2]!=null?'true':'false');
       if(User().regImages[2]!=null) {
         final bytes1 = await User().regImages[2]!.readAsBytes();
         imageFiles.add(
@@ -690,9 +680,8 @@ class ApiService {
         );
       }
     }
-    print(imageFiles.length);
 
-    print('uploadList.toString() ${imageFiles.toString()}');
+    debugPrint('uploadList.toString() ${imageFiles.toString()}');
     FormData formData = FormData.fromMap({
       "license_front": imageFiles[0],
       "face": User().regImages[2]!=null?imageFiles[1]:null,

@@ -621,7 +621,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   SizedBox(
                                     height: 15.h,
                                   ),
-                                  Image.asset("assets/icons/car_icon_black.png"),
+                                  Image.asset("assets/icons/car_icon_big.png", color: Color(0xFF0F1511),),
                                   // Image.asset("assets/icons/car_icon.png", color:  Color(0xFF0F1511),
                                   //     colorBlendMode: BlendMode.multiply),
                                   SizedBox(
@@ -773,7 +773,8 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                 child: Column(
                                   children: [
                                     SizedBox(height: 15.h,),
-                                    Image.asset('assets/icons/key.png'),
+                                   // Image.asset('assets/icons/key.png'),
+                                    Icon(Icons.car_rental, size: 24.sp,),
                                     SizedBox(height: 10.h,),
                                     Expanded(
                                       child: Text('שלח קוד\nלפתיחת דלת',

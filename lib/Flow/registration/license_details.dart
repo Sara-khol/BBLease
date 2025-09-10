@@ -390,10 +390,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                  builder: (context) => PaymentWebView(
-                        url: res,
-                    index: 1,
-                      )),
+                  builder: (context) => PaymentWebView(url: res)),
               (route) => false);
         });
 

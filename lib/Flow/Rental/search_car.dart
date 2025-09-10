@@ -147,7 +147,7 @@ class _SearchCarState extends State<SearchCar> {
                 ),
               ),
               SizedBox(height: 26.h), //26
-              topButtons(context),
+              topButtons(),
               SizedBox(height: 23.h), //23
               cars.isNotEmpty
                   ? MediaQuery.removePadding(
@@ -380,7 +380,7 @@ class _SearchCarState extends State<SearchCar> {
     );
   }
 
-  topButtons(context) {
+  /*topButtons(context) {
     return
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -437,9 +437,37 @@ class _SearchCarState extends State<SearchCar> {
         ),
       ],
     );
+  }*/
+
+  topButtons()
+  {
+    return Wrap(
+      alignment: WrapAlignment.center,
+    //  spacing: 12,        // gap between buttons
+    //  runSpacing: 8,      // gap between lines
+      children: [
+        _ActionBtn(
+          onTap: () => filterCarType(context),
+          label: 'סנן',
+          asset: 'assets/icons/Filter.png',
+        ),
+        _ActionBtn(
+          onTap: () => rentalTerm(context, 1, widget.startDate, widget.endDate),
+          label: ' שנה תאריך ',
+          asset: 'assets/icons/Calendar.png',
+        ),
+        _ActionBtn(
+          onTap: () => expansionSearch(),
+          label: ' הגדל טווח חיפוש ',
+          asset: 'assets/icons/Range.png',
+        ),
+      ],
+    );
   }
 
-  filterCarType(context, controller,) {
+
+
+  filterCarType1(context,) {
     return showModalBottomSheet(
       //isScrollControlled: true,
       context: context,
@@ -480,71 +508,6 @@ class _SearchCarState extends State<SearchCar> {
                   },
                 ),
               ),
-              /*Container(
-                       padding: EdgeInsets.only(top:8.5.h,),
-                      width:393.w,
-                      //height: 195.h,
-                      child: Padding(
-                        padding:  EdgeInsets.only(left: 65.w,right: 65.w),
-                        child: Container(
-                         // color:Colors.green,
-                          width:263.w,
-                          height: 230.h,
-                          child: Scrollbar(
-                            controller: _controller,
-                            thumbVisibility: true,
-                            radius: const Radius.circular(10),
-                            scrollbarOrientation:ScrollbarOrientation.top ,
-                            child: ListView(
-                              controller: _controller,
-                              //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
-                              scrollDirection: Axis.horizontal,
-                              // border: TableBorder.all(width:4.w,color: Colors.red),
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left:25.w,bottom: 5.h),
-                                  child: Container(
-                                    height: 230.h,
-                                    width: 270.w,
-                                    //color:Colors.yellow,
-                                    child:Row(
-                                      children:[
-                                        //SizedBox(height:120.h,),
-                                        carSearchItem("מיני"),
-                                        carSearchItem("משפחתי"),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                               */
-              /* Padding(
-                                  padding: EdgeInsets.only(left:25.w,bottom: 5.h),
-                                  child: Container(
-                                    height: 195.h,
-                                    width: 119.w,
-                                    child:Column(
-                                      children:[
-                                        SizedBox(height:78.5.h,),
-                                        carSearchItem("ג'יפון"),
-                                        carSearchItem("היברידי/חשמלי"),
-                                      ],),),
-                                ),
-                                Container(
-                                  height: 195.h,
-                                  width: 119.w,
-                                  child:Column(
-                                    children:[
-                                      SizedBox(height:78.5.h,),
-                                      carSearchItem("VIP"),
-                                      carSearchItem("משפחתי+"),
-                                    ],),),*/
-              /*
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),*/
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -606,8 +569,8 @@ class _SearchCarState extends State<SearchCar> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      carSearchItem("מיני"),
-                      carSearchItem("משפחתי"),
+                      carSearchItem("מיני",''),
+                      carSearchItem("משפחתי",''),
                     ],
                   ),
                   SizedBox(
@@ -625,7 +588,90 @@ class _SearchCarState extends State<SearchCar> {
     );
   }
 
-  carSearchItem(String name,) {
+  filterCarType(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true, // allow content-sized height
+      backgroundColor: Colors.transparent,
+      builder: (context) => Directionality(
+        textDirection: TextDirection.rtl,
+        child: SafeArea(
+          top: false,
+          child: Material(
+            color: Colors.white,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+            ),
+            child: SingleChildScrollView( // scrolls only if content > viewport
+              child: Padding(
+                padding:  EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 16.h),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min, // <-- key: wrap to content
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // Header row
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                        const Spacer(),
+                        ImageIcon(
+                          const AssetImage("assets/icons/Filter.png"),
+                          color: pinkColorApp,
+                        ),
+                         SizedBox(width: 8.h),
+                        Text(
+                          'סנן לפי סוג הרכב',
+                          style: TextStyle(
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.bold,
+                            color: const Color(0xFF0F1511),
+                          ),
+                        ),
+                        const Spacer(),
+                        TextButton(
+                          onPressed: () {
+                            setState(() => type = 'all');
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'נקה סינון',
+                            style: TextStyle(
+                              color: pinkColorApp,
+                              fontSize: 18.sp,
+                              decoration: TextDecoration.underline,
+                              decorationColor: pinkColorApp,
+                              height: 1,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                     SizedBox(height: 12.h),
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 20,    // horizontal gap
+                      runSpacing: 16, // vertical gap
+                      children: [
+                        carSearchItem('מיני','car-only.png'),
+                        carSearchItem('משפחתי','car-only.png'),
+                        // add more freely; height grows to fit
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  carSearchItem(String name,String imageName) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -659,7 +705,7 @@ class _SearchCarState extends State<SearchCar> {
                   left: 4.w,
                 ),
                 child: Image.asset(
-                  'assets/images/car-only.png',semanticLabel: 'car',
+                  'assets/images/$imageName',semanticLabel: 'car',
                  /* width: 115.w,
                   height: 50.h,*/
                 ),
@@ -907,6 +953,42 @@ class _SearchCarState extends State<SearchCar> {
       isDismissible: true,
       elevation: 5,
       // shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),)
+    );
+  }
+}
+
+class _ActionBtn extends StatelessWidget {
+  const _ActionBtn({required this.onTap, required this.label, required this.asset});
+  final VoidCallback onTap;
+  final String label;
+  final String asset;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: onTap,
+      style: TextButton.styleFrom(
+       // padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+        minimumSize: Size.zero,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,                  // <-- prevents row from taking full width
+        textDirection: TextDirection.rtl,                // ensures icon sits at the visual end
+        children: [
+          Text(
+            label,
+            style:  TextStyle(
+              color: Color(0xFF0F1511),
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+
+           SizedBox(width: 6.w),
+          Image.asset(asset, height: 20, fit: BoxFit.contain), // constrain icon
+        ],
+      ),
     );
   }
 }

@@ -15,10 +15,11 @@
 
 
     <application
-        android:label="BBlease"
+        android:label="B click"
         android:name="${applicationName}"
       android:networkSecurityConfig="@xml/netfree_cert"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:enableOnBackInvokedCallback="true">
 <!--        <meta-data android:name="com.google.android.geo.API_KEY"-->
 <!--            android:value="AIzaSyAUfnO7QQFbbcvx_vzisIBDjnF-ldHJoao"/>-->
         <meta-data android:name="com.google.android.geo.API_KEY"

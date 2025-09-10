@@ -3,6 +3,7 @@ import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/registration/payment_webView.dart';
 import 'package:bblease/Flow/registration/start_registration.dart';
 import 'package:bblease/Flow/UserInformation/terms_and_conditions.dart';
+import 'package:bblease/Flow/registration/wait_for_approve_screen.dart';
 import 'package:bblease/landspace_widget.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart'  ;
@@ -141,22 +142,31 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                   MySharedPreferences().setLastUsage();
                   MySharedPreferences().setUserId(User().userId);
                   if (User().tranzilaStatus) {
-                    print('in');
-                    if (User().currentRent != null) {
-                      print('current rent is not null');
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                              const ActiveRentDetails()),
-                              (route) => false);
+                    if(User().customerStatus=='active_customer') {
+                      if (User().currentRent != null) {
+                        print('current rent is not null');
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                const ActiveRentDetails()),
+                                (route) => false);
+                      }
+                      else {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                const RentalWidget()),
+                                (route) => false);
+                      }
                     }
-                    else {
+                    else{
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                              const RentalWidget() /*RentalWidget()*/),
+                              const WAitForApproveScreen()),
                               (route) => false);
                     }
                  }
@@ -168,7 +178,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                               builder: (context) =>
                                   PaymentWebView(
                                     url: res,
-                                    index: 1,
+
                                   )),
                               (route) => false);
                     });
@@ -225,7 +235,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                           ),
                           SizedBox(height: 29.h,),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TextButton(
                                   onPressed: () {
@@ -241,7 +251,7 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                                         decoration: isRegister ? TextDecoration.underline : TextDecoration.none,
                                         height: 1),
                                   )),
-                              SizedBox(width: 150.w,),
+                             // SizedBox(width: 150.w,),
                               TextButton(
                                   onPressed: () {
                                     setState(() {

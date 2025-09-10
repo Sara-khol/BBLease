@@ -5,8 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:universal_html/js.dart';
-
 import '../../landspace_widget.dart';
 import '../../models/class_user.dart';
 import '../../services/api_service.dart';
@@ -15,8 +13,9 @@ import '../../utils/my_colors.dart';
 
 class EditPaymentWebView extends StatefulWidget {
   final String url;
+  final bool fromProfile;
 
-  const EditPaymentWebView({super.key, required this.url});
+  const EditPaymentWebView({super.key, required this.url,  this.fromProfile=true});
 
   @override
   State<EditPaymentWebView> createState() => _EditPaymentWebViewState();
@@ -29,10 +28,13 @@ class _EditPaymentWebViewState extends State<EditPaymentWebView> {
   String url = "";
   double progress = 0;
   bool startCheckStatus=false;
+  late bool _isMounted ;
+
 
   @override
   void initState() {
     super.initState();
+    _isMounted=true;
     if(kIsWeb)
     {
       setStatusForWeb();
@@ -42,21 +44,23 @@ class _EditPaymentWebViewState extends State<EditPaymentWebView> {
   setStatusForWeb() async
   {
     await Future.delayed(const Duration(seconds: 7));
-    getStatus(context);
+   getStatus();
   }
 
 
   @override
   Widget build(BuildContext context) {
-    return OrientationBuilder(builder: (c,o){
-      return o==Orientation.landscape?
-      LandSpaceWidget(mainWidget: buildContent(context), imageProperties: ImageProperties('image4.png', 1000.w,'תמונת פרטי רכב')) :buildContent(context);
-    },);
+    return Scaffold(
+      body: OrientationBuilder(builder: (c,o){
+        return o==Orientation.landscape?
+        LandSpaceWidget(mainWidget: buildContent(context), imageProperties:
+        ImageProperties('l_register3.png', 1000.w,'תמונת פרטי רכב')) :buildContent(context);
+      },),
+    );
   }
 
-  buildContent(context){
-    return Scaffold(
-        body: SafeArea(
+  buildContent(context) {
+    return SafeArea(
           child: Directionality(
             textDirection: TextDirection.rtl,
             child: Column(children: <Widget>[
@@ -83,7 +87,7 @@ class _EditPaymentWebViewState extends State<EditPaymentWebView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'פרופיל אישי',
+                   widget.fromProfile? 'פרופיל אישי':'פרטי אשראי',
                     style: TextStyle(
                       fontSize: 20.sp,
                       fontWeight: FontWeight.bold,
@@ -91,58 +95,30 @@ class _EditPaymentWebViewState extends State<EditPaymentWebView> {
                       fontFamily: 'PLONI',
                     ),
                   ),
-
-
                 ],
               ),
               SizedBox(height: 35.h,),
-              Row(
+            if(widget.fromProfile)  Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children:[
                     Image.asset('assets/icons/f7_creditcard.png'),
                     Text('  אמצעי תשלום',style: TextStyle(color: pinkColorApp, fontSize: 20.sp, fontWeight: FontWeight.normal,)),
                   ]
               ),
-              SizedBox(
+            if(widget.fromProfile)  SizedBox(
                 height: 33.h,
               ),
-              /*Container(
-              padding: EdgeInsets.only(top: 15.h),
-              child: progress < 1.0
-                  ? LinearProgressIndicator(
-                      value: progress,
-                      color: pinkColorApp,
-                      backgroundColor: pinkColorApp.withOpacity(0.2),
-                    )
-                  : Container()),*/
               Expanded(
                 child: Center(
                   child: Container(
                     width: 370.w,
                     height: 455.h,
                     margin: const EdgeInsets.all(10.0),
-                    //decoration: BoxDecoration(border: Border.all(color: turquoiseColorApp)),
                     child: InAppWebView(
                       initialUrlRequest: URLRequest(url: WebUri(widget.url)),
-                      // initialUrl: "https://flutter.dev/",
-                      // initialOptions: InAppWebViewGroupOptions(
-                      //     crossPlatform: InAppWebViewOptions(
-                      //       debuggingEnabled: true,
-                      //     )
-                      // ),
                       onWebViewCreated: (InAppWebViewController controller) {
                         _webViewController = controller;
                       },
-                      // onLoadStart: (InAppWebViewController controller,WebUri?  url) {
-                      //   setState(() {
-                      //     this.url = url.data!.charset;
-                      //   });
-                      // },
-                      // onLoadStop: (InAppWebViewController controller,  url) async {
-                      //   setState(() {
-                      //     this.url = url;
-                      //   });
-                      // },
                       onReceivedServerTrustAuthRequest:
                           (InAppWebViewController controller,
                           URLAuthenticationChallenge challenge) async {
@@ -157,7 +133,7 @@ class _EditPaymentWebViewState extends State<EditPaymentWebView> {
                           {
                             startCheckStatus=true;
                             await Future.delayed(const Duration(seconds: 3));
-                            getStatus(context);
+                            getStatus();
                             // Timer(const Duration(seconds: 3), () {getStatus();});
                           }
                           if(mounted) {
@@ -170,74 +146,35 @@ class _EditPaymentWebViewState extends State<EditPaymentWebView> {
                   ),
                 ),
               ),
-              // ButtonBar(
-              //   alignment: MainAxisAlignment.center,
-              //   children: <Widget>[
-              //     ElevatedButton(
-              //       child: Icon(Icons.arrow_back),
-              //       onPressed: () {
-              //         if (_webViewController != null) {
-              //           _webViewController.goBack();
-              //         }
-              //       },
-              //     ),
-              //     ElevatedButton(
-              //       child: Icon(Icons.arrow_forward),
-              //       onPressed: () {
-              //         if (_webViewController != null) {
-              //           _webViewController.goForward();
-              //         }
-              //       },
-              //     ),
-              //     ElevatedButton(
-              //       child: Icon(Icons.refresh),
-              //       onPressed: () {
-              //         if (_webViewController != null) {
-              //           _webViewController.reload();
-              //         }
-              //       },
-              //     ),
-              //   ],
-              // ),
-              // SizedBox(
-              //   height: 20.h,
-              // ),
-              // Container(
-              //   width: 160.w,
-              //   height: 48.h,
-              //   margin: EdgeInsets.only(bottom: 40.h),
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.all(Radius.circular(25)),
-              //     color: turquoiseColorApp,
-              //   ),
-              //   child: TextButton(
-              //     child: Text('אישור',
-              //         style: TextStyle(
-              //             color: Colors.white,
-              //             fontSize: 22.sp,
-              //             fontWeight: FontWeight.normal)),
-              //     onPressed: () {
-              //       getStatus();
-              //     },
-              //   ),
-              // ),
             ]),
-          ),
         ));
   }
 
-  getStatus(context) async
+  getStatus() async
   {
     await ApiService().getStatusPaymentAfterUpdate(User().phoneNumber, (res) async {
+      debugPrint('====');
+      debugPrint(res.toString());
       if(res)
         {
-          displayMessage(context,message: 'הפרטים עודכנו בהצלחה',onClose: () =>  Navigator.pop(context),);
+          if (!mounted) return; // prevents using invalid context
+         displayMessage(context,message: 'הפרטים עודכנו בהצלחה',onClose: () =>  Navigator.pop(context),);
         }
      else
        {
-         await Future.delayed(const Duration(seconds: 3));
-         getStatus(context);
+         if(_isMounted) {
+           await Future.delayed(const Duration(seconds: 3));
+           getStatus();
+         }
        }
     });
+  }
+
+
+
+  @override
+  void dispose() {
+    _isMounted=false;
+    super.dispose();
   }
 }

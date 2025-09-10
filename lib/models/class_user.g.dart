@@ -27,7 +27,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User()
   ..isYoungDriver = json['is_young_driver'] as bool
   ..tranzilaStatus = json['status_tranzila'] as bool
   ..tranzilaCcno = json['tranzila_ccno'] as String
-  ..tranzilaCardExpDate = json['tranzila_card_exp_date'] as String;
+  ..tranzilaCardExpDate = json['tranzila_card_exp_date'] as String
+  ..customerStatus = json['customer_status'] as String;
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'customer_id': instance.userId,
@@ -51,4 +52,5 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'status_tranzila': instance.tranzilaStatus,
       'tranzila_ccno': instance.tranzilaCcno,
       'tranzila_card_exp_date': instance.tranzilaCardExpDate,
+      'customer_status': instance.customerStatus,
     };

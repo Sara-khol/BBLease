@@ -18,6 +18,10 @@ import '../models/class_user.dart';
 import '../services/api_service.dart';
 import 'UserInformation/benefits_and_promotions.dart';
 import 'UserInformation/contact_us.dart';
+import 'UserInformation/editPayment_webVIew.dart';
+
+Color iconColor=const Color(0xFF1A1D36);
+
 
 Future sideMenu(context) {
   return SideSheet.right(
@@ -54,7 +58,7 @@ Future sideMenu(context) {
                         Icon(
                           Icons.account_circle_outlined,
                           size: 38.sp,
-                          color: blackColorApp,
+                          color: iconColor,
                         ),
                         SizedBox(
                           height: 6.h,
@@ -81,7 +85,7 @@ Future sideMenu(context) {
                             children: [
                               Icon(
                                 Icons.account_circle_outlined,
-                                color: blackColorApp,
+                                color: iconColor,
                                 size: 26.sp,
                               ),
                               SizedBox(
@@ -215,9 +219,9 @@ Future sideMenu(context) {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => PaymentWebView(
+                                    builder: (context) => EditPaymentWebView(
                                           url: res,
-                                          index: 2,
+                                      fromProfile: false,
                                         )),
                               );
                             });
@@ -233,7 +237,7 @@ Future sideMenu(context) {
                             children: [
                               Icon(
                                 Icons.drive_eta_outlined,
-                                color: blackColorApp,
+                                color: iconColor,
                                 size: 26.sp,
                               ),
                               SizedBox(
@@ -271,7 +275,7 @@ Future sideMenu(context) {
                             children: [
                               Icon(
                                 Icons.error_outline_outlined,
-                                color: blackColorApp,
+                                color: iconColor,
                                 size: 26.sp
                               ),
                               SizedBox(
@@ -409,7 +413,7 @@ Future sideMenu(context) {
                               children: [
                                 Icon(
                                   Icons.logout,
-                                  color: blackColorApp,
+                                  color: iconColor,
                                   size: 26.sp
                                 ),
                                 SizedBox(

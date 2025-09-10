@@ -14,6 +14,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'Flow/Dialogs/buttom_dialogs.dart';
+import 'Flow/registration/wait_for_approve_screen.dart';
 import 'models/class_rent.dart';
 import 'models/class_user.dart';
 
@@ -119,7 +121,7 @@ class MyApp extends StatelessWidget {
             scrollBehavior: const MaterialScrollBehavior().copyWith(
               dragDevices: {PointerDeviceKind.mouse, PointerDeviceKind.touch},
             ),
-            title: 'ביביליס',
+            title: 'B click',
             theme: ThemeData(
                 fontFamily: 'PLONI',
                 scaffoldBackgroundColor: Colors.white,
@@ -163,11 +165,16 @@ class MyApp extends StatelessWidget {
                     if (snapshot.hasData) {
                       if (snapshot.data is bool && snapshot.data == true) {
                         if (User().tranzilaStatus) {
-                          MySharedPreferences().setLastUsage();
-                          if (User().currentRent != null) {
-                            return const ActiveRentDetails();
+                          if(User().customerStatus=='active_customer') {
+                            MySharedPreferences().setLastUsage();
+                            if (User().currentRent != null) {
+                              return const ActiveRentDetails();
+                            }
+                            return const RentalWidget();
                           }
-                          return const RentalWidget();
+                          else{
+                            return const WAitForApproveScreen();
+                          }
                         } else {
                           return const TelToRegistrationForm();
                         }

@@ -58,6 +58,8 @@ class User{
   late String tranzilaCcno = '';
   @JsonKey(name: 'tranzila_card_exp_date')
   late String tranzilaCardExpDate = '';
+ @JsonKey(name: 'customer_status')
+ late String customerStatus = '';
 
  @JsonKey(name: 'signature',includeFromJson: false,includeToJson: false)
  Uint8List? signature ;

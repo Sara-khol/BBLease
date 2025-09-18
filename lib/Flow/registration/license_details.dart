@@ -1,6 +1,7 @@
 
 import 'package:bblease/Flow/Rental/active_rent.dart';
 import 'package:bblease/Flow/registration/payment_webView.dart';
+import 'package:bblease/Flow/registration/sucsses_registration.dart';
 import 'package:bblease/landspace_widget.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:bblease/services/api_service.dart';
@@ -385,6 +386,14 @@ class _LicenseDetailsState extends State<LicenseDetails> {
         User().userId = res;
         // MySharedPreferences().setLastUsage();
         // MySharedPreferences().setUserId(User().userId);
+
+        // Navigator.pop(context);
+        // Navigator.pushAndRemoveUntil(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => SucssesRegistrationForm()),
+        //         (route) => false);
+
         await ApiService().getPaymentUrl(User().userId, (res) {
           Navigator.pop(context);
           Navigator.pushAndRemoveUntil(

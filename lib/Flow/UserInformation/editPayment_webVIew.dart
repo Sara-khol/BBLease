@@ -153,12 +153,12 @@ class _EditPaymentWebViewState extends State<EditPaymentWebView> {
   getStatus() async
   {
     await ApiService().getStatusPaymentAfterUpdate(User().phoneNumber, (res) async {
-      debugPrint('====');
       debugPrint(res.toString());
       if(res)
         {
           if (!mounted) return; // prevents using invalid context
          displayMessage(context,message: 'הפרטים עודכנו בהצלחה',onClose: () =>  Navigator.pop(context),);
+          Navigator.pop(context);
         }
      else
        {

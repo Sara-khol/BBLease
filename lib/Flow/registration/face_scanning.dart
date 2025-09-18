@@ -286,8 +286,8 @@ print('faces.length: ${faces.length}');
                 percent: 0.99,
                 animation: true,
                 barRadius: const Radius.circular(16),
-                linearGradient: const LinearGradient(colors: [ Color.fromRGBO(254, 193, 216, 1), Color.fromRGBO(251, 39, 119, 1)]),
-                backgroundColor: const Color.fromRGBO(247, 247, 247, 1),
+                linearGradient:  LinearGradient(colors: [  pinkColorApp.withValues(alpha: 0.5),
+                pinkColorApp,]),
                 center: Padding(
                   padding: EdgeInsets.only(left: 270.w,),
                   child: Text('3/3',style: TextStyle(color: Colors.white, fontSize: 9.sp )),

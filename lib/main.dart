@@ -214,7 +214,6 @@ class MyApp extends StatelessWidget {
     {
       await ApiService().getUserById(userId, (res) {
         User.fromJson(res['customer']);
-        print('before');
         if (res["active_order"] != -1 /*||res["active_order"].isNotEmpty*/) {
           print(res["active_order"]);
           User().currentRent = Rental.fromJson(res["active_order"]);

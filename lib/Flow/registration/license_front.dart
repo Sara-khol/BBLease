@@ -138,10 +138,10 @@ class _LicenseFrontState extends State<LicenseFront>  {
                   percent: 0.33,
                   animation: true,
                   barRadius: const Radius.circular(16),
-                  linearGradient: const LinearGradient(
+                  linearGradient:  LinearGradient(
                     colors: [
-                      Color.fromRGBO(254, 193, 216, 1),
-                      Color.fromRGBO(251, 39, 119, 1)
+                     pinkColorApp.withValues(alpha: 0.5),
+                      pinkColorApp
                     ],
                   ),
                   backgroundColor: const Color.fromRGBO(247, 247, 247, 1),

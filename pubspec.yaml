@@ -116,22 +116,14 @@ flutter_launcher_icons:
 flutter_native_splash:
     # צבע רקע למסך הפתיחה
     color: "#ffffff"
-
-    # התמונה שתופיע במסך הפתיחה
-    image: assets/images/splash_image.png
-
-    # הגדרות לאנדרואיד
+    image: "assets/appIcon.png"
     android: true
     android_gravity: center
-
-    # הגדרות ל-iOS
     ios: true
-
-    # הגדרות ל-Web
     web: true
     # התאמות מיוחדות ל-Android 12
     android_12:
-      image: assets/images/splash_image.png        # התמונה שתופיע גם באנדרואיד 12
+      image: "assets/appIcon.png"        # התמונה שתופיע גם באנדרואיד 12
       color: "#ffffff"                # צבע רקע
       icon_background_color: "#ffffff" # רקע לאייקון (כדי שלא ייחתך)
       android_gravity: fill

@@ -176,12 +176,15 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  PaymentWebView(
-                                    url: res,
-
-                                  )),
+                                  PaymentWebView(url: res)),
                               (route) => false);
                     });
+                    // Navigator.pushAndRemoveUntil(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       // builder: (context) => PaymentWebView(url: res)),
+                    //         builder: (context) => RentalWidget()),
+                    //         (route) => false);
                   }
                 }
               }

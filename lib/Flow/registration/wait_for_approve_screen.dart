@@ -166,7 +166,7 @@ class _WAitForApproveScreenState extends State<WAitForApproveScreen> {
   }
 
   getStatus() async {
-    await Future.delayed(const Duration(minutes: 5));
+  await Future.delayed(const Duration(minutes: 5));
     await ApiService().getUserById(User().userId, (res)
     async {
       User.fromJson(res['customer']);

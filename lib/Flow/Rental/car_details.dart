@@ -522,11 +522,11 @@ class _CarDetailsState extends State<CarDetails> {
                                                         Column(
                                                           crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
-                                                            Text('₪ ${(rentPrice*0.83).round()}', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold)),
+                                                            Text('₪ ${(rentPrice*0.82).round()}', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold)),
                                                             SizedBox(height: 17.h),
-                                                            Text('₪ ${(additionsPrice*0.83).round()}',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold)),
+                                                            Text('₪ ${(additionsPrice*0.82).round()}',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold)),
                                                             SizedBox(height: 17.h),
-                                                            Text('₪ ${((rentPrice + additionsPrice) * 0.17).round()}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold)),
+                                                            Text('₪ ${((rentPrice + additionsPrice) * 0.18).round()}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold)),
                                                             SizedBox(height: 17.h),
                                                             Text('₪ ${(rentPrice + additionsPrice).round()}', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: pinkColorApp)),
                                                           ],
@@ -539,7 +539,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                             SizedBox(height: 17.h),
                                                             Text('תוספות', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal)),
                                                             SizedBox(height: 17.h),
-                                                            Text('תוספת מע"מ 17%', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal)),
+                                                            Text('תוספת מע"מ 18%', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal)),
                                                             SizedBox(height: 17.h),
                                                             Text('תשלום כולל מע”מ', overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal, color: pinkColorApp)),
                                                           ],

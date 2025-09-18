@@ -635,11 +635,11 @@ class _OrderDetailsState extends State<OrderDetails> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('₪ ${(rentPrice * 0.83).round()}',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
+                                Text('₪ ${(rentPrice * 0.82).round()}',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
                                 SizedBox(height: 17.h),
                                 Text('₪ $additionsPrice',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
                                 SizedBox(height: 17.h),
-                                Text('₪ ${(rentPrice * 0.17).round()}', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
+                                Text('₪ ${(rentPrice * 0.18).round()}', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
                                 SizedBox(height: 17.h),
                                 Text('₪ ${rentPrice + additionsPrice}', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
                               ],

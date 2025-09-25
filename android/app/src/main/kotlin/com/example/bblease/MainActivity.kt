@@ -1,4 +1,4 @@
-package com.example.bblease
+package com.goapp.bblease
 
 import io.flutter.embedding.android.FlutterActivity
 

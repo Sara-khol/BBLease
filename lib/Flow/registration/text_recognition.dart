@@ -1,11 +1,12 @@
 import 'package:bblease/models/class_user.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 
 void TextRecognition(int index) async {
-  print('start text scanning');
+  debugPrint('start text scanning');
 
   XFile? image=User().regImages[index];
   String scannedText = "";
@@ -52,7 +53,11 @@ Future<void> extractData(String data) async {
           extractedData[prefix] = line.substring(prefix.length+1,).trim();
         }
         else {
-          extractedData[prefix] = line.substring(prefix.length).trim();
+          //todo why needed , is there data without .
+         // added this check to avoid going over good data
+          if(extractedData[prefix]==null) {
+            extractedData[prefix] = line.substring(prefix.length).trim();
+          }
         }
       }
 
@@ -86,15 +91,27 @@ Future<void> extractData(String data) async {
       : '';
 
 
-  User().tz = extractedData['4d']?.replaceFirst('ID ', '').trim() ?? '';
-  User().licenseId = extractedData['5'] ?? '';
+  // User().tz = extractedData['5']?.replaceFirst('ID ', '').trim() ?? '';
+  // User().licenseId = extractedData['4d'] ?? '';
+
+  final tzRaw = extractedData['5'];
+  final licenseRaw = extractedData['4d'];
+
+
+  if ((tzRaw ?? '').contains('ID ')) {
+    User().tz = tzRaw!.replaceFirst('ID ', '').trim();
+    User().licenseId = licenseRaw ?? '';
+  } else if ((licenseRaw ?? '').contains('ID ')) {
+    User().tz = licenseRaw!.replaceFirst('ID ', '').trim();
+    User().licenseId = tzRaw ?? '';
+  }
   User().licenseDegree = extractedData['9'] ?? '';
-  print(extractedData);
+  debugPrint(extractedData.toString());
 
 }
 Future<void> extractData2(String text) async{
-  print('extracting2...');
-print(text);
+  debugPrint('extracting2...');
+  debugPrint(text);
   if(text.contains('new driver')){
     User().isNewDriver=true;
   }

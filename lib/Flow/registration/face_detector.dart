@@ -77,7 +77,7 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
 
     if (mounted && _cameraController != null) {
       setState(() {});
-      if(!kIsWeb)_startDetecting();
+      //if(!kIsWeb)_startDetecting();
     } else {
       print('_cameraController is null or widget is not mounted');
       //Sentry.addBreadcrumb(Breadcrumb(message: '_cameraController is null or widget is not mounted'));

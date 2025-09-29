@@ -245,10 +245,10 @@ print('faces.length: ${faces.length}');
                           }
                         }
                     ),*/
-                  Center(
-                    child:/* SizedBox(
+                 /* Center(
+                    child:*//* SizedBox(
                         height: 332.h,
-                        child:*/
+                        child:*//*
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -273,7 +273,7 @@ print('faces.length: ${faces.length}');
                       ],
                     ),
                     // ),
-                  ),
+                  ),*/
                 ]),
           ),
           SizedBox(height: 60.h,),

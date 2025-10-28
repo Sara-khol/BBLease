@@ -747,7 +747,7 @@ Future displayErrorInValidation(BuildContext context) {
           // const Spacer(),
           Container(height: 33.h),
           Center(
-            child: Text('המערכת נתקלה בבעיה בזיהוי שלך\nהועבר לבדיקה',
+            child: Text('.המערכת נתקלה בבעיה בזיהוי שלך, הועבר לבדיקה\n.תוכלו להמשיך בתהליך, ובהמשך יתבצע אימות על ידי נציג',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   height:1,

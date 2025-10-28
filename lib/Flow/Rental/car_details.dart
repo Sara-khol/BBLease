@@ -46,7 +46,6 @@ class _CarDetailsState extends State<CarDetails> {
   @override
   void initState() {
     dayDiff = widget.rent.endDate.difference(widget.rent.startDate).inDays/* + 1*/;
-    debugPrint('pricePerDay ${widget.rent.car.pricePerDay} dayDiff $dayDiff');
     rentPrice = widget.rent.car.totalPrice;
 
     debugPrint('rentPrice $rentPrice');
@@ -535,7 +534,8 @@ class _CarDetailsState extends State<CarDetails> {
                                                         Column(
                                                           crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
-                                                            Text(dayDiff==0?'6 שעות ללא מע"מ':'$dayDiffימים ללא מע"מ ', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal)),
+                                                            // Text(dayDiff==0?'6 שעות ללא מע"מ':'$dayDiffימים ללא מע"מ ', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal)),
+                                                            Text('משך ההשכרה ללא מע"מ', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal)),
                                                             SizedBox(height: 17.h),
                                                             Text('תוספות', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal)),
                                                             SizedBox(height: 17.h),

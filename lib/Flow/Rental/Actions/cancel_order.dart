@@ -49,15 +49,15 @@ class _CancelOrderState extends State<CancelOrder> {
           textAlign: TextAlign.center,),
         SizedBox(height: 33.h,),
 
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30.w),
-          child: Text(difference <= 15
-              ? 'לא יגבה ממך תשלום עבור שירות זה'
-              : 'ביטול הזמנה בשלב זה יגבה ממך תשלום בשווי ההזמנה מפני שעברו יותר מ-15 דקות',
-            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal),
-            textAlign: TextAlign.center,),
-        ),
-        SizedBox(height: 33.h,),
+        // Padding(
+        //   padding: EdgeInsets.symmetric(horizontal: 30.w),
+        //   child: Text(difference <= 15
+        //       ? 'לא יגבה ממך תשלום עבור שירות זה'
+        //       : 'ביטול הזמנה בשלב זה יגבה ממך תשלום בשווי ההזמנה מפני שעברו יותר מ-15 דקות',
+        //     style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal),
+        //     textAlign: TextAlign.center,),
+        // ),
+        // SizedBox(height: 33.h,),
         const Spacer(),
         SizedBox(
           height: 48.h,

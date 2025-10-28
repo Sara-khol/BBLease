@@ -11,20 +11,23 @@ import '../../models/class_rent.dart';
 import '../UserInformation/contact_us.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 
-
-
 double? latitude;
 double? longitude;
 late String location;
 //late DateTime startDate,endDate;
 Rental rent = Rental();
 
-Future departurePoint(context, address, nav, { Function? onClose,double longitude1=0,double latitude1=0,sdate, edate}) {
+Future departurePoint(context, address, nav,
+    {Function? onClose,
+    double longitude1 = 0,
+    double latitude1 = 0,
+    sdate,
+    edate}) {
   print('dialog address: $address');
 
-  location=address??'';
-  latitude= latitude1;
-  longitude= longitude1;
+  location = address ?? '';
+  latitude = latitude1;
+  longitude = longitude1;
 
   TextEditingController controller = TextEditingController(text: address);
   List<AutocompletePrediction>? predictions;
@@ -40,27 +43,25 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
   ];
   Timer? debounce;
 
-
   places = FlutterGooglePlacesSdk('AIzaSyDrD1omOKsD-QCghL7Oaq1LmU6mgxvqaLs',
-      locale:  const Locale('he', 'IL'));
+      locale: const Locale('he', 'IL'));
   places.isInitialized().then((value) {
     debugPrint('Places Initialized: $value');
   });
 
-   autoCompleteSearch(String value) async {
-      final result = await places.findAutocompletePredictions(
-        controller.text,
-        // countries: _countriesEnabled ? _countries : null,
-        // placeTypesFilter: _placeTypesFilter,
-        // newSessionToken: false,
-        // origin: LatLng(lat: 43.12, lng: 95.20),
-        // locationBias: _locationBiasEnabled ? _locationBias : null,
-        // locationRestriction:
-        // _locationRestrictionEnabled ? _locationRestriction : null,
-      );
-      predictions = result.predictions;
-      print('Result: $predictions');
-
+  autoCompleteSearch(String value) async {
+    final result = await places.findAutocompletePredictions(
+      controller.text,
+      // countries: _countriesEnabled ? _countries : null,
+      // placeTypesFilter: _placeTypesFilter,
+      // newSessionToken: false,
+      // origin: LatLng(lat: 43.12, lng: 95.20),
+      // locationBias: _locationBiasEnabled ? _locationBias : null,
+      // locationRestriction:
+      // _locationRestrictionEnabled ? _locationRestriction : null,
+    );
+    predictions = result.predictions;
+    print('Result: $predictions');
 
     // var result = await googlePlace.autocomplete.get(value,language: 'iw');
     // if (result != null && result.predictions != null) {
@@ -86,7 +87,8 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
             cursor: SystemMouseCursors.basic,
             child: StatefulBuilder(builder: (context, StateSetter setState) {
               return Padding(
-                padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: Directionality(
                   textDirection: TextDirection.rtl,
                   child: Container(
@@ -109,7 +111,8 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                     ),
                     constraints: BoxConstraints(maxHeight: 500.h),
                     child: Padding(
-                      padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 10.h),
+                      padding:
+                          EdgeInsets.only(left: 30.w, right: 30.w, top: 10.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -132,7 +135,9 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black),
                               ),
-                              SizedBox(width: 9.w,),
+                              SizedBox(
+                                width: 9.w,
+                              ),
                               Icon(
                                 Icons.fmd_good_outlined,
                                 color: pinkColorApp,
@@ -140,7 +145,9 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                               ),
                             ],
                           ),
-                          SizedBox(height: 45.h,),
+                          SizedBox(
+                            height: 45.h,
+                          ),
                           TextField(
                             autofocus: true,
                             cursorColor: const Color.fromRGBO(15, 17, 21, 1),
@@ -153,7 +160,8 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                                   color: const Color.fromRGBO(15, 17, 21, 1),
                                   fontFamily: 'PLONI',
                                 ),
-                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.auto,
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(
                                     10.0,
@@ -175,28 +183,31 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                                   color: turquoiseColorApp,
                                   size: 24.sp,
                                 )),
-                            style: TextStyle(color: const Color.fromRGBO(15, 17, 21, 1), fontSize: 20.sp),
+                            style: TextStyle(
+                                color: const Color.fromRGBO(15, 17, 21, 1),
+                                fontSize: 20.sp),
                             controller: controller,
                             onChanged: (value) async {
-                             // done = controller.text.isNotEmpty;
+                              // done = controller.text.isNotEmpty;
                               print('change $value');
 
-                              if (debounce?.isActive ?? false) debounce?.cancel();
-                              debounce = Timer(const Duration(milliseconds: 300), () async{
-                                if (value.isNotEmpty && value.length>1) {
+                              if (debounce?.isActive ?? false)
+                                debounce?.cancel();
+                              debounce = Timer(
+                                  const Duration(milliseconds: 300), () async {
+                                if (value.isNotEmpty && value.length > 1) {
                                   await autoCompleteSearch(value);
                                 } else {
                                   debugPrint('emptyyy!');
                                   predictions = [];
-                                  place=null;
-                                  location='';
+                                  place = null;
+                                  location = '';
                                 }
-                                setState((){});
+                                setState(() {});
                               });
                               //if (debounce?.isActive ?? false) debounce!.cancel();
                               //debounce =
                               // Timer(const Duration(milliseconds: 300), () {
-
                             },
                             //=> isTyping=true,
                             onEditingComplete: () {
@@ -207,7 +218,7 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                           ),
                           predictions != null && predictions!.isNotEmpty
                               ? Expanded(
-                            child: /*ListView.builder(
+                                  child: /*ListView.builder(
                                 //reverse: true,
                                 shrinkWrap: true,
                                 itemCount: predictions.length,
@@ -242,45 +253,54 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                                     },
                                   );
                                 })*/
-                                ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: predictions!.length,
-                                itemBuilder: (context, index) {
-                                  AutocompletePrediction prediction = predictions![index];
-                                  return ListTile(
-                                    title: Text(
-                                      prediction.fullText.toString(),
-                                      style: TextStyle(fontSize: 20.sp),
-                                    ),
-                                    onTap: () async {
-                                      debugPrint(
-                                          'selected address: ${prediction.fullText.toString()}');
-                                      // controller.text =
-                                      //     prediction.fullText.toString();
-                                      //done = true;
-                                      final placeId = prediction.placeId;
-                                      debugPrint('placeId $placeId');
-                                      final result = await places.fetchPlace(placeId,fields: placeFields);
-                                      setState(() {
-                                        place = result.place;
-                                        //  _fetchingPlace = false;
-                                      });
-                                      if (place != null ) {
-                                        debugPrint('details $place');
-                                        controller.text = place!.address.toString();
-                                        location = place!.name.toString(); //details.result!.name!;
-                                        latitude = place!.latLng?.lat;
-                                        longitude = place!.latLng?.lng;
-                                        debugPrint('location $latitude . $longitude');
-                                        debugPrint('selected text: ${controller.text}');
-                                      }
-                                      predictions = [];
-                                    },
-                                  );
-                                }
-                            ),
-                          )
-                              :  Container(),
+                                      ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: predictions!.length,
+                                          itemBuilder: (context, index) {
+                                            AutocompletePrediction prediction =
+                                                predictions![index];
+                                            return ListTile(
+                                              title: Text(
+                                                prediction.fullText.toString(),
+                                                style:
+                                                    TextStyle(fontSize: 20.sp),
+                                              ),
+                                              onTap: () async {
+                                                debugPrint(
+                                                    'selected address: ${prediction.fullText.toString()}');
+                                                // controller.text =
+                                                //     prediction.fullText.toString();
+                                                //done = true;
+                                                final placeId =
+                                                    prediction.placeId;
+                                                debugPrint('placeId $placeId');
+                                                final result = await places
+                                                    .fetchPlace(placeId,
+                                                        fields: placeFields);
+                                                setState(() {
+                                                  place = result.place;
+                                                  //  _fetchingPlace = false;
+                                                });
+                                                if (place != null) {
+                                                  debugPrint('details $place');
+                                                  controller.text =
+                                                      place!.address.toString();
+                                                  location = place!.name
+                                                      .toString(); //details.result!.name!;
+                                                  latitude = place!.latLng?.lat;
+                                                  longitude =
+                                                      place!.latLng?.lng;
+                                                  debugPrint(
+                                                      'location $latitude . $longitude');
+                                                  debugPrint(
+                                                      'selected text: ${controller.text}');
+                                                }
+                                                predictions = [];
+                                              },
+                                            );
+                                          }),
+                                )
+                              : Container(),
                           location.isNotEmpty
                               ? Column(
                                   children: [
@@ -291,35 +311,42 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                                       width: 332.w,
                                       height: 48.h,
                                       decoration: BoxDecoration(
-                                        borderRadius: const BorderRadius.all(Radius.circular(25)),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(25)),
                                         color: turquoiseColorApp,
                                       ),
                                       child: TextButton(
                                         child: Text(
-                                          nav==0?'לבחירת תאריך':'אישור',
+                                          nav == 0 ? 'לבחירת תאריך' : 'אישור',
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 22.sp,
                                               fontWeight: FontWeight.normal),
                                         ),
                                         onPressed: () {
-                                          debugPrint("location $location longitude $longitude latitude $latitude");
-                                          if(/*kIsWeb||*/controller.text.isNotEmpty && location.isNotEmpty) {
+                                          debugPrint(
+                                              "location $location longitude $longitude latitude $latitude");
+                                          if (/*kIsWeb||*/ controller
+                                                  .text.isNotEmpty &&
+                                              location.isNotEmpty) {
                                             //Navigator.pop(context);
                                             nav == 0
-                                                ? rentalTerm(context,0)
+                                                ? rentalTerm(context, 0)
                                                 : Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          SearchCar(
-                                                            index: 1,
-                                                              location: location,
-                                                              latitude: latitude,
-                                                              longitude: longitude,
+                                                        builder: (context) =>
+                                                            SearchCar(
+                                                              index: 1,
+                                                              location:
+                                                                  location,
+                                                              latitude:
+                                                                  latitude,
+                                                              longitude:
+                                                                  longitude,
                                                               startDate: sdate,
                                                               endDate: edate,
-                                                          )));
+                                                            )));
                                             // MaterialPageRoute(
                                             //   builder: (context) => SearchCar(
                                             //       location: 'ירושלים',
@@ -328,11 +355,10 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                                             //       startDate: sdate,
                                             //       endDate: edate),
                                             // ));
+                                          } else {
+                                            displayMessage(context,
+                                                message: 'נא הזן כתובת');
                                           }
-                                          else
-                                            {
-                                              displayMessage(context,message: 'נא הזן כתובת');
-                                            }
                                         },
                                       ),
                                     ),
@@ -347,22 +373,20 @@ Future departurePoint(context, address, nav, { Function? onClose,double longitud
                     ),
                   ),
                 ),
-                      );
-              }
-            ),
+              );
+            }),
           ),
-        );}
-
-  ).then((_) {
+        );
+      }).then((_) {
     debugPrint('onClose');
     debounce?.cancel();
-    if(onClose!=null) {
+    if (onClose != null) {
       onClose();
     }
-    });
+  });
 }
 
-Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
+Future rentalTerm(context, nav, [DateTime? s, DateTime? e]) {
   TextEditingController startd = TextEditingController();
   TextEditingController endd = TextEditingController();
 
@@ -395,33 +419,39 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
         return PointerInterceptor(
           child: StatefulBuilder(builder: (context, StateSetter setState) {
             setEndDateBasedOnSelection() {
-              print('setEndDateBasedOnSelection()  $diff', );
+              print(
+                'setEndDateBasedOnSelection()  $diff',
+              );
 
               if (startDate != null && diff != null) {
                 DateTime calculatedEndDate;
-                diff!<1
-                    ? calculatedEndDate = startDate!.add(const Duration(hours: 6))
-                    : calculatedEndDate = startDate!.add(Duration(days: diff!.toInt()));
-                  //calculatedEndDate = calculatedEndDate.add(Duration(days: 1));
+                diff! < 1
+                    ? calculatedEndDate =
+                        startDate!.add(const Duration(hours: 6))
+                    : calculatedEndDate =
+                        startDate!.add(Duration(days: diff!.toInt()));
+                //calculatedEndDate = calculatedEndDate.add(Duration(days: 1));
                 /*if(kIsWeb){
                   endd.text = intl.DateFormat('yyyy.MM.dd').format(calculatedEndDate);
                   endh.text = intl.DateFormat('mm:HH').format(calculatedEndDate);
                 }
                 else{*/
-                  endd.text = intl.DateFormat('dd.MM.yyyy').format(calculatedEndDate);
-                  endh.text = intl.DateFormat('HH:mm').format(calculatedEndDate);
+                endd.text =
+                    intl.DateFormat('dd.MM.yyyy').format(calculatedEndDate);
+                endh.text = intl.DateFormat('HH:mm').format(calculatedEndDate);
                 //}
-                  endDate = calculatedEndDate;
-                  rent.startDate = startDate!;
-                  rent.endDate = endDate!;
-                  setState((){});
+                endDate = calculatedEndDate;
+                rent.startDate = startDate!;
+                rent.endDate = endDate!;
+                debugPrint("rent.endDate ${rent.endDate.toString()}");
+                setState(() {});
                 //startDate=null;
               }
             }
 
             RadioListTile buildRadioTile(String title, int v) {
               return RadioListTile(
-                activeColor: blackColorApp ,
+                activeColor: blackColorApp,
                 value: v,
                 mouseCursor: WidgetStateMouseCursor.clickable,
                 dense: true,
@@ -446,9 +476,13 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
             }
 
             DateTime roundToNextQuarter(DateTime dateTime) {
-              final nextHour = (dateTime.hour + 6 - dateTime.hour % 6) % 24;
-              final remainderMinutes = dateTime.minute > 0 ? 60 - dateTime.minute : 0;
-              return dateTime.add(Duration(hours: nextHour, minutes: remainderMinutes));
+              // final nextHour = (dateTime.hour + 6 - dateTime.hour % 6) % 24;
+              //debugPrint('nextHour $nextHour');
+              final remainderMinutes =
+                  dateTime.minute > 0 ? 60 - dateTime.minute : 0;
+              debugPrint('remainderMinutes $remainderMinutes');
+              return dateTime.add(
+                  Duration(hours: dateTime.hour, minutes: remainderMinutes));
             }
 
             return Container(
@@ -469,7 +503,8 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                   )
                 ],
               ),
-              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
               child: Directionality(
                 textDirection: TextDirection.rtl,
                 child: Wrap(
@@ -494,30 +529,34 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                               Text(
                                 'בחר טווח השכרה',
                                 style: TextStyle(
-                                    fontSize: 26.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
+                                  fontSize: 26.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
                                 ),
                               ),
                               SizedBox(
                                 width: 9.w,
                               ),
-                              ImageIcon(const AssetImage("assets/icons/Calendar.png"),color: pinkColorApp,),
-
+                              ImageIcon(
+                                const AssetImage("assets/icons/Calendar.png"),
+                                color: pinkColorApp,
+                              ),
                             ],
                           ),
-                          SizedBox(height: 15.h,),
-                         // ConstrainedBox(
-                         //   constraints: BoxConstraints(maxHeight: 190.h),
-                         //   child:
-                            Column(
-                              children: <Widget>[
-                                buildRadioTile('6 שעות', 1),
-                                buildRadioTile('יום', 2),
-                                buildRadioTile('שבוע', 3),
-                                buildRadioTile('חודש', 4),
-                              ],
-                            ),
+                          SizedBox(
+                            height: 15.h,
+                          ),
+                          // ConstrainedBox(
+                          //   constraints: BoxConstraints(maxHeight: 190.h),
+                          //   child:
+                          Column(
+                            children: <Widget>[
+                              buildRadioTile('6 שעות', 1),
+                              buildRadioTile('יום', 2),
+                              buildRadioTile('שבוע', 3),
+                              buildRadioTile('חודש', 4),
+                            ],
+                          ),
                           //),
                           SizedBox(height: 20.h),
                           Row(
@@ -530,19 +569,26 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                                       color: Colors.black)),
                             ],
                           ),
-                          SizedBox(height: 10.h,),
+                          SizedBox(
+                            height: 10.h,
+                          ),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               TextFormField(
                                 readOnly: true,
-                                cursorColor: const Color.fromRGBO(15, 17, 21, 1),
+                                cursorColor:
+                                    const Color.fromRGBO(15, 17, 21, 1),
                                 decoration: getInputDecoration(
-                                    '',
-                                    192,
-                                    suffixIcon: ImageIcon(const AssetImage("assets/icons/CalendarBig.png"),color: pinkColorApp,),
-                              ),
+                                  '',
+                                  192,
+                                  suffixIcon: ImageIcon(
+                                    const AssetImage(
+                                        "assets/icons/CalendarBig.png"),
+                                    color: pinkColorApp,
+                                  ),
+                                ),
                                 controller: startd,
                                 style: TextStyle(fontSize: 22.sp),
                                 validator: (value) {
@@ -552,74 +598,130 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                                   return null;
                                 },
                                 onTap: () async {
+                                  starth.text = '';
+                                  if(startDate!=null) {
+                                    startDate=DateTime(startDate!.year,startDate!.month,startDate!.day,0,0);
+                                  }
                                   DateTime? date = await showDatePicker(
                                       textDirection: TextDirection.rtl,
                                       locale: const Locale("he", "HE"),
                                       context: context,
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime.now(),
-                                      lastDate: DateTime.now().add(const Duration(days: 14)));
+                                      lastDate: DateTime.now()
+                                          .add(const Duration(days: 14)));
                                   if (date != null) {
-                                    /*if(kIsWeb){
-                                      startd.text = intl.DateFormat('yyyy.MM.dd').format(date);
-                                    }
-                                    else*/ startd.text = intl.DateFormat('dd.MM.yyyy').format(date);
-                                    print('start: ${startd.text}');
+                                    startd.text = intl.DateFormat('dd.MM.yyyy')
+                                        .format(date);
+                                    debugPrint('start: ${startd.text}');
                                     startDate = date;
                                     //setEndDateBasedOnSelection();
                                   }
                                 },
                               ),
-                              SizedBox(width: 9.h,),
-                              TextFormField(
-                                cursorColor: const Color.fromRGBO(15, 17, 21, 1),
-                                decoration: getInputDecoration('', 131, suffixIcon: Icon(Icons.access_time,size: 20.w,color: pinkColorApp,),),
-                                controller: starth,
-                                style: TextStyle(fontSize: 22.sp),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'זהו שדה חובה';
-                                  }
-                                  return null;
-                                },
-                                onTap: () async {
-                                  final now = DateTime.now();
-                                   TimeOfDay? starttime = await showTimePicker(
-                                    context: context,
-                                    initialTime: startDate==now?TimeOfDay.now():const TimeOfDay(hour: 00, minute: 00),
-                                    initialEntryMode: TimePickerEntryMode.dial,
-                                    builder: (BuildContext context, Widget? child) => MediaQuery(
-                                      data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-                                      child: Localizations.override(
-                                        context: context,
-                                        locale: const Locale("he", "HE"),
-                                        child: child!,
-                                      ),
-                                    ),
-                                  );
-                                  print('starttime $starttime');
-                                  print('startDate $startDate');
-                                  if (starttime != null) {
-                                    final pickedDateTime = DateTime(startDate!.year, startDate!.month, startDate!.day, starttime.hour, starttime.minute);
-                                    if (pickedDateTime.isBefore(now)) {
-                                      displayMessage(context,message: 'שעת תחילת ההשכרה חלפה כבר\nאנא שנה את בחירתך');
-                                      setState(()=>starttime=null);
-                                    }
-                                  }
-                                  if (startDate != null &&starttime != null) {
-                                    startDate = DateTime(startDate!.year, startDate!.month, startDate!.day, starttime!.hour, starttime!.minute);
-                                    /*kIsWeb
-                                        ? starth.text = '${startDate!.minute.toString().padLeft(2,'0')}:${startDate!.hour.toString().padLeft(2,'0')}'
-                                        :*/ starth.text = '${startDate!.hour.toString().padLeft(2,'0')}:${startDate!.minute.toString().padLeft(2,'0')}';
-                                    print('start: $startDate');
-                                    print('start: ${starth.text}');
-                                    setEndDateBasedOnSelection();
-                                  }
-                                },
+                              SizedBox(
+                                width: 9.h,
                               ),
+                              TextFormField(
+                                  cursorColor:
+                                      const Color.fromRGBO(15, 17, 21, 1),
+                                  decoration: getInputDecoration(
+                                    '',
+                                    131,
+                                    suffixIcon: Icon(
+                                      Icons.access_time,
+                                      size: 20.w,
+                                      color: pinkColorApp,
+                                    ),
+                                  ),
+                                  controller: starth,
+                                  style: TextStyle(fontSize: 22.sp),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'זהו שדה חובה';
+                                    }
+                                    return null;
+                                  },
+                                  onTap: () async {
+                                    if (startDate == null) {
+                                      displayMessage(context,
+                                          message: 'יש למלא קודם תאריך');
+                                    } else {
+                                      final now = DateTime.now();
+                                      TimeOfDay? starttime =
+                                          await showTimePicker(
+                                        context: context,
+                                        initialTime: startDate == now
+                                            ? TimeOfDay.now()
+                                            : const TimeOfDay(
+                                                hour: 00, minute: 00),
+                                        initialEntryMode:
+                                            TimePickerEntryMode.dial,
+                                        builder: (BuildContext context,
+                                                Widget? child) =>
+                                            MediaQuery(
+                                          data: MediaQuery.of(context).copyWith(
+                                              alwaysUse24HourFormat: true),
+                                          child: Localizations.override(
+                                            context: context,
+                                            locale: const Locale("he", "HE"),
+                                            child: child!,
+                                          ),
+                                        ),
+                                      );
+                                      print('starttime $starttime');
+                                      print('startDate $startDate');
+                                      if (starttime != null) {
+                                        final pickedDateTime = DateTime(
+                                            startDate!.year,
+                                            startDate!.month,
+                                            startDate!.day,
+                                            starttime.hour,
+                                            starttime.minute);
+                                        if (pickedDateTime.isBefore(now)) {
+                                          displayMessage(context,
+                                              message:
+                                                  'שעת תחילת ההשכרה חלפה כבר\nאנא שנה את בחירתך');
+                                          setState(() => starttime = null);
+                                        }
+                                      }
+                                      if (startDate != null &&
+                                          starttime != null) {
+                                        startDate = DateTime(
+                                            startDate!.year,
+                                            startDate!.month,
+                                            startDate!.day,
+                                            starttime!.hour,
+                                            starttime!.minute);
+                                        if (endDate != null &&
+                                            startDate != null) {
+                                          if (endDate!.isBefore(startDate!)) {
+                                            displayMessage(context,
+                                                message:
+                                                    'תאריך הסיום הינו לפני תאריך ההתחלה');
+                                            setState(() => starttime = null);
+                                          } else {
+                                            starth.text =
+                                                '${startDate!.hour.toString().padLeft(2, '0')}:${startDate!.minute.toString().padLeft(2, '0')}';
+                                            print('start: $startDate');
+                                            print('start: ${starth.text}');
+                                            setEndDateBasedOnSelection();
+                                          }
+                                        } else {
+                                          starth.text =
+                                              '${startDate!.hour.toString().padLeft(2, '0')}:${startDate!.minute.toString().padLeft(2, '0')}';
+                                          print('start: $startDate');
+                                          print('start: ${starth.text}');
+                                          setEndDateBasedOnSelection();
+                                        }
+                                      }
+                                    }
+                                  }),
                             ],
                           ),
-                          SizedBox(height: 20.h,),
+                          SizedBox(
+                            height: 20.h,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -630,15 +732,26 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                                       color: Colors.black)),
                             ],
                           ),
-                          SizedBox(height: 10.h,),
+                          SizedBox(
+                            height: 10.h,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               TextFormField(
                                 readOnly: true,
-                                cursorColor: const Color.fromRGBO(15, 17, 21, 1),
-                                decoration: getInputDecoration('', 192, suffixIcon: ImageIcon(const AssetImage("assets/icons/CalendarBig.png"),color: pinkColorApp,),),
+                                cursorColor:
+                                    const Color.fromRGBO(15, 17, 21, 1),
+                                decoration: getInputDecoration(
+                                  '',
+                                  192,
+                                  suffixIcon: ImageIcon(
+                                    const AssetImage(
+                                        "assets/icons/CalendarBig.png"),
+                                    color: pinkColorApp,
+                                  ),
+                                ),
                                 style: TextStyle(fontSize: 22.sp),
                                 controller: endd,
                                 validator: (value) {
@@ -648,6 +761,10 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                                   return null;
                                 },
                                 onTap: () async {
+                                  endh.text = '';
+                                  if(endDate!=null) {
+                                    endDate=DateTime(endDate!.year,endDate!.month,endDate!.day,0,0);
+                                  }
                                   DateTime? date = await showDatePicker(
                                       textDirection: TextDirection.rtl,
                                       locale: const Locale("he", "HE"),
@@ -656,16 +773,30 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                                       firstDate: DateTime.now(),
                                       lastDate: DateTime(2100));
                                   if (date != null) {
-                                    endd.text = /*kIsWeb?intl.DateFormat('yyyy.MM.dd').format(date):*/intl.DateFormat('dd.MM.yyyy').format(date);
+                                    endd.text =
+                                        /*kIsWeb?intl.DateFormat('yyyy.MM.dd').format(date):*/
+                                        intl.DateFormat('dd.MM.yyyy')
+                                            .format(date);
                                   }
                                   endDate = date;
                                 },
                               ),
-                              SizedBox(width: 9.h,),
+                              SizedBox(
+                                width: 9.h,
+                              ),
                               TextFormField(
                                 readOnly: true,
-                                cursorColor: const Color.fromRGBO(15, 17, 21, 1),
-                                decoration: getInputDecoration('', 131, suffixIcon: Icon(Icons.access_time,size: 20.w,color: pinkColorApp,),),
+                                cursorColor:
+                                    const Color.fromRGBO(15, 17, 21, 1),
+                                decoration: getInputDecoration(
+                                  '',
+                                  131,
+                                  suffixIcon: Icon(
+                                    Icons.access_time,
+                                    size: 20.w,
+                                    color: pinkColorApp,
+                                  ),
+                                ),
                                 controller: endh,
                                 style: TextStyle(fontSize: 22.sp),
                                 validator: (value) {
@@ -675,41 +806,92 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                                   return null;
                                 },
                                 onTap: () async {
-                                  final TimeOfDay? endtime = await showTimePicker(
-                                    context: context,
-                                    initialTime: const TimeOfDay(hour: 00, minute: 00),
-                                    initialEntryMode: TimePickerEntryMode.dial,
-                                    builder: (BuildContext context, Widget? child) => MediaQuery(
-                                      data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-                                      child: Localizations.override(
-                                        context: context,
-                                        locale: const Locale("he", "HE"),
-                                        child: child!,
+                                  if (endDate == null) {
+                                    displayMessage(context,
+                                        message: 'יש למלא קודם תאריך');
+                                  } else {
+                                    final now = DateTime.now();
+                                    TimeOfDay? endtime = await showTimePicker(
+                                      context: context,
+                                      initialTime:
+                                          const TimeOfDay(hour: 00, minute: 00),
+                                      initialEntryMode:
+                                          TimePickerEntryMode.dial,
+                                      builder: (BuildContext context,
+                                              Widget? child) =>
+                                          MediaQuery(
+                                        data: MediaQuery.of(context).copyWith(
+                                            alwaysUse24HourFormat: true),
+                                        child: Localizations.override(
+                                          context: context,
+                                          locale: const Locale("he", "HE"),
+                                          child: child!,
+                                        ),
                                       ),
-                                    ),
-                                  );
+                                    );
 
-                                  if (endtime != null) {
-                                    // kIsWeb
-                                    //     ?  endh.text = '${endDate!.minute.toString().padLeft(2,'0')}:${endDate!.hour.toString().padLeft(2,'0')}'
-                                    //     :  endh.text = '${endDate!.hour.toString().padLeft(2,'0')}:${endDate!.minute.toString().padLeft(2,'0')}';
-                                    if (startDate != null) {
-                                      endDate = DateTime(endDate!.year, endDate!.month, endDate!.day, endtime.hour, endtime.minute);
-                                      final duration=findDuration(diff);
-                                      checkPickedRange(context,startDate!,endDate!,duration);
-                                      roundToNextQuarter(endDate!);
+                                    if (endtime != null && endDate != null) {
+                                      final pickedEndDateTime = DateTime(
+                                          endDate!.year,
+                                          endDate!.month,
+                                          endDate!.day,
+                                          endtime.hour,
+                                          endtime.minute);
+                                      if (pickedEndDateTime.isBefore(now)) {
+                                        displayMessage(context,
+                                            message:
+                                                'שעת סיום ההשכרה חלפה כבר\nאנא שנה את בחירתך');
+                                        setState(() => endtime = null);
+                                      } else {
+                                        if (startDate != null) {
+                                          endDate = DateTime(
+                                              endDate!.year,
+                                              endDate!.month,
+                                              endDate!.day,
+                                              endtime.hour,
+                                              endtime.minute);
+                                          if (endDate!.isBefore(startDate!)) {
+                                            displayMessage(context,
+                                                message:
+                                                    'תאריך הסיום הינו לפני תאריך ההתחלה');
+                                            setState(() => endtime = null);
+                                          } else {
+                                            endh.text = intl.DateFormat('HH:mm')
+                                                .format(pickedEndDateTime);
+                                          }
+                                          // final duration = findDuration(diff);
+                                          //  checkPickedRange(context,startDate!,endDate!,duration);
+                                          // roundToNextQuarter(endDate!);
+                                        } else {
+                                          endh.text = intl.DateFormat('HH:mm')
+                                              .format(pickedEndDateTime);
+                                        }
+                                        print('end: $pickedEndDateTime');
+                                        print('end: ${endh.text}');
+                                      }
                                     }
-                                    print('end: $endDate');
-                                    print('end: ${endh.text}');
                                   }
                                 },
                               ),
                             ],
                           ),
-                          SizedBox(height: 12.h,),
-                          TextButton(onPressed: () => Navigator.push(context,MaterialPageRoute(builder: (context) => const ContactUs(),)),
-                              child: Text('השאר פרטים לנציג',style: TextStyle(fontSize: 16.sp),textAlign: TextAlign.center,)),
-                          SizedBox(height: 12.h,),
+                          SizedBox(
+                            height: 12.h,
+                          ),
+                          TextButton(
+                              onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const ContactUs(),
+                                  )),
+                              child: Text(
+                                'השאר פרטים לנציג',
+                                style: TextStyle(fontSize: 16.sp),
+                                textAlign: TextAlign.center,
+                              )),
+                          SizedBox(
+                            height: 12.h,
+                          ),
                           SizedBox(
                             height: 48.h,
                             width: 332.w,
@@ -721,30 +903,49 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
                                   ),
                                 ),
                                 onPressed: () {
-                                  print('data: ');
-                                  print(startDate);
-                                  print(endDate);
-                                  print(" location $location");
-                                  if(startd.text.isNotEmpty && selectedValue!=null) {
+                                  if (startd.text.isNotEmpty &&
+                                      starth.text.isNotEmpty &&
+                                      endd.text.isNotEmpty &&
+                                      endh.text.isNotEmpty &&
+                                      startDate != null &&
+                                      endDate !=
+                                          null /*&& selectedValue!=null*/) {
+                                    DateTime timeParsed =
+                                        intl.DateFormat("HH:mm")
+                                            .parse(endh.text);
+                                    if (endDate != null) {
+                                      endDate = DateTime(
+                                        endDate!.year,
+                                        endDate!.month,
+                                        endDate!.day,
+                                        timeParsed.hour,
+                                        timeParsed.minute,
+                                      );
+                                    }
+                                    print('data: ');
+                                    print(startDate);
+                                    print(endDate);
+                                    print(" location $location");
+
+                                    rent.startDate = startDate!;
+                                    rent.endDate = endDate!;
+
                                     Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                             maintainState: false,
-                                            builder: (context) =>
-                                                SearchCar(
-                                                   index: 1,
+                                            builder: (context) => SearchCar(
+                                                  index: 1,
                                                   location: location,
                                                   latitude: latitude,
                                                   longitude: longitude,
                                                   startDate: rent.startDate,
                                                   endDate: rent.endDate,
-                                                )
-                                        ));
+                                                )));
+                                  } else {
+                                    displayMessage(context,
+                                        message: 'נא מלא את כל הפרטים');
                                   }
-                                  else {
-                                    displayMessage(context,message: 'נא מלא את כל הפרטים');
-                                  }
-
                                 },
                                 child: const Text(
                                   'מצא לי רכב זמין',
@@ -770,23 +971,23 @@ Future rentalTerm(context,nav, [DateTime? s,DateTime? e]) {
       barrierColor: Colors.black12.withOpacity(0.1),
       //isDismissible: false,
       elevation: 2,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25))));
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25))));
 }
 
 Duration findDuration(double? diff) {
   Duration duration;
-  if(diff==0.25) duration=const Duration(hours: 6);
-  if(diff==1) duration=const Duration(days: 1);
-  if(diff==7) {
-    duration=const Duration(days: 7);
+  if (diff == 0.25) duration = const Duration(hours: 6);
+  if (diff == 1) duration = const Duration(days: 1);
+  if (diff == 7) {
+    duration = const Duration(days: 7);
   } else {
-    duration=const Duration(days: 30);
+    duration = const Duration(days: 30);
   }
   return duration;
-
 }
 
-getInputDecoration(String text,double width, {Widget? suffixIcon}) {
+getInputDecoration(String text, double width, {Widget? suffixIcon}) {
   return InputDecoration(
     constraints: BoxConstraints(maxWidth: width.w),
     isDense: true,
@@ -842,16 +1043,16 @@ Future showLoading(BuildContext context) {
   );
 }
 
-
-checkPickedRange(context,DateTime start,DateTime end,Duration diff){
+checkPickedRange(context, DateTime start, DateTime end, Duration diff) {
   print('checkPickedRange');
   print(start);
   print(end);
-  if(start.difference(end)!=diff){
-    displayMessage(context, message: 'שים לב!\nניתן לבצע השכרה לטווח של 6 שעות עגולות בלבד',
-      onClose: () {
-        Navigator.pop(context);
-        /*Navigator.push(
+  if (start.difference(end) != diff) {
+    displayMessage(context,
+        message: 'שים לב!\nניתן לבצע השכרה לטווח של 6 שעות עגולות בלבד',
+        onClose: () {
+      Navigator.pop(context);
+      /*Navigator.push(
             context,
             MaterialPageRoute(builder: (context)=>SearchCar(location: location,
               latitude: latitude,
@@ -861,10 +1062,9 @@ checkPickedRange(context,DateTime start,DateTime end,Duration diff){
         )
 
       );*/
-    }
-    );
+    });
   }
- /* if(start.difference(end)<diff){
+  /* if(start.difference(end)<diff){
     displayQuestion1(context, message: 'בחרת טווח השכרה קצר יותר ממה שציינת קודם', header: 'שים לב!',
       onYes: () => Navigator.push(context, MaterialPageRoute(builder: (context) =>
           SearchCar(
@@ -877,6 +1077,4 @@ checkPickedRange(context,DateTime start,DateTime end,Duration diff){
     );
 
   }*/
-
-
 }

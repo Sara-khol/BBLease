@@ -399,7 +399,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                               ),
                                               TextButton(
                                                   onPressed: () => paymentDetails(context),
-                                                  child: Text('  פירוט התשלום >  ', style: TextStyle(fontSize: 18.sp),))
+                                                  child: Text('  פירוט התשלום >  ', style: TextStyle(fontSize: 18.sp)))
                                             ],
                                           ),
                                         ),
@@ -647,8 +647,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                             // SizedBox(width: 50.h),
                             Column(
                               children: [
-                                //Text('${dayDiff == 0 ? 1 : dayDiff} ימים * ${widget.rent.car.pricePerDay} ליום ', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal)),
-                                Text(dayDiff==0?'6 שעות':'$dayDiff ימים * ${widget.rent.car.pricePerDay} ליום ', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal)),
+                               // Text(dayDiff==0?'6 שעות':'$dayDiff ימים * ${widget.rent.car.pricePerDay} ליום ', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal)),
+                               Text('תקופת ההשכרה', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal)),
                                 SizedBox(height: 17.h),
                                 Text('תוספות', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal)),
                                 SizedBox(height: 17.h),

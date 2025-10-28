@@ -1,6 +1,6 @@
 plugins {
     id "com.android.application"
-    id "kotlin-android"
+    id "org.jetbrains.kotlin.android"
     id "dev.flutter.flutter-gradle-plugin"
 }
 
@@ -12,91 +12,45 @@ if (localPropertiesFile.exists()) {
     }
 }
 
-/*def flutterRoot = localProperties.getProperty('flutter.sdk')
-if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
-}*/
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode') ?: '1'
+def flutterVersionName = localProperties.getProperty('flutter.versionName') ?: '1.0'
 
-def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
-}
-
-def flutterVersionName = localProperties.getProperty('flutter.versionName')
-if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
-}
-
-/*apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"*/
-
-// Load keystore properties
+// keystore (לא חובה לשנות)
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file("key.properties")
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
-
 android {
-    ndkVersion "27.2.12479018"
     namespace "com.goapp.bblease"
-    compileSdkVersion 35
-    ndkVersion ndkVersion
 
+    compileSdkVersion 36
+    ndkVersion "28.0.12433566"   // r28 לתאימות 16KB
+
+    defaultConfig {
+        applicationId "com.goapp.bblease"
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion 35
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-
-/*android {
-    compileSdkVersion 32
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }*/
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-    defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.goapp.bblease"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        //minSdkVersion flutter.minSdkVersion
-        targetSdkVersion 35
-        minSdkVersion 22
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+    packagingOptions {
+        jniLibs { useLegacyPackaging = false }
     }
-    /*defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.google_maps"
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion 32
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
-    }*/
-
-    buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
-            minifyEnabled false
-            shrinkResources false
-        }
-    }
-    namespace 'com.goapp.bblease'
-
 
     signingConfigs {
         release {
@@ -108,13 +62,17 @@ android {
             }
         }
     }
+
     buildTypes {
         release {
             signingConfig signingConfigs.release
-            // Optional hardening:
-            // minifyEnabled true
-            // shrinkResources true
-            // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),'proguard-rules.pro'
+             minifyEnabled true
+             shrinkResources true
+             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        }
+        debug {
+            // אם צריך חתימה לדיבאג – ברירת מחדל מספיקה
         }
     }
 }
@@ -124,6 +82,145 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20"
+    // אל תצהירי על kotlin-stdlib כאן (נמחק).
+    // שאר התלויות מנוהלות ע"י Flutter/plugins.
 }
 
+
+
+
+//plugins {
+//    id "com.android.application"
+//    id "kotlin-android"
+//    id "dev.flutter.flutter-gradle-plugin"
+//}
+//
+//def localProperties = new Properties()
+//def localPropertiesFile = rootProject.file('local.properties')
+//if (localPropertiesFile.exists()) {
+//    localPropertiesFile.withReader('UTF-8') { reader ->
+//        localProperties.load(reader)
+//    }
+//}
+//
+///*def flutterRoot = localProperties.getProperty('flutter.sdk')
+//if (flutterRoot == null) {
+//    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+//}*/
+//
+//def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+//if (flutterVersionCode == null) {
+//    flutterVersionCode = '1'
+//}
+//
+//def flutterVersionName = localProperties.getProperty('flutter.versionName')
+//if (flutterVersionName == null) {
+//    flutterVersionName = '1.0'
+//}
+//
+///*apply plugin: 'com.android.application'
+//apply plugin: 'kotlin-android'
+//apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"*/
+//
+//// Load keystore properties
+//def keystoreProperties = new Properties()
+//def keystorePropertiesFile = rootProject.file("key.properties")
+//if (keystorePropertiesFile.exists()) {
+//    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+//}
+//
+//
+//android {
+//    ndkVersion "28.0.12433566"
+//    namespace "com.goapp.bblease"
+//    compileSdkVersion 35
+//    ndkVersion ndkVersion
+//
+//
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_17
+//        targetCompatibility JavaVersion.VERSION_17
+//    }
+//
+///*android {
+//    compileSdkVersion 32
+//
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }*/
+//    kotlinOptions {
+//        jvmTarget = '1.8'
+//    }
+//
+//    sourceSets {
+//        main.java.srcDirs += 'src/main/kotlin'
+//    }
+//
+//    defaultConfig {
+//        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+//        applicationId "com.goapp.bblease"
+//        // You can update the following values to match your application needs.
+//        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
+//        //minSdkVersion flutter.minSdkVersion
+//        targetSdkVersion 35
+//        minSdkVersion flutter.minSdkVersion
+//        versionCode flutterVersionCode.toInteger()
+//        versionName flutterVersionName
+//    }
+//    /*defaultConfig {
+//        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+//        applicationId "com.example.google_maps"
+//        minSdkVersion flutter.minSdkVersion
+//        targetSdkVersion 32
+//        versionCode flutterVersionCode.toInteger()
+//        versionName flutterVersionName
+//    }*/
+//
+//    packagingOptions {
+//        jniLibs {
+//            useLegacyPackaging = false
+//        }
+//    }
+//
+//    buildTypes {
+//        release {
+//            // TODO: Add your own signing config for the release build.
+//            // Signing with the debug keys for now, so `flutter run --release` works.
+//            signingConfig signingConfigs.debug
+//            minifyEnabled false
+//            shrinkResources false
+//        }
+//    }
+//    namespace 'com.goapp.bblease'
+//
+//
+//    signingConfigs {
+//        release {
+//            if (keystorePropertiesFile.exists()) {
+//                storeFile file(keystoreProperties['storeFile'])
+//                storePassword keystoreProperties['storePassword']
+//                keyAlias keystoreProperties['keyAlias']
+//                keyPassword keystoreProperties['keyPassword']
+//            }
+//        }
+//    }
+//    buildTypes {
+//        release {
+//            signingConfig signingConfigs.release
+//            // Optional hardening:
+//            // minifyEnabled true
+//            // shrinkResources true
+//            // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),'proguard-rules.pro'
+//        }
+//    }
+//}
+//
+//flutter {
+//    source '../..'
+//}
+//
+//dependencies {
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20"
+//}
+//

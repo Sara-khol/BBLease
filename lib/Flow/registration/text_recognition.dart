@@ -25,8 +25,6 @@ void TextRecognition(int index) async {
 index==0? await extractData(scannedText):await extractData2(scannedText);
 }
 
-
-
 Future<void> extractData(String data) async {
   print('extracting...');
 

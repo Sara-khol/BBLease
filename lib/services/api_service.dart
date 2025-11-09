@@ -6,7 +6,7 @@ import 'package:camera/camera.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
-
+import 'package:http_parser/http_parser.dart';
 
 import '../models/class_user.dart';
 import 'package:intl/intl.dart' as intl;
@@ -182,27 +182,31 @@ class ApiService {
       }
     }
     else{
-      for (var item in User().regImages) {
+   //   "license_front": img1!=null?MultipartFile.fromBytes(await img1.readAsBytes(), filename: "front.png"):null,
+  int count=0;
+    for (var item in User().regImages) {
         if (item != null) {
+          count++;
           final bytes = await item.readAsBytes();
           imageFiles.add(
-            await MultipartFile.fromBytes(
+            MultipartFile.fromBytes(
               bytes,
-              filename: item.name,
+              filename: item.name.isNotEmpty?item.name:'photo_$count.jpg',
+              contentType: MediaType('image', 'jpeg'),
             ),
           );
         }
       }
     }
-    //uploadList.add('0533117933');
-    debugPrint('uploadList.toString() ${imageFiles.toString()}');
     FormData formData = FormData.fromMap({
       "license_front": imageFiles[0],
       "license_back": imageFiles[1],
-      "face": User().regImages[2]!=null?imageFiles[2]:-1,
-      // "user_phone":'0533117933',
+      //"face": User().regImages[2]!=null?imageFiles[2]:-1,
+      if (User().regImages.length > 2) "face": imageFiles[2],
       "user_phone":User().phoneNumber,
     });
+    //phpPrintFormData(formData);
+
 
     var response = await _dio.post('${_baseUrl}wp/v2/upload_license', data: formData,);
     debugPrint("response.statusCode ${response.statusCode}");
@@ -214,6 +218,7 @@ class ApiService {
       debugPrint(response.statusCode.toString());
     }
   }
+
 
   Future newOrder( Map<String, dynamic> jsonMap,Function(dynamic res) onSuccess) async {
     debugPrint('${_baseUrl}orders/new_order');
@@ -642,6 +647,8 @@ class ApiService {
   Future faceRecognition(String phone ,Function(dynamic res) onSuccess) async {
     List<MultipartFile> imageFiles = [];
     debugPrint('in API - ${User().regImages[0]!.path}');
+    bool hasImageFace=User().regImages[2]!=null;
+    debugPrint('hasImageFace - $hasImageFace');
     if(!kIsWeb) {
       imageFiles.add(
         await MultipartFile.fromFile(
@@ -650,8 +657,8 @@ class ApiService {
         ),
       );
 
-      debugPrint(User().regImages[2]!=null?'true':'false');
-      if(User().regImages[2]!=null) {
+      debugPrint(hasImageFace?'true':'false');
+      if(hasImageFace) {
         imageFiles.add(
         await MultipartFile.fromFile(
           User().regImages[2]!.path,
@@ -663,19 +670,25 @@ class ApiService {
     else{
       final bytes = await User().regImages[0]!.readAsBytes();
       imageFiles.add(
-        await MultipartFile.fromBytes(
+         MultipartFile.fromBytes(
           bytes,
-          filename: User().regImages[0]!.name,
+          //filename: User().regImages[0]!.name,
+           filename:  User().regImages[0]!.name.isNotEmpty? User().regImages[0]!.name:'photo_1.jpg',
+           contentType: MediaType('image', 'jpeg'),
+
         ),
       );
 
-      debugPrint(User().regImages[2]!=null?'true':'false');
-      if(User().regImages[2]!=null) {
+      debugPrint(hasImageFace?'true':'false');
+      if(hasImageFace) {
+       String name= User().regImages[2]!.path.split('/').last;
         final bytes1 = await User().regImages[2]!.readAsBytes();
         imageFiles.add(
-          await MultipartFile.fromBytes(
+           MultipartFile.fromBytes(
             bytes1,
-            filename: User().regImages[2]!.path.split('/').last,
+            // filename: User().regImages[2]!.path.split('/').last,
+             filename:name.isNotEmpty?name:'photo_2.jpg',
+             contentType: MediaType('image', 'jpeg'),
           ),
         );
       }
@@ -684,9 +697,12 @@ class ApiService {
     debugPrint('uploadList.toString() ${imageFiles.toString()}');
     FormData formData = FormData.fromMap({
       "license_front": imageFiles[0],
-      "face": User().regImages[2]!=null?imageFiles[1]:null,
+     // "face": User().regImages[2]!=null?imageFiles[1]:null,
+    if ( hasImageFace)   "face":imageFiles[1]
     });
-    int hasFace=User().regImages[2]==null?1:0;
+
+
+    int hasFace=!hasImageFace?1:0;
 
     debugPrint('${_baseUrl}wp/v2/is_same_person/$phone/$hasFace');
     //debugPrint('data : ${json.encode(formData)}');
@@ -697,6 +713,30 @@ class ApiService {
       onSuccess(response.data);
     }
 
+  }
+
+
+
+  void phpPrintFormData(FormData formData) {
+    debugPrint('--------------------');
+    debugPrint('🧾 FormData Debug Print');
+    debugPrint('--------------------');
+
+    // print normal fields
+    for (var field in formData.fields) {
+      debugPrint('[${field.key}] => ${field.value}');
+    }
+
+    // print files like PHP’s $_FILES array
+    for (var fileEntry in formData.files) {
+      final file = fileEntry.value;
+      debugPrint('[${fileEntry.key}] => Array (');
+      debugPrint('  [filename] => ${file.filename}');
+      if (file.length != null) debugPrint('  [length] => ${file.length}');
+      debugPrint(')');
+    }
+
+    debugPrint('--------------------');
   }
 
 }

@@ -5,6 +5,7 @@ import 'package:bblease/Flow/registration/personal_details_form.dart';
 import 'package:bblease/Flow/registration/text_recognition.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:bblease/services/support.dart' as support;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -273,7 +274,6 @@ class _LicenseBackState extends State<LicenseBack> {
                   child: TextButton(
                     onPressed: () async{
                       XFile xfile=await _cameraController!.takePicture();
-
                       widget.index==1
                           ?uploadSucceed(context,LicenseBack(index: widget.index),const FaceScanning())
                           :uploadSucceed(context,LicenseBack(index: widget.index,orderId: widget.orderId,),LicenseDetails(index: widget.index,orderId: widget.orderId,));
@@ -281,8 +281,7 @@ class _LicenseBackState extends State<LicenseBack> {
                         _imageBack= xfile;
                         _cameraController!.pausePreview();
                         widget.index==1?User().regImages[1]=_imageBack:User().additionalDriver.images[1]=_imageBack;
-                        widget.index==1?TextRecognition(1):null;
-                                            });
+                        widget.index==1 && !kIsWeb ?TextRecognition(1):null;});
                     },
                     child: const Text('צלם',style: (TextStyle(color: Colors.white)),),
                   ),
@@ -309,7 +308,9 @@ class _LicenseBackState extends State<LicenseBack> {
         widget.index==1
             ? {
                 User().regImages[1] = _imageBack,
-                TextRecognition(1)
+        if(!kIsWeb){
+          TextRecognition(1)
+        }
               }
             :User().additionalDriver.images[1]=_imageBack;
 

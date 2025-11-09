@@ -2,6 +2,7 @@ import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/registration/text_recognition.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:bblease/utils/my_colors.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -300,7 +301,9 @@ class _LicenseFrontState extends State<LicenseFront>  {
                        widget.index==1
                            ?{
                               User().regImages[0] = _imageFront,
-                              TextRecognition(0)
+                         if(!kIsWeb){
+                           TextRecognition(0)
+                         }
                             }
                            :User().additionalDriver.images[0]=_imageFront;
                                           });
@@ -322,7 +325,7 @@ class _LicenseFrontState extends State<LicenseFront>  {
       _cameraController!.pausePreview();
       cameraOn = false;
     }
-    XFile? result = await ImagePicker().pickImage(source: ImageSource.gallery);
+    XFile? result = await ImagePicker().pickImage(source: ImageSource.gallery,);
 
     if (result != null) {
         uploadSucceed(context,const LicenseFront(index: 1,), LicenseBack(index: widget.index,));
@@ -330,7 +333,8 @@ class _LicenseFrontState extends State<LicenseFront>  {
           _imageFront= result;
           //_cameraController.pausePreview();
           widget.index==1?User().regImages[0]=_imageFront:User().additionalDriver.images[0]=_imageFront;
-          widget.index==1?TextRecognition(0):null;
+          if(!kIsWeb) {
+          widget.index==1? TextRecognition(0):null;}
                 });
       //User().regImages[0] = _imageFront;
     }

@@ -471,13 +471,11 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
 
         // Pausing preview works on both web and mobile
         await _cameraController!.pausePreview();
-        print('pause preview');
-        debugPrint('okkkkk');
         isCapture = true;
 
         // Take a picture works on both web and mobile
         XFile file = await _cameraController!.takePicture();
-        print("Picture captured: ${file.path}");
+        debugPrint("Picture captured: ${file.path}");
 
         // Store the captured image
         User().regImages[2] = file;

@@ -42,7 +42,7 @@ class _WAitForApproveScreenState extends State<WAitForApproveScreen> {
         if (orientation == Orientation.landscape) {
           return LandSpaceWidget(mainWidget: buildContent(context),
               imageProperties: ImageProperties(
-                  'image6.png', 1000.w, 'עבר בהצלחה'));
+                  'image6.png', 1000.w, 'עבר בהצלחה'),showAppBar: false);
         }
         return buildContent(context);
       }),

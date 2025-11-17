@@ -299,7 +299,7 @@ Future sideMenu(context) {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const Terms(
-                                        index: 1,
+                                        index: 3,
                                       )));
                         },
                       ),

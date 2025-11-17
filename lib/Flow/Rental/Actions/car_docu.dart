@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../landspace_widget.dart';
+import '../../../services/camera_service.dart';
 import '../../Dialogs/buttom_dialogs.dart';
 
 
@@ -375,18 +376,13 @@ class _CarDocuState extends State<CarDocu> {
   }
 
   void pickImage(int index) async {
-    final cameras = await availableCameras(); // Get a list of available cameras
-    final camera = cameras.first; // Use the first camera
-    _cameraController = CameraController(camera, ResolutionPreset.high,imageFormatGroup: ImageFormatGroup.yuv420,);
+    await CameraService().init(useFront: false); // אחורית
+    _cameraController = CameraService().controller;
 
-    await _cameraController!.initialize().then((_) {
-      if (!mounted) {
-        return;
-      }
-      setState(() {
-        //cameraOn=true;
-      });
-    });
+    if (!mounted || _cameraController == null) return;
+   setState(() {
+
+   });
     showCameraPreview(index);
   }
 
@@ -414,7 +410,7 @@ class _CarDocuState extends State<CarDocu> {
                         width: 380.w,
                         /*child: Transform.rotate(
                           angle: -_cameraController.description.sensorOrientation * pi / 180,*/
-                        child: CameraPreview(_cameraController!),
+                        child: CameraPreview(_cameraController!, key: ValueKey(DateTime.now().millisecondsSinceEpoch),),
                         //),
                       ),
                     ),
@@ -448,7 +444,7 @@ class _CarDocuState extends State<CarDocu> {
                       }
                       print(i);
                       if (i==4) allLoaded=true;
-                      _cameraController!.pausePreview();
+                      CameraService().pauseCamera();
                       setState(() {});
 
                     },
@@ -778,9 +774,7 @@ class _CarDocuState extends State<CarDocu> {
 
   @override
   void dispose() {
-    if(_cameraController!=null) {
-      _cameraController!.dispose();
-    }
+   CameraService().dispose();
     super.dispose();
   }
 }

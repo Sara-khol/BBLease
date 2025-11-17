@@ -2,11 +2,14 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:camera/camera.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../models/class_user.dart';
 import 'package:intl/intl.dart' as intl;
@@ -165,7 +168,7 @@ class ApiService {
     // Prints the raw data returned by the server
   }
 
-  Future fileUpload(Function() onSuccess) async {
+/*  Future fileUpload(Function() onSuccess) async {
 
     List<MultipartFile> imageFiles = [];
 
@@ -217,7 +220,155 @@ class ApiService {
     else {
       debugPrint(response.statusCode.toString());
     }
+  }*/
+
+
+  Future fileUpload(BuildContext context, Function() onSuccess) async {
+    final dio = Dio();
+    List<MultipartFile> imageFiles = [];
+    int count = 0;
+
+    for (var item in User().regImages) {
+      if (item != null) {
+        count++;
+
+        try {
+          String fileName = '';
+          List<int> bytes = [];
+
+          if (kIsWeb) {
+            //  במצב WEB – משתמשים ב-bytes
+            bytes = await item.readAsBytes();
+            fileName = item.name.isNotEmpty
+                ? item.name
+                : 'photo_$count${DateTime.now().millisecondsSinceEpoch}.jpg';
+          } else {
+            //  במובייל – משתמשים ב-path אמיתי
+            if (item.path.isNotEmpty) {
+              final file = File(item.path);
+              if (await file.exists()) {
+                bytes = await file.readAsBytes();
+                fileName = item.path.split('/').last.isNotEmpty
+                    ? item.path.split('/').last
+                    : 'photo_$count${DateTime.now().millisecondsSinceEpoch}.jpg';
+              } else {
+                debugPrint('הקובץ ${item.path} לא קיים');
+                await Sentry.captureMessage(
+                  'Mobile file not found at path: ${item.path}',
+                  withScope: (scope) => scope.setTag('context', 'upload_mobile'),
+                );
+                continue;
+              }
+            } else {
+              debugPrint('ath ריק במובייל');
+              await Sentry.captureMessage(
+                'Mobile image with empty path (index $count)',
+                withScope: (scope) => scope.setTag('context', 'upload_mobile'),
+              );
+              continue;
+            }
+          }
+
+          // בדיקה סופית לפני ההוספה
+          if (bytes.isEmpty) {
+            await Sentry.captureMessage(
+              'Skipped file – empty bytes (index $count)',
+              withScope: (scope) => scope.setTag('context', 'upload_license'),
+            );
+            continue;
+          }
+
+          imageFiles.add(
+            MultipartFile.fromBytes(
+              bytes,
+              filename: fileName,
+              contentType: MediaType('image', 'jpeg'),
+            ),
+          );
+
+          debugPrint('✅ מוסיף קובץ $fileName (${bytes.length} bytes)');
+        } catch (e, st) {
+          debugPrint('❌ שגיאה בעיבוד קובץ $count: $e');
+          await Sentry.captureException(e, stackTrace: st);
+          displayMessage(context,message: 'ישנה בעיה, נסה שנית');
+
+        }
+      }
+    }
+
+
+
+    imageFiles.removeWhere((f) {
+      final isNameEmpty = f.filename == null || f.filename!.isEmpty;
+      final isEmptyBytes = f.length == 0; // או אם אתה רוצה לבדוק גודל אחר
+
+      if (isNameEmpty || isEmptyBytes) {
+        // שליחת דיווח ל-Sentry
+        Sentry.captureMessage(
+          '⚠️ Removed invalid file',
+          withScope: (scope) {
+            scope.setExtra('filename', f.filename);
+            scope.setExtra('fileLength', f.length);
+          },
+        );
+
+        debugPrint('הסרת קובץ לא תקין: ${f.filename ?? "ללא שם"}');
+        return true; // true => להסיר מהרשימה
+      }
+
+      return false; // false => להשאיר
+    });
+
+    if (imageFiles.isEmpty) {
+      debugPrint('⚠️ אין קבצים תקינים להעלאה');
+displayMessage(context,message: 'ישנה בעיה, נסה שנית');
+      await Sentry.captureMessage(
+        'No valid image files to upload',
+        level: SentryLevel.warning,
+      );
+      return;
+    }
+
+    final formData = FormData.fromMap({
+      if (imageFiles.length > 0) "license_front": imageFiles[0],
+      if (imageFiles.length > 1) "license_back": imageFiles[1],
+      if (imageFiles.length > 2) "face": imageFiles[2],
+      "user_phone": User().phoneNumber,
+    });
+
+    debugPrint(' נשלחות ${imageFiles.length} תמונות');
+
+    try {
+      final response = await dio.post(
+        '${_baseUrl}wp/v2/upload_license',
+        data: formData,
+        options: Options(contentType: 'multipart/form-data'),
+      );
+
+      debugPrint("response.statusCode: ${response.statusCode}");
+      debugPrint("response.data: ${response.data}");
+
+      if (response.statusCode == 200 && response.data.toString().contains('OK')  ) {
+        debugPrint(" העלאה הצליחה!");
+        onSuccess();
+      } else {
+        debugPrint("העלאה נכשלה או תשובה חריגה");
+        await Sentry.captureMessage(
+          'Upload failed with data: ${response.data}',
+          level: SentryLevel.error,
+        );
+        displayMessage(context,message: 'ישנה בעיה, נסה שנית');
+
+      }
+    } catch (e, st) {
+      debugPrint('❌ שגיאת תקשורת: $e');
+      await Sentry.captureException(e, stackTrace: st);
+      displayMessage(context,message: 'ישנה בעיה, נסה שנית');
+
+    }
   }
+
+
 
 
   Future newOrder( Map<String, dynamic> jsonMap,Function(dynamic res) onSuccess) async {

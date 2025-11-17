@@ -18,7 +18,7 @@ class _VerificationState extends State<Verification> {
 
   uploadImages() async{
     print('uploadImages()');
-    await ApiService().fileUpload(() {
+    await ApiService().fileUpload(context,() {
       print('files successfully uploaded');
 
       Navigator.push(context,
@@ -50,7 +50,7 @@ class _VerificationState extends State<Verification> {
     return Scaffold(
       body: OrientationBuilder(builder: (c,o){
         return o==Orientation.landscape?
-        LandSpaceWidget(mainWidget: buildContent(), imageProperties: ImageProperties('image5.png', 1000.w,'תמונת ביצוע פעולות')) :buildContent();
+        LandSpaceWidget(mainWidget: buildContent(), showAppBar:false,imageProperties: ImageProperties('image5.png', 1000.w,'תמונת ביצוע פעולות')) :buildContent();
       },) ,
     );
   }

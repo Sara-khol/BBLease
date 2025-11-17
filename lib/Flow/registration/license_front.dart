@@ -10,7 +10,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:bblease/services/support.dart' as support;
 import '../../landspace_widget.dart';
+import '../../services/camera_service.dart';
 import 'license_back.dart';
+import 'dart:html' as html;
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class LicenseFront extends StatefulWidget {
   const LicenseFront({super.key, required this.index, this.orderId});
@@ -23,7 +26,6 @@ class LicenseFront extends StatefulWidget {
 
 class _LicenseFrontState extends State<LicenseFront>  {
   late List<CameraDescription> cameras;
-   CameraController? _cameraController;
   late XFile _imageFront;
   bool cameraOn = false;
 
@@ -32,7 +34,6 @@ class _LicenseFrontState extends State<LicenseFront>  {
   @override
   void initState() {
     super.initState();
-   // WidgetsBinding.instance.addObserver(this);
 
   }
 
@@ -40,17 +41,13 @@ class _LicenseFrontState extends State<LicenseFront>  {
   void dispose() {
    // WidgetsBinding.instance.removeObserver(this);
     debugPrint('dispose 1');
-    if(_cameraController!=null && _cameraController!.value.isInitialized) {
-      _cameraController!.dispose();
-      debugPrint('dispose camera 1');
+   // if(_cameraController!=null && _cameraController!.value.isInitialized) {
+      //_cameraController!.dispose();
+    // debugPrint('dispose camera 1');
 
-    }
+    //}
     super.dispose();
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +103,10 @@ class _LicenseFrontState extends State<LicenseFront>  {
                         style: TextStyle(
                             color: const Color(0xFFD9D9D9), fontSize: 24.sp))),
                 InkWell(
-                  onTap: _onCameraButtonPressed,
+                  onTap:
+                  () async{
+                    _onCameraButtonPressed();
+                  },
                 ),
               ],
             ),
@@ -227,91 +227,122 @@ class _LicenseFrontState extends State<LicenseFront>  {
     );}
 
   void _onCameraButtonPressed() async {
-    final cameras = await availableCameras(); // Get a list of available cameras
-    final camera = cameras.first; // Use the first camera
-    _cameraController = CameraController(
-      camera,
-      ResolutionPreset.high,
-      imageFormatGroup: ImageFormatGroup.yuv420,
-    );
-    await _cameraController!.initialize().then((_) {
-      if (!mounted) {
-        return;
-      }
-      setState(() {
-        cameraOn = true;
-      });
-    });
-    // Show the camera preview on the screen
-    showCameraPreview();
-  }
+//     late List<CameraDescription> _cameras;
+//     _cameras = await availableCameras();
+//
+// // בוחר מצלמה אחורית אם קיימת
+//     final camera = _cameras.firstWhere(
+//           (cam) => cam.lensDirection == CameraLensDirection.back,
+//       orElse: () => _cameras.first,
+//     );
+//       // final cameras = await availableCameras(); // Get a list of available cameras
+//       // final camera = cameras.first; // Use the first camera
+//       _cameraController = CameraController(
+//         camera,
+//         ResolutionPreset.high,
+//         imageFormatGroup: ImageFormatGroup.yuv420,
+//       );
+//       await _cameraController!.initialize().then((_) {
+//         if (!mounted) {
+//           return;
+//         }
+//         setState(() {
+//           cameraOn = true;
+//         });
+//       });
+//       // Show the camera preview on the screen
+//       showCameraPreview();
+    await CameraService().init(useFront: false); // אחורית
+    final controller = CameraService().controller;
 
-  void showCameraPreview() {
+    if (!mounted || controller == null) return;
+
+    setState(() {
+      cameraOn = true;
+    });
+
+    showCameraPreview(controller);
+    }
+
+
+  void showCameraPreview(CameraController controller) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        if (!_cameraController!.value.isInitialized) {
+        Widget cameraPrev = Center(
+          child: kIsWeb
+              ? SizedBox(
+            width: 380.w,
+            height: 280.h,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: CameraPreview(controller,
+                key: ValueKey(DateTime.now().millisecondsSinceEpoch)),
+            ),
+          )
+              : SizedBox(
+            width: 380.w,
+            child: OverflowBox(
+              alignment: Alignment.center,
+              child: FittedBox(
+                fit: BoxFit.cover,
+                child: SizedBox(
+                  width: 380.w,
+                  child: CameraPreview(controller),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        Widget cameraButton= Container(
+          height:kIsWeb?60.h: 40.h,
+          width:kIsWeb?140.h: 80.w,
+          decoration: BoxDecoration(
+              color: turquoiseColorApp,
+              borderRadius: const BorderRadius.all(Radius.circular(70))
+          ),
+
+          child: TextButton(
+            onPressed: () async{
+              XFile xfile=await controller!.takePicture();
+              debugPrint('xfile ${xfile.name}');
+              uploadSucceed(context, LicenseFront(index: widget.index,orderId: widget.orderId,), LicenseBack(index: widget.index,orderId: widget.orderId));
+
+              setState(() {
+                _imageFront= xfile;
+                controller!.pausePreview();
+                widget.index==1
+                    ?{
+                  User().regImages[0] = _imageFront,
+                  if(!kIsWeb){
+                    TextRecognition(0)
+                  }
+                }
+                    :User().additionalDriver.images[0]=_imageFront;
+              });
+
+            },
+            child:  Text('צלם',style: (TextStyle(color: Colors.white,fontSize: kIsWeb?22.sp:18.sp )),),
+          ),
+        );
+        if (!controller!.value.isInitialized) {
           return Center(child: CircularProgressIndicator(color: pinkColorApp,));
         }
         return Dialog(
           backgroundColor: Colors.transparent,
           elevation: 1,
-          child: Stack(
+          child:kIsWeb?Center(
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              children: [Container(margin:EdgeInsets.only(bottom: 15.h),child: cameraPrev),cameraButton],),
+          ): Stack(
             children: [
-              Center(
-                child: SizedBox(
-                  width: 380.w,
-                  //height: 380.h,
-                  child: OverflowBox(
-                    alignment: Alignment.center,
-                    child: FittedBox(
-                      fit: BoxFit.cover,
-                      child: SizedBox(
-                        width: 380.w,
-                        /*child: Transform.rotate(
-                          angle: -_cameraController.description.sensorOrientation * pi / 180,*/
-                          child: CameraPreview(_cameraController!),
-                        //),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+             cameraPrev,
               Positioned(
                 bottom: 230.h,
                 right: 130.w,
-
-                child:  Container(
-                 height: 40.h,
-                 width: 80.w,
-                 decoration: BoxDecoration(
-                   color: turquoiseColorApp,
-                     borderRadius: const BorderRadius.all(Radius.circular(70))
-                 ),
-
-                 child: TextButton(
-                     onPressed: () async{
-                     XFile xfile=await _cameraController!.takePicture();
-                     debugPrint('xfile ${xfile.name}');
-                     uploadSucceed(context, LicenseFront(index: widget.index,orderId: widget.orderId,), LicenseBack(index: widget.index,orderId: widget.orderId,));
-
-                       setState(() {
-                       _imageFront= xfile;
-                       _cameraController!.pausePreview();
-                       widget.index==1
-                           ?{
-                              User().regImages[0] = _imageFront,
-                         if(!kIsWeb){
-                           TextRecognition(0)
-                         }
-                            }
-                           :User().additionalDriver.images[0]=_imageFront;
-                                          });
-
-                   },
-                   child: const Text('צלם',style: (TextStyle(color: Colors.white, )),),
-                 ),
-               ),
+                child: cameraButton,
               )
             ],
           ),
@@ -322,13 +353,14 @@ class _LicenseFrontState extends State<LicenseFront>  {
 
   void _onUploadButtonPressed() async {
     if (cameraOn) {
-      _cameraController!.pausePreview();
+      await CameraService().pauseCamera();
+
       cameraOn = false;
     }
     XFile? result = await ImagePicker().pickImage(source: ImageSource.gallery,);
 
     if (result != null) {
-        uploadSucceed(context,const LicenseFront(index: 1,), LicenseBack(index: widget.index,));
+        uploadSucceed(context,const LicenseFront(index: 1,), LicenseBack(index: widget.index));
         setState(() {
           _imageFront= result;
           //_cameraController.pausePreview();

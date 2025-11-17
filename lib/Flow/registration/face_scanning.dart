@@ -1,9 +1,13 @@
 import 'package:bblease/Flow/registration/verification.dart';
 import 'package:bblease/utils/my_colors.dart';
+import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../../landspace_widget.dart';
+import '../../models/class_user.dart';
+import '../../services/camera_service.dart';
 import 'face_detector.dart';
 
 
@@ -200,6 +204,36 @@ print('faces.length: ${faces.length}');
     return allBytes.done().buffer.asUint8List();
   }*/
 */
+
+ late CameraController controller;
+  Widget? cameraWidget;
+
+  @override
+  initState()  {
+   _initCamera();
+    super.initState();
+  }
+
+ Future<void> _initCamera() async {
+   await CameraService().init(useFront: true);
+   controller = CameraService().controller!;
+
+   setState(() {
+     cameraWidget = Column(
+       children: [
+         Expanded(child: CameraPreview(controller,
+           key: ValueKey(DateTime.now().millisecondsSinceEpoch),// חשוב לרענון בווב
+         )),
+         ElevatedButton.icon(
+           icon: const Icon(Icons.camera),
+           onPressed: _capturePicture,
+           label: const Text('צלם'),
+         ),
+       ],
+     );
+   });
+ }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -226,7 +260,10 @@ print('faces.length: ${faces.length}');
           Expanded(
             child: Stack(
                 children:[
-                  const Center(child: CameraFaceDetection()),
+                  Center(child: /*!kIsWeb
+                      ? const CameraFaceDetection()
+                      : */(cameraWidget ?? const CircularProgressIndicator()),
+                  ),
                   /*FutureBuilder(
                         future: _initializeCamera(),
                         builder:(context,snapshot){
@@ -246,9 +283,11 @@ print('faces.length: ${faces.length}');
                         }
                     ),*/
                  /* Center(
-                    child:*//* SizedBox(
+                    child:*/
+                  /* SizedBox(
                         height: 332.h,
-                        child:*//*
+                        child:*/
+                  /*
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -321,6 +360,36 @@ print('faces.length: ${faces.length}');
         ],
       ),
     );}
+
+ void _capturePicture() async {
+   try {
+     // Pausing preview works on both web and mobile
+     await CameraService().pauseCamera();
+
+     // Take a picture works on both web and mobile
+     XFile file = await controller.takePicture();
+     debugPrint("Picture captured: ${file.path}");
+
+     // Store the captured image
+     User().regImages[2] = file;
+
+     // Navigate to the Verification screen
+     Navigator.push(
+         context,
+         MaterialPageRoute(
+           builder: (context) => const Verification(),
+         ));
+   } catch (e) {
+     // Handle any exceptions that might occur during capture
+     debugPrint("Error during capture: $e");
+   }
+  }
+
+  @override
+  void dispose() {
+    CameraService().dispose();
+    super.dispose();
+  }
 
 /*  _controller.startImageStream((image) {
   print('startImageStream');

@@ -83,6 +83,15 @@ class _WAitForApproveScreenState extends State<WAitForApproveScreen> {
                       height: 1,
                       fontWeight: FontWeight.bold,
                       color: blackColorApp)),
+              SizedBox(height: 25.h),
+              Text(
+                  'שעות פעילות המשרד: 8:00-17:00',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 24.sp,
+                      height: 1,
+                      fontWeight: FontWeight.w600,
+                      color: blackColorApp)),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,

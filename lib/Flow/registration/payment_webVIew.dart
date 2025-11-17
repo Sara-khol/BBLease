@@ -65,7 +65,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
     return SafeArea(
       child: Column(children: <Widget>[
         SizedBox(height: 24.h,),
-        Padding(
+       /* Padding(
           padding:  EdgeInsets.only(right: 23.w),
           child: Align(
               alignment: Alignment.topRight,
@@ -73,7 +73,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
         ),
         SizedBox(
           height: 25.h,
-        ),
+        ),*/
         Icon(
           Icons.account_circle_outlined,
           color: turquoiseColorApp,

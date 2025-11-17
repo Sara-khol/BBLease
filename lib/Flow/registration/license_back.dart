@@ -14,6 +14,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:bblease/utils/my_colors.dart';
 
 import '../../landspace_widget.dart';
+import '../../services/camera_service.dart' show CameraService;
 
 
 class LicenseBack extends StatefulWidget {
@@ -27,14 +28,8 @@ class LicenseBack extends StatefulWidget {
 
 class _LicenseBackState extends State<LicenseBack> {
 
-  late List<CameraDescription> cameras;
-   CameraController? _cameraController;
   late XFile _imageBack;
   bool cameraOn=false;
-
-  Future<void> awaitCameras() async {
-    cameras = await availableCameras();
-  }
 
   @override
   void initState() {
@@ -44,10 +39,14 @@ class _LicenseBackState extends State<LicenseBack> {
   @override
   void dispose() {
     debugPrint('dispose 2');
-    if(_cameraController!=null && _cameraController!.value.isInitialized) {
-      _cameraController!.dispose();
-      debugPrint('dispose camera 2');
-    }
+ /*   if(_cameraController!=null && _cameraController!.value.isInitialized) {
+      if (!kIsWeb) {
+        _cameraController?.dispose();
+        debugPrint('dispose camera 2');
+      } else {
+        debugPrint('⚠️ Skip dispose on Web');
+      }
+    }*/
     super.dispose();
   }
 
@@ -213,79 +212,162 @@ class _LicenseBackState extends State<LicenseBack> {
       ),
     );}
 
-  void _onCameraButtonPressed() async {
-    final cameras = await availableCameras(); // Get a list of available cameras
-    final camera = cameras.first; // Use the first camera
-    _cameraController = CameraController(camera, ResolutionPreset.high,imageFormatGroup: ImageFormatGroup.yuv420,);
+  // void _onCameraButtonPressed() async {
+  //  if(widget.controller==null || !widget.controller!.value.isInitialized) {
+  //    final cameras = await availableCameras(); // Get a list of available cameras
+  //    // בוחר מצלמה אחורית אם קיימת
+  //    final camera = cameras.firstWhere(
+  //          (cam) => cam.lensDirection == CameraLensDirection.back,
+  //      orElse: () => cameras.first,
+  //    );
+  //    _cameraController = CameraController(camera, ResolutionPreset.high,
+  //      imageFormatGroup: ImageFormatGroup.yuv420,);
+  //
+  //    await _cameraController!.initialize().then((_) {
+  //      if (!mounted) {
+  //        return;
+  //      }
+  //
+  //      setState(() {
+  //        cameraOn = true;
+  //      });
+  //    });
+  //    debugPrint('📸 Camera initialized successfully!');
+  //
+  //  }
+  //  else {
+  //    debugPrint('📸 Camera already initialized.');
+  //
+  //    _cameraController = widget.controller;
+  //    setState(() {
+  //      cameraOn = true;
+  //    });
+  //  }
+  //   showCameraPreview();
+  // }
 
-    await _cameraController!.initialize().then((_) {
-      if (!mounted) {
-        return;
+  void _onCameraButtonPressed() async {
+/*    try {
+      if (widget.controller == null || !widget.controller!.value.isInitialized) {
+        // Dispose previous controller if exists
+        if (_cameraController != null) {
+          await _cameraController!.dispose();
+        }
+
+        final cameras = await availableCameras();
+        final camera = cameras.firstWhere(
+              (cam) => cam.lensDirection == CameraLensDirection.back,
+          orElse: () => cameras.first,
+        );
+
+        _cameraController = CameraController(
+          camera,
+          ResolutionPreset.high,
+          imageFormatGroup: ImageFormatGroup.yuv420,
+        );
+
+        await _cameraController!.initialize();
+        if (mounted) {
+          setState(() => cameraOn = true);
+        }
+        debugPrint('📸 Camera initialized successfully!');
+      } else {
+        debugPrint('📸 Camera already initialized.');
+        _cameraController = widget.controller;
+        setState(() => cameraOn = true);
       }
-      setState(() {
-        cameraOn=true;
-      });
+
+      showCameraPreview();
+    } catch (e) {
+      debugPrint('❌ Camera initialization failed: $e');
+      if (mounted) {
+        setState(() => cameraOn = false);
+      }
+    }*/
+    await CameraService().init(useFront: false); // אחורית
+    final controller = CameraService().controller;
+
+    if (!mounted || controller == null) return;
+
+    setState(() {
+      cameraOn = true;
     });
-    showCameraPreview();
+  showCameraPreview(controller);
   }
 
-  void showCameraPreview() {
+
+  void showCameraPreview(CameraController controller) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        if (!_cameraController!.value.isInitialized) {
+        Widget cameraPrev = Center(
+          child: kIsWeb
+              ? SizedBox(
+            width: 380.w,
+            height: 280.h,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: CameraPreview(controller,
+                key: ValueKey(DateTime.now().millisecondsSinceEpoch)),
+            ),
+          )
+              : SizedBox(
+            width: 380.w,
+            child: OverflowBox(
+              alignment: Alignment.center,
+              child: FittedBox(
+                fit: BoxFit.cover,
+                child: SizedBox(
+                  width: 380.w,
+                  child: CameraPreview(controller,
+                    key: ValueKey(DateTime.now().millisecondsSinceEpoch)),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        Widget cameraButton= Container(
+          height:kIsWeb?60.h: 40.h,
+          width:kIsWeb?140.h: 80.w,
+          decoration: BoxDecoration(
+              color: turquoiseColorApp,
+              borderRadius: const BorderRadius.all(Radius.circular(70))
+          ),
+
+          child: TextButton(
+            onPressed: () async{
+              XFile xfile=await controller!.takePicture();
+              widget.index==1
+                  ?uploadSucceed(context,LicenseBack(index: widget.index,),const FaceScanning())
+                  :uploadSucceed(context,LicenseBack(index: widget.index,orderId: widget.orderId,),LicenseDetails(index: widget.index,orderId: widget.orderId,));
+              setState(() {
+                _imageBack= xfile;
+                controller!.pausePreview();
+                widget.index==1?User().regImages[1]=_imageBack:User().additionalDriver.images[1]=_imageBack;
+                widget.index==1 && !kIsWeb ?TextRecognition(1):null;});
+            },
+            child:  Text('צלם',style: (TextStyle(color: Colors.white,fontSize: kIsWeb?22.sp:18.sp )),),
+          ),
+        );
+        if (!controller!.value.isInitialized) {
           return Center(child: CircularProgressIndicator(color: pinkColorApp,));
         }
         return Dialog(
           backgroundColor: Colors.transparent,
           elevation: 1,
-          child: Stack(
+          child:kIsWeb?Center(
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              children: [Container(margin:EdgeInsets.only(bottom: 15.h),child: cameraPrev),cameraButton],),
+          ): Stack(
             children: [
-              Center(
-                child: SizedBox(
-                  width: 380.w,
-                  //height: 380,
-                  child: OverflowBox(
-                    alignment: Alignment.center,  // Change this if you want to crop a different section
-                    child: FittedBox(
-                      fit: BoxFit.cover,
-                      child: SizedBox(
-                        width: 380.w,
-                        //height: 380 / _cameraController.value.aspectRatio,
-                        /*child: Transform.rotate(
-                          angle: -_cameraController.description.sensorOrientation * pi / 180,*/
-                          child: CameraPreview(_cameraController!),
-                        //),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              cameraPrev,
               Positioned(
                 bottom: 230.h,
                 right: 130.w,
-                child:  Container(
-                  height: 40.h,
-                  width: 80.w,
-                  decoration: BoxDecoration(
-                      color: turquoiseColorApp,
-                      borderRadius: const BorderRadius.all(Radius.circular(70))
-                  ),
-                  child: TextButton(
-                    onPressed: () async{
-                      XFile xfile=await _cameraController!.takePicture();
-                      widget.index==1
-                          ?uploadSucceed(context,LicenseBack(index: widget.index),const FaceScanning())
-                          :uploadSucceed(context,LicenseBack(index: widget.index,orderId: widget.orderId,),LicenseDetails(index: widget.index,orderId: widget.orderId,));
-                      setState(() {
-                        _imageBack= xfile;
-                        _cameraController!.pausePreview();
-                        widget.index==1?User().regImages[1]=_imageBack:User().additionalDriver.images[1]=_imageBack;
-                        widget.index==1 && !kIsWeb ?TextRecognition(1):null;});
-                    },
-                    child: const Text('צלם',style: (TextStyle(color: Colors.white)),),
-                  ),
-                ),)
+                child: cameraButton,
+              )
             ],
           ),
         );
@@ -296,12 +378,12 @@ class _LicenseBackState extends State<LicenseBack> {
 
   void _onUploadButtonPressed() async {
     if(cameraOn) {
-      _cameraController!.pausePreview();
+     CameraService().pauseCamera();
       cameraOn=false;
     }
     XFile? result = await ImagePicker().pickImage(source: ImageSource.gallery);
     if(result != null) {
-      uploadSucceed(context,const LicenseBack(index: 1),/*PersonalDetailsForm()*/const FaceScanning());
+      uploadSucceed(context,LicenseBack(index: 1,),/*PersonalDetailsForm()*/const FaceScanning());
       setState(() {
         _imageBack= result;
         //_cameraController.pausePreview();

@@ -27,7 +27,7 @@ class _TermsState extends State<Terms> {
     return Scaffold(
       body: OrientationBuilder(builder: (context, orientation) {
         if (orientation == Orientation.landscape) {
-          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('image5.png', 1000.w,'תמונת תקנון'));
+          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('image5.png', 1000.w,'תמונת תקנון'),showAppBar: widget.index==3);
         }
         return buildContent();
       }),
@@ -68,7 +68,7 @@ class _TermsState extends State<Terms> {
               width: 332.w,
               height: 48.h,
               child: FloatingActionButton.extended(
-                label: Text(widget.index == 1 ? 'חזרה' : 'חתימה',
+                label: Text(widget.index == 1 ||widget.index == 3 ? 'חזרה' : 'חתימה',
                   style: TextStyle(letterSpacing: 0.1,
                       fontSize: 20.sp,
                       color: Colors.white,

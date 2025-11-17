@@ -52,10 +52,6 @@ class _CameraFaceDetectionState extends State<CameraFaceDetection> {
       orElse: () => cameras[0], // ברירת מחדל אם אין מצלמה "קדמית"
     );
 
-
-
-
-
     _cameraController = CameraController(
       selfiCamera,
       ResolutionPreset.max,

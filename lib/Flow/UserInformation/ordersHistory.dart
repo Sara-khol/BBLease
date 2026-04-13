@@ -8,13 +8,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:universal_html/html.dart' as html;
+//import 'package:universal_html/html.dart' as html;
 import '../../models/class_rent.dart';
 import 'package:intl/intl.dart' as intl;
 
 import '../../models/class_user.dart';
 import '../../services/api_service.dart';
 import '../Rental/Actions/cancel_order_dialogs.dart';
+import 'package:bblease/utils/download_helper.dart';
+
 
 class OrdersHistory extends StatefulWidget {
   const OrdersHistory({super.key, required this.index, required this.goBack});
@@ -80,11 +82,12 @@ class _OrdersHistoryState extends State<OrdersHistory> with RouteAware  {
 
   void downloadFileWeb(String url) {
     String fileName = 'bibilease.pdf';
-    if (kIsWeb) {
-      final anchor = html.AnchorElement(href: url)
-        ..setAttribute("download", fileName)
-        ..click();
-    }
+    // if (kIsWeb) {
+    //   final anchor = html.AnchorElement(href: url)
+    //     ..setAttribute("download", fileName)
+    //     ..click();
+    // }
+    downloadFile(url, fileName);
   }
 
   filterByDate() {

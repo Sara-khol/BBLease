@@ -4,9 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
-import 'package:universal_html/html.dart' as html;
+//import 'package:universal_html/html.dart' as html;
 import '../../models/class_rent.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:bblease/utils/download_helper.dart';
+
 
 //import 'dart:html';
 // import 'package:flutter_web_plugins/flutter_web_plugins.dart';
@@ -53,11 +55,13 @@ class _OrderDetailsState extends State<OrderDetails> {
   void downloadFileWeb() {
     String url = widget.rent.url!;
     String fileName = 'bibilease.pdf';
-    if (kIsWeb) {
-      final anchor = html.AnchorElement(href: url)
-        ..setAttribute("download", fileName)
-        ..click();
-    }
+    // if (kIsWeb) {
+    //   final anchor = html.AnchorElement(href: url)
+    //     ..setAttribute("download", fileName)
+    //     ..click();
+    // }
+
+    downloadFile(url, fileName);
   }
 
   @override

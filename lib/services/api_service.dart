@@ -119,21 +119,59 @@ class ApiService {
   }
 
   Future registerCustomerDetails(Function(dynamic res) onSuccess) async {
-    var signature=MultipartFile.fromBytes(User().signature!, filename: 'signature.jpg');
-    FormData formData = FormData.fromMap({
-      "file": signature,//MultipartFile.fromBytes(User().signature, filename: 'signature.jpg'), // Adjust filename and content type
-      "text": User().toString(),
-    });
-    debugPrint('${_baseUrl}wp/v2/registration_customer_detailes');
-    debugPrint('data: ${User().toString()}');
-    debugPrint('data: ${signature.contentType}');
-    Response response = await _dio.post('${_baseUrl}wp/v2/registration_customer_detailes',
-        data: formData);
-   // debugPrint('response $response');
-    debugPrint('getdata: ${response.data}');
-    if(response.statusCode==200) {
-      onSuccess(response.data);
+    try {
+      final bytes = User().signature;
+
+      if (bytes == null || bytes.isEmpty) {
+        debugPrint('signature is null or empty');
+        return;
+      }
+
+      debugPrint('signature length: ${bytes.length}');
+      debugPrint('first bytes: ${bytes.take(20).toList()}');
+
+      final signature = MultipartFile.fromBytes(
+        bytes,
+        filename: 'signature.png',
+        contentType: MediaType('image', 'png'),
+      );
+      FormData formData = FormData.fromMap({
+        "file": signature,
+        //MultipartFile.fromBytes(User().signature, filename: 'signature.jpg'), // Adjust filename and content type
+        "text": User().toString(),
+      });
+      debugPrint('${_baseUrl}wp/v2/registration_customer_detailes');
+      // debugPrint('data: ${User().toString()}');
+      // debugPrint('data: ${signature.contentType}');
+
+
+      Response response;
+      try {
+        response =
+        await _dio.post('${_baseUrl}wp/v2/registration_customer_detailes',
+            data: formData);
+
+        debugPrint('Status: ${response.statusCode}');
+        //debugPrint('Response: ${response.data}');
+        debugPrint('getdata: ${response.data}');
+        if (response.statusCode == 200) {
+          onSuccess(response.data);
+        }
+      } on DioException catch (e) {
+        debugPrint('Dio error type: ${e.type}');
+        debugPrint('Status code: ${e.response?.statusCode}');
+        debugPrint('Response data: ${e.response?.data}');
+        debugPrint('Response headers: ${e.response?.headers}');
+        debugPrint('Request data: ${e.requestOptions.data}');
+        debugPrint('Request headers: ${e.requestOptions.headers}');
+        debugPrint('Request uri: ${e.requestOptions.uri}');
+      }
     }
+    catch (e, s) {
+      debugPrint('General error: $e');
+      debugPrint('$s');
+    }
+
 
   }
 

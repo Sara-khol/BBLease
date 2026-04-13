@@ -26,11 +26,12 @@ android {
     namespace "com.goapp.bblease"
 
     compileSdkVersion 36
-    ndkVersion "28.0.12433566"   // r28 לתאימות 16KB
+   // ndkVersion "28.0.12433566"   // r28 לתאימות 16KB
+    ndkVersion "28.2.13676358"
 
     defaultConfig {
         applicationId "com.goapp.bblease"
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 26
         targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

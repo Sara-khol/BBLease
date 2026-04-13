@@ -16,10 +16,10 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+6
+version: 1.0.1+7
 
 environment:
-  sdk: '>=2.19.2 <3.0.0'
+  sdk: ">=3.0.0 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -37,7 +37,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  camera: ^0.11.1
+  camera: ^0.12.0+1
   image_picker: ^1.1.2
   file_picker: ^10.2.0
   flutter_screenutil: ^5.6.1
@@ -64,14 +64,14 @@ dependencies:
   google_mlkit_face_detection: ^0.13.1
   flutter_phone_direct_caller: ^2.1.1
   oktoast: ^3.4.0
-  flutter_inappwebview: ^6.0.0
+  flutter_inappwebview: ^6.1.5
   sentry_flutter: ^9.6.0
-  flutter_localization: ^0.2.0
+  flutter_localization: ^0.3.3
   #custom_info_window: ^1.0.1
-  signature: ^5.4.1
+  signature: ^6.3.0
   url_launcher: ^6.2.5
   sms_autofill: ^2.4.1
-  universal_html: ^2.2.4
+#  universal_html: ^2.3.0
   accessibility_tools: ^2.0.0
   pointer_interceptor: ^0.10.1+2
 
@@ -132,6 +132,8 @@ flutter_native_splash:
 # camera_android_camerax: ^0.6.13
 #dependency_overrides:
 #  camera_android_camerax: 0.6.10+3
+dependency_overrides:
+  web: ^0.5.1
 
 # The following section is specific to Flutter packages.
 flutter:

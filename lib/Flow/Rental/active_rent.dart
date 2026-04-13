@@ -866,43 +866,41 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                         ],
                       ),
                       child: GestureDetector(
-                        onVerticalDragEnd: (details) {
+                        onTap: () {
                           if(isLocked) {
                             showLoading(context);
                             ApiService().openDoors(rent.car.carNumber, (res) {
                               Navigator.pop(context);
-                              print(res);
+                              debugPrint('$res');
                               setState(() {
                                 isLocked=false;
                               });
-                              _showFloatingDialog();
+                              _showFloatingDialog(true);
                             });
                           }
                           else {
                             showLoading(context);
                             ApiService().lockDoors(rent.car.carNumber, (res) {
                               Navigator.pop(context);
-                              print(res);
+                              debugPrint('$res');
                               setState(() {
                                 isLocked=true;
                               });
+                              _showFloatingDialog(false);
                             });
+
                           }
                         },
                         child: Column(
                           children: [
                             SizedBox(height: 11.h),
-                            ImageIcon(
-                              isLocked?const AssetImage("assets/icons/unlock.png"):const AssetImage("assets/icons/lock.png"),
-                              color: isLocked?turquoiseColorApp:pinkColorApp,
-                            ),
-                            SizedBox(height: 7.h),
-                            Image.asset('assets/icons/Frame-30.png'),
-                            SizedBox(height: 4.58.h),
-                            ImageIcon(
-                              isLocked?const AssetImage("assets/icons/lock.png"):const AssetImage("assets/icons/unlock.png"),
-                              color: isLocked?pinkColorApp.withOpacity(0.5):turquoiseColorApp.withOpacity(0.5),
-                            ),
+                        ImageIcon(
+                          AssetImage(
+                            isLocked
+                                ? "assets/icons/unlock.png"
+                                : "assets/icons/lock.png",
+                          ),
+                          color: isLocked ? turquoiseColorApp : pinkColorApp,),
                             SizedBox(height: 10.h),
 
                             //SizedBox(height:10.h),
@@ -1262,7 +1260,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
     );
   }
 
-  void _showFloatingDialog() {
+  void _showFloatingDialog(bool isOpenLock) {
     showDialog(
       context: context,
       builder: (context) {
@@ -1284,11 +1282,11 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                 ImageIcon(const AssetImage("assets/icons/car_open_doors.png"),color: pinkColorApp,),
                 SizedBox(height: 30.h),
                 Text(
-                  'הדלתות פתוחות',
+                  isOpenLock?'הדלתות פתוחות':'הדלתות ננעלו',
                   style: TextStyle(fontWeight: FontWeight.normal, fontSize: 20.sp),
                   textAlign: TextAlign.center,
                 ),
-                Text(
+            if(isOpenLock)    Text(
                   'נסיעה בטוחה!',
                   style: TextStyle( fontSize: 20.sp),
                   textAlign: TextAlign.center,textDirection: TextDirection.rtl,

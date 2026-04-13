@@ -12,7 +12,7 @@ import 'package:bblease/services/support.dart' as support;
 import '../../landspace_widget.dart';
 import '../../services/camera_service.dart';
 import 'license_back.dart';
-import 'dart:html' as html;
+// import 'dart:html' as html;
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class LicenseFront extends StatefulWidget {
@@ -304,6 +304,67 @@ class _LicenseFrontState extends State<LicenseFront>  {
           ),
 
           child: TextButton(
+            onPressed: () async {
+              try {
+                if (controller == null) {
+                  debugPrint('Camera controller is null');
+                  return;
+                }
+
+                if (!controller!.value.isInitialized) {
+                  debugPrint('Camera is not initialized');
+                  return;
+                }
+
+                if (controller!.value.isTakingPicture) {
+                  debugPrint('Camera is already taking a picture');
+                  return;
+                }
+
+                final XFile xfile = await controller!.takePicture();
+
+                debugPrint('xfile name: ${xfile.name}');
+                debugPrint('xfile path: ${xfile.path}');
+
+                await controller!.pausePreview();
+
+                if (!mounted) return;
+
+                setState(() {
+                  _imageFront = xfile;
+
+                  if (widget.index == 1) {
+                    User().regImages[0] = _imageFront;
+                  } else {
+                    User().additionalDriver.images[0] = _imageFront;
+                  }
+                });
+
+                if (!kIsWeb && widget.index == 1) {
+                  TextRecognition(0);
+                }
+
+                if (!mounted) return;
+
+                uploadSucceed(
+                  context,
+                  LicenseFront(index: widget.index, orderId: widget.orderId),
+                  LicenseBack(index: widget.index, orderId: widget.orderId),
+                );
+              } catch (e, s) {
+                debugPrint('takePicture error: $e');
+                debugPrint('$s');
+              }
+            },
+            child: Text(
+              'צלם',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: kIsWeb ? 22.sp : 18.sp,
+              ),
+            ),
+          ),
+          /*TextButton(
             onPressed: () async{
               XFile xfile=await controller!.takePicture();
               debugPrint('xfile ${xfile.name}');
@@ -324,7 +385,7 @@ class _LicenseFrontState extends State<LicenseFront>  {
 
             },
             child:  Text('צלם',style: (TextStyle(color: Colors.white,fontSize: kIsWeb?22.sp:18.sp )),),
-          ),
+          ),*/
         );
         if (!controller!.value.isInitialized) {
           return Center(child: CircularProgressIndicator(color: pinkColorApp,));

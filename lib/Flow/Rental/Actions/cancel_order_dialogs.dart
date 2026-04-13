@@ -6,6 +6,8 @@ import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:signature/signature.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
 import '../../../models/class_user.dart';
 import 'cancel_order.dart';
@@ -118,7 +120,7 @@ signCancelOrderDialog(context,String headline,String text,[orderId]) {
   final SignatureController controller = SignatureController(
     penStrokeWidth: 2,
     penColor: Colors.black,
-    exportBackgroundColor: Colors.transparent,
+    exportBackgroundColor: Colors.white,
   );
 
    showModalBottomSheet(
@@ -204,31 +206,51 @@ signCancelOrderDialog(context,String headline,String text,[orderId]) {
                                   borderRadius: BorderRadius.circular(100),
                                 ),
                               ),
-                              onPressed: () async{
-                                print('onPressed');
-                                print(headline);
-                                if(controller.isNotEmpty){
-                                  //final signature= await exportSignature(_controller);
-                                  final signature = await controller.toPngBytes();
-                                  headline=="טופס אישור תנאים"?
-                                  {
-                                    User().signature = signature!,
-                                    Navigator.pop(context),
-                                    Navigator.pop(context),
-                                  }
-                                      :{
-                                    showLoading(context),
-                                    ApiService().signatureUpload(signature,orderId ,() {
-                                      Navigator.pop(context);
-                                      print('onSuccess');
-                                      controller.dispose();
-                                      Navigator.push(context, MaterialPageRoute(
-                                        builder: (context) =>
-                                            const CancelationComplete(),));
-                                  }
-                                )};
+                              onPressed: () async {
+                                if (controller.isEmpty) {
+                                  debugPrint('Signature is empty');
+                                  return;
                                 }
-                                //rentalTerm(context);
+
+                                final signature = await controller.toPngBytes();
+
+                                if (signature == null || signature.isEmpty) {
+                                  debugPrint('Exported signature is empty');
+                                  return;
+                                }
+
+                                debugPrint('signature length: ${signature.length}');
+                                debugPrint('first bytes: ${signature.take(20).toList()}');
+
+                                if (headline == "טופס אישור תנאים") {
+                                  // final dir = await getTemporaryDirectory();
+                                  // final file = File('${dir.path}/signature_test.png');
+                                  // await file.writeAsBytes(signature);
+
+                                 // debugPrint('saved path: ${file.path}');
+                                //  debugPrint('saved length: ${await file.length()}');
+
+                                  User().signature = signature;
+
+                                 if (!context.mounted) return;
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                } else {
+                                  showLoading(context);
+
+                                  ApiService().signatureUpload(signature, orderId, () {
+                                    Navigator.pop(context);
+                                    debugPrint('onSuccess');
+                                    controller.dispose();
+
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const CancelationComplete(),
+                                      ),
+                                    );
+                                  });
+                                }
                               },
                               child: Text('אישור',
                                   style: TextStyle(

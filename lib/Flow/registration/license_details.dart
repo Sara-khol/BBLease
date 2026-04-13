@@ -276,12 +276,11 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       ),
                     ),
                     onPressed: () async {
-                      print('submit pressed');
-                      print('signature ${User().signature!=null}');
-                      print(widget.index);
+                      debugPrint('signature ${User().signature!=null}');
+                      debugPrint('index ${widget.index}');
 
                       if (User().signature==null&&widget.index==1) {
-                        print('signature is empty');
+                        debugPrint('signature is empty');
                         displayError(context,
                             message: 'יש לחתום על תנאי השכרה',
                             closeButton: true);
@@ -289,7 +288,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                       else if (_formKey.currentState!.validate()) {
 
                         if(widget.index==1){
-                          print('signature is not empty');
+                          debugPrint('signature is not empty');
                           User().licenseId = _licenseId.text;
                           User().licenseDegree = _degree.text;
                           User().licenseIssDate = iss.toString();

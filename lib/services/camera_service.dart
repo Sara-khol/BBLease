@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:web/web.dart' as web;
+//import 'package:web/web.dart' as web;
 
 class CameraService {
   static final CameraService _instance = CameraService._internal();
@@ -46,28 +46,6 @@ class CameraService {
       debugPrint('Camera disposed');
     }
   }
-
-
-  Future<void> clearOldVideoElements() async {
-    final nodeList = web.document.querySelectorAll('video');
-
-    // יוצרים רשימה רק של אלמנטים (מסננים כל Node שאינו Element)
-    final videoList = <web.Element>[];
-    for (var i = 0; i < nodeList.length; i++) {
-      final node = nodeList.item(i);
-      if (node is web.Element) {
-        videoList.add(node);
-      }
-    }
-
-    // מסירים מה־DOM
-    for (final v in videoList) {
-      v.remove();
-    }
-
-    await Future.delayed(const Duration(milliseconds: 200));
-  }
-
 
   /// השהיית תצוגת מצלמה
   Future<void> pauseCamera() async {

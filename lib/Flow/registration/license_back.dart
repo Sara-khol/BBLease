@@ -53,12 +53,8 @@ class _LicenseBackState extends State<LicenseBack> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape) {
-          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_register2.png', 618.w,'תמונת הרשמה שלב 2'),showAppBar: false,);
-        }
-        return buildContent();
-      }),
+      body:  LandSpaceWidget(mainWidget: buildContent(),
+        imageProperties:ImageProperties('l_register2.png', 618.w,'תמונת הרשמה שלב 2'),showAppBar: false)
     );
   }
 
@@ -172,38 +168,70 @@ class _LicenseBackState extends State<LicenseBack> {
                 SizedBox(
                   width: 129.w,
                   height: 48.h,
-                  child: FloatingActionButton.extended(
-                    label: Text('תמיכה',style: TextStyle(
-                        fontSize: 22.sp,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.white)),
-                    heroTag: "btn2",
-                    elevation: 2,
-                    backgroundColor: turquoiseColorApp,
-                    onPressed: ()=>support.call,
-                    icon: ImageIcon(
-                      const AssetImage("assets/icons/Phone.png"),
-                      size: 22.sp,
-                      color: Colors.white,
-                    ),),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: turquoiseColorApp,
+
+                      elevation: 2,
+                      padding: EdgeInsets.symmetric(horizontal: 12.w),
+                    ),
+                    onPressed: () => support.call,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/icons/Phone.png",
+                          width: 24.sp.clamp(20.0, 28.0),
+                          height: 24.sp.clamp(20.0, 28.0),
+                          color: Colors.white,
+                          fit: BoxFit.contain,
+                        ),
+                        SizedBox(width: 8.w),
+                        Text(
+                          'תמיכה',
+                          style: TextStyle(
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 SizedBox(width: 20.w),
 
                 SizedBox(
                   width: 183.w,
                   height: 48.h,
-                  child: FloatingActionButton.extended(
-                      label: Text('העלאת תמונה',style: TextStyle(
-                          fontSize: 22.sp,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.white)),
-                      heroTag: "btn1",
-                      elevation: 2,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
                       backgroundColor: turquoiseColorApp,
-                      onPressed: _onUploadButtonPressed,
-                      icon:  Icon(Icons.file_upload_outlined,size: 22.sp,color: Colors.white,)
+                      elevation: 2,
+                      padding: EdgeInsets.symmetric(horizontal: 12.w),
+                    ),
+                    onPressed: _onUploadButtonPressed,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.file_upload_outlined,
+                          size: 24.sp.clamp(20.0, 28.0),
+                          color: Colors.white,
+                        ),
+                        SizedBox(width: 8.w),
+                        Text(
+                          'העלאת תמונה',
+                          style: TextStyle(
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                )
               ],
             ),
           ),
@@ -328,7 +356,7 @@ class _LicenseBackState extends State<LicenseBack> {
         );
 
         Widget cameraButton= Container(
-          height:kIsWeb?60.h: 40.h,
+          height:kIsWeb?60.h: 55.h,
           width:kIsWeb?140.h: 80.w,
           decoration: BoxDecoration(
               color: turquoiseColorApp,
@@ -401,7 +429,4 @@ class _LicenseBackState extends State<LicenseBack> {
     //showImagePreview;
   }
 
-  showImagePreview(){
-    print(_imageBack);
-    }
 }

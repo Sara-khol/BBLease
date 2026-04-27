@@ -1,6 +1,7 @@
 //import 'package:cross_file_image/cross_file_image.dart';
 import 'package:flutter/material.dart';
 import 'package:bblease/utils/my_colors.dart' as colors;
+import 'package:bblease/utils/common_funcs.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../landspace_widget.dart';
@@ -128,14 +129,7 @@ class _TermsState extends State<Terms> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape) {
-          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('image5.png', 1000.w,'תמונת תקנון'),showAppBar: widget.index==3);
-        }
-        return buildContent();
-      }),
-
-
+      body:  LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('image5.png', 1000.w,'תמונת תקנון'),showAppBar: widget.index==3)
     );
   }
 
@@ -145,8 +139,8 @@ class _TermsState extends State<Terms> {
           left: 24.w, right: 24.w, top: 32.h, bottom: 20.h),
       child: Column(
         children: [
-
-          SizedBox(height: 80.h,),
+          CommonFuncs().getBackButton(context),
+         // SizedBox(height: 40.h),
           Text(
             'תקנון ותנאי שימוש',
             style: TextStyle(

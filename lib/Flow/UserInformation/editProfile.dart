@@ -8,6 +8,7 @@ import 'dart:ui' as ui;
 
 import '../../landspace_widget.dart';
 import '../../services/api_service.dart';
+import '../../utils/common_funcs.dart';
 import '../Rental/dialogs.dart';
 
 class EditPersonalDetails extends StatefulWidget {
@@ -28,10 +29,8 @@ class _EditPersonalDetailsState extends State<EditPersonalDetails> {
   @override
   Widget build(BuildContext context,) {
 
-    return OrientationBuilder(builder: (c,o){
-      return o==Orientation.landscape?
-      LandSpaceWidget(mainWidget: buildContent(), imageProperties: ImageProperties('image4.png', 1000.w,'תמונת פרטי רכב')) :buildContent();
-    },);
+    return LandSpaceWidget(mainWidget: buildContent(), imageProperties:
+    ImageProperties('image4.png', 1000.w,'תמונת פרטי רכב')) ;
   }
 
 
@@ -48,9 +47,7 @@ class _EditPersonalDetailsState extends State<EditPersonalDetails> {
               SizedBox(height: 24.h,),
               Padding(
                 padding:  EdgeInsets.only(right: 23.w),
-                child: Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back_ios))),
+                child:CommonFuncs().getBackButton(context),
               ),
 
               SizedBox(height: 5.h,),

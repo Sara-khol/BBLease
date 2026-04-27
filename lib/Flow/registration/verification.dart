@@ -28,9 +28,8 @@ class _VerificationState extends State<Verification> {
   }
 
   faceDetection(){
-    print('going to face recognition API');
     ApiService().faceRecognition(User().phoneNumber, (res) async {
-      print('face recognition result: $res');
+      debugPrint('face recognition result: $res');
       if(res==false) {
         await displayErrorInValidation(context);
       }
@@ -48,10 +47,8 @@ class _VerificationState extends State<Verification> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: OrientationBuilder(builder: (c,o){
-        return o==Orientation.landscape?
-        LandSpaceWidget(mainWidget: buildContent(), showAppBar:false,imageProperties: ImageProperties('image5.png', 1000.w,'תמונת ביצוע פעולות')) :buildContent();
-      },) ,
+      body: LandSpaceWidget(mainWidget: buildContent(), showAppBar:false,
+          imageProperties: ImageProperties('image5.png', 1000.w,'תמונת ביצוע פעולות'))
     );
   }
 

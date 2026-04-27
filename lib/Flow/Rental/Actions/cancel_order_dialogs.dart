@@ -24,92 +24,103 @@ Future cancelOrderDialog(context,rent){
       ),
       context: context,
       builder: (context) {
-        return Directionality(
-            textDirection: TextDirection.rtl,
-            child: Wrap(
-              children: [
-                Container(
-                  height: 28.h,
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+        return SafeArea(
+          top: false,
+          maintainBottomViewPadding: true,
+          minimum: EdgeInsets.only(bottom: 20.h),
+          child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Wrap(
+                children: [
+                  Container(
+                    height: 28.h,
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 30.w, right: 30.w, ),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(height: 7.h,),
-                        Text(
-                          'ביטול הזמנה',
-                          style: TextStyle(
-                              fontSize: 22.sp,
-                              fontWeight: FontWeight.w700,
-                              color: pinkColorApp),
-                        ),
-                        Container(height: 45.h),
-                        Text('האם הינך בטוח שברצונך לבטל הזמנה זו? ',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal,),textDirection: TextDirection.rtl,),
-                        Container(height: 32.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 48.h,
-                              width: 160.w,
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: turquoiseColorApp,
-                                    padding: EdgeInsets.symmetric(horizontal: 18.w ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(100),
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    //rentalTerm(context);
-                                  },
-                                  child: Text('חזור להזמנות',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 18.sp,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.normal,
-                                        //height: 2.3
-                                      ))),
-                            ),
-                            SizedBox(width: 13.w),
+                  Padding(
+                    padding: EdgeInsets.only(left: 15.w, right: 15.w, ),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(height: 7.h,),
+                          Text(
+                            'ביטול הזמנה',
+                            style: TextStyle(
+                                fontSize: 22.sp,
+                                fontWeight: FontWeight.w700,
+                                color: pinkColorApp),
+                          ),
+                          Container(height: 45.h),
+                          Text('האם הינך בטוח שברצונך לבטל הזמנה זו? ',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal,),textDirection: TextDirection.rtl,),
+                          Container(height: 32.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: SizedBox(
+                                  height: 48.h,
+                                  //width: 160.w,
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: turquoiseColorApp,
+                                        padding: EdgeInsets.symmetric(horizontal: 18.w ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(100),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        //rentalTerm(context);
+                                      },
+                                      child: Center(
+                                        child: Text('חזור להזמנות',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 18.sp,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.normal,
+                                              //height: 2.3
+                                            )),
+                                      )),
+                                ),
+                              ),
+                              SizedBox(width: 13.w),
 
-                            SizedBox(
-                              height: 48.h,
-                              width: 160.w,
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: turquoiseColorApp,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(100),
-                                    ),
-                                  ),
-                                  onPressed: () =>Navigator.push(context, MaterialPageRoute(builder:(context) => CancelOrder(rent: rent),)),
-                                  child: Text('כן, המשך',
-                                      style: TextStyle(
-                                          fontSize: 18.sp,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.normal,
-                                        //height: 2.3
-                                      ))),
-                            ),
-                          ],
-                        ),
-                        Container(height: 22.h),
-                      ]
+                              Expanded(
+                                child: SizedBox(
+                                  height: 48.h,
+                                 // width: 160.w,
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: turquoiseColorApp,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(100),
+                                        ),
+                                      ),
+                                      onPressed: () =>Navigator.push(context, MaterialPageRoute(builder:(context) => CancelOrder(rent: rent),)),
+                                      child: Text('כן, המשך',
+                                          style: TextStyle(
+                                              fontSize: 18.sp,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.normal,
+                                            //height: 2.3
+                                          ))),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(height: 22.h),
+                        ]
+                    ),
                   ),
-                ),
-              ],
-            )
+                ],
+              )
+          ),
         );
       }
   );
@@ -132,141 +143,146 @@ signCancelOrderDialog(context,String headline,String text,[orderId]) {
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
       context: context,
       builder: (context) {
-        return Directionality(
-            textDirection: TextDirection.rtl,
-            child: Wrap(
-              children: [
-                Container(
-                  height: 28.h,
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+        return SafeArea(
+          top: false,
+          maintainBottomViewPadding: true,
+          minimum: EdgeInsets.only(bottom: 20.h),
+          child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Wrap(
+                children: [
+                  Container(
+                    height: 28.h,
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 30.w, right: 30.w, ),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              '$headline  ',
-                              style: TextStyle(
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Icon(Icons.error_outline,color: pinkColorApp,)
-                          ],
-                        ),
-                        SizedBox(height: 41.h),
-                        Text(text,style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),textDirection: TextDirection.rtl,),
-                        Container(
-                            decoration: const BoxDecoration(border: Border(bottom: BorderSide(
-                                color: Colors.black,
-                                width: 1
-                            ))),
-                            height: 70.h,
-                            width: 200,
-                            child: Signature(
-                              backgroundColor: Colors.transparent,
-                              controller: controller,
-
-                            )
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TextButton(
-                                onPressed: () {
-                                  controller.clear();
-                                },
-                                child: Text('ניקוי חתימה',
-                                  style: TextStyle(
-                                      fontSize: 14.sp,color:
-                                  turquoiseColorApp,
-                                      decoration: TextDecoration.underline,
-                                      decorationColor: turquoiseColorApp),)
-                            ),
-                            SizedBox(width: 55.w,)
-                          ],
-                        ),
-                        SizedBox(
-                          height: 48.h,
-                          width: 332.w,
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: turquoiseColorApp,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(100),
+                  Padding(
+                    padding: EdgeInsets.only(left: 30.w, right: 30.w, ),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                '$headline  ',
+                                style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              onPressed: () async {
-                                if (controller.isEmpty) {
-                                  debugPrint('Signature is empty');
-                                  return;
-                                }
+                              Icon(Icons.error_outline,color: pinkColorApp,)
+                            ],
+                          ),
+                          SizedBox(height: 41.h),
+                          Text(text,style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.normal,),textDirection: TextDirection.rtl,),
+                          Container(
+                              decoration: const BoxDecoration(border: Border(bottom: BorderSide(
+                                  color: Colors.black,
+                                  width: 1
+                              ))),
+                              height: 70.h,
+                              width: 200,
+                              child: Signature(
+                                backgroundColor: Colors.transparent,
+                                controller: controller,
 
-                                final signature = await controller.toPngBytes();
+                              )
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                  onPressed: () {
+                                    controller.clear();
+                                  },
+                                  child: Text('ניקוי חתימה',
+                                    style: TextStyle(
+                                        fontSize: 14.sp,color:
+                                    turquoiseColorApp,
+                                        decoration: TextDecoration.underline,
+                                        decorationColor: turquoiseColorApp),)
+                              ),
+                              SizedBox(width: 55.w,)
+                            ],
+                          ),
+                          SizedBox(
+                            height: 48.h,
+                            width: 332.w,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: turquoiseColorApp,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  if (controller.isEmpty) {
+                                    debugPrint('Signature is empty');
+                                    return;
+                                  }
 
-                                if (signature == null || signature.isEmpty) {
-                                  debugPrint('Exported signature is empty');
-                                  return;
-                                }
+                                  final signature = await controller.toPngBytes();
 
-                                debugPrint('signature length: ${signature.length}');
-                                debugPrint('first bytes: ${signature.take(20).toList()}');
+                                  if (signature == null || signature.isEmpty) {
+                                    debugPrint('Exported signature is empty');
+                                    return;
+                                  }
 
-                                if (headline == "טופס אישור תנאים") {
-                                  // final dir = await getTemporaryDirectory();
-                                  // final file = File('${dir.path}/signature_test.png');
-                                  // await file.writeAsBytes(signature);
+                                  debugPrint('signature length: ${signature.length}');
+                                  debugPrint('first bytes: ${signature.take(20).toList()}');
 
-                                 // debugPrint('saved path: ${file.path}');
-                                //  debugPrint('saved length: ${await file.length()}');
+                                  if (headline == "טופס אישור תנאים") {
+                                    // final dir = await getTemporaryDirectory();
+                                    // final file = File('${dir.path}/signature_test.png');
+                                    // await file.writeAsBytes(signature);
 
-                                  User().signature = signature;
+                                   // debugPrint('saved path: ${file.path}');
+                                  //  debugPrint('saved length: ${await file.length()}');
 
-                                 if (!context.mounted) return;
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                } else {
-                                  showLoading(context);
+                                    User().signature = signature;
 
-                                  ApiService().signatureUpload(signature, orderId, () {
+                                   if (!context.mounted) return;
                                     Navigator.pop(context);
-                                    debugPrint('onSuccess');
-                                    controller.dispose();
+                                    Navigator.pop(context);
+                                  } else {
+                                    showLoading(context);
 
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const CancelationComplete(),
-                                      ),
-                                    );
-                                  });
-                                }
-                              },
-                              child: Text('אישור',
-                                  style: TextStyle(
-                                      fontSize: 20.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.normal,
-                                      //height: 2.3
-                                  )
-                              )),
-                        ),
-                        SizedBox(height: 22.h),
-                      ]
+                                    ApiService().signatureUpload(signature, orderId, () {
+                                      Navigator.pop(context);
+                                      debugPrint('onSuccess');
+                                      controller.dispose();
+
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>  CancelationComplete(),
+                                        ),
+                                      );
+                                    });
+                                  }
+                                },
+                                child: Text('אישור',
+                                    style: TextStyle(
+                                        fontSize: 20.sp,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.normal,
+                                        //height: 2.3
+                                    )
+                                )),
+                          ),
+                          SizedBox(height: 22.h),
+                        ]
+                    ),
                   ),
-                ),
-              ],
-            )
+                ],
+              )
+          ),
         );
       }
   );

@@ -1,4 +1,5 @@
 import 'package:bblease/Flow/registration/verification.dart';
+import 'package:bblease/services/support.dart' as support;
 import 'package:bblease/utils/my_colors.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
@@ -206,7 +207,7 @@ print('faces.length: ${faces.length}');
 */
 
  late CameraController controller;
-  Widget? cameraWidget;
+ bool cameraReady = false;
 
   @override
   initState()  {
@@ -219,31 +220,15 @@ print('faces.length: ${faces.length}');
    controller = CameraService().controller!;
 
    setState(() {
-     cameraWidget = Column(
-       children: [
-         Expanded(child: CameraPreview(controller,
-           key: ValueKey(DateTime.now().millisecondsSinceEpoch),// חשוב לרענון בווב
-         )),
-         ElevatedButton.icon(
-           icon: const Icon(Icons.camera),
-           onPressed: _capturePicture,
-           label: const Text('צלם'),
-         ),
-       ],
-     );
+    cameraReady=true;
    });
  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape) {
-          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_register3.png', 618.w,'תמונת הרשמה שלב 3'),showAppBar: false,);
-        }
-        return buildContent();
-      }),
-    );
+      body: LandSpaceWidget(mainWidget: buildContent(),
+        imageProperties:ImageProperties('l_register3.png', 618.w,'תמונת הרשמה שלב 3'),showAppBar: false,));
   }
 
   buildContent() {
@@ -258,62 +243,41 @@ print('faces.length: ${faces.length}');
           Text('עמוד מול המצלמה',style: TextStyle(color: Colors.black,fontSize: 20.sp,fontWeight: FontWeight.normal)),
           SizedBox(height: 35.h,),
           Expanded(
-            child: Stack(
-                children:[
-                  Center(child: /*!kIsWeb
-                      ? const CameraFaceDetection()
-                      : */(cameraWidget ?? const CircularProgressIndicator()),
-                  ),
-                  /*FutureBuilder(
-                        future: _initializeCamera(),
-                        builder:(context,snapshot){
-                          if(snapshot.hasData) {
-                            print('snapshot has data');
-                            return _buildCameraPreview();
-                          }else if (snapshot.hasError) {
-                            // Handle error
-                            return Text('Error initializing camera: ${snapshot.error}');
-                          }
-                          else {
-                            return SizedBox(
-                                height: 332.h,
-                                width: 332.w,
-                                child: Center(child: CircularProgressIndicator()));
-                          }
-                        }
-                    ),*/
-                 /* Center(
-                    child:*/
-                  /* SizedBox(
-                        height: 332.h,
-                        child:*/
-                  /*
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 48.h,
-                          width: 117.w,
-                          decoration: BoxDecoration(
-                              color: const Color(0xFFD9D9D9).withOpacity(0.3),
-                              borderRadius: BorderRadius.circular(100)
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              //Image.asset('assets/images/rec.png'),
-                              SizedBox(width: 15.w,),
-                              Text('...סורק',style: TextStyle(color: Colors.black,fontSize: 22.sp),),
-                              //User().regImages[2] !=null?Text('צולם בהצלחה',style: TextStyle(color: Colors.white),):Text(''),
-                            ],
-                          ),
-                        ),
-                      ],
+            child:Center(
+              child: cameraReady
+                  ? Column(
+                children: [
+                  Expanded(
+                    child: CameraPreview(
+                      controller,
+                      key: ValueKey(DateTime.now().millisecondsSinceEpoch),
                     ),
-                    // ),
-                  ),*/
-                ]),
+                  ),
+                  SizedBox(height: 12.h),
+                  SizedBox(
+                    height: 45.h,
+                    child: ElevatedButton(
+                      onPressed: _capturePicture,
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(horizontal: 22.w),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.camera, size: 20.sp),
+                          SizedBox(width: 8.w),
+                          Text(
+                            'צלם',
+                            style: TextStyle(fontSize: 18.sp),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 12.h),
+                ],
+              ) : const CircularProgressIndicator(),
+            )
           ),
           SizedBox(height: 60.h,),
           Row(
@@ -351,9 +315,9 @@ print('faces.length: ${faces.length}');
                     fontSize: 22.sp,
                     fontWeight: FontWeight.normal,height: 1),),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const Verification(),));
-                //support.call;
-                //TODO: call for help
+                //Navigator.push(context, MaterialPageRoute(builder: (context) => const Verification(),));
+               support.call;
+
               },
             ),
           ),

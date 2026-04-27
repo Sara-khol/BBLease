@@ -31,4 +31,31 @@ class CommonFuncs
       position: ToastPosition.bottom,
     );
   }
+
+  Widget getBackButton(BuildContext context)
+  {
+
+      final size = 24.sp.clamp(20.0, 28.0);
+
+      return Align(
+        alignment: Alignment.topRight,
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: IconButton(
+            onPressed: () => Navigator.pop(context),
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(
+              minWidth: 36,
+              minHeight: 36,
+            ),
+            iconSize: size,
+            icon: Icon(
+              Icons.arrow_back_ios,
+              size: size,
+              color: colors.blackColorApp,
+            ),
+          ),
+        ),
+      );
+    }
 }

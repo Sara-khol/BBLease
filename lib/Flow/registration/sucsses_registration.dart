@@ -17,12 +17,8 @@ class _SucssesRegistrationForm extends State<SucssesRegistrationForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape) {
-          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('image6.png', 1000.w,'עבר בהצלחה'));
-        }
-        return buildContent();
-      }),
+      body:LandSpaceWidget(mainWidget: buildContent(),imageProperties:
+      ImageProperties('image6.png', 1000.w,'עבר בהצלחה'))
     );
   }
 

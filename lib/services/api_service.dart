@@ -521,7 +521,7 @@ displayMessage(context,message: 'ישנה בעיה, נסה שנית');
       });
 
       debugPrint('${_baseUrl}rental/v1/cancel_rental/$orderId');
-      debugPrint(orderId);
+      debugPrint('orderId $orderId');
       var response = await _dio.post('${_baseUrl}rental/v1/cancel_rental/$orderId', data: formData,);
       debugPrint("response.statusCode ${response.statusCode}");
       if(response.statusCode == 200) {

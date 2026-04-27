@@ -52,12 +52,8 @@ class _LicenseFrontState extends State<LicenseFront>  {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape) {
-          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('l_register1.png', 618.w,'תמונת הרשמה שלב 1'),showAppBar: false,);
-        }
-        return buildContent();
-      }),
+      body:      LandSpaceWidget(mainWidget: buildContent(),imageProperties:
+      ImageProperties('l_register1.png', 618.w,'תמונת הרשמה שלב 1'),showAppBar: false,)
     );
   }
 
@@ -66,7 +62,7 @@ class _LicenseFrontState extends State<LicenseFront>  {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(height: 110.h,),
+          SizedBox(height: 80.h,),
           Text(
             'סרוק רישיון',
             style: TextStyle(
@@ -89,7 +85,7 @@ class _LicenseFrontState extends State<LicenseFront>  {
             textAlign: TextAlign.center,
             textDirection: TextDirection.rtl,
           ),
-          SizedBox(height: 63.h),
+          SizedBox(height: 50.h),
           SizedBox(
             height: 254.h,
             child: Stack(
@@ -192,16 +188,34 @@ class _LicenseFrontState extends State<LicenseFront>  {
                 SizedBox(
                   width: 129.w,
                   height: 48.h,
-                  child: FloatingActionButton.extended(
-                    label: Text('תמיכה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.normal,color: Colors.white)),
-                    elevation: 2,
-                    heroTag: "btn2",
-                    backgroundColor: turquoiseColorApp,
-                    onPressed: ()=>support.call,
-                    icon: ImageIcon(
-                      const AssetImage("assets/icons/Phone.png"),
-                      size: 22.w,
-                      color:Colors.white,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: turquoiseColorApp,
+
+                      elevation: 2,
+                      padding: EdgeInsets.symmetric(horizontal: 12.w),
+                    ),
+                    onPressed: () => support.call,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/icons/Phone.png",
+                          width: 24.sp.clamp(20.0, 28.0),
+                          height: 24.sp.clamp(20.0, 28.0),
+                          color: Colors.white,
+                          fit: BoxFit.contain,
+                        ),
+                        SizedBox(width: 8.w),
+                        Text(
+                          'תמיכה',
+                          style: TextStyle(
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -209,15 +223,34 @@ class _LicenseFrontState extends State<LicenseFront>  {
                 SizedBox(
                   width: 183.w,
                   height: 48.h,
-                  child: FloatingActionButton.extended(
-                      elevation: 2,
-                      label: Text('העלאת תמונה',style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.normal,color: Colors.white)),
-                      heroTag: "btn1",
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
                       backgroundColor: turquoiseColorApp,
-                      onPressed: _onUploadButtonPressed,
-                      icon:  Icon(Icons.file_upload_outlined,size: 22.sp,color: Colors.white,)
+                      elevation: 2,
+                      padding: EdgeInsets.symmetric(horizontal: 12.w),
+                    ),
+                    onPressed: _onUploadButtonPressed,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.file_upload_outlined,
+                          size: 24.sp.clamp(20.0, 28.0),
+                          color: Colors.white,
+                        ),
+                        SizedBox(width: 8.w),
+                        Text(
+                          'העלאת תמונה',
+                          style: TextStyle(
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                )
               ],
             ),
           ),
@@ -296,7 +329,7 @@ class _LicenseFrontState extends State<LicenseFront>  {
         );
 
         Widget cameraButton= Container(
-          height:kIsWeb?60.h: 40.h,
+          height:kIsWeb?60.h: 55.h,
           width:kIsWeb?140.h: 80.w,
           decoration: BoxDecoration(
               color: turquoiseColorApp,
@@ -421,7 +454,7 @@ class _LicenseFrontState extends State<LicenseFront>  {
     XFile? result = await ImagePicker().pickImage(source: ImageSource.gallery,);
 
     if (result != null) {
-        uploadSucceed(context,const LicenseFront(index: 1,), LicenseBack(index: widget.index));
+        uploadSucceed(context,const LicenseFront(index: 1,), LicenseBack(index: widget.index,orderId: widget.orderId,));
         setState(() {
           _imageFront= result;
           //_cameraController.pausePreview();

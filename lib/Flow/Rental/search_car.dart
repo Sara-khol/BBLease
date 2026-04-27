@@ -51,6 +51,8 @@ class _SearchCarState extends State<SearchCar> {
   double currentSliderValue = 3;
   String type = 'all';
   late Future myFuture ;
+  late Orientation realOrientation;
+
 
 
 
@@ -103,26 +105,25 @@ class _SearchCarState extends State<SearchCar> {
 
   @override
   Widget build(BuildContext context) {
-    return OrientationBuilder(builder: (context, orientation) {
-      return Scaffold(
-        body: orientation == Orientation.landscape
-            ? LandSpaceWidget(
-                mainWidget: buildContent(orientation),
-                imageProperties: ImageProperties('image1.png', 580.w,'תוצאות חיפוש'),
-               )
-            : buildContent(orientation),
-      );
-    });
+    realOrientation = View.of(context).physicalSize.width >
+        View.of(context).physicalSize.height
+        ? Orientation.landscape
+        : Orientation.portrait;
+    return Scaffold(
+      body:LandSpaceWidget(
+        mainWidget: buildContent(realOrientation),
+        imageProperties: ImageProperties('image1.png', 580.w,'תוצאות חיפוש'),
+      ),
+    );
   }
 
-  buildContent(Orientation orientation) {
-    debugPrint('currentSliderValue $currentSliderValue');
+  buildContent(Orientation o) {
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Stack(
           children: [
             Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              if (orientation == Orientation.portrait)
+              if (o == Orientation.portrait)
                 const Directionality(
                     textDirection: TextDirection.ltr, child: AppBarBibilease()),
               SizedBox(height: 40.h),
@@ -175,7 +176,7 @@ class _SearchCarState extends State<SearchCar> {
                                                   });
                                                 },
                                                 child:*/
-                                      searchCarItem(car, orientation);
+                                      searchCarItem(car,realOrientation);
                                 },
                               ),
                             )
@@ -186,7 +187,7 @@ class _SearchCarState extends State<SearchCar> {
                                     itemCount: filteredCarsMap[type]!.length,
                                     itemBuilder: (context, index) {
                                       Car car = filteredCarsMap[type]![index];
-                                      return searchCarItem(car, orientation);
+                                      return searchCarItem(car,realOrientation);
                                     },
                                   ),
                                 )
@@ -235,149 +236,155 @@ class _SearchCarState extends State<SearchCar> {
 
   searchCarItem(Car car, Orientation orientation) {
     return PointerInterceptor(
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: () async {
-            showLoading(context);
-            await ApiService().getAdditions(
-                car.id, widget.startDate, widget.endDate, (orderJson) {
-              Navigator.pop(context);
-              List<Addition> additions = [];
-              additions = orderJson.map<Addition>((entry) => (Addition.fromJson(entry))).toList();
-              for (Addition item in additions) {
-                if (item.name == 'new_driver' || item.name == 'young_driver') {
-                  item.isEnabled = false;
-                  if (item.name == 'new_driver' && User().isNewDriver ||
-                      item.name == 'young_driver' && User().isYoungDriver) {
-                    item.isChecked = true;
+          child: MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              onTap: () async {
+                showLoading(context);
+                await ApiService().getAdditions(
+                    car.id, widget.startDate, widget.endDate, (orderJson) {
+                  Navigator.pop(context);
+                  List<Addition> additions = [];
+                  additions = orderJson.map<Addition>((entry) => (Addition.fromJson(entry))).toList();
+                  for (Addition item in additions) {
+                    if (item.name == 'new_driver' || item.name == 'young_driver') {
+                      item.isEnabled = false;
+                      if (item.name == 'new_driver' && User().isNewDriver ||
+                          item.name == 'young_driver' && User().isYoungDriver) {
+                        item.isChecked = true;
+                      }
+                    }
                   }
-                }
-              }
-              //setState(() {});
-              showModalBottomSheet(
-                isScrollControlled: true,
-                isDismissible: false,
-                barrierColor: Colors.black12.withOpacity(0.1),
-                backgroundColor: Colors.white,
-                //isDismissible: false,
-                elevation: 2,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-                ),
-                context: context,
-                builder: (_) =>
-                    AdditionsDialog(rent: rent, car: car, additionsList: additions),
-              );
-            });
-          },
-          child: Container(
-            // width:orientation==Orientation.portrait? 347.w:100.w,
-            //height: 152.h,
-            margin: orientation == Orientation.portrait
-                ? EdgeInsets.only(
-                    right: 23.w,
-                    left: 23.w,
-                    bottom: 12.h,
-                  )
-                : EdgeInsets.only(bottom: 12.h,
-            ),
-            child: Stack(
-              children: [
-                Card(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-                  shadowColor: Colors.transparent,
-                  margin: EdgeInsets.only(left: 20.w),
-                  color:  const Color(0xffF7F7F7),
-                  child: Padding(
-                    padding: EdgeInsets.only(bottom: 10.h, top: 10.h, right: 14.w, left: 11.w),
-                    child: IntrinsicHeight(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                car.postName.length > 12
-                                    ? '${car.postName.substring(0, 12)}...'
-                                    : car.postName,
-                                style: TextStyle(
-                                  fontSize: 34.sp,
-                                  fontWeight: FontWeight.bold,
-                                  height: 1,
+                  //setState(() {});
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    isDismissible: false,
+                    barrierColor: Colors.black12.withOpacity(0.1),
+                    backgroundColor: Colors.white,
+                    //isDismissible: false,
+                    elevation: 2,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+                    ),
+                    context: context,
+                    builder: (_) =>
+                        AdditionsDialog(rent: rent, car: car, additionsList: additions),
+                  );
+                });
+              },
+              child: SafeArea(
+                top: false,
+                maintainBottomViewPadding: true,
+                minimum: EdgeInsets.only(bottom: 20.h),
+                child: Container(
+                  // width:orientation==Orientation.portrait? 347.w:100.w,
+                  //height: 152.h,
+                  margin: orientation == Orientation.portrait
+                      ? EdgeInsets.only(
+                          right: 23.w,
+                          left: 23.w,
+                          bottom: 12.h,
+                        )
+                      : EdgeInsets.only(bottom: 12.h,
+                  ),
+                  child: Stack(
+                    children: [
+                      Card(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                        shadowColor: Colors.transparent,
+                        margin: EdgeInsets.only(left: 20.w),
+                        color:  const Color(0xffF7F7F7),
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 10.h, top: 10.h, right: 14.w, left: 11.w),
+                          child: IntrinsicHeight(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      car.postName.length > 12
+                                          ? '${car.postName.substring(0, 12)}...'
+                                          : car.postName,
+                                      style: TextStyle(
+                                        fontSize: 34.sp,
+                                        fontWeight: FontWeight.bold,
+                                        height: 1,
+                                      ),
+                                    ),
+                                    Text(
+                                      'או רכב זהה',
+                                      style: TextStyle(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.normal,
+                                        height: 1.15,
+                                      ),
+                                    ),
+                                    Text(
+                                      car.address,
+                                      style: TextStyle(
+                                        fontSize: 18.sp,
+                                        fontWeight: FontWeight.normal,
+                                        height: 1.15,
+                                      ),
+                                    ),
+                                    SizedBox(height: 29.h),
+                                    Text(
+                                      '${car.pricePerDay} ₪  |  ליום',
+                                      style: TextStyle(
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.bold,
+                                        height: 1.15,
+                                      ),
+                                    ),
+                                    Text(
+                                      '${car.totalPrice} ₪  |  סה"כ',
+                                      style: TextStyle(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.normal,
+                                        height: 1.15,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              Text(
-                                'או רכב זהה',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.normal,
-                                  height: 1.15,
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 2.h),
+                                    child: Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Icon(
+                                          Icons.circle,
+                                          color: turquoiseColorApp,
+                                          size: 8.w,
+                                        )),
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                car.address,
-                                style: TextStyle(
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.normal,
-                                  height: 1.15,
-                                ),
-                              ),
-                              SizedBox(height: 29.h),
-                              Text(
-                                '${car.pricePerDay} ₪  |  ליום',
-                                style: TextStyle(
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.bold,
-                                  height: 1.15,
-                                ),
-                              ),
-                              Text(
-                                '${car.totalPrice} ₪  |  סה"כ',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.normal,
-                                  height: 1.15,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 2.h),
-                              child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Icon(
-                                    Icons.circle,
-                                    color: turquoiseColorApp,
-                                    size: 8.w,
-                                  )),
+                              ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
+                      if (car.carImages.isNotEmpty)
+                        Positioned.fill(child: Align(
+                          alignment: Alignment.bottomLeft,
+                            child: Container(
+                              margin: EdgeInsets.only(bottom: 10.h),
+                              child: Image.network(
+                                car.carImages.first,
+                                width: 175.w,
+                                //height: 75.h,
+                              )),
+                        )),
+                    ],
                   ),
                 ),
-                if (car.carImages.isNotEmpty)
-                  Positioned.fill(child: Align(
-                    alignment: Alignment.bottomLeft,
-                      child: Container(
-                        margin: EdgeInsets.only(bottom: 10.h),
-                        child: Image.network(
-                          car.carImages.first,
-                          width: 175.w,
-                          //height: 75.h,
-                        )),
-                  )),
-              ],
+              ),
+              // ),
             ),
           ),
-          // ),
-        ),
-      ),
-    );
+        );
+
   }
 
   /*topButtons(context) {
@@ -492,93 +499,98 @@ class _SearchCarState extends State<SearchCar> {
             ],
           ),
           height: 230.h,
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                  // padding: EdgeInsets.zero,
-                  // constraints: const BoxConstraints(minWidth: 20, maxWidth: 20),
-                  iconSize: 20.w,
-                  icon: const Icon(
-                    Icons.close,
+          child: SafeArea(
+            top: false,
+            maintainBottomViewPadding: true,
+            minimum: EdgeInsets.only(bottom: 20.h),
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    // padding: EdgeInsets.zero,
+                    // constraints: const BoxConstraints(minWidth: 20, maxWidth: 20),
+                    iconSize: 20.w,
+                    icon: const Icon(
+                      Icons.close,
+                    ),
+                    onPressed: () => {
+                      Navigator.pop(context),
+                    },
                   ),
-                  onPressed: () => {
-                    Navigator.pop(context),
-                  },
                 ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 98.w,
-                      ),
-                      Text(
-                        'סנן לפי סוג הרכב',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: const Color(0xFF0F1511),
-                          fontSize: 22.sp,
-                          fontWeight: FontWeight.bold,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 98.w,
                         ),
-                      ),
-                      SizedBox(
-                        width: 8.w,
-                      ),
-                      ImageIcon(
-                        const AssetImage("assets/icons/Filter.png"),
-                        color: pinkColorApp,
-                      ),
-                      const Spacer(),
-                      TextButton(
-                        style: TextButton.styleFrom(
-                            minimumSize: const Size(80, 20),
-                            padding: const EdgeInsets.all(0)),
-                        onPressed: () => {
-                          setState(() => type = 'all'),
-                          Navigator.pop(context),
-                        },
-                        child: Text(
-                          'נקה סינון',
+                        Text(
+                          'סנן לפי סוג הרכב',
+                          textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: pinkColorApp,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.normal,
-                            decoration: TextDecoration.underline,
-                            decorationColor: pinkColorApp,
-                            height: 1,
+                            color: const Color(0xFF0F1511),
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 34.w,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      carSearchItem("מיני",''),
-                      carSearchItem("משפחתי",''),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 17.h,
-                  ),
-                ],
-              ),
-            ],
+                        SizedBox(
+                          width: 8.w,
+                        ),
+                        ImageIcon(
+                          const AssetImage("assets/icons/Filter.png"),
+                          color: pinkColorApp,
+                        ),
+                        const Spacer(),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                              minimumSize: const Size(80, 20),
+                              padding: const EdgeInsets.all(0)),
+                          onPressed: () => {
+                            setState(() => type = 'all'),
+                            Navigator.pop(context),
+                          },
+                          child: Text(
+                            'נקה סינון',
+                            style: TextStyle(
+                              color: pinkColorApp,
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.normal,
+                              decoration: TextDecoration.underline,
+                              decorationColor: pinkColorApp,
+                              height: 1,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 34.w,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        carSearchItem("מיני",''),
+                        carSearchItem("משפחתי",''),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 17.h,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -597,6 +609,8 @@ class _SearchCarState extends State<SearchCar> {
         textDirection: TextDirection.rtl,
         child: SafeArea(
           top: false,
+          maintainBottomViewPadding: true,
+          minimum: EdgeInsets.only(bottom: 20.h),
           child: Material(
             color: Colors.white,
             shape: const RoundedRectangleBorder(
@@ -721,74 +735,133 @@ class _SearchCarState extends State<SearchCar> {
     return showModalBottomSheet(
       context: context,
       builder: (context) => StatefulBuilder(builder: (BuildContext context, setState) {
-        return Directionality(
-          textDirection: TextDirection.rtl,
-          child: Container(
-            decoration: const ShapeDecoration(
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(25),
-                ),
-              ),
-              shadows: [
-                BoxShadow(
-                  color: Color(0x3F000000),
-                  blurRadius: 250,
-                  offset: Offset(0, 4),
-                  spreadRadius: 0,
-                )
-              ],
-            ),
-            //height: 365.h,
-            child: Stack(
-              children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    iconSize: 20.w,
-                    icon: const Icon(Icons.close,),
-                    onPressed: () => Navigator.pop(context),
+        return SafeArea(
+          top: false,
+          maintainBottomViewPadding: true,
+          minimum: EdgeInsets.only(bottom: 20.h),
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: Container(
+              decoration: const ShapeDecoration(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(25),
                   ),
                 ),
-                Column(
-                  children: [
-                    SizedBox(
-                      height: 50.h,
+                shadows: [
+                  BoxShadow(
+                    color: Color(0x3F000000),
+                    blurRadius: 250,
+                    offset: Offset(0, 4),
+                    spreadRadius: 0,
+                  )
+                ],
+              ),
+              //height: 365.h,
+              child: Directionality(
+                textDirection: TextDirection.rtl,
+   child: SingleChildScrollView(
+     child: Column(
+       mainAxisSize: MainAxisSize.min,
+       children: [
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: IconButton(
+                        iconSize: 20.w,
+                        icon: const Icon(Icons.close,),
+                        onPressed: () => Navigator.pop(context),
+                      ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'הגדל טווח חיפוש',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: const Color(0xFF0F1511),
-                            fontSize: 22.sp,
-                            fontWeight: FontWeight.bold,
-                            //height: 1,
-                          ),
+
+                        // SizedBox(
+                        //   height: 10.h,
+                        // ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'הגדל טווח חיפוש',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: const Color(0xFF0F1511),
+                                fontSize: 22.sp,
+                                fontWeight: FontWeight.bold,
+                                //height: 1,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 8.w,
+                            ),
+                              Image.asset("assets/icons/Range.png",
+                              color: pinkColorApp,
+                                  width: 24.sp.clamp(22.0, 28.0),
+                                  height: 24.sp.clamp(22.0, 28.0),
+                                  fit: BoxFit.cover)
+                          ],
                         ),
-                        SizedBox(
-                          width: 8.w,
-                        ),
-                        ImageIcon(
-                          const AssetImage("assets/icons/Range.png"),
-                          color: pinkColorApp,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 23.h),
-                    Padding(
-                      padding: EdgeInsets.only(right: 31.w, left: 30.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
+                        SizedBox(height: 23.h),
+                        Padding(
+                          padding: EdgeInsets.only(right: 25.w, left: 25.w),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    'אזור חיפוש נוכחי: ',
+                                    style: TextStyle(
+                                      color: const Color(0xFF0F1511),
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.normal,
+                                      height: 1,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  TextButton(
+                                    style: TextButton.styleFrom(
+                                        minimumSize: const Size(80, 20),
+                                        padding: const EdgeInsets.all(0)),
+                                    onPressed: () => departurePoint(
+                                        context, widget.location, 1,
+                                        sdate: widget.startDate,
+                                        edate: widget.endDate,
+                                        latitude1: widget.latitude ?? 0,
+                                        longitude1: widget.longitude ?? 0),
+                                    child: Text(
+                                      'שנה כתובת ',
+                                      style: TextStyle(
+                                        color: pinkColorApp,
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.normal,
+                                        decoration: TextDecoration.underline,
+                                        decorationColor: pinkColorApp,
+                                        height: 1,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
                               Text(
-                                'אזור חיפוש נוכחי: ',
+                                widget.location,
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  color: const Color(0xFF0F1511),
+                                  fontSize: 24.sp,
+                                  fontWeight: FontWeight.bold,
+                                  height: 1,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 18,
+                              ),
+                              Text(
+                                'הזז את הסמן למרחק הרצוי',
+                                textAlign: TextAlign.right,
                                 style: TextStyle(
                                   color: const Color(0xFF0F1511),
                                   fontSize: 20.sp,
@@ -796,157 +869,106 @@ class _SearchCarState extends State<SearchCar> {
                                   height: 1,
                                 ),
                               ),
-                              const Spacer(),
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                    minimumSize: const Size(80, 20),
-                                    padding: const EdgeInsets.all(0)),
-                                onPressed: () => departurePoint(
-                                    context, widget.location, 1,
-                                    sdate: widget.startDate,
-                                    edate: widget.endDate,
-                                    latitude1: widget.latitude ?? 0,
-                                    longitude1: widget.longitude ?? 0),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Directionality(
+                                textDirection: TextDirection.ltr,
+                                child: StatefulBuilder(builder: (context, state) {
+                                  return SliderTheme(
+                                    data: SliderTheme.of(context).copyWith(
+                                      showValueIndicator: ShowValueIndicator.always,
+                                      valueIndicatorColor: turquoiseColorApp,
+                                      inactiveTrackColor: const Color(0xFFF6F6F6),
+                                      activeTrackColor: turquoiseColorApp,
+                                      thumbColor: turquoiseColorApp,
+                                      trackHeight: 8.0,
+                                      overlayColor: const Color(0xFFF6F6F6),
+                                      thumbShape: const RoundSliderThumbShape(
+                                          enabledThumbRadius: 10.0),
+                                      overlayShape: const RoundSliderOverlayShape(
+                                          overlayRadius: 10),
+                                      valueIndicatorTextStyle: TextStyle(
+                                        color: blackColorApp,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      valueIndicatorShape:
+                                          const PaddleSliderValueIndicatorShape(),
+                                      // thumbShape: CustomSliderThumbCircle(thumbRadius: 20, min: 0, max: 100),
+                                    ),
+                                    child: Slider(
+                                      value: currentSliderValue,
+                                      max: 16,
+                                      //divisions: 10,
+                                      label: currentSliderValue.round().toString(),
+                                      onChanged: (double value) {
+                                        setState(() {
+                                          debugPrint('onChanged $value');
+                                          currentSliderValue = value;
+                                        });
+                                      },
+                                    ),
+                                  );
+                                }),
+                              ),
+                              const SizedBox(
+                                height: 19,
+                              ),
+                              Align(
+                                alignment: Alignment.center,
                                 child: Text(
-                                  'שנה כתובת ',
+                                  'הוסף ${currentSliderValue.toInt()}  ק”מ לטווח החיפוש הנוכחי',
                                   style: TextStyle(
-                                    color: pinkColorApp,
+                                    color: const Color(0xFF0F1511),
                                     fontSize: 20.sp,
-                                    fontWeight: FontWeight.normal,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: pinkColorApp,
+                                    fontWeight: FontWeight.bold,
                                     height: 1,
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Text(
-                            widget.location,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              color: const Color(0xFF0F1511),
-                              fontSize: 24.sp,
-                              fontWeight: FontWeight.bold,
-                              height: 1,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 28,
-                          ),
-                          Text(
-                            'הזז את הסמן למרחק הרצוי',
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              color: const Color(0xFF0F1511),
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.normal,
-                              height: 1,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 34,
-                          ),
-                          Directionality(
-                            textDirection: TextDirection.ltr,
-                            child: StatefulBuilder(builder: (context, state) {
-                              return SliderTheme(
-                                data: SliderTheme.of(context).copyWith(
-                                  showValueIndicator: ShowValueIndicator.always,
-                                  valueIndicatorColor: turquoiseColorApp,
-                                  inactiveTrackColor: const Color(0xFFF6F6F6),
-                                  activeTrackColor: turquoiseColorApp,
-                                  thumbColor: turquoiseColorApp,
-                                  trackHeight: 8.0,
-                                  overlayColor: const Color(0xFFF6F6F6),
-                                  thumbShape: const RoundSliderThumbShape(
-                                      enabledThumbRadius: 10.0),
-                                  overlayShape: const RoundSliderOverlayShape(
-                                      overlayRadius: 10),
-                                  valueIndicatorTextStyle: TextStyle(
-                                    color: blackColorApp,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.normal,
+                              const SizedBox(
+                                height: 21,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 48.h,
+                                   // width: 332.w,
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: turquoiseColorApp,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(100),
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          getCarsList();
+                                        },
+                                        child: Text(
+                                          'הצג תוצאות נוספות',
+                                          style: TextStyle(
+                                              fontSize: 22.sp,
+                                              fontWeight: FontWeight.normal,
+                                              color: Colors.white),
+                                        )),
                                   ),
-                                  valueIndicatorShape:
-                                      const PaddleSliderValueIndicatorShape(),
-                                  // thumbShape: CustomSliderThumbCircle(thumbRadius: 20, min: 0, max: 100),
-                                ),
-                                child: Slider(
-                                  value: currentSliderValue,
-                                  max: 16,
-                                  //divisions: 10,
-                                  label: currentSliderValue.round().toString(),
-                                  onChanged: (double value) {
-                                    setState(() {
-                                      debugPrint('onChanged $value');
-                                      currentSliderValue = value;
-                                    });
-                                  },
-                                ),
-                              );
-                            }),
-                          ),
-                          const SizedBox(
-                            height: 19,
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              'הוסף ${currentSliderValue.toInt()}  ק”מ לטווח החיפוש הנוכחי',
-                              style: TextStyle(
-                                color: const Color(0xFF0F1511),
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.bold,
-                                height: 1,
+                                ],
                               ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 21,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
                               SizedBox(
-                                height: 48.h,
-                                width: 332.w,
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: turquoiseColorApp,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(100),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      getCarsList();
-                                    },
-                                    child: Text(
-                                      'הצג תוצאות נוספות',
-                                      style: TextStyle(
-                                          fontSize: 22.sp,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.white),
-                                    )),
+                                height: 25.h,
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 25.h,
-                    ),
-                  ],
-                ),
-              ],
+                        ),
+
+                      ],
+                    )),
             ),
-          ),
+          ),)
         );
       }),
       barrierColor: Colors.white10.withOpacity(0.1),

@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:ui' as ui;
 
 import '../../landspace_widget.dart';
+import '../../utils/common_funcs.dart';
 
 class BenefitsAndPromotions extends StatefulWidget {
   const BenefitsAndPromotions({super.key});
@@ -39,13 +40,8 @@ class _BenefitsAndPromotionsState extends State<BenefitsAndPromotions> {
   @override
   Widget build(BuildContext context,) {
     return Scaffold(
-      body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape) {
-          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('image6.png', 1000.w,'תמונת פעולות'));
-        }
-        return buildContent();
-      }),
-    );
+      body:LandSpaceWidget(mainWidget: buildContent(),imageProperties:
+      ImageProperties('image6.png', 1000.w,'תמונת פעולות')));
   }
 
   buildContent() {
@@ -59,11 +55,7 @@ class _BenefitsAndPromotionsState extends State<BenefitsAndPromotions> {
           ),
           Padding(
             padding: EdgeInsets.only(right: 23.w),
-            child: Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.arrow_back_ios))),
+            child: CommonFuncs().getBackButton(context),
           ),
           SizedBox(
             height: 42.h,

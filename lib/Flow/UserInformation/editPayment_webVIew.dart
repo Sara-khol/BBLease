@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../landspace_widget.dart';
 import '../../models/class_user.dart';
 import '../../services/api_service.dart';
+import '../../utils/common_funcs.dart';
 import '../../utils/my_colors.dart';
 // #enddocregion platform_imports
 
@@ -51,12 +52,8 @@ class _EditPaymentWebViewState extends State<EditPaymentWebView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: OrientationBuilder(builder: (c,o){
-        return o==Orientation.landscape?
-        LandSpaceWidget(mainWidget: buildContent(context), imageProperties:
-        ImageProperties('l_register3.png', 1000.w,'תמונת פרטי רכב')) :buildContent(context);
-      },),
-    );
+      body:LandSpaceWidget(mainWidget: buildContent(context), imageProperties:
+      ImageProperties('l_register3.png', 1000.w,'תמונת פרטי רכב')));
   }
 
   buildContent(context) {
@@ -67,9 +64,7 @@ class _EditPaymentWebViewState extends State<EditPaymentWebView> {
               SizedBox(height: 24.h,),
               Padding(
                 padding:  EdgeInsets.only(right: 23.w),
-                child: Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back_ios))),
+                child: CommonFuncs().getBackButton(context),
               ),
               SizedBox(
                 height: 5.h,

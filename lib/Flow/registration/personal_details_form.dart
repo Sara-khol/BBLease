@@ -53,14 +53,8 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: OrientationBuilder(
-        builder: (context,orientation) {
-          if (orientation == Orientation.landscape) {
-            return LandSpaceWidget(mainWidget:buildContent(),imageProperties:ImageProperties('l_register1.png', 618.w,'תמונת הרשמה שלב 1'),showAppBar: false,);
-          }
-          return buildContent();
-        }
-      ),
+      body:LandSpaceWidget(mainWidget:buildContent(),imageProperties:
+      ImageProperties('l_register1.png', 618.w,'תמונת הרשמה שלב 1'),showAppBar: false,)
     );
   }
 
@@ -84,7 +78,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
               padding: EdgeInsets.only(left: 31.w, right: 30.w),
               child: Column(
                 children: [
-                  SizedBox(height: 53.h,),
+                  SizedBox(height: 40.h,),
                   Icon(
                     Icons.account_circle_outlined,
                     color:turquoiseColorApp,
@@ -105,7 +99,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 34.h,),
+                  SizedBox(height: 30.h,),
                   TextFormField(
                     textInputAction: TextInputAction.next,
                     cursorColor: blackColorApp,
@@ -247,10 +241,10 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                       ),
                     ),
                   ),
-                  SizedBox(height:  127.h),
+                  SizedBox(height:  70.h),
                   SizedBox(
                     height: 42.h,
-                    width: 332.w,
+                   width: double.infinity,
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: formIsValid? turquoiseColorApp:Colors.grey,

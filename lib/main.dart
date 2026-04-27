@@ -79,9 +79,43 @@ void main() async {
 }
 
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+
+  Size _lastLogicalSize = Size.zero;
   late final Future<bool> myFuture = isLogin();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeMetrics() {
+    final view = WidgetsBinding.instance.platformDispatcher.views.first;
+    final logicalSize = view.physicalSize / view.devicePixelRatio;
+
+    debugPrint('didChangeMetrics -> $logicalSize');
+
+    if (_lastLogicalSize != logicalSize) {
+      _lastLogicalSize = logicalSize;
+      setState(() {});
+    }
+  }
+
 
   WidgetStateProperty<Color?> _customColor() {
     return WidgetStateProperty.resolveWith<Color?>(
@@ -94,16 +128,46 @@ class MyApp extends StatelessWidget {
     );
   }
 
+  Size _getDesignSize(BuildContext context) {
+    final view = View.of(context);
+    final size = view.physicalSize / view.devicePixelRatio;
+
+    final width = size.width;
+    final height = size.height;
+    final isLandscape = width > height;
+
+    debugPrint('---- SCREEN INFO ----');
+    debugPrint('logical width: $width');
+    debugPrint('logical height: $height');
+    debugPrint('isLandscape: $isLandscape');
+
+    if (width >= 900) {
+      debugPrint('designSize selected: 1440x1024 (large screen)');
+      return const Size(1440, 1024);
+    }
+
+    if (isLandscape) {
+      debugPrint('designSize selected: 852x393 (phone landscape)');
+      return const Size(852, 393);
+    }
+
+    debugPrint('designSize selected: 393x852 (phone portrait)');
+    return const Size(393, 852);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return OKToast(child: OrientationBuilder(builder: (context, orientation) {
-      debugPrint('orientation main ${orientation.name} ');
+    return OKToast(child: Builder(builder: (context) {
+      final designSize = _getDesignSize(context);
+
+     // debugPrint('orientation main ${orientation.name} ');
       return ScreenUtilInit(
         useInheritedMediaQuery: true,
         //useInheritedMediaQuery: true,
-        designSize: orientation == Orientation.portrait
-            ? const Size(393, 852)
-            : const Size(1440, 1024),
+        designSize:designSize,
+        // designSize: orientation == Orientation.portrait
+        //     ? const Size(393, 852)
+        //     : const Size(1440, 1024),
         minTextAdapt: true,
         builder: (BuildContext context, Widget? child) {
       //debugPrint('orientation main ${(ScreenUtil()).pixelRatio} ');

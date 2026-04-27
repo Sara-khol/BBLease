@@ -14,17 +14,14 @@ import '../../landspace_widget.dart';
 import '../../models/class_user.dart';
 import 'package:flutter/foundation.dart';
 
-
 class WAitForApproveScreen extends StatefulWidget {
   const WAitForApproveScreen({super.key});
-
 
   @override
   State<WAitForApproveScreen> createState() => _WAitForApproveScreenState();
 }
 
 class _WAitForApproveScreenState extends State<WAitForApproveScreen> {
-
   late bool _isMounted;
 
   @override
@@ -34,140 +31,131 @@ class _WAitForApproveScreenState extends State<WAitForApproveScreen> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape) {
-          return LandSpaceWidget(mainWidget: buildContent(context),
-              imageProperties: ImageProperties(
-                  'image6.png', 1000.w, 'עבר בהצלחה'),showAppBar: false);
-        }
-        return buildContent(context);
-      }),
-    );
+        body: LandSpaceWidget(
+            mainWidget: buildContent(context),
+            imageProperties:
+                ImageProperties('image6.png', 1000.w, 'עבר בהצלחה'),
+            showAppBar: false));
   }
 
   buildContent(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 160.h),
-              Image.asset('assets/images/aaa.png',
-                semanticLabel: 'תמונה רישום עבר בהצלחה',),
-              SizedBox(height: 38.h),
-              Text("היי ${User().firstName}!",
-                  style: TextStyle(
-                      fontSize: 28.sp,
-                      height: 1,
-                      fontWeight: FontWeight.bold,
-                      color: blackColorApp)),
-              Text("הרשמתך בוצעה בהצלחה",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 28.sp,
-                      height: 1,
-                      fontWeight: FontWeight.bold,
-                      color: blackColorApp)),
-              Text(
-                  'יש להמתין לאישור מנציג\nלהמשך התהליך.\nישלח מייל בעת העדכון.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 24.sp,
-                      height: 1,
-                      fontWeight: FontWeight.bold,
-                      color: blackColorApp)),
-              SizedBox(height: 25.h),
-              Text(
-                  'שעות פעילות המשרד: 8:00-17:00',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 24.sp,
-                      height: 1,
-                      fontWeight: FontWeight.w600,
-                      color: blackColorApp)),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    if (defaultTargetPlatform == TargetPlatform.android)
-                      SizedBox(
-                        height: 48.h,
-                        width: 332.w,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: turquoiseColorApp,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(100),
-                              ),
-                            ),
-                            onPressed: () {
-                              SystemNavigator.pop(); // Only works on Android.
-                            },
-                            child: Text('סגור',
-                                style: TextStyle(
-                                    fontSize: 18.sp,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.normal))),
-                      ),
-                    if (defaultTargetPlatform == TargetPlatform.android)
-                      SizedBox(height: 12.h),
-                    SizedBox(
-                      height: 48.h,
-                      width: 332.w,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: turquoiseColorApp,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100),
-                            ),
+          SizedBox(height: 160.h),
+          Image.asset(
+            'assets/images/aaa.png',
+            semanticLabel: 'תמונה רישום עבר בהצלחה',
+          ),
+          SizedBox(height: 38.h),
+          Text("היי ${User().firstName}!",
+              style: TextStyle(
+                  fontSize: 28.sp,
+                  height: 1,
+                  fontWeight: FontWeight.bold,
+                  color: blackColorApp)),
+          Text("הרשמתך בוצעה בהצלחה",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 28.sp,
+                  height: 1,
+                  fontWeight: FontWeight.bold,
+                  color: blackColorApp)),
+          Text(
+              'יש להמתין לאישור מנציג\nלהמשך התהליך.\nישלח מייל בעת העדכון.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 24.sp,
+                  height: 1,
+                  fontWeight: FontWeight.bold,
+                  color: blackColorApp)),
+          SizedBox(height: 25.h),
+          Text('שעות פעילות המשרד: 8:00-17:00',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 24.sp,
+                  height: 1,
+                  fontWeight: FontWeight.w600,
+                  color: blackColorApp)),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                if (defaultTargetPlatform == TargetPlatform.android)
+                  Container(
+                    height: 48.h,
+                    width: double.infinity,
+                    margin: EdgeInsets.symmetric(horizontal: 30.w),
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: turquoiseColorApp,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
                           ),
-                          onPressed: () {
-                            displayQuestion1(context,
-                                header: 'להתנתק?',
-                                message: 'האם ברצונך להתנתק מהאפליקציה?',
-                                yesText: 'לצאת',
-                                noText: 'הישאר',
-                                onYes: () {
-                                  MySharedPreferences()
-                                      .clearAllSharedPreference();
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (
-                                              context) => const TelToRegistrationForm()),
-                                          (route) => false);
-                                });
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(
-                                Icons.exit_to_app_outlined,
-                                fill: 0,
+                        ),
+                        onPressed: () {
+                          SystemNavigator.pop(); // Only works on Android.
+                        },
+                        child: Text('סגור',
+                            style: TextStyle(
+                                fontSize: 18.sp,
                                 color: Colors.white,
-                              ),
-                              Text('התנתק',
-                                  style: TextStyle(
-                                      fontSize: 18.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.normal)),
-                            ],
-                          )
+                                fontWeight: FontWeight.normal))),
+                  ),
+                if (defaultTargetPlatform == TargetPlatform.android)
+                  SizedBox(height: 12.h),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 30.w),
+                  height: 48.h,
+                 width: double.infinity,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: turquoiseColorApp,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
                       ),
-                    ),
-
-                    SizedBox(height: 40.h),
-                  ],
+                      onPressed: () {
+                        displayQuestion1(context,
+                            header: 'להתנתק?',
+                            message: 'האם ברצונך להתנתק מהאפליקציה?',
+                            yesText: 'לצאת',
+                            noText: 'הישאר', onYes: () {
+                          MySharedPreferences().clearAllSharedPreference();
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const TelToRegistrationForm()),
+                              (route) => false);
+                        });
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                           Icon(
+                            Icons.exit_to_app_outlined,
+                            fill: 0,
+                            size: 20.sp,
+                            color: Colors.white,
+                          ),
+                          SizedBox(width: 7.w,),
+                          Text('התנתק',
+                              style: TextStyle(
+                                  fontSize: 18.sp,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal)),
+                        ],
+                      )),
                 ),
-              ),
-            ],
+                SizedBox(height: 40.h),
+              ],
+            ),
           ),
         ],
       ),
@@ -175,25 +163,20 @@ class _WAitForApproveScreenState extends State<WAitForApproveScreen> {
   }
 
   getStatus() async {
-  await Future.delayed(const Duration(minutes: 5));
-    await ApiService().getUserById(User().userId, (res)
-    async {
+    await Future.delayed(const Duration(minutes: 5));
+    await ApiService().getUserById(User().userId, (res) async {
       User.fromJson(res['customer']);
-      if (User().customerStatus== 'active_customer') {
+      if (User().customerStatus == 'active_customer') {
         debugPrint('active_customer');
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(
-                builder: (context) => const RentalWidget()),
-                (route) => false);
-      }
-      else{
-          if (_isMounted) {
-            getStatus();
-          }
+            MaterialPageRoute(builder: (context) => const RentalWidget()),
+            (route) => false);
+      } else {
+        if (_isMounted) {
+          getStatus();
+        }
       }
     });
   }
 }
-
-

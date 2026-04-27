@@ -9,24 +9,25 @@ import '../../../landspace_widget.dart';
 import '../../../utils/my_colors.dart';
 
 class CancelationComplete extends StatelessWidget {
-  const CancelationComplete({super.key});
+   CancelationComplete({super.key});
+  late Orientation realOrientation;
 
 
 
   @override
   Widget build(BuildContext context) {
+    realOrientation = View.of(context).physicalSize.width >
+        View.of(context).physicalSize.height
+        ? Orientation.landscape
+        : Orientation.portrait;
     return Scaffold(
-      body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape) {
-          return LandSpaceWidget(mainWidget: buildContent(context,orientation),
-              imageProperties:ImageProperties('image5.png', 1000.w,'תמונת פעולות'),);
-        }
-        return buildContent(context,orientation);
-      }),
+      body: LandSpaceWidget(mainWidget: buildContent(context,realOrientation),
+        imageProperties:ImageProperties('image5.png', 1000.w,'תמונת פעולות')
+      ),
     );
   }
 
-  buildContent(context, Orientation o) {
+  buildContent(context,Orientation o) {
     return Column(
       children: [
         if(o==Orientation.portrait) const AppBarBibilease(),
@@ -72,8 +73,9 @@ class CancelationComplete extends StatelessWidget {
                             color: Colors.white,
                             fontWeight: FontWeight.normal)
                     ),
-                    SizedBox(width: 166.h,),
-                    const Icon(Icons.account_circle_outlined, color: Colors.white,)
+                    SizedBox(width: 136.w,),
+                     Icon(Icons.account_circle_outlined, color: Colors.white
+               ,size: 28.sp.clamp(24.0, 34.0))
 
                   ],
                 ),
@@ -106,13 +108,14 @@ class CancelationComplete extends StatelessWidget {
                           //height: 2.3
                         )
                     ),
-                    SizedBox(width: 136.h,),
-                    const Icon(Icons.logout, color: Colors.white),
+                    SizedBox(width: 136.w,),
+                     Icon(Icons.logout ,size: 28.sp.clamp(24.0, 34.0),color: Colors.white),
                   ],
                 ),
               )
           ),
         ),
+        SizedBox(height: 20.h,),
       ],
     );
   }

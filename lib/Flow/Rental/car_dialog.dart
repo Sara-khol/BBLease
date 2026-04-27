@@ -15,107 +15,112 @@ Future carDetailsDialog(context, Car car, bool isAvailabe) {
       ),
       context: context,
       builder: (context) {
-        return Directionality(
-            textDirection: TextDirection.rtl,
-            child: Wrap(
-              children: [
-                Container(
-                  height: 28.h,
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+        return SafeArea(
+          top: false,
+          maintainBottomViewPadding: true,
+          minimum: EdgeInsets.only(bottom: 20.h),
+          child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Wrap(
+                children: [
+                  Container(
+                    height: 28.h,
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: 30.w,
-                    right: 30.w,
-                  ),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'פרטי רכב',
-                          style: TextStyle(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ),
-                        SizedBox(height: 25.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.drive_eta_outlined,
-                              color: pinkColorApp,
-                            ),
-                            Text(
-                              '  ${car.postTitle}  ',
-                              style: TextStyle(
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: 30.w,
+                      right: 30.w,
+                    ),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'פרטי רכב',
+                            style: TextStyle(
                                 fontSize: 18.sp,
-                                fontWeight: FontWeight.normal,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                          SizedBox(height: 25.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.drive_eta_outlined,
+                                color: pinkColorApp,
                               ),
-                            ),
-                            SizedBox(
-                              width: 50.w,
-                            ),
-                            ImageIcon(
-                              const AssetImage("assets/icons/Filter.png"),
-                              color: pinkColorApp,
-                            ),
-                            Text(
-                              '  ${car.type}  ',
-                              style: TextStyle(
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 13.h),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.fmd_good_outlined,
-                              color: pinkColorApp,
-                            ),
-                            Text(
-                              '  ${car.address}  ',
-                              style: TextStyle(
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 16.h),
-                        /*Container(
-                          height: 48.h,
-                          width: 332.w,
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: turquoiseColorApp,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(100),
+                              Text(
+                                '  ${car.postTitle}  ',
+                                style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.normal,
                                 ),
                               ),
-                              onPressed: () {
-                                //rentalTerm(context);
-                              },
-                              child: Text('אני רוצה להשכיר את הרכב הזה',
-                                  style: TextStyle(
-                                      fontSize: 20.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.normal))),
-                        ),*/
-                        SizedBox(height: 20.h),
-                      ]),
-                ),
-              ],
-            ));
+                              SizedBox(
+                                width: 50.w,
+                              ),
+                              ImageIcon(
+                                const AssetImage("assets/icons/Filter.png"),
+                                color: pinkColorApp,
+                              ),
+                              Text(
+                                '  ${car.type}  ',
+                                style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 13.h),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.fmd_good_outlined,
+                                color: pinkColorApp,
+                              ),
+                              Text(
+                                '  ${car.address}  ',
+                                style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 16.h),
+                          /*Container(
+                            height: 48.h,
+                            width: 332.w,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: turquoiseColorApp,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  //rentalTerm(context);
+                                },
+                                child: Text('אני רוצה להשכיר את הרכב הזה',
+                                    style: TextStyle(
+                                        fontSize: 20.sp,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.normal))),
+                          ),*/
+                          SizedBox(height: 20.h),
+                        ]),
+                  ),
+                ],
+              )),
+        );
       });
 }
 
@@ -131,69 +136,70 @@ Future openingCodeDialog(context, String code) {
       ),
       context: context,
       builder: (context) {
-        return Directionality(
-            textDirection: TextDirection.rtl,
-            child: Wrap(
-              children: [
-                Container(
-                  padding: EdgeInsets.only(right: 20.w,top: 18.h),
-                  // height: 28.h,
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+        return SafeArea(
+          top: false,
+          maintainBottomViewPadding: true,
+          minimum: EdgeInsets.only(bottom: 20.h),
+          child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Wrap(
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(right: 20.w,top: 18.h),
+                    // height: 28.h,
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                   ),
-                ),
-                Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 31.h),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'קוד פתיחה  ',
-                            style: TextStyle(
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                          Image.asset('assets/icons/Password.png'),
-                        ],
-                      ),
-                      SizedBox(height: 47.h),
-                      Text(
-                        ' הקוד לפתיחה הינו ',
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.normal,
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 31.h),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'קוד פתיחה  ',
+                              style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            ),
+                            Image.asset('assets/icons/Password.png',  width: 28.sp.clamp(24.0, 36.0),
+                              height: 28.sp.clamp(24.0, 36.0),),
+                          ],
                         ),
-                      ),
-                      SizedBox(
-                        height: 40.h,
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Image.asset('assets/icons/Component.png'),
-                          SizedBox(width: 20.w),
-                          Text(
+                        SizedBox(height: 47.h),
+                        Text(
+                          ' הקוד לפתיחה הינו ',
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 40.h,
+                        ),
+                        Center(
+                          child: Text(
                             '  $code  ',
                             style: TextStyle(
                               fontSize: 30.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ],
-                      ),
-                      SizedBox(height: 30.h),
-                    ]),
-              ],
-            ));
+                        ),
+                        SizedBox(height: 30.h),
+                      ]),
+                ],
+              )),
+        );
       });
 }
 

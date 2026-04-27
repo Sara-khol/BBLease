@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../landspace_widget.dart';
 import '../../models/class_user.dart';
 import '../../services/api_service.dart';
+import '../../utils/common_funcs.dart';
 import '../../utils/my_colors.dart';
 import '../Dialogs/buttom_dialogs.dart';
 import '../Rental/dialogs.dart';
@@ -27,12 +28,8 @@ class _ContactUsState extends State<ContactUs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape) {
-          return LandSpaceWidget(mainWidget: buildContent(),imageProperties:ImageProperties('image5.png', 1000.w,'תמונת פעולות'));
-        }
-        return buildContent();
-      }),
+      body: LandSpaceWidget(
+          mainWidget: buildContent(),imageProperties:ImageProperties('image5.png', 1000.w,'תמונת פעולות')),
     );
   }
 
@@ -48,13 +45,11 @@ class _ContactUsState extends State<ContactUs> {
                   .viewInsets
                   .bottom, left: 30.w, right: 30.w),
           child: Column(
-
             children: [
-              SizedBox(height: 35.h,),
-              Align(alignment: Alignment.topRight,
-                  child: IconButton(onPressed: () => Navigator.pop(context),
-                      icon: const Icon(Icons.arrow_back_ios))),
-              SizedBox(height: 62.h,),
+              SizedBox(height: 20.h),
+              CommonFuncs().getBackButton(context),
+             //SizedBox(height: 62.h,),
+             SizedBox(height: 20.h),
               Text('יש שאלה?',
                 style: TextStyle(fontSize: 23.sp, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,),
@@ -65,8 +60,22 @@ class _ContactUsState extends State<ContactUs> {
               TextFormField(
                 keyboardType: TextInputType.name,
                 cursorColor: blackColorApp,
-                decoration: getInputDecoration('שם מלא', 332.w,
-                    suffixIcon: const Icon(Icons.account_circle_outlined)),
+                decoration: getInputDecoration(
+                  'שם מלא',
+                  332.w,
+                  suffixIcon: SizedBox(
+                    width:26.sp.clamp(22.0, 30.0),
+                    height: 26.sp.clamp(22.0, 30.0),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 8.w),
+                      child: Icon(
+                        Icons.account_circle_outlined,
+                        color: blackColorApp,
+                        size:22.sp.clamp(20.0, 26.0),
+                      ),
+                    ),
+                  ),
+                ),
                 style:
                 TextStyle(color: blackColorApp, fontSize: 18.sp),
                 controller: _name,
@@ -81,8 +90,22 @@ class _ContactUsState extends State<ContactUs> {
                   TextFormField(
                     keyboardType: TextInputType.phone,
                     cursorColor: blackColorApp,
-                    decoration: getInputDecoration(
-                        'טלפון', 159.w, suffixIcon: const Icon(Icons.phone_outlined)),
+                  decoration: getInputDecoration(
+                    'טלפון',
+                    159.w,
+                    suffixIcon: SizedBox(
+                      width:26.sp.clamp(22.0, 30.0),
+                      height: 26.sp.clamp(22.0, 30.0),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 8.w),
+                        child: Icon(
+                          Icons.phone_outlined,
+                          color: blackColorApp,
+                          size:22.sp.clamp(20.0, 26.0),
+                        ),
+                      ),
+                    ),
+                  ),
                     style:
                     TextStyle(color: blackColorApp, fontSize: 18.sp),
                     controller: _phone,
@@ -95,8 +118,22 @@ class _ContactUsState extends State<ContactUs> {
                   TextFormField(
                     keyboardType: TextInputType.emailAddress,
                     cursorColor: blackColorApp,
-                    decoration: getInputDecoration('אימייל', 160.w,
-                        suffixIcon: const Icon(Icons.email_outlined)),
+                      decoration: getInputDecoration(
+                        'אימייל',
+                        160.w,
+                        suffixIcon: SizedBox(
+                          width:26.sp.clamp(22.0, 30.0),
+                          height: 26.sp.clamp(22.0, 30.0),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 8.w),
+                            child: Icon(
+                              Icons.email_outlined,
+                              color: blackColorApp,
+                              size:22.sp.clamp(20.0, 26.0),
+                            ),
+                          ),
+                        ),
+                      ),
                     style:
                     TextStyle(color: blackColorApp, fontSize: 18.sp),
                     controller: _email,
@@ -125,39 +162,43 @@ class _ContactUsState extends State<ContactUs> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
+                  /*Row(
                     children: [
-                      const Icon(Icons.fmd_good_outlined),
+                       Icon(Icons.fmd_good_outlined,size: 22.sp.clamp(20.0, 26.0),),
                       SizedBox(width: 11.w),
                       Text(
                         'כפר העברי 1, נווה יעקב, ירושלים\nשלמה המלך 4, בני ברק\nהרב שך 34, ביתר עילית\nמנחם פורוש 1, בית שמש ',
                         style: TextStyle(fontSize: 18.sp),)
                     ],
-                  ),
+                  ),*/
                   SizedBox(height: 20.h),
                   Row(
                     children: [
-                      const Icon(Icons.phone_outlined),
+                       Icon(Icons.phone_outlined,size: 22.sp.clamp(20.0, 26.0),),
                       SizedBox(width: 11.w),
-                      Text('1700-700-700',
-                        style: TextStyle(fontSize: 18.sp),)
+            SelectableText(
+              '+972 53-548-4682\n*6873',
+              style: TextStyle(fontSize: 18.sp),
+              textDirection: TextDirection.ltr,
+              textAlign: TextAlign.center,
+            )
                     ],
                   ),
                   SizedBox(height: 15.h),
                   Row(
                     children: [
-                      const Icon(Icons.email_outlined),
+                       Icon(Icons.email_outlined,size: 22.sp.clamp(20.0, 26.0),),
                       SizedBox(width: 11.w),
-                      Text('bibilease@gmail.com',
-                        style: TextStyle(fontSize: 18.sp),)
+                      SelectableText('officeBclick@gmail.com',
+                        style: TextStyle(fontSize: 18.sp))
                     ],
                   ),
                   SizedBox(height: 39.h,),
                   Text('באפשרותך לפנות אלינו במייל ותיענה בתוך 72 שעות.',
                     style: TextStyle(fontSize: 13.sp),),
                   SizedBox(height: 20.h,),
-                  Text(
-                    'במקרה חירום בהזמנה פעילה בלבד! \nנא לחייג ל 0000* שלוחה 0 ',
+                  SelectableText(
+                    'במקרה חירום בהזמנה פעילה בלבד! \nנא לחייג ל 6873* שלוחה 5 ',
                     textAlign: TextAlign.right,
                     style: TextStyle(fontSize: 13.sp),),
                   SizedBox(height: 15.h,),
@@ -250,6 +291,11 @@ class _ContactUsState extends State<ContactUs> {
       ),
       contentPadding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
       suffixIcon: suffixIcon,
+    ).copyWith(
+      suffixIconConstraints: const BoxConstraints(
+        minWidth: 0,
+        minHeight: 0,
+      ),
     );
   }
 }

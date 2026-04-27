@@ -22,21 +22,20 @@ class AddDriver extends StatefulWidget {
 class _AddDriverState extends State<AddDriver> {
 
   final TextEditingController _controller = TextEditingController();
+  late Orientation realOrientation;
 
   @override
   Widget build(BuildContext context) {
+    realOrientation = View.of(context).physicalSize.width >
+        View.of(context).physicalSize.height
+        ? Orientation.landscape
+        : Orientation.portrait;
     return Scaffold(
      resizeToAvoidBottomInset: true,
-        body: OrientationBuilder(builder: (context, orientation) {
-          if (orientation == Orientation.landscape) {
-            return LandSpaceWidget(
-                mainWidget: buildContent(orientation),
-                imageProperties:ImageProperties('image5.png', 1000.w,'תמונת פעולות'),
-            );
-          }
-          return buildContent(orientation);
-        }),
-    );
+        body: LandSpaceWidget(
+          mainWidget: buildContent(realOrientation),
+          imageProperties:ImageProperties('image5.png', 1000.w,'תמונת פעולות'),
+        ));
   }
 
   buildContent(Orientation o) {
@@ -102,7 +101,6 @@ class _AddDriverState extends State<AddDriver> {
   }
 
   Future addDriver(bool isNew,[json]){
-    print(isNew);
     return showModalBottomSheet<dynamic>(
         isScrollControlled: true,
         isDismissible: true,
@@ -114,60 +112,65 @@ class _AddDriverState extends State<AddDriver> {
         ),
         context: context,
         builder: (context) {
-          return Directionality(
-              textDirection: TextDirection.rtl,
-              child: Padding(
-                padding: EdgeInsets.only(left: 30.w, right: 30.w, ),
-                child: Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    alignment: WrapAlignment.center,
-                    children: [
-                      Container(height: 45.h),
-                      Text(
-                        'הוספת נהג',
-                        style: TextStyle(
-                            fontSize: 23.sp,
-                            fontWeight: FontWeight.bold,
-                            color: pinkColorApp),
-                      ),
-                      Container(height: 36.h),
-                      Text(isNew?'נהג זה אינו מוכר במערכת\nעליך לסרוק את רישיון הנהיגה שלו: על שמו ובתוקף'
-                          :'נהג זה מופיע כמשתמש מוכר במערכת\nניתן לצרפו בקלות ובמהירות בלחיצת כפתור',
-                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal,),
-                        textAlign: TextAlign.center
-                        ,textDirection: TextDirection.rtl,),
-                      Container(height: 30.h),
-                      SizedBox(
-                        height: 48.h,
-                        width: 332.w,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: turquoiseColorApp,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(100),
-                              ),
-                            ),
-                            onPressed: () {
-                              User().additionalDriver.id=_controller.text;
-                              isNew
-                                ? Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LicenseFront(index: widget.index)))
-                                : User().additionalDriver=AdditionalDriver.fromJson(json);
-                              },
-                            child: Text(isNew?'סרוק רישיון נהיגה':'הוספת נהג',
-                                style: TextStyle(
-                                    fontSize: 20.sp,
-                                    color: Colors.white,
-                                    //fontWeight: FontWeight.w600,
-                                    //height: 2.3
-                                )
-                            )
-
+          return SafeArea(
+            top: false,
+            maintainBottomViewPadding: true,
+            minimum: EdgeInsets.only(bottom: 20.h),
+            child: Directionality(
+                textDirection: TextDirection.rtl,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 30.w, right: 30.w, ),
+                  child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      alignment: WrapAlignment.center,
+                      children: [
+                        Container(height: 45.h),
+                        Text(
+                          'הוספת נהג',
+                          style: TextStyle(
+                              fontSize: 23.sp,
+                              fontWeight: FontWeight.bold,
+                              color: pinkColorApp),
                         ),
-                      ),
-                      Container(height: 22.h),
-                    ]
-                ),
-              )
+                        Container(height: 36.h),
+                        Text(isNew?'נהג זה אינו מוכר במערכת\nעליך לסרוק את רישיון הנהיגה שלו: על שמו ובתוקף'
+                            :'נהג זה מופיע כמשתמש מוכר במערכת\nניתן לצרפו בקלות ובמהירות בלחיצת כפתור',
+                          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal,),
+                          textAlign: TextAlign.center
+                          ,textDirection: TextDirection.rtl,),
+                        Container(height: 30.h),
+                        SizedBox(
+                          height: 48.h,
+                          width: 332.w,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: turquoiseColorApp,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                              ),
+                              onPressed: () {
+                                User().additionalDriver.id=_controller.text;
+                                isNew
+                                  ? Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LicenseFront(index: widget.index,orderId: widget.orderId,)))
+                                  : User().additionalDriver=AdditionalDriver.fromJson(json);
+                                },
+                              child: Text(isNew?'סרוק רישיון נהיגה':'הוספת נהג',
+                                  style: TextStyle(
+                                      fontSize: 20.sp,
+                                      color: Colors.white,
+                                      //fontWeight: FontWeight.w600,
+                                      //height: 2.3
+                                  )
+                              )
+
+                          ),
+                        ),
+                        Container(height: 22.h),
+                      ]
+                  ),
+                )
+            ),
           );
         }
     );

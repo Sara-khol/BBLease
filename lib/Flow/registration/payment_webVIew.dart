@@ -45,14 +45,11 @@ class _PaymentWebViewState extends State<PaymentWebView> {
 
   @override
   Widget build(BuildContext context) {
-    return OrientationBuilder(builder: (context, orientation) {
-      return Scaffold(
-          body: orientation == Orientation.landscape
-              ? LandSpaceWidget(
-                  mainWidget: buildContent(),
-                  imageProperties: ImageProperties('l_register3.png', 618.w,'תמונת הרשמה שלב 3'),showAppBar: false,)
-              : buildContent());
-    });
+    return Scaffold(
+          body:LandSpaceWidget(
+          mainWidget: buildContent(),
+      imageProperties: ImageProperties('l_register3.png', 618.w,'תמונת הרשמה שלב 3'),showAppBar: false,)
+    );
   }
 
   setStatusForWeb() async

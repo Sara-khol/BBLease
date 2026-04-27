@@ -2,6 +2,7 @@
 import 'package:bblease/Flow/Rental/active_rent.dart';
 import 'package:bblease/Flow/registration/payment_webView.dart';
 import 'package:bblease/Flow/registration/sucsses_registration.dart';
+import 'package:bblease/Flow/registration/wait_for_approve_screen.dart';
 import 'package:bblease/landspace_widget.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:bblease/services/api_service.dart';
@@ -58,14 +59,8 @@ class _LicenseDetailsState extends State<LicenseDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: OrientationBuilder(
-        builder: (context,orientation) {
-          return  orientation==Orientation.landscape?
-            LandSpaceWidget( mainWidget: buildContent(),imageProperties: ImageProperties('l_register2.png', 618.w,'תמונת הרשמה שלב 2'),showAppBar: false,):
-                buildContent();
+      body:  LandSpaceWidget( mainWidget: buildContent(),imageProperties: ImageProperties('l_register2.png', 618.w,'תמונת הרשמה שלב 2'),showAppBar: false)
 
-        }
-      ),
     );
   }
 
@@ -264,10 +259,10 @@ class _LicenseDetailsState extends State<LicenseDetails> {
                         ),*/
               ),
               //Spacer(),
-              SizedBox(height: 152.h),
+              SizedBox(height: 100.h),
               SizedBox(
                 height: 42.h,
-                width: 332.w,
+                width: double.infinity,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: turquoiseColorApp,
@@ -398,7 +393,8 @@ class _LicenseDetailsState extends State<LicenseDetails> {
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                  builder: (context) => PaymentWebView(url: res)),
+               //   builder: (context) => PaymentWebView(url: res)),
+                  builder: (context) => WAitForApproveScreen()),
               (route) => false);
         });
 
@@ -410,7 +406,7 @@ class _LicenseDetailsState extends State<LicenseDetails> {
 
     print(User().additionalDriver.toString());
 
-    showLoading(context);
+    showLoading(context,false);
     if(widget.index==3) {
         ApiService().addDriverToActiveRent(widget.orderId!, (res) {
           Navigator.pop(context);

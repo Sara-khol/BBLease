@@ -9,6 +9,8 @@ import '../../models/class_rent.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:bblease/utils/download_helper.dart';
 
+import '../../utils/common_funcs.dart';
+
 
 //import 'dart:html';
 // import 'package:flutter_web_plugins/flutter_web_plugins.dart';
@@ -30,7 +32,6 @@ class _OrderDetailsState extends State<OrderDetails> {
   double additionsPrice = 0;
 
   int isDownloaded = 0;
-  Widget downloadIcon = const Icon(Icons.download, color: Colors.white,);
 
 
   @override
@@ -67,12 +68,9 @@ class _OrderDetailsState extends State<OrderDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: OrientationBuilder(builder: (c, o) {
-          return o == Orientation.landscape ? LandSpaceWidget(
-              mainWidget: buildContent(),
-              imageProperties: ImageProperties('image3.png', 1000.w,'תמונת מידע נוסף')):
-              buildContent();
-        },));
+        body:LandSpaceWidget(
+            mainWidget: buildContent(),
+            imageProperties: ImageProperties('image3.png', 1000.w,'תמונת מידע נוסף')));
   }
 
   buildContent() {
@@ -81,14 +79,7 @@ class _OrderDetailsState extends State<OrderDetails> {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: const EdgeInsets.all(25),
-                  child: IconButton(onPressed: () => Navigator.pop(context),
-                      icon: const Icon(Icons.arrow_back_ios)),
-                ),
-              ),
+              CommonFuncs().getBackButton(context),
               //SizedBox(height: 30.h),
               Text(
                 ' הסטוריית הזמנות > פירוט הזמנה ',
@@ -140,7 +131,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                 children: [
                                   Center(
                                     child: ConstrainedBox(
-                                      constraints: const BoxConstraints(maxWidth: 520), // keeps layout sane on wide web
+                                      constraints: const BoxConstraints(maxWidth: 720), // keeps layout sane on wide web
                                       child: Container(
                                         width: double.infinity,
                                         margin: EdgeInsets.only(top: 28.h),
@@ -266,7 +257,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                 children: [
                                   Center(
                                     child: ConstrainedBox(
-                                      constraints: const BoxConstraints(maxWidth: 520), // keeps layout sane on wide web
+                                      constraints: const BoxConstraints(maxWidth: 720), // keeps layout sane on wide web
                                       child: Container(
                                         width: double.infinity,
                                         margin: EdgeInsets.only(top: 28.h),
@@ -372,7 +363,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                 children: [
                                   Center(
                                     child: ConstrainedBox(
-                                      constraints: const BoxConstraints(maxWidth: 520), // keeps layout sane on wide web
+                                      constraints: const BoxConstraints(maxWidth: 720), // keeps layout sane on wide web
                                       child: Container(
                                         width: double.infinity,
                                         margin: EdgeInsets.only(top: 28.h),
@@ -446,9 +437,11 @@ class _OrderDetailsState extends State<OrderDetails> {
                                 ],
                               ),
                               SizedBox(height: 25.h),
-                              SizedBox(
+                              Container(
                                 height: 48.h,
-                                width: 332.w,
+                                  width: double.infinity,
+                                  margin: EdgeInsets.symmetric(horizontal: 20.w),
+                                //width: 332.w,
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: pinkColorApp,
@@ -458,16 +451,12 @@ class _OrderDetailsState extends State<OrderDetails> {
                                       elevation: 0.0,
                                     ),
                                     onPressed: () {
-                                      print(widget.rent.url);
                                       if (kIsWeb) {
                                         downloadFileWeb();
                                         // Optionally, update UI immediately since web doesn't track download progress
                                         setState(() {
                                           isDownloaded = 2;
-                                          downloadIcon = const Icon(
-                                            Icons.check_circle_outline,
-                                            color: Colors.white,
-                                          );
+
                                         });
                                       }
                                       else {
@@ -476,19 +465,10 @@ class _OrderDetailsState extends State<OrderDetails> {
                                           onProgress: (fileName, progress) =>
                                               setState(() {
                                                 isDownloaded = 1;
-                                                downloadIcon = SizedBox(
-                                                    height: 20.h,
-                                                    width: 20.w,
-                                                    child: const CircularProgressIndicator(
-                                                      color: Colors.white,));
                                               }),
                                           onDownloadCompleted: (path) =>
                                               setState(() {
                                                 isDownloaded = 2;
-                                                downloadIcon = const Icon(
-                                                  Icons.check_circle_outline,
-                                                  color: Colors.white,
-                                                );
                                               }),
                                         );
                                       }
@@ -514,7 +494,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                   fontWeight: FontWeight.normal,
                                                   color: Colors.white),),
                                           const Spacer(),
-                                          downloadIcon
+                                          buildDownloadIcon(),
                                         ],
                                       ),
                                     )),
@@ -522,7 +502,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                               SizedBox(height: 12.h),
                               SizedBox(
                                 height: 48.h,
-                                width: 332.w,
+                              //  width: 332.w,
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: pinkColorApp,
@@ -542,9 +522,10 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                 fontWeight: FontWeight.normal,
                                                 color: Colors.white),),
                                           const Spacer(),
-                                          const Icon(
+                                           Icon(
                                             Icons.account_circle_outlined,
                                             color: Colors.white,
+                                            size: 20.sp,
                                           )
                                         ],
                                       ),
@@ -571,106 +552,160 @@ class _OrderDetailsState extends State<OrderDetails> {
       context: context,
       barrierColor: Colors.black12.withOpacity(0.1),
       elevation: 2,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25)),),
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.of(context).size.width,
+      ),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical
+        (top: Radius.circular(25))),
       builder: (context) =>
-          Directionality(
-            textDirection: TextDirection.rtl,
-            child: Container(
-              //  constraints: BoxConstraints(maxHeight: 350.h),
-              decoration: const ShapeDecoration(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25),
+          SafeArea(
+            top: false,
+            maintainBottomViewPadding: true,
+            minimum: EdgeInsets.only(bottom: 20.h),
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Container(
+                width: double.infinity,
+                decoration: const ShapeDecoration(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25),
+                      topRight: Radius.circular(25),
+                    ),
                   ),
+                  shadows: [
+                    BoxShadow(
+                      color: Color(0x3F000000),
+                      blurRadius: 250,
+                      offset: Offset(0, 4),
+                      spreadRadius: 0,
+                    )
+                  ],
                 ),
-                shadows: [
-                  BoxShadow(
-                    color: Color(0x3F000000),
-                    blurRadius: 250,
-                    offset: Offset(0, 4),
-                    spreadRadius: 0,
-                  )
-                ],
-              ),
-              child: Wrap(
-                children: [
-                  Container(
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                      icon: const Icon(Icons.close),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      alignment: Alignment.topRight,
+                      child: IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 0.w, right: 0.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 0.w, right: 0.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('פירוט תשלום', style: TextStyle(fontSize: 22.sp,
+                                  fontWeight: FontWeight.bold),),
+                              SizedBox(width: 9.w,),
+                              Icon(Icons.credit_card, color: pinkColorApp, size: 24.sp),
+                            ],
+                          ),
+                          SizedBox(height: 30.h),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('פירוט תשלום', style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold),),
-                            SizedBox(width: 9.w,),
-                            Icon(Icons.credit_card, color: pinkColorApp, size: 24.sp,),
-                          ],
-                        ),
-                        SizedBox(height: 30.h,),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('השכרה ללא מע"מ',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal)),
-                                SizedBox(height: 17.h),
-                                Text('תוספות',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal)),
-                                SizedBox(height: 17.h),
-                                Text('מע”מ',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal)),
-                                SizedBox(height: 17.h),
-                                Text('סך הכל', overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal, color: pinkColorApp)),
+                                Expanded(
+                                  flex: 5,
+                                  child: _paymentColumn([
+                                    'השכרה ללא מע"מ',
+                                    'תוספות',
+                                    'מע”מ',
+                                    'סך הכל',
+                                  ], isLastPink: true),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: _paymentColumn([
+                                    '₪ ${(rentPrice * 0.82).round()}',
+                                    '₪ $additionsPrice',
+                                    '₪ ${(rentPrice * 0.18).round()}',
+                                    '₪ ${rentPrice + additionsPrice}',
+                                  ], bold: true),
+                                ),
+                                Expanded(
+                                  flex: 5,
+                                  child: _paymentColumn([
+                                    'תקופת ההשכרה',
+                                    'תוספות',
+                                    'תוספת 17%',
+                                    'תשלום כולל מע”מ',
+                                  ], isLastPink: true),
+                                ),
                               ],
                             ),
-                            // SizedBox(width: 50.h),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('₪ ${(rentPrice * 0.82).round()}',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
-                                SizedBox(height: 17.h),
-                                Text('₪ $additionsPrice',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
-                                SizedBox(height: 17.h),
-                                Text('₪ ${(rentPrice * 0.18).round()}', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
-                                SizedBox(height: 17.h),
-                                Text('₪ ${rentPrice + additionsPrice}', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
-                              ],
-                            ),
-                            // SizedBox(width: 50.h),
-                            Column(
-                              children: [
-                               // Text(dayDiff==0?'6 שעות':'$dayDiff ימים * ${widget.rent.car.pricePerDay} ליום ', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal)),
-                               Text('תקופת ההשכרה', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal)),
-                                SizedBox(height: 17.h),
-                                Text('תוספות', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal)),
-                                SizedBox(height: 17.h),
-                                Text('תוספת 17%',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal)),
-                                SizedBox(height: 17.h),
-                                Text('תשלום כולל מע”מ', overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.normal, color: pinkColorApp)),
-                              ],
-                            )
-                          ],
-                        ),
-                        SizedBox(height: 20.h,),
-                      ],
+                          SizedBox(height: 20.h),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
+    );
+  }
+
+  Widget _paymentColumn(
+      List<String> items, {
+        bool bold = false,
+        bool isLastPink = false,
+      }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: List.generate(items.length, (index) {
+        final isLast = index == items.length - 1;
+
+        return Padding(
+          padding: EdgeInsets.only(bottom: index == items.length - 1 ? 0 : 17.h),
+          child: Text(
+            items[index],
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            softWrap: false,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20.sp.clamp(18.0, 22.0),
+              fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+              color: isLastPink && isLast ? pinkColorApp : blackColorApp,
+            ),
+          ),
+        );
+      }),
+    );
+  }
+
+  Widget buildDownloadIcon() {
+    if (isDownloaded == 1) {
+      return SizedBox(
+        height: 20.sp.clamp(18.0, 24.0),
+        width: 20.sp.clamp(18.0, 24.0),
+        child: const CircularProgressIndicator(
+          color: Colors.white,
+          strokeWidth: 2,
+        ),
+      );
+    }
+
+    if (isDownloaded == 2) {
+     return  Icon(
+          Icons.check_circle_outline,
+          color: Colors.white,
+          size: 20.sp
+      );
+    }
+
+    return Icon(
+      Icons.download,
+      color: Colors.white,
+      size: 26.sp.clamp(22.0, 28.0),
     );
   }
 }

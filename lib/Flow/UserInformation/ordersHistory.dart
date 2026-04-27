@@ -3,6 +3,7 @@ import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/UserInformation/orderDetails.dart';
 import 'package:bblease/landspace_widget.dart';
 import 'package:bblease/main.dart';
+import 'package:bblease/utils/common_funcs.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -32,10 +33,13 @@ class _OrdersHistoryState extends State<OrdersHistory> with RouteAware  {
   List<Rental> futureOrders = [];
   late Rental currentRent;
   late int selected;
+  Map<String, int> downloadStatus = {};
 
   DateTime? s;
   DateTime? e;
   bool initData = false;
+  late Orientation realOrientation;
+
 
   @override
   void initState() {
@@ -53,7 +57,6 @@ class _OrdersHistoryState extends State<OrdersHistory> with RouteAware  {
 
   getOrders() async {
     try {
-      print('getOrders');
       await ApiService().getUserOrders(User().userId, (data) {
         var historyJson = data['history'];
         var futureJson = data['futurity'];
@@ -102,121 +105,69 @@ class _OrdersHistoryState extends State<OrdersHistory> with RouteAware  {
         context: context,
         builder: (context) {
           return StatefulBuilder(builder: (context, StateSetter setState) {
-            return Padding(
-              padding: EdgeInsets.only(bottom: 30.h/*MediaQuery.of(context).viewInsets.bottom*/),
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Wrap(
-                  children: [
-                    Container(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                        icon: const Icon(Icons.close),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
+            return SafeArea(
+              top: false,
+              maintainBottomViewPadding: true,
+              minimum: EdgeInsets.only(bottom: 20.h),
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 30.h/*MediaQuery.of(context).viewInsets.bottom*/),
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Wrap(
+                    children: [
+                      Container(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 30.w, right: 30.w),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'סנן הזמנות לפי תאריך  ',
-                                style: TextStyle(
-                                    fontSize: 22.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                              ),
-                              ImageIcon(
-                                const AssetImage("assets/icons/CalendarBig.png"),
-                                color: pinkColorApp,
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 26.h,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text('ממתי ?',
+                      Padding(
+                        padding: EdgeInsets.only(left: 30.w, right: 30.w),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'סנן הזמנות לפי תאריך  ',
                                   style: TextStyle(
-                                      fontSize: 20.sp,
+                                      fontSize: 22.sp,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.black)),
-                            ],
-                          ),
-                          TextFormField(
-                            readOnly: true,
-                            cursorColor: const Color.fromRGBO(15, 17, 21, 1),
-                            decoration: InputDecoration(
-                              isDense: true,
-                              labelStyle: TextStyle(
-                                fontSize: 22.sp,
-                                fontWeight: FontWeight.normal,
-                                color: const Color.fromRGBO(15, 17, 21, 1),
-                                fontFamily: 'PLONI',
-                              ),
-                              floatingLabelBehavior: FloatingLabelBehavior.auto,
-                              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,),
-                                borderSide: const BorderSide(color: Color.fromRGBO(15, 17, 21, 1),),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0,),
-                                borderSide: const BorderSide(color: Color.fromRGBO(15, 17, 21, 1),),
-                              ),
-                              contentPadding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
-                              suffixIcon: ImageIcon(
-                                const AssetImage("assets/icons/CalendarBig.png"),
-                                color: pinkColorApp,
-                              ),
+                                      color: Colors.black),
+                                ),
+                                ImageIcon(
+                                  const AssetImage("assets/icons/CalendarBig.png"),
+                                  color: pinkColorApp,
+                                ),
+                              ],
                             ),
-                            //style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
-                            controller: start,
-                            style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w300),
-                            onTap: () async {
-                              DateTime? date = await showDatePicker(
-                                  locale: const Locale("he", "HE"),
-                                  textDirection: TextDirection.rtl,
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(2000),
-                                  lastDate: DateTime.now());
-                              if (date != null) {
-                                start.text = intl.DateFormat('dd.MM.yyyy').format(date);
-                                s = date;
-                                print('start: $s');
-
-                              }
-                            },
-                          ),
-                          SizedBox(height: 20.h,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text('עד -',
-                                  style: TextStyle(
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black)),
-                            ],
-                          ),
-                          TextFormField(
-                            readOnly: true,
-                            cursorColor: const Color.fromRGBO(15, 17, 21, 1),
-                            decoration: InputDecoration(
+                            SizedBox(height: 26.h,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text('ממתי ?',
+                                    style: TextStyle(
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black)),
+                              ],
+                            ),
+                            TextFormField(
+                              readOnly: true,
+                              cursorColor: const Color.fromRGBO(15, 17, 21, 1),
+                              decoration: InputDecoration(
                                 isDense: true,
                                 labelStyle: TextStyle(
                                   fontSize: 22.sp,
-                                  fontWeight: FontWeight.w300,
+                                  fontWeight: FontWeight.normal,
                                   color: const Color.fromRGBO(15, 17, 21, 1),
                                   fontFamily: 'PLONI',
                                 ),
                                 floatingLabelBehavior: FloatingLabelBehavior.auto,
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0,),
+                                enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0,),
                                   borderSide: const BorderSide(color: Color.fromRGBO(15, 17, 21, 1),),
                                 ),
                                 focusedBorder: OutlineInputBorder(
@@ -225,55 +176,112 @@ class _OrdersHistoryState extends State<OrdersHistory> with RouteAware  {
                                 ),
                                 contentPadding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
                                 suffixIcon: ImageIcon(
-                                  const AssetImage("assets/icons/Calendar.png"),
+                                  const AssetImage("assets/icons/CalendarBig.png"),
                                   color: pinkColorApp,
-                                )),
-                            style: TextStyle(fontSize: 22.sp),
-                            controller: end,
-                            onTap: () async {
-                              DateTime? date = await showDatePicker(
-                                  locale: const Locale("he", "HE"),
-                                  textDirection: TextDirection.rtl,
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(2000),
-                                  lastDate: DateTime.now());
-                              if (date != null) {
-                                end.text = intl.DateFormat('dd.MM.yyyy').format(date);
-                                e = date;
-                                print('end: $e');
-
-                              }
-                            },
-                          ),
-                          SizedBox(height: 30.h,),
-                          SizedBox(
-                            height: 48.h,
-                            width: 332.w,
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: turquoiseColorApp,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
                                 ),
-                                onPressed: () {
-                                  setState(() {});
-                                  Navigator.pop(context);
+                              ),
+                              //style: const TextStyle(color: Color.fromRGBO(15, 17, 21, 1),),
+                              controller: start,
+                              style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w300),
+                              onTap: () async {
+                                DateTime? date = await showDatePicker(
+                                    locale: const Locale("he", "HE"),
+                                    textDirection: TextDirection.rtl,
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(2000),
+                                    lastDate: DateTime.now());
+                                if (date != null) {
+                                  start.text = intl.DateFormat('dd.MM.yyyy').format(date);
+                                  s = date;
+                                  print('start: $s');
 
-                                },
-                                child: const Text(
-                                  'הצג',
-                                  style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.normal,
-                                    color: Colors.white
+                                }
+                              },
+                            ),
+                            SizedBox(height: 20.h,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text('עד -',
+                                    style: TextStyle(
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black)),
+                              ],
+                            ),
+                            TextFormField(
+                              readOnly: true,
+                              cursorColor: const Color.fromRGBO(15, 17, 21, 1),
+                              decoration: InputDecoration(
+                                  isDense: true,
+                                  labelStyle: TextStyle(
+                                    fontSize: 22.sp,
+                                    fontWeight: FontWeight.w300,
+                                    color: const Color.fromRGBO(15, 17, 21, 1),
+                                    fontFamily: 'PLONI',
                                   ),
-                                )),
-                          ),
-                        ],
+                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0,),
+                                    borderSide: const BorderSide(color: Color.fromRGBO(15, 17, 21, 1),),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0,),
+                                    borderSide: const BorderSide(color: Color.fromRGBO(15, 17, 21, 1),),
+                                  ),
+                                  contentPadding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 20.h),
+                                  suffixIcon: ImageIcon(
+                                    const AssetImage("assets/icons/Calendar.png"),
+                                    color: pinkColorApp,
+                                  )),
+                              style: TextStyle(fontSize: 22.sp),
+                              controller: end,
+                              onTap: () async {
+                                DateTime? date = await showDatePicker(
+                                    locale: const Locale("he", "HE"),
+                                    textDirection: TextDirection.rtl,
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(2000),
+                                    lastDate: DateTime.now());
+                                if (date != null) {
+                                  end.text = intl.DateFormat('dd.MM.yyyy').format(date);
+                                  e = date;
+                                  print('end: $e');
+
+                                }
+                              },
+                            ),
+                            SizedBox(height: 30.h,),
+                            SizedBox(
+                              height: 48.h,
+                              width: 332.w,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: turquoiseColorApp,
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
+                                  ),
+                                  onPressed: () {
+                                    setState(() {});
+                                    Navigator.pop(context);
+
+                                  },
+                                  child: const Text(
+                                    'הצג',
+                                    style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.normal,
+                                      color: Colors.white
+                                    ),
+                                  )),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 20.h,),
-                  ],
+                      SizedBox(height: 20.h,),
+                    ],
+                  ),
                 ),
               ),
             );
@@ -289,12 +297,13 @@ class _OrdersHistoryState extends State<OrdersHistory> with RouteAware  {
 
   @override
   Widget build(BuildContext context) {
+    realOrientation = View.of(context).physicalSize.width >
+        View.of(context).physicalSize.height
+        ? Orientation.landscape
+        : Orientation.portrait;
     return Scaffold(
-      body:OrientationBuilder(builder: (c,o){
-        return o==Orientation.landscape?
-            LandSpaceWidget(mainWidget: buildContent(o), imageProperties: ImageProperties('image4.png', 1000.w,'תמונת פרטי רכב')) :buildContent(o);
-      },) ,
-    );
+      body: LandSpaceWidget(mainWidget: buildContent(realOrientation),
+          imageProperties: ImageProperties('image4.png', 1000.w,'תמונת פרטי רכב')));
   }
 
   List<Rental> getFilteredRentals(List<Rental> ordersHistory, DateTime? s, DateTime? e) {
@@ -318,9 +327,7 @@ class _OrdersHistoryState extends State<OrdersHistory> with RouteAware  {
           if(o==Orientation.portrait)SizedBox(height: 24.h,),
           if(widget.goBack)Padding(
             padding:  EdgeInsets.only(right: 23.w),
-            child: Align(
-                alignment: Alignment.topRight,
-                child: IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back_ios))),
+            child: CommonFuncs().getBackButton(context),
           ),
           if(o==Orientation.portrait)SizedBox(height: 42.h),
           Text(
@@ -411,19 +418,24 @@ class _OrdersHistoryState extends State<OrdersHistory> with RouteAware  {
                 await filterByDate();
                 setState(() {});
               },
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text('סנן לפי תאריך ', style: TextStyle(fontSize: 14.sp, color: blackColorApp),),
-                  ImageIcon(const AssetImage("assets/icons/Filter.png"), color: pinkColorApp,),
-                  SizedBox(width: 40.w,)
-                ],
+              child: Container(
+                width: double.infinity,
+                margin: EdgeInsets.only(left: 38.w),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text('סנן לפי תאריך ', style: TextStyle(fontSize: 14.sp, color: blackColorApp),),
+                    ImageIcon(const AssetImage("assets/icons/Filter.png"), color: pinkColorApp,),
+                    //SizedBox(width: 40.w,)
+                  ],
+                ),
               )),
           SizedBox(height: 30.h,),
-          SizedBox(
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 25.w),
             height: 48.h,
-            width: 332.w,
+           // width: 332.w,
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: initData && User().currentRent != null ? turquoiseColorApp : turquoiseColorApp.withOpacity(0.5),
@@ -442,7 +454,7 @@ class _OrdersHistoryState extends State<OrdersHistory> with RouteAware  {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const ImageIcon(AssetImage("assets/icons/car.png"), color: Colors.white,),
+                     ImageIcon(AssetImage("assets/icons/car.png"), color: Colors.white,size:28.sp.clamp(24.0, 34.0),),
                     SizedBox(width:52.w),
                     Text('פתח הזמנה פעילה',
                       style: TextStyle(
@@ -510,38 +522,43 @@ class _OrdersHistoryState extends State<OrdersHistory> with RouteAware  {
                                     ),
                                     const Spacer(),
                                     IconButton(
-                                        onPressed: () {
-                                          print(rent.url);
-                                          if (kIsWeb) {
-                                            downloadFileWeb(rent.url!);
-                                            // Optionally, update UI immediately since web doesn't track download progress
-                                            setState(() {
-                                              downloadIcon = const Icon(
-                                                Icons.check_circle_outline,
-                                                color: Colors.white,
-                                              );
-                                            });
-                                          }
-                                          else{
+                                      onPressed: () {
+                                        final id = rent.url!;
+
+                                        setState(() {
+                                          downloadStatus[id] = 1;
+                                        });
+
+                                        if (kIsWeb) {
+                                          downloadFileWeb(rent.url!);
+
+                                          setState(() {
+                                            downloadStatus[id] = 2;
+                                          });
+                                        } else {
                                           FileDownloader.downloadFile(
                                             url: rent.url!,
-                                            onDownloadCompleted: (path) =>
-                                                setState(() {
-                                                  print('download complete');
-                                                  downloadIcon = Icon(
-                                                    Icons.check_circle_outline,
-                                                    color: pinkColorApp,
-                                                  );
-                                                }),
-                                          );}
-                                        },
-                                        icon: downloadIcon),
+                                            onDownloadCompleted: (path) {
+                                              setState(() {
+                                                downloadStatus[id] = 2;
+                                              });
+                                            },
+                                            onProgress: (fileName, progress) {
+                                              setState(() {
+                                                downloadStatus[id] = 1;
+                                              });
+                                            },
+                                          );
+                                        }
+                                      },
+                                      icon: buildDownloadIcon(rent.url!),
+                                    )
                                   ],
                                 ),
                               ),
                             ),
                           ),
-                          SizedBox(height: 20.h,)
+                          SizedBox(height: 20.h)
                         ],
                       );
                     }
@@ -579,7 +596,8 @@ class _OrdersHistoryState extends State<OrdersHistory> with RouteAware  {
                             padding: EdgeInsets.symmetric(horizontal: 22.w),
                             child: Row(
                               children: [
-                                const Icon(Icons.access_time),
+                                 Icon(Icons.access_time,size: 28.sp.clamp(24.0, 34.0)),
+                                SizedBox(width: 10.w),
                                 Text('תחל בתאריך: ',
                                   style: TextStyle(
                                       fontSize: 18.sp,
@@ -594,12 +612,29 @@ class _OrdersHistoryState extends State<OrdersHistory> with RouteAware  {
                                 ),
                                 const Spacer(),
                                 IconButton(
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(),
                                   onPressed: () => cancelOrderDialog(context, rent),
-                                  icon: ImageIcon(
-                                    const AssetImage("assets/icons/trash.png"),
-                                    color: blackColorApp,
+                                  icon: SizedBox(
+                                    width: 28.sp.clamp(24.0, 36.0),
+                                    height: 28.sp.clamp(24.0, 36.0),
+                                    child: Image.asset(
+                                      'assets/icons/trash.png',
+                                      fit: BoxFit.contain,
+                                      color: blackColorApp,
+                                    ),
                                   ),
                                 ),
+                                // IconButton(
+                                //   onPressed: () => cancelOrderDialog(context, rent),
+                                //   icon: ImageIcon(
+                                //     //todo does not get big
+                                //     // dialog does not look good
+                                //     size:  28.sp.clamp(24.0, 34.0),
+                                //      const AssetImage('assets/icons/trash.png'),
+                                //     color: blackColorApp,
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
@@ -617,9 +652,11 @@ class _OrdersHistoryState extends State<OrdersHistory> with RouteAware  {
               : Center(child: CircularProgressIndicator(color: pinkColorApp,),
           ),
           if (ordersHistory.isEmpty || !initData )   const Spacer(),
-          SizedBox(
+          Container(
             height: 48.h,
-            width: 332.w,
+           // width: 332.w,
+            margin: EdgeInsets.symmetric(horizontal: 25.w),
+
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: turquoiseColorApp,
@@ -644,9 +681,10 @@ class _OrdersHistoryState extends State<OrdersHistory> with RouteAware  {
                           fontWeight: FontWeight.normal,
                           color: Colors.white),
                     ),
-                    const Icon(
+                     Icon(
                       Icons.home_outlined,
                       color: Colors.white,
+                      size: 28.sp.clamp(24.0, 34.0),
                     )
                   ],
                 )),
@@ -674,4 +712,32 @@ class _OrdersHistoryState extends State<OrdersHistory> with RouteAware  {
     getOrders();
   }
 
+  Widget buildDownloadIcon(String id) {
+    final status = downloadStatus[id] ?? 0;
+
+    if (status == 1) {
+      return SizedBox(
+        width: 20.sp.clamp(18.0, 24.0),
+        height: 20.sp.clamp(18.0, 24.0),
+        child: const CircularProgressIndicator(
+          strokeWidth: 2,
+          color: Colors.white,
+        ),
+      );
+    }
+
+    if (status == 2) {
+      return Icon(
+        Icons.check_circle_outline,
+        color: pinkColorApp,
+        size: 22.sp.clamp(18.0, 24.0),
+      );
+    }
+
+    return Image.asset(
+      "assets/icons/Download.png",
+      width: 22.sp.clamp(18.0, 24.0),
+      height: 22.sp.clamp(18.0, 24.0),
+    );
+  }
   }

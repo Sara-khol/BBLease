@@ -19,6 +19,7 @@ class CancelOrder extends StatefulWidget {
 class _CancelOrderState extends State<CancelOrder> {
 
   late int difference;
+  late Orientation realOrientation;
   @override
   void initState() {
     difference=DateTime.now().difference(widget.rent.creationTime).inMinutes;
@@ -27,22 +28,21 @@ class _CancelOrderState extends State<CancelOrder> {
   
   @override
   Widget build(BuildContext context) {
+    realOrientation = View.of(context).physicalSize.width >
+        View.of(context).physicalSize.height
+        ? Orientation.landscape
+        : Orientation.portrait;
     return Scaffold(
-      body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.landscape) {
-          return LandSpaceWidget(mainWidget: buildContent(orientation),
-              imageProperties:ImageProperties('image5.png', 1000.w,'תמונת פעולות'),
-             );
-        }
-        return buildContent(orientation);
-      }),
+      body: LandSpaceWidget(mainWidget: buildContent(realOrientation),
+        imageProperties:ImageProperties('image5.png', 1000.w,'תמונת פעולות'),
+      ),
     );
   }
 
   buildContent(Orientation o) {
     return Column(
       children: [
-        if(o==Orientation.portrait) const AppBarBibilease(),
+       if(o==Orientation.portrait) const AppBarBibilease(),
         SizedBox(height: 40.h,),
         Text('ביטול הזמנה',
           style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),

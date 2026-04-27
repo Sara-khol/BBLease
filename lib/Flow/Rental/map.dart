@@ -63,37 +63,40 @@ class _RentalWidgetState extends State<RentalWidget> {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else {
               _mapStyle = snapshot.data!;
-              return Stack(
-                children: [
-                  GoogleMap(
-                    initialCameraPosition: _kGoogle,
-                    markers: _markers.toSet(),
-                    //Set<Marker>.of(_markers),
-                    mapType: MapType.normal,
-                    zoomControlsEnabled: true,
-                    myLocationEnabled: true,
-                    myLocationButtonEnabled: true,
-                    compassEnabled: true,
-                    style: _mapStyle,
-                    onMapCreated: (GoogleMapController controller) {
-                      mapController = controller;
-                      _setCurrentLocation();
-                    },
-                  ),
-                  const AppBarBibilease(),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: SizedBox(
-                        height: 48.h,
-                        //width: 183.w,
+              return SafeArea(
+                child: Stack(
+                  children: [
+                    GoogleMap(
+                      initialCameraPosition: _kGoogle,
+                      markers: _markers.toSet(),
+                      //Set<Marker>.of(_markers),
+                      mapType: MapType.normal,
+                      zoomControlsEnabled: true,
+                      myLocationEnabled: true,
+                      myLocationButtonEnabled: true,
+                      compassEnabled: true,
+                      style: _mapStyle,
+                      onMapCreated: (GoogleMapController controller) {
+                        mapController = controller;
+                        _setCurrentLocation();
+                      },
+                    ),
+                    const AppBarBibilease(),
+                    Positioned(
+                      left: 15.w,
+                      bottom: 20.h + MediaQuery.of(context).viewPadding.bottom,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
                         child: PointerInterceptor(
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: turquoiseColorApp,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(100),
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 18.w,
+                                  vertical: 14.h,
                                 ),
                               ),
                               onPressed: () {
@@ -106,28 +109,29 @@ class _RentalWidgetState extends State<RentalWidget> {
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
                                     ' לביצוע הזמנה  ',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        height: 1,
+                                        height: 1.2,
                                         color: Colors.white,
                                         fontSize: 18.sp,
                                         fontWeight: FontWeight.normal),
                                   ),
-                                  const ImageIcon(
-                                    AssetImage("assets/icons/ADD.png"),
+                                    Image.asset("assets/icons/ADD.png",
+                                      fit: BoxFit.cover,
+                                      width: 20.sp.clamp(18.0, 26.0),
+                                      height: 20.sp.clamp(18.0, 26.0),
                                     color: Colors.white,
-                                  ),
+                                                                      )
                                 ],
                               )),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               );
             }
           }),

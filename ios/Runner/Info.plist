@@ -53,5 +53,17 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+
+		<key>NSCameraUsageDescription</key>
+        <string>האפליקציה משתמשת במצלמה לצורך צילום תמונות והעלאתן למערכת.</string>
+
+        <key>NSPhotoLibraryUsageDescription</key>
+        <string>האפליקציה מאפשרת בחירת תמונות מהגלריה לצורך העלאה למערכת.</string>
+
+        <key>NSLocationWhenInUseUsageDescription</key>
+        <string>האפליקציה משתמשת במיקום לצורך שיפור חוויית המשתמש.</string>
+
+        <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+        <string>האפליקציה עשויה להשתמש במיקום גם כאשר היא פועלת ברקע לשיפור השירות.</string>
 	</dict>
 </plist>

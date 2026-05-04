@@ -127,16 +127,13 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
 
               //todo: go to active rent
               if (response["active_order"].isNotEmpty) {
-                print('active order is not empty');
                 User().currentRent = Rental.fromJson(response["active_order"]);
               }
-              print('after if');
               MySharedPreferences().setLastUsage();
               MySharedPreferences().setUserId(User().userId);
               if (User().tranzilaStatus) {
                 if (User().customerStatus == 'active_customer') {
                   if (User().currentRent != null) {
-                    print('current rent is not null');
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(

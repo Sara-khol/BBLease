@@ -173,6 +173,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       //debugPrint('orientation main ${(ScreenUtil()).pixelRatio} ');
           return MaterialApp(
             navigatorObservers: [routeObserver],
+            debugShowCheckedModeBanner: false,
             localizationsDelegates: const [
               //AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

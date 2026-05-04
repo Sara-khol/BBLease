@@ -440,7 +440,6 @@ class _OrderDetailsState extends State<OrderDetails> {
                               Container(
                                 height: 48.h,
                                   width: double.infinity,
-                                  margin: EdgeInsets.symmetric(horizontal: 20.w),
                                 //width: 332.w,
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(

@@ -73,7 +73,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
               // Directionality(textDirection: ui.TextDirection.ltr, child: AppBarBibilease()),
               if (o == Orientation.portrait)
                 SizedBox(
-                  height: 24.h,
+                  height: 15.h,
                 ),
                CommonFuncs().getBackButton(context),
               SizedBox(
@@ -98,7 +98,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                 ),
               )),
               SizedBox(
-                height: 35.h,
+                height: 20.h,
               ),
               SizedBox(
                 width: 300.w,
@@ -378,13 +378,13 @@ class _PersonalProfileState extends State<PersonalProfile> {
       backgroundColor: Colors.white,
       builder: (BuildContext context) =>
           StatefulBuilder(builder: (sheetContext, state) {
-        if (!didYes) {
-          Future.delayed(const Duration(seconds: 4), () {
-            if (Navigator.canPop(context)) {
-              Navigator.pop(context);
-            }
-          });
-        }
+        // if (!didYes) {
+        //   Future.delayed(const Duration(seconds: 4), () {
+        //     if (Navigator.canPop(context)) {
+        //       Navigator.pop(context);
+        //     }
+        //   });
+        // }
         return SafeArea(
           top: false,
           maintainBottomViewPadding: true,
@@ -479,7 +479,7 @@ class _PersonalProfileState extends State<PersonalProfile> {
                                               didYes = false;
                                             });
                                             Future.delayed(
-                                                    const Duration(seconds: 5))
+                                                    const Duration(seconds: 1))
                                                 .then((val) {
                                               MySharedPreferences()
                                                   .clearAllSharedPreference();

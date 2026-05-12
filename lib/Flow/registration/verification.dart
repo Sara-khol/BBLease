@@ -17,9 +17,9 @@ class Verification extends StatefulWidget {
 class _VerificationState extends State<Verification> {
 
   uploadImages() async{
-    print('uploadImages()');
+    debugPrint('uploadImages()');
     await ApiService().fileUpload(context,() {
-      print('files successfully uploaded');
+      debugPrint('files successfully uploaded');
 
       Navigator.push(context,
             MaterialPageRoute(builder: (context) => const PersonalDetailsForm(),));

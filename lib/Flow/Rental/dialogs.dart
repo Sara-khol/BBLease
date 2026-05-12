@@ -361,20 +361,20 @@ Future departurePoint(context, address, nav,
                                                         ? rentalTerm(context, 0)
                                                         : Navigator.push(
                                                             context,
-                                                            // MaterialPageRoute(
-                                                            //     builder: (context) =>
-                                                            //         SearchCar(
-                                                            //           index: 1,
-                                                            //           location:
-                                                            //               location,
-                                                            //           latitude:
-                                                            //               latitude,
-                                                            //           longitude:
-                                                            //               longitude,
-                                                            //           startDate: sdate,
-                                                            //           endDate: edate,
-                                                            //         )));
                                                             MaterialPageRoute(
+                                                                builder: (context) =>
+                                                                    SearchCar(
+                                                                      index: 1,
+                                                                      location:
+                                                                          location,
+                                                                      latitude:
+                                                                          latitude,
+                                                                      longitude:
+                                                                          longitude,
+                                                                      startDate: sdate,
+                                                                      endDate: edate,
+                                                                    )));
+                                                     /*       MaterialPageRoute(
                                                               builder:
                                                                   (context) =>
                                                                       SearchCar(
@@ -389,7 +389,7 @@ Future departurePoint(context, address, nav,
                                                                 endDate: edate,
                                                                 index: 1,
                                                               ),
-                                                            ));
+                                                            ));*/
                                                   } else {
                                                     displayMessage(context,
                                                         message:
@@ -947,8 +947,8 @@ Future rentalTerm(context, nav, [DateTime? s, DateTime? e]) {
                                               endh.text = intl.DateFormat('HH:mm')
                                                   .format(pickedEndDateTime);
                                             }
-                                            print('end: $pickedEndDateTime');
-                                            print('end: ${endh.text}');
+                                            debugPrint('end: $pickedEndDateTime');
+                                            debugPrint('end: ${endh.text}');
                                           }
                                         }
                                       }
@@ -1004,28 +1004,25 @@ Future rentalTerm(context, nav, [DateTime? s, DateTime? e]) {
                                           timeParsed.minute,
                                         );
                                       }
-                                      print('data: ');
-                                      print(startDate);
-                                      print(endDate);
-                                      print(" location $location");
+
 
                                       rent.startDate = startDate!;
                                       rent.endDate = endDate!;
 
-                                      // Navigator.pushReplacement(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //         maintainState: false,
-                                      //         builder: (context) => SearchCar(
-                                      //               index: 1,
-                                      //               location: location,
-                                      //               latitude: latitude,
-                                      //               longitude: longitude,
-                                      //               startDate: rent.startDate,
-                                      //               endDate: rent.endDate,
-                                      //             )));
-
                                       Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              maintainState: false,
+                                              builder: (context) => SearchCar(
+                                                    index: 1,
+                                                    location: location,
+                                                    latitude: latitude,
+                                                    longitude: longitude,
+                                                    startDate: rent.startDate,
+                                                    endDate: rent.endDate,
+                                                  )));
+
+                                /*      Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
                                               maintainState: false,
@@ -1036,7 +1033,7 @@ Future rentalTerm(context, nav, [DateTime? s, DateTime? e]) {
                                                     longitude: 35.216148,
                                                     startDate: rent.startDate,
                                                     endDate: rent.endDate,
-                                                  )));
+                                                  )));*/
                                     } else {
                                       displayMessage(context,
                                           message: 'נא מלא את כל הפרטים');

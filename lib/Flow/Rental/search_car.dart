@@ -333,16 +333,15 @@ class _SearchCarState extends State<SearchCar> {
                                     Text(
                                       '${car.pricePerDay} ₪  |  ליום',
                                       style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.sp,
                                         height: 1.15,
                                       ),
                                     ),
                                     Text(
                                       '${car.totalPrice} ₪  |  סה"כ',
                                       style: TextStyle(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.normal,
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.bold,
                                         height: 1.15,
                                       ),
                                     ),

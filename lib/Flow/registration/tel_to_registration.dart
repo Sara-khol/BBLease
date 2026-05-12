@@ -132,21 +132,23 @@ class _TelToRegistrationFormState extends State<TelToRegistrationForm> {
               MySharedPreferences().setLastUsage();
               MySharedPreferences().setUserId(User().userId);
               if (User().tranzilaStatus) {
-                if (User().customerStatus == 'active_customer') {
+              if (User().customerStatus == 'active_customer') {
                   if (User().currentRent != null) {
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const ActiveRentDetails()),
                         (route) => false);
-                  } else {
+                  }
+                  else {
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const RentalWidget()),
                         (route) => false);
                   }
-                } else {
+              }
+               else {
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(

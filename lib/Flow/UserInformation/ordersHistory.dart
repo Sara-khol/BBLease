@@ -60,14 +60,12 @@ class _OrdersHistoryState extends State<OrdersHistory> with RouteAware  {
       await ApiService().getUserOrders(User().userId, (data) {
         var historyJson = data['history'];
         var futureJson = data['futurity'];
-        print(historyJson);
-        print(futureJson);
+
         if(historyJson!=null)ordersHistory = historyJson.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
         if(futureJson!=null)futureOrders = futureJson.map<Rental>((entry) => (Rental.fromJson(entry))).toList();
-        print(ordersHistory.length);
+
 
         for (var item in ordersHistory) {
-          print(item.status);
           if (item.status == "active-rentals") {
             User().currentRent = item;
           }
@@ -194,7 +192,6 @@ class _OrdersHistoryState extends State<OrdersHistory> with RouteAware  {
                                 if (date != null) {
                                   start.text = intl.DateFormat('dd.MM.yyyy').format(date);
                                   s = date;
-                                  print('start: $s');
 
                                 }
                               },
@@ -248,8 +245,6 @@ class _OrdersHistoryState extends State<OrdersHistory> with RouteAware  {
                                 if (date != null) {
                                   end.text = intl.DateFormat('dd.MM.yyyy').format(date);
                                   e = date;
-                                  print('end: $e');
-
                                 }
                               },
                             ),
@@ -479,14 +474,11 @@ class _OrdersHistoryState extends State<OrdersHistory> with RouteAware  {
                   //padding: EdgeInsets.only(bottom: 8.h),
                   itemBuilder: (context, index) {
                     Rental rent = s!=null&&e!=null?filteredOrdersHistory[index]:ordersHistory[index];
-                    print("date filter: s $s e $e");
                     bool shouldDisplay = (s == null && e == null) ||
                         (s != null && e != null &&
                             !(rent.startDate.isAfter(e!) || rent.endDate.isBefore(s!)));
 
-                    print(rent.startDate);
-                    print(rent.endDate);
-                    print(shouldDisplay);
+
                     if (shouldDisplay) {
                       return Column(
                         children: [

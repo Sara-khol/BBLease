@@ -26,27 +26,23 @@ class _CarDocuState extends State<CarDocu> {
   CameraController? _cameraController;
   late Orientation realOrientation;
 
+  final List<String> requiredLabels = [
+    'צד קדמי',
+    'צד ימין',
+    'צד אחורי',
+    'צד שמאל',
+  ];
+
+
+
   @override
   void initState() {
     // TODO: implement initState
     images = List<XFile?>.generate(4, (index) => null);
+
     super.initState();
   }
 
-  sendImages() {
-    showLoading(context);
-    ApiService().carDocumentation(
-      widget.rentNum,
-      images,
-      (res) {
-        Navigator.pop(context);
-        displayMessage(context, message: 'ההודעה התקבלה בהצלחה', onClose: () {
-          // Navigator.pop(context);
-          Navigator.pop(context);
-        });
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,17 +68,14 @@ class _CarDocuState extends State<CarDocu> {
                     .bottom, /*left: 30.w,right: 30.w*/
               ),
               child: Column(children: [
-                SizedBox(
-                  height: 35.h,
-                ),
                 if (o == Orientation.portrait)
                   Padding(
                     padding: EdgeInsets.only(right: 15.w),
                     child: CommonFuncs().getBackButton(context),
                   ),
-                SizedBox(
-                  height: 52.h,
-                ),
+               /* SizedBox(
+                  height: 30.h,
+                ),*/
                 Text(
                   'תיעוד רכב',
                   style:
@@ -90,7 +83,7 @@ class _CarDocuState extends State<CarDocu> {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
-                  height: 30.h,
+                  height: 15.h,
                 ),
                 Text(
                   '\nמומלץ תמיד לתעד את הרכב\nבתחילת הנסיעה!!\n',
@@ -120,7 +113,7 @@ class _CarDocuState extends State<CarDocu> {
                 ),
                 Image.asset("assets/icons/heart.png"),
                 SizedBox(
-                  height: 40.h,
+                  height: 20.h,
                 ),
                 Text(
                   'צלמו תמונה חדה וברורה!',
@@ -131,235 +124,58 @@ class _CarDocuState extends State<CarDocu> {
                 SizedBox(
                   height: 25.h,
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 70.w),
-                  child: Table(
-                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                    children: [
-                      TableRow(children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 12.h, horizontal: 12.w),
+                GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.symmetric(horizontal: 70.w),
+                      itemCount: images.length + 1,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 12.h,
+                        crossAxisSpacing: 12.w,
+                        childAspectRatio: 1.05,
+                      ),
+                      itemBuilder: (context, index) {
+                        if (index == images.length) {
+                          return InkWell(
+                            onTap: addExtraImage,
+                            child: Container(
+                              child: Center(
+                                child: Text('+ תמונה נוספת'),
+                              ),
+                            ),
+                          );
+                        }
+
+                        final label = getImageLabel(index);
+
+                        return InkWell(
+                          onTap: () => images[index] == null
+                              ? showImageDialog(index)
+                              : editImage(label, index),
                           child: Container(
-                            height: 95.h,
-                            width: 100.w,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
                               color: const Color(0xFFF7F7F7),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.2),
-                                  spreadRadius: 10,
-                                  blurRadius: 15,
-                                  offset: const Offset(0, 3),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                images[index] == null
+                                    ? Icon(Icons.camera_alt_outlined, size: 24.sp)
+                                    : Image.asset("assets/icons/done.png"),
+                                SizedBox(height: 10.h),
+                                Text(
+                                  label,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 14.sp),
                                 ),
                               ],
                             ),
-                            child: Center(
-                              child: InkWell(
-                                child: SizedBox(
-                                  width: 50.w,
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 20.h,
-                                      ),
-                                      images[0] == null
-                                          ? Icon(
-                                              Icons.camera_alt_outlined,
-                                              size: 24.sp,
-                                            )
-                                          : Image.asset(
-                                              "assets/icons/done.png"),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                      Text(
-                                        'צד קדמי',
-                                        style: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.normal,
-                                            height: 1),
-                                        textAlign: TextAlign.center,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                onTap: () => images[0] == null
-                                    ? showImageDialog(0)
-                                    : editImage('צד קדמי', 0),
-                              ),
-                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Container(
-                            height: 95.h,
-                            width: 100.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: const Color(0xFFF7F7F7),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.2),
-                                  spreadRadius: 10,
-                                  blurRadius: 15,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: InkWell(
-                                child: SizedBox(
-                                  width: 50.w,
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 20.h,
-                                      ),
-                                      images[1] == null
-                                          ? Icon(
-                                              Icons.camera_alt_outlined,
-                                              size: 24.sp,
-                                            )
-                                          : Image.asset(
-                                              "assets/icons/done.png"),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                      Text(
-                                        'צד ימין',
-                                        style: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.normal,
-                                            height: 1),
-                                        textAlign: TextAlign.center,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                onTap: () => images[1] == null
-                                    ? showImageDialog(1)
-                                    : editImage('צד ימין', 1),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ]),
-                      TableRow(children: [
-                        Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Container(
-                            height: 95.h,
-                            width: 100.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: const Color(0xFFF7F7F7),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.2),
-                                  spreadRadius: 10,
-                                  blurRadius: 15,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: InkWell(
-                                child: SizedBox(
-                                  width: 60.w,
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 20.h,
-                                      ),
-                                      images[2] == null
-                                          ? Icon(
-                                              Icons.camera_alt_outlined,
-                                              size: 24.sp,
-                                            )
-                                          : Image.asset(
-                                              "assets/icons/done.png"),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                      Text(
-                                        'צד אחורי',
-                                        style: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.normal,
-                                            height: 1),
-                                        textAlign: TextAlign.center,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                onTap: () => images[2] == null
-                                    ? showImageDialog(2)
-                                    : editImage('צד אחורי', 2),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Container(
-                            height: 95.h,
-                            width: 100.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: const Color(0xFFF7F7F7),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.2),
-                                  spreadRadius: 10,
-                                  blurRadius: 15,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: InkWell(
-                                child: SizedBox(
-                                  width: 60.w,
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 20.h,
-                                      ),
-                                      images[3] == null
-                                          ? Icon(
-                                              Icons.camera_alt_outlined,
-                                              size: 24.sp,
-                                            )
-                                          : Image.asset(
-                                              "assets/icons/done.png"),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                      Text(
-                                        'צד שמאל',
-                                        style: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.normal,
-                                            height: 1),
-                                        textAlign: TextAlign.center,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                onTap: () => images[3] == null
-                                    ? showImageDialog(3)
-                                    : editImage('צד שמאל', 3),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ])
-                    ],
-                  ),
-                ),
+                        );
+                      },
+                    ),
                 SizedBox(
                   height: 35.h,
                 ),
@@ -381,19 +197,25 @@ class _CarDocuState extends State<CarDocu> {
                         elevation: 0.0,
                       ),
                       onPressed: () {
-                        int i;
-                        for (i = 0; i < images.length; i++) {
-                          if (images[i] == null) {
-                            break;
-                          }
+                        if (!requiredImagesLoaded) {
+                          missingImage();
+                          return;
                         }
-                        if (i == 4) {
-                          setState(() {
-                            allLoaded = true;
-                          });
-                          sendImages();
-                        }
-                        if (!allLoaded) missingImage();
+
+                        sendImages();
+                        // int i;
+                        // for (i = 0; i < images.length; i++) {
+                        //   if (images[i] == null) {
+                        //     break;
+                        //   }
+                        // }
+                        // if (i == 4) {
+                        //   setState(() {
+                        //     allLoaded = true;
+                        //   });
+                        //   sendImages();
+                        // }
+                        // if (!allLoaded) missingImage();
                       },
                       child: Text(
                         'שלח תמונות',
@@ -411,7 +233,15 @@ class _CarDocuState extends State<CarDocu> {
     );
   }
 
-  showImageDialog(int index) {
+  void addExtraImage() {
+    showImageDialog(images.length, isNewExtra: true);
+  }
+
+  bool get requiredImagesLoaded {
+    return images.take(4).every((image) => image != null);
+  }
+
+  showImageDialog(int index, {bool isNewExtra = false}) {
     showBottomDialog(Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -426,7 +256,7 @@ class _CarDocuState extends State<CarDocu> {
               ),
               onPressed: () {
                 Navigator.pop(context);
-                pickImage(index);
+                pickImage(index, isNewExtra: isNewExtra);
               },
               child: Text(
                 'לפתיחת מצלמה',
@@ -434,7 +264,6 @@ class _CarDocuState extends State<CarDocu> {
                   fontSize: 22.sp,
                   fontWeight: FontWeight.normal,
                   color: Colors.white,
-                  //height: 2.3
                 ),
               )),
           SizedBox(
@@ -450,7 +279,7 @@ class _CarDocuState extends State<CarDocu> {
               ),
               onPressed: () {
                 Navigator.pop(context);
-                openGallery(index);
+                openGallery(index, isNewExtra: isNewExtra);
               },
               child: Text(
                 'לפתיחת גלריה',
@@ -469,112 +298,93 @@ class _CarDocuState extends State<CarDocu> {
     ));
   }
 
-/*  Future pickImage(index) async{
-    final image = await ImagePicker().pickImage(source: ImageSource.camera);
-    images[index]=image!;
-    int i;
-    for(i=0; i<images.length;i++){
-
-      if(images[i]==null) {
-        break;
-      }
-    }
-    print(i);
-    if (i==4) allLoaded=true;
-    setState(() {});
-  }*/
-
-  Future openGallery(index) async {
+  Future openGallery(int index, {bool isNewExtra = false}) async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    images[index] = image!;
-    int i;
-    for (i = 0; i < images.length; i++) {
-      if (images[i] == null) {
-        break;
+    if (image == null) return;
+
+    setState(() {
+      if (isNewExtra) {
+        images.add(image);
+      } else {
+        images[index] = image;
       }
-    }
-    print(i);
-    if (i == 4) allLoaded = true;
-    setState(() {});
+
+      allLoaded = images.take(4).every((img) => img != null);
+    });
   }
 
-  void pickImage(int index) async {
-    await CameraService().init(useFront: false); // אחורית
+  void pickImage(int index, {bool isNewExtra = false}) async {
+    await CameraService().init(useFront: false);
     _cameraController = CameraService().controller;
 
     if (!mounted || _cameraController == null) return;
-    setState(() {});
-    showCameraPreview(index);
+
+    showCameraPreview(index, isNewExtra: isNewExtra);
   }
 
-  void showCameraPreview(int index) {
+  void showCameraPreview(int index, {bool isNewExtra = false}) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         if (!_cameraController!.value.isInitialized) {
           return Center(
               child: CircularProgressIndicator(
-            color: pinkColorApp,
-          ));
+                color: pinkColorApp,
+              ));
         }
         return Dialog(
           backgroundColor: Colors.transparent,
           elevation: 1,
-          child: Stack(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Center(
                 child: SizedBox(
                   width: 380.w,
                   //height: 380.h,
-                  child: OverflowBox(
-                    alignment: Alignment.center,
-                    child: FittedBox(
-                      fit: BoxFit.cover,
-                      child: SizedBox(
-                        width: 380.w,
-                        /*child: Transform.rotate(
-                          angle: -_cameraController.description.sensorOrientation * pi / 180,*/
-                        child: CameraPreview(
-                          _cameraController!,
-                          key: ValueKey(DateTime.now().millisecondsSinceEpoch),
-                        ),
-                        //),
+                  child: FittedBox(
+                    fit: BoxFit.cover,
+                    child: SizedBox(
+                      width: 380.w,
+                      /*child: Transform.rotate(
+                        angle: -_cameraController.description.sensorOrientation * pi / 180,*/
+                      child: CameraPreview(
+                        _cameraController!,
+                        key: ValueKey(DateTime.now().millisecondsSinceEpoch),
                       ),
+                      //),
                     ),
                   ),
                 ),
               ),
-              Positioned(
-                bottom: 230.h,
-                right: 130.w,
-                child: Container(
-                  height: 40.h,
-                  width: 80.w,
-                  decoration: BoxDecoration(
-                      color: turquoiseColorApp,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(70))),
-                  child: TextButton(
-                    onPressed: () async {
-                      XFile image = await _cameraController!.takePicture();
-                      debugPrint('imageeeeeee ${image.name}');
-                      Navigator.pop(context);
-                      images[index] = image;
-                      int i;
-                      for (i = 0; i < images.length; i++) {
-                        if (images[i] == null) {
-                          break;
-                        }
+              SizedBox(height: 25.h,),
+              Container(
+                height: 40.h,
+                width: 80.w,
+                decoration: BoxDecoration(
+                    color: turquoiseColorApp,
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(70))),
+                child: TextButton(
+                  onPressed: () async {
+                    final image = await _cameraController!.takePicture();
+                    debugPrint('imageeeeeee ${image.name}');
+                    Navigator.pop(context);
+                    setState(() {
+                      if (isNewExtra) {
+                        images.add(image);
+                      } else {
+                        images[index] = image;
                       }
-                      print(i);
-                      if (i == 4) allLoaded = true;
-                      CameraService().pauseCamera();
-                      setState(() {});
-                    },
-                    child: Text(
-                      'צלם',
-                      style: (TextStyle(color: Colors.white, fontSize: 16.sp)),
-                    ),
+
+                      allLoaded = images.take(4).every((img) => img != null);
+                    });
+
+                    CameraService().pauseCamera();
+                  },
+                  child: Text(
+                    'צלם',
+                    style: (TextStyle(color: Colors.white, fontSize: 16.sp)),
                   ),
                 ),
               )
@@ -583,6 +393,11 @@ class _CarDocuState extends State<CarDocu> {
         );
       },
     );
+  }
+
+  String getImageLabel(int index) {
+    if (index < 4) return requiredLabels[index];
+    return 'תמונה נוספת ${index - 3}';
   }
 
   Future missingImage() {
@@ -843,6 +658,22 @@ class _CarDocuState extends State<CarDocu> {
                 )),
           );
         });
+  }
+
+  sendImages() {
+    showLoading(context);
+    debugPrint('lll ${images.length}');
+    ApiService().carDocumentation(
+      widget.rentNum,
+      images,
+          (res) {
+        Navigator.pop(context);
+        displayMessage(context, message: 'ההודעה התקבלה בהצלחה', onClose: () {
+          // Navigator.pop(context);
+          Navigator.pop(context);
+        });
+      },
+    );
   }
 
   @override

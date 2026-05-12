@@ -26,25 +26,23 @@ class ActiveRentDetails extends StatefulWidget {
 }
 
 class _ActiveRentDetailsState extends State<ActiveRentDetails> {
-
   String _time = '00:00:00';
   Rental rent = User().currentRent!;
+
   //final ScrollController _controller = ScrollController();
 
-   late Duration duration = const Duration(minutes: 1); // Set the initial countdown time
-  Timer? timer,reminder;
+  late Duration duration =
+      const Duration(minutes: 1); // Set the initial countdown time
+  Timer? timer, reminder;
 
+  bool isLocked = true;
 
-  bool isLocked=true;
-
-  double p=-1;
-  int  percent= -1;
-  int km= -1;
+  double p = -1;
+  int percent = -1;
+  int km = -1;
   late Orientation realOrientation;
 
-
-
-  getTime(){
+  getTime() {
     ApiService().getTimeRemain(rent.orderNum!, (res) {
       _time = res;
       List<String> parts = _time.split(':');
@@ -53,15 +51,15 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
       int minutes = int.parse(parts[2]);
       int seconds = int.parse(parts[3]);
 
-      duration = Duration(days: days,hours: hours, minutes: minutes, seconds: seconds);
+      duration = Duration(
+          days: days, hours: hours, minutes: minutes, seconds: seconds);
       setState(() {});
       startTimer();
     });
-
   }
 
   void startTimer() {
-    timer = Timer.periodic(const Duration(seconds: 1), (_)  {
+    timer = Timer.periodic(const Duration(seconds: 1), (_) {
       //const reduceSecondsBy = 1;
       if (duration.inSeconds == 0) {
         timer?.cancel();
@@ -73,13 +71,14 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
       }
     });
   }
-  getFuel(){
+
+  getFuel() {
     ApiService().getFuelLevel(rent.car.carNumber, (res) {
-      if(res!=-1){
-        p=res['fuel_percentage'].toDouble();
-        km=res['fuel_per_km']??-1;
-        percent=p.toInt();
-        setState(() { });
+      if (res != -1) {
+        p = res['fuel_percentage'].toDouble();
+        km = res['fuel_per_km'] ?? -1;
+        percent = p.toInt();
+        setState(() {});
       }
     });
   }
@@ -96,14 +95,38 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
     super.initState();
     getTime();
     getFuel();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+
+      showVehicleInspectionDialog(context);
+    });
     //reminder=Timer(Duration(minutes: 10), () =>addDriveReminder());
   }
 
-   sendOpeningCode(){
-     showLoading(context);
+  showVehicleInspectionDialog(BuildContext context, [Function()? onClose]) {
+    displayMessageWithTitle(
+      change: true,
+      context,
+      title: 'חשוב לתעד את הרכב',
+      message: 'יש לבצע תיעוד איכותי וברור של הרכב בתחילת ההשכרה ובסיומה.\n\n'
+          'יש לצלם את כל צדדי הרכב וכל נזק קיים.\n\n'
+          'נזק שלא תועד בתחילת ההשכרה עשוי להיות מחויב ללקוח.\n'
+          'במקרה שלא קיים תיעוד מתחילת ההשכרה, הלקוח עשוי להיות מחויב בגין נזקים שיימצאו ברכב.',
+      textButton: 'הבנתי',
+      onClose: () {
+        if (onClose != null) {
+          onClose();
+        }
+        // המשך פעולה אם צריך
+      },
+    );
+  }
+
+  sendOpeningCode() {
+    showLoading(context);
     ApiService().getOpeningCode(rent.orderNum!, (res) {
       Navigator.pop(context);
-     // print(res);
+      // print(res);
       openingCodeDialog(context, res);
     });
   }
@@ -111,12 +134,14 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
   @override
   Widget build(BuildContext context) {
     realOrientation = View.of(context).physicalSize.width >
-        View.of(context).physicalSize.height
+            View.of(context).physicalSize.height
         ? Orientation.landscape
         : Orientation.portrait;
     return Scaffold(
-      body: LandSpaceWidget(mainWidget: buildContent(realOrientation),
-        imageProperties:ImageProperties('image2.png', 1000.w,'הזמנה פעילה עם טיימר')));
+        body: LandSpaceWidget(
+            mainWidget: buildContent(realOrientation),
+            imageProperties:
+                ImageProperties('image2.png', 1000.w, 'הזמנה פעילה עם טיימר')));
   }
 
   buildContent(Orientation o) {
@@ -131,10 +156,14 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
         textDirection: TextDirection.rtl,
         child: Column(
           children: [
-           if(o==Orientation.portrait) const Directionality(textDirection: TextDirection.ltr, child: AppBarBibilease()),
+            if (o == Orientation.portrait)
+              const Directionality(
+                  textDirection: TextDirection.ltr, child: AppBarBibilease()),
             Column(
               children: [
-                SizedBox(height: 30.h,),
+                SizedBox(
+                  height: 30.h,
+                ),
                 Padding(
                   padding: EdgeInsets.only(left: 30.w, right: 30.w),
                   child: Text('פרטי הזמנה פעילה',
@@ -144,239 +173,94 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                           color: const Color.fromRGBO(15, 21, 17, 1),
                           height: 1)),
                 ),
-                SizedBox(height: 40.h,),
-                Padding(
-                  padding: EdgeInsets.only(left: 30.w, right: 30.w),
-                  child: Container(
-                    height: 42.h,
-                    width: 332.w,
-                    decoration: const BoxDecoration(color: Color(0xFFF7F7F7), borderRadius: BorderRadius.all(Radius.circular(100))),
-                    child: Row(
-                      children: [
-                        SizedBox(width: 29.w),
-                        Image.asset("assets/icons/car_icon_black.png",color: pinkColorApp,
-                          fit: BoxFit.cover,
-                          width: 24.sp.clamp(22.0, 28.0),
-                          height: 24.sp.clamp(22.0, 28.0)),
-                        Text('  מספר רכב: ', style: TextStyle(fontSize: 18.sp),),
-                        const Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 17),
-                          child: Text('  ${rent.car.carNumber} ', style: TextStyle(fontSize: 18.sp),),
-                        ),
-                      ],
-                    ),
-                  ),
+                SizedBox(
+                  height: 40.h,
                 ),
-                SizedBox(height: 8.h,),
                 Padding(
                   padding: EdgeInsets.only(left: 30.w, right: 30.w),
                   child: Container(
-                    height: 42.h,
-                    width: 332.w,
+                    //  height: 42.h,
+                    // width: 332.w,
+                    padding: EdgeInsets.symmetric(vertical: 8.h),
                     decoration: const BoxDecoration(
                         color: Color(0xFFF7F7F7),
                         borderRadius: BorderRadius.all(Radius.circular(100))),
                     child: Row(
                       children: [
-                        SizedBox(width: 29.w,),
-                        Image.asset("assets/icons/location.png",color: pinkColorApp,
-                            //fit: BoxFit.cover,
-                            width: 20.sp.clamp(18.0, 22.0),
-                            height: 20.sp.clamp(18.0, 22.0))  ,
-                        Text('  מיקום: ', style: TextStyle(fontSize: 18.sp,),),
-                        const Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15),
-                          child: Text('   ${rent.car.address}  ', style: TextStyle(fontSize: 18.sp),),),
+                        SizedBox(width: 29.w),
+                        Image.asset("assets/icons/car_icon_black.png",
+                            color: pinkColorApp,
+                            fit: BoxFit.cover,
+                            width: 24.sp.clamp(22.0, 28.0),
+                            height: 24.sp.clamp(22.0, 28.0)),
+                        Text(
+                          ' מספר רכב:',
+                          style: TextStyle(fontSize: 18.sp),
+                        ),
+                        // const Spacer(),
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 10.w, right: 7.w),
+                            child: Text(
+                              '  ${rent.car.carNumber} ',
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              softWrap: true,
+                              style: TextStyle(
+                                  fontSize: 22.sp, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ),
-                /*  SizedBox(height: 8.h,),*/
-                /* SizedBox(
-                    width: 332.w,
-                    child: Stack(
+                SizedBox(
+                  height: 8.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 30.w, right: 30.w),
+                  child: Container(
+                    //height: 42.h,
+                    padding: EdgeInsets.symmetric(vertical: 8.h),
+                    decoration: const BoxDecoration(
+                        color: Color(0xFFF7F7F7),
+                        borderRadius: BorderRadius.all(Radius.circular(100))),
+                    child: Row(
                       children: [
-                        TableRow(
-                          children: [
-                            Padding(
-                              padding:  const EdgeInsets.all(7.5),
-                              child: Container(
-                                height: 96.h,
-                                width: 96.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: const Color(0xFFF7F7F7)
-                                ),
-                                child: InkWell(
-                                  child: SizedBox(
-                                    width: 60.w,
-                                    child: Column(
-                                      children: [
-                                        SizedBox(height: 15.h,),
-                                        Icon(Icons.report_problem_outlined,size: 24.sp,),
-                                        SizedBox(height: 7.h,),
-                                        Text('דיווח\n על תקלה', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.normal,height: 1),
-                                          textAlign: TextAlign.center,
-
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  onTap: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => ReportAccident(),)),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:  const EdgeInsets.all(7.5),
-                              child: Container(
-                                height: 96.h,
-                                width: 96.w,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: const Color(0xFFF7F7F7)
-                                ),
-                                child: InkWell(
-                                  child: SizedBox(
-                                    width: 60.w,
-                                    child: Column(
-                                      children: [
-                                        SizedBox(height: 15.h,),
-                                        Icon(Icons.drive_eta_outlined,size: 24.sp,),
-                                        SizedBox(height: 8.h,),
-                                        Text('איפה חניתי', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.normal,),textAlign: TextAlign.center,)
-                                      ],
-                                    ),
-                                  ),
-                                  onTap: (){},
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:  const EdgeInsets.all(7.5),
-                              child: Container(
-                                height: 96.h,
-                                width: 96.w,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: const Color(0xFFF7F7F7)
-                                ),
-                                child: InkWell(
-                                  child: SizedBox(
-                                    width: 60.w,
-                                    child: Column(
-                                      children: [
-                                        SizedBox(height: 15.h,),
-                                        Icon(Icons.phone_outlined,size: 24.sp,),
-                                        SizedBox(height: 8.h,),
-                                        Text('צור קשר', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.normal,),textAlign: TextAlign.center,)
-                                      ],
-                                    ),
-                                  ),
-                                  onTap: (){},
-                                ),
-                              ),
-                            ),
-                          ]
+                        SizedBox(
+                          width: 29.w,
                         ),
-                        TableRow(
-                          children: [
-                            Padding(
-                              padding:  const EdgeInsets.all(7.5),
-                              child: Container(
-                                height: 96.h,
-                                width: 96.w,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: const Color(0xFFF7F7F7)
-                                ),
-                                child: Center(
-                                  child: InkWell(
-                                    child: SizedBox(
-                                      width: 60.w,
-                                      child: Column(
-                                        children: [
-                                          SizedBox(height: 15.h,),
-                                          Icon(Icons.person_outline,size: 24.sp,),
-                                          SizedBox(height: 7.h,),
-                                          Text('הוספת נהג חדש', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.normal,height: 1),textAlign: TextAlign.center,)
-                                        ],
-                                      ),
-                                    ),
-                                    onTap: (){},
-                                  ),
-                                ),
-                              ),
+                        Image.asset("assets/icons/location.png",
+                            color: pinkColorApp,
+                            //fit: BoxFit.cover,
+                            width: 20.sp.clamp(18.0, 22.0),
+                            height: 20.sp.clamp(18.0, 22.0)),
+                        Text(' מיקום:',
+                            style: TextStyle(
+                              fontSize: 18.sp,
+                            )),
+                        // const Spacer(),
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 10.w, right: 7.w),
+                            child: Text(
+                              ' ${rent.car.address}  ',
+                              style: TextStyle(fontSize: 18.sp),
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
                             ),
-                            Padding(
-                              padding:  const EdgeInsets.all(7.5),
-                              child: Container(
-                                height: 96.h,
-                                width: 96.w,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: const Color(0xFFF7F7F7)
-                                ),
-                                child: Center(
-                                  child: InkWell(
-                                    child: SizedBox(
-                                      width: 60.w,
-                                      child: Column(
-                                        children: [
-                                          SizedBox(height: 15.h,),
-                                          Icon(Icons.camera_alt_outlined,size: 24.sp,),
-                                          SizedBox(height: 8.h,),
-                                          Text('תיעוד רכב', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.normal,height: 1),textAlign: TextAlign.center,)
-                                        ],
-                                      ),
-                                    ),
-                                    onTap: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => CarDocu(),)),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:  const EdgeInsets.all(7.5),
-                              child: Container(
-                                height: 96.h,
-                                width: 96.w,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: const Color(0xFFF7F7F7)
-                                ),
-                                child: Center(
-                                  child: InkWell(
-                                    child: SizedBox(
-                                      width: 60.w,
-                                      child: Column(
-                                        children: [
-                                          SizedBox(height: 15.h,),
-                                          Icon(Icons.access_time,size: 24.sp,),
-                                          SizedBox(height: 8.h,),
-                                          Text('סיום השכרה', style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.normal,height: 1),textAlign: TextAlign.center,)
-                                        ],
-                                      ),
-                                    ),
-                                    onTap: (){
-                                      showLoading(context);
-                                      ApiService().returnCar(rent.orderNum!,
-                                              (orderJson)  {
-                                            Navigator.pop(context);
-                                            displayMessage(context,message:'סיום ההשכרה נקלט בהצלחה',onClose: (){});
-                                            print('return car');
-                                          });
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ]
-                        )
+                          ),
+                        ),
                       ],
                     ),
-                  ),*/
-                SizedBox(height: 53.h,),
+                  ),
+                ),
+                SizedBox(
+                  height: 53.h,
+                ),
                 Padding(
                   padding: EdgeInsets.only(left: 30.w, right: 30.w),
                   child: Text(
@@ -388,7 +272,9 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                         height: 1),
                   ),
                 ),
-                SizedBox(height: 22.h,),
+                SizedBox(
+                  height: 22.h,
+                ),
                 /*kIsWeb?
                   Text(duration.inDays > 0 ?'$seconds:$minutes:$hours:$days':'$seconds:$minutes:$hours',
                       style: TextStyle(
@@ -396,17 +282,24 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                           fontWeight: FontWeight.bold,
                           color: const Color.fromRGBO(15, 21, 17, 1),
                          )):*/
-                Text(duration.inDays > 0 ?'$days:$hours:$minutes:$seconds':'$hours:$minutes:$seconds',
+                Text(
+                    duration.inDays > 0
+                        ? '$days:$hours:$minutes:$seconds'
+                        : '$hours:$minutes:$seconds',
                     style: TextStyle(
                       fontSize: 36.sp,
                       fontWeight: FontWeight.bold,
                       color: const Color.fromRGBO(15, 21, 17, 1),
                     )),
-                SizedBox(height: 24.h,),
+                SizedBox(
+                  height: 24.h,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(/*kIsWeb?intl.DateFormat('ss:mm:HH').format(rent.endDate):*/intl.DateFormat('HH:mm:ss').format(rent.endDate),
+                    Text(
+                      /*kIsWeb?intl.DateFormat('ss:mm:HH').format(rent.endDate):*/
+                      intl.DateFormat('HH:mm:ss').format(rent.endDate),
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.normal,
@@ -419,7 +312,9 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                           fontWeight: FontWeight.normal,
                           color: const Color.fromRGBO(15, 21, 17, 1),
                         )),
-                    Text(/*kIsWeb?intl.DateFormat('yyyy/MM/dd').format(rent.endDate):*/intl.DateFormat('dd/MM/yyyy').format(rent.endDate),
+                    Text(
+                        /*kIsWeb?intl.DateFormat('yyyy/MM/dd').format(rent.endDate):*/
+                        intl.DateFormat('dd/MM/yyyy').format(rent.endDate),
                         style: TextStyle(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.normal,
@@ -427,62 +322,15 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                             height: 1)),
                   ],
                 ),
-                SizedBox(height: 33.h,),
+                SizedBox(
+                  height: 33.h,
+                ),
                 Padding(
                   padding: EdgeInsets.only(left: 30.w, right: 30.w),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      /*Container(
-                          height: 42.h,
-                          width: 162.w,
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: turquoiseColorApp,
-                                minimumSize: Size.zero, // Set this
-                                padding: EdgeInsets.only(
-                                    right: 9.w,
-                                    left: 13.w,
-                                    top: 8.h,
-                                    bottom: 10.h),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
-                              ),
-                              onPressed: () {
-                                *//*ApiService().openDoors(rent.car.carNumber, (res) {
-                                print(res);
-                                openingCodeDialog(context, res);
-                              });
-                              //sendOpeningCode();*//*
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  TextButton(
-                                    onPressed: () {},
-                                    style: TextButton.styleFrom(
-                                      padding: EdgeInsets.zero,
-                                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                    ),
-                                    child: Text(
-                                      '  הארכת השכרה   ',
-                                      style: TextStyle(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.white),
-                                    ),
-                                  ),
-                                  Image.asset('assets/icons/timePlus.png',
-                                      width: 20.w,
-                                      height: 20.h,
-                                      fit: BoxFit.fitHeight),
-                                ],
-                              )),
-                        ),
-                        SizedBox(width: 8.w,),*/
                       SizedBox(
                         height: 46.h,
                         //width: 162.w,
@@ -495,32 +343,43 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   left: 13.w,
                                   top: 8.h,
                                   bottom: 10.h),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100),
+                              ),
                             ),
                             onPressed: () {
-                              if(DateTime.now().isBefore(rent.endDate)){
-                                displayQuestion1(context, header:' שים לב',
-                                    message: 'בסיום השכרה נוכחית\nתחיוב בעלות ההשכרה כולה בהתאם לתקנון', onYes: () {
-                                      Navigator.pop(context);
-                                      showLoading(context);
-                                      ApiService().returnCar(rent.orderNum!, (orderJson) {
-                                        User().currentRent=null;
-                                        Navigator.pop(context);
-                                        endRental(false);
-                                        print('return car');
-                                      });
-
-                                    });
-                              }
-                              else{
-                                showLoading(context);
-                                User().currentRent=null;
-                                ApiService().returnCar(rent.orderNum!, (orderJson) {
+                              displayQuestion1(
+                                context,
+                                header: 'חשוב לתעד את הרכב',
+                                message:
+                                'לפני סיום ההשכרה יש לבצע תיעוד איכותי וברור של הרכב.\u200F\n\n'
+                                    'מומלץ לצלם את כל צדדי הרכב וכל נזק קיים.\u200F\n\n'
+                                    'ללא תיעוד מסיום ההשכרה, ייתכן שלא ניתן יהיה לאמת את מצב הרכב בעת ההחזרה.\u200F',
+                                yesText: 'סיים בכל זאת',
+                                noText: 'לתיעוד הרכב',
+                                onYes: () {
                                   Navigator.pop(context);
-                                  endRental(false);
-                                  print('return car');
-                                });
-                              }
+                                  if (DateTime.now().isBefore(rent.endDate)) {
+                                    displayQuestion1(
+                                      context,
+                                      header: 'שים לב',
+                                      message:
+                                      'בסיום השכרה נוכחית\n'
+                                          'תחויב בעלות ההשכרה כולה בהתאם לתקנון.\u200F',
+                                      onYes: () {
+                                        Navigator.pop(context);
+                                        returnCarNow();
+                                      },
+                                    );
+                                  } else {
+                                    returnCarNow();
+                                  }
+                                },
+                                onNo: () {
+                                   Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                                       CarDocu(rentNum: rent.orderNum!,)));
+                                },
+                              );
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -544,9 +403,11 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     ],
                   ),
                 ),
-                SizedBox(height: 33.h,),
+                SizedBox(
+                  height: 33.h,
+                ),
                 Container(
-                  height: 100.h,
+                  height: 100.h.clamp(100.0, 200.0),
                   // width: 393.w,
                   margin: EdgeInsets.zero,
                   child: ListView(
@@ -554,11 +415,12 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     padding: EdgeInsets.zero,
                     //controller: _controller,
                     scrollDirection: Axis.horizontal,
+
                     children: [
                       Padding(
                         padding: EdgeInsets.only(right: 10.w),
                         child: Container(
-                          height: 100.h,
+                          height: 100.h.clamp(100.0, 200.0),
                           width: 100.w,
                           clipBehavior: Clip.antiAlias,
                           decoration: ShapeDecoration(
@@ -578,27 +440,36 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                             child: InkWell(
                               child: Column(
                                 children: [
-                                  SizedBox(height: 15.h,),
-                                   Icon(Icons.report_problem,size: 28.sp.clamp(24.0, 34.0)),
+                                  SizedBox(
+                                    height: 15.h,
+                                  ),
+                                  Icon(Icons.report_problem,
+                                      size: 28.sp.clamp(24.0, 34.0)),
                                   // const ImageIcon(
                                   //   AssetImage("assets/icons/Broken.png"),
                                   //   color: Color(0xFF0F1511),
                                   // ),
-                                  SizedBox(height: 10.h,),
+                                  SizedBox(height: 6.h.clamp(4.0, 8.0)),
                                   Expanded(
                                     child: Text(
                                       'דיווח\nעל תקלה',
                                       style: TextStyle(
                                         fontSize: 14.sp,
                                         fontWeight: FontWeight.normal,
-                                        height: 1,
+
+                                        // height: 1.15,
                                       ),
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
                                 ],
                               ),
-                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ReportAccident(),)),
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ReportAccident(),
+                                  )),
                             ),
                           ),
                         ),
@@ -606,7 +477,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       Padding(
                         padding: EdgeInsets.only(right: 10.w),
                         child: Container(
-                          height: 95.h,
+                          height: 100.h.clamp(100.0, 200.0),
                           width: 100.w,
                           decoration: ShapeDecoration(
                             shape: RoundedRectangleBorder(
@@ -629,8 +500,9 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   SizedBox(
                                     height: 15.h,
                                   ),
-                                 Icon(Icons.car_repair,size: 28.sp.clamp(24.0, 34.0)),
-                                 // Image.asset("assets/icons/car_icon_big.png", color: Color(0xFF0F1511),),
+                                  Icon(Icons.car_repair,
+                                      size: 28.sp.clamp(24.0, 34.0)),
+                                  // Image.asset("assets/icons/car_icon_big.png", color: Color(0xFF0F1511),),
                                   SizedBox(
                                     height: 10.h,
                                   ),
@@ -649,7 +521,8 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                             ),
                             onTap: () {
                               showLoading(context);
-                              ApiService().getParkPosition(rent.car.carNumber, (res) {
+                              ApiService().getParkPosition(rent.car.carNumber,
+                                  (res) {
                                 Navigator.pop(context);
                                 print(res);
                                 findPark(res);
@@ -661,7 +534,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       Padding(
                         padding: EdgeInsets.only(right: 10.w),
                         child: Container(
-                          height: 95.h,
+                          height: 100.h.clamp(100.0, 200.0),
                           width: 100.w,
                           decoration: ShapeDecoration(
                             shape: RoundedRectangleBorder(
@@ -682,9 +555,14 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                 //  width: 60.w,
                                 child: Column(
                                   children: [
-                                    SizedBox(height: 15.h,),
-                                    Icon(Icons.account_circle_outlined, size: 28.sp.clamp(24.0, 34.0)),
-                                    SizedBox(height: 10.h,),
+                                    SizedBox(
+                                      height: 15.h,
+                                    ),
+                                    Icon(Icons.account_circle_outlined,
+                                        size: 28.sp.clamp(24.0, 34.0)),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
                                     Expanded(
                                       child: Text(
                                         'הוספת\nנהג נוסף',
@@ -698,8 +576,18 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   ],
                                 ),
                               ),
-                              onTap: () => displayQuestion1(context,message: 'ודא כי יש ברשותך את פרטי הרשיון\nשל הנהג הנוסף',header: 'ברצונך להוסיף נהג חדש?',
-                                  onYes: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AddDriver(index: 3,orderId: rent.orderNum,),))),
+                              onTap: () => displayQuestion1(context,
+                                  message:
+                                      'ודא כי יש ברשותך את פרטי הרשיון\nשל הנהג הנוסף',
+                                  header: 'ברצונך להוסיף נהג חדש?',
+                                  onYes: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => AddDriver(
+                                          index: 3,
+                                          orderId: rent.orderNum,
+                                        ),
+                                      ))),
                             ),
                           ),
                         ),
@@ -707,7 +595,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       Padding(
                         padding: EdgeInsets.only(right: 10.w),
                         child: Container(
-                          height: 95.h,
+                          height: 100.h.clamp(100.0, 200.0),
                           width: 100.w,
                           decoration: ShapeDecoration(
                             shape: RoundedRectangleBorder(
@@ -728,11 +616,17 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                 // width: 60.w,
                                 child: Column(
                                   children: [
-                                    SizedBox(height: 15.h,),
-                                    Icon(Icons.camera_alt_outlined, size:  28.sp.clamp(24.0, 34.0)),
-                                    SizedBox(height: 10.h,),
+                                    SizedBox(
+                                      height: 15.h,
+                                    ),
+                                    Icon(Icons.camera_alt_outlined,
+                                        size: 28.sp.clamp(24.0, 34.0)),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
                                     Expanded(
-                                      child: Text('תיעוד רכב',
+                                      child: Text(
+                                        'תיעוד רכב',
                                         style: TextStyle(
                                             fontSize: 14.sp,
                                             fontWeight: FontWeight.normal,
@@ -743,15 +637,18 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   ],
                                 ),
                               ),
-                              onTap: () => displayQuestion1(context,header: 'צעד חכם!',message: 'ודא שהתמונות מצולמות באיכות טובה',
+                              onTap: () => displayQuestion1(context,
+                                  header: 'צעד חכם!',
+                                  message: 'ודא שהתמונות מצולמות באיכות טובה',
                                   onYes: () {
-                                    Navigator.pop(context);
-                                    Navigator.push(context, MaterialPageRoute(
+                                Navigator.pop(context);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
                                       builder: (context) =>
-                                          CarDocu(
-                                              rentNum: rent.orderNum!),));
-                                  }
-                              ),
+                                          CarDocu(rentNum: rent.orderNum!),
+                                    ));
+                              }),
                             ),
                           ),
                         ),
@@ -759,10 +656,11 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       Padding(
                         padding: EdgeInsets.only(left: 10.w, right: 10.w),
                         child: Container(
-                          height: 95.h,
+                          height: 100.h.clamp(100.0, 200.0),
                           width: 100.w,
                           decoration: ShapeDecoration(
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8)),
                             color: Colors.white,
                             shadows: const [
                               BoxShadow(
@@ -779,12 +677,18 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                 //width: 60.w,
                                 child: Column(
                                   children: [
-                                    SizedBox(height: 15.h,),
-                                   // Image.asset('assets/icons/key.png'),
-                                    Icon(Icons.car_rental, size:  28.sp.clamp(24.0, 34.0)),
-                                    SizedBox(height: 10.h,),
+                                    SizedBox(
+                                      height: 15.h,
+                                    ),
+                                    // Image.asset('assets/icons/key.png'),
+                                    Icon(Icons.car_rental,
+                                        size: 28.sp.clamp(24.0, 34.0)),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
                                     Expanded(
-                                      child: Text('שלח קוד\nלפתיחת דלת',
+                                      child: Text(
+                                        'שלח קוד\nלפתיחת דלת',
                                         style: TextStyle(
                                             fontSize: 14.sp,
                                             fontWeight: FontWeight.normal,
@@ -795,7 +699,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                   ],
                                 ),
                               ),
-                              onTap: ()=>sendOpeningCode(),
+                              onTap: () => sendOpeningCode(),
                             ),
                           ),
                         ),
@@ -803,7 +707,9 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     ],
                   ),
                 ),
-                SizedBox(height: 32.h,),
+                SizedBox(
+                  height: 32.h,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -817,22 +723,29 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       ),
                       child: Column(
                         children: [
-                          SizedBox(height: 12.h,),
-                          if (percent!=-1) Text(
-                            '$percent%',
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.bold,
-                                height: 1),
-                          ) else SizedBox(height: 21.h,),
+                          SizedBox(
+                            height: 12.h,
+                          ),
+                          if (percent != -1)
+                            Text(
+                              '$percent%',
+                              style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                  height: 1),
+                            )
+                          else
+                            SizedBox(
+                              height: 21.h,
+                            ),
                           SizedBox(height: 8.h),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset('assets/icons/KM.png',
-                                width: 24.sp.clamp(22.0, 28.0),
-                                height: 24.sp.clamp(22.0, 28.0),
-                                fit: BoxFit.contain),
+                                  width: 24.sp.clamp(22.0, 28.0),
+                                  height: 24.sp.clamp(22.0, 28.0),
+                                  fit: BoxFit.contain),
                               SizedBox(width: 19.w),
                               Text(
                                 '|',
@@ -844,31 +757,37 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                               ),
                               SizedBox(width: 19.w),
                               Image.asset('assets/icons/Gas.png',
-                                width: 24.sp.clamp(22.0, 28.0),
-                                height: 24.sp.clamp(22.0, 28.0),
-                                fit: BoxFit.cover),
+                                  width: 24.sp.clamp(22.0, 28.0),
+                                  height: 24.sp.clamp(22.0, 28.0),
+                                  fit: BoxFit.cover),
                             ],
                           ),
                           SizedBox(height: 19.h),
-                          if (km!=-1) Text(
-                            '$km ק"מ',
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.bold,
-                                height: 1),
-                          ) else SizedBox(height: 21.h),
+                          if (km != -1)
+                            Text(
+                              '$km ק"מ',
+                              style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                  height: 1),
+                            )
+                          else
+                            SizedBox(height: 21.h),
                           SizedBox(height: 10.h)
                         ],
                       ),
                     ),
-                    SizedBox(width: 16.w,),
+                    SizedBox(
+                      width: 16.w,
+                    ),
                     Container(
                       width: 108.w,
                       //  height: 114.h,
                       clipBehavior: Clip.antiAlias,
                       decoration: ShapeDecoration(
                         color: Colors.white,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
                         shadows: const [
                           BoxShadow(
                             color: Color(0x0C000000),
@@ -881,28 +800,26 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       child: GestureDetector(
                         behavior: HitTestBehavior.opaque,
                         onTap: () {
-                          if(isLocked) {
+                          if (isLocked) {
                             showLoading(context);
                             ApiService().openDoors(rent.car.carNumber, (res) {
                               Navigator.pop(context);
                               debugPrint('$res');
                               setState(() {
-                                isLocked=false;
+                                isLocked = false;
                               });
                               _showFloatingDialog(true);
                             });
-                          }
-                          else {
+                          } else {
                             showLoading(context);
                             ApiService().lockDoors(rent.car.carNumber, (res) {
                               Navigator.pop(context);
                               debugPrint('$res');
                               setState(() {
-                                isLocked=true;
+                                isLocked = true;
                               });
                               _showFloatingDialog(false);
                             });
-
                           }
                         },
                         child: Column(
@@ -913,10 +830,12 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                               isLocked
                                   ? "assets/icons/unlock.png"
                                   : "assets/icons/lock.png",
-                            color: isLocked ? turquoiseColorApp : pinkColorApp,
+                              color:
+                                  isLocked ? turquoiseColorApp : pinkColorApp,
                               width: 24.sp.clamp(22.0, 28.0),
                               height: 24.sp.clamp(22.0, 28.0),
-                              fit: BoxFit.cover,),
+                              fit: BoxFit.cover,
+                            ),
                             SizedBox(height: 10.h),
 
                             //SizedBox(height:10.h),
@@ -926,7 +845,9 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     ),
                   ],
                 ),
-                SizedBox(height: 44.h,)
+                SizedBox(
+                  height: 44.h,
+                )
               ],
             ),
           ],
@@ -935,17 +856,26 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
     );
   }
 
+  void returnCarNow() {
+    showLoading(context);
+
+    ApiService().returnCar(rent.orderNum!, (orderJson) {
+      User().currentRent = null;
+      Navigator.pop(context);
+      endRental(false);
+    });
+  }
 
   Future findPark(address) {
-
     return showModalBottomSheet(
       isDismissible: false,
       elevation: 2,
       isScrollControlled: false,
       context: context,
       builder: (BuildContext context) => Container(
-        // height: 250.h,
-          decoration: const BoxDecoration(color:Colors.white,
+          // height: 250.h,
+          decoration: const BoxDecoration(
+            color: Colors.white,
             borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
           ),
           child: Directionality(
@@ -955,7 +885,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                 Stack(
                   children: [
                     Align(
-                      alignment:  Alignment.topCenter,
+                      alignment: Alignment.topCenter,
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -980,20 +910,21 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                         color: blackColorApp,
                                         fontSize: 18.sp,
                                         fontWeight: FontWeight.w700,
-                                        height: 1
-                                    )
-                                ),
-                                SizedBox(width: 28.sp.clamp(24.0, 36.0),
+                                        height: 1)),
+                                SizedBox(
+                                  width: 28.sp.clamp(24.0, 36.0),
+                                  height: 28.sp.clamp(24.0, 36.0),
+                                  child: Image.asset(
+                                    "assets/icons/car_icon_black.png",
+                                    color: pinkColorApp,
+                                    width: 28.sp.clamp(24.0, 36.0),
                                     height: 28.sp.clamp(24.0, 36.0),
-                                    child: Image.asset("assets/icons/car_icon_black.png", color: pinkColorApp,
-                                      width: 28.sp.clamp(24.0, 36.0),
-                                      height: 28.sp.clamp(24.0, 36.0),
-                                      fit: BoxFit.contain,),
-                                 ),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
                               ],
                             ),
-                            SizedBox(
-                                height: 40.h),
+                            SizedBox(height: 40.h),
                             Center(
                               child: Text(address["address"],
                                   textAlign: TextAlign.center,
@@ -1001,8 +932,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                     color: blackColorApp,
                                     fontSize: 18.sp,
                                     fontWeight: FontWeight.normal,
-                                  )
-                              ),
+                                  )),
                             ),
                             SizedBox(height: 35.h),
                             Row(
@@ -1013,30 +943,39 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                       color: blackColorApp,
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.normal,
-                                    )
-                                ),
+                                    )),
                                 IconButton(
-                                    onPressed: () => openWaze(address['latitude'],address['longitude']),
-                                    icon:  Image.asset("assets/icons/waze.png",color: turquoiseColorApp,
+                                    onPressed: () => openWaze(
+                                        address['latitude'],
+                                        address['longitude']),
+                                    icon: Image.asset(
+                                      "assets/icons/waze.png",
+                                      color: turquoiseColorApp,
                                       width: 28.sp.clamp(24.0, 36.0),
                                       height: 28.sp.clamp(24.0, 36.0),
                                     )),
-                                SizedBox(width: 23.w,),
+                                SizedBox(
+                                  width: 23.w,
+                                ),
                                 IconButton(
-                                    onPressed: () => openGoogleMaps(address['address']),
-                                    icon:  Image.asset("assets/icons/maps.png",color: turquoiseColorApp,
-                                      width: 28.sp.clamp(24.0, 36.0),
-                                  height: 28.sp.clamp(24.0, 36.0),),)
+                                  onPressed: () =>
+                                      openGoogleMaps(address['address']),
+                                  icon: Image.asset(
+                                    "assets/icons/maps.png",
+                                    color: turquoiseColorApp,
+                                    width: 28.sp.clamp(24.0, 36.0),
+                                    height: 28.sp.clamp(24.0, 36.0),
+                                  ),
+                                )
                               ],
                             ),
                             SizedBox(height: 39.h),
-                          ]
-                      ),
+                          ]),
                     ),
                     Align(
-                      alignment:  Alignment.topRight,
+                      alignment: Alignment.topRight,
                       child: Container(
-                        padding: EdgeInsets.only(right: 20.w,top: 10.h),
+                        padding: EdgeInsets.only(right: 20.w, top: 10.h),
                         // height: 28.h,
                         alignment: Alignment.topRight,
                         child: IconButton(
@@ -1051,15 +990,14 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                 ),
               ],
             ),
-          )
-      ),
+          )),
       barrierColor: Colors.black12.withOpacity(0.1),
       // shape: const RoundedRectangleBorder(
       //   borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
     );
   }
 
-  Future addDriverReminder(){
+  Future addDriverReminder() {
     return showModalBottomSheet<dynamic>(
         isScrollControlled: true,
         isDismissible: true,
@@ -1077,7 +1015,10 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
             child: Directionality(
                 textDirection: TextDirection.rtl,
                 child: Padding(
-                  padding: EdgeInsets.only(left: 30.w, right: 30.w, ),
+                  padding: EdgeInsets.only(
+                    left: 30.w,
+                    right: 30.w,
+                  ),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -1090,7 +1031,13 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                               color: Colors.black),
                         ),
                         SizedBox(height: 51.h),
-                        Text('בחרת בהוספת נהג נוסף,\nועוד לא מלאת את הפרטים',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal,),),
+                        Text(
+                          'בחרת בהוספת נהג נוסף,\nועוד לא מלאת את הפרטים',
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
                         SizedBox(height: 26.h),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 15.sp),
@@ -1104,10 +1051,18 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: turquoiseColorApp,
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(100),
+                                          borderRadius:
+                                              BorderRadius.circular(100),
                                         ),
                                       ),
-                                      onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => AddDriver(index: 3,orderId: rent.orderNum,),)),
+                                      onPressed: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => AddDriver(
+                                              index: 3,
+                                              orderId: rent.orderNum,
+                                            ),
+                                          )),
                                       child: Text('למלא עכשיו',
                                           style: TextStyle(
                                               fontSize: 20.sp,
@@ -1119,16 +1074,19 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                               Expanded(
                                 child: SizedBox(
                                   height: 48.h,
-                                 // width: 160.w,
+                                  // width: 160.w,
                                   child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: turquoiseColorApp,
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(100),
+                                          borderRadius:
+                                              BorderRadius.circular(100),
                                         ),
                                       ),
                                       onPressed: () {
-                                        reminder=Timer(const Duration(minutes: 10), () =>addDriverReminder());
+                                        reminder = Timer(
+                                            const Duration(minutes: 10),
+                                            () => addDriverReminder());
                                         Navigator.pop(context);
                                       },
                                       child: Text('בהמשך',
@@ -1142,13 +1100,10 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                           ),
                         ),
                         SizedBox(height: 20.h),
-                      ]
-                  ),
-                )
-            ),
+                      ]),
+                )),
           );
-        }
-    );
+        });
   }
 
   // Function to open a location in Waze
@@ -1165,7 +1120,8 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
   }
 
 // Function to open a location in Google Maps
-  Future<void> openGoogleMaps(String address/*double latitude, double longitude*/) async {
+  Future<void> openGoogleMaps(
+      String address /*double latitude, double longitude*/) async {
     String query = Uri.encodeComponent(address);
     var url = 'https://www.google.com/maps/search/?api=1&query=$query';
     if (await canLaunchUrlString(url)) {
@@ -1180,15 +1136,16 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
   Future endRental(bool ended) {
     //bool ended =false;
     return showModalBottomSheet(
-     // isDismissible: false,
+      // isDismissible: false,
       elevation: 2,
       isScrollControlled: false,
       backgroundColor: Colors.white,
       context: context,
       enableDrag: false,
       builder: (BuildContext context) => Container(
-        //width: MediaQuery.devicePixelRatioOf(context),
-        //height: 180.h,
+          //width: MediaQuery.devicePixelRatioOf(context),
+          //height: 180.h,
+          padding: EdgeInsets.symmetric(horizontal: 15.w),
           decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
@@ -1197,12 +1154,15 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
             top: false,
             maintainBottomViewPadding: true,
             minimum: EdgeInsets.only(bottom: 20.h),
-            child: Wrap( crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-              Container(height: 45.h),
+            child:
+                Wrap(crossAxisAlignment: WrapCrossAlignment.center, children: [
+              Container(height: 35.h),
               // Spacer(),
               Center(
-                child: Text(ended ? 'השכרה מספר ${rent.orderNum} הסתיימה' : 'סיום השכרה',
+                child: Text(
+                    ended
+                        ? 'השכרה מספר ${rent.orderNum} הסתיימה'
+                        : 'סיום השכרה',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: pinkColorApp,
@@ -1210,23 +1170,40 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       fontWeight: FontWeight.w700,
                     )),
               ),
-              Container(height: 24.h),
-              Visibility(visible: !ended, child: Container()),
+              Container(height: 8.h),
+              Visibility(
+                  visible: !ended,
+                  child: Center(
+                      child: Text(
+                    'נא לוודא שהרכב מתודלק, כבוי ובתוך התחנה\n'
+                    'וכי הוצאת את כל חפציך האישיים מהרכב.',
+                    textAlign: TextAlign.center,
+                    textDirection: TextDirection.rtl,
+                    style: TextStyle(
+                      color: turquoiseColorApp,
+                      fontSize: 20.sp,
+                      height: 1.3,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ))),
+              Visibility(visible: !ended, child: Container(height: 25.h)),
               Visibility(
                   visible: !ended,
                   child: Center(
                     child: Text(
                       'בלחיצת אישור ינעלו דלתות הרכב\nוקוד הפתיחה ישתנה',
-                      style: TextStyle(color: pinkColorApp,fontSize: 16.sp,fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                          color: pinkColorApp,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600),
                       textAlign: TextAlign.center,
-
                     ),
                   )),
               Visibility(
                 visible: ended,
                 child: Center(
                   child: Padding(
-                    padding:  EdgeInsets.only(bottom: 11.h),
+                    padding: EdgeInsets.only(bottom: 11.h),
                     child: Text('בדקות הקרובות תופיע קבלה באזור האישי או במייל',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -1246,28 +1223,29 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       style: TextStyle(
                         color: blackColorApp,
                         fontSize: 16.sp,
-                     //   fontWeight: FontWeight.w200,
+                        //   fontWeight: FontWeight.w200,
                       )),
                 ),
               ),
               Visibility(
-                    visible: ended,
-                    child: Center(
-                      child: Text('מחכים לראותך שוב :)',
-                          textAlign: TextAlign.center,
-                          textDirection: TextDirection.rtl,
-                          style: TextStyle(
-                            color: blackColorApp,
-                            fontSize: 16.sp,
-                              fontWeight: FontWeight.bold,
-                          )),
-                    ),
-                  ),
-             Container(height: 11.h),
+                visible: ended,
+                child: Center(
+                  child: Text('מחכים לראותך שוב :)',
+                      textAlign: TextAlign.center,
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                        color: blackColorApp,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ),
+              ),
+              Container(height: 15.h),
               Center(
                 child: SizedBox(
                   height: 42.h,
-                  width: 332.w,
+                  //width: 332.w,
+                  width: double.infinity,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: turquoiseColorApp,
@@ -1278,12 +1256,13 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       onPressed: () {
                         ended
                             ? {
-                        User().currentRent=null,
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const RentalWidget()))
-                        }
+                                User().currentRent = null,
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const RentalWidget()))
+                              }
                             : {Navigator.pop(context), endRental(true)};
                       },
                       child: Text(
@@ -1295,7 +1274,7 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                       )),
                 ),
               ),
-                  Container(height: 50.h)
+              //Container(height: 50.h)
             ]),
           )),
       barrierColor: Colors.black12.withOpacity(0.1),
@@ -1309,23 +1288,30 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
       context: context,
       builder: (context) {
         return Dialog(
-          backgroundColor:  Colors.white,
+          backgroundColor: Colors.white,
           shadowColor: Colors.grey.withOpacity(0.1),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),), //this right here
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+          ), //this right here
           child: SizedBox(
             width: 256.w,
-           // height: 200.h,
+            // height: 200.h,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-              SizedBox(height: 18.h,),
-                Padding(
-                  padding:  EdgeInsets.only(right: 10.w),
-                  child: const Align(alignment: Alignment.topRight, child: CloseButton()),
+                SizedBox(
+                  height: 18.h,
                 ),
-                SizedBox(height: 9.h,),
+                Padding(
+                  padding: EdgeInsets.only(right: 10.w),
+                  child: const Align(
+                      alignment: Alignment.topRight, child: CloseButton()),
+                ),
+                SizedBox(
+                  height: 9.h,
+                ),
                 Image.asset("assets/icons/car_open_doors.png",
                     color: pinkColorApp,
                     fit: BoxFit.contain,
@@ -1333,15 +1319,18 @@ class _ActiveRentDetailsState extends State<ActiveRentDetails> {
                     height: 24.sp.clamp(20.0, 30.0)),
                 SizedBox(height: 30.h),
                 Text(
-                  isOpenLock?'הדלתות פתוחות':'הדלתות ננעלו',
-                  style: TextStyle(fontWeight: FontWeight.normal, fontSize: 20.sp),
+                  isOpenLock ? 'הדלתות פתוחות' : 'הדלתות ננעלו',
+                  style:
+                      TextStyle(fontWeight: FontWeight.normal, fontSize: 20.sp),
                   textAlign: TextAlign.center,
                 ),
-            if(isOpenLock)    Text(
-                  'נסיעה בטוחה!',
-                  style: TextStyle( fontSize: 20.sp),
-                  textAlign: TextAlign.center,textDirection: TextDirection.rtl,
-                ),
+                if (isOpenLock)
+                  Text(
+                    'נסיעה בטוחה!',
+                    style: TextStyle(fontSize: 20.sp),
+                    textAlign: TextAlign.center,
+                    textDirection: TextDirection.rtl,
+                  ),
                 SizedBox(height: 20.h),
               ],
             ),

@@ -791,13 +791,21 @@ displayMessage(context,message: 'ישנה בעיה, נסה שנית');
         }
       }
     }
-    FormData formData = FormData.fromMap({
+    /*FormData formData = FormData.fromMap({
       "image_1": imageFiles[0],
       "image_2": imageFiles[1],
       "image_3": imageFiles[2],
       "image_4": imageFiles[3],
 
-    });
+    });*/
+
+    final Map<String, dynamic> data = {};
+
+    for (int i = 0; i < imageFiles.length; i++) {
+      data['image_${i + 1}'] = imageFiles[i];
+    }
+
+    FormData formData = FormData.fromMap(data);
 
     debugPrint('${_baseUrl}wp/v2/Vehicle_documentation/$carNum');
     debugPrint('data : $formData');

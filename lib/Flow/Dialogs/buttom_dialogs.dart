@@ -450,6 +450,7 @@ Future displayMessageWithTitle(BuildContext context,{
   String title='',
   String message='',
   String textButton='',
+  bool change=false,
   Function()? onClose}) {
   return showModalBottomSheet(
     context: context,
@@ -462,7 +463,7 @@ Future displayMessageWithTitle(BuildContext context,{
           maintainBottomViewPadding: true,
           minimum: EdgeInsets.only(bottom: 20.h),
           child: Wrap(children: [
-            Container(height: 45.h),
+            Container(height:change?30.h: 45.h),
             Center(
               child: Text(title,
                   textAlign: TextAlign.center,
@@ -473,16 +474,21 @@ Future displayMessageWithTitle(BuildContext context,{
                     fontWeight: FontWeight.w700,
                   )),
             ),
-            Container(height: 43.h,),
+            Container(height:change?20.h: 43.h,),
             Center(
-              child: Text(message,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    height:1,
-                    fontSize: 16.sp,
-                  )),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30.w),
+                child: Text(message,
+                    textDirection: TextDirection.rtl,
+
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      height:change?1.35:1,
+                      fontSize: 16.sp,
+                    )),
+              ),
             ),
-            Container(height: 40.h),
+            Container(height:change?20.h: 40.h),
             Container(
               height: 46.h,
               width: double.infinity,
@@ -610,7 +616,8 @@ Future displayQuestion(BuildContext context,{
 }
 
 Future displayQuestion1(BuildContext context,{
-  required String header,required String message, required Function() onYes,String yesText='',String noText=''}) {
+  required String header,required String message,
+  required Function() onYes, Function()? onNo,String yesText='',String noText=''}) {
   return showModalBottomSheet(
     context: context,
     builder: (BuildContext context) => Container(
@@ -652,6 +659,9 @@ Future displayQuestion1(BuildContext context,{
                             ),
                             onPressed: () {
                               Navigator.pop(context);
+                              if(onNo!=null) {
+                                onNo();
+                              }
                             },
                             child: Center(
                               child: Text(

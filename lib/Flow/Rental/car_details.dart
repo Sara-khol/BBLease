@@ -15,6 +15,7 @@ import 'package:intl/intl.dart' as intl;
 import '../../models/class_user.dart';
 import '../../services/api_service.dart';
 import 'dialogs.dart';
+import 'orderSuccessImagesScreen.dart';
 
 class CarDetails extends StatefulWidget {
   /*final Car selectedCar;
@@ -769,13 +770,17 @@ class _CarDetailsState extends State<CarDetails> {
                                     'end-hour': intl.DateFormat('HH:mm')
                                         .format(widget.rent.endDate),
                                   };
-                                  print(map);
                                   showLoading(context, false);
+
                                   ApiService().newOrder(map, (res) {
-                                    //widget.rent.orderNum=res;
-                                    //User().currentRent=widget.rent;
                                     Navigator.pop(context);
-                                    displayMessage(context,
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) =>  OrderSuccessImagesScreen(),
+                                      ),
+                                    );
+                              /*      displayMessage(context,
                                         message: 'ההזמנה התקבלה בהצלחה',
                                         onClose: () {
                                       Navigator.pushAndRemoveUntil(
@@ -787,7 +792,7 @@ class _CarDetailsState extends State<CarDetails> {
                                                     goBack: false,
                                                   )),
                                           (route) => false);
-                                    });
+                                    });*/
                                   });
                                 },
                                 child: Text(

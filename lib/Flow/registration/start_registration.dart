@@ -31,11 +31,13 @@ class _StartRegistrationState extends State<StartRegistration> {
 
   buildContent(Orientation o) {
         return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+          child: ListView(
+           // mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(height: 80.h),
-              CustomText("תהליך הרשמה",style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold,fontSize: 23.sp,),),
+              CustomText("תהליך הרשמה",
+                textAlign: TextAlign.center,
+                style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold,fontSize: 23.sp),),
               SizedBox(height: 32.h),
               CustomText("לתהליך הרישום, עליך להכין רשיון נהיגה \nוכרטיס אשראי על שמך בלבד!",
                   style: TextStyle(fontWeight: FontWeight.normal,fontSize: 20.sp,)

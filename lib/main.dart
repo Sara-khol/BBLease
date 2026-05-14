@@ -108,11 +108,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     final view = WidgetsBinding.instance.platformDispatcher.views.first;
     final logicalSize = view.physicalSize / view.devicePixelRatio;
 
-    debugPrint('didChangeMetrics -> $logicalSize');
+
 
     if (_lastLogicalSize != logicalSize) {
       _lastLogicalSize = logicalSize;
-      setState(() {});
+      debugPrint('didChangeMetrics -> $logicalSize');
+      if (mounted) {
+        setState(() {});
+      }
     }
   }
 

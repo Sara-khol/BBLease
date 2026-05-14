@@ -31,6 +31,21 @@ subprojects {
     }
 }
 
+// flutter_google_places_sdk_android 0.2.2 bumped the native Places SDK to 5.1.1
+// but its Kotlin code still uses the 3.x Place API (place.name/address/latLng/
+// phoneNumber/userRatingsTotal/placeTypes), so it won't compile against 5.x.
+// Pin the native SDK back to the last 3.x release the plugin code was written for.
+subprojects {
+    configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'com.google.android.libraries.places'
+                    && details.requested.name == 'places') {
+                details.useVersion '3.5.0'
+            }
+        }
+    }
+}
+
 rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"

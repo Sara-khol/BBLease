@@ -44,7 +44,8 @@ class _StartRegistrationState extends State<StartRegistration> {
                   ,textDirection: TextDirection.rtl,textAlign: TextAlign.center),
               SizedBox(height: 28.h),
               if(o == Orientation.portrait)Image.asset('assets/images/image4.png' ,semanticLabel: 'תמונה לפתוח רכב',width: 300.w,/*, fit: BoxFit.cover,*/),
-              const Spacer(),
+             // const Spacer(),
+              SizedBox(height: 60.h),
               SizedBox(
                 height: 48.h,
                 width: 332.w,

@@ -314,7 +314,17 @@ class _CarDocuState extends State<CarDocu> {
   }
 
   void pickImage(int index, {bool isNewExtra = false}) async {
-    await CameraService().init(useFront: false);
+    if (!await CameraService.ensureGrantedWithUi(context)) return;
+    if (!mounted) return;
+
+    try {
+      await CameraService().init(useFront: false);
+    } catch (e) {
+      debugPrint('❌ Camera init failed: $e');
+      if (!mounted) return;
+      CommonFuncs().showMyToast('שגיאה בפתיחת המצלמה');
+      return;
+    }
     _cameraController = CameraService().controller;
 
     if (!mounted || _cameraController == null) return;

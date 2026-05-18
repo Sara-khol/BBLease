@@ -1,5 +1,8 @@
+import 'package:bblease/utils/common_funcs.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 //import 'package:web/web.dart' as web;
 
@@ -7,6 +10,58 @@ class CameraService {
   static final CameraService _instance = CameraService._internal();
   factory CameraService() => _instance;
   CameraService._internal();
+
+  /// Permission gate to call BEFORE [init]. Handles the full UX:
+  /// asks the system for permission, and on refusal shows either a toast
+  /// (regular denial) or an "open settings" dialog (permanent denial —
+  /// system won't re-prompt, the user must flip the switch manually).
+  ///
+  /// Returns true only when the caller may proceed to open the camera.
+  /// Returning false means the user has been informed; the caller should
+  /// just bail out silently.
+  static Future<bool> ensureGrantedWithUi(BuildContext context) async {
+    var status = await Permission.camera.status;
+    if (status.isGranted || status.isLimited) return true;
+
+    status = await Permission.camera.request();
+    if (status.isGranted || status.isLimited) return true;
+
+    if (!context.mounted) return false;
+
+    if (status.isPermanentlyDenied) {
+      await _showOpenSettingsDialog(context);
+    } else {
+      CommonFuncs().showMyToast('נדרשת הרשאת מצלמה כדי להמשיך');
+    }
+    return false;
+  }
+
+  static Future<void> _showOpenSettingsDialog(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (ctx) => Directionality(
+        textDirection: TextDirection.rtl,
+        child: AlertDialog(
+          title: const Text('נדרשת הרשאת מצלמה'),
+          content: const Text(
+              'כדי להמשיך, יש לאפשר גישה למצלמה דרך הגדרות האפליקציה.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: const Text('ביטול'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+                openAppSettings();
+              },
+              child: const Text('פתח הגדרות'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   List<CameraDescription>? _cameras;
   CameraController? controller;
@@ -34,6 +89,9 @@ class CameraService {
       selected,
       ResolutionPreset.high,
       imageFormatGroup: ImageFormatGroup.yuv420,
+      // We only take stills — explicitly disable audio so the camera plugin
+      // doesn't prompt for RECORD_AUDIO / mic permission.
+      enableAudio: false,
     );
     await controller!.initialize();
     debugPrint('📸 Camera initialized (${useFront ? "front" : "back"})');

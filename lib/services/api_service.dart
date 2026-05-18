@@ -50,6 +50,27 @@ class ApiService {
     return _instance;
   }
 
+  /// Fetches the current app-version metadata from the server.
+  /// Expected response shape:
+  ///   { "latestVersion": "1.0.5",
+  ///     "minRequiredVersion": "1.0.3",
+  ///     "releaseNotes": "..." }
+  /// Returns null on any error (network, 404, parse) — caller treats as
+  /// "no update info available" and silently skips.
+  Future<Map<String, dynamic>?> getAppVersionInfo(String platform) async {
+    try {
+      final url = '${_baseUrl}wp/v2/app_version/$platform';
+      debugPrint(url);
+      final response = await _dio.get(url);
+      if (response.statusCode == 200 && response.data is Map) {
+        return Map<String, dynamic>.from(response.data as Map);
+      }
+    } catch (e) {
+      debugPrint('getAppVersionInfo error: $e');
+    }
+    return null;
+  }
+
   Future getCarsAround(String start,String end,double lat,double long,int km,stime,etime,Function(dynamic carJson) onSuccess) async {
     debugPrint('${_baseUrl}wp/v2/get_vehicles_around_address1/$start/$end/$lat/$long/$km/$stime/$etime');
     Response response = await _dio.get('${_baseUrl}wp/v2/get_vehicles_around_address1/$start/$end/$lat/$long/$km/$stime/$etime');

@@ -5,6 +5,7 @@ import 'package:bblease/Flow/registration/personal_details_form.dart';
 import 'package:bblease/Flow/registration/text_recognition.dart';
 import 'package:bblease/models/class_user.dart';
 import 'package:bblease/services/support.dart' as support;
+import 'package:bblease/utils/common_funcs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
@@ -312,7 +313,17 @@ class _LicenseBackState extends State<LicenseBack> {
         setState(() => cameraOn = false);
       }
     }*/
-    await CameraService().init(useFront: false); // אחורית
+    if (!await CameraService.ensureGrantedWithUi(context)) return;
+    if (!mounted) return;
+
+    try {
+      await CameraService().init(useFront: false); // אחורית
+    } catch (e) {
+      debugPrint('❌ Camera init failed: $e');
+      if (!mounted) return;
+      CommonFuncs().showMyToast('שגיאה בפתיחת המצלמה');
+      return;
+    }
     final controller = CameraService().controller;
 
     if (!mounted || controller == null) return;

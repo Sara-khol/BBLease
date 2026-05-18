@@ -6,6 +6,7 @@ import 'package:bblease/Flow/Rental/map.dart';
 import 'package:bblease/Flow/my_shared_preferences.dart';
 import 'package:bblease/Flow/registration/tel_to_registration.dart';
 import 'package:bblease/services/api_service.dart';
+import 'package:bblease/services/app_update_service.dart';
 import 'package:bblease/utils/common_funcs.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/foundation.dart';
@@ -20,6 +21,7 @@ import 'models/class_rent.dart';
 import 'models/class_user.dart';
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+//final GlobalKey<NavigatorState> appNavigatorKey = GlobalKey<NavigatorState>();
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -95,6 +97,23 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+  //   // Cold-start check. Runs once after the first frame is on screen so the
+  //   // dialog never lands during the initial loading spinner.
+  //   WidgetsBinding.instance.addPostFrameCallback((_) => _runUpdateCheck());
+  // }
+  //
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   if (state == AppLifecycleState.resumed) {
+  //     _runUpdateCheck();
+  //   }
+  // }
+  //
+  // void _runUpdateCheck() {
+  //   final ctx = appNavigatorKey.currentContext;
+  //   if (ctx == null) return;
+  //   // Fire-and-forget — the service handles its own errors silently.
+  //   AppUpdateService.instance.checkForUpdate(ctx);
   }
 
   @override
@@ -175,6 +194,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         builder: (BuildContext context, Widget? child) {
       //debugPrint('orientation main ${(ScreenUtil()).pixelRatio} ');
           return MaterialApp(
+//            navigatorKey: appNavigatorKey,
             navigatorObservers: [routeObserver],
             debugShowCheckedModeBanner: false,
             localizationsDelegates: const [

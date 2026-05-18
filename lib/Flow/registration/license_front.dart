@@ -1,6 +1,7 @@
 import 'package:bblease/Flow/Dialogs/buttom_dialogs.dart';
 import 'package:bblease/Flow/registration/text_recognition.dart';
 import 'package:bblease/models/class_user.dart';
+import 'package:bblease/utils/common_funcs.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -285,7 +286,17 @@ class _LicenseFrontState extends State<LicenseFront>  {
 //       });
 //       // Show the camera preview on the screen
 //       showCameraPreview();
-    await CameraService().init(useFront: false); // אחורית
+    if (!await CameraService.ensureGrantedWithUi(context)) return;
+    if (!mounted) return;
+
+    try {
+      await CameraService().init(useFront: false); // אחורית
+    } catch (e) {
+      debugPrint('❌ Camera init failed: $e');
+      if (!mounted) return;
+      CommonFuncs().showMyToast('שגיאה בפתיחת המצלמה');
+      return;
+    }
     final controller = CameraService().controller;
 
     if (!mounted || controller == null) return;

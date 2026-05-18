@@ -1,11 +1,13 @@
 import 'package:bblease/Flow/registration/verification.dart';
 import 'package:bblease/services/support.dart' as support;
+import 'package:bblease/utils/common_funcs.dart';
 import 'package:bblease/utils/my_colors.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../landspace_widget.dart';
 import '../../models/class_user.dart';
 import '../../services/camera_service.dart';
@@ -208,20 +210,129 @@ print('faces.length: ${faces.length}');
 
  late CameraController controller;
  bool cameraReady = false;
+ // True once the user has refused camera permission, so we render an
+ // in-screen retry/settings UI instead of an infinite spinner. We deliberately
+ // do NOT pop the route — the registration flow uses pushReplacement-style
+ // navigation, so popping would land the user back on StartRegistration.
+ bool cameraDenied = false;
 
   @override
   initState()  {
-   _initCamera();
     super.initState();
+    // Defer until context is mounted so the permission dialog/toast can use it.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _initCamera());
   }
 
  Future<void> _initCamera() async {
-   await CameraService().init(useFront: true);
+   if (!mounted) return;
+   // Reset state on retry so the spinner shows while we ask again.
+   if (cameraDenied) {
+     setState(() {
+       cameraDenied = false;
+     });
+   }
+   if (!await CameraService.ensureGrantedWithUi(context)) {
+     if (!mounted) return;
+     setState(() {
+       cameraDenied = true;
+     });
+     return;
+   }
+   try {
+     await CameraService().init(useFront: true);
+   } catch (e) {
+     debugPrint('❌ Camera init failed: $e');
+     if (!mounted) return;
+     CommonFuncs().showMyToast('שגיאה בפתיחת המצלמה');
+     setState(() {
+       cameraDenied = true;
+     });
+     return;
+   }
+   if (!mounted) return;
    controller = CameraService().controller!;
 
    setState(() {
     cameraReady=true;
    });
+ }
+
+ Widget _buildPermissionDeniedUi() {
+   return Padding(
+     padding: EdgeInsets.symmetric(horizontal: 24.w),
+     child: Column(
+       mainAxisSize: MainAxisSize.min,
+       children: [
+         Icon(Icons.no_photography_outlined,
+             size: 56.sp, color: Colors.black54),
+         SizedBox(height: 12.h),
+         Text(
+           'נדרשת הרשאת מצלמה',
+           textAlign: TextAlign.center,
+           style: TextStyle(
+               fontSize: 20.sp,
+               fontWeight: FontWeight.bold,
+               color: Colors.black),
+         ),
+         SizedBox(height: 8.h),
+         Text(
+           'כדי לסרוק את הפנים, יש לאפשר גישה למצלמה.',
+           textAlign: TextAlign.center,
+           style: TextStyle(fontSize: 14.sp, color: Colors.black54),
+         ),
+         SizedBox(height: 16.h),
+         Row(
+           mainAxisAlignment: MainAxisAlignment.center,
+           children: [
+             ElevatedButton(
+               style: ElevatedButton.styleFrom(
+                 backgroundColor: turquoiseColorApp,
+                 shape: RoundedRectangleBorder(
+                     borderRadius: BorderRadius.circular(100)),
+               ),
+               onPressed: openAppSettings,
+               child: Text('פתח הגדרות',
+                   style: TextStyle(
+                       color: Colors.white, fontSize: 14.sp)),
+             ),
+             SizedBox(width: 12.w),
+             OutlinedButton(
+               style: OutlinedButton.styleFrom(
+                 shape: RoundedRectangleBorder(
+                     borderRadius: BorderRadius.circular(100)),
+               ),
+               onPressed: _initCamera,
+               child: Text('נסה שוב',
+                   style: TextStyle(
+                       color: Colors.black, fontSize: 14.sp)),
+             ),
+           ],
+         ),
+         SizedBox(height: 8.h),
+         // Escape hatch — registration can proceed without the face image.
+         // ApiService.faceRecognition is defensive about regImages[2] being
+         // null (sends a hasFace=1 flag), so the customer just gets a manual
+         // approval step on the server side.
+         TextButton(
+           onPressed: _skipFaceScan,
+           child: Text(
+             'המשך בלי סריקה',
+             style: TextStyle(
+                 fontSize: 14.sp,
+                 color: Colors.black54,
+                 decoration: TextDecoration.underline),
+           ),
+         ),
+       ],
+     ),
+   );
+ }
+
+ void _skipFaceScan() {
+   Navigator.push(
+     context,
+     MaterialPageRoute(builder: (context) => const Verification()),
+   );
  }
 
   @override
@@ -276,7 +387,10 @@ print('faces.length: ${faces.length}');
                   ),
                   SizedBox(height: 12.h),
                 ],
-              ) : const CircularProgressIndicator(),
+              )
+                  : cameraDenied
+                      ? _buildPermissionDeniedUi()
+                      : const CircularProgressIndicator(),
             )
           ),
           SizedBox(height: 60.h,),
